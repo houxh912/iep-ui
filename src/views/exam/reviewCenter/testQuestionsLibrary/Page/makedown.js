@@ -53,7 +53,8 @@ export const gruber = {
           error.push(m[2])
           return error
         } else {
-          answer.push(m[2])
+          const txt = m[2] == '对' ? '正确' : m[2] == '错' ? '错误' : m[2]
+          answer.push(txt)
         }
       } else {
         answer.push(m[2])

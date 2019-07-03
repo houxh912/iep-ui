@@ -6,8 +6,8 @@
           <div class='input-title'>
             <iep-button type='text' style='color:black;font-size:16px'>输入区</iep-button>
             <div>
-              <iep-button type='text' icon='el-icon-warning' size='medium' style='margin-right:10px;color:#999'
-                @click='handleVisible'>格式</iep-button>
+              <iep-button type='text' icon='el-icon-warning' size='medium'
+                style='margin-right:10px;color:#999' @click='handleVisible'>格式</iep-button>
               <iep-button type="primary" @click="submit">保存</iep-button>
             </div>
           </div>
@@ -39,23 +39,27 @@
                   <pre><span class="caption">{{index+1}}.</span>{{item.title}}</pre>
                 </p>
                 <p class='qt_error' v-else>题目（至少两个字）</p>
-                <p class='qt_error' v-if="item.titleOptions.length<2 && (value===13 || value===12)">选项（至少两项）</p>
+                <p class='qt_error' v-if="item.titleOptions.length<2 && (value===13 || value===12)">
+                  选项（至少两项）</p>
                 <ul v-if="value===13">
-                  <li v-for="(option,index) in item.titleOptions" :key="index" :class="option.class">
-                    <el-radio v-model="item.answer" :label="option.key"> <span class="caption">{{option.key}}.</span>{{option.value}}</el-radio>
+                  <li v-for="(option,index) in item.titleOptions" :key="index"
+                    :class="option.class">
+                    <el-radio v-model="item.answer" :label="option.key"> <span
+                        class="caption">{{option.key}}.</span>{{option.value}}</el-radio>
                   </li>
                 </ul>
                 <el-checkbox-group v-model="item.answer" v-if="value===12">
-                  <el-checkbox v-for="(option,index) in item.titleOptions" :label="option.key" :key="index"
-                    :class="option.class">
+                  <el-checkbox v-for="(option,index) in item.titleOptions" :label="option.key"
+                    :key="index" :class="option.class">
                     <span class="caption">{{option.key}}.</span>{{option.value}}
                   </el-checkbox>
                 </el-checkbox-group>
                 <p v-if="item.answer"><span class="caption">答案：</span>{{item.answer}}</p>
-                <p class='qt_error' v-else>答案: 缺少答案</p>
+                <p class='qt_error' v-if="!item.answer && value > 10">答案: 缺少答案</p>
                 <p v-if="item.analysis"><span class="caption">解析：</span>{{item.analysis}}</p>
                 <p class='qt_error' v-else>解析: 缺少解析</p>
-                <p v-if="item.tag && item.tag.split(',').length >= 3"><span class="caption">标签：</span>{{item.tag}}</p>
+                <p v-if="item.tag && item.tag.split(',').length >= 3"><span
+                    class="caption">标签：</span>{{item.tag}}</p>
                 <p class='qt_error' v-else>标签: 需要三个以上的标签</p>
               </div>
             </div>
@@ -132,7 +136,7 @@
                 <h3>输入范例</h3>
                 <p>
                   <span>1.国际象棋起源于英国吗？</span><br />
-                  <span>答案:对</span><br />
+                  <span>答案:正确</span><br />
                   <span>解析:请仔细阅读交规<span class='exam-notes'>(若无解析本行可不填)</span></span><br>
                   <span>标签:<span>内网水巢</span>、<span>数据基因</span>、<span>个人赋能</span></span>
                 </p>
@@ -305,13 +309,13 @@ export default {
         // var error_reg = new RegExp('para')
         //这是无法识别出来的内容，统一视为上一项中的内容
         // for (var j = i; j < jsonml.length - 1; j = i) {//都是检测下一项，所以不用再去对最后一行做判断
-          // if (error_reg.test(jsonml[j + 1][0])) {//检测当前项的下一项
-          //   console.log('error',jsonml[j + 1][1])
-          //   jsonml[i][1] += ('\n' + jsonml[j + 1][1])
-          //   jsonml.splice(j + 1, 1)
-          // } else {
-          //   break
-          // }
+        // if (error_reg.test(jsonml[j + 1][0])) {//检测当前项的下一项
+        //   console.log('error',jsonml[j + 1][1])
+        //   jsonml[i][1] += ('\n' + jsonml[j + 1][1])
+        //   jsonml.splice(j + 1, 1)
+        // } else {
+        //   break
+        // }
         // }
         // 题目计数
         if (title_reg.test(jsonml[i][0])) {

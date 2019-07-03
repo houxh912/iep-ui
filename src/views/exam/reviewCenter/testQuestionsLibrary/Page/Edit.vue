@@ -1,63 +1,68 @@
 <template>
   <div class="report">
-    <page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption"></page-header>
-    <el-form :model="form" ref="form" label-width="120px" :rules="rules">
+    <page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption">
+    </page-header>
+    <el-form :model="form" ref="form" label-width="120px" :rules="rules" size="small">
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">
-          <el-select size="small" clearable :disabled="questionTypeDisabled" class="selectItem"
+          <el-select clearable :disabled="questionTypeDisabled" class="selectItem"
             :value="form.questionType" @input="updateValue(arguments[0])">
-            <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+            <el-option v-for="(item, index) in res.exms_question_type" :key="index"
+              :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:4%">
-          <el-select v-model="form.difficulty" size="small" clearable :disabled="btnDisabled" class="selectItem">
+          <el-select v-model="form.difficulty" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="科目：" prop="field">
-          <el-select v-model="form.field" size="small" clearable :disabled="btnDisabled" class="selectItem">
+          <el-select v-model="form.field" clearable :disabled="btnDisabled" class="selectItem">
             <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="题类：" prop="kind" style="margin-left:4%">
-          <el-select v-model="form.kind" size="small" clearable :disabled="btnDisabled" class="selectItem">
-            <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+          <el-select v-model="form.kind" clearable :disabled="btnDisabled" class="selectItem">
+            <el-option v-for="(item, index) in res.exms_question_category" :key="index"
+              :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="关联：" prop="associatedState">
-          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled"
+          <el-select v-model="form.associatedState" clearable :disabled="btnDisabled"
             class="selectItem">
             <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
               :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" v-if="tabName ==='single'" style="margin-left:4%">
-          <!-- <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords"
-            width="906px"></mutiply-tag-select> -->
-          <iep-tag v-if="btnDisabled == false" v-model="form.tagKeyWords"></iep-tag>
-          <el-tag v-else class="relatedTag" type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
+        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" v-if="tabName ==='single'"
+          style="margin-left:4%">
+          <iep-tag v-if="!btnDisabled" v-model="form.tagKeyWords"></iep-tag>
+          <iep-tag-detail v-else :value="form.tagKeyWords"></iep-tag-detail>
         </el-form-item>
       </div>
     </el-form>
 
-    <div align="center" style="width:100%;"><hr></div>
+    <div align="center" style="width:100%;">
+      <hr>
+    </div>
 
     <el-tabs v-model="tabName">
       <el-tab-pane label=单题输入 name="single">
         <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
-          <iep-button v-if="record.examine === true" type="primary" @click="handleExamine">审核</iep-button>
+          <iep-button v-if="record.examine === true" type="primary" @click="handleExamine">审核
+          </iep-button>
           <iep-button v-if="btnSave == 0" type="primary" @click="submitSingle">保存</iep-button>
-          <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">保存</iep-button>
+          <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">
+            保存</iep-button>
         </div>
       </el-tab-pane>
       <el-tab-pane label=批量导入 name="batch" v-if="record.id===''">
-        <batch-dialog ref="batch" v-model="form.questionType" @submit-batch="submitBatch"></batch-dialog>
+        <batch-dialog ref="batch" v-model="form.questionType" @submit-batch="submitBatch">
+        </batch-dialog>
       </el-tab-pane>
     </el-tabs>
 
@@ -91,7 +96,6 @@
 import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
 import BatchDialog from './Batch.vue'
-// import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import { getTestOption, getExamMsg, postModify, postExaminePass, postExamineFalse, postBatchIteamBank } from '@/api/exam/createExam/newTest/newTest'
 export default {
   name: 'report',
@@ -99,7 +103,6 @@ export default {
   components: {
     SingleDialog,
     BatchDialog,
-    // MutiplyTagSelect,
   },
   props: [
     'record',
@@ -155,9 +158,9 @@ export default {
         associatedState: [
           { required: true, message: '请选择关联', trigger: 'change' },
         ],
-        tagKeyWords: [
-          { required: true, message: '请选择关联标签', trigger: 'change' },
-        ],
+        // tagKeyWords: [
+        //   { type: 'array', required: true, message: '请选择关联标签', trigger: 'change' },
+        // ],
       },
     }
   },
@@ -178,7 +181,7 @@ export default {
   methods: {
 
     updateValue (value) {
-      if (this.form.questionType) {
+      if (this.form.questionType && this.tabName === 'batch') {
         this.$confirm('输入区试题内容会清空，请确认', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
@@ -186,12 +189,11 @@ export default {
         }).then(() => {
           this.form.questionType = value
           this.postAnswer = value
-          if (this.tabName === 'batch') {
-            this.$refs.batch.testQuestions = ''
-            this.$refs.batch.itemBankList = []
-          }
+          this.$refs.batch.testQuestions = ''
+          this.$refs.batch.itemBankList = []
         })
       } else {
+        this.$refs.single.clearValidate()
         this.form.questionType = value
         this.postAnswer = value
       }
@@ -239,7 +241,7 @@ export default {
           // console.log(res.data.data.tagKeyWords)
           // this.form.tag = res.data.data.tagKeyWords
           // console.log(this.form.tag)
-          const {data} = res.data
+          const { data } = res.data
           this.form = data
           this.form.tagKeyWords = data.tagKeyWords ? data.tagKeyWords : []
           this.$refs.single.ruleForm.title = data.title
@@ -477,30 +479,29 @@ export default {
   padding: 20px;
   background-color: #fff;
 }
+.select {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 .item {
   width: 45%;
-  float: left;
-}
-.select {
-  .el-form-item:nth-child(3),.el-form-item:nth-child(4),.el-form-item:nth-child(5),.el-form-item:nth-child(6) {
-    margin-top: -10px;
-  }
 }
 </style>
 <style scoped>
 hr {
   margin: 0 0 10px 0;
 }
-.select {
-  overflow: auto;
+.select >>> .el-form-item {
+  margin-bottom: 16px;
 }
 .select >>> .el-input .el-select__caret {
-  line-height: 32px;
+  /* line-height: 32px; */
 }
 .selectItem {
-  height: 32px;
+  /* height: 32px; */
   width: 100%;
-  line-height: 32px;
+  /* line-height: 32px; */
 }
 .relatedTag {
   margin-right: 10px;

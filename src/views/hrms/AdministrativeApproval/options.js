@@ -37,10 +37,8 @@ const columnsMap = [
     label: '请假类型',
   },
   {
-    prop: 'deptList',
-    type: 'tag',
-    iepType: 'deptList',
-    label: '部门',
+    prop: 'duration',
+    label: '时长',
   },
   {
     prop: 'startTime',
@@ -54,6 +52,7 @@ const columnsMap = [
     prop: 'status',
     label: '状态',
     type: 'dict',
+    width: '90px',
   },
 ]
 

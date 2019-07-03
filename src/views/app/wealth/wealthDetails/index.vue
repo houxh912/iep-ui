@@ -71,34 +71,10 @@
           </IepAppTabCard>
         </div>
         <div>
-          <IepAppTabCard title="财务报告">
-            <el-table :data="reportData" style="width: 100%">
-              <el-table-column prop="type" label="资产类型">
-              </el-table-column>
-              <el-table-column prop="type" label="金额">
-              </el-table-column>
-              <el-table-column prop="type" label="升降（同期）">
-              </el-table-column>
-              <el-table-column prop="type" label="更新时间">
-              </el-table-column>
-            </el-table>
-          </IepAppTabCard>
+          <financial-report></financial-report>
         </div>
         <div>
-          <IepAppTabCard title="投资记录">
-            <el-table :data="form.record" style="width: 100%">
-              <el-table-column prop="id" label="序号" width="60px;">
-              </el-table-column>
-              <el-table-column prop="userName" label="投资人" width="80px;">
-              </el-table-column>
-              <el-table-column prop="totalAmount" label="投资金额（元）" width="120px;">
-              </el-table-column>
-              <el-table-column prop="status" label="支付方式">
-              </el-table-column>
-              <el-table-column prop="updateTime" label="投资时间" width="160px;">
-              </el-table-column>
-            </el-table>
-          </IepAppTabCard>
+          <investment-record></investment-record>
         </div>
         <div class="last-grid">
           <IepAppTabCard title="股东信息">
@@ -125,9 +101,11 @@ import { getInvestmentById, joinInvestment } from '@/api/fams/investment'
 import mixins from '@/mixins/mixins'
 import { initForm } from './options'
 import DialogForm from './DialogForm'
+import InvestmentRecord from './InvestmentRecord'
+import FinancialReport from './FinancialReport'
 export default {
   mixins: [mixins],
-  components: { DialogForm },
+  components: { DialogForm, InvestmentRecord, FinancialReport },
   data () {
     this.chartSettings = {
       metrics: ['本组织', '组织业绩平均值对比'],
@@ -165,10 +143,10 @@ export default {
         columns: ['日期', '本组织', '组织业绩平均值对比'],
         rows: [
           { '日期': '2019-05-21', '本组织': 1393, '组织业绩平均值对比': 1093 },
-          { '日期': '2019-05-22', '本组织': 3530, '组织业绩平均值对比': 3230 },
-          { '日期': '2019-05-23', '本组织': 2923, '组织业绩平均值对比': 2623 },
-          { '日期': '2019-05-24', '本组织': 1723, '组织业绩平均值对比': 1423 },
-          { '日期': '2019-05-25', '本组织': 3792, '组织业绩平均值对比': 3492 },
+          { '日期': '2019-05-22', '本组织': 2030, '组织业绩平均值对比': 1830 },
+          { '日期': '2019-05-23', '本组织': 2223, '组织业绩平均值对比': 2123 },
+          { '日期': '2019-05-24', '本组织': 2723, '组织业绩平均值对比': 2403 },
+          { '日期': '2019-05-25', '本组织': 3592, '组织业绩平均值对比': 3492 },
           { '日期': '2019-05-26', '本组织': 4593, '组织业绩平均值对比': 4293 },
         ],
       },

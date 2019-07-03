@@ -59,7 +59,7 @@ function initForm () {
     status: '',
     primaryAudit: '',
     remarks: '',
-    financialAudit:0,
+    financialAudit: 0,
     relations: [],
     processes: [],
   }
@@ -75,32 +75,32 @@ const formToVo = (row) => {
 }
 
 const columnsMap = [
-	{
-		prop: 'costId',
-		label: 'ID',
-	},
-	{
-		prop: 'totalAmount',
-		label: '报销金额',
-	},
-	{
-		prop: 'createTime',
-		label: '申请日期',
-	},
-	{
-		prop: 'status',
+  {
+    prop: 'costId',
+    label: 'ID',
+  },
+  {
+    prop: 'totalAmount',
+    label: '报销金额',
+  },
+  {
+    prop: 'createTime',
+    label: '申请日期',
+  },
+  {
+    prop: 'status',
     label: '状态',
     type: 'dict',
-	},
-	{
-		prop: 'auditorName',
+  },
+  {
+    prop: 'auditorName',
     label: '部门核准人',
-	},
+  },
 ]
 
 const flowRules = {
   bankId: [
-    { required: true, message: '请选择支出账户', trigger: 'blur' },
+    { required: true, message: '请选择支出账户', trigger: 'change' },
   ],
 }
 
@@ -109,31 +109,31 @@ const rules = {
     { required: true, message: '请选择报销类型', trigger: 'blur' },
   ],
   orgId: [
-    { required: true, message: '请选择报销组织', trigger: 'blur' },
+    { required: true, message: '请选择报销组织', trigger: 'change' },
   ],
   companyId: [
-    { required: true, message: '请选择报销公司', trigger: 'blur' },
+    { required: true, message: '请选择报销公司', trigger: 'change' },
   ],
   ccOrgId: [
-    { required: true, message: '请选择代缴组织', trigger: 'blur' },
+    { required: true, message: '请选择代缴组织', trigger: 'change' },
   ],
   ccCompanyId: [
-    { required: true, message: '请选择代缴公司', trigger: 'blur' },
+    { required: true, message: '请选择代缴公司', trigger: 'change' },
   ],
   costFile: [
     { required: false, message: '请上传附件', trigger: 'blur' },
   ],
   auditor: [
-    { required: true, validator: checkContactUser('部门核准人'), trigger: 'blur' },
+    { required: true, validator: checkContactUser('部门核准人'), trigger: 'change' },
   ],
 }
 
 export {
-	columnsMap,
-	dictsMap,
+  columnsMap,
+  dictsMap,
   rules,
   flowRules,
-	initTableForm,
+  initTableForm,
   initForm,
   initFlowForm,
   formToVo,

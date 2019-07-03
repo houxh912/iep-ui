@@ -6,10 +6,10 @@ const isProduction = process.env.NODE_ENV === 'production'
 const cdn = {
   css: [],
   js: [
-    '//unpkg.com/vue@2.6.10/dist/vue.runtime.min.js',
-    '//unpkg.com/vue-router@3.0.4/dist/vue-router.min.js',
-    '//unpkg.com/vuex@3.0.1/dist/vuex.min.js',
-    '//unpkg.com/axios@0.19.0/dist/axios.min.js',
+    '/cdn/vue.runtime.min.js',
+    '/cdn/vue-router.min.js',
+    '/cdn/vuex.min.js',
+    '/cdn/axios.min.js',
   ],
 }
 

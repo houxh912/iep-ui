@@ -2,14 +2,14 @@
 import { dictsMap } from '../options'
 
 const tabList = [
-  {
-    label: '借出',
-    value: 'outOrgId',
-  },
-  {
-    label: '借入',
-    value: 'inOrgId',
-  },
+	{
+		label: '借出',
+		value: 'outOrgId',
+	},
+	{
+		label: '借入',
+		value: 'inOrgId',
+	},
 ]
 
 const statusMap = {

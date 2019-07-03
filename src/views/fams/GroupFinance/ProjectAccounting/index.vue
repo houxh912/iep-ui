@@ -39,7 +39,7 @@
         </el-table-column>
         <el-table-column label="业务指标完成率(%)">
           <template slot-scope="scope">
-            {{!scope.row.amount ? '暂无' : ((scope.row.contractAmount||0) / (scope.row.amount)) }}
+            {{!scope.row.amount ? '暂无' : (((scope.row.contractAmount||0) / (scope.row.amount))*100).toFixed(2) }}
           </template>
         </el-table-column>
         <el-table-column label="操作">

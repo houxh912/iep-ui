@@ -71,7 +71,10 @@ export default {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          this.$emit('onGoBack')
+          this.$emit('onGoBack', {
+            currentPage: this.record.currentPage,
+            size: this.record.size,
+          })
         },
       },
       permissionAll: false,

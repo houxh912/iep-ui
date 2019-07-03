@@ -133,6 +133,7 @@ import { getExamInationList, postExamForbidById, postExamPassById, deleteById } 
 
 export default {
   mixins: [mixins],
+  props: ['record'],
   data () {
     return {
       isChangeTime: true,
@@ -157,7 +158,20 @@ export default {
     }
   },
   created () {
-    this.loadPage()
+    /**
+     * 当没点击查看或修改
+     */
+    if (!this.record) {
+      this.loadPage()
+    }
+    /**
+     * 当点击查看或修改后返回
+     */
+    if (this.record) {
+      this.pageOption.current = this.record.currentPage
+      this.pageOption.size = this.record.size
+      this.loadTable({ ...this.pageOption }, getExamInationList)
+    }
     this.setPermission()
   },
   computed: {
@@ -262,6 +276,8 @@ export default {
         methodName: '编辑',
         current: 2,
         id: row.id,
+        currentPage: this.pageOption.current,
+        size: this.pageOption.size,
       }
       this.$emit('onEdit', record)
     },
@@ -274,6 +290,8 @@ export default {
         methodName: '查看',
         current: 2,
         id: row.id,
+        currentPage: this.pageOption.current,
+        size: this.pageOption.size,
       }
       this.$emit('onEdit', record)
     },
@@ -284,6 +302,8 @@ export default {
       this.$emit('onChange', {
         row,
         activeTab,
+        currentPage: this.pageOption.current,
+        size: this.pageOption.size,
       })
     },
     /**

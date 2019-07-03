@@ -19,12 +19,9 @@ import FirstContent from './CreateExam/FirstContent'
 import SecondContent from './CreateExam/SecondContent'
 import ThirdContent from './CreateExam/ThirdContent'
 export default {
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+  props: [
+    'record',
+  ],
   components: {
     FirstContent, SecondContent, ThirdContent,
   },
@@ -73,7 +70,10 @@ export default {
       this.steps[this.current].data = data
     },
     handleBack () {
-      this.$emit('onGoBack')
+      this.$emit('onGoBack', {
+        currentPage: this.record.currentPage,
+        size: this.record.size,
+      })
     },
     next () {
       this.current++
@@ -88,7 +88,10 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        this.$emit('onGoBack')
+        this.$emit('onGoBack', {
+        currentPage: this.record.currentPage,
+        size: this.record.size,
+      })
       }).catch(() => {
         this.$message({
           type: 'info',

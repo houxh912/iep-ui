@@ -61,5 +61,6 @@ export default {
 .organizationalAssets >>> .el-table__row {
   height: 45px;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
 </style>

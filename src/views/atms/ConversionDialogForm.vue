@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="转化为子任务" width="600px" @close="loadPage">
     <el-form :model="form" ref="form" :rules="rules" class="form-detail" size="small" label-width="100px">
       <el-form-item label="任务名称：">
-        <iep-contract-atms-select v-model="form.parent.id" :contractName="form.parent.name"></iep-contract-atms-select>
+        <iep-task-atms-select v-model="form.parent.id" :contractName="form.parent.name"></iep-task-atms-select>
       </el-form-item>
     </el-form>
     <template slot="footer">

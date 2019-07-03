@@ -17,9 +17,9 @@
                   <i class="iconfont icon-xitongguanli"></i>任务菜单
                 </span>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item><div @click="handleConversion"><i class="iconfont icon-Icon-zhuanru"></i>转化为子任务</div></el-dropdown-item>
+                  <el-dropdown-item :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal"><div @click="handleConversion"><i class="iconfont icon-Icon-zhuanru"></i>转化为子任务</div></el-dropdown-item>
                   <el-dropdown-item disabled><i class="iconfont icon-tixing"></i>催办</el-dropdown-item>
-                  <el-dropdown-item><div @click="handleDelete"><i class="iconfont icon-shanchu"></i>删除</div></el-dropdown-item>
+                  <el-dropdown-item :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal"><div @click="handleDelete"><i class="iconfont icon-shanchu"></i>删除</div></el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </span>

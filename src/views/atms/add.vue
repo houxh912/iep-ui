@@ -4,7 +4,7 @@
       <page-header :title="`${methodName}任务`"></page-header>
       <el-form :model="form" :rules="rules" size="small" ref="form" label-width="200px" class="form form-detail">
         <el-form-item label='任务名称：' prop="taskName">
-          <el-input v-model="form.taskName" placeholder="请填写任务名称"></el-input>
+          <el-input v-model="form.taskName" placeholder="请填写任务名称" maxlength="255"></el-input>
         </el-form-item>
 
         <el-form-item label='所属任务：' prop="parentName" class="form-half">
@@ -44,7 +44,7 @@
         </el-form-item>
 
         <el-form-item label='备注：' prop="remarks">
-          <el-input v-model="form.remarks" maxlength="300" :rows="4"></el-input>
+          <el-input v-model="form.remarks" maxlength="255" :rows="4"></el-input>
         </el-form-item>
 
         <el-form-item label='附件：' prop="annexList">
@@ -58,6 +58,7 @@
         <el-form-item label='关联内容：' prop="materials">
           <el-button @click="handleAdd"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-form-item>
+        <el-form-item></el-form-item>
         
         <div v-for="(item, index) in relatedFormList" :key="index">
           <el-form-item :label="`${item.name}：`" v-if="form[item.list].length>0">

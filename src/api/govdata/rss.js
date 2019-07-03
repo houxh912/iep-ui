@@ -10,3 +10,19 @@ export function getPolicyPage (params) {
     params: params,
   })
 }
+
+// 查看主题订阅列表
+export function getThemeList () {
+  return request({
+    url: `${prefixUrl}/webUserContact/themeList`,
+    method: 'get',
+  })
+}
+// 订阅主题订阅列表
+export function postThemeRss (obj) {
+  return request({
+    url: `${prefixUrl}/webUserContact/insert`,
+    method: 'post',
+    params: obj,
+  })
+}

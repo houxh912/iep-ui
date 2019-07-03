@@ -422,6 +422,8 @@ export default {
      */
     loadSelf () {
       if (this.isEdit) {
+        // console.log(this.data.iepTestPaperVO.iepQstnRuleList.length)
+        this.iepQstnRuleList = []
         this.data.iepTestPaperVO.iepQstnRuleList.forEach((item) => {
           if (item.qstnDescribe === '') {
             item.qstnDescribe = '暂无'

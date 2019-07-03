@@ -1,93 +1,96 @@
 <template>
+  <div>
     <el-collapse v-model="activeNames" class="appraise">
       <el-collapse-item :title="appraise.time" :name="index" v-for="(appraise,index) in appraiseList" :key="index">
         <el-card shadow="never" v-for="(child, index2) in appraise.childList" :key="index2">
           <div class="conList">
-            <div class="img"><iep-img :src="child.img" alt=""></iep-img></div>
+            <div class="img"><iep-img :src="child.avatar" alt=""></iep-img></div>
             <div class="con">
               <h4>
-                <span class="name">{{child.name}}</span>
-                <span class="department">{{child.department}}</span>
+                <span class="name">{{child.creatorName}}</span>
+                <!-- <span class="department">{{child.department}}</span> -->
                 <span class="time">
-                  {{child.subTime}}
+                  {{dateFormat(child.createTime)}}
                 </span>
               </h4>
-               <div>{{child.con}}</div>
+                <div>{{child.content}}</div>
             </div>
           </div>
         </el-card>
       </el-collapse-item>
     </el-collapse>
+  
+    <div style="text-align: center;margin: 20px 0;">
+      <el-pagination background layout="total, prev, pager, next, jumper" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+    </div>
+  </div>
 </template>
+
 <script>
+import { getOrgevaluatePage } from '@/api/admin/orgEvaluate'
+import { dateFormat } from '@/util/date'
 export default {
   data () {
     return {
       textarea: '',
-      activeNames: [0,1],
-      appraiseList: [
-        {
-          time: '2019年4月',
-          childList: [
-            {
-              img:'//183.131.134.242:10060/upload/iep/201904/e29cedd1-efba-4082-a966-151153b77f28_5D559C5D-76D2-40A8-9150-B5D0D87DAE31.png',
-              name: '何益挺',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-            {
-              img:'//183.131.134.242:10060/upload/iep/201905/6057ea69-63e7-4d1e-8510-11f0db4823c4_25e933aa-0b77-48fe-a2f8-a893be7278ee_20181218194521_ixb20x5efq.jpg',
-              name: '丁斌',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '121可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-            {
-              img:'//183.131.134.242:10060/upload/iep/201905/5cbd2176-0ef8-4636-9e0b-e1761a5802c2_自己.jpg',
-              name: '何已',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '11可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-          ],
-        },
-        {
-          time: '2019年3月',
-          childList: [
-            {
-              img:'//183.131.134.242:10060/upload/iep/201904/e29cedd1-efba-4082-a966-151153b77f28_5D559C5D-76D2-40A8-9150-B5D0D87DAE31.png',
-              name: '何益挺',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '122可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-            {
-              img:'//183.131.134.242:10060/upload/iep/201905/6057ea69-63e7-4d1e-8510-11f0db4823c4_25e933aa-0b77-48fe-a2f8-a893be7278ee_20181218194521_ixb20x5efq.jpg',
-              name: '丁斌',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '2可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-            {
-              img:'//183.131.134.242:10060/upload/iep/201905/5cbd2176-0ef8-4636-9e0b-e1761a5802c2_自己.jpg',
-              name: '何已',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '1可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-          ],
-        },
-      ],
+      activeNames: [],
+      appraiseList: [],
+      params: {
+        current: 1,
+        size: 10,
+        orgId: '',
+      },
+      total: 0,
+      dateFormat,
     }
   },
   methods: {
-    handleClose () {
+    loadPage () {
+      getOrgevaluatePage(this.params).then(({data}) => {
+        if (data.data) {
+          this.appraiseList = this.dealWithList(data.data.records)
+          this.total = data.data.total
+        }
+      })
     },
-    handleEdit () {
-      this.show = !this.show
-      this.itShow = !this.itShow
+    dealWithList (row) {
+      if (row.length === 0) { // 不存在评价
+        return []
+      } else { // 存在评价
+        let time = ''
+        let obj = {
+          time: '',
+          childList: [],
+        }
+        let array = []
+        for (let item of row) {
+          if (dateFormat(item.createTime, 'yyyy-MM') === time) { // 当前月份已经存在
+            obj.childList.push(item)
+          } else { // 当前月份不存在，新建对象
+            if (obj.time) { // 存在月份，，即不是第一次遍历进来，需要将原有的数据push进去数组
+              array.push(obj)
+              this.activeNames.push(array.length - 1)
+            }
+            time = dateFormat(item.createTime, 'yyyy-MM')
+            obj = {
+              time: time,
+              childList: [item],
+            }
+          }
+        }
+        array.push(obj)
+        this.activeNames.push(array.length - 1)
+        return array
+      }
     },
+    currentChange (val) {
+      this.params.current = val
+      this.loadPage()
+    },
+  },
+  created () {
+    this.params.orgId = this.$route.query.id
+    this.loadPage()
   },
 }
 </script>

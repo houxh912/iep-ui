@@ -124,6 +124,14 @@
           </el-form-item>
         </el-col>
         <el-col :span="12">
+          <el-form-item label="所属组织：" prop="orgId">
+            <span slot="label">
+              所属组织：
+            </span>
+            <iep-select v-model="formData.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
           <el-form-item label="放入公海库：" prop="isClaim">
             <span style="padding: 0 5px;">否</span>
             <el-switch v-model="formData.isClaim" :active-value="2" :inactive-value="1" active-color="#13ce66"></el-switch>

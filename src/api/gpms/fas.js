@@ -41,6 +41,14 @@ export function getOrgBudgetList (query) {
   })
 }
 
+export function getOrgMonthBudgetList (query) {
+  return request({
+    url: '/prms/income/org/month',
+    method: 'get',
+    params: query,
+  })
+}
+
 export function getProjectPaymentPlanList (id) {
   return request({
     url: `${InformationUrl}/getPaymentList/${id}`,

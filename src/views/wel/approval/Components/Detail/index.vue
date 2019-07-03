@@ -30,6 +30,7 @@ const componentMap = {
   // 报销申请: 'Reimburse',
 }
 export default {
+  props: ['record'],
   components: {
     Positive,
     Leaving,
@@ -42,16 +43,25 @@ export default {
   },
   data () {
     return {
-      backOption: {
-        isBack: true,
-      },
+      isPath: this.$route.params.id ? true : false,
       form: initForm(),
     }
   },
   computed: {
     ...mapGetters(['dictGroup']),
     id () {
-      return +this.$route.params.id
+      if (this.isPath) {
+        return +this.$route.params.id
+      } else {
+        return +this.record.id
+      }
+    },
+    backOption () {
+      return {
+        isBack: true,
+        backPath: null,
+        backFunction: this.isPath ? () => this.$router.history.go(-1) : () => this.$emit('onGoBack'),
+      }
     },
     currentName () {
       return this.dictGroup['hrms_applic_type'].find(m => m.value === this.applicType).label

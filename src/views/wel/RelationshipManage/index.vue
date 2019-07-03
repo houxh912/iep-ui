@@ -134,6 +134,10 @@ export default {
       this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAddBatch () {
+      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+        this.$message('请先选择需要添加的选项')
+        return
+      }
       this.$refs['AddDialogForm'].form.userId = this.multipleSelection
       this.$refs['AddDialogForm'].methodName = '添加到'
       this.$refs['AddDialogForm'].formRequestFn = joinGroup
@@ -187,6 +191,10 @@ export default {
       })
     },
     handleRemoveBatch () {
+      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+        this.$message('请先选择需要移除的选项')
+        return
+      }
       this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

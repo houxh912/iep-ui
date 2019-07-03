@@ -38,15 +38,15 @@
       <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
         </template>
-        <el-table-column prop="operation" label="操作" width="160">
-          <template>
-            <operation-wrapper>
-              <!-- <iep-button type="warning" plain>收藏</iep-button> -->
-              <!-- <iep-button>分享</iep-button> -->
-              <iep-button>取消订阅</iep-button>
-            </operation-wrapper>
-          </template>
-        </el-table-column>
+        <!-- <el-table-column prop="operation" label="操作" width="160"> -->
+        <!-- <template> -->
+        <!-- <operation-wrapper> -->
+        <!-- <iep-button type="warning" plain>收藏</iep-button> -->
+        <!-- <iep-button>分享</iep-button> -->
+        <!-- <iep-button>取消订阅</iep-button> -->
+        <!-- </operation-wrapper> -->
+        <!-- </template> -->
+        <!-- </el-table-column> -->
       </iep-table>
     </el-col>
     <dialog-form ref="DialogForm"></dialog-form>
@@ -55,7 +55,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
-import { getRssGmsPage } from '@/api/rss/gms'
+import { getPolicyPage } from '@/api/govdata/rss'
 import DialogForm from './DialogForm'
 export default {
   components: { DialogForm },
@@ -64,20 +64,8 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable: [
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-      ],
       rssType: [
-        { label: '国策主题', value: '1' },
+        { label: '国策订阅', value: '1' },
       ],
       rssTitle: '我的订阅',
       selectType: '0',
@@ -85,6 +73,9 @@ export default {
         padding: 0,
       },
     }
+  },
+  created () {
+    this.loadPage()
   },
   methods: {
     handleAdd () {
@@ -97,8 +88,8 @@ export default {
       this.selectType = item.value
       this.loadPage()
     },
-    loadPage () {
-      getRssGmsPage()
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getPolicyPage)
     },
   },
 }

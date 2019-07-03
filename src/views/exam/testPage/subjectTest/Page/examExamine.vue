@@ -143,6 +143,24 @@
                   </li>
                 </ul>
               </el-card>
+
+              <el-card class="question-result" shadow="hover" v-if="operationMap.length>0">
+                <div slot="header" class="clearfix">
+                  <h3>简答题 (共{{operationMap.length}}题)</h3>
+                </div>
+                <ul>
+                  <li v-for="(textItem,index) in operationMap" :key="index+1" :id="'text_'+(index+1)">
+                    <div class="question-title">{{textItem.title}} <span>({{textItem.grade}}分)</span></div>
+                    <!-- <iep-input-area :autosize={minRows:8,maxRows:6} v-model="textItem.userAnswer"
+                      placeholder="" readonly></iep-input-area> -->
+                    <iep-html v-model="textItem.userAnswer"></iep-html>
+                    <div class="question-analysis">
+                      <p>正确答案：<span>{{textItem.itemAnswer}}</span></p>
+                      <p>答案解析：<span>{{textItem.itemExplain}}</span></p>
+                    </div>
+                  </li>
+                </ul>
+              </el-card>
             </div>
           </div>
 
@@ -159,7 +177,6 @@
               <div class="response-content" v-if="radioMap.length>0">
                 <div class="response-questionTitle">
                   <span>单选题</span>
-                  <!-- <span>共{{radioMap.length}}题</span> -->
                 </div>
                 <div class="response-questionMark">
                   <a class="choices" v-for="(radioItem,index) in radioMap" :key="index+1" :href="'#radio_'+(index+1)"
@@ -170,7 +187,6 @@
               <div class="response-content" v-if="checkboxMap.length>0">
                 <div class="response-questionTitle">
                   <span>复选题</span>
-                  <!-- <span>共{{checkboxMap.length}}题</span> -->
                 </div>
                 <div class="response-questionMark">
                   <a class="choices" v-for="(checkboxItem,index) in checkboxMap" :key="index+1"
@@ -181,7 +197,6 @@
               <div class="response-content" v-if="checkedMap.length>0">
                 <div class="response-questionTitle">
                   <span>判断题</span>
-                  <!-- <span>共{{checkedMap.length}}题</span> -->
                 </div>
                 <div class="response-questionMark">
                   <a class="choices" v-for="(checkedItem,index) in checkedMap" :key="index+1" :href="'#checked_'+(index+1)"
@@ -192,10 +207,18 @@
               <div class="response-content" v-if="textMap.length>0">
                 <div class="response-questionTitle">
                   <span>简答题</span>
-                  <!-- <span>共{{textMap.length}}题</span> -->
                 </div>
                 <div class="response-questionMark">
                   <a class="choices text" v-for="(textItem,index) in textMap" :key="index+1" :href="'#text_'+(index+1)">{{index+1}}</a>
+                </div>
+              </div>
+
+              <div class="response-content" v-if="operationMap.length>0">
+                <div class="response-questionTitle">
+                  <span>简答题</span>
+                </div>
+                <div class="response-questionMark">
+                  <a class="choices text" v-for="(textItem,index) in operationMap" :key="index+1" :href="'#text_'+(index+1)">{{index+1}}</a>
                 </div>
               </div>
             </div>
@@ -228,6 +251,7 @@ export default {
       radioMap: [],
       checkedMap: [],
       textMap: [],
+      operationMap: [],
       totalScore: '',
     }
   },

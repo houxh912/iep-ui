@@ -55,7 +55,7 @@
                   </el-checkbox>
                 </el-checkbox-group>
                 <p v-if="item.answer"><span class="caption">答案：</span>{{item.answer}}</p>
-                <p class='qt_error' v-if="!item.answer && value > 10">答案: 缺少答案</p>
+                <p class='qt_error' v-if="!item.answer && value > 10 && value < 20">答案: 缺少答案</p>
                 <p v-if="item.analysis"><span class="caption">解析：</span>{{item.analysis}}</p>
                 <p class='qt_error' v-else>解析: 缺少解析</p>
                 <p v-if="item.tag && item.tag.split(',').length >= 3"><span
@@ -145,9 +145,9 @@
           </div>
         </div>
 
-        <div class='accordion batch-cont batch-cont-dn' v-show='value===10'>
+        <div class='accordion batch-cont batch-cont-dn' v-show='value === 10 || value === 10000'>
           <div class='accordion-group'>
-            <h2>简答题</h2>
+            <h2>{{value === 10 ? '简答题' : '操作题'}}</h2>
             <div id='collapse4' class='b-example accordion-body collapse in'>
               <div class='accordion-inner'>
                 <h3>输入规范</h3>
@@ -196,8 +196,7 @@ export default {
   methods: {
     // 查看格式
     handleVisible () {
-      const type = [10, 11, 12, 13]
-      if (type.includes(this.value)) {
+      if (this.value) {
         this.dialogShow = true
       } else {
         this.$message({

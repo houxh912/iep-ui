@@ -60,7 +60,7 @@
             </li>
           </div> -->
 
-          <div v-if="resdata.questionTypeName ==='简答题'">
+          <div v-if="resdata.questionTypeName ==='简答题' || resdata.questionTypeName ==='操作题'">
             <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
               <!-- <el-input type="textarea" v-model="freeInput" style="width: 79%;" :rows="4"></el-input> -->
               <iep-froala-editor v-model="freeInput" placeholder=""></iep-froala-editor>
@@ -88,7 +88,7 @@
 
           <div class="card">
             <div v-if="resdata.radioMap.length > 0">
-              <span class="answerSheet">单选题</span>
+              <span class="answerSheet">{{resdata.radioMap[0].questionType}}</span>
               <div class="answerSheetTop">
                 <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index"
                   @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
@@ -96,7 +96,7 @@
             </div>
 
             <div v-if="resdata.checkboxMap.length > 0">
-              <span class="answerSheet">复选题</span>
+              <span class="answerSheet">{{resdata.checkboxMap[0].questionType}}</span>
               <div class="answerSheetTop">
                 <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index"
                   @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
@@ -104,7 +104,7 @@
             </div>
 
             <div v-if="resdata.checkedMap.length > 0">
-              <span class="answerSheet">判断题</span>
+              <span class="answerSheet">{{resdata.checkedMap[0].questionType}}</span>
               <div class="answerSheetTop">
                 <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index"
                   @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
@@ -112,13 +112,20 @@
             </div>
 
             <div v-if="resdata.textMap.length > 0">
-              <span class="answerSheet">简答题</span>
+              <span class="answerSheet">{{resdata.textMap[0].questionType}}</span>
               <div class="answerSheetTop">
                 <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index"
                   @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
               </div><br>
             </div>
 
+            <!-- <div v-if="resdata.operationMap.length > 0">
+              <span class="answerSheet">{{resdata.operationMap[0].questionType}}</span>
+              <div class="answerSheetTop">
+                <iep-button class="choices" v-for="(item,index) in resdata.operationMap" :key="index"
+                  @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+              </div><br>
+            </div> -->
           </div>
         </div>
       </div>
@@ -181,6 +188,7 @@ export default {
         checkboxMap: [],     //答题卡片的复选题数组集合，从数组中遍历题目出来
         checkedMap: [],      //答题卡片的判断题数组集合，从数组中遍历题目出来
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
+        operationMap: [],    //答题卡片的操作题数组集合，从数组中遍历题目出来
       },
     }
   },

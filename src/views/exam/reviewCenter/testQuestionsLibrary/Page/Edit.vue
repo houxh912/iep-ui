@@ -158,14 +158,13 @@ export default {
         associatedState: [
           { required: true, message: '请选择关联', trigger: 'change' },
         ],
-        // tagKeyWords: [
-        //   { type: 'array', required: true, message: '请选择关联标签', trigger: 'change' },
-        // ],
+        tagKeyWords: [
+          { type: 'array', required: true, message: '请选择关联标签', trigger: 'change' },
+        ],
       },
     }
   },
   created () {
-    // console.log(this.record)
     this.getTestOption()
   },
   watch: {
@@ -179,7 +178,9 @@ export default {
     },
   },
   methods: {
-
+    /**
+     * 选择题型
+     */
     updateValue (value) {
       if (this.form.questionType && this.tabName === 'batch') {
         this.$confirm('输入区试题内容会清空，请确认', '提示', {
@@ -265,7 +266,7 @@ export default {
           if (data.questionType == 11) {
             this.$refs.single.ruleForm.inputJudgeAnswer = data.answer
           }
-          if (data.questionType == 10) {
+          if (data.questionType == 10 || data.questionType == 10000) {
             this.$refs.single.ruleForm.inputShortAnswer = data.answer
           }
           // console.log('data => ',data)

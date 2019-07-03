@@ -130,11 +130,7 @@ export default {
     // },
     cSelectTpye (val) {
       this.selectType = val
-    },
-  },
-  watch: {
-    'selectType': function () {
-      this.loadPage()
+      this.searchPage()
     },
   },
 }

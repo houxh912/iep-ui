@@ -4,7 +4,7 @@
       <div class="details">
       <div class="detail-left">
         <page-header :title="`${form.taskName}`" :backOption="backOption">
-          <slot><iep-button @click="handleEdit()" :disabled="this.userInfo.userId!=this.form.creatorId && this.userInfo.userId!=this.form.principal">编辑</iep-button></slot>
+          <slot><iep-button @click="handleEdit()" :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal">编辑</iep-button></slot>
         </page-header>
         <div class="sub">
           <span v-if='!form.parentName'>所属任务：无</span>

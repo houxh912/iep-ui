@@ -25,6 +25,8 @@ const initForm = () => {
     intro: '',
     hasBegun:'',//是否待办
     childrenCount:'',//是否包含子任务
+    creatorId:'',
+    principalId:'',
   }
 }
 

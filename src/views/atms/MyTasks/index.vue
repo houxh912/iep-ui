@@ -69,7 +69,7 @@
             <operation-wrapper>
               <!-- <iep-button>关注</iep-button>
               <iep-button type="warning" plain>已关注</iep-button> -->
-              <el-dropdown size="medium" v-if="scope.row.hasBegun==1">
+              <el-dropdown size="medium" v-if="scope.row.hasBegun==1"  v-show="userInfo.userId == scope.row.principalId || userInfo.userId == scope.row.creatorId">
                 <iep-button type="warning" plain :disabled="scope.row.status==3">
                   {{dictsMap.status[scope.row.status]}}<i class="el-icon-arrow-down el-icon--right"></i>
                 </iep-button>
@@ -78,7 +78,7 @@
                 </el-dropdown-menu>
               </el-dropdown>
               <iep-button type="warning" plain v-else-if="scope.row.hasBegun==0">待办</iep-button>
-              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button @click="handleDelete(scope.row)"  v-show="userInfo.userId == scope.row.principalId || userInfo.userId == scope.row.creatorId">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -92,6 +92,7 @@ import { getMyAtms, changeAtmsStatus, getMyCount } from '@/api/atms/index'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 import deleteDialogForm from './deleteDialogForm'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: {deleteDialogForm},
@@ -117,6 +118,11 @@ export default {
     getMyCount().then(({ data }) => {
       this.myCountList = data.data
     })
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   methods: {
     loadPage (param = this.searchForm) {

@@ -1,12 +1,15 @@
 <template>
   <div class="account-settings-info-view">
     <a-row :gutter="16">
-      <a-col :md="24" :lg="20">
+      <a-col :xl="24" :xxl="20">
         <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
-          <el-form-item label="姓名：" class="form-half">
-            <iep-div-detail :value="form.name"></iep-div-detail>
+          <el-form-item label="姓名：">
+            <operation-wrapper style="display: flex; align-items: center;">
+              <iep-div-detail style="display: inline-block;" :value="form.name"></iep-div-detail>
+              <a-button size="small">个人名片</a-button>
+            </operation-wrapper>
           </el-form-item>
-          <el-form-item label="用户名：" class="form-half">
+          <el-form-item label="用户名：">
             <iep-div-detail :value="form.userName"></iep-div-detail>
           </el-form-item>
           <el-form-item label="头像：" prop="avatar">
@@ -23,6 +26,7 @@
             <iep-div-detail :value="form.staffId"></iep-div-detail>
           </el-form-item>
           <el-form-item label="身份标识：">
+            <div v-if="!form.identityMarks.length">暂无</div>
             <iep-identity-mark v-for="item in form.identityMarks" :key="item.value" :icon=" item.icon" :title="item.label"></iep-identity-mark>
           </el-form-item>
           <el-form-item label="角色：">
@@ -108,14 +112,14 @@
 
           <iep-form-item class="form-half" prop="residenceCities" label-name="户籍地址" tip="请务必精确到区/县+乡镇/街道+村/社区+小区/街+幢/弄号">
             <div style="display:flex;">
-              <iep-cascader style="flex:1;" v-model="form.residenceCities" prefix-url="admin/city"></iep-cascader>
+              <iep-cascader style="flex:2;" v-model="form.residenceCities" prefix-url="admin/city"></iep-cascader>
               <el-input style="flex:3;" v-model="form.residenceAddress"></el-input>
             </div>
           </iep-form-item>
 
           <iep-form-item class="form-half" prop="currentCities" label-name="现住地址" tip="请务必精确到区/县+乡镇/街道+村/社区+小区/街+幢/弄号">
             <div style="display:flex;">
-              <iep-cascader style="flex:1;" v-model="form.currentCities" prefix-url="admin/city"></iep-cascader>
+              <iep-cascader style="flex:2;" v-model="form.currentCities" prefix-url="admin/city"></iep-cascader>
               <el-input style="flex:3;" v-model="form.currentAddress"></el-input>
             </div>
           </iep-form-item>

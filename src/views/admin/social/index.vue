@@ -7,7 +7,7 @@
           <iep-button v-if="generator_syssocialdetails_add" type="primary" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchChange">
+          <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>

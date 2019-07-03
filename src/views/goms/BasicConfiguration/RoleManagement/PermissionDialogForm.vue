@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :title="`${title}分配权限`" :dialog-show="dialogShow" width="520px" @close="close">
+  <iep-dialog :title="`<${title}>分配权限`" :dialog-show="dialogShow" width="520px" @close="close">
     <el-tree :data="treeData" :default-checked-keys="checkedKeys" :check-strictly="false" node-key="id" highlight-current :props="defaultProps" show-checkbox ref="menuTree" :filter-node-method="filterNode">
     </el-tree>
     <div slot="footer">
@@ -16,6 +16,7 @@ import { fetchMenuTree } from '@/api/admin/menu'
 export default {
   data () {
     return {
+      title: '',
       dialogShow: false,
       treeData: [],
       checkedKeys: [],

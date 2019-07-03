@@ -3,7 +3,7 @@
     <feelings :userId="userId"></feelings>
     <my-need></my-need>
     <rewards :userId="userId"></rewards>
-    <person-mark :userId="userId"></person-mark>
+    <person-mark :userId="userId" :indexMap="userInfo.indexMap"></person-mark>
     <relation :userId="userId" :similarUser="similarUser"></relation>
   </div>
 </template>
@@ -25,6 +25,9 @@ export default {
     },
     similarUser: {
       type: Array,
+    },
+    userInfo: {
+      type: Object,
     },
   },
   data () {

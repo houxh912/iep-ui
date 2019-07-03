@@ -30,6 +30,8 @@ export default {
         tagList: [],
         similarUser: [],
         orgList: [],
+        rankMap: {xyz: 0, hydpm: 0, sjzc: 0, gmbpm: 0},
+        indexMap: {xx: 0, cxfw: 0, xz: 0, gz: 0, gl: 0, cfzz: 0},
       },
     }
   },

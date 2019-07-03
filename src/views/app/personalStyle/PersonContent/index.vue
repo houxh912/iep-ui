@@ -1,7 +1,7 @@
 <template>
   <div class="person-con">
     <person-left :counts="userInfo.map" :userId="userInfo.id" :visitVOs="userInfo.visitVOs"></person-left>
-    <person-right :userId="userInfo.id" :similarUser="userInfo.similarUsers"></person-right>
+    <person-right :userId="userInfo.id" :similarUser="userInfo.similarUsers" :userInfo="userInfo"></person-right>
   </div>
 </template>
 

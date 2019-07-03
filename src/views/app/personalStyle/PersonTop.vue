@@ -51,7 +51,7 @@
           <div class="right-con">
             <div class="labs-con">
               <div class="data-lab" v-for="lab in labList" :key="lab.id">
-                <div class="count">{{lab.data}}</div>
+                <div class="count">{{user_info.rankMap[lab.prop]}}</div>
                 <div class="labTitle"><span>{{lab.labTitle}}</span></div>
               </div>
             </div>
@@ -100,19 +100,19 @@ export default {
       show3: 'show',
       labList: [
         {
-          data: '--',
+          prop: 'xyz',
           labTitle: '信用值',
         },
         {
-          data: '--',
-          labTitle: '活跃度',
+          prop: 'hydpm',
+          labTitle: '活跃度排名',
         },
         {
-          data: '--',
+          prop: 'gmbpm',
           labTitle: '财富排名',
         },
         {
-          data: '--',
+          prop: 'sjzc',
           labTitle: '数据资产',
         },
       ],

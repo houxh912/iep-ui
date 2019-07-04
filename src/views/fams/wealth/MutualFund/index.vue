@@ -1,41 +1,55 @@
 <template>
-  <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <div>
+    <basic-container>
+      <page-header title="互助基金"></page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button type="primary" @click="handleFund" plain>捐助</iep-button>
+          <iep-button @click="handleFundRank">捐助排名</iep-button>
+        </template>
+        <template slot="right">
+          <operation-search @search-page="searchPage">
+          </operation-search>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      </iep-table>
+    </basic-container>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <rank-dialog-form ref="RankDialogForm" @load-page="loadPage"></rank-dialog-form>
+  </div>
 </template>
-
 <script>
-// 动态切换组件
-import List from './Page/List'
-import Detail from './Page/Detail'
-
+import { getFundPage, postFund, getFundRankList } from '@/api/fams/fund'
+import mixins from '@/mixins/mixins'
+import { columnsMap, initForm } from './options'
+import DialogForm from './DialogForm'
+import RankDialogForm from './RankDialogForm'
 export default {
-  name: 'TableListWrapper',
-  components: {
-    List,
-    Detail,
-  },
+  components: { DialogForm, RankDialogForm },
+  mixins: [mixins],
   data () {
     return {
-      currentComponet: 'List',
-      record: '',
+      columnsMap,
     }
   },
   created () {
-
+    this.loadPage()
   },
   methods: {
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
+    handleFundRank () {
+      getFundRankList().then(({ data }) => {
+        this.$refs['RankDialogForm'].pagedTable = data.data
+        this.$refs['RankDialogForm'].dialogShow = true
+      })
     },
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
+    handleFund () {
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = postFund
+      this.$refs['DialogForm'].dialogShow = true
     },
-  },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getFundPage)
     },
   },
 }

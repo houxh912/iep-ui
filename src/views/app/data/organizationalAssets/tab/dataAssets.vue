@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column
         prop="value"
-        label="金额">
+        label="金额（元）">
       </el-table-column>
     </el-table>
   </div>
@@ -30,6 +30,9 @@ export default {
     tabType: {
       type: Number,
       default: 0,
+    },
+    orgId: {
+      type: Number,
     },
   },
   data () {
@@ -51,8 +54,9 @@ export default {
   },
   mounted () {
     console.log('type: ', this.tabType)
+    let orgId = this.$route.params.id ? this.$route.params.id : this.orgId
     if (this.tabType === 1) {
-      getOrgAssets(1).then(({data}) => {
+      getOrgAssets(orgId).then(({data}) => {
         for (let item of dataAssetsData) {
           item.value = data.data[item.prop].total
           for (let t of item.children) {
@@ -62,7 +66,7 @@ export default {
         this.tableData = dataAssetsData
       })
     } else if (this.tabType === 2) {
-      getAssetDataById(1).then(({data}) => {
+      getAssetDataById(orgId).then(({data}) => {
         this.getData(data.data, financialAssetsData)
       })
     } else if (this.tabType === 3) {

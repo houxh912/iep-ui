@@ -12,6 +12,7 @@
       <texture-score :data="data"></texture-score>
       <products-services :orgId="data.orgId" :data="data"></products-services>
       <collaborative-record :data="data"></collaborative-record>
+      <new-down :visitVOs="data.visitVOs"></new-down>
     </div>
   </div>
 </template>
@@ -23,13 +24,14 @@ import TextureScore from './TextureScore'
 import team from './team/'
 import ProductsServices from './ProductsServices'
 import CollaborativeRecord from './CollaborativeRecord'
+import NewDown from './NewDown'
 export default {
   props: {
     data: {
       type: Object,
     },
   },
-  components: { OrganizationLeftTop, OrganizationRightTop, team, ProductsServices, TalentDemand, TextureScore, CollaborativeRecord },
+  components: { OrganizationLeftTop, OrganizationRightTop, team, ProductsServices, TalentDemand, TextureScore, CollaborativeRecord, NewDown },
 }
 </script>
 <style lang="scss" scoped>

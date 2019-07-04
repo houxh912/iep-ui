@@ -3,16 +3,16 @@
     <page-header :title="`组织资产-${deptData.name}`" :backOption="backOption"></page-header>
     <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='dataAssets'" v-slot:dataAssets>
-        <dataAssets ref="dataAssets" :orgId="deptData.id" :tabType="1"></dataAssets>
+        <dataAssets ref="dataAssets" :orgId="orgId" :tabType="1"></dataAssets>
       </template>
       <template v-if="tabName ==='financialAssets'" v-slot:financialAssets>
-        <dataAssets ref="dataAssets" :orgId="deptData.id" :tabType="2"></dataAssets>
+        <dataAssets ref="dataAssets" :orgId="orgId" :tabType="2"></dataAssets>
       </template>
       <template v-if="tabName ==='capabilityAssets'" v-slot:capabilityAssets>
-        <dataAssets ref="dataAssets" :orgId="deptData.id" :tabType="3"></dataAssets>
+        <dataAssets ref="dataAssets" :orgId="orgId" :tabType="3"></dataAssets>
       </template>
       <template v-if="tabName ==='otherAssets'" v-slot:otherAssets>
-        <dataAssets ref="dataAssets" :orgId="deptData.id" :tabType="4"></dataAssets>
+        <dataAssets ref="dataAssets" :orgId="orgId" :tabType="4"></dataAssets>
       </template>
     </iep-tabs>
   </basic-container>
@@ -31,6 +31,7 @@ export default {
   },
   data () {
     return {
+      orgId: 0,
       tabName: 'dataAssets',
       tabList: [
         {
@@ -58,6 +59,13 @@ export default {
           }
         },
       },
+    }
+  },
+  created () {
+    if (this.$route.query.id) {
+      this.orgId = this.$route.query.id
+    } else {
+      this.orgId = this.deptData.id
     }
   },
 }

@@ -190,3 +190,11 @@ export function getAssetDataById (id) {
     method: 'get',
   })
 }
+
+// 组织资产统计排名
+export const getOrgAssetsById = (id) => {
+  return request({
+    url: `${prefixUrl}/org/assets_ranking/${id}`,
+    method: 'get',
+  })
+}

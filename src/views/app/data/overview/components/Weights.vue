@@ -10,18 +10,18 @@ export default {
   data () {
     this.colors = ['#d66368', '#aaccf1', '#eebc7d', '#f0c8c8']
     this.chartSettings = {
-      sequence: ['工资', '奖金', '提成', '投资'],
+      sequence: ['人才', '客户', '项目', '财务'],
     }
     return {
       title: '资产构成',
       legendVisible: false,
       chartData: {
-        columns: ['状态', '数值'],
+        columns: ['label', 'value'],
         rows: [
-          { '状态': '工资', '数值': 1200 },
-          { '状态': '奖金', '数值': 500 },
-          { '状态': '提成', '数值': 300 },
-          { '状态': '投资', '数值': 100 },
+          { 'label': '人才', 'value': 1200 },
+          { 'label': '客户', 'value': 500 },
+          { 'label': '项目', 'value': 300 },
+          { 'label': '财务', 'value': 100 },
         ],
       },
     }

@@ -15,7 +15,9 @@ export default {
   components: { OrganizationalContent, OrganizationalTop },
   data () {
     return {
-      data: {},
+      data: {
+        visitVOs: [],
+      },
     }
   },
   methods: {

@@ -4,13 +4,14 @@
     <div class="con">
       <div class="item" v-for="item in itemList" :key="item.id">
         <span class="name">{{item.name}}：</span>
-        <span class="num">{{item.num}}</span>
+        <span class="num">{{item.count}}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { getResourceCount } from '@/api/app/cpms/channel'
 export default {
   data () {
     return {
@@ -18,38 +19,60 @@ export default {
       itemList: [
         {
           name: '材料库',
-          num: '2154',
+          prop: 'countMaterial',
+          count: '--',
         },
         {
           name: '培训库',
-          num: '536',
+          prop: 'countTraining',
+          count: '--',
         },
         {
           name: '客户库',
-          num: '384',
+          prop: 'countClient',
+          count: '--',
         },
         {
           name: '资质库',
-          num: '154',
+          prop: 'countHonor',
+          count: '--',
         },
         {
           name: '商机库',
-          num: '215',
+          prop: 'countOpportunity',
+          count: '--',
         },
         {
           name: '专家库',
-          num: '235',
+          prop: 'countExpert',
+          count: '--',
         },
         {
           name: '产品库',
-          num: '2154',
+          prop: 'countProduct',
+          count: '--',
         },
         {
-          name: '其它',
-          num: '326',
+          name: '政策库',
+          prop: '',
+          count: '--',
         },
       ],
     }
+  },
+  methods: {
+    getCount () {
+      getResourceCount().then(({data}) => {
+        for (let item of this.itemList) {
+          if (item.prop) {
+            item.count = data.data[item.prop]
+          }
+        }
+      })
+    },
+  },
+  created () {
+    this.getCount()
   },
 }
 </script>

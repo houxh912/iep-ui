@@ -1,17 +1,10 @@
 <template>
-  <el-popover placement="bottom" @show="handleClickChange" popper-class="popover-wrapper-no-padding" :visible-arrow="false">
-    <a-card style="width: 300px">
-      <!-- <img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" slot="cover" /> -->
-      <!-- <template class="ant-card-actions" slot="actions">
-            <a-icon type="setting" />
-            <a-icon type="edit" />
-            <a-icon type="ellipsis" />
-          </template> -->
-      <a-card-meta :title="cardData.name" :description="cardData.desc">
-        <a-avatar slot="avatar" :src="cardData.avatar" />
-      </a-card-meta>
-    </a-card>
-    <el-link slot="reference" :type="type">{{obj.name}}</el-link>
+  <el-popover placement="bottom" @show="handleClickChange">
+    <iep-user-card></iep-user-card>
+    <a-button class="user-btn" size="small" slot="reference">
+      {{obj.name}}
+      <a-icon type="idcard" />
+    </a-button>
   </el-popover>
 </template>
 <script>
@@ -80,13 +73,11 @@ export default {
   },
 }
 </script>
-<style>
-.popover-wrapper-no-padding {
-  padding: 0 !important;
-}
-</style>
 
 <style lang="scss" scoped>
+.user-btn {
+  border-width: 0px;
+}
 .card-data-wrapper {
   display: flex;
   flex-direction: column;

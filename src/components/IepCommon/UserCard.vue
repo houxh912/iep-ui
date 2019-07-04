@@ -58,6 +58,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     border-right: 1px solid #eee;
     &:last-child {
@@ -65,6 +66,7 @@ export default {
     }
     .count {
       font-size: 18px;
+      font-weight: 600;
     }
     .label {
       color: #aaa;
@@ -87,6 +89,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    justify-content: space-around;
     padding: 10px;
     flex: 0 0 350px;
     width: 350px;

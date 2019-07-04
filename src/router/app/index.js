@@ -1,5 +1,6 @@
 import Layout from '@/page/index/index'
 import resourceRoute from './resource'
+import policyRoute from './policyRoute'
 
 
 
@@ -87,8 +88,10 @@ export default [
       {
         path: 'policyCenter',
         name: '政策中心频道',
-        component: () => import('@/views/app/policyCenter/'),
+        component: () => import('@/views/app/policyCenter/general'),
+        redirect:'/app/policyCenter/general',
         meta: noAuth,
+        children: policyRoute,
       },
       {
         path: 'search',

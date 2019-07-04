@@ -15,7 +15,7 @@
       </el-table-column>
       <el-table-column
         prop="value"
-        label="金额">
+        label="金额（元）">
       </el-table-column>
     </el-table>
   </div>

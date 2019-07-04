@@ -24,15 +24,15 @@ export default {
           label: '组织名称',
           prop: 'name',
         }, {
-          label: '组织资产',
+          label: '组织资产（元）',
           prop: 'orgAssets',
           width: '170px',
         }, {
-          label: '数据资产',
+          label: '数据资产（元）',
           prop: 'dataAssets',
           width: '170px',
         }, {
-          label: '财务资产',
+          label: '财务资产（元）',
           prop: 'financialAssets',
           width: '170px',
         },

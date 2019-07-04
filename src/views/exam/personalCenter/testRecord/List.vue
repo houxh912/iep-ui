@@ -11,13 +11,8 @@
           </el-button-group>
         </template>
       </operation-container>
-      <iep-table
-        :isLoadTable="isLoadTable"
-        :pagination="pagination"
-        :pagedTable="pagedTable"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      >
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
+        @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column prop="fieldName" label="科目">
           <template slot-scope="scope">
             {{scope.row.fieldName}}
@@ -59,11 +54,15 @@
           </template>
         </el-table-column>
       </iep-table>
+      <iep-dialog :dialog-show="dialogShow" title="查看证书" width="700px" @close="dialogShow = false"
+        center>
+        <img :src="imgurl" alt="查看证书" style="width: 100%">
+      </iep-dialog>
     </basic-container>
   </div>
 </template>
 <script>
-import { getTestRecordList } from '@/api/exam/personalCenter/testRecord/testRecord'
+import { getTestRecordList, getCertificate } from '@/api/exam/personalCenter/testRecord/testRecord'
 import mixins from '@/mixins/mixins'
 // const columnsMap = [
 //   {
@@ -93,6 +92,8 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      dialogShow: false,
+      imgurl: '',
       // columnsMap,
     }
   },
@@ -103,15 +104,15 @@ export default {
     /**
      * 点击筛选
      */
-    handleSelect ( state ) {
+    handleSelect (state) {
       this.pageOption.current = 1
       this.searchForm = {
         state: state,
       }
-      this.loadTable({...this.searchForm}, getTestRecordList)
+      this.loadTable({ ...this.searchForm }, getTestRecordList)
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({...this.pageOption,...param}, getTestRecordList)
+      this.loadTable({ ...this.pageOption, ...param }, getTestRecordList)
     },
     /**
      * 点击开始考试
@@ -144,7 +145,18 @@ export default {
      * 点击证书
      */
     handleShowCER (row) {
-      console.log(row)
+      getCertificate({ examId: row.id }).then(res => {
+        const { data } = res
+        if (data.data && data.msg === 'success') {
+          this.dialogShow = true
+          this.imgurl = data.data.imgurl
+        } else {
+          this.$message({
+            type: 'error',
+            message: data.msg,
+          })
+        }
+      })
     },
   },
 }

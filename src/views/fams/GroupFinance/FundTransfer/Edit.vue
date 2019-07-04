@@ -1,13 +1,13 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`新增资金调拨`" :back-option="backOption">
+      <page-header title="新增资金调拨" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
       </page-header>
       <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="200px" size="small">
         <h4 class="iep-sub-title">基础信息</h4>
         <iep-form-item label-name="调拨金额(元)" prop="amount" class="form-half">
-          <iep-input-number v-model="form.amount"></iep-input-number>
+          <iep-input-number v-model="form.amount" disabled></iep-input-number>
         </iep-form-item>
         <iep-form-item label-name="调拨方式" prop="allocationWay" class="form-half">
           <el-radio-group v-model="form.allocationWay" disabled>
@@ -21,7 +21,7 @@
           <iep-input-number v-model="form.groupInterest"></iep-input-number>
         </iep-form-item>
         <iep-form-item label-name="调拨天数(日)" prop="allocationDays" class="form-half">
-          <iep-input-number v-model="form.allocationDays" :precision="0"></iep-input-number>
+          <iep-input-number v-model="form.allocationDays" :precision="0" disabled></iep-input-number>
         </iep-form-item>
         <iep-form-item label-name="执行日期" prop="implementRangeTime" class="form-half">
           <iep-date-picker v-model="form.implementRangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions">

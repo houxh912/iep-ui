@@ -14,10 +14,10 @@ const columnsMap = [
 		label: '状态',
 	},{
 		prop: 'auditor',
-		label: '审核人',
+		label: '核准人',
 	},{
 		prop: 'auditDate',
-		label: '审核日期',
+		label: '核准日期',
 	},{
 		prop: 'remarks',
 		label: '备注',

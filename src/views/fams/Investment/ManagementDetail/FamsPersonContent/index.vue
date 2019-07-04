@@ -36,7 +36,7 @@ export default {
         label: '股份占比',
         value: 'ShareRatio',
       },/*  {
-        label: '投资人审核',
+        label: '投资人核准',
         value: 'InvestorAudit',
       }, */
       ],

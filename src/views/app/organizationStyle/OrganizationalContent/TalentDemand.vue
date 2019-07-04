@@ -11,10 +11,13 @@
         </el-table-column>
         <el-table-column prop="academicId" label="学历要求">
           <template slot-scope="scope">
-            {{getEducation(scope.row.academicId)}}
+            {{getDictVal(scope.row.academicId, 'hrms_highest_educational')}}
           </template>
         </el-table-column>
-        <el-table-column prop="treatment" label="薪资待遇" width="100">
+        <el-table-column prop="treatment" label="薪资待遇" width="150">
+          <template slot-scope="scope">
+            {{getDictVal(scope.row.treatment, 'hrms_wages_salaries')}}
+          </template>
         </el-table-column>
       </el-table>
       <IepNoData v-else></IepNoData>
@@ -56,6 +59,15 @@ export default {
           return item.label
         }
       }
+      return ''
+    },
+    getDictVal (val, dict) {
+      for (let item of this.dictGroup[dict]) {
+        if (item.value == val) {
+          return item.label
+        }
+      }
+      return '暂无'
     },
   },
   watch: {

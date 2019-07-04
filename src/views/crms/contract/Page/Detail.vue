@@ -1,157 +1,257 @@
 <template>
-  <div class="edit-wrapper">
-    <basic-container>
-      <div class="title">
-        <div class="department">{{formData.respDept}}</div>
-
-        <el-button class="back" @click="handleGoBack" size="mini">返回</el-button>
+  <basic-container>
+    <iep-page-header :title="formData.contractName" :backOption="backOption" :isAdvance="true">
+      <div slot="custom" class="page-hander-title">{{formData.contractName}} <span class="sub-title" v-if="formData.isHistory === 2">历史合同</span></div>
+      <div slot="sub" class="tags">
+        <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
       </div>
-      <!-- <div class="head-button">
-        <iep-button class="tabs" type="primary" size="small">暂无需求</iep-button>
-        <iep-button class="tabs" type="primary" size="small" @click="transfer">转移给他人</iep-button>
-        <iep-button class="tabs" type="primary" size="small" @click="handleUpdate">编辑</iep-button>
-        <iep-button class="tabs" type="primary" size="small" @click="handleDelete">删除</iep-button>
-      </div> -->
-      <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='CustomerPanorama'" v-slot:CustomerPanorama>
-          <customer-panorama :formData="formData" v-loading="activeTab !=='CustomerPanorama'"></customer-panorama>
-        </template>
-        <template v-if="activeTab ==='Contacts'" v-slot:Contacts>
-          <contacts v-loading="activeTab !=='Contacts'"></contacts>
-        </template>
-        <template v-if="activeTab ==='VisitingRecord'" v-slot:VisitingRecord>
-          <visiting-record v-loading="activeTab !=='VisitingRecord'"></visiting-record>
-        </template>
-        <template v-if="activeTab ==='Scheme'" v-slot:Scheme>
-          <scheme v-loading="activeTab !=='Scheme'"></scheme>
-        </template>
-        <template v-if="activeTab ==='Agreement'" v-slot:Agreement>
-          <agreement v-loading="activeTab !=='Agreement'"></agreement>
-        </template>
-        <template v-if="activeTab ==='Information'" v-slot:Information>
-          <information v-loading="activeTab !=='Information'"></information>
-        </template>
-      </iep-tabs>
-    </basic-container>
-  </div>
+    </iep-page-header>
+
+    <el-row class="info">
+      <el-col class="item" :span='12' v-for="(item, index) in infoList" :key="index">
+        <div class="label">{{item.name}}：</div>
+        <div class="span" v-if="item.type == 'dict'">{{dictsMap[item.value][formData[item.value]]}}</div>
+        <div class="span" v-else-if="item.type == 'date'">{{formatYear(formData[item.value])}}</div>
+        <div class="span" v-else>{{formData[item.value]}}</div>
+      </el-col>
+      <el-col class="item remark">
+        <div class="remark-title">合同说明/收款方式：</div>
+        <div class="remark-content">{{formData.contractExpl}}</div>
+      </el-col>
+      <el-col class="item file">
+        <el-col class="item" :span='12'>
+          <div class="label">合同附件：</div>
+          <div class="span" v-for="(item, index) in formData.contractFileList" :key="index">
+            <i class="icon-fujian"></i>{{item.name}} <iep-button type="text" @click="downloadFile(item)">下载</iep-button>
+          </div>
+        </el-col>
+        <!-- <iep-button type="primary">附件下载</iep-button>
+        <iep-button>复制下载链接</iep-button>
+        <iep-button>预览</iep-button> -->
+      </el-col>
+    </el-row>
+
+    <el-row class="clause">
+      <el-col class="name">合同/项目款项</el-col>
+      <el-row class="list">
+        <el-col class="title">关联项目：</el-col>
+        <el-col class="content">
+          <label>金额</label><span>{{formData.contractAmount}}</span>
+        </el-col>
+      </el-row>
+      <el-row class="list">
+        <el-col class="title">回款率：</el-col>
+        <el-col class="content">
+          <label>{{formData.contractCollection ? calculation(formData.contractCollection[formData.contractCollection.length-1].cumulativeAmount, formData.contractAmount) : '0%'}}</label>
+        </el-col>
+      </el-row>
+      <el-row class="list">
+        <el-col class="title">集团项目管理费：</el-col>
+        <el-col class="content">
+          <label>金额</label><span>{{formData.manageAmount}}</span>
+          <label>费率</label><span>5%</span>
+        </el-col>
+      </el-row>
+      <el-row class="list">
+        <el-col class="title">开票费：</el-col>
+        <el-col class="content">
+          <label>金额</label><span>{{formData.billingAmount}}</span>
+          <label>费率</label><span>1%</span>
+        </el-col>
+      </el-row>
+      <el-row class="list">
+        <el-col class="title">税费：</el-col>
+        <el-col class="content">
+          <label>金额</label><span>{{formData.taxes}}</span>
+          <label>费率</label><span>6.34%</span>
+        </el-col>
+      </el-row>
+      <el-row class="list" v-if="formData.contractCollection">
+        <el-col class="title">合同收款：</el-col>
+        <el-col class="content">
+          <el-table :data="formData.contractCollection" stripe style="width: 100%" border>
+            <el-table-column prop="arrivalTime" label="到账时间"> </el-table-column>
+            <el-table-column prop="arrivalAmount" label="到账金额"> </el-table-column>
+            <el-table-column prop="cumulativeAmount" label="累计到账"> </el-table-column>
+            <el-table-column prop="icon" label="到账比例">
+              <template slot-scope="scope">{{calculation(scope.row.cumulativeAmount, formData.contractAmount)}}</template>
+            </el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
+    </el-row>
+
+  </basic-container>
 </template>
-
 <script>
+import { getDataById } from '@/api/mlms/material/datum/contract'
+import { dictsMap, infoList } from './option'
+import { mapGetters } from 'vuex'
+import { downloadFile } from '@/api/common'
 
-import mixins from '@/mixins/mixins'
-import { getCustomerById } from '@/api/crms/customer'
+function formatDig (num) {
+  return num > 9 ? '' + num : '0' + num
+}
+
+function formatYear (mill) {
+  var y = new Date(mill)
+  let raws = [
+    y.getFullYear(),
+    formatDig(y.getMonth() + 1),
+    formatDig(y.getDate()),
+  ]
+  let format = ['-', '-', '-']
+  return String.raw({ raw: raws }, ...format)
+}
+
 export default {
-  name: 'detail',
-  mixins: [mixins],
   data () {
     return {
       formData: {},
-      tabList: [{
-        label: '客户全景',
-        value: 'CustomerPanorama',
-      }, {
-        label: '联系人(10)',
-        value: 'Contacts',
-      }, {
-        label: '拜访记录(9)',
-        value: 'VisitingRecord',
-      }, {
-        label: '方案(8)',
-        value: 'Scheme',
-      }, {
-        label: '合同(7)',
-        value: 'Agreement',
-      }, {
-        label: '资讯(6)',
-        value: 'Information',
-      }],
-      activeTab: 'CustomerPanorama',
+      dictsMap,
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          let params = this.$route.params
+          if (params.id) {
+            this.$router.history.go(-1)
+          } else {
+            this.$emit('load-page', true)
+          }
+        },
+      },
+      infoList,
+      contractMoney: [
+        { date: '2019-03-22', money: '22,000', const: '22,000', icon: '9.0%' },
+      ],
+      payList: [
+        { waibao: '8000', pingshen: '20000', fuwu: '3000' },
+      ],
+      formatYear,
     }
   },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
+  computed: {
+    ...mapGetters(['dictGroup']),
+  },
+  methods: {
+    open (id) {
+      getDataById(id).then((res) => {
+        let data = res.data.data
+        data.signDeptOrgNames = data.signDeptOrgName.name // 签署组织
+        // let underTakeDeptNames = ''
+        // for (let item of data.underTakeDeptName) {
+        //   underTakeDeptNames += item.name + '、'
+        // }
+        // data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length - 1)
+        data.companyRealName = data.companyName ? `${data.companyName.name} - ${data.companyName.orgName}` : ''
+        data.signCompanyName = data.signCompanyRealName ? `${data.signCompanyRealName.name} - ${data.signCompanyRealName.orgName}` : ''
+        data.underTakeDeptNames = ''
+        if (data.underTakeDeptName) data.underTakeDeptNames = data.underTakeDeptName.map(m => m.name).join('、')
+        data.projectName = data.projectRelation ? data.projectRelation.name : '无'
+        console.log('data: ', data)
+        let businessType = data.businessType.split(','), list = []
+        for (let type of businessType) {
+          for (let item of this.dictGroup.prms_business_type) {
+            for (let t of item.children) {
+              if (t.value == type) {
+                list.push(t.label)
+              }
+            }
+          }
+        }
+        data.businessTypeList = list.toString()
+        this.formData = data
+      })
+    },
+    // 下载附件
+    downloadFile (obj) {
+      downloadFile({
+        url: obj.url,
+        name: obj.name,
+      })
+    },
+    // 计算百分数
+    calculation (son, mom) {
+      return `${son / mom * 100}%`
     },
   },
   created () {
-    this.load()
-  },
-  methods: {
-    load () {
-      getCustomerById(this.record.id).then(({ data }) => {
-        this.formData = data.data
-      })
-    },
-    handleGoBack () {
-      this.$emit('onGoBack')
-    },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(this.formData).then(() => {
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
-            this.loadPage()
-            this.dialogShow = false
-          })
-        } else {
-          return false
-        }
-      })
-    },
-
-    change () { },
-    closed () {
-      this.dialogShow = false
-    },
-    // 转移
-    transfer () {
-      this.$message('转移给他人')
-    },
-    // 编辑
-    handleUpdate () {
-      this.$emit('update-form', this.formData)
-    },
-    // 删除
-    handleDelete () {
-      // this._handleGlobalDeleteById(row.id, deleteDataById)
-    },
+    let params = this.$route.params
+    if (params.id) {
+      this.open(params.id)
+    }
   },
 }
 </script>
+
 <style lang="scss" scoped>
-.edit-wrapper {
-  margin: 5px 5px 50px 5px;
-  .title {
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
+.page-hander-title {
+  font-size: 20px;
+  .sub-title {
+    font-size: 12px;
+    color: #ba1b21;
+  }
+}
+.tags {
+  .el-tag {
+    margin-right: 10px;
+  }
+}
+.info {
+  border-bottom: 1px solid #ddd;
+  padding: 0 0 15px 0;
+  .item {
+    margin-bottom: 10px;
     display: flex;
-    align-items: center;
-    .department {
-      font-weight: 600;
-      font-size: 18px;
+    .label {
+      width: 150px;
+      text-align: right;
+      display: inline-block;
     }
-    .manager {
-      color: #ccc;
+    .span {
+      flex: 1;
     }
-    .back {
-      height: 30px;
-      float: right;
-      margin-left: auto;
+    .el-button {
+      margin-right: 15px;
+    }
+  }
+  .remark {
+    display: flex;
+    .remark-title {
+      width: 150px;
+      text-align: right;
+    }
+    .remark-content {
+      width: calc(100% - 150px);
     }
   }
 }
-.person {
-  font-size: 16px;
-  margin-left: 30px;
-  align-items: center;
-  line-height: 50px;
-}
-.assist {
-  margin-right: 10px;
+.clause {
+  padding: 20px 0;
+  .name {
+    font-size: 16px;
+    color: #000;
+    margin-bottom: 30px;
+  }
+  .list {
+    margin-bottom: 15px;
+    .title {
+      width: 130px;
+      text-align: right;
+    }
+    .content {
+      width: calc(100% - 130px);
+      label {
+        display: inline-block;
+        width: 60px;
+        padding-left: 20px;
+      }
+      span {
+        display: inline-block;
+        width: 150px;
+      }
+    }
+  }
 }
 </style>

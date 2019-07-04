@@ -103,7 +103,6 @@ export default {
   },
   methods: {
     handleClick (row) {
-      console.log(row)
       if (row.disabled) return
       this.$router.push({
         path: `/wel/${row.routerPath}`,

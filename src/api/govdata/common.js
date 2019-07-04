@@ -26,7 +26,7 @@ export function getOrganizationPage (params) {
     })
   }
 
-  // 移动政策
+// 移动政策
 export function movePolicy (params) {
   return request({
     url: '/gov/mobile/policy',

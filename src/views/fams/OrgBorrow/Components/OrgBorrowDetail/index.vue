@@ -53,7 +53,7 @@ export default {
         data: undefined,
         onData: this.handleSecond,
       }, {
-        title: '借出方组织审核',
+        title: '借出方组织核准',
         content: 'ThirdContent',
         nextText: '撤销',
         prevText: '',

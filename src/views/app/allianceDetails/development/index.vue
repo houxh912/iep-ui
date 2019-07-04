@@ -87,7 +87,7 @@ export default {
     top: 10px;
     left: 84px;
     display: block;
-    width: 2px;
+    width: 1px;
     height: 100%;
     background-color: #ddd;
     z-index: 1;
@@ -95,7 +95,7 @@ export default {
   .el-icon-time {
     position: absolute;
     top: 10px;
-    left: 70px;
+    left: 68px;
     font-size: 32px;
     color: #ddd;
     background: #fff;
@@ -108,9 +108,6 @@ export default {
   border: 1px solid #ddd;
   border-radius: 50%;
   z-index: 3;
-}
-.events >>> .el-timeline-item:nth-child(1) .el-timeline-item__node {
-  border: 0;
 }
 .events >>> .el-timeline {
   margin-left: 40px;
@@ -138,8 +135,32 @@ export default {
 }
 .events >>> .el-timeline-item:hover .el-timeline-item__node {
   border-color: #cb3737;
-  background-color: #cb3737;
-  color: #cb3737;
+  background-color: #fff;
   transition: all 0.5s;
+}
+.events >>> .el-timeline-item:hover ::before {
+  background-color: #cb3737;
+}
+.events >>> .el-timeline-item__node {
+  position: relative;
+  top: 17px;
+  left: -3px;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border: 1px solid #e4e7ed;
+}
+.events >>> .el-timeline-item__node:before {
+  position: absolute;
+  content: "";
+  top: 4px;
+  left: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #e4e7ed;
+}
+.events >>> .el-timeline-item__tail {
+  border-width: 1px;
 }
 </style>

@@ -104,6 +104,16 @@
             <el-input v-model="formData.deposit" placeholder="保证金" maxlength="10"></el-input>
           </el-form-item>
         </el-col>
+        <el-col :span='12'>
+          <el-form-item label="历史合同：" prop="isHistory">
+            <el-switch v-model="formData.isHistory" :active-value="2" :inactive-value="1" active-color="#13ce66" />
+          </el-form-item>
+        </el-col>
+        <el-col :span='12'>
+          <el-form-item label="签署主体：">
+            <iep-select v-model="formData.signCompany" autocomplete="off" prefix-url="fams/company" placeholder="请选择签署主体"></iep-select>
+          </el-form-item>
+        </el-col>
       </el-row>
       <el-form-item label="合同附件上传：" prop="contractFileList">
         <iep-upload v-model="formData.contractFileList" :limit="limit"></iep-upload>

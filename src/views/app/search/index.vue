@@ -18,7 +18,12 @@
       <el-col :span="20" :offset="2">
         <div class="grid-content grid-border">
           <span class="keyword">热搜词：</span>
-          <span class="listName" v-for="(item,index) in listName" :key="index" @click="handleClick(item)">{{item}}</span>
+          <span
+            class="listName"
+            v-for="(item,index) in listName"
+            :key="index"
+            @click="handleClick(item)"
+          >{{item}}</span>
         </div>
       </el-col>
     </el-row>
@@ -29,9 +34,11 @@
             <span style="font-size:18px;">集团要闻</span>
           </div>
           <el-timeline>
-            <el-timeline-item v-for="(item,index) in dataList" :key="index">
-              {{item.name}}
-            </el-timeline-item>
+            <el-timeline-item
+              v-for="(item,index) in dataList"
+              @click.native="handleDetail(item.id)"
+              :key="index"
+            >{{item.name}}</el-timeline-item>
           </el-timeline>
         </el-card>
       </el-col>
@@ -40,7 +47,12 @@
           <div slot="header" class="clearfix">
             <span style="font-size:18px;">集团喜讯</span>
           </div>
-          <div style="padding:15px;display:inline-block; width:50%;cursor:pointer;" v-for="(item,index) in imgList" :key="index" @click="$openPage(item.url)">
+          <div
+            style="padding:15px;display:inline-block; width:50%;cursor:pointer;"
+            v-for="(item,index) in imgList"
+            :key="index"
+            @click="$openPage(item.url)"
+          >
             <iep-img style="width:100%;height:138px;" :src="item.imgSrc" class="image"></iep-img>
             <p class="imgDes" v-text="item.imgDes"></p>
           </div>
@@ -82,10 +94,18 @@ export default {
     searchPage (val) {
       this.$router.push({ path: '/app/search_detail', query: val })
     },
+    handleDetail (id) { 
+      this.$router.push({
+        path:`/app/resource/material/material_detail/${id}`,
+      })
+    },
   },
 }
 </script>
 <style scoped>
+.gov-info >>> .el-timeline-item{
+  cursor: pointer;
+}
 .search-con >>> .el-button {
   background-color: #ba1b21;
   color: #fff;
@@ -116,6 +136,31 @@ export default {
   background: #cb3737;
   border-color: #ba1b21;
   color: #fff;
+}
+.gov-info >>> .el-timeline-item__node {
+  position: relative;
+  top: 15px;
+  left: -3px;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border: 1px solid #e4e7ed;
+}
+.gov-info >>> .el-timeline-item__node::before {
+  position: absolute;
+  content: "";
+  top: 4px;
+  left: 4px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #e4e7ed;
+}
+.gov-info >>> .el-timeline-item__tail {
+  border-width: 1px;
+}
+.gov-info >>> .el-timeline-item__tail {
+  top: 15px;
 }
 </style>
 

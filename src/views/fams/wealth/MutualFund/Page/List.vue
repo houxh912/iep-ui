@@ -13,7 +13,7 @@
                 <el-date-picker v-model="value1" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
-              <el-form-item label="审核时间">
+              <el-form-item label="核准时间">
                 <el-date-picker v-model="value1" type="date" placeholder="选择日期">
                 </el-date-picker>
               </el-form-item>
@@ -68,7 +68,7 @@ export default {
       state: [
         {
           value: '选项1',
-          label: '待审核',
+          label: '待核准',
         },
       ],
       value: '',

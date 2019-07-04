@@ -7,8 +7,9 @@
         <div>
           <div v-if="row.list.length !== 0" class="person-list">
             <div class="person" v-for="(item, index1) in row.list" :key="index1">
-              <div class="img">
+              <div class="img" @click="$openPage(`/app/personal_style/${item.id}`)">
                 <iep-img :src="item.avatar" alt=""></iep-img>
+                <div class="shifu" v-if="item.show">师</div>
               </div>
               <span class="name">{{item.name}}</span>
             </div>
@@ -29,6 +30,9 @@ export default {
       type: Array,
       default: () => [],
     },
+    userId: {
+      type: Number,
+    },
   },
   data () {
     return {
@@ -42,15 +46,15 @@ export default {
     titleList () {
       return [
         {
-          title1: '标签相似',
-          list: this.similarUser,
-        },
-        {
           title1: 'TA的师徒',
           list: this.MentorsList,
         },
         {
-          title1: '协作伙伴',
+          title1: '标签相似',
+          list: this.similarUser,
+        },
+        {
+          title1: '交流密切',
           list: this.cooperationList,
         },
       ]
@@ -67,13 +71,13 @@ export default {
         this.isShow = !this.isShow
     },
     loadRelation (id) {
-      getproductMentors(id).then(({data}) => {
+      getproductMentors(id).then(({ data }) => {
+        for (let item of data.data.masters) {
+          item.show = true
+        }
         this.MentorsList = data.data.masters.concat(data.data.pupils)
       })
     },
-  },
-  created () {
-    this.loadRelation(this.$route.params.id)
   },
 }
 </script>
@@ -106,7 +110,8 @@ export default {
         width: 60px;
         height: 60px;
         border: 1px solid #ebeef5;
-        overflow: hidden;
+        // overflow: hidden;
+        position: relative;
         img {
           display: block;
           width: 100%;
@@ -115,6 +120,19 @@ export default {
           &:hover {
             transform: scale(1.1);
           }
+        }
+        .shifu {
+          position: absolute;
+          right: -8px;
+          top: -8px;
+          border-radius: 50%;
+          width: 20px;
+          height: 20px;
+          font-size: 12px;
+          background-color: #c9484d;
+          color: #fff;
+          text-align: center;
+          line-height: 20px;
         }
       }
       .name {

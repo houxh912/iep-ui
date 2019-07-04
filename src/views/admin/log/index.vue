@@ -13,7 +13,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetails(scope.row)" plain>查看</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)">刪除</iep-button>
+              <iep-button v-if="sys_log_del" @click="handleDeleteById(scope.row)">刪除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -24,6 +24,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { delObj, getUnionPage, getObj } from '@/api/admin/log'
 import { columnsMap, initMemberForm } from './options'
 import mixins from '@/mixins/mixins'
@@ -34,12 +35,17 @@ export default {
   data () {
     return {
       columnsMap,
+      sys_log_del: false,
     }
   },
-  created () {
-    this.loadPage()
-  },
   computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
+  },
+  created () {
+    this.sys_log_del = this.permissions['sys_log_del']
+    this.loadPage()
   },
   methods: {
     handleDetails (row) {

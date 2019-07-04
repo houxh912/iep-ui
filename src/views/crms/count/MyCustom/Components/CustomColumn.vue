@@ -21,7 +21,7 @@
           <div class="msg" v-if="isShow">{{region}}，{{proposal}}等居多</div>
           <div class="msg">平均拜访次数：<span class="color">{{visits}}</span></div>
           <div class="msg">平均方案上传：<span class="color">{{upload}}</span></div>
-          <div class="suggest">建议多寻找{{info}}类客户。</div>
+          <div class="suggest">建议多寻找{{info}}。</div>
         </div>
       </el-col>
     </el-row>
@@ -30,7 +30,7 @@
 <script>
 import District from './District'
 import Business from './Business'
-import { getDistrictMax, getMyClientRela, getMyClientAverage } from '@/api/crms/count'
+import { getDistrictMax, getMyClientAverage, getMyClientRelaMax, getMyClientRelaMin } from '@/api/crms/count'
 export default {
   components: { District, Business },
   data () {
@@ -45,20 +45,19 @@ export default {
         { value: '0', name: '其他', label: 'other' },
       ],
       data1: [
-        { value: '0', name: '咨询', label: 'consulting' },
-        { value: '0', name: '数据', label: 'information' },
-        { value: '0', name: '会议培训', label: 'meetingTraining' },
-        { value: '0', name: '业务类型其他', label: 'othersBusiness' },
-        { value: '0', name: '外包', label: 'outsourcing' },
-        { value: '0', name: '平台', label: 'platform' },
-        { value: '0', name: '产品', label: 'product' },
-        { value: '0', name: '技术服务', label: 'technicalService' },
+        { value: '0', name: '核心客户', label: 'consulting' },
+        { value: '0', name: '重要客户', label: 'information' },
+        { value: '0', name: '一般客户', label: 'product' },
+        { value: '0', name: '潜在客户', label: 'platform' },
+        { value: '0', name: '其他客户', label: 'outsourcing' },
       ],
       info: '',
       business: [],
       region: '',
       type: '',
       businessMax: [],
+      businessMin: [],
+      ClientRelaMax:[],
       aaa: [],
       proposal: '',
       isShow: true,
@@ -74,22 +73,7 @@ export default {
       return (Math.round(num / total))
     },
     load () {
-      // getDistrictMin().then(res => {
-      //   let keys = []
-      //   for (let index = 0; index < res.data.length; index++) {
-      //     for (let key in res.data[index]) {
-      //       keys.push(key)
-      //     }
-      //   }
-      //   for (let i = 0; i < this.data.length; i++) {
-      //     for (let index = 0; index < keys.length; index++) {
-      //       if (this.data[i].label == keys[index]) {
-      //         this.business.push(this.data[i].name)
-      //       }
-      //     }
-      //   }
-      //   this.info = this.business.join('，')
-      // })
+      // 我的客户区域类型最多
       getDistrictMax().then(res => {
         let keys = []
         for (let index = 0; index < res.data.length; index++) {
@@ -112,29 +96,10 @@ export default {
           }
         }
         this.region = this.businessMax.join('，')
+        
       })
-      // getMyBusinessMax().then(res => {
-      //   let keys = []
-      //   for (let index = 0; index < res.data.length; index++) {
-      //     for (let key in res.data[index]) {
-      //       keys.push(key)
-      //     }
-      //   }
-      //   for (let i = 0; i < this.data1.length; i++) {
-      //     for (let index = 0; index < keys.length; index++) {
-      //       if (this.data1[i].label == keys[index]) {
-      //         this.aaa.push(this.data1[i].name)
-      //       }
-      //     }
-      //   }
-      //   this.proposal = this.aaa.join('，')
-      // })
-      getMyClientRela().then(res => {
-        this.proposal = res.data.data[0].planUpload
-        this.info = res.data.data[res.data.data.length - 1].planUpload
-      })
+      // 平均拜访次数、下载方案
       getMyClientAverage().then(res => {
-
         this.visits = this.toPercent(res.data.data.contactQuantity, res.data.data.clientQuantity)
         this.upload = this.toPercent(res.data.data.softwareQuantity, res.data.data.clientQuantity)
         if (this.visits == Infinity || window.isNaN(this.visits) === true) {
@@ -147,6 +112,45 @@ export default {
         } else {
           this.upload = this.upload
         }
+      })
+      getMyClientRelaMax().then(res => {
+        let keys = []
+        for (let index = 0; index < res.data.length; index++) {
+          for (let key in res.data[index]) {
+            keys.push(key)
+          }
+        }
+        for (let i in res.data) {
+          let key = Object.keys(res.data[i])[0]
+          if (res.data[i][key] == 0) {
+            this.isShow = false
+            break
+          }
+        }
+        for (let i = 0; i < this.data1.length; i++) {
+          for (let index = 0; index < keys.length; index++) {
+            if (this.data1[i].label == keys[index]) {
+              this.ClientRelaMax.push(this.data1[i].name)
+            }
+          }
+        }
+        this.proposal = this.ClientRelaMax.join('，')
+      })
+      getMyClientRelaMin().then(res => {
+        let keys = []
+        for (let index = 0; index < res.data.length; index++) {
+          for (let key in res.data[index]) {
+            keys.push(key)
+          }
+        }
+        for (let i = 0; i < this.data1.length; i++) {
+          for (let index = 0; index < keys.length; index++) {
+            if (this.data1[i].label == keys[index]) {
+              this.businessMin.push(this.data1[i].name)
+            }
+          }
+        }
+        this.info = this.businessMin.join('，')
       })
     },
   },

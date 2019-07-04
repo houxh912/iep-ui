@@ -80,33 +80,33 @@ export default {
       },
       year: '',
       data1: [
-        { timeInterval: '周一', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '周二', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '周三', clientQuantity: 0, contactQuantity: 3 },
-        { timeInterval: '周四', clientQuantity: 0, contactQuantity: 32 },
-        { timeInterval: '周五', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '周六', clientQuantity: 0, contactQuantity: 12 },
-        { timeInterval: '周日', clientQuantity: 0, contactQuantity: 55 },
+        { timeInterval: '周一', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '周二', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '周三', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '周四', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '周五', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '周六', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '周日', clientQuantity: 0, contactQuantity: 0 },
       ],
       data2: [
-        { timeInterval: '一月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '二月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '三月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '四月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '五月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '六月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '七月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '八月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '九月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '十月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '十一月', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '十二月', clientQuantity: 0, contactQuantity: 22 },
+        { timeInterval: '一月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '二月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '三月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '四月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '五月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '六月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '七月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '八月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '九月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '十月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '十一月', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '十二月', clientQuantity: 0, contactQuantity: 0 },
       ],
       data3: [
-        { timeInterval: '第一季度', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '第二季度', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '第三季度', clientQuantity: 0, contactQuantity: 22 },
-        { timeInterval: '第四季度', clientQuantity: 0, contactQuantity: 22 },
+        { timeInterval: '第一季度', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '第二季度', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '第三季度', clientQuantity: 0, contactQuantity: 0 },
+        { timeInterval: '第四季度', clientQuantity: 0, contactQuantity: 0 },
       ],
       data4: [],
     }
@@ -248,16 +248,16 @@ export default {
             m.timeInterval = year
             return m
           })
-          this.data4 = this.data4.map(m=>{
-            if(!m.hasOwnProperty('contactQuantity')){
-              m.contactQuantity=0
+          this.data4 = this.data4.map(m => {
+            if (!m.hasOwnProperty('contactQuantity')) {
+              m.contactQuantity = 0
               return m
             }
           })
           for (let i in this.data4) {
             for (let m in arr) {
               if (this.data4[i].timeInterval == arr[m].timeInterval) {
-               this.data4[i].contactQuantity = arr[m].contactQuantity
+                this.data4[i].contactQuantity = arr[m].contactQuantity
               }
             }
           }

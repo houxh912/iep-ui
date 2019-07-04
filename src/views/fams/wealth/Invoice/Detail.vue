@@ -2,12 +2,12 @@
   <div>
     <basic-container>
       <page-header title="查看报销" :back-option="backOption">
-        <template v-if="form.primaryAudit===0">
+        <template v-if="form.primaryAudit===0 && isApproval">
           <iep-button @click="handlePass(form, false)">通过</iep-button>
           <iep-button @click="handleReject(form, false)">驳回</iep-button>
           <iep-button @click="handleTrans(form)">转交</iep-button>
         </template>
-        <template v-if="form.primaryAudit!==0&&form.financialAudit===0">
+        <template v-if="form.primaryAudit!==0&&form.financialAudit===0 && isApproval">
           <iep-button @click="handlePass(form, true)">通过</iep-button>
           <iep-button @click="handleReject(form, true)">驳回</iep-button>
         </template>
@@ -53,11 +53,11 @@
           <iep-div-detail v-model="form.creatorName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="财务审批人">
+        <iep-form-item class="form-half" label-name="财务核准人">
           <iep-div-detail v-model="form.financialName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item v-if="auditorOption" class="form-half" label-name="部门审批人">
+        <iep-form-item v-if="auditorOption" class="form-half" label-name="部门核准人">
           <iep-div-detail v-model="form.auditorName"></iep-div-detail>
         </iep-form-item>
 
@@ -112,6 +112,9 @@ export default {
   computed: {
     id () {
       return this.$route.params.id
+    },
+    isApproval () {
+      return this.$route.query.isApproval || false
     },
     projectOption () {
       return this.form.referType === 1

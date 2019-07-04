@@ -123,7 +123,7 @@ export default {
         path: '/crms/customer',
         query: {
           router: true,
-          data: row,
+          id: row.opportunityId,
         },
       })
     },

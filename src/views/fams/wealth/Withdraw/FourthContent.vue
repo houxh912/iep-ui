@@ -12,7 +12,7 @@ export default {
   props: ['data'],
   data () {
     return {
-      description: '审核通过，等待财务发放。',
+      description: '核准通过，等待财务发放。',
     }
   },
   computed: {

@@ -31,7 +31,7 @@ const columnsMap = [
     appId:[{required:true,message: '请输入', trigger: 'blur'}],
     appSecret:[{required:true,message: '请输入', trigger: 'blur'}], 
   }
-  const initMemberForm = () => {
+  const initForm = () => {
     return {
       appId: '',
       appSecret: '',
@@ -42,4 +42,4 @@ const columnsMap = [
   }
   
   
-  export { columnsMap, initMemberForm, rules }
+  export { columnsMap, initForm, rules }

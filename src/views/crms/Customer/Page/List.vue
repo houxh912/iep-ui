@@ -7,15 +7,6 @@
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
           <iep-button type="primary" @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
           <iep-button type="primary" @click="Transfer(2)" plain>转移</iep-button>
-          <!-- <el-dropdown size="medium">
-            <iep-button size="small" :disabled="type !== '2'" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item @click.native="excellImport">导入</el-dropdown-item>
-              <el-dropdown-item @click.native="handleAllDelete">删除</el-dropdown-item>
-              <el-dropdown-item @click.native="Transfer">转移</el-dropdown-item>
-              <el-dropdown-item @click.native="handleCooperation">添加协作人</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown> -->
         </template>
         <template v-if="type==='1'" slot="left">
           <iep-button type="primary" @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
@@ -42,13 +33,13 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="距离上次拜访已有" v-if="type!=='1'" min-width="100">
+        <el-table-column label="距离上次拜访已有" v-if="isShow(type)" min-width="100">
           <template slot-scope="scope">
             <div v-if="scope.row.hasOwnProperty('lastTime')">{{scope.row.lastTime }} 天</div>
             <div v-else>无</div>
           </template>
         </el-table-column>
-        <el-table-column v-if="type !== '1'" prop="operation" label="操作" width="250px">
+        <el-table-column v-if="isShow(type)" prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
               <!-- <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button> -->
@@ -59,6 +50,7 @@
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="addContact(scope.row)">添加联系人</el-dropdown-item>
                   <el-dropdown-item @click.native="handleCooperation(scope.row)">添加协作人</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleCancelClaim(scope.row)">取消认领</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -80,6 +72,13 @@
             </operation-wrapper>
           </template>
         </el-table-column>
+        <el-table-column v-if="type == '4'" prop="operation" label="操作" width="250px">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" plain @click="handleClaim(scope.row)">认领客户</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
       </iep-table>
       <edit-drawer ref="EditDrawer" @load-page="loadPage" @showDrawer="showDrawer"></edit-drawer>
       <excell-import ref="ExcellImport" :urlName="url" @close="handleClose"></excell-import>
@@ -91,7 +90,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, tabList } from '../columns'
-import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch } from '@/api/crms/customer'
+import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch, getToclaimHighseas, getUnToclaimHighseas } from '@/api/crms/customer'
 import { getWeekincrease } from '@/api/crms/count'
 import AdvanceSearch from './AdvanceSearch'
 import ExcellImport from './ExcellImport/'
@@ -225,7 +224,7 @@ export default {
       if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
         return false
       }
-      if (this.type != '1') {
+      if (this.isShow(this.type)) {
         this.$router.push({
           path: `/crms_spa/customer_detail/${row.clientId}`,
           query: {
@@ -261,14 +260,8 @@ export default {
     },
     //添加协作人
     handleCooperation (row) {
-      // if (this.ids.length == 0) {
-      //   this.$message('请勾选需要添加协作人的客户')
-      // } else if (this.ids.length == 1) {
-      this.$refs['collaborator'].data.clientId = row.clientId
+      this.$refs['collaborator'].Data.clientId = row.clientId
       this.$refs['collaborator'].dialogShow = true
-      // } else {
-      //   this.$message('一次只能添加一名协作人')
-      // }
     },
     //转移
     Transfer (val) {
@@ -309,6 +302,39 @@ export default {
     // 列表标签点击进入标签详情页
     handleTagDetail (val) {
       this.$openTagDetail(val)
+    },
+    isShow (type) {
+      if (type == 2) {
+        return true
+      } else if (type == 3) {
+        return true
+      } else {
+        return false
+      }
+    },
+    // 认领客户
+    handleClaim (row) {
+      getToclaimHighseas({ clientId: row.clientId }).then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '认领成功!',
+            type: 'success',
+          })
+          this.$emit('onGoBack')
+        }
+      })
+    },
+    // 取消认领
+    handleCancelClaim (row) {
+      getUnToclaimHighseas({ clientId: row.clientId }).then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '取消认领成功!',
+            type: 'success',
+          })
+          this.$emit('onGoBack')
+        }
+      })
     },
   },
 

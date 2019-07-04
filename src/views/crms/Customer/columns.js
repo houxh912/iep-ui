@@ -61,6 +61,16 @@ const columnsMapByTypeId = [
       prop: 'marketManagerName',
     },
   ],
+  [
+    {
+      label: '区域类型',
+      prop: 'districtTypeName',
+    },
+    {
+      label: '客户关系',
+      prop: 'clientRelaName',
+    },
+  ],
 ]
 const tabList = [
   {
@@ -74,6 +84,10 @@ const tabList = [
   {
     label: '全部客户',
     value: '1',
+  },
+  {
+    label: '公海客户',
+    value: '4',
   },
 ]
 export { columnsMapByTypeId, tabList }

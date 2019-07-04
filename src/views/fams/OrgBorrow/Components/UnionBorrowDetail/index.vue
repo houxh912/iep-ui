@@ -49,7 +49,7 @@ export default {
         data: undefined,
         onData: this.handleSecond,
       }, {
-        title: '集团财政财务审核',
+        title: '集团财政财务核准',
         content: 'ThirdContent',
         nextText: '撤销',
         prevText: '',

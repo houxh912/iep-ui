@@ -1,122 +1,55 @@
 <template>
   <div class="introduction-details">
-    <div class="tags-detail">
-      <span class="details-title">{{subTitle1}}</span>
+    <div class="tags-detail" v-if="false">
+      <span class="details-title">组织标签</span>
       <div class="tags-con">
         <span>卓越：</span>
-        <span class="tags" v-for="item in tags" :key="item.id">
-          {{item.tag}}
+        <span class="tags" v-for="(item, index) in data.abilityTag" :key="index">
+          {{item}}
         </span>
       </div>
       <div class="tags-con">
         <span>专业：</span>
-        <span class="tags" v-for="item2 in tags2" :key="item2.id">
-          {{item2.tag}}
+        <span class="tags" v-for="(item, index) in data.projectTag" :key="index">
+          {{item}}
+        </span>
+      </div>
+      <div class="tags-con">
+        <span>进步：</span>
+        <span class="tags" v-for="(item, index) in data.learningTag" :key="index">
+          {{item}}
         </span>
       </div>
     </div>
     <div class="brief">
-      <span class="details-title">{{subTitle2}}</span>
-      <p class="con">{{con}}</p>
+      <span class="details-title">组织简介</span>
+      <p class="con">{{data.intro}}</p>
     </div>
     <div class="contact">
-      <span class="details-title">{{subTitle3}}</span>
-      <span class="con"><span>官网地址 ：{{website}}</span>
-        <span>官方新浪微博：{{blog}}</span></span>
+      <span class="details-title">组织架构</span>
+      <iep-html v-model="data.structure"></iep-html>
     </div>
-    <framework></framework>
+    <div class="contact">
+      <span class="details-title">核心优势</span>
+      <iep-html v-model="data.coreAdvantage"></iep-html>
+    </div>
     <business-layout></business-layout>
-    <div class="opex">
-      <span class="details-title">{{subTitle4}}</span>
-      <div class="con">
-        <div class="opex-item" v-for="opex in opexList" :key="opex.id">
-          <div class="img"><span class="bgb">{{opex.name1}}</span><iep-img :src="opex.img" alt=""></iep-img></div>
-          <span class="name">{{opex.name}}</span>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
+
 <script>
-import Framework from './Framework'
+// import Framework from './Framework'
 import BusinessLayout from './BusinessLayout'
 export default {
-  components: { Framework, BusinessLayout },
+  props: {
+    data: {
+      type: Object,
+    },
+  },
+  components: { BusinessLayout },
   data () {
     return {
-      subTitle1: '组织标签',
-      subTitle2: '组织简介',
-      subTitle3: '联系方式',
-      subTitle4: '组织运维',
-      opexList: [
-        {
-          img: require('../img/people1.png'),
-          name1: '陈珊',
-          name: '客服一',
-        },
-        {
-          img: require('../img/people2.jpg'),
-          name1: '邵佳欢',
-          name: '客服二',
-        },
-        {
-          img: require('../img/people3.jpg'),
-          name1: '章佩瑜',
-          name: '客服三',
-        },
-      ],
-      tags: [
-        {
-          tag: '中高层任免',
-        },
-        {
-          tag: '文化深化',
-        },
-        {
-          tag: '组织架构',
-        },
-        {
-          tag: '管理规范',
-        },
-        {
-          tag: '战略合作',
-        },
-        {
-          tag: '制度制定',
-        },
-        {
-          tag: '战略设计与管理',
-        },
-        {
-          tag: '股权设计',
-        },
-        {
-          tag: '员工激励',
-        },
-        {
-          tag: '种子培养',
-        },
-      ],
-      tags2: [
-        {
-          tag: '数据能力',
-        },
-        {
-          tag: '内部协作',
-        },
-        {
-          tag: '内网建设',
-        },
-        {
-          tag: '战略合作',
-        },
-        {
-          tag: '资本运作',
-        },
-      ],
-      con: '国脉集团是中国领先的大数据治理和数据服务专业机构。创新提出“软件+咨询+平台+数据+创新业务”五位一体的服务模型，拥有数据基因（DNA）和水巢（DIPS）两大系列几十项软件产品。',
-      website: 'www.bing.com',
-      blog: '@国脉研发中心',
+      opexList: [],
     }
   },
 }

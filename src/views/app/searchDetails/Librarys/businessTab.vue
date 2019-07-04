@@ -44,13 +44,13 @@ export default {
       },
     }
   },
-  methods:{
+  methods: {
     loadPage (title = '') {
       if (title !== '') {
         this.params.keyWord = title
       }
       this.loading = true
-      getBusinessPage(this.params).then(({data}) => {
+      getBusinessPage(this.params).then(({ data }) => {
         this.loading = false
         this.librarys = data.data.records
         this.total = data.data.total
@@ -70,7 +70,7 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-.librarys-item{
+.librarys-item {
   padding: 20px 0;
   border-bottom: 1px solid #eee;
   overflow: hidden;
@@ -90,7 +90,7 @@ export default {
       justify-content: flex-start;
       align-items: center;
       width: 100%;
-      font-size: 18px;
+      font-size: 16px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -132,15 +132,15 @@ export default {
       }
     }
   }
-  .haveimg{
+  .haveimg {
     width: 740px;
     float: left;
   }
-  .img{
+  .img {
     width: 120px;
     height: 80px;
     float: right;
-    > img{
+    > img {
       width: 120px;
       height: 80px;
     }

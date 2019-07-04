@@ -6,13 +6,15 @@
         <el-input v-model="form.roleName" placeholder="请填入角色名称"></el-input>
       </el-form-item>
       <el-form-item label="角色标识：" prop="roleCode">
-        <el-input v-model="form.roleCode" placeholder="请填入角色标识"></el-input>
+        <el-input v-model="form.roleCode" placeholder="请填入角色标识" :disabled="roleCodeDisabled"></el-input>
       </el-form-item>
       <el-form-item label="角色描述：" prop="roleDesc">
         <el-input v-model="form.roleDesc" placeholder="请填入角色描述"></el-input>
       </el-form-item>
       <el-form-item label="数据权限：" prop="dsType">
-        <iep-dict-select v-model="form.dsType" placeholder="选择数据权限"></iep-dict-select>
+        <el-select v-model="form.dsType" placeholder="选择数据权限">
+          <el-option v-for="(v,k) in dictsMap.dsType" :key="k" :label="v" :value="+k" :disabled="k==1"></el-option>
+        </el-select>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -24,27 +26,23 @@
   </iep-dialog>
 </template>
 <script>
-import { initMemberForm } from './options'
+import { initForm, dictsMap } from './options'
 export default {
-  props: {
-    loadImage: {
-      type: String,
-    },
-  },
   data () {
     return {
+      dictsMap,
       dialogShow: false,
       disabled: false,
+      roleCodeDisabled: false,
       formRequestFn: () => { },
       methodName: '创建',
-      form: initMemberForm(),
+      form: initForm(),
+      dsScopeData: [],
     }
-  },
-  computed: {
   },
   methods: {
     loadPage () {
-      this.form = initMemberForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
@@ -61,9 +59,4 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.isAsset {
-  color: red;
-}
-</style>
 

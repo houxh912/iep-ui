@@ -21,10 +21,10 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '待我审批',
+        label: '待审批',
         value: 'ExaminApproval',
       }, {
-        label: '我已审批',
+        label: '已审批',
         value: 'AlreadyApproval',
       }],
       activeTab: 'ExaminApproval',

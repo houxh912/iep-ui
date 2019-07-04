@@ -29,6 +29,7 @@ export default {
         identityMarks: [],
         tagList: [],
         similarUser: [],
+        orgList: [],
       },
     }
   },

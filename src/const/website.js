@@ -75,4 +75,18 @@ export default {
       url: 'http://gc.govmade.cn/',
     },
   ],
+  backupUrl: [
+    {
+      name: '移动',
+      url: 'http://218.205.124.18:1888/',
+    },
+    {
+      name: '网通',
+      url: 'http://123.157.68.243:1888/',
+    },
+    {
+      name: '电信',
+      url: 'http://183.131.134.242:1888/',
+    },
+  ],
 }

@@ -40,10 +40,10 @@
           <iep-div-detail :value="form.callOutUser"></iep-div-detail>
         </iep-form-item>
         <h4 class="iep-sub-title">调入组织</h4>
-        <iep-form-item v-if="!!form.allocationWay" label-name="调入组织" class="form-half">
+        <iep-form-item label-name="调入组织" class="form-half">
           <iep-div-detail :value="form.inOrgName"></iep-div-detail>
         </iep-form-item>
-        <iep-form-item label-name="线下公司" class="form-half">
+        <iep-form-item v-if="!!form.allocationWay" label-name="线下公司" class="form-half">
           <iep-div-detail :value="form.callInCompany"></iep-div-detail>
         </iep-form-item>
         <iep-form-item label-name="银行账户：">
@@ -53,7 +53,7 @@
           <iep-div-detail :value="form.callInUser"></iep-div-detail>
         </iep-form-item>
         <template v-if="form.flag === 1">
-          <h4 class="iep-sub-title">审核</h4>
+          <h4 class="iep-sub-title">核准</h4>
           <iep-form-item label-name="状态">
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>

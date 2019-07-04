@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { getNoticeList } from '@/api/app/hrms'
+import { getPastList } from '@/api/app/hrms'
 // 根据传入的时间，返回YYYY-MM-DD
 function formatYear (mill){
   var y = new Date(mill)
@@ -33,7 +33,7 @@ function formatDig (num) {
 export default {
   data () {
     return {
-      title: '培训预告',
+      title: '培训内容',
       data: '',
       trainingNotice: [],
       linkName: '/app/resource/training',
@@ -42,8 +42,8 @@ export default {
   },
   methods: {
     loadList () {
-      getNoticeList().then(({data}) => {
-        this.trainingNotice = data.data
+      getPastList().then(({data}) => {
+        this.trainingNotice = data.data.slice(0, 7)
       })
     },
     handleDetail (row) {

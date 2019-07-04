@@ -1,7 +1,7 @@
 <template>
   <steps-content>
     <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
-      <a-alert :closable="true" type="error" message="借出方组织审核通过后，将无法撤回！" style="margin-bottom: 24px;" />
+      <a-alert :closable="true" type="error" message="借出方组织核准通过后，将无法撤回！" style="margin-bottom: 24px;" />
       <iep-form-item label-name="借出组织">
         <iep-div-detail :value="data.outOrgName"></iep-div-detail>
       </iep-form-item>

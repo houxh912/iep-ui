@@ -33,7 +33,7 @@ export default {
       },
       tooltip: {
         trigger: 'item',
-        formatter: '{b}：{c}%',
+        formatter: '{b}：{c}',
       },
       label: {
         show: true,

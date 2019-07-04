@@ -77,7 +77,7 @@
                     <template slot="append">分</template>
                   </el-input>
                 </el-form-item>
-                <el-form-item label="打分方式:" label-width="90px" v-if="item.type==11">
+                <!-- <el-form-item label="打分方式:" label-width="90px" v-if="item.type==11">
                   <el-radio-group v-model="item.scoringMethod">
                     <el-radio label="0" disabled>系统判定</el-radio>
                     <el-radio label="1" disabled>人工阅卷</el-radio>
@@ -90,7 +90,7 @@
                 <el-form-item style="margin-left:20px" v-if="item.type==10 || item.type==10000">
                   <el-switch active-text="多选模式" v-model="item.multipleSelection" disabled
                     :active-value="1" :inactive-value="0"></el-switch>
-                </el-form-item>
+                </el-form-item> -->
               </div>
 
               <div class="dt_div" v-if="item.type==10 || item.type==10000">
@@ -241,7 +241,7 @@
 
         </el-form-item>
 
-        <el-form-item label="打分方式" prop="scoringMethod" v-if="form.type==11">
+        <!-- <el-form-item label="打分方式" prop="scoringMethod" v-if="form.type==11">
           <el-radio-group v-model="form.scoringMethod">
             <el-radio label="0">系统判定</el-radio>
             <el-radio label="1">人工阅卷</el-radio>
@@ -259,7 +259,7 @@
                 :inactive-value="0"></el-switch>
             </el-form-item>
           </el-col>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="题型说明" prop="qstnDescribe" v-if="form.type==10 || form.type==10000">
           <iep-input-area placeholder="请输入题型说明" :autosize={minRows:2,maxRows:6}
             v-model="form.qstnDescribe"></iep-input-area>

@@ -16,10 +16,10 @@ export default {
   data () {
     return {
       OrgAssets: {
-        hyd: 0,
-        sjzc: 0,
-        xyz: 0,
-        zcpm: 0,
+        hyd: '--',
+        sjzc: '--',
+        xyz: '--',
+        zcpm: '--',
       },
       labList: [
         {

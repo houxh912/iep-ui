@@ -40,3 +40,11 @@ export const getProjectProjectManager = () => {
     method: 'get',
   })
 }
+
+// 业绩变化
+export const getPerformanceChanges = () => {
+  return request({
+    url: `${prefixUrl}/Performance/changes`,
+    method: 'get',
+  })
+}

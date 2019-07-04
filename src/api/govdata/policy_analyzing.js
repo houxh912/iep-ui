@@ -8,6 +8,9 @@ export function getExplainPage (params) {
     url: `${prefixUrl}/policy/explain/pageConsole`,
     method: 'get',
     params: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }
 
@@ -16,6 +19,9 @@ export function getExplainById (id) {
   return request({
     url: `${prefixUrl}/policy/explain/infoForConsole/${id}`,
     method: 'get',
+    headers: {
+      isNoNeed: true,
+   },
   })
 }
 
@@ -25,6 +31,9 @@ export function deleteExplainBatch (ids) {
       url: `${prefixUrl}/policy/explain`,
       method: 'delete',
       data: ids,
+      headers: {
+        isNoNeed: true,
+     },
     })
   }
 
@@ -37,6 +46,9 @@ export function postExplainAndCommit (params) {
     url: '/gov/policy/explain/createAndCommit',
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }
 
@@ -49,6 +61,9 @@ export function putExplainAndCommit (params) {
     url: '/gov/policy/explain/updateAndCommit',
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }
 
@@ -58,6 +73,9 @@ export function postExplain (params) {
     url: '/gov/policy/explain/create',
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }
 
@@ -67,5 +85,8 @@ export function putExplain (params) {
     url: '/gov/policy/explain/update',
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }

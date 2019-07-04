@@ -26,9 +26,9 @@
       </collapse-form>
 
       <el-form :inline="true" size="small">
-        <el-form-item>
+        <!-- <el-form-item>
           <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item>
           <el-dropdown @command="handleMove">
             <el-button type="primary" icon="el-icon-rank">
@@ -44,18 +44,13 @@
       </el-form>
 
       <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
-        <!-- <el-table-column prop="title" label="政策名称" align="left" width="300"></el-table-column>
-        <el-table-column prop="publishTime" label="发文时间" align="center"></el-table-column>
-        <el-table-column prop="creatorName" label="上传者" align="center"></el-table-column>
-        <el-table-column prop="examineUserName" label="审核人" align="center"></el-table-column>
-        <el-table-column prop="examineDate" label="审核通过时间" align="center"></el-table-column> -->
         <el-table-column prop="operation" align="center" label="操作" width="200">
           <template slot-scope="scope">
             <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
             <iep-divider type="vertical" />
             <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit">修改</el-button>
             <iep-divider type="vertical" />
-            <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete">删除</el-button>
+            <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete" v-if="permissionDelete">删除</el-button>
           </template>
         </el-table-column>
       </crud-table>
@@ -70,6 +65,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import _ from 'lodash'
 import mixins from '@/mixins/mixins'
 import multiplyMixin from '../multiply_mixin'
@@ -222,9 +218,12 @@ export default {
       isReadonly: false,
       isNeedConfirm: true,
       commadOptions,
+      permissionDelete: false,
     }
   },
   computed: {
+    ...mapGetters(['userInfo', 'permissions']),
+
     infoFormTitle () {
       return this.isReadonly ? '查看通用政策' : this.isEdit ? '修改通用政策' : '新增通用政策'
     },
@@ -235,6 +234,7 @@ export default {
   created () {
     this.load()
     this.loadDict()
+    this.permissionDelete = this.permissions['manage_general_del']
   },
   methods: {
     /**

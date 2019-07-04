@@ -8,6 +8,9 @@ export function getDeclarePage (params) {
     url: `${prefixUrl}/policy/declare/pageConsole`,
     method: 'get',
     params: params,
+    headers: {
+      isNoNeed: true,
+    },
   })
 }
 
@@ -16,6 +19,9 @@ export function getDeclareById (id) {
   return request({
     url: `${prefixUrl}/policy/declare/infoForConsole/${id}`,
     method: 'get',
+    headers: {
+      isNoNeed: true,
+  },
   })
 }
 
@@ -26,6 +32,9 @@ export function deleteDeclareBatch (ids) {
     url: `${prefixUrl}/policy/declare`,
     method: 'delete',
     data: ids,
+    headers: {
+      isNoNeed: true,
+  },
   })
 }
 
@@ -38,6 +47,9 @@ export function postDeclareAndCommit (params) {
     url: '/gov/policy/declare/createAndCommit',
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }
 
@@ -50,6 +62,9 @@ export function putDeclareAndCommit (params) {
     url: '/gov/policy/declare/updateAndCommit',
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }
 
@@ -59,6 +74,9 @@ export function postDeclare (params) {
     url: '/gov/policy/declare/create',
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }
 
@@ -69,5 +87,8 @@ export function putDeclare (params) {
     url: '/gov/policy/declare/update',
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+   },
   })
 }

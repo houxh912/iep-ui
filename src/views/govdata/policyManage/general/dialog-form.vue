@@ -36,7 +36,7 @@
     </el-form-item>
 
     <el-form-item label="发文时间" class="formWidth" prop="publishTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="time" placeholder="选择日期" v-model="formData.publishTime" value-format="timestamp" format="yyyy年M月d号" :disabled="isReadonly">{{formData.publishTime | dateFormat}}</el-date-picker>
     </el-form-item>
 
     <el-form-item label="发文单位" class="formWidth" prop="dispatchList">
@@ -55,13 +55,13 @@
       </el-select>
     </el-form-item>
 
-    <el-form-item label="生效时间" class="formWidth" prop="effectTime">
+    <!-- <el-form-item label="生效时间" class="formWidth" prop="effectTime">
       <el-date-picker type="date" placeholder="选择日期" v-model="formData.effectTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="失效时间" class="formWidth" prop="invalidTime">
       <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
-    </el-form-item>
+    </el-form-item> -->
 
     <el-form-item class="formWidth selectclasss" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">
       <el-select v-model="formData[value.formText]" :placeholder="`请选择${key}`" :multiple="value.multiple" :disabled="isReadonly">
@@ -102,6 +102,7 @@
 <script>
 import multiplyMixin from '../multiply_mixin'
 import { region } from '../region'
+import { dateFormat } from '@/util/date'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import MutiplySelect from '@/components/deprecated/mutiply-select'
 import { postGeneral, putGeneral, postGeneralAndCommit, putGeneralAndCommit } from '@/api/govdata/general_policy'
@@ -190,8 +191,14 @@ export default {
   computed: {
 
   },
+  filters: {
+    dateFormat (time) {
+      var date = new Date(time)
+      return dateFormat(date, 'yyyy年MM月dd日 hh:mm:ss')
+    },
+  },
   created () {
-    // console.log('mmm', this.formData)
+
   },
   methods: {
     _processForm (rows) {

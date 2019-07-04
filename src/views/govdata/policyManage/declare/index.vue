@@ -39,9 +39,9 @@
           </el-dropdown>
         </el-form-item> -->
 
-        <el-form-item>
+        <!-- <el-form-item>
           <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
 
       <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
@@ -51,7 +51,7 @@
             <iep-divider type="vertical" />
             <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit">修改</el-button>
             <iep-divider type="vertical" />
-            <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete">删除</el-button>
+            <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete" v-if="permissionDelete">删除</el-button>
           </template>
         </el-table-column>
       </crud-table>
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import _ from 'lodash'
 import mixins from '@/mixins/mixins'
 import { validatenull } from '@/util/validate'
@@ -274,9 +275,12 @@ export default {
       isNeedConfirm: true,
       commadOptions,
       btnTxt: '',
+      permissionDelete: false,
     }
   },
   computed: {
+    ...mapGetters(['userInfo', 'permissions']),
+
     infoFormTitle () {
       return this.isReadonly ? '查看申报类政策' : this.isEdit ? '修改申报类政策' : '新增申报类政策'
     },
@@ -287,6 +291,7 @@ export default {
   created () {
     this.load()
     this.loadDict()
+    this.permissionDelete = this.permissions['manage_declare_del']
   },
   methods: {
     /**

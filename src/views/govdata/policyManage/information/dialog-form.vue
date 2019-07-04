@@ -14,7 +14,7 @@
     </el-form-item>
 
     <el-form-item label="发布时间" class="formWidth" prop="publishTime">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="timestamp" format="yyyy年M月d号" :disabled="isReadonly">{{formData.publishTime | dateFormat}}</el-date-picker>
     </el-form-item>
 
     <el-form-item label="来源" class="formWidth" prop="source">
@@ -64,6 +64,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { region } from '../region'
+import { dateFormat } from '@/util/date'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import { postInformation, putInformation, postInformationAndCommit, putInformationAndCommit } from '@/api/govdata/information'
 //import { validInformationTitle } from '@/api/govdata/information'
@@ -110,6 +111,12 @@ export default {
   },
   computed: {
 
+  },
+  filters: {
+    dateFormat (time) {
+      var date = new Date(time)
+      return dateFormat(date, 'yyyy年MM月dd日 hh:mm:ss')
+    },
   },
   methods: {
     /**

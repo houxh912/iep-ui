@@ -3,53 +3,48 @@
  */
 
 import request from '@/router/axios'
+const prefixUrl = '/gov/policy/information'
 /**
  * 获取政策列表
  * @param {Object} params 参数
  */
 export function getInformationPage (params) {
   return request({
-      url: '/gov/policy/information/pageConsole',
+      // url: '/gov/policy/information/pageConsole',
+      url: `${prefixUrl}/pageConsole`,
       method: 'get',
       params: params,
+      headers: {
+        isNoNeed: true,
+    },
   })
 }
-
-// 移动政策
-// export function movePolicy (params) {
-//     return request({
-//       url: '/gov/mobile/policy',
-//       method: 'post',
-//       params: params,
-//     })
-//   }
 
 // 删除政策
 export function deleteInformationById (id) {
     return request({
-        url: '/gov/policy/information/delete',
+        // url: '/gov/policy/information/delete',
+        url: `${prefixUrl}/delete`,
         method: 'delete',
         data: id,
+        headers: {
+          isNoNeed: true,
+      },
     })
   }
 
 // 验证通用政策
 export function validInformationTitle (params) {
   return request({
-    url: '/gov/policy/information/repeat',
+    // url: '/gov/policy/information/repeat',
+    url: `${prefixUrl}/repeat`,
     method: 'get',
     params: params,
+    headers: {
+      isNoNeed: true,
+  },
   })
 }
-
-// // 验证通用政策
-// export function validInformationTitle (title) {
-//   return request({
-//     url: '/gov/policy/information/repeat',
-//     method: 'post',
-//     data: { title },
-//   })
-// }
 
 /**
  * 新增并提交政策
@@ -57,9 +52,13 @@ export function validInformationTitle (params) {
  */
 export function postInformationAndCommit (params) {
   return request({
-    url: '/gov/policy/information/createAndCommit',
+    // url: '/gov/policy/information/createAndCommit',
+    url: `${prefixUrl}/createAndCommit`,
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+  },
   })
 }
 
@@ -69,26 +68,38 @@ export function postInformationAndCommit (params) {
  */
 export function putInformationAndCommit (params) {
   return request({
-    url: '/gov/policy/information/updateAndCommit',
+    // url: '/gov/policy/information/updateAndCommit',
+    url: `${prefixUrl}/updateAndCommit`,
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+  },
   })
 }
 
 // 暂存(添加)
 export function postInformation (params) {
   return request({
-    url: '/gov/policy/information/create',
+    // url: '/gov/policy/information/create',
+    url: `${prefixUrl}/create`,
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+  },
   })
 }
 
 // 暂存(修改)
 export function putInformation (params) {
   return request({
-    url: '/gov/policy/information/update',
+    // url: '/gov/policy/information/update',
+    url: `${prefixUrl}/update`,
     method: 'post',
     data: params,
+    headers: {
+      isNoNeed: true,
+  },
   })
 }

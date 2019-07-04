@@ -8,6 +8,9 @@ export function getBasisPage (params) {
         url: `${prefixUrl}/policy/general/getGeneralAndDeclareList`,
         method: 'post',
         params: params,
+        headers: {
+          isNoNeed: true,
+      },
     })
 }
 
@@ -17,6 +20,9 @@ export function getOrganizationPage (params) {
       url: `${prefixUrl}/organization/page`,
       method: 'get',
       params: params,
+      headers: {
+        isNoNeed: true,
+    },
     })
   }
 
@@ -26,6 +32,9 @@ export function movePolicy (params) {
     url: '/gov/mobile/policy',
     method: 'post',
     params: params,
+    headers: {
+      isNoNeed: true,
+  },
   })
 }
 
@@ -35,5 +44,8 @@ export function findByTypeList () {
       url: '/admin/dict/all_map',
       method: 'get',
       //params: {numberList},
+      headers: {
+        isNoNeed: true,
+    },
   })
 }

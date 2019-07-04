@@ -5,7 +5,10 @@
 
         <el-container class="examExamine-container">
           <div class="examExamine-left">
-            <h1>成绩：<span style="color: #cb132d; font-size: 26px">{{totalScore}}</span></h1>
+            <h1><span style="padding-right:30px;">{{record.title}}</span>
+              成绩:
+              <span style="color: #cb132d; font-size: 26px; padding-left:5px;">{{totalScore}}</span>
+            </h1>
             <div class="examExamine-header">
               <el-table :data="performanceInfor.examBankTypeTranlVos" border style="width: 100%"
                 :header-cell-style="getRowClass" header-align="center">
@@ -14,29 +17,35 @@
                     {{scope.row.title}}
                   </template>
                 </el-table-column>
-                <el-table-column label="单选" align="center">
+                <el-table-column label="单选题" align="center">
                   <template slot-scope="scope">
                     <span v-if="scope.row.radio">{{Number.isNaN(Number(scope.row.radio)) ?
                       scope.row.radio : Number(scope.row.radio)}}</span>
                     <span v-else>/</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="复选" align="center">
+                <el-table-column label="复选题" align="center">
                   <template slot-scope="scope">
-
                     <span v-if="scope.row.checkbox">{{Number.isNaN(Number(scope.row.checkbox)) ?
                       scope.row.checkbox : Number(scope.row.checkbox)}}</span>
                     <span v-else>/</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="判断" align="center">
+                <el-table-column label="判断题" align="center">
                   <template slot-scope="scope">
                     <span v-if="scope.row.checked">{{Number.isNaN(Number(scope.row.checked)) ?
                       scope.row.checked : Number(scope.row.checked)}}</span>
                     <span v-else>/</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="简答" align="center">
+                <el-table-column label="操作题" align="center">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.operation">{{Number.isNaN(Number(scope.row.operation)) ?
+                      scope.row.operation : Number(scope.row.operation)}}</span>
+                    <span v-else>/</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="简答题" align="center">
                   <template slot-scope="scope">
                     <span v-if="scope.row.text">{{Number.isNaN(Number(scope.row.text)) ?
                       scope.row.text : Number(scope.row.text)}}</span>
@@ -45,7 +54,8 @@
                 </el-table-column>
                 <el-table-column label="卷面总分" align="center">
                   <template slot-scope="scope">
-                    <span v-if="scope.$index!=2">{{Number(scope.row.radio)+Number(scope.row.checkbox)+Number(scope.row.checked)+Number(scope.row.text)}}</span>
+                    <span
+                      v-if="scope.$index!=2">{{Number(scope.row.radio)+Number(scope.row.checkbox)+Number(scope.row.checked)+Number(scope.row.operation)+Number(scope.row.text)}}</span>
                     <span v-else>/</span>
                   </template>
                 </el-table-column>
@@ -59,7 +69,8 @@
 
               <div class="comments" v-if="performanceInfor.comments">
                 <label>面试评语:</label>
-                <iep-input-area readonly v-model="performanceInfor.comments" style="margin-top: 10px;"></iep-input-area>
+                <iep-input-area readonly v-model="performanceInfor.comments"
+                  style="margin-top: 10px;"></iep-input-area>
               </div>
             </div>
 
@@ -70,10 +81,12 @@
                 </div>
                 <ul>
                   <li v-for="(radioItem,index) in radioMap" :key="index+1" :id="'radio_'+(index+1)">
-                    <div class="question-title">{{radioItem.title}} <span>({{radioItem.grade}}分)</span></div>
+                    <div class="question-title">{{radioItem.title}}
+                      <span>({{radioItem.grade}}分)</span></div>
                     <el-checkbox-group v-model="radioItem.userAnswer" disabled>
-                      <el-checkbox v-for="radioOption in radioItem.itemOptions" :key="radioOption.key"
-                        :label="radioOption.key">{{radioOption.key}} . {{radioOption.value}}</el-checkbox>
+                      <el-checkbox v-for="radioOption in radioItem.itemOptions"
+                        :key="radioOption.key" :label="radioOption.key">{{radioOption.key}} .
+                        {{radioOption.value}}</el-checkbox>
                     </el-checkbox-group>
                     <div class="question-analysis">
                       <p>考生答案：<span>{{radioItem.userAnswer.toString()}}</span></p>
@@ -89,11 +102,13 @@
                   <h3>复选题 (共{{checkboxMap.length}}题)</h3>
                 </div>
                 <ul>
-                  <li v-for="(checkboxItem,index) in checkboxMap" :key="index+1" :id="'checkbox_'+(index+1)">
-                    <div class="question-title">{{checkboxItem.title}} <span>({{checkboxItem.grade}}分)</span></div>
+                  <li v-for="(checkboxItem,index) in checkboxMap" :key="index+1"
+                    :id="'checkbox_'+(index+1)">
+                    <div class="question-title">{{checkboxItem.title}}
+                      <span>({{checkboxItem.grade}}分)</span></div>
                     <el-checkbox-group v-model="checkboxItem.userAnswer" disabled>
-                      <el-checkbox v-for="checkOptions in checkboxItem.itemOptions" :key="checkOptions.key"
-                        :label="checkOptions.key">
+                      <el-checkbox v-for="checkOptions in checkboxItem.itemOptions"
+                        :key="checkOptions.key" :label="checkOptions.key">
                         <span>{{checkOptions.key}} . {{checkOptions.value}}</span>
                       </el-checkbox>
                     </el-checkbox-group>
@@ -111,16 +126,37 @@
                   <h3>判断题 (共{{checkedMap.length}}题)</h3>
                 </div>
                 <ul>
-                  <li v-for="(checkedItem,index) in checkedMap" :key="index+1" :id="'checked_'+(index+1)">
-                    <div class="question-title">{{checkedItem.title}} <span>({{checkedItem.grade}}分)</span></div>
+                  <li v-for="(checkedItem,index) in checkedMap" :key="index+1"
+                    :id="'checked_'+(index+1)">
+                    <div class="question-title">{{checkedItem.title}}
+                      <span>({{checkedItem.grade}}分)</span></div>
                     <el-checkbox-group v-model="checkedItem.userAnswer" disabled>
-                      <el-checkbox v-for="checkedOption in checkedItem.itemOptions" :key="checkedOption.key"
-                        :label="checkedOption.key">{{checkedOption.value}}</el-checkbox>
+                      <el-checkbox v-for="checkedOption in checkedItem.itemOptions"
+                        :key="checkedOption.key" :label="checkedOption.key">{{checkedOption.value}}
+                      </el-checkbox>
                     </el-checkbox-group>
                     <div class="question-analysis">
                       <p>考生答案：<span>{{checkedItem.userAnswer.toString()}}</span></p>
                       <p>正确答案：<span>{{checkedItem.itemAnswer}}</span></p>
                       <p>答案解析：<span>{{checkedItem.itemExplain}}</span></p>
+                    </div>
+                  </li>
+                </ul>
+              </el-card>
+
+              <el-card class="question-result" shadow="hover" v-if="operationMap.length>0">
+                <div slot="header" class="clearfix">
+                  <h3>操作题 (共{{operationMap.length}}题)</h3>
+                </div>
+                <ul>
+                  <li v-for="(textItem,index) in operationMap" :key="index+1"
+                    :id="'text_'+(index+1)">
+                    <div class="question-title">{{textItem.title}}<span>({{textItem.grade}}分)</span>
+                    </div>
+                    <iep-html v-model="textItem.userAnswer"></iep-html>
+                    <div class="question-analysis">
+                      <p>正确答案：<span>{{textItem.itemAnswer}}</span></p>
+                      <p>答案解析：<span>{{textItem.itemExplain}}</span></p>
                     </div>
                   </li>
                 </ul>
@@ -132,27 +168,8 @@
                 </div>
                 <ul>
                   <li v-for="(textItem,index) in textMap" :key="index+1" :id="'text_'+(index+1)">
-                    <div class="question-title">{{textItem.title}} <span>({{textItem.grade}}分)</span></div>
-                    <!-- <iep-input-area :autosize={minRows:8,maxRows:6} v-model="textItem.userAnswer"
-                      placeholder="" readonly></iep-input-area> -->
-                    <iep-html v-model="textItem.userAnswer"></iep-html>
-                    <div class="question-analysis">
-                      <p>正确答案：<span>{{textItem.itemAnswer}}</span></p>
-                      <p>答案解析：<span>{{textItem.itemExplain}}</span></p>
+                    <div class="question-title">{{textItem.title}}<span>({{textItem.grade}}分)</span>
                     </div>
-                  </li>
-                </ul>
-              </el-card>
-
-              <el-card class="question-result" shadow="hover" v-if="operationMap.length>0">
-                <div slot="header" class="clearfix">
-                  <h3>简答题 (共{{operationMap.length}}题)</h3>
-                </div>
-                <ul>
-                  <li v-for="(textItem,index) in operationMap" :key="index+1" :id="'text_'+(index+1)">
-                    <div class="question-title">{{textItem.title}} <span>({{textItem.grade}}分)</span></div>
-                    <!-- <iep-input-area :autosize={minRows:8,maxRows:6} v-model="textItem.userAnswer"
-                      placeholder="" readonly></iep-input-area> -->
                     <iep-html v-model="textItem.userAnswer"></iep-html>
                     <div class="question-analysis">
                       <p>正确答案：<span>{{textItem.itemAnswer}}</span></p>
@@ -176,49 +193,54 @@
 
               <div class="response-content" v-if="radioMap.length>0">
                 <div class="response-questionTitle">
-                  <span>单选题</span>
+                  <span>{{radioMap[0].questionTypeName}}</span>
                 </div>
                 <div class="response-questionMark">
-                  <a class="choices" v-for="(radioItem,index) in radioMap" :key="index+1" :href="'#radio_'+(index+1)"
-                    :class="radioItem.score === radioItem.grade ? '' : 'error'">{{index+1}}</a>
+                  <a class="choices" v-for="(item,index) in radioMap" :key="index+1"
+                    :href="'#radio_'+(index+1)"
+                    :class="item.score === item.grade ? '' : 'error'">{{item.questionNum}}</a>
                 </div>
               </div>
 
               <div class="response-content" v-if="checkboxMap.length>0">
                 <div class="response-questionTitle">
-                  <span>复选题</span>
+                  <span>{{checkboxMap[0].questionTypeName}}</span>
                 </div>
                 <div class="response-questionMark">
-                  <a class="choices" v-for="(checkboxItem,index) in checkboxMap" :key="index+1"
-                    :href="'#checkbox_'+(index+1)" :class="checkboxItem.score === checkboxItem.grade ? '' : 'error'">{{index+1}}</a>
+                  <a class="choices" v-for="(item,index) in checkboxMap" :key="index+1"
+                    :href="'#checkbox_'+(index+1)"
+                    :class="item.score === item.grade ? '' : 'error'">{{item.questionNum}}</a>
                 </div>
               </div>
 
               <div class="response-content" v-if="checkedMap.length>0">
                 <div class="response-questionTitle">
-                  <span>判断题</span>
+                  <span>{{checkedMap[0].questionTypeName}}</span>
                 </div>
                 <div class="response-questionMark">
-                  <a class="choices" v-for="(checkedItem,index) in checkedMap" :key="index+1" :href="'#checked_'+(index+1)"
-                    :class="checkedItem.score === checkedItem.grade ? '' : 'error'">{{index+1}}</a>
-                </div>
-              </div>
-
-              <div class="response-content" v-if="textMap.length>0">
-                <div class="response-questionTitle">
-                  <span>简答题</span>
-                </div>
-                <div class="response-questionMark">
-                  <a class="choices text" v-for="(textItem,index) in textMap" :key="index+1" :href="'#text_'+(index+1)">{{index+1}}</a>
+                  <a class="choices" v-for="(item,index) in checkedMap" :key="index+1"
+                    :href="'#checked_'+(index+1)"
+                    :class="item.score === item.grade ? '' : 'error'">{{item.questionNum}}</a>
                 </div>
               </div>
 
               <div class="response-content" v-if="operationMap.length>0">
                 <div class="response-questionTitle">
-                  <span>简答题</span>
+                  <span>{{operationMap[0].questionTypeName}}</span>
                 </div>
                 <div class="response-questionMark">
-                  <a class="choices text" v-for="(textItem,index) in operationMap" :key="index+1" :href="'#text_'+(index+1)">{{index+1}}</a>
+                  <a class="choices text" v-for="(item,index) in operationMap" :key="index+1"
+                    :href="'#text_'+(index+1)">{{item.questionNum}}</a>
+                </div>
+              </div>
+
+              <div class="response-content" v-if="textMap.length>0">
+                <div class="response-questionTitle">
+                  <span>{{textMap[0].questionTypeName}}</span>
+                </div>
+                <div class="response-questionMark">
+                  <a class="choices text" v-for="(item,index) in textMap" :key="index+1"
+                    :href="'#text_'+(index+1)">{{item.questionNum}}</a>
                 </div>
               </div>
             </div>
@@ -311,11 +333,12 @@ export default {
 
         // 总分
         this.textMap = resultInfo.result.textMap
+        this.operationMap = resultInfo.result.operationMap
         const score = this.performanceInfor.examBankTypeTranlVos[0]
-        if (Number.isNaN(Number(score.face))) {
-          this.totalScore = Number(score.radio) + Number(score.checkbox) + Number(score.checked) + Number(score.text)
-        } else {
-          this.totalScore = Number(score.radio) + Number(score.checkbox) + Number(score.checked) + Number(score.text) + Number(score.face)
+
+        this.totalScore = Number(score.radio) + Number(score.checkbox) + Number(score.checked) + Number(score.operation) + Number(score.text)
+        if (!Number.isNaN(Number(score.face))) {
+          this.totalScore += Number(score.face)
         }
         this.loading = false
       }
@@ -332,7 +355,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .examExamine-wrapper {
-  margin-top: 16px;
   display: flex;
   justify-content: center;
   align-items: center;

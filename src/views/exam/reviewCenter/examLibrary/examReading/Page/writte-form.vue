@@ -1,6 +1,6 @@
 <template>
   <!-- <el-dialog :visible.sync="dialogVisible" title="阅卷进度" width="90%" :before-close="saveAndGoBack"> -->
-  <div>
+  <div v-loading="loading">
     <div class="header">
       <span class="title1"><b>在线考试系统</b></span>
       <span class="title2"></span>
@@ -150,6 +150,7 @@ export default {
       offsetY: 80,
     }
     return {
+      loading: false,
       dialogVisible: true,
       disabled: false,
       userByAnswer: '',        //显示用户答案的输入框(v-model绑定的值)
@@ -253,6 +254,7 @@ export default {
      * 获取题目的详细数据(公用请求方法)
      */
     getSubjectById (params) {
+      this.loading = true
       passWrittenById(params).then(res => {
         const record = res.data.data
         this.userByAnswer = record.userAnswer
@@ -274,6 +276,7 @@ export default {
           this.resdata.kindTotalNum = record.questionNumList.operationMap.length
           this.resdata.kindMark = record.questionNumList.operationMap[0].grade * this.resdata.kindTotalNum
         }
+        this.loading = false
         //console.log('hhh', this.resdata.questionTotalNum)
       })
     },
@@ -369,45 +372,43 @@ export default {
      * 上一题
      */
     prv () {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          const params = {
-            questionNum: this.resdata.questionNum - 1,
-          }
-          this.judgeType(params)
-          this.getSubjectById(params)
-        }
-      })
+      // this.$refs.form.validate((valid) => {
+      //   if (valid) {
+      const params = {
+        questionNum: this.resdata.questionNum - 1,
+      }
+      this.judgeType(params)
+      this.getSubjectById(params)
+      //   }
+      // })
     },
 
     /** 
      * 下一题
      */
     next () {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          const params = {
-            questionNum: this.resdata.questionNum + 1,
-          }
-          this.judgeType(params)
-          this.getSubjectById(params)
-        }
-      })
+      // this.$refs.form.validate((valid) => {
+      //   if (valid) {
+      const params = {
+        questionNum: this.resdata.questionNum + 1,
+      }
+      this.judgeType(params)
+      this.getSubjectById(params)
+      //   }
+      // })
     },
 
     /**
      * 点击答题卡
      */
     handleCard (item) {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          const params = {
-            questionNum: item.questionNum,
-          }
-          this.judgeType(params)
-          this.getSubjectById(params)
-        }
-      })
+      // this.$refs.form.validate(() => {
+      const params = {
+        questionNum: item.questionNum,
+      }
+      this.judgeType(params)
+      this.getSubjectById(params)
+      // })
     },
 
     /**
@@ -610,6 +611,7 @@ export default {
   border: 1px solid #dcdfe6;
   padding: 6px 15px;
   border-radius: 4px;
+  min-height: 40px;
 }
 </style>
 <style lang="scss">

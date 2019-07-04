@@ -170,7 +170,7 @@ export default {
       offsetY: 100,
     }
     return {
-      loading: true,      //加载圈圈
+      loading: false,      //加载圈圈
       answerRadio: '',        //单选(v-model绑定的值)
       checksList: [],         //复选(v-model绑定的值)
       trueOrFalseRadio: '',   //判断(v-model绑定的值)
@@ -289,9 +289,9 @@ export default {
      * 获取题目的详细数据(公用请求方法)
      */
     getSubjectById (params, times) {
+      this.loading = true
       getTestPageById(params).then(res => {
         if (res.data.code === 0) {
-          this.loading = false
           const record = res.data.data
           if (times === true) {
             const timeAll = record.remainingTime ? record.remainingTime.split('-') : []
@@ -341,6 +341,7 @@ export default {
               this.resdata.kindMark = record.questionNumList.operationMap[0].grade * this.resdata.kindTotalNum
             }
           }
+          this.loading = false
         } else {
           this.$message({
             type: 'error',

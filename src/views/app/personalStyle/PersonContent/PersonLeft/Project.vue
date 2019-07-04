@@ -101,6 +101,9 @@ export default {
     flex: 1;
     margin-right: 20px;
     overflow: hidden;
+    .sub-title-con {
+      margin-left: 10px;
+    }
     &:hover .sub-title-con {
       color: #cb3737;
     }
@@ -124,12 +127,16 @@ export default {
       align-items: center;
       margin-right: 30px;
       color: #999;
+      min-width: 72px;
       i {
         margin-right: 3px;
+        font-size: 12px;
       }
     }
     .time {
+      min-width: 124px;
       i {
+        margin-right: 3px;
         font-size: 12px;
       }
     }
@@ -141,12 +148,16 @@ export default {
         border-color: #cb3737;
       }
     }
-  }
-  .classTag {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-right: 8px;
+    .classTag {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-right: 8px;
+      padding: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
 .news-con {

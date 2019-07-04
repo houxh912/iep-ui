@@ -3,13 +3,10 @@
     <a-row :gutter="16">
       <a-col :xl="24" :xxl="20">
         <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
-          <el-form-item label="姓名：">
-            <operation-wrapper style="display: flex; align-items: center;">
-              <iep-div-detail style="display: inline-block;" :value="form.name"></iep-div-detail>
-              <a-button size="small">个人名片</a-button>
-            </operation-wrapper>
+          <el-form-item label="姓名：" class="form-half">
+            <iep-hover-card :obj="{name:form.name,id:form.id}"></iep-hover-card>
           </el-form-item>
-          <el-form-item label="用户名：">
+          <el-form-item label="用户名：" class="form-half">
             <iep-div-detail :value="form.userName"></iep-div-detail>
           </el-form-item>
           <el-form-item label="头像：" prop="avatar">

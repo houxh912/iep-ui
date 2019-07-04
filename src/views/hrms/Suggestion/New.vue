@@ -20,7 +20,7 @@
         <iep-form-item class="form-half" prop="annexList" label-name="附件">
           <iep-upload v-model="form.annexList" :limit="limit"></iep-upload>
         </iep-form-item>
-        
+
         <el-form-item label="">
           <operation-wrapper>
             <iep-button type="primary" @click="handleSubmit">保存</iep-button>
@@ -69,7 +69,7 @@ export default {
       this.$router.history.go(-1)
     },
     handlePublish () {
-      this.form.status='1'
+      this.form.status = '1'
       this.handleSubmit(true)
     },
     handleSubmit (isPublish) {

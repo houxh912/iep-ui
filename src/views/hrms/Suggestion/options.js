@@ -4,7 +4,7 @@ const dictsMap = {
   status: {
     0: '草稿',
     1: '未处理',
-    2: '以采纳',
+    2: '已采纳',
     3: '已驳回',
   },
 }
@@ -24,19 +24,19 @@ const columnsMap = [
 const initForm = () => {
   return {
     'id': '', // ID
-    'userId':'',//userId
-    'theme':'',
-    'status':'',//
+    'userId': '',//userId
+    'theme': '',
+    'status': '',//
     'proposeContent': '',//内容
     'attendeeList': '',//接收对象
-    'attendeeId':'',//接收对象id
-    'feedbackOpinion':'',//反馈意见
-    'gratuity':'',//打赏
-    'disabled':'',
-    'annexList':[],
-    'fileName':'',//文件名
-    'sendTime':'',//发送时间
-    'proposeRelatioList':'',//反馈
+    'attendeeId': '',//接收对象id
+    'feedbackOpinion': '',//反馈意见
+    'gratuity': '',//打赏
+    'disabled': '',
+    'annexList': [],
+    'fileName': '',//文件名
+    'sendTime': '',//发送时间
+    'proposeRelatioList': '',//反馈
   }
 }
 

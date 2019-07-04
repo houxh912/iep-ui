@@ -153,3 +153,8 @@ export default {
   color: #606266;
 }
 </style>
+<style scoped>
+.training-top-left >>> .el-image__inner {
+  height: auto;
+}
+</style>

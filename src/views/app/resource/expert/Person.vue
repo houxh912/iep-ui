@@ -3,7 +3,9 @@
     <search @load-page="searchPage"></search>
     <div class="person" v-loading="loading">
       <div class="person-item" v-for="(item,index) in personList" :key="index" @click="handleDetail(item.id)">
-        <div class="img"><iep-img :src="item.avatar" alt=""></iep-img></div>
+        <div class="img">
+          <iep-img :src="item.avatar" alt=""></iep-img>
+        </div>
         <div class="text">
           <span class="name">{{item.name}}
             <!-- <span class="dn show1 show" v-if="item.isExpert == 1">V</span> -->
@@ -58,7 +60,7 @@ export default {
     loadPage () {
       this.loading = true
       let obj = Object.assign({}, this.params, this.paramData)
-      getRecruitDetailPage(obj).then(({data}) => {
+      getRecruitDetailPage(obj).then(({ data }) => {
         this.loading = false
         this.personList = data.data.records
         this.total = data.data.total
@@ -111,7 +113,7 @@ export default {
     .text {
       width: 60%;
       .job {
-        color: #888;
+        color: #666;
       }
       .deptQm {
         color: #aaa;
@@ -125,7 +127,7 @@ export default {
           padding: 0 10px;
           cursor: pointer;
           &:hover {
-            color: #ba1b21;
+            color: #cb3737;
           }
           &:nth-child(1) {
             padding-left: 0;

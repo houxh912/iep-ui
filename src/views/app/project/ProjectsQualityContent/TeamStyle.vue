@@ -1,10 +1,12 @@
 <template>
   <IepAppTabCard :title="title">
     <div class="empolyee">
-      <el-carousel height="200px" :interval="5000" indicator-position="none">
+      <el-carousel height="180px" :interval="5000" arrow="always">
         <el-carousel-item v-for="item in 4" :key="item">
           <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-            <div class="img"><iep-img :src="item.img" class="img"></iep-img></div>
+            <div class="img">
+              <iep-img :src="item.img" class="img"></iep-img>
+            </div>
             <span class="name">{{item.name}}</span>
           </div>
         </el-carousel-item>
@@ -19,9 +21,9 @@ export default {
     return {
       title: '项目团队风采',
       wonderfulList: [
-        { name: '数据基因项目组', img: '../img/person/p6.jpg'},
-        { name: '营商通项目组', img: '../img/person/p5.jpg'},
-        { name: '营商通项目组', img: '../img/person/p2.jpg'},
+        { name: '数据基因项目组', img: '../img/person/p6.jpg' },
+        { name: '营商通项目组', img: '../img/person/p5.jpg' },
+        { name: '营商通项目组', img: '../img/person/p2.jpg' },
         { name: '营商环境项目组', img: '../img/person/p9.jpg' },
       ],
     }
@@ -33,17 +35,17 @@ export default {
   padding-top: 15px;
   .piece {
     text-align: center;
-    width: 260px;
+    width: 238px;
     float: left;
-    margin: 0 14px;
+    margin: 0 17px;
     cursor: pointer;
     .img {
       width: 100%;
-      height: 165px;
+      height: 142px;
       overflow: hidden;
       img {
         width: 100%;
-        height: 165px;
+        height: 142px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;
@@ -57,6 +59,31 @@ export default {
     .name {
       line-height: 40px;
     }
+    &:first-child {
+      margin: 0 27px 0 22px;
+    }
+    &:last-child {
+      margin: 0 22px 0 27px;
+    }
   }
+}
+</style>
+<style scoped>
+.empolyee >>> .el-carousel__arrow {
+  background: none;
+}
+.empolyee >>> .el-carousel__arrow i {
+  font-size: 36px;
+  color: #666;
+}
+.empolyee >>> .el-carousel__item {
+  left: 25px;
+  width: 96%;
+}
+.empolyee >>> .el-carousel__arrow--left {
+  left: -10px;
+}
+.empolyee >>> .el-carousel__arrow--right {
+  right: -10px;
 }
 </style>

@@ -275,8 +275,11 @@ export default {
     .classTag {
       margin-bottom: 10px;
       display: flex;
+      align-items: flex-start;
       .label {
-        width: 80px;
+        margin-bottom: 5px;
+        line-height: 26px;
+        width: 70px;
       }
       .span {
         flex: 1;
@@ -287,8 +290,6 @@ export default {
         cursor: pointer;
         &:hover {
           color: #cb3737;
-          background: #fef0f0;
-          border-color: #cb3737;
         }
       }
     }
@@ -316,11 +317,11 @@ export default {
     .name-con {
       display: flex;
       justify-content: flex-start;
-      align-items: flex-end;
       margin-bottom: 10px;
       .name {
         margin-right: 10px;
-        font-size: 20px;
+        font-size: 24px;
+        font-weight: 700;
       }
     }
     .autograph {
@@ -377,11 +378,28 @@ export default {
   align-items: stretch;
 }
 .personal-top >>> .el-tag--white {
-  border: 1px solid #dcdfe6;
+  position: relative;
+  border: 0;
   height: 28px;
   line-height: 26px;
-  background: #fff;
+  background: none;
   color: #606266;
+}
+.personal-top >>> .el-tag--white:before {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: -10px;
+  width: 15px;
+  height: 1px;
+  background-color: #aaa;
+  transform: rotate(125deg);
+  -o-transform: rotate(125deg);
+  -moz-transform: rotate(125deg);
+  -webkit-transform: rotate(125deg);
+}
+.personal-top >>> .el-tag--white:last-child:before {
+  background: none;
 }
 .personal-top >>> .el-button--danger {
   color: #fff;

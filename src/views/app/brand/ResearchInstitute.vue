@@ -39,6 +39,6 @@ export default {
   padding: 18px 0 9px;
 }
 .research >>> .el-card {
-  height: 312px;
+  height: 320px;
 }
 </style>

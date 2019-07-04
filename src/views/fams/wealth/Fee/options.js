@@ -124,7 +124,7 @@ const rules = {
     { required: false, message: '请上传附件', trigger: 'blur' },
   ],
   auditor: [
-    { required: true, validator: checkContactUser('部门核准人'), trigger: 'change' },
+    { required: false, validator: checkContactUser('部门核准人'), trigger: 'change' },
   ],
 }
 

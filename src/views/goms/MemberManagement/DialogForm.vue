@@ -3,6 +3,7 @@
     <div class="avatar" style="text-align: center;margin-bottom:20px;">
       <iep-img-avatar :size="128" :src="form.avatar"></iep-img-avatar>
     </div>
+    <el-alert :title="`申请理由：${form.message}`" type="error" style="margin-bottom: 10px;"></el-alert>
     <el-form :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
       <el-form-item label="用户名：" prop="username">
         <el-input v-model="form.username" disabled></el-input>
@@ -36,7 +37,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { initMemberForm } from './options'
+import { initForm } from './options'
 import { getRoleOrgList } from '@/api/admin/org'
 export default {
   props: {
@@ -50,7 +51,7 @@ export default {
       disabled: false,
       formRequestFn: () => { },
       methodName: '创建',
-      form: initMemberForm(),
+      form: initForm(),
       orgNames: [],
       rolesOptions: [],
       roleList: [],
@@ -85,7 +86,7 @@ export default {
       })
     },
     loadPage () {
-      this.form = initMemberForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },

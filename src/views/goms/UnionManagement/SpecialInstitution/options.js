@@ -18,33 +18,29 @@ const optionMap = [{
 
 const columnsMap = [
   {
-    prop: 'realName',
+    prop: 'councilName',
     label: '真实姓名',
   },
   {
-    prop: 'phone',
-    label: '手机',
+    prop: 'director',
+    label: '主任',
   },
   {
-    prop: 'assetOrg',
-    label: '资产所属',
+    prop: 'module',
+    label: '模块管理',
   },
   {
-    prop: 'status',
-    label: '员工状态',
-    type: 'dict',
+    prop: 'time',
+    label: '创建时间',
   },
 ]
 
 const initMemberForm = () => {
   return {
-    userId: '',
-    username: '',
-    realName: '',
-    roleList: [],
-    phone: '',
+    councilName: '',
+    time: '',
     orgNames: [],
-    avatar: '',
+    module: '',
   }
 }
 

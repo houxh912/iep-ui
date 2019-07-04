@@ -1,5 +1,38 @@
 <template>
-  <iep-to-dev></iep-to-dev>
+  <div>
+    <basic-container>
+      <page-header title="特设机构管理"></page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button type="primary" icon="el-icon-plus" plain>新增</iep-button>
+          <iep-button icon="icon-suoding1">锁定</iep-button>
+          <iep-button size="small">删除</iep-button>
+        </template>
+        <template slot="right">
+          <operation-search @search-page="searchPage" prop="realName">
+          </operation-search>
+        </template>
+      </operation-container>
+      <iep-table :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection :data="formatData">
+        <template slot="before-columns">
+          <el-table-column label="委员会名称">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.councilName}}</iep-table-link>
+            </template>
+          </el-table-column>
+        </template>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
+              <iep-button>锁定</iep-button>
+              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
+    </basic-container>
+  </div>
   <!-- <div>
     <basic-container>
       <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="[4,2]"></page-header>
@@ -55,6 +88,55 @@
   </div> -->
 </template>
 <script>
+import { getUserPage } from '@/api/goms/union'
+import mixins from '@/mixins/mixins'
+import { dictsMap } from './options'
+export default {
+  mixins: [mixins],
+  data () {
+    return {
+      dictsMap,
+      formatData: [
+        {
+          councilName: '产品技术委员会',
+          director: '黄磊',
+          module: '产品模块、技术模块',
+          time: '2019-01-01',
+        },
+      ],
+      columnsMap: [
+        {
+          prop: 'director',
+          label: '主任',
+        },
+        {
+          prop: 'module',
+          label: '模块管理',
+        },
+        {
+          prop: 'time',
+          label: '创建时间',
+        },
+      ],
+    }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    handleDetail (row) {
+      this.$refs['DetailDrawer'].id = row.userId
+      this.$refs['DetailDrawer'].loadPage()
+      this.$refs['DetailDrawer'].drawerShow = true
+    },
+    async loadPage (param = this.searchForm) {
+      await this.loadTable(param, getUserPage)
+    },
+  },
+}
 // import { mapState } from 'vuex'
 // import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
 // import DialogForm from './DialogForm'
@@ -171,3 +253,13 @@
 //   },
 // }
 </script>
+<style scoped>
+.el-button {
+  height: 34px;
+}
+.el-button + .el-button >>> i {
+  display: inline-block;
+  margin-right: 5px;
+  font-size: 12px;
+}
+</style>

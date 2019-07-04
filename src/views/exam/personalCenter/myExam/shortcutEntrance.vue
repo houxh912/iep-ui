@@ -1,10 +1,12 @@
 <template>
-  <el-card class="shortcutEntrance-box" shadow="hover">
+  <el-card class="shortcutEntrance-box" shadow="never">
     <div slot="header" class="clearfix">
       <span>快捷入口</span>
-      <iep-button class="btnAdd" type="primary" icon="el-icon-plus" plain>添加</iep-button>
+      <!-- <iep-button class="btnAdd" type="primary" icon="el-icon-plus" plain>添加</iep-button> -->
     </div>
-    <el-button class="txtAdd" type="text" v-for="item in entry" :key="item.value" style="width: 30%">{{item.label}}</el-button>
+    <div>
+      <el-button class="txtAdd" type="text" v-for="item in entry" :key="item.value" style="width: 30%">{{item.label}}</el-button>
+    </div>
   </el-card>
 </template>
 
@@ -31,6 +33,7 @@ export default {
   margin: -.4% 0 0 10.1%;
 }
 .txtAdd {
+  padding: 19px 0;
   margin-left: 6px;
   color: rgb(136, 136, 136);
 }

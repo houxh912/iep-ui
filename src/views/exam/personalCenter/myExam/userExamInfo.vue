@@ -1,5 +1,5 @@
 <template>
-  <el-card class="box-card" shadow="always">
+  <el-card class="box-card" shadow="never">
     <el-row>
       <el-col :span="4" class="dotted">
         <div class="left">

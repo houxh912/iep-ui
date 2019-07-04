@@ -1,5 +1,5 @@
 <template>
-  <el-card class="myPractice-box" shadow="hover">
+  <el-card class="myPractice-box" shadow="never">
     <div slot="header" class="clearfix">
       <span>我的练习记录</span>
       <div style="float:right">

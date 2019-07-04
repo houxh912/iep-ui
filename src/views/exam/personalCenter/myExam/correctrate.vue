@@ -1,13 +1,17 @@
 <template>
-  <el-card class="correctrate-box" shadow="hover">
-    <div slot="header">
-      <span>正确率</span>
-      <el-select placeholder="请选择" clearable multiple collapse-tags v-model="value" size="medium">
-        <el-option v-for="item in selectData" :key="item.value" :value="item.value" :label="item.name"></el-option>
-      </el-select>
-    </div>
+  <el-card class="correctrate-box" shadow="never">
+    <el-row slot="header" class="rowTop">
+      <el-col :span="10">
+        <span>正确率</span>
+      </el-col>
+      <el-col :span="14">
+        <el-select class="selectList" placeholder="请选择" clearable multiple collapse-tags v-model="value" size="medium">
+          <el-option v-for="item in selectData" :key="item.value" :value="item.value" :label="item.name"></el-option>
+        </el-select>
+      </el-col>
+    </el-row>
     <div class="echarts">
-      <ve-ring :data="chartData" :settings="chartSettings" height="400px" :extend="chartExtend"></ve-ring>
+      <ve-ring :data="chartData" :settings="chartSettings" height="350px" :extend="chartExtend"></ve-ring>
     </div>
   </el-card>
 </template>
@@ -27,7 +31,7 @@ export default {
   data () {
     this.chartSettings = {
       // roseType: 'radius',
-      radius: ['50%', '70%'],
+      radius: ['40%', '50%'],
     },
       this.chartExtend = {
         series: {
@@ -64,10 +68,13 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-
-.el-select {
-  position: absolute;
-  margin: -.6% 0 0 8%;
-  width: 12% !important;
+.rowTop {
+  .el-col:last-child {
+      float: right;
+      .selectList {
+        position: absolute;
+        margin-top: -2.6%;
+      }
+    }
 }
 </style>

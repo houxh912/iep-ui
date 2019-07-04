@@ -22,6 +22,14 @@ if (process.env.NODE_ENV === 'development') {
         '^/api/ims/ws': '/ims/ws',
       },
     },
+    '/api/gov': {
+      target: 'http://39.96.13.121:9999',
+      changeOrigin: true,
+      ws: true,
+      pathRewrite: {
+        '^/api/gov': '/gov',
+      },
+    },
     '/api': {
       target: baseUrl,
       changeOrigin: true,

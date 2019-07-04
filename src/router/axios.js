@@ -33,6 +33,9 @@ axios.interceptors.request.use(
     if (token && !isToken) {
       config.headers['Authorization'] = 'Bearer ' + token // token
     }
+    if(config.headers['isNoNeed']) {
+      config.headers['Authorization'] = ''
+    }
     if (TENANT_ID) {
       config.headers['TENANT_ID'] = TENANT_ID // 租户ID
     }

@@ -70,6 +70,9 @@ export default {
       console.log('openKeys', val)
     },
   },
+  created () {
+    this.$emit('change-menu', this.menus[0].link)
+  },
 }
 </script>
 <style lang="scss" scoped>

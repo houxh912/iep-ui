@@ -152,6 +152,7 @@ export default {
 <style scoped>
 .search >>> .el-tabs__item {
   padding: 0 10px;
+  font-size: 18px;
 }
 .search >>> .el-card {
   border: 0;

@@ -141,6 +141,7 @@ export default {
     }
   }
   .content {
+    height: 380px;
     cursor: pointer;
   }
   .title {
@@ -260,6 +261,7 @@ export default {
     opacity: 0;
     transition: all 0.5s;
     .sub-title {
+      margin-top: 10px;
       font-size: 18px;
     }
     .btn {
@@ -273,7 +275,7 @@ export default {
     }
     .con {
       margin-bottom: 15px;
-      height: 270px;
+      height: 276px;
       line-height: 24px;
       text-indent: 2em;
       text-align: justify;

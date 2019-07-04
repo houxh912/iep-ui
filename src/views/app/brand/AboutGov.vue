@@ -34,7 +34,7 @@ export default {
 }
 .title {
   flex: 2;
-  font-size: 16px;
+  font-size: 18px;
   height: 22px;
   line-height: 22px;
   color: #333;
@@ -46,12 +46,14 @@ export default {
   line-height: 22px;
 }
 .aboutGov p {
+  padding-top: 15px;
   font-size: 14px;
   color: #333;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 6;
   overflow: hidden;
+  text-align: justify;
 }
 .el-tag--info {
   padding: 0 20px;
@@ -62,8 +64,8 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: row dense;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
   .piece {
     cursor: pointer;
     height: 30px;
@@ -80,14 +82,14 @@ export default {
 </style>
 <style scoped>
 .grid-content >>> .el-card__header {
-  padding: 18px 0 9px;
+  padding: 18px 0 18px;
 }
 .grid-content >>> .el-card__body {
   padding: 0;
 }
 .grid-content >>> .el-card {
-  padding: 0 20px;
-  height: 310px;
+  padding: 0 15px;
+  height: 320px;
 }
 </style>
 

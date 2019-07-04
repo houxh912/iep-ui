@@ -40,7 +40,7 @@ export default {
   height: 22px;
   line-height: 22px;
   border-radius: 12px;
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
   margin: 0 4px;
   cursor: pointer;
   &:hover {
@@ -69,6 +69,6 @@ export default {
   padding: 18px 0 9px;
 }
 .brand >>> .el-card {
-  height: 351px;
+  height: 360px;
 }
 </style>

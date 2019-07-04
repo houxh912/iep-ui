@@ -70,7 +70,7 @@ export default {
     margin: 0 15px;
     width: 22%;
     overflow: hidden;
-    height: 200px;
+    height: 180px;
     text-align: center;
     cursor: pointer;
     &:hover .sub-title {
@@ -104,5 +104,24 @@ export default {
   font-size: 18px;
   opacity: 0.75;
   margin: 0;
+}
+</style>
+<style scoped>
+.leaderBoard >>> .el-carousel__arrow {
+  background: none;
+}
+.leaderBoard >>> .el-carousel__arrow i {
+  font-size: 36px;
+  color: #666;
+}
+.leaderBoard >>> .el-carousel__item {
+  left: 25px;
+  width: 96%;
+}
+.leaderBoard >>> .el-carousel__arrow--left {
+  left: -10px;
+}
+.leaderBoard >>> .el-carousel__arrow--right {
+  right: -10px;
 }
 </style>

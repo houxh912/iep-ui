@@ -240,7 +240,9 @@ export default {
   height: 22px;
   line-height: 22px;
 }
-.thoughts >>> .el-card__body {
-  height: 158px;
+.thoughts {
+  height: 436px;
+  overflow: hidden;
+  border-bottom: 1px solid #ebeef5;
 }
 </style>

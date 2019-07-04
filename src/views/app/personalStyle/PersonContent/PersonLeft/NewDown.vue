@@ -102,12 +102,12 @@ export default {
     .item {
       margin: 0 10px 10px;
       text-align: center;
-    }
-    &:hover {
-      opacity: 0.7;
+      &:hover {
+        opacity: 0.7;
+      }
     }
     .img {
-      margin-bottom: 5px;
+      margin: 0 auto 5px;
       width: 50px;
       height: 50px;
       border: 1px solid #ebeef5;
@@ -177,5 +177,8 @@ export default {
 }
 .new-down >>> .prepend {
   margin-left: -2px;
+}
+.new-down >>> .title-con .title {
+  font-size: 16px;
 }
 </style>

@@ -65,7 +65,7 @@ export default {
       firstClass: [],
       route: this.$route.params,
       createCollect,
-      beRewardedPerson: {id: '', name: ''},
+      beRewardedPerson: { id: '', name: '' },
     }
   },
   computed: {
@@ -92,7 +92,7 @@ export default {
             this.$message.error(data.msg)
           }
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
     loadData (id) {
       getDataById(id).then(({ data }) => {
@@ -112,9 +112,9 @@ export default {
     },
     getClass (first, second) {
       if (!first || !second) {
-        return {first: '', second: ''}
+        return { first: '', second: '' }
       }
-      let obj = {first: '', second: ''}
+      let obj = { first: '', second: '' }
       for (let item of this.firstClass) {
         if (item.id == first) {
           obj.first = item.levelName
@@ -169,10 +169,13 @@ export default {
     line-height: 50px;
   }
   .inform {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     width: 100%;
     height: 40px;
     line-height: 40px;
-    position: relative;
     > span {
       margin-left: 10px;
       display: inline-block;

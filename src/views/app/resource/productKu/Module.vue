@@ -158,6 +158,8 @@ export default {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         .el-tag {
+          display: inline-block;
+          vertical-align: top;
           margin-right: 5px;
           margin-bottom: 5px;
           cursor: pointer;

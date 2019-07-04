@@ -1,5 +1,5 @@
 <template>
-  <el-card class="myStudy-box" shadow="hover">
+  <el-card class="myStudy-box" shadow="never">
     <div slot="header">
       <span>我的学习</span>
     </div>
@@ -91,7 +91,7 @@ export default {
       margin-top: 16px;
     }
     > div:last-child {
-      margin-top: 16px;
+      margin-top: 35px;
     }
     border-right: 1px solid #ddd;
     font-size: 14px;

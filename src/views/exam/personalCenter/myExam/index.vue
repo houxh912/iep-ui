@@ -6,7 +6,7 @@
           <user-exam-info></user-exam-info>
         </el-col>
       </el-row>
-      <el-row class="exam-row">
+      <el-row>
         <el-col :span="18">
           <study-exponent></study-exponent>
         </el-col>
@@ -17,7 +17,7 @@
       <el-row>
         <el-col :span="18">
           <my-study></my-study>
-          <my-practice style="margin-top:20px"></my-practice>
+          <!-- <my-practice style="margin-top:20px"></my-practice> -->
         </el-col>
         <el-col :span="6">
           <correct-rate></correct-rate>
@@ -31,12 +31,12 @@
 import StudyExponent from './studyExponent'
 import ShortcutEntrance from './shortcutEntrance'
 import MyStudy from './myStudy'
-import MyPractice from './myPractice'
+// import MyPractice from './myPractice'
 import CorrectRate from './correctrate'
 import UserExamInfo from './userExamInfo'
 
 export default {
-  components: { UserExamInfo, StudyExponent, ShortcutEntrance, MyStudy, MyPractice, CorrectRate },
+  components: { UserExamInfo, StudyExponent, ShortcutEntrance, MyStudy, CorrectRate },
   data () {
     return {
       showCard: true,
@@ -50,10 +50,6 @@ export default {
   width: 100%;
   position: relative;
   overflow: hidden;
-  .exam-row {
-    display: flex;
-    margin-bottom: 20px;
-  }
   .el-card {
     margin: 10px;
     height: 100%;

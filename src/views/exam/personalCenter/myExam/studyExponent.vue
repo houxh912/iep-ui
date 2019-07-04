@@ -1,5 +1,5 @@
 <template>
-  <el-card class="studyExponent-box" shadow="hover">
+  <el-card class="studyExponent-box" shadow="never">
     <div slot="header" class="clearfix">
       <span>学习指数</span>
     </div>
@@ -24,9 +24,6 @@
 export default {
   data () {
     return {
-      infoList: {
-        num: 12,
-      },
     }
   },
 }

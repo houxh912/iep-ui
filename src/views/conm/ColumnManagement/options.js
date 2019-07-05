@@ -13,7 +13,7 @@ const initForm = () => {
     // modelId: '',
     nodeName: '',
     status: '',
-    tagKeyWords:[],
+    tagKeyWords: [],
   }
 }
 const toNewParentForm = (row) => {
@@ -23,10 +23,10 @@ const toNewParentForm = (row) => {
   })
 }
 const toDtoForm = (row) => {
-	const newForm = { ...row }
-	newForm.type = newForm.type[1]
-	newForm.parentType = newForm.type[0]
-	return newForm
+  const newForm = { ...row }
+  newForm.type = newForm.type[1]
+  newForm.parentType = newForm.type[0]
+  return newForm
 }
 const initMergeForm = () => {
   return {
@@ -60,12 +60,12 @@ const initSearchForm = () => {
 }
 
 const rules = {
-
+  nodeName: [{
+    required: true,
+    message: '请输入栏目名称',
+    trigger: 'blur',
+  }],
 }
 
-const selfRules = {
-  ...rules,
 
-}
-
-export { dictsMap, columnsMap, initForm, initMergeForm,toNewParentForm,toDtoForm, initSearchForm, rules, selfRules }
+export { dictsMap, columnsMap, initForm, initMergeForm, toNewParentForm, toDtoForm, initSearchForm, rules }

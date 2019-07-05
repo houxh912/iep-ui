@@ -55,12 +55,12 @@ const dictsMap = {
   }
   
   const rules = {
-  
+    title: [{
+      required: true,
+      message: '请输入标题',
+      trigger: 'blur',
+    }],
   }
   
-  const selfRules = {
-    ...rules,
   
-  }
-  
-  export { dictsMap, columnsMap, initForm, initSearchForm, rules, selfRules }
+  export { dictsMap, columnsMap, initForm, initSearchForm, rules }

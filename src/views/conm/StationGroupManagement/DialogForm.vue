@@ -11,14 +11,14 @@
       <el-form-item label="上级站点" prop="parentId">
         <el-input v-model="form.parentId" disabled></el-input>
       </el-form-item>
-      <el-form-item label="组织" prop="orgId">
+      <!-- <el-form-item label="组织" prop="orgId">
         <iep-select
           v-model="form.orgId"
           autocomplete="off"
           prefix-url="admin/org/all"
           placeholder="请选择"
         ></iep-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="名称" prop="siteName">
         <el-input v-model="form.siteName"></el-input>
       </el-form-item>
@@ -30,8 +30,8 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="form.status">
-          <el-radio :label="0">正常</el-radio>
-          <el-radio :label="1">禁用</el-radio>
+          <el-radio :label="1">正常</el-radio>
+          <el-radio :label="0">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -42,6 +42,7 @@
   </iep-dialog>
 </template>
 <script>
+import { getPageById } from '@/api/conm/index'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 // import { mapGetters } from 'vuex'
@@ -62,8 +63,14 @@ export default {
   methods: {
      loadPage () {
       this.form = initForm()
+      this.loadTypeList()
       this.dialogShow = false
       this.$emit('load-page')
+    },
+    loadTypeList () {
+      getPageById(this.id).then(({ data }) => {
+        console.log(data.data)
+      })
     },
      async submitForm () {
       this.formRequestFn({id:this.id,...this.form}).then(({ data }) => {

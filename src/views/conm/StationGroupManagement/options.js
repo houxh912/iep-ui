@@ -7,8 +7,8 @@ const dictsMap = {
 
 const initForm = () => {
   return {
-    parentId:'',//上级站点
-    orgId: '',//组织
+    parentId: '',//上级站点
+    // orgId: '',//组织
     siteName: '',//名称
     url: '',//域名
     mobileUrl: '',//手机端域名
@@ -20,9 +20,13 @@ const columnsMap = [
     prop: 'url',
     label: '域名',
   },
+  // {
+  //   prop: 'orgId',
+  //   label: '组织',
+  // },
   {
-    prop: 'orgId',
-    label: '组织',
+    prop: 'mobileUrl',
+    label: '手机端域名',
   },
   {
     prop: 'status',
@@ -37,7 +41,11 @@ const initSearchForm = () => {
 }
 
 const rules = {
-
+  siteName: [{
+    required: true,
+    message: '请输入站点名称',
+    trigger: 'blur',
+  }],
 }
 
 const selfRules = {

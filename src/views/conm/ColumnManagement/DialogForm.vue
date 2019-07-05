@@ -1,13 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`栏目${methodName}`" width="500px" @close="loadPage">
-    <el-form
-      class="form-detail"
-      :model="form"
-      size="small"
-      ref="form"
-      :rules="rules"
-      label-width="120px"
-    >
+    <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="所属栏目" prop="parentId">
         <el-input v-model="form.parentId" disabled></el-input>
       </el-form-item>
@@ -25,8 +18,8 @@
       </el-form-item>-->
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="form.status">
-          <el-radio :label="0">启用</el-radio>
-          <el-radio :label="1">停用</el-radio>
+          <el-radio :label="1">启用</el-radio>
+          <el-radio :label="0">停用</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="标签" prop="tagKeyWords">
@@ -43,6 +36,7 @@
   </iep-dialog>
 </template>
 <script>
+import { getPageById } from '@/api/conm/node_controller'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 // import { mapGetters } from 'vuex'
@@ -61,14 +55,23 @@ export default {
     }
   },
   // },
+  created () {
+
+  },
   methods: {
     loadPage () {
       this.form = initForm()
+      this.loadTypeList()
       this.dialogShow = false
       this.$emit('load-page')
     },
+    loadTypeList () {
+      getPageById(this.id).then(({ data }) => {
+        this.form.tagKeyWords = data.data.tagKeyWords
+      })
+    },
     async submitForm () {
-      this.formRequestFn({id: this.id,siteId: this.siteId, ...this.form }).then(({ data }) => {
+      this.formRequestFn({ id: this.id, siteId: this.siteId, ...this.form }).then(({ data }) => {
         if (data.data) {
           this.$message.success('修改成功')
           this.loadPage()

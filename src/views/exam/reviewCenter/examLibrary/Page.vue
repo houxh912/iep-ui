@@ -74,6 +74,7 @@ export default {
           this.$emit('onGoBack', {
             currentPage: this.record.currentPage,
             size: this.record.size,
+            search: this.record.search,
           })
         },
       },

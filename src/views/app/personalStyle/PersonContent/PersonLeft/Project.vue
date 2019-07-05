@@ -56,7 +56,7 @@ export default {
       this.loadPage()
     },
     handleDetail (row) {
-      this.$router.push(`/gpms_spa/project/detail/${row.id}`)
+      this.$router.push(`/app/project_details/${row.id}`)
     },
   },
   mounted () {

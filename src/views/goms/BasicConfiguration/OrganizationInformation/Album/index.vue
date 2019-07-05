@@ -33,6 +33,7 @@
 import { geOrgPage } from '@/api/goms/org_album'
 import formDialog from './formDialog'
 import { dateFormat } from '@/util/date'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { formDialog },
@@ -44,10 +45,14 @@ export default {
       params: {
         current: 1,
         size: 12,
+        orgId: '',
       },
       paramForm: {title: ''},
       total: 0,
     }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
   },
   methods:{
     loadPage () {
@@ -97,6 +102,7 @@ export default {
     },
   },
   created () {
+    this.params.orgId = this.userInfo.orgId
     this.loadPage()
   },
 }

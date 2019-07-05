@@ -38,7 +38,7 @@
         <ranking></ranking>
         <el-button type="danger" plain size="small" @click="handleProposal">建议</el-button>
         <el-button type="danger" size="small" @click="handleInvestment">投资</el-button>
-        <el-button type="info" plain size="small" disabled>pk</el-button>
+        <el-button type="danger" size="small" @click="handlePk">pk</el-button>
       </el-row>
     </div>
   </div>
@@ -96,6 +96,9 @@ export default {
     },
     handleDetail (row) {
       this.$openTagDetail(row)
+    },
+    handlePk () {
+      this.$router.push('/app/organizational_list')
     },
   },
 }
@@ -156,6 +159,7 @@ export default {
           text-align: left;
         }
         .el-tag {
+          cursor: pointer;
           position: relative;
           margin-right: 5px;
           margin-bottom: 5px;

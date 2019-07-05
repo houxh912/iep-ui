@@ -47,7 +47,7 @@ export function orgEventsDelete (id) {
 // 根据组织id获取大事记集合
 export function getOrgEventsByOrgId (id) {
   return request({
-    url: `${prefixUrl}/list/${id}`,
+    url: `${prefixUrl}/list_events/${id}`,
     method: 'get',
   })
 }

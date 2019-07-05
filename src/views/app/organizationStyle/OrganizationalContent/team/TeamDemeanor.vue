@@ -1,8 +1,8 @@
 <template>
   <div class="empolyee">
     <el-carousel height="" :interval="5000" indicator-position="none">
-      <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/3)" :key="index">
-        <div v-for="(t,i) in wonderfulList" :key="i" class="piece">
+      <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/4)" :key="index">
+        <div v-for="(t, i) in wonderfulList.slice(index*4, (index + 1)*4)" :key="i" class="piece">
           <div class="imgs">
             <iep-img :src="t.imageUrl" class="img"></iep-img>
           </div>
@@ -16,22 +16,29 @@
 <script>
 import { geOrgPage } from '@/api/goms/org_album'
 export default {
+  props: {
+    orgId: {
+      default: 0,
+    },
+  },
   data () {
     return {
       wonderfulList: [],
     }
   },
   methods: {
-    loadPage () {
-      geOrgPage({ current: 1, size: 20 }).then(({data}) => {
+    loadPage (id) {
+      geOrgPage({ current: 1, size: 20, orgId: id }).then(({data}) => {
         if (data.data) {
           this.wonderfulList = data.data.records
         }
       })
     },
   },
-  created () {
-    this.loadPage()
+  watch: {
+    orgId (newVal) {
+      this.loadPage(newVal)
+    },
   },
 }
 </script>
@@ -41,7 +48,7 @@ export default {
   .piece {
     float: left;
     margin: 0 5px;
-    width: 240px;
+    width: 270px;
     text-align: center;
     overflow: hidden;
     height: 100%;

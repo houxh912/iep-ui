@@ -48,7 +48,7 @@
         </el-form-item>
 
         <iep-form-item class="form-half" prop="auditor" label-name="部门核准">
-          <iep-contact-select v-model="form.auditor"></iep-contact-select>
+          <iep-contact-select v-model="form.auditor" placeholder="如只需财务核准，无需填写部门核准，直接发送即可"></iep-contact-select>
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="是否代缴">

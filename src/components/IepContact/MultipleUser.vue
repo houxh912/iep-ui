@@ -5,7 +5,7 @@
       <span v-for="item in users" :key="item.id">{{item.name}}、</span>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
-      <a-select mode="multiple" labelInValue :value="usersValue" placeholder="请输入姓名或姓名拼音" style="width: 100%" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" ref="a-select">
+      <a-select ref="a-select" mode="multiple" labelInValue :value="usersValue" :placeholder="placeholder" style="width: 100%" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer">
         <a-spin v-if="fetching" slot="notFoundContent" size="small" />
         <a-select-option v-for="item in userResults" :key="item.id+''">{{item.name}}</a-select-option>
       </a-select>
@@ -38,6 +38,10 @@ export default {
   name: 'IepContactMultipleUser',
   components: { Relations },
   props: {
+    placeholder: {
+      type: String,
+      default: '请输入姓名或姓名拼音',
+    },
     disabled: {
       type: Boolean,
       default: false,

@@ -1,4 +1,4 @@
-import { checkContactUser } from '@/util/rules'
+// import { checkContactUser } from '@/util/rules'
 import { mergeByFirst } from '@/util/util'
 import { feeStatus } from '@/const/invoiceConfig.js'
 const dictsMap = {
@@ -51,7 +51,7 @@ function initForm () {
     auditorId: '',
     auditorName: '',
     auditor: {
-      id: 0,
+      id: '',
       name: '',
     },
     creatorName: '',
@@ -124,7 +124,7 @@ const rules = {
     { required: false, message: '请上传附件', trigger: 'blur' },
   ],
   auditor: [
-    { required: false, validator: checkContactUser('部门核准人'), trigger: 'change' },
+    { required: false, trigger: 'change' },
   ],
 }
 

@@ -47,13 +47,15 @@ import {
   Skeleton,
   Popconfirm,
   message,
-  notification
+  notification,
+  AutoComplete,
 } from 'ant-design-vue'
 // import VueCropper from 'vue-cropper'
 
 Vue.use(LocaleProvider)
 // Vue.use(Layout)
 Vue.use(Input)
+Vue.use(AutoComplete)
 Vue.use(InputNumber)
 Vue.use(Button)
 Vue.use(Switch)

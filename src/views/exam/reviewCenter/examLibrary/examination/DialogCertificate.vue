@@ -2,9 +2,10 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="primary" plain @click="replaceCertificate" v-if="isShowContactBtn===false">替换证书</iep-button>
+        <iep-button type="primary" plain @click="replaceCertificate" v-if="!isShowContactBtn">替换证书
+        </iep-button>
         <iep-button type="primary" plain style="margin-left: 10px;" @click="uploadCertificate"
-          :disabled="tableData.length>0" v-if="isShowContactBtn===false">上传证书</iep-button>
+          :disabled="tableData.length>0" v-if="!isShowContactBtn">上传证书</iep-button>
       </template>
     </operation-container>
     <div class="choice-certificate">
@@ -24,7 +25,7 @@
             {{scope.row.deptName}}
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="180" v-if="isShowContactBtn===false">
+        <el-table-column prop="operation" label="操作" width="180" v-if="!isShowContactBtn">
           <iep-button @click="handleDelete()">删除</iep-button>
         </el-table-column>
       </el-table>
@@ -42,7 +43,8 @@
         <template slot="before-columns">
           <el-table-column label="选择" width="50" center>
             <template slot-scope="scope">
-              <el-radio class="radio" v-model="radio" :label="scope.$index" @change.native="getCurrentRow(scope.row)">&nbsp;</el-radio>
+              <el-radio class="radio" v-model="radio" :label="scope.$index"
+                @change.native="getCurrentRow(scope.row)">&nbsp;</el-radio>
             </template>
           </el-table-column>
         </template>

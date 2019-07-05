@@ -2,7 +2,8 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleAuditAll" icon="el-icon-plus" type="primary" plain>批量审核</iep-button>
+        <iep-button @click="handleAuditAll" icon="el-icon-plus" type="primary" plain>批量审核
+        </iep-button>
         <iep-button @click="handleDeleteAll">批量删除</iep-button>
         <iep-button class="tip">当前已选择<span>{{sumValue}}</span>项</iep-button>
         <iep-button class="empty" @click="handleEmpty" v-show="sumValue != 0">清空</iep-button>
@@ -43,21 +44,9 @@
       </el-table-column>
       <el-table-column prop="state" label="报名状态">
         <template slot-scope="scope">
-          <el-tag
-            type="danger"
-            size="medium"
-            v-if="scope.row.state === 2"
-          >取消资格</el-tag>
-          <el-tag
-            type="success"
-            size="medium"
-            v-if="scope.row.state === 1"
-          >报名成功</el-tag>
-          <el-tag
-            type="info"
-            size="medium"
-            v-if="scope.row.state === 0"
-          >报名中</el-tag>
+          <el-tag type="danger" size="medium" v-if="scope.row.state === 2">取消资格</el-tag>
+          <el-tag type="success" size="medium" v-if="scope.row.state === 1">报名成功</el-tag>
+          <el-tag type="info" size="medium" v-if="scope.row.state === 0">报名中</el-tag>
         </template>
       </el-table-column>
       <el-table-column label="报名资质">
@@ -68,9 +57,11 @@
       <el-table-column prop="operation" label="操作" width="190">
         <template slot-scope="scope">
           <operation-wrapper style="padding-top: 4px;">
-            <iep-button type="warning" size="small" plain @click="handlePass(scope.row)" v-if="scope.row.state === 0 || scope.row.state === 2">审核通过</iep-button>
-            <iep-button type="warning" size="small" plain @click="handleCancel(scope.row)" v-if="scope.row.state === 1">撤销资格</iep-button>
-            <iep-button size="small" plain @click="handleDelete(scope.row)">删除</iep-button>
+            <iep-button type="warning" size="small" plain @click="handlePass(scope.row)"
+              v-if="scope.row.state === 0 || scope.row.state === 2">审核通过</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleCancel(scope.row)"
+              v-if="scope.row.state === 1">撤销资格</iep-button>
+            <!-- <iep-button size="small" plain @click="handleDelete(scope.row)">删除</iep-button> -->
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -84,7 +75,8 @@
         </operation-wrapper>
       </template>
     </iep-dialog> -->
-    <iep-dialog :dialog-show="dialogShow" title="查看资质" width="500px" @close="dialogShow = false" center>
+    <iep-dialog :dialog-show="dialogShow" title="查看资质" width="500px" @close="dialogShow = false"
+      center>
       <div style="text-align:center;">
         <iep-img :src="imgUrl"></iep-img>
         <span v-if="imgUrlNo">资质证明图片未上传！</span>
@@ -100,7 +92,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { getExamRegistrationList,passExamerById,deleteById,cancelExamerById } from '@/api/exam/examLibrary/examRegistration/examRegistration'
+import { getExamRegistrationList, passExamerById, deleteById, cancelExamerById } from '@/api/exam/examLibrary/examRegistration/examRegistration'
 export default {
   mixins: [mixins],
   props: ['record'],
@@ -126,7 +118,7 @@ export default {
       const params = {
         examinationId: this.record.row.id,
       }
-      this.loadTable({...param, ...params}, getExamRegistrationList)
+      this.loadTable({ ...param, ...params }, getExamRegistrationList)
     },
     setPermission () {
       // this.permission_edit = this.permissions['mlms_datum_edit']
@@ -137,10 +129,10 @@ export default {
     /**
      * 查看资质按钮
      */
-    handleCredential (row){
+    handleCredential (row) {
       this.dialogShow = true
       this.imgUrl = row.qualificationsurl
-      if (row.qualificationsurl === ''){
+      if (row.qualificationsurl === '') {
         this.imgUrlNo = true
       }
       else
@@ -150,65 +142,65 @@ export default {
      * 审核通过按钮
      */
     handlePass (row) {
-      this._handleComfirm([row.id], passExamerById,'通过审核')
+      this._handleComfirm([row.id], passExamerById, '通过审核')
     },
     /**
      * 取消资格按钮
      */
-    handleCancel (row){
+    handleCancel (row) {
       const param = {
         id: row.id,
         examinationId: row.examinationId,
         userId: row.examineeId,
       }
-      this._handleComfirm(param, cancelExamerById,'撤销资格')
+      this._handleComfirm(param, cancelExamerById, '撤销资格')
     },
     /**
      * 批量审核按钮
      */
-    handleAuditAll (){
-      if (this.selectValue == false){
+    handleAuditAll () {
+      if (this.selectValue == false) {
         this.$message.error('请至少选择一名报名人员！')
         return
       }
-      if (this.selectValue == true){
-          this.$confirm('此操作将批量通过选中考生的报名资格，是否继续','提示',{
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning',
-          }).then(() => {
-            passExamerById (this.selectionValue).then( res => {
-              if (res.data.data == true) {
-                this.$message({
-                  message: '操作成功',
-                  type: 'success',
-                })
-                this.loadPage()
-              }
-            })
+      if (this.selectValue == true) {
+        this.$confirm('此操作将批量通过选中考生的报名资格，是否继续', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          passExamerById(this.selectionValue).then(res => {
+            if (res.data.data == true) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+              })
+              this.loadPage()
+            }
+          })
         })
       }
     },
     /**
      * 单条删除按钮
      */
-    handleDelete (val){
-      this._handleComfirm([val.id], deleteById,'删除')
+    handleDelete (val) {
+      this._handleComfirm([val.id], deleteById, '删除')
     },
     /**
      * 批量删除按钮
      */
-    handleDeleteAll (){
-      if (this.selectValue == false){
+    handleDeleteAll () {
+      if (this.selectValue == false) {
         this.$message.error('请至少选择一名报名人员！')
       }
-      if (this.selectValue == true){
-        this.$confirm('此操作将删除选中的考试，是否继续？','提示',{
+      if (this.selectValue == true) {
+        this.$confirm('此操作将删除选中的考试，是否继续？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then( res => {
+          deleteById(this.selectionValue).then(res => {
             if (res.data.data == true) {
               this.$message({
                 message: '操作成功',
@@ -226,10 +218,10 @@ export default {
     selectionChange (val) {
       this.selectArray = val
       this.sumValue = val.length
-      if (val.map(m => m.id) == ''){
+      if (val.map(m => m.id) == '') {
         this.selectValue = false
       }
-      else{
+      else {
         this.selectValue = true
         this.selectionValue = val.map(m => m.id)
         this.sumValue = this.selectionValue.length
@@ -238,8 +230,8 @@ export default {
     /**
      * 清空按钮
      */
-    handleEmpty (){
-      this.$refs.table.clearSelection ()
+    handleEmpty () {
+      this.$refs.table.clearSelection()
     },
   },
 }

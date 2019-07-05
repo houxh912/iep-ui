@@ -4,7 +4,8 @@
       <page-header title="试题库管理" :data="[10, 5]"></page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain v-if="exam_question_add">新增试题</iep-button>
+          <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain
+            v-if="exam_question_add">新增试题</iep-button>
           <iep-button @click="handleDeleteAll" v-if="exam_question_del">批量删除</iep-button>
         </template>
         <template slot="right">
@@ -15,12 +16,13 @@
       </operation-container>
       <div class="table">
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
-          @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectChange"
-          is-mutiple-selection>
+          @size-change="handleSizeChange" @current-change="handleCurrentChange"
+          @selection-change="handleSelectChange" is-mutiple-selection>
           <el-table-column prop="title" label="题目" width="416" sortable>
             <template slot-scope="scope">
               <span class="hiddenOverText" :title="scope.row.title">{{scope.row.title}}</span>
-              <span class="overText" v-if="JSON.stringify(scope.row.title).length > 87">......</span>
+              <span class="overText"
+                v-if="JSON.stringify(scope.row.title).length > 87">......</span>
             </template>
           </el-table-column>
           <el-table-column prop="fieldName" label="科目" min-width="89" sortable>
@@ -50,17 +52,19 @@
           </el-table-column>
           <el-table-column prop="associatedState" label="关联" sortable>
             <template slot-scope="scope">
-              <el-tag type="success" size="medium" v-if="scope.row.associatedState === 0">不限</el-tag>
-              <el-tag type="warning" size="medium" v-if="scope.row.associatedState === 1">限考试</el-tag>
+              <el-tag type="success" size="medium" v-if="scope.row.associatedState === 0">不限
+              </el-tag>
+              <el-tag type="warning" size="medium" v-if="scope.row.associatedState === 1">限考试
+              </el-tag>
             </template>
           </el-table-column>
           <el-table-column prop="status" label="状态" sortable>
             <template slot-scope="scope">
               <el-tag type="info" size="medium" v-if="scope.row.status === 0">审核中</el-tag>
               <el-tag type="success" size="medium" v-if="scope.row.status === 1">通过</el-tag>
-              <el-tooltip effect="dark" placement="top-start">
+              <el-tooltip effect="dark" placement="top-start" v-if="scope.row.status === 2">
                 <div slot="content">未通过原因：<br />{{scope.row.reason}}</div>
-                <el-tag type="warning" size="medium" v-if="scope.row.status === 2">未通过</el-tag>
+                <el-tag type="warning" size="medium">未通过</el-tag>
               </el-tooltip>
             </template>
           </el-table-column>
@@ -77,14 +81,16 @@
           <el-table-column prop="operation" label="操作" min-width="130">
             <template slot-scope="scope">
               <operation-wrapper>
-                <iep-button type="warning" :disabled="scope.row.status != 0" plain @click="handleExamine(scope.row)"
-                  v-if="exam_question_review">审核</iep-button>
+                <iep-button type="warning" :disabled="scope.row.status != 0" plain
+                  @click="handleExamine(scope.row)" v-if="exam_question_review">审核</iep-button>
                 <el-dropdown size="medium">
                   <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                   <el-dropdown-menu slot="dropdown">
                     <el-dropdown-item @click.native="handleShow(scope.row)">查看</el-dropdown-item>
-                    <el-dropdown-item @click.native="handleModify(scope.row)" v-if="exam_question_edit">修改</el-dropdown-item>
-                    <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="exam_question_del">删除</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleModify(scope.row)"
+                      v-if="exam_question_edit">修改</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleDelete(scope.row)"
+                      v-if="exam_question_del">删除</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </operation-wrapper>
@@ -100,46 +106,50 @@
       <el-form :label-position="labelPosition" label-width="100px" :model="reForm">
         <div class="select">
           <el-form-item style="padding-right: 25px;" label="科目：" prop="field">
-            <el-select class="select" v-model="reForm.field" size="small" @change="dialogModifyChange">
+            <el-select class="select" v-model="reForm.field" size="small"
+              @change="dialogModifyChange">
               <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
                 :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="题型：" prop="questionType">
             <el-select v-model="reForm.questionType" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_question_type" :key="index"
+                :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="题类：" prop="kind">
             <el-select v-model="reForm.kind" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_question_category" :key="index"
+                :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="难度：" prop="difficulty">
             <el-select v-model="reForm.difficulty" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in res.exms_difficulty" :key="index"
+                :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="关联：" prop="associatedState">
             <el-select v-model="reForm.associatedState" size="small" @change="dialogModifyChange">
-              <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
-                :value="item.id"></el-option>
+              <el-option v-for="(item, index) in associatedStateList" :key="index"
+                :label="item.label" :value="item.id"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item class="titleList" label="内容：" prop="title">
-            <el-input type="textarea" :rows="4" v-model="reForm.title" @change="dialogModifyChange"></el-input>
+            <el-input type="textarea" :rows="4" v-model="reForm.title" @change="dialogModifyChange">
+            </el-input>
           </el-form-item>
           <el-form-item class="titleList" label="关联标签：" prop="tagLists">
-            <mutiply-tag-select v-model="reForm.tagKeyWords" :select-objs="reForm.tagKeyWords"></mutiply-tag-select>
+            <mutiply-tag-select v-model="reForm.tagKeyWords" :select-objs="reForm.tagKeyWords">
+            </mutiply-tag-select>
           </el-form-item>
         </div>
       </el-form>
       <template slot="footer">
         <operation-wrapper>
-          <iep-button :disabled="isModifyChange" type="primary" @click="handleModifySave">提交</iep-button>
+          <iep-button :disabled="isModifyChange" type="primary" @click="handleModifySave">提交
+          </iep-button>
           <iep-button @click="handleModifyCancel">取消</iep-button>
         </operation-wrapper>
       </template>
@@ -197,7 +207,7 @@ export default {
      * 时间只精确到天
      */
     setDate (val) {
-      val = val.substring(0,10)
+      val = val.substring(0, 10)
       return val
     },
   },

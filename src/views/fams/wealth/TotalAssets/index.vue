@@ -17,7 +17,7 @@
         <el-card class="right" shadow="never">
           <h4 class="title">快捷入口</h4>
           <ul>
-            <li>互助基金</li>
+            <li @click="$openPage('/wel/wealth/mutual_fund')">互助基金</li>
             <li @click="$openPage('/wel/wealth/invoice')">发票提交</li>
             <li @click="$openPage('/wel/wealth/billing_notice')">开票通知</li>
             <li @click="$openPage('/wel/wealth/withdraw')">我要提现</li>
@@ -95,13 +95,13 @@ export default {
       chartData: {
         columns: ['dept', '收入', '支出'],
         rows: [
-          { 'dept': '内网', '收入': 0, '支出': 0},
-          { 'dept': '部门', '收入': 0, '支出': 0},
-          { 'dept': '提现', '收入': 0, '支出': 0},
-          { 'dept': '批评', '收入': 0, '支出': 0},
-          { 'dept': '学习', '收入': 0, '支出': 0},
-          { 'dept': '打赏', '收入': 0, '支出': 0},
-          { 'dept': '其他', '收入': 0, '支出': 0},
+          { 'dept': '内网', '收入': 0, '支出': 0 },
+          { 'dept': '部门', '收入': 0, '支出': 0 },
+          { 'dept': '提现', '收入': 0, '支出': 0 },
+          { 'dept': '批评', '收入': 0, '支出': 0 },
+          { 'dept': '学习', '收入': 0, '支出': 0 },
+          { 'dept': '打赏', '收入': 0, '支出': 0 },
+          { 'dept': '其他', '收入': 0, '支出': 0 },
         ],
       },
     }
@@ -193,13 +193,6 @@ ul {
       justify-content: flex-start;
       flex-wrap: wrap;
       align-items: center;
-      li:nth-child(1){
-        color: #ccc;
-         &:hover {
-          color: #ccc;
-          cursor:no-drop;
-        }
-      }
       li {
         cursor: pointer;
         padding: 10px 15px;

@@ -135,8 +135,6 @@ export default {
       return false
     },
   },
-  created () {
-  },
   watch: {
     filterText (val) {
       this.$refs.tree.filter(val)

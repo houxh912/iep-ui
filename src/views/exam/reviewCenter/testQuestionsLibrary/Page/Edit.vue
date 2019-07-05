@@ -292,6 +292,7 @@ export default {
       this.$emit('onGoBack', {
         current: this.record.current,
         size: this.record.size,
+        search: this.record.search,
       })
     },
     /**
@@ -313,7 +314,11 @@ export default {
                   type: 'success',
                   message: '修改成功!',
                 })
-                this.$emit('onGoBack')
+                this.$emit('onGoBack', {
+                  current: this.record.current,
+                  size: this.record.size,
+                  search: this.record.search,
+                })
               }
             })
           }
@@ -413,7 +418,11 @@ export default {
                 message: '该试题审核通过',
                 type: 'success',
               }),
-              this.$emit('onGoBack')
+              this.$emit('onGoBack', {
+                current: this.record.current,
+                size: this.record.size,
+                search: this.record.search,
+              })
           }
         })
       }
@@ -432,7 +441,11 @@ export default {
                 message: '该试题审核不通过',
                 type: 'success',
               }),
-              this.$emit('onGoBack')
+              this.$emit('onGoBack', {
+                current: this.record.current,
+                size: this.record.size,
+                search: this.record.search,
+              })
           }
         })
       }

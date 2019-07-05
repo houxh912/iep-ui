@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`站点${methodName}`" width="500px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`文档${methodName}`" width="500px" @close="loadPage">
     <el-form
       class="form-detail"
       :model="form"
@@ -8,25 +8,18 @@
       :rules="rules"
       label-width="120px"
     >
-      <el-form-item label="上级站点" prop="parentId">
-        <el-input v-model="form.parentId" disabled></el-input>
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="form.title"></el-input>
       </el-form-item>
-      <el-form-item label="组织" prop="orgId">
-        <iep-select
-          v-model="form.orgId"
-          autocomplete="off"
-          prefix-url="admin/org/all"
-          placeholder="请选择"
-        ></iep-select>
+      <el-form-item label="标签" prop="tagKeyWords">
+        <iep-tag v-model="form.tagKeyWords"></iep-tag>
       </el-form-item>
-      <el-form-item label="名称" prop="siteName">
-        <el-input v-model="form.siteName"></el-input>
+      <el-form-item label="发布时间" prop="createTime">
+         <iep-date-picker v-model="form.createTime" type="datetime" placeholder="请选择发布时间">
+        </iep-date-picker>
       </el-form-item>
-      <el-form-item label="域名" prop="url">
-        <el-input v-model="form.url"></el-input>
-      </el-form-item>
-      <el-form-item label="手机端域名" prop="mobileUrl">
-        <el-input v-model="form.mobileUrl"></el-input>
+      <el-form-item label="文章内容" prop="content">
+        <el-input type="textarea" v-model="form.content"></el-input>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="form.status">
@@ -66,7 +59,7 @@ export default {
       this.$emit('load-page')
     },
      async submitForm () {
-      this.formRequestFn({id:this.id,...this.form}).then(({ data }) => {
+      this.formRequestFn({nodeId: this.id,...this.form}).then(({ data }) => {
         if (data.data) {
           this.$message.success('修改成功')
           this.loadPage()

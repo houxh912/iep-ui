@@ -29,24 +29,24 @@ export default {
           id: 1,
           levelName: '国脉集团',
           childrens: [
-            { levelName: 'sdada',id: 2},
-            { levelName: 'asasds',id: 3},
+            { levelName: 'sdada', id: 2 },
+            { levelName: 'asasds', id: 3 },
           ],
         },
         {
           id: 4,
           levelName: '国脉集团',
           childrens: [
-            { levelName: 'sdada',id:5},
-            { levelName: 'asasds',id: 6},
+            { levelName: 'sdada', id: 5 },
+            { levelName: 'asasds', id: 6 },
           ],
         },
         {
           id: 7,
           levelName: '国脉集团',
           childrens: [
-            { levelName: 'sdada',id:8 },
-            { levelName: 'asasds',id:9 },
+            { levelName: 'sdada', id: 8 },
+            { levelName: 'asasds', id: 9 },
           ],
         },
       ],
@@ -74,5 +74,10 @@ export default {
   .ant-menu-inline {
     border-right: 0;
   }
+}
+</style>
+<style scoped>
+.menus >>> .ant-menu-inline {
+  border-right: 0;
 }
 </style>

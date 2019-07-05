@@ -7,21 +7,21 @@ const dictsMap = {
 
 const initForm = () => {
   return {
-    superiorSite:'',//上级站点
-    organization: '',//组织
-    name: '',//名称
-    domainName: '',//域名
-    phoneName: '',//手机端域名
+    parentId:'',//上级站点
+    orgId: '',//组织
+    siteName: '',//名称
+    url: '',//域名
+    mobileUrl: '',//手机端域名
     status: '',//状态
   }
 }
 const columnsMap = [
   {
-    prop: 'domainName',
+    prop: 'url',
     label: '域名',
   },
   {
-    prop: 'organization',
+    prop: 'orgId',
     label: '组织',
   },
   {

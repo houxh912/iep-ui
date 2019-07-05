@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`站点${methodName}`" width="500px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`栏目${methodName}`" width="500px" @close="loadPage">
     <el-form
       class="form-detail"
       :model="form"
@@ -8,31 +8,32 @@
       :rules="rules"
       label-width="120px"
     >
-      <el-form-item label="上级站点" prop="parentId">
+      <el-form-item label="所属栏目" prop="parentId">
         <el-input v-model="form.parentId" disabled></el-input>
       </el-form-item>
-      <el-form-item label="组织" prop="orgId">
-        <iep-select
-          v-model="form.orgId"
-          autocomplete="off"
-          prefix-url="admin/org/all"
-          placeholder="请选择"
-        ></iep-select>
+      <el-form-item label="栏目名称" prop="nodeName">
+        <el-input v-model="form.nodeName"></el-input>
       </el-form-item>
-      <el-form-item label="名称" prop="siteName">
-        <el-input v-model="form.siteName"></el-input>
-      </el-form-item>
-      <el-form-item label="域名" prop="url">
-        <el-input v-model="form.url"></el-input>
-      </el-form-item>
-      <el-form-item label="手机端域名" prop="mobileUrl">
-        <el-input v-model="form.mobileUrl"></el-input>
-      </el-form-item>
+      <!-- <el-form-item label="生成静态文件" prop="static">
+        <el-radio-group v-model="form.static">
+          <el-radio :label="0">是</el-radio>
+          <el-radio :label="1">否</el-radio>
+        </el-radio-group>
+      </el-form-item>-->
+      <!-- <el-form-item label="内容模型" prop="modelId">
+         <el-input v-model="form.modelId"></el-input>
+      </el-form-item>-->
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="form.status">
-          <el-radio :label="0">正常</el-radio>
-          <el-radio :label="1">禁用</el-radio>
+          <el-radio :label="0">启用</el-radio>
+          <el-radio :label="1">停用</el-radio>
         </el-radio-group>
+      </el-form-item>
+      <el-form-item label="标签" prop="tagKeyWords">
+        <iep-tag v-model="form.tagKeyWords"></iep-tag>
+      </el-form-item>
+      <el-form-item label="栏目描述" prop="nodeDescribe">
+        <el-input type="textarea" v-model="form.nodeDescribe"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -55,18 +56,19 @@ export default {
       methodName: '创建',
       form: initForm(),
       rules,
+      siteId: '',
       id: '',
     }
   },
   // },
   methods: {
-     loadPage () {
+    loadPage () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
-     async submitForm () {
-      this.formRequestFn({id:this.id,...this.form}).then(({ data }) => {
+    async submitForm () {
+      this.formRequestFn({id: this.id,siteId: this.siteId, ...this.form }).then(({ data }) => {
         if (data.data) {
           this.$message.success('修改成功')
           this.loadPage()

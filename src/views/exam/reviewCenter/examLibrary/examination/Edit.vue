@@ -73,6 +73,7 @@ export default {
       this.$emit('onGoBack', {
         currentPage: this.record.currentPage,
         size: this.record.size,
+        search: this.record.search,
       })
     },
     next () {
@@ -91,6 +92,7 @@ export default {
         this.$emit('onGoBack', {
         currentPage: this.record.currentPage,
         size: this.record.size,
+        search: this.record.search,
       })
       }).catch(() => {
         this.$message({

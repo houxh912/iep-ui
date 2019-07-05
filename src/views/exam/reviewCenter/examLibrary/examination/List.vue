@@ -14,7 +14,7 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="title">
+          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title">
             <!-- <advance-search @search-page="searchPage"></advance-search> -->
           </operation-search>
         </template>
@@ -168,9 +168,13 @@ export default {
      * 当点击查看或修改后返回
      */
     if (this.record) {
+      const param = {
+        title: this.record.search,
+      }
       this.pageOption.current = this.record.currentPage
       this.pageOption.size = this.record.size
-      this.loadTable({ ...this.pageOption }, getExamInationList)
+      this.searchForm.title = param.title
+      this.loadTable({ ...param, ...this.pageOption }, getExamInationList)
     }
     this.setPermission()
   },
@@ -278,6 +282,7 @@ export default {
         id: row.id,
         currentPage: this.pageOption.current,
         size: this.pageOption.size,
+        search: this.searchForm.title,
       }
       this.$emit('onEdit', record)
     },
@@ -292,6 +297,7 @@ export default {
         id: row.id,
         currentPage: this.pageOption.current,
         size: this.pageOption.size,
+        search: this.searchForm.title,
       }
       this.$emit('onEdit', record)
     },
@@ -304,6 +310,7 @@ export default {
         activeTab,
         currentPage: this.pageOption.current,
         size: this.pageOption.size,
+        search: this.searchForm.title,
       })
     },
     /**

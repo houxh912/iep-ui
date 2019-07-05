@@ -1,4 +1,4 @@
-import { getCustomGroup, getGroup, clearUnread, getGroupMembers, updateGroupInfo, deleteGroup } from '@/api/im'
+import { getCustomGroup, getGroup, clearUnread, getGroupMembers, updateGroupInfo, deleteGroup, updateCustomGroup, deleteCustomGroup } from '@/api/im'
 import { getUserListTree } from '@/api/admin/contacts'
 
 function addChat (state, data, isNew = true) {
@@ -155,7 +155,7 @@ function getGroupInfro (state, id) {
 function getCustomGroupMembers (state, data) {
   let list = []
   for (let i = data.length; i--;) {
-    let children = [{}]
+    let children = [{leaf: true}]
     let ids = data[i].members ? data[i].members.split(',') : []
     for (let j = ids.length; j--;) {
       let user = getUserInfo(state, parseInt(ids[j]))
@@ -334,6 +334,22 @@ const im = {
     initCustomGroup (state, data) {
       state.customGroups = getCustomGroupMembers(state, data)
     },
+    updateCustomGroup (state, data) {
+      for (let i = state.customGroups.length; i--;) {
+        if (state.customGroups[i].value === data.id) {
+          state.customGroups[i].label = data.name
+          return
+        }
+      }
+    },
+    deleteCustomGroup (state, id) {
+      for (let i = state.customGroups.length; i--;) {
+        if (state.customGroups[i].value === id) {
+          state.customGroups.splice(i, 1)
+          return
+        }
+      }
+    },
     chatChange (state, {chat, show}) {
       state.chatShow = show
       state.currentChat = chat || {}
@@ -491,6 +507,34 @@ const im = {
           }
         }, error => {
           reject(error)
+        })
+      })
+    },
+    updateCustomGroup ({ commit }, param) {
+      return new Promise((resolve, reject) => {
+        updateCustomGroup(param).then(({data}) => {
+          if (data.code === 0) {
+            commit('updateCustomGroup', param)
+            resolve()
+          } else {
+            reject(data.msg)
+          }
+        }, error => {
+          reject(error.msg)
+        })
+      })
+    },
+    deleteCustomGroup ({ commit }, param) {
+      return new Promise((resolve, reject) => {
+        deleteCustomGroup(param).then(({data}) => {
+          if (data.code === 0) {
+            commit('deleteCustomGroup', param.id)
+            resolve()
+          } else {
+            reject(data.msg)
+          }
+        }, error => {
+          reject(error.msg)
         })
       })
     },

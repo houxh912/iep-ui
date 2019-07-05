@@ -95,6 +95,22 @@ export function moveToCustomGroup (data) {
   })
 }
 
+export function updateCustomGroup (data) {
+  return request({
+    url: `${prefixUrl}/update_custom_group`,
+    method: 'post',
+    data,
+  })
+}
+
+export function deleteCustomGroup (data) {
+  return request({
+    url: `${prefixUrl}/del_custom_group`,
+    method: 'post',
+    data,
+  })
+}
+
 export function getCustomGroup () {
   return request({
     url: `${prefixUrl}/get_custom_group`,

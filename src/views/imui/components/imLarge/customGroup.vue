@@ -1,16 +1,32 @@
 <template>
   <el-tree @node-click="toChatUser" :data="$store.getters.imCustomGroups" node-key="id" :expand-on-click-node="false">
-    <div v-if="data.leaf" class="im-friend" slot-scope="{ node, data }">
-      <iep-img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
-      <span>{{data.label}}</span>
+    <div v-if="data.leaf && data.value" class="im-friend" slot-scope="{ node, data }">
+      <template>
+        <iep-img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
+        <span>{{data.label}}</span>
+      </template>
     </div>
-      <div v-else style="max-width: 235px">{{ data.label }}</div>
+    <div class="group-item" v-else-if="!data.leaf">
+      <span :ref="`pname${data.value}`" v-show="optionId !== data.value">{{ data.label }}</span>
+      <span v-show="optionId === data.value">
+        <input :value="data.label" :ref="`name${data.value}`" @blur="modifyName($event, data.value, data.label)"/>
+      </span>
+      <span>
+        <i @mousedown.prevent.stop="" @click="toModify(data.value)" class="iconfont icon-iconset0136"></i>
+        <i @click="toDelete(data.value)" class="iconfont icon-shanchu"></i>
+      </span>
+    </div>
   </el-tree>
 </template>
 
 <script>
 export default {
   name: 'custom-group',
+  data () {
+    return {
+      optionId: '',
+    }
+  },
   methods: {
     toChatUser (data) {
       if (data.leaf) {
@@ -24,6 +40,44 @@ export default {
         }
         this.$store.dispatch('updateCurrentChat', {chat, show: true})
       }
+    },
+    toModify (id) {
+      this.optionId = id
+      this.$nextTick(() => {
+        this.$refs[`name${id}`].focus()
+        this.$refs[`name${id}`].select()
+      })
+    },
+    modifyName (event, id, prename) {
+      let name = event.target.value.replace(/(^\s*)|(\s*$)/g, '')
+      if (name) {
+        if (name !== prename) {
+          this.$store.dispatch('updateCustomGroup', {id, name}).then(() => {
+            this.optionId = ''
+            this.$message.success('修改成功！')
+          }, error => {
+            this.$message.error(error)
+          })
+        }
+      } else {
+        this.optionId = ''
+        this.$refs[`name${id}`].value = prename
+        this.$message.warning('请输入分组名称！')
+      }
+    },
+    toDelete (id) {
+      this.$confirm('是否确认删除该分组？', '', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        this.$store.dispatch('deleteCustomGroup', {id}).then(() => {
+          this.$message.success('删除成功！')
+        }, error => {
+          this.$message.error(error)
+        })
+      }).catch(() => {
+      })
     },
   },
 }
@@ -96,5 +150,23 @@ export default {
     justify-content: space-between;
     font-size: 14px;
     padding-right: 8px;
+  }
+  .group-item {
+    display: flex;
+    width: 235px;
+    justify-content: space-between;
+    input {
+      vertical-align: middle;
+      height: 20px;
+      line-height: 20px;
+      width: 120px;
+      padding: 0 10px;
+    }
+    i {
+      margin-left: 10px;
+      &:hover {
+        color: #BA1B21;
+      }
+    }
   }
 </style>

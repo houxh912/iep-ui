@@ -54,6 +54,7 @@ export default {
   },
   methods: {
     searchPage (params) {
+      this.params.current = 1
       this.paramData = params
       this.loadPage()
     },

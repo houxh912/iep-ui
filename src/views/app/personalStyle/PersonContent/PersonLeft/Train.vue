@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getTrainingRecordPage } from '@/api/hrms/training_record'
+import { getRecruitPage } from '@/api/app/hrms/'
 
 export default {
   props: {
@@ -40,14 +40,14 @@ export default {
       params: {
         current: 1,
         size: 10,
-        userId: this.userId,
+        trainer: this.userId,
       },
       pageList: [],
     }
   },
   methods: {
     loadPage () {
-      getTrainingRecordPage(this.params).then(({ data }) => {
+      getRecruitPage(this.params).then(({ data }) => {
         this.pageList = data.data.records
         this.total = data.data.total
       })

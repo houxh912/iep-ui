@@ -14,9 +14,8 @@
               <div slot="header" class="clearfix">
                 <strong>{{resdata.questionTypeName}}</strong>
                 <span class="fieldName">（科目: {{resdata.fieldName}}）</span>
-                <span class="title" style="float: right;">共 {{resdata.kindTotalNum}} 题，合计
-                  {{resdata.kindMark}} 分，已完成
-                  {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
+                <span class="title" style="float: right;">合计{{resdata.kindMark}}
+                  分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
               </div>
               <div class="question">
                 <div style="margin-bottom: 10px;">
@@ -142,6 +141,18 @@
         </el-row>
       </div>
 
+      <iep-dialog :dialog-show="dialogShow" title="" class="success-box" width="420px"
+        @close="handleCancel" center>
+        <div class="center-box">
+          <p class="success-title"><i class="el-icon-success"></i>交卷成功！</p>
+          <p style="margin-bottom: 10px">很感谢你参加本场考试</p>
+          <p>预祝考试成功！</p>
+        </div>
+        <template slot="footer">
+          <iep-button @click="handleCancel" style="margin-bottom: 10px">关闭</iep-button>
+        </template>
+      </iep-dialog>
+
       <footer-tool-bar>
         <template slot="extra">
           <span style="padding-right: 30px;">考试名称：{{record.title}}</span>
@@ -170,6 +181,7 @@ export default {
       offsetY: 100,
     }
     return {
+      dialogShow: false,
       loading: false,      //加载圈圈
       answerRadio: '',        //单选(v-model绑定的值)
       checksList: [],         //复选(v-model绑定的值)
@@ -561,14 +573,11 @@ export default {
           remainingTime: this.mins + '-' + this.secs,
         }
         this.judgeType(params)
+        this.loading = true
         getTestPageById(params).then(res => {
           if (res.data.code === 0) {
-            // console.log('success go back')
-            this.$message({
-              type: 'success',
-              message: '交卷成功!',
-            })
-            this.$emit('onGoBack')
+            this.loading = false
+            this.dialogShow = true
           }
         })
       }).catch(() => {
@@ -577,6 +586,10 @@ export default {
           message: '已取消交卷',
         })
       })
+    },
+
+    handleCancel () {
+      this.$emit('onGoBack')
     },
 
     /**
@@ -625,6 +638,13 @@ export default {
 }
 </script>
 
+<style lang="css" scoped>
+.success-box >>> .el-dialog__header {
+  display: none;
+}
+</style>
+
+
 <style lang="scss" scoped>
 .tasks-info {
   padding: 20px;
@@ -634,6 +654,26 @@ export default {
 
   p {
     margin-bottom: 0;
+  }
+}
+
+.center-box {
+  text-align: center;
+  p {
+    margin: 0;
+  }
+  .success-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin: 10px 0 20px;
+
+    i {
+      color: #67c23a;
+      font-size: 2em;
+      margin: 0 10px 0 0;
+    }
   }
 }
 .examShow {

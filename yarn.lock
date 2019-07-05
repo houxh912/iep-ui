@@ -3695,7 +3695,7 @@ element-ui@2.8.2:
     resize-observer-polyfill "^1.5.0"
     throttle-debounce "^1.0.1"
 
-element-ui@^2.4.6:
+element-ui@^2.0.7, element-ui@^2.4.6:
   version "2.10.1"
   resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.10.1.tgz?cache=0&sync_timestamp=1562053824530&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-ui%2Fdownload%2Felement-ui-2.10.1.tgz#1011016e50e76f5dae6fbf9c86e53b6e53fcb9eb"
   integrity sha1-EBEBblDnb12ub7+chuU7blP8ues=
@@ -9804,6 +9804,16 @@ vue-cli-plugin-element@^1.0.1:
   resolved "https://registry.npm.taobao.org/vue-cli-plugin-element/download/vue-cli-plugin-element-1.0.1.tgz#34e58fb65b36cf59afaf14f503288e5e578b1554"
   integrity sha1-NOWPtls2z1mvrxT1AyiOXleLFVQ=
 
+vue-cron@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/vue-cron/-/vue-cron-1.0.9.tgz#59990ef3f4d9da4ec778c9ee21ba91d6b36a9af8"
+  integrity sha512-r8JnAjqpDsDj3a545156m7bca1xkrnIktks+N94KQA80OuKAiqhoz3Cq1JCyO+0ONXAOnLwvkjHiVCfL38XNbA==
+  dependencies:
+    babel-polyfill "^6.26.0"
+    babel-runtime "^6.26.0"
+    element-ui "^2.0.7"
+    vue "^2.5.9"
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
@@ -9904,7 +9914,7 @@ vue@2.6.6:
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.6.tgz#dde41e483c11c46a7bf523909f4f2f816ab60d25"
   integrity sha1-3eQeSDwRxGp79SOQn08vgWq2DSU=
 
-vue@^2.2.6, vue@^2.5.17, vue@^2.5.2, vue@^2.6.10:
+vue@^2.2.6, vue@^2.5.17, vue@^2.5.2, vue@^2.5.9, vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.npm.taobao.org/vue/download/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=

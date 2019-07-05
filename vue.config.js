@@ -16,7 +16,7 @@ const cdn = {
 module.exports = {
   lintOnSave: true,
   chainWebpack: config => {
-    config.entry('index').add('babel-polyfill').end()
+    // config.entry('index').add('babel-polyfill').end()
     if (isProduction) {
       // 删除预加载
       config.plugins.delete('preload')

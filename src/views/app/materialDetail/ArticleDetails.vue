@@ -80,11 +80,7 @@ export default {
       // }
       // downloadFile(obj)
       // downloadCount(this.formData.id)
-      this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
+      let fn = () => {
         downloadCount(this.formData.id).then(({ data }) => {
           if (data.data) {
             downloadFile(obj)
@@ -92,7 +88,18 @@ export default {
             this.$message.error(data.msg)
           }
         })
-      }).catch(() => { })
+      }
+      if (this.getMoney(this.formData.downloadCost) == 0) {
+        fn()
+      } else {
+        this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          fn()
+        }).catch(() => {})
+      }
     },
     loadData (id) {
       getDataById(id).then(({ data }) => {

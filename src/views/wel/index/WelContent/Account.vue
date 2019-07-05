@@ -28,10 +28,7 @@
                 <i class="el-icon-d-arrow-right"></i>
               </span>
             </span>
-            <iep-button class="leader-btn" type="primary" plain @click="handManage()">
-              <i class="icon-tongxunlu" style="font-size:12px;"></i>
-              通讯录
-            </iep-button>
+            <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
             <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
           </div>
         </div>

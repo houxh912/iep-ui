@@ -17,6 +17,12 @@ export function getFundRankList () {
     method: 'get',
   })
 }
+export function getMyFund () {
+  return request({
+    url: `${prefixUrl}/my`,
+    method: 'get',
+  })
+}
 
 export function postFund (obj) {
   return request({

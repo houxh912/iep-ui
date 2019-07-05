@@ -7,7 +7,7 @@
         <iep-button @click="handleDeleteAll" v-if="permission_exam_testPaper_del">批量删除</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage" prop="title">
+        <operation-search @search-page="searchPage" :params="searchForm.title" prop="title">
           <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
@@ -69,9 +69,13 @@ export default {
      * 当点击查看或修改后返回
      */
     if (this.record) {
+      const param = {
+        title: this.record.search,
+      }
       this.pageOption.current = this.record.current
       this.pageOption.size = this.record.size
-      this.loadTable({ ...this.pageOption }, getExamPagerList)
+      this.searchForm.title = param.title
+      this.loadTable({ ...param,...this.pageOption }, getExamPagerList)
     }
     this.loadPage()
     this.permission_exam_testPaper_del = this.permissions['exam_testPaper_del']
@@ -109,6 +113,7 @@ export default {
         },
         current: this.pageOption.current,
         size: this.pageOption.size,
+        search: this.searchForm.title,
       })
     },
 
@@ -130,6 +135,7 @@ export default {
         },
         current: this.pageOption.current,
         size: this.pageOption.size,
+        search: this.searchForm.title,
       })
     },
 

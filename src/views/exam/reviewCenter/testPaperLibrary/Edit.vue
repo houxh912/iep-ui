@@ -63,6 +63,7 @@ export default {
       this.$emit('onGoBack', {
         current: this.record.current,
         size: this.record.size,
+        search: this.record.search,
       })
     },
     handleGoBack () {
@@ -74,6 +75,7 @@ export default {
         this.$emit('onGoBack', {
         current: this.record.current,
         size: this.record.size,
+        search: this.record.search,
       })
       }).catch(() => {
         this.$message({

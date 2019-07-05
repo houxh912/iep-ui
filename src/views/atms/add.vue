@@ -4,7 +4,7 @@
       <page-header :title="`${methodName}任务`"></page-header>
       <el-form :model="form" :rules="rules" size="small" ref="form" label-width="200px" class="form form-detail">
         <el-form-item label='任务名称：' prop="taskName">
-          <el-input v-model="form.taskName" placeholder="请填写任务名称" maxlength="255"></el-input>
+          <el-input v-model="form.taskName" placeholder="请填写任务名称" maxlength="50"></el-input>
         </el-form-item>
 
         <el-form-item label='所属任务：' prop="parentName" class="form-half">

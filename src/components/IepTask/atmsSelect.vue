@@ -35,8 +35,14 @@ export default {
       if (query !== '') {
         this.loading = true
         try {
-          const { data } = await getAtmsListByName({ name: query,id:this.id })
-          this.options = data
+          if (this.id) {
+            const { data } = await getAtmsListByName({ name: query,id:this.id })
+            this.options = data
+          }
+          else{
+            const { data } = await getAtmsListByName({ name: query,id:0 })
+            this.options = data
+          }
         } catch (error) {
           console.log(error)
         } finally {

@@ -68,18 +68,19 @@ export default {
   data () {
     return {
       columnsMap,
-      statistics: [0, 0, 0, 0, 0, 0],
+      statistics: [0, 0, 0, 0, 0, 0, 0],
     }
   },
   computed: {
     financialData () {
       return {
         '业务指标总金额': this.statistics[0],
-        '项目总金额': this.statistics[1],
-        '合同总金额': this.statistics[2],
-        '到账总金额': this.statistics[3],
-        '待签总金额': this.statistics[4],
-        '开票总金额': this.statistics[5],
+        '历史项目金额': this.statistics[1],
+        '项目总金额': this.statistics[2],
+        '合同总金额': this.statistics[3],
+        '到账总金额': this.statistics[4],
+        '待签总金额': this.statistics[5],
+        '开票总金额': this.statistics[6],
       }
     },
   },

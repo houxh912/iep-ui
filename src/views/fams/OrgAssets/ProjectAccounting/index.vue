@@ -59,7 +59,7 @@ export default {
   data () {
     return {
       columnsMap,
-      statistics: [0, 0, 0, 0, 0, 0],
+      statistics: [0, 0, 0, 0, 0, 0, 0],
     }
   },
   computed: {
@@ -73,11 +73,12 @@ export default {
     financialData () {
       return {
         '项目总金额': this.statistics[0],
-        '到账总金额': this.statistics[1],
-        '未到账总金额': this.statistics[2],
-        '开票总金额': this.statistics[3],
-        '未开票总金额': this.statistics[4],
-        '应收账款': this.statistics[5],
+        '历史项目金额': this.statistics[1],
+        '到账总金额': this.statistics[2],
+        '未到账总金额': this.statistics[3],
+        '开票总金额': this.statistics[4],
+        '未开票总金额': this.statistics[5],
+        '应收账款': this.statistics[6],
       }
     },
   },

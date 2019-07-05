@@ -64,6 +64,11 @@ export default {
       getInvestmentById(this.id).then(({ data }) => {
         this.pagedTable = data.data.record
         this.isLoadTable = false
+        var recordLen = this.pagedTable.length
+        for (var i = 0; i < recordLen; i++) {
+          var surname = this.pagedTable[i].userName.substring(0, 1)
+          this.pagedTable[i].userName = surname + '**'
+        }
       })
     },
   },

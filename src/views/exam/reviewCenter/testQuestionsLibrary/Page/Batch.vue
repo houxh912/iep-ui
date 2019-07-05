@@ -58,9 +58,8 @@
                 <p class='qt_error' v-if="!item.answer && value > 10 && value < 20">答案: 缺少答案</p>
                 <p v-if="item.analysis"><span class="caption">解析：</span>{{item.analysis}}</p>
                 <p class='qt_error' v-else>解析: 缺少解析</p>
-                <p v-if="item.tag && item.tag.split(',').length >= 3"><span
-                    class="caption">标签：</span>{{item.tag}}</p>
-                <p class='qt_error' v-else>标签: 需要三个以上的标签</p>
+                <p v-if="item.tag"><span class="caption">标签：</span>{{item.tag}}</p>
+                <p class='qt_error' v-else>标签: 缺少标签</p>
               </div>
             </div>
           </el-scrollbar>

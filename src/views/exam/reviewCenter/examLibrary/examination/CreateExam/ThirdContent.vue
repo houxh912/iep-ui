@@ -150,8 +150,10 @@
           <el-row :gutter="40">
             <el-col :span="12">
               <el-form-item label="及格线" prop="passScore">
+                <el-input :value="examForm.passScore" v-if="readOnly" :readonly="readOnly">
+                </el-input>
                 <iep-input-number controls-position="right" :min="0" :max="testPaper.score-1"
-                  v-model="examForm.passScore" :disabled="readOnly" style="width:100%">
+                  v-model="examForm.passScore" v-else style="width:100%">
                 </iep-input-number>
               </el-form-item>
             </el-col>
@@ -159,8 +161,10 @@
               <el-row>
                 <el-col :span="12">
                   <el-form-item label="优秀线" prop="excellentLine">
+                    <el-input :value="examForm.passScore" v-if="readOnly" :readonly="readOnly">
+                    </el-input>
                     <iep-input-number controls-position="right" :min="0" :max="testPaper.score-1"
-                      v-model="examForm.excellentLine" :disabled="readOnly" style="width:100%">
+                      v-model="examForm.excellentLine" v-else style="width:100%">
                     </iep-input-number>
                   </el-form-item>
                 </el-col>
@@ -210,7 +214,7 @@
 
           </el-form-item>
           <el-form-item label="证书信息" prop="iepCertiFicate">
-            <dialog-certificate v-model="examForm.iepCertiFicate" :is-show-contact-btn="readOnly">
+            <dialog-certificate v-model="examForm.iepCertiFicate" :isShowContactBtn="readOnly">
             </dialog-certificate>
           </el-form-item>
           <el-form-item label="结束语" prop="oncludingRemarks">

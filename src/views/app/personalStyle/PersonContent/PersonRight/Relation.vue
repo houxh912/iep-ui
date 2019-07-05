@@ -23,6 +23,7 @@
 
 <script>
 import { getproductMentors } from '@/api/app/cpms/channel'
+import { getCommunication } from '@/api/app/hrms/'
 
 export default {
   props: {
@@ -67,6 +68,7 @@ export default {
   watch: {
     userId (newVal) {
       this.loadRelation(newVal)
+      this.getCommunication(newVal)
     },
   },
   methods: {
@@ -81,6 +83,11 @@ export default {
         }
         this.relation = data.data
         this.MentorsList = data.data.masters.concat(data.data.pupils)
+      })
+    },
+    getCommunication (id) {
+      getCommunication(id).then(({ data }) => {
+        this.cooperationList = data.data
       })
     },
   },

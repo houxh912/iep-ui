@@ -105,3 +105,12 @@ export const getUserDetail = (id) => {
     method: 'get',
   })
 }
+
+// 交流密切
+export const getCommunication = (id) => {
+  return request({
+    url: `${prefixUrl}/communication/${id}`,
+    method: 'get',
+  })
+}
+

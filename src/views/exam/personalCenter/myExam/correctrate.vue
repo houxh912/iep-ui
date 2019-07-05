@@ -5,7 +5,7 @@
         <span>正确率</span>
       </el-col>
       <el-col :span="14">
-        <el-select class="selectList" placeholder="请选择" clearable multiple collapse-tags v-model="value" size="medium">
+        <el-select class="selectList" placeholder="请选择" multiple collapse-tags v-model="value" size="medium">
           <el-option v-for="item in selectData" :key="item.value" :value="item.value" :label="item.name"></el-option>
         </el-select>
       </el-col>

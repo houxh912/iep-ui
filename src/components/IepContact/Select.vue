@@ -33,6 +33,10 @@ export default {
   name: 'IepContactSelect',
   components: { Relation },
   props: {
+    placeholder: {
+      type: String,
+      default: '请输入姓名或姓名拼音',
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -86,9 +90,6 @@ export default {
         label: this.user.name,
       }
     },
-  },
-  created () {
-    // this.loadPyList()
   },
   methods: {
     clearAll () {

@@ -44,7 +44,7 @@ function initForm () {
     projectId: '',
     projectName: '',
     auditor: {
-      id: 0,
+      id: '',
       name: '',
     },
     creatorName: '',

@@ -175,11 +175,6 @@ export default {
       getInvestmentById(this.id).then(({ data }) => {
         this.form = data.data
         this.form.percentage = this.form.hadMoney / this.form.targetAmount * 100
-        var recordLen = this.form.record.length
-        for (var i = 0; i < recordLen; i++) {
-          var surname = this.form.record[i].userName.substring(0, 1)
-          this.form.record[i].userName = surname + '**'
-        }
       })
     },
     handleAdd () {

@@ -54,7 +54,7 @@
         </iep-form-item>
 
         <iep-form-item v-if="auditorOption" class="form-half" prop="auditor" label-name="部门核准" tip="报销金额超过 1 万，请添加部门班长为核准人">
-          <iep-contact-select v-model="form.auditor"></iep-contact-select>
+          <iep-contact-select v-model="form.auditor" placeholder="如只需财务核准，无需填写部门核准，直接发送即可"></iep-contact-select>
         </iep-form-item>
 
         <iep-form-item prop="remarks" label-name="备注">

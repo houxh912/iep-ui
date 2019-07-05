@@ -29,7 +29,17 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
+      <iep-table
+        :isLoadTable="false"
+        :pagination="pagination"
+        :dictsMap="dictsMap"
+        :columnsMap="columnsMap"
+        :pagedTable="pagedTable"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        is-mutiple-selection
+        is-tree
+      >
         <template slot="before-columns">
           <el-table-column label="ID" width="90px">
             <template slot-scope="scope">
@@ -45,13 +55,13 @@
               <iep-button @click="handleDelete(scope.row)">删除</iep-button> -->
               <iep-button @click="handleDoc(scope.row)">文档管理</iep-button>
               <el-dropdown size="medium">
-                <iep-button type="default">
-                  <i class="el-icon-more-outline"></i>
-                </iep-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
-                </el-dropdown-menu>
+                  <iep-button type="default">
+                    <i class="el-icon-more-outline"></i>
+                  </iep-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                  </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
           </template>
@@ -96,7 +106,8 @@ export default {
   methods: {
     handleAdd (row) {
       this.$refs['DialogForm'].form = toNewParentForm(row)
-      this.$refs['DialogForm'].form.parentId = row.nodeName
+      this.$refs['DialogForm'].form.parentId = row.id
+      this.$refs['DialogForm'].form.parentName = row.nodeName
       this.$refs['DialogForm'].siteId = this.siteId
       this.$refs['DialogForm'].formRequestFn = addObj
       this.$refs['DialogForm'].dialogShow = true
@@ -122,7 +133,7 @@ export default {
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable({ ...param, siteId: this.siteId }, getPage)
-      this.$set(this.statistics, 0, data.total)
+      this.$set( this.statistics,0,data.total)
     },
   },
 }

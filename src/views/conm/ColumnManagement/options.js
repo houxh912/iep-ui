@@ -1,8 +1,8 @@
 import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   status: {
-    0: '启用',
-    1: '停用',
+    0: '停用',
+    1: '启用',
   },
 }
 
@@ -13,7 +13,7 @@ const initForm = () => {
     // modelId: '',
     nodeName: '',
     status: '',
-    tagKeyWords: [],
+    tagKeyWords:[],
   }
 }
 const toNewParentForm = (row) => {
@@ -23,10 +23,10 @@ const toNewParentForm = (row) => {
   })
 }
 const toDtoForm = (row) => {
-  const newForm = { ...row }
-  newForm.type = newForm.type[1]
-  newForm.parentType = newForm.type[0]
-  return newForm
+	const newForm = { ...row }
+	newForm.type = newForm.type[1]
+	newForm.parentType = newForm.type[0]
+	return newForm
 }
 const initMergeForm = () => {
   return {
@@ -68,4 +68,4 @@ const rules = {
 }
 
 
-export { dictsMap, columnsMap, initForm, initMergeForm, toNewParentForm, toDtoForm, initSearchForm, rules }
+export { dictsMap, columnsMap, initForm, initMergeForm,toNewParentForm,toDtoForm, initSearchForm, rules }

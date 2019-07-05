@@ -1,6 +1,13 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`文档${methodName}`" width="500px" @close="loadPage">
-    <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
+    <el-form
+      class="form-detail"
+      :model="form"
+      size="small"
+      ref="form"
+      :rules="rules"
+      label-width="120px"
+    >
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
@@ -8,7 +15,7 @@
         <iep-tag v-model="form.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="发布时间" prop="createTime">
-        <iep-date-picker v-model="form.createTime" type="datetime" placeholder="请选择发布时间">
+         <iep-date-picker v-model="form.createTime" type="datetime" placeholder="请选择发布时间">
         </iep-date-picker>
       </el-form-item>
       <el-form-item label="文章内容" prop="content">
@@ -47,19 +54,19 @@ export default {
   },
   // },
   methods: {
-    loadPage () {
+     loadPage () {
       this.form = initForm()
       this.loadTypeList()
       this.dialogShow = false
       this.$emit('load-page')
     },
-    loadTypeList () {
+     loadTypeList () {
       getPageById(this.id).then(({ data }) => {
         console.log(data.data)
       })
     },
-    async submitForm () {
-      this.formRequestFn({ nodeId: this.id, ...this.form }).then(({ data }) => {
+     async submitForm () {
+      this.formRequestFn({nodeId: this.id,...this.form}).then(({ data }) => {
         if (data.data) {
           this.$message.success('修改成功')
           this.loadPage()

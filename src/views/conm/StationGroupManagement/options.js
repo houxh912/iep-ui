@@ -1,13 +1,13 @@
 const dictsMap = {
   status: {
-    0: '正常',
-    1: '禁用',
+    0: '禁用',
+    1: '正常',
   },
 }
 
 const initForm = () => {
   return {
-    parentId: '',//上级站点
+    parentId:'',//上级站点
     // orgId: '',//组织
     siteName: '',//名称
     url: '',//域名
@@ -25,7 +25,7 @@ const columnsMap = [
   //   label: '组织',
   // },
   {
-    prop: 'mobileUrl',
+    prop:'mobileUrl',
     label: '手机端域名',
   },
   {

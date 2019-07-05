@@ -1,8 +1,15 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`栏目${methodName}`" width="500px" @close="loadPage">
-    <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
-      <el-form-item label="所属栏目" prop="parentId">
-        <el-input v-model="form.parentId" disabled></el-input>
+    <el-form
+      class="form-detail"
+      :model="form"
+      size="small"
+      ref="form"
+      :rules="rules"
+      label-width="120px"
+    >
+      <el-form-item label="所属栏目" prop="parentName">
+        <el-input v-model="form.parentName" disabled></el-input>
       </el-form-item>
       <el-form-item label="栏目名称" prop="nodeName">
         <el-input v-model="form.nodeName"></el-input>
@@ -61,7 +68,7 @@ export default {
   methods: {
     loadPage () {
       this.form = initForm()
-      this.loadTypeList()
+       this.loadTypeList()
       this.dialogShow = false
       this.$emit('load-page')
     },
@@ -71,7 +78,7 @@ export default {
       })
     },
     async submitForm () {
-      this.formRequestFn({ id: this.id, siteId: this.siteId, ...this.form }).then(({ data }) => {
+      this.formRequestFn({id: this.id,siteId: this.siteId, ...this.form }).then(({ data }) => {
         if (data.data) {
           this.$message.success('修改成功')
           this.loadPage()

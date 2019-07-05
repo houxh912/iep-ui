@@ -30,10 +30,10 @@ export default {
         label: '所有',
         value: 'AllDocument',
       },
-        // , {
-        //   label: '回收站',
-        //   value: 'RecycleBin',
-        // }
+      // , {
+      //   label: '回收站',
+      //   value: 'RecycleBin',
+      // }
       ],
       activeTab: 'AllDocument',
     }

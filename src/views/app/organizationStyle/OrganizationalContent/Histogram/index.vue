@@ -28,6 +28,9 @@ export default {
     orgId: {
       default: 0,
     },
+    orgName: {
+      default: '',
+    },
   },
   components: {
     Performance,
@@ -44,21 +47,27 @@ export default {
       {
         label: '组织资产',
         value: 'OrganizationalAssets',
-        disabled: true,
       },
-      {
-        label: '股东情况',
-        value: 'Shareholder',
-        disabled: true,
-      },
-      {
-        label: '投资报告',
-        value: 'Investment',
-        disabled: true,
-      },
+      // {
+      //   label: '股东情况',
+      //   value: 'Shareholder',
+      //   disabled: true,
+      // },
+      // {
+      //   label: '投资报告',
+      //   value: 'Investment',
+      //   disabled: true,
+      // },
       ],
       activeTab: 'Performance',
     }
+  },
+  watch: {
+    activeTab (val) {
+      if (val === 'OrganizationalAssets') {
+        this.$router.push(`/app/data_assets_detail?id=${this.orgId}&name=${this.orgName}`)
+      }
+    },
   },
 }
 </script>

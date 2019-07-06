@@ -16,10 +16,8 @@ export default {
   },
   methods: {
     changeTab (row) {
-      if (this.$route.query.type == 1) {
-        this.deptData = row
-        this.currentComponet = 'tab'
-      }
+      this.deptData = row
+      this.currentComponet = 'tab'
     },
     loadPage () {
       this.currentComponet = 'tables'

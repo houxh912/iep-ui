@@ -26,20 +26,20 @@ export default {
       chartData: {
         columns: ['date', '数值'],
         rows: [
-          { 'date': '材料库', 'prop': 'countMaterial', '数值': 0 },
-          { 'date': '培训库', 'prop': 'countTraining', '数值': 0 },
-          { 'date': '客户库', 'prop': 'countClient', '数值': 0 },
-          { 'date': '资质库', 'prop': 'countHonor', '数值': 0 },
-          { 'date': '商机库', 'prop': 'countOpportunity', '数值': 0 },
-          { 'date': '专家库', 'prop': 'countExpert', '数值': 0 },
-          { 'date': '产品库', 'prop': 'countProduct', '数值': 0 },
+          { 'date': '国脉同学', 'prop': 'userCount', '数值': 0 },
+          { 'date': '外部同学', 'prop': 'externalCount', '数值': 0 },
+          { 'date': '国脉专家', 'prop': 'expertCount', '数值': 0 },
+          { 'date': '国脉校友', 'prop': 'alumnusCount', '数值': 0 },
+          { 'date': '组织', 'prop': 'orgCount', '数值': 0 },
         ],
       },
     }
   },
   created () {
-    getRecruitCount().then(() => {
-      
+    getRecruitCount().then(({data}) => {
+      for (let item of this.chartData.rows) {
+        item['数值'] = data.data[item.prop]
+      }
     })
   },
 }

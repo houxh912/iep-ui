@@ -32,7 +32,7 @@ export default {
       default: 0,
     },
     orgId: {
-      type: Number,
+      default: '',
     },
   },
   data () {

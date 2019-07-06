@@ -6,7 +6,7 @@
       </el-table-column>
       <el-table-column prop="count" label="项目总数">
       </el-table-column>
-      <el-table-column prop="count" label="增量">
+      <el-table-column prop="increment" label="增量">
       </el-table-column>
       <el-table-column prop="proportion" label="占比">
       </el-table-column>

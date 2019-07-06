@@ -115,6 +115,9 @@ export default {
     },
   },
   created () {
+    if (this.$route.query.id) {
+      this.params.orgId = this.$route.query.id
+    }
     this.loadPage()
   },
 }

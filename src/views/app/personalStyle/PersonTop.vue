@@ -28,19 +28,19 @@
               <div class="classTag">
                 <div class="label">卓越标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag">
                 <div class="label">专业标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag">
                 <div class="label">进步标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag more" v-if="!userInfoShow">

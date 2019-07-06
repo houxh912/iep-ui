@@ -33,14 +33,14 @@ export default {
     return {
       title: '业绩变化',
       chartData: {
-        columns: ['name', 'amount'],
+        columns: ['name', '业绩发展'],
         rows: [],
       },
     }
   },
   created () {
     getPerformanceChanges().then(({data}) => {
-      this.$set(this.chartData, 'rows', data.data.map( m => { return { name: `${new Date(m.name).getMonth()}月`, amount: m.amount } } ))
+      this.$set(this.chartData, 'rows', data.data.map( m => { return { name: `${new Date(m.name).getMonth() + 1}月`, '业绩发展': m.amount } } ))
     })
   },
 }

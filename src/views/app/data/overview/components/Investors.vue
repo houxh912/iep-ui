@@ -4,49 +4,25 @@
     <el-table :data="tableData" stripe>
       <el-table-column prop="name" label="姓名">
       </el-table-column>
-      <el-table-column prop="num" label="投资金额(万) ">
+      <el-table-column prop="value" label="投资金额(万) ">
       </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { getInvestmentList } from '@/api/app/mlms/'
 export default {
   data () {
     return {
       title: '投资达人排行',
-      tableData: [{
-        name: '郑爱军',
-        num: '470',
-      }, {
-        name: '杨冰之',
-        num: '450',
-      }, {
-        name: '王路燕',
-        num: '60',
-      }, {
-        name: '李凯',
-        num: '55',
-      }, {
-        name: '谢海燕',
-        num: '22',
-      }, {
-        name: '黄磊',
-        num: '15',
-      }, {
-        name: '陈泽红',
-        num: '12',
-      }, {
-        name: '张金星',
-        num: '7',
-      }, {
-        name: '王凯',
-        num: '5',
-      }, {
-        name: '刘丹',
-        num: '3',
-      }],
+      tableData: [],
     }
+  },
+  created () {
+    getInvestmentList().then(({data}) => {
+      this.tableData = data.data
+    })
   },
 }
 </script>

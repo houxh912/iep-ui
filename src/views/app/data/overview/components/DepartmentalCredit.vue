@@ -2,45 +2,27 @@
   <div class="statistics">
     <div class="title">{{title}}</div>
     <el-table :data="tableData" stripe>
-      <el-table-column prop="department" label="部门" width="230">
+      <el-table-column prop="name" label="组织">
       </el-table-column>
-      <el-table-column prop="num" label="信用数">
+      <el-table-column prop="credit" label="信用数">
       </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { getOrgCredit } from '@/api/app/upms/'
 export default {
   data () {
     return {
-      title: '部门信用排行',
-      tableData: [{
-        department: '国脉集团研发中心',
-        num: '84',
-      }, {
-        department: '综合管理中心一部',
-        num: '96',
-      }, {
-        department: '北方区业务一部',
-        num: '75',
-      }, {
-        department: '智慧城市与产业规划部',
-        num: '79',
-      }, {
-        department: '北京国脉数智信息服务有限公司',
-        num: '93',
-      }, {
-        department: '青海国脉互联信息科技有限公司',
-        num: '86',
-      }, {
-        department: '国脉海洋信息发展有限公司',
-        num: '88',
-      }, {
-        department: '北京仓颉数源网络有限公司 ',
-        num: '79',
-      }],
+      title: '组织信用',
+      tableData: [],
     }
+  },
+  created () {
+    getOrgCredit().then(({data}) => {
+      this.tableData = data.data
+    })
   },
 }
 </script>

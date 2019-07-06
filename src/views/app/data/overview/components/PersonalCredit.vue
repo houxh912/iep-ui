@@ -4,49 +4,25 @@
     <el-table :data="tableData" stripe>
       <el-table-column prop="name" label="姓名">
       </el-table-column>
-      <el-table-column prop="num" label="信用值">
+      <el-table-column prop="credit" label="信用值">
       </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { getCredit } from '@/api/app/hrms/'
 export default {
   data () {
     return {
-      title: '个人信用排行',
-      tableData: [{
-        name: '郑爱军',
-        num: '1000',
-      }, {
-        name: '杨冰之',
-        num: '1000',
-      }, {
-        name: '王路燕',
-        num: '900',
-      }, {
-        name: '李凯',
-        num: '900',
-      }, {
-        name: '谢海燕',
-        num: '880',
-      }, {
-        name: '黄磊',
-        num: '880',
-      }, {
-        name: '陈泽红',
-        num: '870',
-      }, {
-        name: '张金星',
-        num: '790',
-      }, {
-        name: '王凯',
-        num: '780',
-      }, {
-        name: '刘丹',
-        num: '770',
-      }],
+      title: '个人信用',
+      tableData: [],
     }
+  },
+  created () {
+    getCredit().then(({data}) => {
+      this.tableData = data.data
+    })
   },
 }
 </script>

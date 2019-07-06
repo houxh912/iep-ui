@@ -114,3 +114,10 @@ export const getCommunication = (id) => {
   })
 }
 
+// 数据-个人信用
+export const getCredit = () => {
+  return request({
+    url: `${prefixUrl}/personal/credit`,
+    method: 'get',
+  })
+}

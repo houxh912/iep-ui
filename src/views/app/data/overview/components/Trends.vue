@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { getResourceCount } from '@/api/app/cpms/channel'
 export default {
   data () {
     this.colors = ['#d66368', '#02ac15']
@@ -20,26 +21,28 @@ export default {
     }
     return {
       boundaryGap: false,
-      title: '人员变动趋势',
+      title: '国脉人分布',
       legendVisible: true,
       chartData: {
-        columns: ['日期', '增加', '减少'],
+        columns: ['date', '数值'],
         rows: [
-          { '日期': '1月', '增加': 20 },
-          { '日期': '2月', '增加': 15 },
-          { '日期': '3月', '增加': 13 },
-          { '日期': '4月', '减少': 10 },
-          { '日期': '5月', '减少': 4 },
-          { '日期': '6月', '增加': 15 },
-          { '日期': '7月', '增加': 18 },
-          { '日期': '8月', '增加': 26 },
-          { '日期': '9月', '减少': 9 },
-          { '日期': '10月', '减少': 1 },
-          { '日期': '11月', '减少': 3 },
-          { '日期': '12月', '增加': 15 },
+          { 'date': '材料库', 'prop': 'countMaterial', '数值': 0 },
+          { 'date': '培训库', 'prop': 'countTraining', '数值': 0 },
+          { 'date': '客户库', 'prop': 'countClient', '数值': 0 },
+          { 'date': '资质库', 'prop': 'countHonor', '数值': 0 },
+          { 'date': '商机库', 'prop': 'countOpportunity', '数值': 0 },
+          { 'date': '专家库', 'prop': 'countExpert', '数值': 0 },
+          { 'date': '产品库', 'prop': 'countProduct', '数值': 0 },
         ],
       },
     }
+  },
+  created () {
+    getResourceCount().then(({data}) => {
+      for (let item of this.chartData.rows) {
+        item['数值'] = data.data[item.prop]
+      }
+    })
   },
 }
 </script>

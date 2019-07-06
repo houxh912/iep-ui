@@ -2,65 +2,31 @@
   <div class="statistics">
     <div class="title">{{title}}</div>
     <el-table :data="tableData" stripe>
-      <el-table-column prop="time" label="时间">
+      <el-table-column prop="name" label="时间">
       </el-table-column>
-      <el-table-column prop="total" label="项目总数">
+      <el-table-column prop="count" label="项目总数">
       </el-table-column>
-      <el-table-column prop="increment" label="增量">
+      <el-table-column prop="count" label="增量">
       </el-table-column>
-      <el-table-column prop="than" label="同比">
+      <el-table-column prop="proportion" label="占比">
       </el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { getOverview } from '@/api/app/prms'
 export default {
   data () {
     return {
       title: '项目概况',
-      tableData: [{
-        time: '2019-06-11',
-        total: '24',
-        increment: '5',
-        than: '19%',
-      }, {
-        time: '2019-06-04',
-        total: '26',
-        increment: '33',
-        than: '13%',
-      }, {
-        time: '2019-05-27',
-        total: '25',
-        increment: '26',
-        than: '16%',
-      }, {
-        time: '2019-05-20',
-        total: '17',
-        increment: '223',
-        than: '22%',
-      }, {
-        time: '2019-05-13',
-        total: '2',
-        increment: '56',
-        than: '35%',
-      }, {
-        time: '2019-05-06',
-        total: '2',
-        increment: '36',
-        than: '21%',
-      }, {
-        time: '2019-04-29',
-        total: '2',
-        increment: '66',
-        than: '15%',
-      }, {
-        time: '2019-04-22',
-        total: '2',
-        increment: '76',
-        than: '10%',
-      }],
+      tableData: [],
     }
+  },
+  created () {
+    getOverview().then(({data}) => {
+      this.tableData = data.data
+    })
   },
 }
 </script>

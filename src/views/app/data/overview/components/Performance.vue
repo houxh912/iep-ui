@@ -6,28 +6,39 @@
 </template>
 
 <script>
+import { getGroupReceipts } from '@/api/fams/group_wealth_flow'
 export default {
   data () {
     this.colors = ['#d66368', '#eebc7d']
     this.chartSettings = {
-      metrics: ['2018年', '2019年'],
-      dimension: ['日期'],
+      metrics: [`${new Date().getFullYear()}年`],
+      dimension: ['date'],
     }
     return {
       title: '收款情况',
       chartData: {
-        columns: ['日期', '2018年', '2019年'],
-        rows: [
-          { '日期': '一月', '2018年': 139, '2019年': 109 },
-          { '日期': '二月', '2018年': 353, '2019年': 230 },
-          { '日期': '三月', '2018年': 292, '2019年': 262 },
-          { '日期': '四月', '2018年': 172, '2019年': 142 },
-          { '日期': '五月', '2018年': 392, '2019年': 492 },
-          { '日期': '六月', '2018年': 459, '2019年': 429 },
-          { '日期': '七月', '2018年': 593, '2019年': 293 },
-        ],
+        columns: ['date', this.chartSettings.metrics],
+        rows: [],
       },
     }
+  },
+  created () {
+    getGroupReceipts().then(({data}) => {
+      // 取最近的7个月
+      let month = new Date().getMonth()
+      let list = []
+      let amount = this.chartSettings.metrics
+      if (month < 7) {
+        list = data.data.slice(0, 7)
+      } else {
+        list = data.data.slice(month - 7, month)
+      }
+      for (let item of list) {
+        item.date = `${new Date(item.name).getMonth() + 1}月`,
+        item[amount] = item.amount
+      }
+      this.$set(this.chartData, 'rows', list)
+    })
   },
 }
 </script>

@@ -33,3 +33,11 @@ export const getOrgAssets = (id) => {
     method: 'get',
   })
 }
+
+// 数据资产
+export const getOrgCredit = () => {
+  return request({
+    url: `${prefixUrl}/org/credit`,
+    method: 'get',
+  })
+}

@@ -2,6 +2,7 @@
   <div class="use-candle">
     <div class="title">{{title}}</div>
     <ve-candle height="240px" :extend="chartExtend" :legend-visible="legendVisible" :data="chartData" :settings="chartSettings"></ve-candle>
+    <div class="zhezhao"></div><!-- 临时的遮罩层，将所有的点击效果全部挡住 -->
   </div>
 </template>
 
@@ -76,6 +77,12 @@ export default {
     top: 18px;
     font-size: 18px;
     color: #333;
+  }
+  .zhezhao {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
   }
 }
 </style>

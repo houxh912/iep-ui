@@ -3,7 +3,7 @@
     <IepAppTabsCard>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Performance'" v-slot:Performance>
-          <performance v-loading="activeTab !=='Performance'"></performance>
+          <performance v-loading="activeTab !=='Performance'" :orgId="orgId"></performance>
         </template>
         <template v-if="activeTab ==='OrganizationalAssets'" v-slot:OrganizationalAssets>
           <organizational-assets v-loading="activeTab !=='OrganizationalAssets'"></organizational-assets>
@@ -24,6 +24,11 @@ import OrganizationalAssets from './OrganizationalAssets'
 import Shareholder from './Shareholder'
 import Investment from './Investment'
 export default {
+  props: {
+    orgId: {
+      default: 0,
+    },
+  },
   components: {
     Performance,
     OrganizationalAssets,

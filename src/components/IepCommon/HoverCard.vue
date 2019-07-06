@@ -1,6 +1,6 @@
 <template>
   <el-popover placement="bottom" @show="handleClickChange">
-    <iep-user-card></iep-user-card>
+    <iep-user-card :card-data="cardData"></iep-user-card>
     <a-button class="user-btn" size="small" slot="reference">
       {{obj.name}}
       <a-icon type="idcard" />
@@ -13,7 +13,10 @@ const filterUser = (data) => {
   return {
     avatar: data.avatar,
     name: data.name,
-    desc: data.roleName.join('，'),
+    job: data.job,
+    identityMarks: data.identityMarks,
+    orgList: data.orgList,
+    projectTag: data.projectTag,
   }
 }
 const functionMap = {
@@ -47,7 +50,10 @@ export default {
       cardData: {
         avatar: '',
         name: '',
-        desc: '',
+        job: '',
+        identityMarks: [],
+        orgList: [],
+        projectTag: [],
       },
     }
   },

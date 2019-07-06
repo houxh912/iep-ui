@@ -2,21 +2,24 @@
   <div class="user-card-wrapper">
     <div class="user-info">
       <div class="avatar">
-        <iep-img class="img" src="//183.131.134.242:10060/upload/iep/201904/4098d00d-abfc-4c3a-8ed4-c8acb25d986c_TIM%E5%9B%BE%E7%89%8720190430171530.jpg"></iep-img>
+        <iep-img class="img" :src="cardData.avatar"></iep-img>
       </div>
       <div class="user-wrapper">
         <div class="user-title">
-          <div class="name">杨冰之</div>
-          <div class="position">董事长</div>
+          <div class="name">{{cardData.name}}</div>
+          <div class="position">{{cardData.job}}</div>
           <div class="identity-mark">
-            <iep-identity-mark icon="iep2-icondongshichang" title="董事长"></iep-identity-mark>
-            <iep-identity-mark icon="iep2-iconzongjingli" title="总经理"></iep-identity-mark>
-            <iep-identity-mark icon="iep2-icontouziren1" title="投资人"></iep-identity-mark>
+            <iep-identity-mark v-for="item in cardData.identityMarks" :icon="item.icon" :key="item.value" :title="item.label"></iep-identity-mark>
           </div>
         </div>
-        <iep-div-detail class="user-org" :value="`所属组织: 集团研发中心、集团研发中心、集团研发中心`"></iep-div-detail>
-        <iep-div-detail class="user-tags" :value="`卓越标签: 集团研发中心 / 集团研发中心 / 集团研发中心`">
-        </iep-div-detail>
+        <template>
+          <iep-div-detail v-if="!cardData.orgList.length" class="user-org" :value="`所属组织：暂无`"></iep-div-detail>
+          <iep-div-detail v-else class="user-org" :value="`所属组织：${cardData.orgList.join('、')}`"></iep-div-detail>
+        </template>
+        <template>
+          <iep-div-detail v-if="!cardData.projectTag.length" class="user-tags" :value="`卓越标签：暂无`"></iep-div-detail>
+          <iep-div-detail v-else class="user-tags" :value="`卓越标签：${cardData.projectTag.join(' / ')}`"></iep-div-detail>
+        </template>
       </div>
     </div>
     <div class="user-operation">
@@ -42,6 +45,12 @@
 <script>
 export default {
   name: 'IepUserCard',
+  props: {
+    cardData: {
+      type: Object,
+      required: true,
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

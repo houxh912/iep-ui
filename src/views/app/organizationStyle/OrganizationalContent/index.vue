@@ -11,7 +11,7 @@
       <talent-demand :orgId="data.orgId" :data="data"></talent-demand>
       <texture-score :data="data"></texture-score>
       <products-services :orgId="data.orgId" :data="data"></products-services>
-      <collaborative-record :data="data"></collaborative-record>
+      <collaborative-record :data="data" v-if="false"></collaborative-record>
       <new-down :visitVOs="data.visitVOs"></new-down>
     </div>
   </div>

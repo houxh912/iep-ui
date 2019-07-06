@@ -1,7 +1,8 @@
 <template>
   <basic-container>
     <div v-if="pageState === 'list'">
-      <page-header title="我的项目" :replaceText="replaceText" :data="[16]"></page-header>
+      <!-- <page-header title="我的项目" :replaceText="replaceText" :data="[16]"></page-header> -->
+      <page-header title="我的项目"></page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Total'" v-slot:Total>
           <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm"></total>

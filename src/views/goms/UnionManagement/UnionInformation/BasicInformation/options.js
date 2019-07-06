@@ -44,6 +44,7 @@ const initForm = () => {
     abrName: '',
     establishTime: '',
     creatorName: '',
+    creator: { name: '', id: '', avatar: '' },
     contactMethod: '',
     intro: '',
     structure: '',

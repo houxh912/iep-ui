@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { getResourceCount } from '@/api/app/cpms/channel'
+import { getRecruitCount } from '@/api/app/hrms/'
 export default {
   data () {
     this.colors = ['#d66368', '#02ac15']
@@ -38,10 +38,8 @@ export default {
     }
   },
   created () {
-    getResourceCount().then(({data}) => {
-      for (let item of this.chartData.rows) {
-        item['数值'] = data.data[item.prop]
-      }
+    getRecruitCount().then(() => {
+      
     })
   },
 }

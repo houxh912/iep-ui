@@ -35,6 +35,9 @@ export default {
       })
     },
   },
+  created () {
+    this.loadPage(this.orgId)
+  },
   watch: {
     orgId (newVal) {
       this.loadPage(newVal)

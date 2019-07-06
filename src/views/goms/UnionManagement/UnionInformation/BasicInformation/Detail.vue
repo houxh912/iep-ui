@@ -13,7 +13,7 @@
               <div class="col">
                 <div class="form-item-wrapper">
                   <label for="">创建人：</label>
-                  <span class="value">{{form.creatorName}}</span>
+                  <span class="value">{{form.creator.name}}</span>
                 </div>
                 <div class="form-item-wrapper">
                   <label for="">成立时间：</label>

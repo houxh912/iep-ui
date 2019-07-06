@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-item-wrapper">
                   <label for="">人员规模：</label>
-                  <span class="value">{{form.scale}}</span>
+                  <span class="value">{{form.memberNum}}</span>
                 </div>
               </div>
               <div class="labs-con">
@@ -87,7 +87,8 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { getOrgBySelf, putOrg } from '@/api/goms/org'
+import { putOrg } from '@/api/goms/org'
+import { getUnionBySelf } from '@/api/goms/union'
 import { initForm } from './options'
 import Framework from './Framework'
 import BusinessLayout from './BusinessLayout'
@@ -106,11 +107,11 @@ export default {
           labTitle: '贡献',
         },
         {
-          data: '5',
+          data: '1',
           labTitle: '综合排名',
         },
         {
-          data: '19',
+          data: '1',
           labTitle: '业绩排名',
         },
       ],
@@ -218,8 +219,11 @@ export default {
       })
     },
     loadPage () {
-      getOrgBySelf(this.orgId).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
+      // getOrgBySelf(this.orgId).then(({ data }) => {
+      //   this.form = this.$mergeByFirst(initForm(), data.data)
+      // })
+      getUnionBySelf().then((res) => {
+        this.form = res.data.data
       })
     },
   },

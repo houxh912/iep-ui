@@ -50,6 +50,7 @@ const initForm = () => {
     coreAdvantage: '',
     abilityTag: [],
     learningTag: [],
+    memberNum: '',
   }
 }
 

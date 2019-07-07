@@ -118,6 +118,9 @@ export default {
     if (this.$route.query.id) {
       this.params.orgId = this.$route.query.id
     }
+    if (this.$route.query.materialType) {
+      this.params.materialType = this.$route.query.materialType
+    }
     this.loadPage()
   },
 }

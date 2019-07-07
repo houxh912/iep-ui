@@ -208,6 +208,9 @@ export default {
       color: #666;
       span {
         font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       > .icon {
         font-size: 20px;

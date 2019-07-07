@@ -98,7 +98,7 @@ export default {
       margin-bottom: 20px;
       margin-right: 50px;
       text-align: center;
-      img{
+      .el-image{
         margin-bottom: 10px;
         width: 260px;
         height:135px;

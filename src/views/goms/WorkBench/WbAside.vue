@@ -185,7 +185,8 @@ export default {
 .account-center-team {
   .members {
     .member {
-      display: block;
+      display: flex;
+      align-items: center;
       margin: 12px 0;
       // line-height: 24px;
       // height: 24px;
@@ -195,7 +196,7 @@ export default {
         // line-height: 24px;
         max-width: 100px;
         vertical-align: top;
-        margin-left: 12px;
+        margin: 0 8px 0 4px;
         transition: all 0.3s;
         display: inline-block;
         &:hover {

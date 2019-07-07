@@ -31,6 +31,9 @@
 import { getLastSummaries } from '@/util/table'
 import { getBankDiaryList } from '@/api/fams/statistics'
 import { columnsMap, initSearchForm, initNow, getYear, getMonth } from './options'
+function initStatistics () {
+  return [0, 0, 0]
+}
 export default {
   data () {
     return {
@@ -42,8 +45,8 @@ export default {
       pagedTable: [],
       tableHeight: 'calc(100vh - 200px)',
       searchForm: initSearchForm(),
-      statistics: [0, 0],
-      replaceText: (data) => `（累计总支出：${data[0]}元，累计总收入：${data[1]}元）`,
+      statistics: initStatistics(),
+      replaceText: (data) => `（累计总支出：${data[0]}元，累计总收入：${data[1]}元，最新本期余额：${data[2]}元）`,
     }
   },
   computed: {
@@ -79,7 +82,7 @@ export default {
       this.companyId = data.data.companyId
       this.bankId = data.data.bankId
       this.pagedTable = data.data.diaryList
-      this.statistics = [data.data.expenditureTotal, data.data.inComeTotal]
+      this.statistics = [data.data.expenditureTotal, data.data.inComeTotal, data.data.newTotal]
       this.isLoadTable = false
     },
     searchPageByCompany () {

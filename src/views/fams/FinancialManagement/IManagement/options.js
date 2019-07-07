@@ -70,8 +70,8 @@ const initForm = () => {
 
 const toDtoForm = (row) => {
 	const newForm = { ...row }
-	newForm.type = newForm.type[1]
 	newForm.parentType = newForm.type[0]
+	newForm.type = newForm.type[1]
 	return newForm
 }
 

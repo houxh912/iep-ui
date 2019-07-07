@@ -23,15 +23,15 @@ const dictsMap = {
       label: '优惠价格',
     },
   ]
-  
+  const initSearchForm = () => {
+    return {
+      productName:'',
+      productDes:'',
+    }
+  }
   const initForm = () => {
     return {
-      roleId:'',
-      dsType: '',
-      roleCode: '',
-      roleDesc: '',
-      roleName: '',
     }
   }
   
-  export { dictsMap, columnsMap, initForm }
+  export { dictsMap, columnsMap, initForm, initSearchForm }

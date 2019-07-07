@@ -22,7 +22,7 @@
           </template>
         </el-table-column>
       </iep-table>
-      <div class="count">
+      <div class="counts">
         <span>
           <span class="size">{{size}}</span>个模块
         </span>
@@ -32,11 +32,23 @@
         </span>
       </div>
     </basic-container>
+    <div class="pro-cus-sub">
+      <el-form :model="form" label-width="120px" size="small" class="form-detail">
+        <el-form-item label="产品定制名称：">
+          <el-input v-model="form.productName" placeholder="请输入产品定制名称"></el-input>
+        </el-form-item>
+        <el-form-item label="产品说明：">
+          <el-input v-model="form.productDes" type="textarea"></el-input>
+        </el-form-item>
+      </el-form>
+      <div class="btn-culomn">
+        <iep-button type="primary" size="medium">提交</iep-button>
+      </div>
+    </div>
   </div>
 </template>
-
 <script>
-import { dictsMap, columnsMap } from './options'
+import { dictsMap, columnsMap, initSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -46,6 +58,7 @@ export default {
       dictsMap,
       size: 5,
       count: 10000,
+      form: initSearchForm(),
       pagedTable: [
         { modelName: 'xsada', guidancePrice: '1000000', favorablePrice: '2133332' },
         { modelName: 'xsada', guidancePrice: '1000000', favorablePrice: '2133332' },
@@ -64,15 +77,18 @@ export default {
 .pro-cus >>> .title-col {
   text-align: center;
 }
+.pro-cus >>>.el-button--primary{
+  margin: 0 auto;
+}
 </style>
 <style scoped lang='scss'>
 .pro-cus {
   width: 1200px;
   margin: 0 auto;
-  .count {
+  .counts {
     padding: 15px;
     text-align: right;
-    &>span {
+    & > span {
       margin-right: 15px;
       font-size: 14px;
       .size,
@@ -86,6 +102,13 @@ export default {
   }
   h2 {
     text-align: center;
+  }
+}
+.pro-cus-sub {
+  padding: 50px 200px;
+  border: 1px solid #eee;
+  .btn-culomn{
+    display: flex;
   }
 }
 </style>

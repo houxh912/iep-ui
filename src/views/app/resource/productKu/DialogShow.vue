@@ -11,7 +11,7 @@
       <el-checkbox v-for="option in cities" :label="option.id" :key="option.id">
         <span>{{option.label}}</span>
         <span>{{option.money}}</span>
-        <i class="icon-shanchu"></i>
+        <i @click.stop="handleDelete" class="icon-shanchu"></i>
       </el-checkbox>
     </el-checkbox-group>
     <div class="dialog-bottom">
@@ -43,6 +43,9 @@ export default {
   methods: {
     close () {
       this.dialogShow = false
+    },
+    handleDelete () {
+      console.log(1)
     },
     handeleCustom () {
         this.$router.push('/app/resource/product_ku/product_customization')

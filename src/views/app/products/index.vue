@@ -39,7 +39,7 @@ export default {
     }
   },
   created () {
-    
+
   },
 }
 </script>
@@ -51,7 +51,7 @@ export default {
     margin: 0 auto;
     display: grid;
     grid-auto-flow: row dense;
-    grid-row-gap: 25px;
+    grid-row-gap: 20px;
     grid-column-gap: 25px;
     grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(
         100px,
@@ -59,7 +59,7 @@ export default {
       );
     .index-card {
       font-size: 14px;
-      border: 1px solid #f0f0f0;
+      border: 1px solid #8a8282;
       padding: 15px 20px;
       .clearfix:before,
       .clearfix:after {
@@ -74,7 +74,7 @@ export default {
 }
 </style>
 <style scoped>
-#app >>> .el-aside{
+#app >>> .el-aside {
   border-right: 0;
 }
 </style>

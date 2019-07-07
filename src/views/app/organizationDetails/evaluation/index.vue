@@ -4,7 +4,9 @@
       <el-collapse-item :title="appraise.time" :name="index" v-for="(appraise,index) in appraiseList" :key="index">
         <el-card shadow="never" v-for="(child, index2) in appraise.childList" :key="index2">
           <div class="conList">
-            <div class="img"><iep-img :src="child.avatar" alt=""></iep-img></div>
+            <div class="img">
+              <iep-img :src="child.avatar" alt=""></iep-img>
+            </div>
             <div class="con">
               <h4>
                 <span class="name">{{child.creatorName}}</span>
@@ -13,13 +15,13 @@
                   {{dateFormat(child.createTime)}}
                 </span>
               </h4>
-                <div>{{child.content}}</div>
+              <div>{{child.content}}</div>
             </div>
           </div>
         </el-card>
       </el-collapse-item>
     </el-collapse>
-  
+
     <div style="text-align: center;margin: 20px 0;">
       <el-pagination background layout="total, prev, pager, next, jumper" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
@@ -46,7 +48,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getOrgevaluatePage(this.params).then(({data}) => {
+      getOrgevaluatePage(this.params).then(({ data }) => {
         if (data.data) {
           this.appraiseList = this.dealWithList(data.data.records)
           this.total = data.data.total
@@ -96,7 +98,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .appraise {
-  padding: 20px;
+  border-top: 0;
+  padding: 0 20px;
   .el-timeline {
     display: flex;
     flex-direction: column;
@@ -143,7 +146,7 @@ export default {
   }
   .time {
     float: right;
-    color:#999;
+    color: #999;
   }
   .img {
     width: 60px;
@@ -163,31 +166,34 @@ export default {
   }
   .el-card {
     border: 0;
+    &:last-child .conList {
+      border-bottom: 0;
+    }
   }
 }
 </style>
 
 <style scoped>
-.appraise >>> .el-collapse-item__arrow{
+.appraise >>> .el-collapse-item__arrow {
   margin: 0 auto 0 8px;
 }
-.appraise>>>.el-collapse-item__content{
+.appraise >>> .el-collapse-item__content {
   padding-bottom: 0;
 }
-.appraise>>>.el-collapse-item__wrap{
+.appraise >>> .el-collapse-item__wrap {
   border-bottom: none;
 }
-.appraise >>> .el-upload-dragger{
+.appraise >>> .el-upload-dragger {
   padding: 30px 100px 38px;
-  width:inherit;
-  height:inherit;
+  width: inherit;
+  height: inherit;
 }
-.appraise >>> .el-upload__text{
+.appraise >>> .el-upload__text {
   line-height: 22px;
-  color:#999;
+  color: #999;
 }
-.appraise >>> .el-collapse-item__header{
+.appraise >>> .el-collapse-item__header {
   font-size: 16px;
-  color:#333;
+  color: #333;
 }
 </style>

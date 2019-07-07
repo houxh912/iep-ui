@@ -44,6 +44,9 @@ export default {
   padding: 0;
   height: 22px;
   line-height: 22px;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 .aboutGov p {
   padding-top: 15px;

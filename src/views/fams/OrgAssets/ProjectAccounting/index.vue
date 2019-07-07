@@ -53,13 +53,16 @@ import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initForm } from './options'
 import AdvanceSearch from './AdvanceSearch'
+function initStatistics () {
+  return [0, 0, 0, 0, 0, 0, 0]
+}
 export default {
   components: { IepStatisticsHeader, AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
       columnsMap,
-      statistics: [0, 0, 0, 0, 0, 0, 0],
+      statistics: initStatistics(),
     }
   },
   computed: {
@@ -93,7 +96,7 @@ export default {
     async loadPage (param = this.searchParam) {
       const pageFunction = this.id ? getProjectPageByOrgId(this.id) : getProjectPage
       const data = await this.loadTable(param, pageFunction)
-      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
+      this.statistics = this.$fillStatisticsArray(initStatistics(), data.statistics)
     },
     handleDetail (row) {
       this.$router.push({

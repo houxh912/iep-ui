@@ -15,13 +15,13 @@ import { geOrgPage } from '@/api/goms/org_album'
 export default {
   data () {
     return {
-      list:[],
+      list: [],
       data: {},
     }
   },
-  methods:{
+  methods: {
     loadPage () {
-      geOrgPage({ current: 1, size: 100, orgId: this.$route.query.id }).then(({data}) => {
+      geOrgPage({ current: 1, size: 100, orgId: this.$route.query.id }).then(({ data }) => {
         if (data.data) {
           this.list = data.data.records
         }
@@ -46,7 +46,6 @@ export default {
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
-
 }
 .content {
   padding: 0 20px;
@@ -66,7 +65,7 @@ export default {
   background-color: #99a9bf;
 }
 
-.el-carousel__item:nth-child(2n+1) {
+.el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
 .album >>> .el-carousel__container {

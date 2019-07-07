@@ -7,11 +7,12 @@
     </div>
     <div class="organizationDetails">
       <menus></menus>
-      <div>
+      <div class="con">
         <page-header :title="title" :backOption="backOption"></page-header>
         <router-view></router-view>
       </div>
     </div>
+    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>
@@ -48,10 +49,19 @@ export default {
 }
 .organizationDetails {
   width: 1200px;
+  height: 100%;
   margin: 0 auto;
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 220px) minmax(100px, 980px);
+  .con {
+    margin-top: 20px;
+  }
+}
+</style>
+<style scoped>
+.con >>> .title-wrapper {
+  margin-bottom: 0;
 }
 </style>

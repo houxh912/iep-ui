@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     loadData () {
-      getOrgDetail(this.$route.query.id).then(({data}) => {
+      getOrgDetail(this.$route.query.id).then(({ data }) => {
         this.data = data.data
       })
     },
@@ -35,6 +35,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .introduction {
-  margin: 20px;
+  margin: 0 20px;
 }
 </style>

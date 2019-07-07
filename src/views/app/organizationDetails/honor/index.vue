@@ -27,18 +27,19 @@ export default {
 <style lang="scss" scoped>
 .whole {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 0 20px;
   flex-wrap: wrap;
   .whole-box {
-    margin: 20px 0;
+    margin-bottom: 20px;
     width: 23%;
     cursor: pointer;
     .whole-item {
-      height: 370px;
+      height: 280px;
       border: 1px solid #ebeef5;
       img {
         width: 272px;
-        height: 360px;
+        height: 100%;
       }
     }
     p {
@@ -57,10 +58,11 @@ export default {
   padding: 5px;
   align-items: center;
   width: 100%;
-  height: 360px;
+  height: 100%;
 }
 .whole >>> .el-image__inner {
   max-height: 100%;
+  height: auto;
 }
 </style>
 

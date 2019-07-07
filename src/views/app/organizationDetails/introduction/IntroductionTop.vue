@@ -1,7 +1,9 @@
 <template>
   <div class="introduction-top">
     <div class="introduction-top-con">
-      <div class="img"><iep-img :src="data.logo" alt=""></iep-img></div>
+      <div class="img">
+        <iep-img :src="data.logo" alt=""></iep-img>
+      </div>
       <div class="text">
         <span class="title">{{data.name}}</span>
         <span class="detail"><span>创建人：{{data.creatorName}}</span><span>成立时间：{{data.establishTime.slice(0, 10)}}</span><span>人员规模：{{data.memberNum}}</span></span>
@@ -51,7 +53,6 @@ export default {
 <style lang="scss" scoped>
 .introduction-top {
   display: flex;
-  margin: 0 20px;
   align-items: center;
   align-content: center;
   height: 180px;

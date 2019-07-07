@@ -1,5 +1,6 @@
 <template>
-  <div class="gird-product">
+<div>
+  <div class="gird-product"  v-if="'/app/resource/product_ku'==routerMatch[routerMatch.length-1].path">
     <div class="leaderBoard">
       <IepAppTabsCard :linkName="linkName">
         <iep-tabs v-model="activeTab" :tab-list="tabList">
@@ -11,16 +12,24 @@
           </template>
         </iep-tabs>
       </IepAppTabsCard>
+      <el-badge v-if="activeTab=='Customized'"  @click.native="dialogShow" :value="12" class="item">
+        <el-button size="medium" icon="el-icon-goods"></el-button>
+      </el-badge>
+      <dialog-show v-if="activeTab=='Customized'" class="dialog-show" ref="DialogShow"></dialog-show>
     </div>
   </div>
+  <router-view v-else></router-view>
+</div>
 </template>
 <script>
 import Module from './Module'
 import Customized from './Customized'
+import DialogShow from './DialogShow'
 export default {
   components: {
     Module,
     Customized,
+    DialogShow,
   },
   data () {
     return {
@@ -33,7 +42,17 @@ export default {
         value: 'Customized',
       }],
       activeTab: 'Module',
+       routerMatch: this.$route.matched,
     }
+  },
+   beforeRouteUpdate (to, from, next) {
+    this.routerMatch = to.matched
+    next()
+  },
+  methods: {
+    dialogShow () {
+      this.$refs['DialogShow'].dialogShow = true
+    },
   },
 }
 </script>
@@ -56,10 +75,25 @@ export default {
   .leaderBoard {
     grid-column-start: 1;
     grid-column-end: 4;
+    position: relative;
+    .dialog-show {
+      position: absolute;
+      right: 15px;
+      top: 32%;
+    }
+    .item {
+      position: absolute;
+      right: -80px;
+      top: 40%;
+    }
   }
 }
 </style>
 <style scoped>
+.gird-product >>> .el-button--medium i {
+  font-size: 28px;
+  color: #aaa;
+}
 .gird-product >>> .el-tabs__nav-scroll {
   display: flex;
   justify-content: center;

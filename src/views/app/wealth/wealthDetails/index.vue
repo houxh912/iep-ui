@@ -54,7 +54,7 @@
               </div>
               <div>
                 <div class="label">组织排行</div>
-                <div class="num">9/15</div>
+                <div class="num">--</div>
               </div>
             </div>
             <div class="schedule">

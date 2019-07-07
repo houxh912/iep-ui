@@ -282,6 +282,16 @@ export default [
         name: '数据资产',
         component: () => import('@/views/app/data/organizationalAssets/tab/component'),
       },
+      {
+        path: 'contract_list',
+        name: '合同',
+        component: () => import('@/views/app/resource/contractList/'),
+      },
+      {
+        path: 'contract_detail/:id',
+        name: '合同详情',
+        component: () => import('@/views/app/resource/contractList/detail/'),
+      },
     ],
   },
 ]

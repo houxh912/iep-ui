@@ -3,11 +3,13 @@
     <basic-container>
       <iep-statistics-header :title="title" :dataMap="financialData">
         <template slot="left">
-          <iep-tip icon="el-icon-question" content="项目金额=合同金额+待签金额<br/>
-                            合同金额：已经签订合同的项目金额<br/>
+          <iep-tip icon="el-icon-question" content="项目金额=已签合同金额+待签项目金额（包括历史项目）<br/>
+                            历史项目金额，为历史合同的项目金额<br/>
+                            合同金额：已经签订合同的项目金额（包括历史项目）<br/>
+                            到账金额：已经到账的项目金额（历史项目除外）
                             待签金额：未签订合同的项目金额<br/>
-                            开票金额：已经开发票的项目金额<br/>
-                            应收账款金额：已经开发票的未到账的项目金额"></iep-tip>
+                            开票金额：已经开发票的项目金额（历史项目除外）<br/>
+                            应收账款金额：已经开发票的未到账的项目金额（历史项目除外）"></iep-tip>
         </template>
         <template slot="right">
           <operation-wrapper>
@@ -27,19 +29,43 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <el-table-column label="未开票金额">
+        <template slot="before-columns">
+          <el-table-column label="项目编号">
+            <template slot-scope="scope">
+              <iep-div-detail :value="scope.row.projectNum"></iep-div-detail>
+            </template>
+          </el-table-column>
+          <el-table-column label="项目名称">
+            <template slot-scope="scope">
+              <iep-div-detail :value="scope.row.projectName">
+              </iep-div-detail>
+              <a-tag v-if="scope.row.isHistory===2" color="orange">历</a-tag>
+            </template>
+          </el-table-column>
+        </template>
+        <el-table-column label="项目金额(预)">
           <template slot-scope="scope">
-            {{!scope.row.amount ? '暂无' : (scope.row.amount - (scope.row.invoicingAmount||0)) }}
+            <iep-div-detail :value="项目金额(scope.row)"></iep-div-detail>
           </template>
         </el-table-column>
-        <el-table-column label="未到账金额">
+        <el-table-column label="合同金额">
           <template slot-scope="scope">
-            {{!scope.row.amount ? '暂无' : (scope.row.amount - (scope.row.projectIncome||0)) }}
+            <iep-div-detail :value="scope.row.amount"></iep-div-detail>
+          </template>
+        </el-table-column>
+        <el-table-column label="开票金额">
+          <template slot-scope="scope">
+            <iep-div-detail :value="开票金额(scope.row)"></iep-div-detail>
+          </template>
+        </el-table-column>
+        <el-table-column label="到账金额">
+          <template slot-scope="scope">
+            <iep-div-detail :value="到账金额(scope.row)"></iep-div-detail>
           </template>
         </el-table-column>
         <el-table-column label="应收账款金额">
           <template slot-scope="scope">
-            {{!scope.row.invoicingAmount ? '暂无' : (scope.row.invoicingAmount - (scope.row.projectIncome||0)) }}
+            <iep-div-detail :value="应收账款金额(scope.row)"></iep-div-detail>
           </template>
         </el-table-column>
       </iep-table>
@@ -80,7 +106,7 @@ export default {
         '到账总金额': this.statistics[2],
         '未到账总金额': this.statistics[3],
         '开票总金额': this.statistics[4],
-        '未开票总金额': this.statistics[5],
+        '合同总金额': this.statistics[5],
         '应收账款': this.statistics[6],
       }
     },
@@ -89,6 +115,34 @@ export default {
     this.loadPage()
   },
   methods: {
+    项目金额 (row) {
+      if (row.isHistory === 2) {
+        return row.amount
+      } else {
+        return row.projectAmount
+      }
+    },
+    开票金额 (row) {
+      if (row.isHistory === 2) {
+        return row.amount
+      } else {
+        return row.projectIncome
+      }
+    },
+    到账金额 (row) {
+      if (row.isHistory === 2) {
+        return row.amount
+      } else {
+        return row.projectIncome
+      }
+    },
+    应收账款金额 (row) {
+      if (row.isHistory === 2) {
+        return 0
+      } else {
+        return !row.invoicingAmount ? '暂无' : (row.invoicingAmount - (row.projectIncome || 0))
+      }
+    },
     handleAdd () {
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].dialogShow = true

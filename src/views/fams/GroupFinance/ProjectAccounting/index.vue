@@ -32,6 +32,11 @@
             </template>
           </el-table-column>
         </template>
+        <!-- <el-table-column label="合同金额">
+          <template slot-scope="scope">
+            {{ ((scope.row.contractAmount||0) + (scope.row.projectAmount||0)) }}
+          </template>
+        </el-table-column> -->
         <el-table-column label="应收账款金额">
           <template slot-scope="scope">
             {{!scope.row.invoicingAmount ? '暂无' : ((scope.row.invoicingAmount||0) - (scope.row.projectIncome||0)) }}

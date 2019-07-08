@@ -123,7 +123,7 @@ export default {
       return +this.$route.params.id
     },
     invoicingType () {
-      return +this.$route.query.invoicingType
+      return this.$route.query.invoicingType ? +this.$route.query.invoicingType : this.form.invoicingType
     },
     methodName () {
       return this.id ? '编辑' : '新增'
@@ -163,7 +163,6 @@ export default {
       })
     },
     handleChangeCompanyId (value) {
-      console.log(value)
       getCompanyById(value).then(({ data }) => {
         this.companyForm = data.data
       })

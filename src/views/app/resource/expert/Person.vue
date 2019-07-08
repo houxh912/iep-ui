@@ -87,19 +87,15 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 25px;
-  grid-column-gap: 25px;
-  grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
-      100px,
-      3fr
-    );
+  grid-column-gap: 34px;
+  grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(100px,3fr);
   .person-item {
     cursor: pointer;
     display: flex;
     .img {
       margin-right: 15px;
-      margin-bottom: 25px;
-      width: 90px;
-      height: 90px;
+      width: 94px;
+      height: 94px;
       border: 1px solid #dcdfe6;
       overflow: hidden;
       img {
@@ -112,7 +108,7 @@ export default {
       }
     }
     .text {
-      width: 60%;
+      width: 70%;
       .job {
         color: #666;
       }
@@ -155,9 +151,8 @@ export default {
       .job,
       .sign,
       .deptQm {
-        min-height: 26px;
+        min-height: 20px;
         display: block;
-        width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -202,6 +197,7 @@ export default {
   }
 }
 .page {
+  margin-top: 40px;
   text-align: center;
 }
 </style>

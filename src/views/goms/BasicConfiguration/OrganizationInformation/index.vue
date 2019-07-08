@@ -36,9 +36,6 @@ export default {
       }, {
         label: '组织相册',
         value: 'Album',
-      }, {
-        label: '评价管理',
-        value: 'evaluate',
       }],
       activeTab: 'BasicInformation',
     }

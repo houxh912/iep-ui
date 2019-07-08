@@ -43,17 +43,17 @@ export default {
   },
   methods: {
     getLatestList () {
-      getLatestList().then(({data}) => {
+      getLatestList().then(({ data }) => {
         this.listList = data.data
       })
     },
     getPopularList () {
-      getPopularList().then(({data}) => {
+      getPopularList().then(({ data }) => {
         this.dataList = data.data
       })
     },
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
@@ -76,7 +76,7 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
-  .ranking .piece .name{
+  .ranking .piece .name {
     width: 80%;
     display: inline-block;
     vertical-align: middle;

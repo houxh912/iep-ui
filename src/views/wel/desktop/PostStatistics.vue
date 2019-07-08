@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { getPostLibraryPage } from '@/api/hrms/post_library'
+import { getLibraryPage } from '@/api/hrms/post_library'
 import mixins from '@/mixins/mixins'
 const columnsMap = [
 	{
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getPostLibraryPage)
+      this.loadTable(param, getLibraryPage)
     },
   },
 }

@@ -104,6 +104,10 @@ export default {
     },
     handleNextClick () {
       this.resultData(this.dataReduce() + 7 * 24 * 60 * 60 * 1000)
+      // if(this.reportInfo.startTime>= new Date()){
+      //   this.$refs.btn.disabled = false
+      //   return
+      // } 
       this.putStaffReport()
     },
   },

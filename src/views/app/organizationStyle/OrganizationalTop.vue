@@ -109,7 +109,7 @@ export default {
   display: flex;
   align-items: center;
   align-content: center;
-  height: 220px;
+  min-height: 220px;
   text-align: center;
   background: #fafafa url(./img/zzbg.png) no-repeat;
   background-size: 100% 100%;

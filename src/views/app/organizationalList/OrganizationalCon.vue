@@ -276,7 +276,7 @@ export default {
     }
     .con {
       margin-bottom: 15px;
-      height: 276px;
+      height: 166px;
       line-height: 24px;
       text-indent: 2em;
       text-align: justify;

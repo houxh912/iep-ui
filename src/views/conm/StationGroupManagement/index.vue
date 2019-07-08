@@ -28,7 +28,7 @@
               <div>{{scope.row.id}}</div>
             </template>
           </el-table-column>
-          <el-table-column label="姓名">
+          <el-table-column label="站名">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.siteName}}</iep-table-link>
             </template>

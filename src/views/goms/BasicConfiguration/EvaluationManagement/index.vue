@@ -1,238 +1,186 @@
 <template>
-  <div class="appraise">
-    <basic-container>
-      <page-header title="评价管理"></page-header>
-      <el-collapse v-model="activeNames" @change="activeChange">
-        <el-timeline v-for="(appraise,index) in appraiseList" :key="index">
-          <el-collapse-item :title="appraise.time" :name="index">
-            <el-card shadow="never" v-for="(child, index2) in appraise.childList" :key="index2">
-              <div class="conList">
-                <div class="img"><iep-img :src="child.img" alt=""></iep-img></div>
-                <div class="con">
-                  <h4>
-                    <span class="name">{{child.name}}</span>
-                    <span class="department">{{child.department}}</span>
-                    <span class="subTime">{{child.subTime}}</span>
-                    <span class="operate">
-                      <i class="el-icon-edit" @click="update(index,index2, child.con)"></i>
-                      <i class="icon-shanchu1 close" @click="handleClose"></i>
-                    </span>
-                  </h4>
-                  <div class="fillin" v-if="updateIndex2 == index2 && updateIndex == index">
-                    <el-input type="textarea" rows=5 v-model="updateData" placeholder="" maxlength="300"></el-input>
-                    <div class="footer">
-                      <iep-button type="primary" @click="submit()">保存</iep-button>
-                      <div class="error" v-if="updateValidate">日报内容不能为空</div>
-                    </div>
-                  </div>
-                  <div v-else>{{child.con}}</div>
-                </div>
+  <div class="evaluate">
+    <div>
+      <div v-if="list.length !== 0">
+        <el-collapse v-model="activeNames" @change="handleChange">
+          <el-collapse-item v-for="(item, index) in list" :key="index" :title="item.time" :name="index">
+            <div v-for="(t, i) in item.list" :key="i" class="item">
+              <div class="avatar">
+                <iep-img :src="t.avatar" class="img"></iep-img>
               </div>
-            </el-card>
+              <div class="content">
+                <div class="head">
+                  <div class="left">
+                    <div class="name">{{t.creatorName}}</div>
+                    <div class="time">{{t.updateTime}}</div>
+                  </div>
+                  <div class="right">
+                    <i class="icon-bianji" @click="handleUpdate(t)"></i>
+                    <i class="icon-guanbi" @click="handleDelete(t)"></i>
+                  </div>
+                </div>
+                <div class="area">{{t.content}}</div>
+              </div>
+            </div>
           </el-collapse-item>
-        </el-timeline>
-      </el-collapse>
-    </basic-container>
+        </el-collapse>
+      </div>
+      <IepNoData v-else></IepNoData>
+    </div>
+    <div style="text-align: center;margin: 20px 0;">
+      <el-pagination background layout="total, prev, pager, next, jumper" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+    </div>
+    <!-- 修改 -->
+    <formDialog ref="form" @load-page="formLoadPage"></formDialog>
   </div>
 </template>
+
 <script>
+import { getOrgevaluatePage, orgEvaluateDelete } from '@/api/admin/orgEvaluate'
+import { mapGetters } from 'vuex'
+import { dateFormat } from '@/util/date'
+import formDialog from './formDialog'
 export default {
+  components: { formDialog },
   data () {
     return {
-      activeNames: [0, 1],
-      dailyState: 'detail',
-      updateIndex:-1,
-      updateIndex2:-1,
-      updateData:'',
-      updateValidate: false,
-      textarea: '',
-      appraiseList: [
-        {
-          time: '2019年4月',
-          childList: [
-            {
-              img: '//183.131.134.242:10060/upload/iep/201904/e29cedd1-efba-4082-a966-151153b77f28_5D559C5D-76D2-40A8-9150-B5D0D87DAE31.png',
-              name: '何益挺',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-            {
-              img: '//183.131.134.242:10060/upload/iep/201905/6057ea69-63e7-4d1e-8510-11f0db4823c4_25e933aa-0b77-48fe-a2f8-a893be7278ee_20181218194521_ixb20x5efq.jpg',
-              name: '丁斌',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '121可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-            {
-              img: '//183.131.134.242:10060/upload/iep/201905/5cbd2176-0ef8-4636-9e0b-e1761a5802c2_自己.jpg',
-              name: '何已',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '11可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-          ],
-        },
-        {
-          time: '2019年3月',
-          childList: [
-            {
-              img: '//183.131.134.242:10060/upload/iep/201904/e29cedd1-efba-4082-a966-151153b77f28_5D559C5D-76D2-40A8-9150-B5D0D87DAE31.png',
-              name: '何益挺',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '122可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-            {
-              img: '//183.131.134.242:10060/upload/iep/201905/6057ea69-63e7-4d1e-8510-11f0db4823c4_25e933aa-0b77-48fe-a2f8-a893be7278ee_20181218194521_ixb20x5efq.jpg',
-              name: '丁斌',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '2可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-            {
-              img: '//183.131.134.242:10060/upload/iep/201905/5cbd2176-0ef8-4636-9e0b-e1761a5802c2_自己.jpg',
-              name: '何已',
-              department: '（研发中心）',
-              subTime: '2019-04-12 13:25',
-              con: '1可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等可改变按钮的颜色和大小及鼠标经过效果、样式等等',
-            },
-          ],
-        },
-      ],
+      list: [],
+      params: {
+        current: 1,
+        size: 10,
+        orgId: '',
+        content: '',
+        createTime: '',
+        updateTime: '',
+      },
+      total: 0,
+      activeNames: [],
     }
   },
+  computed: {
+    ...mapGetters(['userInfo']),
+  },
   methods: {
-    activeChange () {
-      this.dailyState = 'detail'
-      this.updateValidate = ''
-    },
-    handleClose () {
-    },
-    // 编辑
-    update (index, index2, data) {
-      this.$nextTick(() => {
-        this.updateIndex = index
-        this.updateIndex2 = index2
-        this.updateData = data
-        this.dailyState='更新'
+    loadPage () {
+      getOrgevaluatePage(this.params).then(({ data }) => {
+        if (data.data) {
+          this.list = this.dealWithList(data.data.records)
+          this.total = data.data.total
+        }
       })
     },
-    submit () {
-
+    currentChange (val) {
+      this.params.current = val
+      this.loadPage()
     },
+    // 根据时间分组
+    dealWithList (row) {
+      let list = []
+      let obj = { time: dateFormat(row[0].createTime, 'yyyy-MM'), list: [] }
+      this.activeNames = [0]
+      for (let index in row) {
+        let item = row[index]
+        let startTime = dateFormat(item.createTime, 'yyyy-MM')
+        if (obj.time == startTime) {
+          obj.list.push(item)
+        } else {
+          this.activeNames.push(this.activeNames[this.activeNames.length - 1] + 1)
+          list.push(obj)
+          obj = { time: startTime, list: [item] }
+        }
+      }
+      list.push(obj)
+      return list
+    },
+    handleChange (val) {
+      console.log(val)
+    },
+    handleDelete (row) {
+      this.$confirm('是否确认删除此条评价', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        orgEvaluateDelete(row.id).then(({ data }) => {
+          if (data.data) {
+            this.$message.success('删除成功！')
+            this.loadPage()
+          } else {
+            this.$mesage.error('操作出现问题，请重试！')
+          }
+        })
+      }).catch(() => { })
+    },
+    handleUpdate (row) {
+      this.$refs['form'].open(row)
+    },
+    formLoadPage (type) {
+      if (type) {
+        this.loadPage()
+      }
+    },
+  },
+  created () {
+    this.params.orgId = this.userInfo.orgId
+    this.loadPage()
   },
 }
 </script>
+
 <style lang="scss" scoped>
-.appraise {
-  .el-timeline {
+.evaluate {
+  padding: 0 70px 10px 30px;
+  .item {
     display: flex;
-    flex-direction: column;
-    padding-left: 0;
-  }
-  .department,
-  .subTime {
-    margin-left: 5px;
-    font-weight: 400;
-    color: #999;
-  }
-  .subTime {
-    flex: 2;
-  }
-  .conList {
-    display: flex;
-    padding: 20px 0;
-    justify-content: space-between;
-    align-items: flex-start;
-    border-bottom: 1px solid #ebeef5;
-    .con {
-      flex: 2;
-      margin-left: 20px;
-      h4 {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    .avatar {
+      width: 100px;
+      .img {
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+    }
+    .content {
+      flex: 1;
+      padding: 5px 0 0 0;
+      .head {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-      }
-      .fillin {
-        padding: 10px 0 20px;
-        .footer {
-          margin: 20px auto 0;
-          .error {
-            display: inline-block;
-            font-size: 12px;
-            color: red;
+        margin-bottom: 10px;
+        .left {
+          display: flex;
+          .name {
+            margin-right: 30px;
+            font-weight: 700;
+            font-size: 16px;
+          }
+        }
+        .right {
+          i {
             margin-left: 10px;
+            cursor: pointer;
           }
         }
       }
     }
   }
-  .input {
-    textarea {
-      border: 0;
-    }
-  }
-  ::-webkit-input-placeholder {
-    /* WebKit, Blink, Edge */
-    color: #333;
-  }
-  .operate {
-    i {
-      font-size: 18px;
-      cursor: pointer;
-      color: #999;
-    }
-    .el-icon-edit {
-      margin-right: 5px;
-      color: #cb3737;
-    }
-  }
-  .img {
-    width: 60px;
-    height: 60px;
-    border: 1px solid #ebeef5;
-    border-radius: 50%;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      transition: 0.5s;
-      &:hover {
-        transform: scale(1.1);
-      }
-    }
-  }
-  .el-card {
-    border: 0;
+  .item:last-of-type {
+    margin-bottom: 0;
   }
 }
 </style>
 
-<style lang="css" scoped>
-.appraise >>> .el-timeline-item__wrapper {
-  position: relative;
+<style scoped>
+.evaluate >>> .el-collapse-item__content {
   padding: 0;
 }
-.appraise >>> .is-top {
-  font-size: 14px;
-  cursor: pointer;
-}
-.appraise >>> .el-timeline-item__tail,
-.appraise >>> .el-timeline-item__node {
-  display: none;
-}
-.appraise >>> .br1 .el-textarea__inner {
-  border: 1px solid #dcdfe6;
-}
-.appraise >>> .el-card__body {
-  padding: 0 20px;
-}
-.appraise >>> .el-collapse {
-  border: 0;
-}
-.appraise >>> .el-collapse-item__arrow {
-  margin: 0 8px 0 8px;
+.evaluate >>> .el-collapse-item__header {
+  font-size: 18px;
+  font-weight: 100;
+  height: 70px;
 }
 </style>

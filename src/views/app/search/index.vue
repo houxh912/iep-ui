@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <iep-app-layout class="search">
     <el-row :gutter="20" class="gov-search">
       <el-col :span="12" :offset="6">
         <div class="grid-content">
@@ -49,8 +49,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>

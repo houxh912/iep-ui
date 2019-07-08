@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <brand-header></brand-header>
     <brand-info></brand-info>
     <div class="gird-brand">
@@ -21,8 +21,7 @@
       <hold-all></hold-all>
       <data-base></data-base>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import BrandHeader from './BrandHeader'
@@ -71,7 +70,7 @@ export default {
     }
   },
   created () {
-    
+
   },
 }
 </script>

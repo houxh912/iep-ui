@@ -125,7 +125,7 @@ export default {
       if (row.isHistory === 2) {
         return row.amount
       } else {
-        return row.projectIncome
+        return row.invoicingAmount
       }
     },
     到账金额 (row) {

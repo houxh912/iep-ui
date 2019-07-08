@@ -79,7 +79,7 @@ export default {
           name: '产品',
           data: this.counts.productCount,
           text: '（最新代理 0）',
-          link: `/app/products?id=${this.$route.params.id}`,
+          link: `/app/resource/product_ku?id=${this.$route.params.id}&type=2`,
         },
       ]
     },

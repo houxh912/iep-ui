@@ -21,8 +21,8 @@
               <span><i class="iconfont icon-yanjing"></i>{{item.views}}人浏览</span>
               <span><i class="iconfont icon-download1"></i>{{item.downloadTimes}}人下载</span>
               <span style="cursor: pointer;" v-if="item.collection == 0" @click="handleCollect(item)"><i class="icon-heart"></i>收藏</span>
-              <span style="cursor: pointer;" v-else><i class="icon-aixin"></i>已收藏</span>
-              <span style="cursor: pointer;" @click="handleShare(item)"><i class="icon-share"></i>分享</span>
+              <span class="collect" style="cursor: pointer;" v-else><i class="icon-aixin"></i>已收藏</span>
+              <span class="collect" style="cursor: pointer;" @click="handleShare(item)"><i class="icon-share"></i>分享</span>
             </div>
           </div>
           <iep-tag-detail :value="item.tagKeyWords"></iep-tag-detail>
@@ -139,6 +139,9 @@ export default {
     margin-right: 10px;
     font-size: 16px;
     color: #333;
+    &:hover {
+      color: #cb3737;
+    }
   }
   i {
     margin-right: 10px;
@@ -164,6 +167,11 @@ export default {
       font-size: 16px;
       color: #aaa;
       vertical-align: -2px;
+    }
+  }
+  .collect {
+    &:hover {
+      color: #cb3737;
     }
   }
 }

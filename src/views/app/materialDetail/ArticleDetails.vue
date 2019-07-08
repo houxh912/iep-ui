@@ -209,14 +209,23 @@ export default {
     .sc {
       right: 150px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
     .fx {
       right: 80px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
     .jc {
       right: 10px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
   }
   .classes {
@@ -237,6 +246,13 @@ export default {
     margin-bottom: 20px;
     .file {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
+      &:hover i,
+      &:hover .tip {
+        color: #cb3737;
+      }
       i {
         font-size: 16px !important;
         margin-right: 10px;

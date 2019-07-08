@@ -35,10 +35,10 @@
           <el-scrollbar>
             <div id="inspectionContent">
               <div class='question' v-for="(item,index) in itemBankList" :key="index">
-                <p v-if="item.title != ''">
+                <p v-if="item.title && item.title.length > 4">
                   <pre><span class="caption">{{index+1}}.</span>{{item.title}}</pre>
                 </p>
-                <p class='qt_error' v-else>题目（不能为空）</p>
+                <p class='qt_error' v-else>题目：至少5个字符</p>
                 <p class='qt_error' v-if="item.titleOptions.length<2 && (value===13 || value===12)">
                   选项（至少两项）</p>
                 <ul v-if="value===13">
@@ -57,7 +57,7 @@
                 <p v-if="item.answer"><span class="caption">答案：</span>{{item.answer}}</p>
                 <p class='qt_error' v-if="!item.answer && value > 10 && value < 20">答案: 缺少答案</p>
                 <p v-if="item.analysis"><span class="caption">解析：</span>{{item.analysis}}</p>
-                <p class='qt_error' v-else>解析: 缺少解析</p>
+                <!-- <p class='qt_error' v-else>解析: 缺少解析</p> -->
                 <p v-if="item.tag"><span class="caption">标签：</span>{{item.tag}}</p>
                 <p class='qt_error' v-else>标签: 缺少标签</p>
               </div>

@@ -107,7 +107,6 @@ export default {
     justify-content: space-between;
     align-items: flex-start;
     padding: 15px;
-    height: 186px;
     overflow: hidden;
     i {
       display: inline-block;

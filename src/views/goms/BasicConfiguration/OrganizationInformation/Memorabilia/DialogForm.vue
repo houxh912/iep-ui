@@ -41,8 +41,6 @@ export default {
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
-        console.log('userInfo: ' , this.userInfo)
-        this.form.orgId = this.userInfo.orgId
         if (valid) {
           this.formRequestFn(this.form).then(() => {
             this.$message({

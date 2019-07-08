@@ -2,7 +2,7 @@
   <div class="organizational-dynamics-con">
     <div class="organizational-dynamics" v-if="organizationalDynamics.length !== 0">
       <div v-for="(item,index) in organizationalDynamics" :key="index" class="piece" @click="handleDetail(item)">
-        <span class="name">{{item.name}}</span>
+        <span class="name">{{item.title}}</span>
         <!-- <span class="time">{{item.time}}</span> -->
       </div>
     </div>
@@ -11,7 +11,8 @@
 </template>
 
 <script>
-import { getNewsList } from '@/api/app/mlms/'
+// import { getNewsList } from '@/api/app/mlms/'
+import { getOrgEventsByOrgId } from '@/api/admin/orgEvents'
 
 export default {
   props: {
@@ -27,12 +28,15 @@ export default {
   },
   methods: {
     getNewsList (id) {
-      getNewsList({ orgId: id }).then(({ data }) => {
-        this.organizationalDynamics = data.data
+      // getNewsList({ orgId: id }).then(({ data }) => {
+      //   this.organizationalDynamics = data.data
+      // })
+      getOrgEventsByOrgId(id).then(({data}) => {
+        this.organizationalDynamics = data.data.slice(0, 6)
       })
     },
-    handleDetail (row) {
-      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    handleDetail () {
+      // this.$router.push(`/app/resource/material/material_detail/${row.id}`)
     },
   },
   watch: {

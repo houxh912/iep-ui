@@ -11,12 +11,12 @@
             </div>
             <div class="item">
               <span class="label">项目等级：{{transform(item.projectLevel, 'prms_project_level')}}</span>
-              <span class="label">市场经理：{{item.mktManager}}</span>
+              <span class="label">项目经理：{{item.manager}}</span>
             </div>
             <div class="box">
               <span>项目类型：{{transform(item.projectType, 'prms_project_type')}}</span>
               <span>发布人：{{item.publisherName}}</span>
-              <span><i class="iconfont icon-shijian"></i>{{item.projectTime}}</span>
+              <span><i class="iconfont icon-shijian"></i>{{dateFormat(item.publishTime)}}</span>
             </div>
           </div>
         </div>
@@ -31,6 +31,7 @@
 <script>
 import { getProjectPage } from '@/api/app/prms/'
 import { mapGetters } from 'vuex'
+import { dateFormat } from '@/util/date'
 
 export default {
   computed: {
@@ -46,6 +47,7 @@ export default {
         current: 1,
         size: 10,
       },
+      dateFormat,
     }
   },
   methods: {

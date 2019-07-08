@@ -6,7 +6,8 @@
       <el-collapse-item :title="events.time" :name="index" class="item" v-for="(events,index) in eventsList" :key="index">
         <el-timeline>
           <el-timeline-item v-for="activity in events.activities" :key="activity.id" :icon="activity.icon" :type="activity.type" :color="activity.color" :size="activity.size" :timestamp="activity.timestamp">
-            {{activity.content}}
+            <h3 class="title">{{activity.title}}</h3>
+            <div class="content">{{activity.content}}</div>
           </el-timeline-item>
         </el-timeline>
       </el-collapse-item>
@@ -39,7 +40,8 @@ export default {
           for (let item of row) {
             if (dateFormat(item.happenTime, 'yyyy') === time) { // 当前年份已经存在
               obj.activities.push({
-                content: item.title,
+                title: item.title,
+                content: item.content,
                 timestamp: dateFormat(item.happenTime, 'MM-dd'),
               })
             } else { // 当前年份不存在，新建对象
@@ -51,7 +53,8 @@ export default {
               obj = {
                 time: time,
                 activities: [{
-                  content: item.title,
+                  title: item.title,
+                  content: item.content,
                   timestamp: dateFormat(item.happenTime, 'MM-dd'),
                 }],
               }
@@ -93,6 +96,10 @@ export default {
     color: #ddd;
     background: #fff;
     z-index: 2;
+  }
+  .content {
+    color: #999;
+    font-size: 12px;
   }
 }
 </style>

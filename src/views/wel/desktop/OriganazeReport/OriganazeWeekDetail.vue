@@ -10,7 +10,7 @@
         </template>
         <template slot="right">
           <iep-button @click="handlePreClick">上周</iep-button>
-          <iep-button @click="handleNextClick">下周</iep-button>
+          <iep-button @click="handleNextClick" :disabled="isdisabled">下周</iep-button>
         </template>
       </operation-container>
       <div class="container">
@@ -54,7 +54,7 @@
   </div>
 </template>
 <script>
-import { getOgrReport,putOrgReport } from '@/api/mlms/leader_report/'
+import { getOgrReport, putOrgReport } from '@/api/mlms/leader_report/'
 import RelationList from '@/views/wel/desktop/Components/RelationList.vue'
 function initForm () {
   return {
@@ -80,6 +80,7 @@ export default {
         isBack: true,
       },
       form: initForm(),
+      isdisabled: false,
       useId: '',
       reportInfo: {
         reportType: 0,
@@ -100,7 +101,7 @@ export default {
       this.reportInfo.orgId = data.data.orgId
     })
   },
-   methods: {
+  methods: {
     dataReduce () {
       let data = new Date(this.reportInfo.startTime)
       let time = data.getTime()
@@ -121,11 +122,14 @@ export default {
     },
     handlePreClick () {
       this.resultData(this.dataReduce() - 7 * 24 * 60 * 60 * 1000)
+      let flag = this.dataReduce() <= new Date().getTime()
+      if (flag) this.isdisabled = false
       this.putOrgReport()
     },
     handleNextClick () {
       this.resultData(this.dataReduce() + 7 * 24 * 60 * 60 * 1000)
-      this.putOrgReport()
+      let flag = this.dataReduce() > new Date().getTime()
+      flag ? this.isdisabled = true : this.putOrgReport()
     },
   },
 }

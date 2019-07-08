@@ -63,7 +63,7 @@
             <iep-div-detail :value="到账金额(scope.row)"></iep-div-detail>
           </template>
         </el-table-column>
-        <el-table-column label="应收账款金额">
+        <el-table-column label="开票应收账款金额">
           <template slot-scope="scope">
             <iep-div-detail :value="应收账款金额(scope.row)"></iep-div-detail>
           </template>
@@ -101,13 +101,11 @@ export default {
     },
     financialData () {
       return {
-        '项目总金额': this.statistics[0],
-        '历史项目金额': this.statistics[1],
-        '合同总金额': this.statistics[2],
-        '到账总金额': this.statistics[3],
-        '未到账总金额': this.statistics[4],
-        '开票总金额': this.statistics[5],
-        '应收账款': this.statistics[6],
+        '待签项目总金额': this.statistics[0],
+        '合同总金额': this.statistics[1],
+        '未到账总金额': this.statistics[2],
+        '开票总金额': this.statistics[3],
+        '开票应收账款': this.statistics[4],
       }
     },
   },

@@ -5,11 +5,7 @@
         <span>2019年4月</span>
       </div>
       <div class="album-list">
-        <el-upload
-          class="upload-demo"
-          drag
-          action=""
-          multiple>
+        <el-upload class="upload-demo" drag action="" multiple>
           <i class="icon-xinzeng"></i>
           <div class="el-upload__text">上传图片</div>
         </el-upload>
@@ -35,91 +31,95 @@
 export default {
   data () {
     return {
-      imgList:[
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
-        {imgSrc:'//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg',desc:'集团平台营运中心'},
+      imgList: [
+        { imgSrc: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', desc: '集团平台营运中心' },
+        { imgSrc: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', desc: '集团平台营运中心' },
+        { imgSrc: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', desc: '集团平台营运中心' },
+        { imgSrc: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', desc: '集团平台营运中心' },
+        { imgSrc: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', desc: '集团平台营运中心' },
       ],
       isShow: true,
       isRotate: '',
     }
   },
-  methods:{
+  methods: {
     handleClick () {
       this.isShow = !this.isShow
-      this.isRotate = this.isRotate? '':'isRotate'
+      this.isRotate = this.isRotate ? '' : 'isRotate'
     },
     handleClose (index) {
-      this.imgList.splice(index,1)
+      this.imgList.splice(index, 1)
     },
   },
 }
 </script>
 <style scoped lang='scss'>
-.album{
-  .album-block{
+.album {
+  .album-block {
     margin-bottom: 30px;
   }
-  .title{
+  .title {
     font-size: 16px;
-    color:#333;
-    .isRotate{
+    color: #333;
+    .isRotate {
       transform: rotate(-90deg);
-      transition: .3s;
+      transition: 0.3s;
     }
-    .time{
+    .time {
       margin-right: 5px;
     }
-    .num{
+    .num {
       margin-right: 10px;
-      color:#999;
+      color: #999;
     }
-    i{
+    i {
       cursor: pointer;
-      color:#999;
+      color: #999;
       vertical-align: -1px;
     }
   }
-  .album-list{
+  .album-list {
     padding: 20px 15px;
-    color:#ccc;
-    i{
-      display:block;
-      font-size: 34px!important;
+    color: #ccc;
+    i {
+      display: block;
+      font-size: 34px !important;
     }
   }
-  .album-lib{
+  .album-lib {
     padding: 20px 15px;
-    .lib-ibox{
+    .lib-ibox {
       position: relative;
-      display:inline-block;
+      display: inline-block;
       margin-bottom: 20px;
       margin-right: 50px;
       text-align: center;
-      img{
+      .el-image {
+        width: 260px;
+        height: 135px;
+      }
+      img {
         margin-bottom: 10px;
         width: 260px;
-        height:135px;
+        height: 135px;
       }
-      span{
-        display:block;
+      span {
+        display: block;
       }
-      .close{
+      .close {
         position: absolute;
-        right:-9px;
-        top:-9px;
+        right: -9px;
+        top: -9px;
         width: 18px;
         height: 18px;
-        font-size: 14px!important;
+        font-size: 14px !important;
         background-color: #fff;
-        color:#ccc;
+        color: #ccc;
         border-radius: 50%;
         line-height: 18px;
         cursor: pointer;
-        &:hover{
-          color:#fff;
+        &:hover {
+          color: #fff;
           background-color: #f9eae7;
         }
       }
@@ -128,13 +128,13 @@ export default {
 }
 </style>
 <style scoped>
-.album >>> .el-upload-dragger{
+.album >>> .el-upload-dragger {
   padding: 30px 100px 38px;
-  width:inherit;
-  height:inherit;
+  width: inherit;
+  height: inherit;
 }
-.album >>> .el-upload__text{
+.album >>> .el-upload__text {
   line-height: 22px;
-  color:#999;
+  color: #999;
 }
 </style>

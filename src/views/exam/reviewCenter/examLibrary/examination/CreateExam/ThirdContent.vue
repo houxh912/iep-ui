@@ -392,14 +392,19 @@ export default {
     },
 
     async loadSelf () {
-      if (this.isEdit) {
-        await getExam({ id: this.data.id }).then(({ data }) => {
-          this.examForm = selfToVo(data.data)
-          this.testPaper = data.data.iepTestPaperVO
-        })
+      if (this.data.examInfo) {
+        // 获取已填写的考试信息
+        this.examForm = this.data.examInfo
       } else {
-        this.examForm = examForm()
-        this.testPaper = this.data.iepTestPaperVO
+        if (this.isEdit) {
+          await getExam({ id: this.data.id }).then(({ data }) => {
+            this.examForm = selfToVo(data.data)
+            this.testPaper = data.data.iepTestPaperVO
+          })
+        } else {
+          this.examForm = examForm()
+          this.testPaper = this.data.iepTestPaperVO
+        }
       }
 
     },
@@ -414,6 +419,7 @@ export default {
           iepTestPaperVO: data.data[0],
           methodName: this.data.methodName,
           id: this.data.id,
+          examInfo: this.examForm, // 保存已填写的考试信息
         }
         this.$emit('prev', _exam)
       })

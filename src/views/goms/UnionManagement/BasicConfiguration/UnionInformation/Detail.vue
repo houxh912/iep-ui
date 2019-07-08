@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织基本信息">
+      <page-header title="联盟信息">
         <template>
           <el-button class="modify" size="small" @click="handleEdit">修改</el-button>
         </template>

@@ -11,7 +11,7 @@
             <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.type"></iep-dict-cascader>
           </template>
         </el-table-column>
-        <el-table-column label="收款单位账号及开户行">
+        <el-table-column label="收款单位、账号及开户行">
           <template slot-scope="scope">
             <el-input size="small" v-model="scope.row.bank"></el-input>
           </template>

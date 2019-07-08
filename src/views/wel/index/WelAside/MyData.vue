@@ -68,10 +68,13 @@ export default {
       getUserDetail(this.userInfo.userId).then(({ data }) => {
         const { indexMap } = data.data
         this.sum = 0
+        let max = 0
         for (const key in indexMap) {
           if (indexMap.hasOwnProperty(key)) {
             const element = indexMap[key]
-            this.sum += element
+            if (max < element) {
+              max = element
+            }
           }
         }
         this.chartData.rows[1].weath = indexMap.cfzz
@@ -80,13 +83,13 @@ export default {
         this.chartData.rows[1].study = indexMap.xx
         this.chartData.rows[1].admin = indexMap.gl
         this.chartData.rows[1].xz = indexMap.xz
-        const avg = +(this.sum / 6).toFixed(0)
-        this.chartData.rows[0].weath = avg
-        this.chartData.rows[0].creative = avg
-        this.chartData.rows[0].work = avg
-        this.chartData.rows[0].study = avg
-        this.chartData.rows[0].admin = avg
-        this.chartData.rows[0].xz = avg
+
+        this.chartData.rows[0].weath = max
+        this.chartData.rows[0].creative = max
+        this.chartData.rows[0].work = max
+        this.chartData.rows[0].study = max
+        this.chartData.rows[0].admin = max
+        this.chartData.rows[0].xz = max
       })
     },
   },

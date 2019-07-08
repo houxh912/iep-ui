@@ -50,6 +50,7 @@ const initForm = () => {
 
 const initSearchForm = () => {
 	return {
+		projectType: null,
 		signatureStatus: null,
 		projectStage: null,
 		date: '',

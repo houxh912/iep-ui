@@ -2,12 +2,13 @@
   <div>
     <div class="title">我的指数</div>
     <ve-radar width="220px" height="220px" :data="chartData" :settings="chartSettings" :legendVisible="isTrue"></ve-radar>
-    <h4 style="text-align:center;">内网综合指数：0</h4>
+    <h4 style="text-align:center;">内网综合指数：{{sum}}</h4>
   </div>
 </template>
 
 <script>
-
+import { getUserDetail } from '@/api/app/hrms/index'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     this.chartSettings = {
@@ -40,13 +41,14 @@ export default {
         },
       },
     }
-    this.isTrue = false
     return {
+      isTrue: false,
+      sum: 0,
       chartData: {
         columns: ['date', 'creative', 'work', 'study', 'weath', 'admin', 'xz'],
         rows: [
           {
-            date: '去年', 'weath': 0, 'creative': 0, 'work': 0, 'study': 0, 'admin': 0, 'xz': 0,
+            date: '去年', 'weath': 100, 'creative': 100, 'work': 100, 'study': 100, 'admin': 100, 'xz': 100,
           },
           {
             date: '今年', 'weath': 0, 'creative': 0, 'work': 0, 'study': 0, 'admin': 0, 'xz': 0,
@@ -54,6 +56,39 @@ export default {
         ],
       },
     }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage () {
+      getUserDetail(this.userInfo.userId).then(({ data }) => {
+        const { indexMap } = data.data
+        this.sum = 0
+        for (const key in indexMap) {
+          if (indexMap.hasOwnProperty(key)) {
+            const element = indexMap[key]
+            this.sum += element
+          }
+        }
+        this.chartData.rows[1].weath = indexMap.cfzz
+        this.chartData.rows[1].creative = indexMap.cxfw
+        this.chartData.rows[1].work = indexMap.gz
+        this.chartData.rows[1].study = indexMap.xx
+        this.chartData.rows[1].admin = indexMap.gl
+        this.chartData.rows[1].xz = indexMap.xz
+        const avg = +(this.sum / 6).toFixed(0)
+        this.chartData.rows[0].weath = avg
+        this.chartData.rows[0].creative = avg
+        this.chartData.rows[0].work = avg
+        this.chartData.rows[0].study = avg
+        this.chartData.rows[0].admin = avg
+        this.chartData.rows[0].xz = avg
+      })
+    },
   },
 }
 </script>

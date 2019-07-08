@@ -29,7 +29,6 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="负责部门:">
-                <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
                 <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
               </el-form-item>
             </el-col>
@@ -47,8 +46,7 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="市场经理:" prop="Manager">
-                <!-- <el-input v-model="formData.Manager" :disabled="true"></el-input> -->
-                {{this.Claim == true?formData.Manager:''}}
+                {{this.Claim == true?'':formData.Manager}}
               </el-form-item>
             </el-col>
           </el-row>

@@ -40,6 +40,7 @@
               </iep-div-detail>
               <a-tag v-if="scope.row.isHistory===2" color="orange">历</a-tag>
               <a-tag v-if="scope.row.projectType==='1'" color="pink">内</a-tag>
+              <a-tag v-if="scope.row.isHistory===1 && scope.row.amount!==scope.row.projectIncome" color="red">未结清</a-tag>
             </template>
           </el-table-column>
         </template>

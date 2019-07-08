@@ -37,7 +37,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .new-down {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border-radius: 4px;
   border: 1px solid #ebeef5;
   .iepnodata {
@@ -75,9 +75,9 @@ export default {
       align-items: center;
       margin: 0 9px 10px;
       text-align: center;
-    }
-    &:hover {
-      opacity: 0.7;
+      &:hover {
+        opacity: 0.7;
+      }
     }
     .img {
       margin-bottom: 5px;
@@ -131,9 +131,6 @@ export default {
   margin: 0 5px;
   padding: 0 20px;
 }
-.new-down >>> .el-card__header {
-  padding: 18px 0 10px;
-}
 .new-down >>> .el-tag--white {
   border: 1px solid #dcdfe6;
   height: 28px;
@@ -150,5 +147,8 @@ export default {
 }
 .new-down >>> .prepend {
   margin-left: -2px;
+}
+.new-down >>> .el-card {
+  height: 336px;
 }
 </style>

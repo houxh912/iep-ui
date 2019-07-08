@@ -5,14 +5,11 @@
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item v-for="(item, index) in list" :key="index" :title="item.time" :name="index">
             <div v-for="(t, i) in item.list" :key="i" class="item">
-              <div class="avatar">
-                <iep-img :src="t.avatar" class="img"></iep-img>
-              </div>
+              <div class="avatar"><iep-img :src="t.avatar" class="img"></iep-img></div>
               <div class="content">
                 <div class="head">
                   <div class="left">
-                    <div class="name">{{t.creatorName}}</div>
-                    <div class="time">{{t.updateTime}}</div>
+                    <div class="name">{{t.creatorName}}</div><div class="time">{{t.updateTime}}</div>
                   </div>
                   <div class="right">
                     <i class="icon-bianji" @click="handleUpdate(t)"></i>
@@ -109,7 +106,7 @@ export default {
             this.$mesage.error('操作出现问题，请重试！')
           }
         })
-      }).catch(() => { })
+      }).catch(() => {})
     },
     handleUpdate (row) {
       this.$refs['form'].open(row)

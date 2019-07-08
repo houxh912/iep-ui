@@ -8,14 +8,10 @@
 import { getProjectRecProjects } from '@/api/app/prms/'
 
 export default {
-  props: {
-    list: {
-      type: Array,
-      default: () => {},
-    },
-  },
   data () {
-    return {}
+    return {
+      list: [],
+    }
   },
   methods: {
     handleDetail (row) {

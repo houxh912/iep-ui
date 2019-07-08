@@ -7,11 +7,12 @@
             <el-tag class="classTag">材料</el-tag><span class="sub-title-con">{{item.projectName}}</span>
           </h4>
           <p class="list-content">{{item.serialNo}}</p>
+          <p class="list-content">市场经理：{{item.manager}}</p>
           <div class="list-item-description">
             <span class="time"><i class="iconfont icon-shijian"></i>{{item.publishTime}}</span>
-            <div class="classTag">
+            <!-- <div class="classTag">
               <el-tag type="white" v-for="(item, index) in item.projectTag.split(',')" :key="index">{{item}}</el-tag>
-            </div>
+            </div> -->
           </div>
         </div>
       </el-card>

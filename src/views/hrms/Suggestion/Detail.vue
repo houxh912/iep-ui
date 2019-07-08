@@ -5,19 +5,23 @@
         <iep-button @click="onGoBack()">返回建议列表</iep-button>
       </page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
-        <iep-form-item prop="theme" label-name="建议主题">
+        <iep-form-item label-name="建议主题">
           <div class="content">{{form.theme}}</div>
         </iep-form-item>
 
-        <iep-form-item prop="proposeContent" label-name="建议内容">
-          <div class="content">{{form.proposeContent}}</div>
+        <iep-form-item label-name="建议类型">
+          <iep-dict-detail class="content" v-model="form.type" dict-name="cpms_propose_type"></iep-dict-detail>
         </iep-form-item>
 
-        <iep-form-item prop="attendeeList" label-name="接收对象">
+        <iep-form-item label-name="建议内容">
+          <iep-html class="content" :value="form.proposeContent"></iep-html>
+        </iep-form-item>
+
+        <iep-form-item label-name="接收对象">
           <div class="content" v-for="(item,index) in form.attendeeList" :key="index" style="margin-right:5px;">{{item}}</div>
         </iep-form-item>
 
-        <iep-form-item prop="sendTime" label-name="建议发布时间">
+        <iep-form-item label-name="建议发布时间">
           <div class="content">{{form.sendTime}}</div>
         </iep-form-item>
         <hr>
@@ -38,7 +42,7 @@
         <iep-form-item label-name="附件">
           <div v-if="form.annexList.length > 0">
             <a-tag v-for="file in form.annexList" :key="file.url" @click="handleDownload(file)">
-            <a-icon type="paper-clip" />{{file.name}}</a-tag>
+              <a-icon type="paper-clip" />{{file.name}}</a-tag>
           </div>
           <span v-else>无附件</span>
         </iep-form-item>
@@ -97,7 +101,7 @@ export default {
               })
               this.onGoBack()
             }
-            else{
+            else {
               this.$message({
                 message: data.msg,
               })

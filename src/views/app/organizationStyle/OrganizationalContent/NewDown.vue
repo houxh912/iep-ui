@@ -70,7 +70,10 @@ export default {
     cursor: pointer;
     width: 100%;
     .item {
-      margin: 0 10px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 9px 10px;
       text-align: center;
     }
     &:hover {

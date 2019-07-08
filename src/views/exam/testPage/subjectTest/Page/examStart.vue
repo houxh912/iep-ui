@@ -19,7 +19,7 @@
               </div>
               <div class="question">
                 <div style="margin-bottom: 10px;">
-                  <span>{{resdata.questionNum}}、 </span>
+                  <span>{{resdata.questionNum}}）</span>
                   <span>{{resdata.title}}</span>
                   <span> （ {{resdata.single}} 分）</span>
                 </div>

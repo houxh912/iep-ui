@@ -81,7 +81,7 @@
                 </div>
                 <ul>
                   <li v-for="(radioItem,index) in radioMap" :key="index+1" :id="'radio_'+(index+1)">
-                    <div class="question-title">{{radioItem.title}}
+                    <div class="question-title">{{radioItem.questionNum}}）{{radioItem.title}}
                       <span>({{radioItem.grade}}分)</span></div>
                     <el-checkbox-group v-model="radioItem.userAnswer" disabled>
                       <el-checkbox v-for="radioOption in radioItem.itemOptions"
@@ -104,7 +104,7 @@
                 <ul>
                   <li v-for="(checkboxItem,index) in checkboxMap" :key="index+1"
                     :id="'checkbox_'+(index+1)">
-                    <div class="question-title">{{checkboxItem.title}}
+                    <div class="question-title">{{checkboxItem.questionNum}}）{{checkboxItem.title}}
                       <span>({{checkboxItem.grade}}分)</span></div>
                     <el-checkbox-group v-model="checkboxItem.userAnswer" disabled>
                       <el-checkbox v-for="checkOptions in checkboxItem.itemOptions"
@@ -128,7 +128,7 @@
                 <ul>
                   <li v-for="(checkedItem,index) in checkedMap" :key="index+1"
                     :id="'checked_'+(index+1)">
-                    <div class="question-title">{{checkedItem.title}}
+                    <div class="question-title">{{checkedItem.questionNum}}）{{checkedItem.title}}
                       <span>({{checkedItem.grade}}分)</span></div>
                     <el-checkbox-group v-model="checkedItem.userAnswer" disabled>
                       <el-checkbox v-for="checkedOption in checkedItem.itemOptions"
@@ -150,8 +150,9 @@
                 </div>
                 <ul>
                   <li v-for="(textItem,index) in operationMap" :key="index+1"
-                    :id="'text_'+(index+1)">
-                    <div class="question-title">{{textItem.title}}<span>({{textItem.grade}}分)</span>
+                    :id="'operation_'+(index+1)">
+                    <div class="question-title">
+                      {{textItem.questionNum}}）{{textItem.title}}<span>({{textItem.grade}}分)</span>
                     </div>
                     <iep-html v-model="textItem.userAnswer"></iep-html>
                     <div class="question-analysis">
@@ -168,7 +169,8 @@
                 </div>
                 <ul>
                   <li v-for="(textItem,index) in textMap" :key="index+1" :id="'text_'+(index+1)">
-                    <div class="question-title">{{textItem.title}}<span>({{textItem.grade}}分)</span>
+                    <div class="question-title">
+                      {{textItem.questionNum}}）{{textItem.title}}<span>({{textItem.grade}}分)</span>
                     </div>
                     <iep-html v-model="textItem.userAnswer"></iep-html>
                     <div class="question-analysis">
@@ -230,7 +232,7 @@
                 </div>
                 <div class="response-questionMark">
                   <a class="choices text" v-for="(item,index) in operationMap" :key="index+1"
-                    :href="'#text_'+(index+1)">{{item.questionNum}}</a>
+                    :href="'#operation_'+(index+1)">{{item.questionNum}}</a>
                 </div>
               </div>
 
@@ -388,9 +390,9 @@ export default {
             font-weight: 700;
           }
           ul {
-            padding: 0 0 0 20px;
-            margin: 0px;
-            list-style: decimal;
+            padding: 0;
+            margin: 0;
+            list-style: none;
             li {
               margin-top: 30px;
               font-weight: 700;

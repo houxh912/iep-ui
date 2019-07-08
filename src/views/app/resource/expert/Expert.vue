@@ -85,7 +85,10 @@ export default {
   grid-auto-flow: row dense;
   grid-row-gap: 25px;
   grid-column-gap: 34px;
-  grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(100px,3fr);
+  grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
+      100px,
+      3fr
+    );
   .person-item {
     cursor: pointer;
     display: flex;
@@ -95,7 +98,7 @@ export default {
       height: 94px;
       border: 1px solid #dcdfe6;
       overflow: hidden;
-      img {
+      .el-image {
         width: 100%;
         height: 100%;
         transition: 0.5s;

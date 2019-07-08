@@ -84,8 +84,8 @@ const rules = {
     trigger: 'blur',
   },
   {
-    max: 20,
-    message: '长度不可超过20个字符',
+    max: 50,
+    message: '长度不可超过50个字符',
     trigger: 'blur',
   },
   ],
@@ -109,8 +109,8 @@ const rules = {
     trigger: 'blur',
   },
   {
-    max: 20,
-    message: '长度不可超过20个字符',
+    max: 50,
+    message: '长度不可超过50个字符',
     trigger: 'blur',
   },
   ],

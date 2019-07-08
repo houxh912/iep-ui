@@ -18,6 +18,8 @@
       </el-table-column>
       <el-table-column prop="innerPay" label="内网发放">
       </el-table-column>
+      <el-table-column prop="cashPay" label="其他形式发放">
+      </el-table-column>
     </el-table>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column label="应发工资">

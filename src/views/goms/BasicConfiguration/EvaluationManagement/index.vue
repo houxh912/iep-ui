@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getOrgevaluatePage(this.params).then(({data}) => {
+      getOrgevaluatePage(this.params).then(({ data }) => {
         if (data.data) {
           this.list = this.dealWithList(data.data.records)
           this.total = data.data.total
@@ -73,7 +73,7 @@ export default {
     // 根据时间分组
     dealWithList (row) {
       let list = []
-      let obj = {time: dateFormat(row[0].createTime, 'yyyy-MM'), list: []}
+      let obj = { time: dateFormat(row[0].createTime, 'yyyy-MM'), list: [] }
       this.activeNames = [0]
       for (let index in row) {
         let item = row[index]
@@ -81,9 +81,9 @@ export default {
         if (obj.time == startTime) {
           obj.list.push(item)
         } else {
-          this.activeNames.push(this.activeNames[this.activeNames.length-1]+1)
+          this.activeNames.push(this.activeNames[this.activeNames.length - 1] + 1)
           list.push(obj)
-          obj = {time: startTime, list: [item]}
+          obj = { time: startTime, list: [item] }
         }
       }
       list.push(obj)
@@ -98,7 +98,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        orgEvaluateDelete(row.id).then(({data}) => {
+        orgEvaluateDelete(row.id).then(({ data }) => {
           if (data.data) {
             this.$message.success('删除成功！')
             this.loadPage()

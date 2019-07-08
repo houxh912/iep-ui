@@ -1,5 +1,5 @@
 <template>
-  <div class="products">
+  <iep-app-layout class="products">
     <banner></banner>
     <div class="content">
       <my-products></my-products>
@@ -16,8 +16,7 @@
       <!-- <task></task> -->
       <suggest></suggest>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import Banner from './Banner'

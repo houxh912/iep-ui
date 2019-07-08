@@ -19,7 +19,7 @@
               <iep-dict-cascader-detail dictName="fams_expenditure_type" :value="scope.row.type"></iep-dict-cascader-detail>
             </template>
           </el-table-column>
-          <el-table-column label="收款单位账号及开户行">
+          <el-table-column label="收款单位、账号及开户行">
             <template slot-scope="scope">
               <iep-div-detail :value="scope.row.bank"></iep-div-detail>
             </template>

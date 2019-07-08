@@ -1,5 +1,10 @@
 <template>
   <div>
+    <!-- <div class="breadcrumb-wrapper">
+      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div> -->
     <div class="wealth">
       <div class="library">
         <librarys ref="librarys" class="librarys"></librarys>

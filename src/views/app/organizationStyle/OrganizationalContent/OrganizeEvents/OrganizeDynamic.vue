@@ -2,7 +2,14 @@
   <div class="organizational-dynamics-con">
     <div class="organizational-dynamics" v-if="organizationalDynamics.length !== 0">
       <div v-for="(item,index) in organizationalDynamics" :key="index" class="piece" @click="handleDetail(item)">
-        <span class="name">{{item.title}}</span>
+        <el-popover
+          placement="top-start"
+          :title="item.title"
+          width="400"
+          trigger="hover"
+          :content="item.content">
+          <span class="name" slot="reference">{{item.title}}</span>
+        </el-popover>
         <!-- <span class="time">{{item.time}}</span> -->
       </div>
     </div>

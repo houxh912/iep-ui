@@ -30,12 +30,12 @@ const columnsMap = [
 		label: '合同金额',
 	},
 	{
-		prop: 'projectIncome',
-		label: '到账金额',
+		prop: 'projectAmount',
+		label: '待签金额',
 	},
 	{
-		prop: 'signedAmount',
-		label: '待签金额',
+		prop: 'projectIncome',
+		label: '到账金额',
 	},
 	{
 		prop: 'invoicingAmount',

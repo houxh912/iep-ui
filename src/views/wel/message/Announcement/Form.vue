@@ -33,7 +33,9 @@
 import { getAnnouncementById, postAnnouncement, putAnnouncement } from '@/api/ims/announcement'
 import { initForm, formToDto, formToVo } from './options'
 import { checkContact } from '@/util/rules'
+import formMixins from '@/mixins/formMixins'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       backOption: {
@@ -91,25 +93,31 @@ export default {
     handlePublish () {
       this.handleSubmit(true)
     },
-    handleSubmit (isPublish) {
+    async handleSubmit (isPublish) {
       this.submitLoading = true
-      this.$refs['form'].validate((valid) => {
-        if (valid) {
-          const publish = isPublish === true ? true : false
-          this.formRequestFn(formToDto(this.form), publish).then(({ data }) => {
-            if (data.data) {
-              this.$message({
-                message: `通知公告${this.methodName}成功`,
-                type: 'success',
-              })
-              this.$router.history.go(-1)
-            } else {
-              this.$message(data.msg)
-            }
+      const publish = isPublish === true ? true : false
+      try {
+        await this.mixinsValidate()
+        try {
+          const { data } = await this.formRequestFn(formToDto(this.form), publish)
+          if (data.code === 0) {
+            this.$message({
+              message: `通知公告${this.methodName}成功`,
+              type: 'success',
+            })
+            this.$router.history.go(-1)
+          } else {
+            this.$message(data.msg)
             this.submitLoading = false
-          })
+          }
+        } catch (err) {
+          console.log(err)
+          this.submitLoading = false
         }
-      })
+      } catch (object) {
+        this.mixinsMessage(object)
+        this.submitLoading = false
+      }
     },
   },
 }

@@ -6,7 +6,7 @@
       <operation-container>
         <template slot="left">
           <iep-button v-if="ims_announcement_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
-          <iep-read-mark-del :enableList="[type==='2', true, false]" @on-view-batch="handleViewBatch"></iep-read-mark-del>
+          <iep-read-mark-del :enableList="[type==='2', true, false]" @on-view-batch="handleViewBatch" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage"></operation-search>
@@ -14,6 +14,11 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
+          <el-table-column label="" width="50">
+            <template slot-scope="scope">
+              <i v-if="scope.row.isMark" class="el-icon-s-flag"></i>
+            </template>
+          </el-table-column>
           <el-table-column label="主题" min-width="400">
             <template slot-scope="scope">
               <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
@@ -31,7 +36,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getAnnouncementPage, readAnnouncementBatch } from '@/api/ims/announcement'
+import { getAnnouncementPage, readAnnouncementBatch, markAnnouncementBatch } from '@/api/ims/announcement'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 export default {
@@ -89,6 +94,14 @@ export default {
         return
       }
       this._handleComfirm(this.multipleSelection, readAnnouncementBatch, '批量已读', '', '操作成功')
+    },
+    onMarkBatch () {
+      // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
+      this._handleComfirm(this.multipleSelection, markAnnouncementBatch, '批量设置 / 取消标记', '', '操作成功')
     },
     handleDetail (row) {
       this.$router.push({

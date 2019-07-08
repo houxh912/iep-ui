@@ -1,6 +1,6 @@
 import request from '@/router/axios'
 const prefixUrl = '/hrms/channel_recruit'
-
+// @/api/app/hrms/index
 export const getPostList = (params) => {
   return request({
     url: `${prefixUrl}/list`,

@@ -1,26 +1,16 @@
 import { getYear, getMonth } from '@/util/date'
 const columnsMap = [
 	{
-		prop: 'projectNum',
-		label: '项目编号',
-	},
-	{
-		prop: 'projectName',
-		label: '项目名称',
-	},
-	{
 		prop: 'createTime',
 		label: '立项时间',
 		type: 'date',
 		formatString: 'YYYY-MM-DD',
 	},
 	{
-		prop: 'amount',
-		label: '合同金额',
-	},
-	{
-		prop: 'invoicingAmount',
-		label: '开票金额',
+		prop: 'projectStage',
+		label: '项目阶段',
+		type: 'dictGroup',
+		dictName: 'prms_project_stage',
 	},
 ]
 
@@ -60,7 +50,10 @@ const initForm = () => {
 
 const initSearchForm = () => {
 	return {
-		signatureStatus: '',
+		projectType: null,
+		signatureStatus: null,
+		projectStage: null,
+		date: '',
 	}
 }
 const toDtoSearchForm = (row) => {

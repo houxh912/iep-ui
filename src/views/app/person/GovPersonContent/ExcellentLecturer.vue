@@ -3,7 +3,9 @@
     <iepAppTabCard :title="title" :data="data">
       <div class="thoughtsList">
         <div v-for="(item, index) in thoughtsList" :key="index" class="piece" @click="handleDetail(item)">
-          <div class="img-con"><iep-img :src="item.avatar" class="img"></iep-img></div>
+          <div class="img-con">
+            <iep-img :src="item.avatar" class="img"></iep-img>
+          </div>
           <div class="box">
             <div class="pieceTitle">
               <span class="name">{{item.name}}</span>
@@ -23,7 +25,7 @@
 </template>
 
 <script>
-import{ getTeacherList } from '@/api/app/hrms/'
+import { getTeacherList } from '@/api/app/hrms/'
 
 export default {
   data () {
@@ -36,7 +38,7 @@ export default {
   },
   methods: {
     loadList () {
-      getTeacherList().then(({data}) => {
+      getTeacherList().then(({ data }) => {
         this.thoughtsList = data.data
       })
     },
@@ -126,7 +128,7 @@ export default {
 }
 </style>
 <style scoped>
-.thoughts >>> .el-card__body {
-  height: 270px;
+.thoughts >>> .el-card {
+  height: 330px;
 }
 </style>

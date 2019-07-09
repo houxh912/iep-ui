@@ -43,18 +43,22 @@ export default {
   padding: 0;
   color: #999;
   z-index: 3;
+  transition: all 0.5s;
+}
+.btn:hover {
+  color: #cb3737;
 }
 .index-card >>> .el-tabs__nav {
-  line-height: 50px;
+  line-height: 59px;
 }
 .index-card >>> .el-tabs__item {
-  bottom: -5px;
+  bottom: 0;
   font-size: 18px;
 }
 .index-card >>> .el-card__body {
   padding: 0 0 15px;
 }
 .el-card {
-  padding: 0 20px;
+  padding: 0 15px;
 }
 </style>

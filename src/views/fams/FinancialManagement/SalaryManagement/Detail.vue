@@ -1,9 +1,9 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="工资发放" :replaceText="replaceText" :data="[120,12,32,4]" :backOption="backOption">
+      <iep-page-header title="工资发放" :replaceText="replaceText" :data="[120,12,32,4]" :backOption="backOption">
         <iep-button type="danger" plain>补发上传</iep-button>
-      </page-header>
+      </iep-page-header>
       <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column prop="operation" label="操作" width="120">
           <template slot-scope="scope">

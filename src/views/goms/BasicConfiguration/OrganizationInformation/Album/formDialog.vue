@@ -1,15 +1,9 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="新增" width="40%" @close="resetForm">
-    
+  <iep-dialog :dialog-show="dialogShow" :title="title" width="40%" @close="resetForm">
+
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="120px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="上传图片：" prop="imageUrl">
-        <el-upload
-          class="avatar-uploader"
-          action="/api/admin/file/upload/avatar"
-          :show-file-list="false"
-          :headers="headers"
-          :on-success="handleAvatarSuccess"
-          accept="image/*">
+        <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*">
           <iep-img v-if="formData.imageUrl" :src="formData.imageUrl" class="avatar"></iep-img>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -36,7 +30,7 @@
 <script>
 import store from '@/store'
 import { rules, initFormData } from './const'
-import { orgCreate } from '@/api/goms/org_album'
+import { orgCreate, orgUpdate } from '@/api/goms/org_album'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -45,6 +39,8 @@ export default {
       dialogShow: false,
       rules,
       formData: initFormData(),
+      requestFn: () => {},
+      title: '',
       loadState: false,
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
@@ -55,23 +51,30 @@ export default {
     ...mapGetters(['userInfo']),
   },
   methods: {
-    open () {
+    open (row) {
+      if (row) {
+        this.requestFn = orgUpdate
+        this.title = '修改'
+        this.formData = {...row}
+      } else {
+        this.requestFn = orgCreate
+        this.title = '新增'
+        this.formData.orgId = this.userInfo.orgId
+      }
       this.dialogShow = true
-      this.formData.orgId = this.userInfo.orgId
     },
     resetForm (state = false) {
-      this.formData.orgId = initFormData()
+      this.formData = initFormData()
       this.dialogShow = false
       if (state) {
         this.$emit('load-page', state)
       }
     },
     submitForm () {
-      console.log('a')
       this.$refs['form'].validate((valid) => {
         if (valid) {
           this.loadState = true
-          orgCreate(this.formData).then(({ data }) => {
+          this.requestFn(this.formData).then(({ data }) => {
             this.loadState = false
             if (data.data) {
               this.$message({
@@ -105,7 +108,7 @@ export default {
   overflow: hidden;
 }
 .avatar-uploader:hover {
-  border-color: #409EFF;
+  border-color: #409eff;
 }
 .avatar-uploader-icon {
   font-size: 28px;

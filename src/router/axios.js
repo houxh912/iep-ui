@@ -75,7 +75,7 @@ axios.interceptors.response.use(res => {
     // } else if (status === 500 || res.data.code === 500) {
     //   router.push({ path: '/500' })
     //   return
-  } else if (status !== 200 || res.data.code === 1) {
+  } else if (!(/2\d\d/.test('' + status)) || res.data.code === 1) {
     if (res.data.code === 1 && status === 400) {
       Message(res.data.msg)
     }

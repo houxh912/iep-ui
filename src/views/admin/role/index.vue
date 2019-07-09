@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="角色管理"></page-header>
+      <iep-page-header title="角色管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="sys_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
@@ -41,7 +41,7 @@ import {
 import { fetchMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap, initForm } from './options'
+import { dictsMap, columnsMap, initForm, dsType } from './options'
 import DialogForm from './DialogForm'
 import PermissionDialogForm from './PermissionDialogForm'
 
@@ -87,6 +87,7 @@ export default {
     handleAdd () {
       this.$refs['DialogForm'].methodName = '创建'
       this.$refs['DialogForm'].formRequestFn = addObj
+      this.$refs['DialogForm'].dsType = dsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = false
       this.$refs['DialogForm'].dialogShow = true
@@ -95,6 +96,7 @@ export default {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putObj
+      this.$refs['DialogForm'].dsType = dsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = true
       this.$refs['DialogForm'].dialogShow = true
@@ -103,6 +105,7 @@ export default {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '查看'
       this.$refs['DialogForm'].formRequestFn = getObj
+      this.$refs['DialogForm'].dsType = dsType
       this.$refs['DialogForm'].disabled = true
       this.$refs['DialogForm'].roleCodeDisabled = true
       this.$refs['DialogForm'].dialogShow = true

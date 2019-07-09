@@ -3,7 +3,7 @@
     <IepAppTabsCard>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Performance'" v-slot:Performance>
-          <performance v-loading="activeTab !=='Performance'"></performance>
+          <performance v-loading="activeTab !=='Performance'" :orgId="orgId"></performance>
         </template>
         <template v-if="activeTab ==='OrganizationalAssets'" v-slot:OrganizationalAssets>
           <organizational-assets v-loading="activeTab !=='OrganizationalAssets'"></organizational-assets>
@@ -24,6 +24,14 @@ import OrganizationalAssets from './OrganizationalAssets'
 import Shareholder from './Shareholder'
 import Investment from './Investment'
 export default {
+  props: {
+    orgId: {
+      default: 0,
+    },
+    orgName: {
+      default: '',
+    },
+  },
   components: {
     Performance,
     OrganizationalAssets,
@@ -39,21 +47,27 @@ export default {
       {
         label: '组织资产',
         value: 'OrganizationalAssets',
-        disabled: true,
       },
-      {
-        label: '股东情况',
-        value: 'Shareholder',
-        disabled: true,
-      },
-      {
-        label: '投资报告',
-        value: 'Investment',
-        disabled: true,
-      },
+      // {
+      //   label: '股东情况',
+      //   value: 'Shareholder',
+      //   disabled: true,
+      // },
+      // {
+      //   label: '投资报告',
+      //   value: 'Investment',
+      //   disabled: true,
+      // },
       ],
       activeTab: 'Performance',
     }
+  },
+  watch: {
+    activeTab (val) {
+      if (val === 'OrganizationalAssets') {
+        this.$router.push(`/app/data_assets_detail?id=${this.orgId}&name=${this.orgName}`)
+      }
+    },
   },
 }
 </script>

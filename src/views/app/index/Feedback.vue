@@ -58,7 +58,10 @@ export default {
 }
 .feedback-list {
   .piece {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+    margin-bottom: 16px;
     overflow: hidden;
     cursor: pointer;
     .photo {
@@ -69,7 +72,6 @@ export default {
       border: 1px solid #eee;
     }
     .box {
-      float: left;
       width: 445px;
       height: 68px;
       .piece-title {
@@ -86,6 +88,7 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
+        text-align: justify;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         &:hover {

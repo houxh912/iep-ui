@@ -44,12 +44,16 @@ export default {
         value: 'Programme',
       }],
       activeTab: '',
-      linkName: {
-        Projects: '/app/project',
-        Customer: '/app/resource/client',
-        Programme: '/app/resource/material',
-      },
     }
+  },
+  computed: {
+    linkName () {
+      return {
+        Projects: `/app/project_list?id=${this.orgId}`,
+        Customer: `/app/resource/client?id=${this.orgId}`,
+        Programme: `/app/resource/material?id=${this.orgId}&materialType=4`,
+      }
+    },
   },
   watch: {
     orgId (newVal) {
@@ -60,8 +64,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .project-switching {
-  margin-bottom: 30px;
   height: 266px;
+}
+</style>
+<style scoped>
+.project-switching >>> .el-card {
+  height: 300px;
 }
 </style>
 

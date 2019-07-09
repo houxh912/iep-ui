@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织管理"></page-header>
+      <iep-page-header title="组织管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <!-- <iep-button v-if="sys_org_add" @click="handleAdd" type="primary" plain>添加组织</iep-button> -->

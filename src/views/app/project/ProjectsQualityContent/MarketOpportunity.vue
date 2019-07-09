@@ -41,7 +41,7 @@ export default {
 .opportunity >>> .el-table__row:last-child >>> td {
   border: 0;
 }
-.opportunity >>> .el-card__body {
-  height: 278px;
+.opportunity >>> .el-card {
+  height: 330px;
 }
 </style>

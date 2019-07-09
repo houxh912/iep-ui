@@ -84,7 +84,6 @@ export function getUnionQuatorByYear (year) {
 
 
 export function getUnionMonthByDate (year, quarter) {
-  console.log(year, quarter)
   return request({
     url: `${prefixUrl}/union/month`,
     params: {

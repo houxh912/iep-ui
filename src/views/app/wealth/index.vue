@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <div class="breadcrumb-wrapper">
       <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
@@ -17,8 +17,7 @@
       </div>
     </div>
     <router-view v-else></router-view>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import Librarys from './Librarys/'

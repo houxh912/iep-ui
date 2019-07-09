@@ -1,10 +1,10 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}报销-${dictsMap.referType[this.form.referType]}`" :back-option="backOption">
+      <iep-page-header :title="`${methodName}报销-${dictsMap.referType[this.form.referType]}`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
         <iep-button type="primary" @click="handleSubmit(true)">保存并发送</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="type" label="支出类型">
           <template slot-scope="scope">
@@ -54,11 +54,11 @@
         </iep-form-item>
 
         <iep-form-item v-if="auditorOption" class="form-half" prop="auditor" label-name="部门核准" tip="报销金额超过 1 万，请添加部门班长为核准人">
-          <iep-contact-select v-model="form.auditor"></iep-contact-select>
+          <iep-contact-select v-model="form.auditor" placeholder="如只需财务核准，无需填写部门核准，直接发送即可"></iep-contact-select>
         </iep-form-item>
 
         <iep-form-item prop="remarks" label-name="备注">
-          <iep-input-area v-model="form.remarks"></iep-input-area>
+          <iep-input-area v-model="form.remarks" :maxlength="10000"></iep-input-area>
         </iep-form-item>
 
       </el-form>

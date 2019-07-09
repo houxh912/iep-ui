@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}招聘`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}招聘`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <el-row>
           <el-col :span="12">

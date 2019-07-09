@@ -1,3 +1,12 @@
+import { getStore } from '@/util/store'
+const dicData = getStore({ name: 'dictGroup' })
+function changeDict (list) {
+  let data = {}
+  for (let item of list) {
+    data[item.value] = item.label
+  }
+  return data
+}
 
 export const dictMap = {
   is_yes: [
@@ -10,13 +19,7 @@ export const dictMap = {
     { value: 3, label: '审核通过' },
     { value: 4, label: '审核不通过' },
   ],
-  projectStage: {
-    1: '立项阶段',
-    2: '实施阶段',
-    3: '收尾阶段',
-    4: '完结阶段',
-    5: '失败阶段',
-  },
+  projectStage: changeDict(dicData.prms_project_stage),
   stageOptions: [],
   typeOptions: [
     { id: 1, value: '1', label: '类型一' },
@@ -173,6 +176,8 @@ export function initFormData () {
     projectBudgetList: {},
     projectAmount: '',
     projectStage: '',
+    orgId:'',
+    isClaim: 1,
   }
 }
 

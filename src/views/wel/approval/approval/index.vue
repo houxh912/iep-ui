@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我的审批" :data="[10 ,5]"></page-header>
+      <iep-page-header title="我的审批" :data="[10 ,5]"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='ExaminApproval'" v-slot:ExaminApproval>
           <examin-approval v-loading="activeTab !=='ExaminApproval'"></examin-approval>

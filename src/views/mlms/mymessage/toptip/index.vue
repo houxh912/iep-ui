@@ -1,7 +1,7 @@
 <template>
     <div>
         <basic-container>
-            <page-header title="领导提示"></page-header>
+            <iep-page-header title="领导提示"></iep-page-header>
             <iep-tabs v-model="activeTab" :tab-list="tabList">
                 <template v-if="activeTab ==='MeHave'" v-slot:MeHave>
                     <me-have v-loading="activeTab !=='MeHave'"></me-have>

@@ -107,7 +107,6 @@ export default {
     justify-content: space-between;
     align-items: flex-start;
     padding: 15px;
-    height: 186px;
     overflow: hidden;
     i {
       display: inline-block;
@@ -158,6 +157,8 @@ export default {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         .el-tag {
+          display: inline-block;
+          vertical-align: top;
           margin-right: 5px;
           margin-bottom: 5px;
           cursor: pointer;

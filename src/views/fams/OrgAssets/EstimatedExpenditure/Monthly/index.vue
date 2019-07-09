@@ -54,7 +54,7 @@ export default {
     return {
       loading: false,
       budgetId: this.quarterId,
-      budgetTime: '',
+      budgetTime: 1,
       budgetTableRelation: [],
       budgetTable: [],
       budgetMap: {},
@@ -66,13 +66,15 @@ export default {
   },
   methods: {
     getLabel (item) {
-      return item.flag ? item.time + '季度' : item.time + ((this.budgetId - 2) * 3) + '月份'
+      return item.flag ? item.time + '季度' : item.time + ((this.budgetTime - 1) * 3) + '月份'
     },
     getSummaries,
     getValue (item, scope, tName) {
       return this.budgetMap[item.id].relation[scope.$index][tName]
     },
-    handleChange () {
+    handleChange (v) {
+      const item = this.quarterList.find(m => m.budgetId === v).budgetTime
+      this.budgetTime = item
       this.loadPage()
     },
     async loadPage () {

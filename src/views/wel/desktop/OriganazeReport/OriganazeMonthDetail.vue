@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="form.title" :backOption="backOption"></page-header>
+      <iep-page-header :title="form.title" :backOption="backOption"></iep-page-header>
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
           <span style="margin-right:15px;">组织：{{form.orgName}}</span>

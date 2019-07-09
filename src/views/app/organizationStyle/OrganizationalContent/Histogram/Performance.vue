@@ -1,14 +1,20 @@
 <template>
-  <ve-line :data="chartData" :extend="chartExtend" :colors="colors" :toolbox="toolbox" height="307px">
+  <ve-line :data="chartData" :extend="chartExtend" :colors="colors" :toolbox="toolbox" height="280px">
   </ve-line>
 </template>
 
 <script>
+import { getAchievement } from '@/api/app/mlms/'
 export default {
+  props: {
+    orgId: {
+      default: 0,
+    },
+  },
   data () {
     this.colors = ['#d66368', '#f58f44', '#65dbe8', '#631cac']
     this.chartSettings = {
-      metrics: ['计划收款', '实际收款', '销售额', '合同数'],
+      metrics: ['业绩趋势'],
       dimension: ['dept'],
       lineStyle: {
         color: '#fff',
@@ -30,23 +36,30 @@ export default {
       replaceText: (data) => `（计划收款共计${data[0]}笔，共计${data[0]}贝）`,
       value6: '',
       chartData: {
-        columns: ['dept', '计划收款', '实际收款', '销售额', '合同数'],
+        columns: ['dept', '业绩趋势'],
         rows: [
-          { 'dept': '1月', '计划收款': 100, '实际收款': 90, '销售额': 150, '合同数': 10 },
-          { 'dept': '2月', '计划收款': 80, '实际收款': 90, '销售额': 160, '合同数': 12 },
-          { 'dept': '3月', '计划收款': 140, '实际收款': 130, '销售额': 180, '合同数': 15 },
-          { 'dept': '4月', '计划收款': 150, '实际收款': 130, '销售额': 280, '合同数': 24 },
-          { 'dept': '5月', '计划收款': 185, '实际收款': 205, '销售额': 160, '合同数': 15 },
-          { 'dept': '6月', '计划收款': 185, '实际收款': 195, '销售额': 200, '合同数': 20 },
-          { 'dept': '7月', '计划收款': 195, '实际收款': 205, '销售额': 240, '合同数': 30 },
-          { 'dept': '8月', '计划收款': 185, '实际收款': 225, '销售额': 240, '合同数': 40 },
-          { 'dept': '9月', '计划收款': 250, '实际收款': 240, '销售额': 280, '合同数': 35 },
-          { 'dept': '10月', '计划收款': 300, '实际收款': 270, '销售额': 315, '合同数': 45 },
-          { 'dept': '11月', '计划收款': 349, '实际收款': 385, '销售额': 355, '合同数': 50 },
-          { 'dept': '12月', '计划收款': 445, '实际收款': 445, '销售额': 375, '合同数': 80 },
-        ],
+          { 'dept': '1月', '业绩趋势': 0 },
+          { 'dept': '2月', '业绩趋势': 0 },
+          { 'dept': '3月', '业绩趋势': 0 },
+          { 'dept': '4月', '业绩趋势': 0 },
+          { 'dept': '5月', '业绩趋势': 0 },
+          { 'dept': '6月', '业绩趋势': 0 },
+          { 'dept': '7月', '业绩趋势': 0 },
+          { 'dept': '8月', '业绩趋势': 0 },
+          { 'dept': '9月', '业绩趋势': 0 },
+          { 'dept': '10月', '业绩趋势': 0 },
+          { 'dept': '11月', '业绩趋势': 0 },
+          { 'dept': '12月', '业绩趋势': 0 }],
       },
     }
+  },
+  watch: {
+    orgId (val) {
+      getAchievement(val).then(({data}) => {
+        let list = data.data.map( m => { return { dept: m.month, '业绩趋势': m.value }})
+        this.$set(this.chartData, 'rows', list )
+      })
+    },
   },
 }
 </script>

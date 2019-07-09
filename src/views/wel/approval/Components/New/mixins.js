@@ -48,7 +48,7 @@ export default {
       if (this.id) {
         getAdministrativeApprovalById(this.id).then(({ data }) => {
           this.form = formToVo(data.data)
-          getEmployeeProfileSelf().then(({data}) => {
+          getEmployeeProfileSelf().then(({ data }) => {
             this.form.dept = data.data.dept
           })
         })
@@ -62,7 +62,6 @@ export default {
         const valid = await this.$refs['form'].validate()
         if (valid) {
           const { data } = await submitFunction(formToDto(this.form, this.type, this.userInfo.userId))
-          console.log(data)
           if (!data.data) {
             this.$message(data.msg)
           } else {

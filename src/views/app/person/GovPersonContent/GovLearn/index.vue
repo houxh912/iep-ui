@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style scoped>
-.GovLearn >>> .el-card__body {
-  height: 434px;
+.GovLearn >>> .el-card {
+  height: 436px;
 }
 </style>

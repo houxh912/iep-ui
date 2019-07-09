@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="职务职称体系"></page-header>
+      <iep-page-header title="职务职称体系"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='JobSystem'" v-slot:JobSystem>
           <job-system v-loading="activeTab !=='JobSystem'"></job-system>

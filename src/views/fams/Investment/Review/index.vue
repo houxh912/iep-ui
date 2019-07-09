@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="投资核准"></page-header>
+      <iep-page-header title="投资核准"></iep-page-header>
       <operation-container>
         <template slot="right">
           <el-radio-group v-model="status" size="small" @change="handleChange">

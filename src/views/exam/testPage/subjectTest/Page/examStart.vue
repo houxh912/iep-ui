@@ -1,8 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="在线考试系统"></page-header>
-
+      <iep-page-header title="在线考试系统"></iep-page-header>
       <div class="examShow" v-loading="loading">
         <el-row :gutter="30">
           <el-col class="left" :span="18">
@@ -33,8 +32,7 @@
 
                 <div v-if="resdata.questionTypeName ==='复选题'">
                   <el-checkbox-group v-model="checksList" style="margin-left: 28px;">
-                    <el-checkbox style="margin-right: 100%;" v-for="item in resdata.titleOptions"
-                      :label="item.key" :key="item.key">
+                    <el-checkbox style="margin-right: 100%;" v-for="item in resdata.titleOptions" :label="item.key" :key="item.key">
                       <span>{{item.key}} . {{item.value}}</span>
                     </el-checkbox>
                   </el-checkbox-group>
@@ -42,8 +40,7 @@
 
                 <div v-if="resdata.questionTypeName ==='判断题'">
                   <li v-for="(item,index) in trueOrFalseList" :key="index">
-                    <el-radio v-model="trueOrFalseRadio" :label="item"
-                      @change="handleTrueOrFalse ()">
+                    <el-radio v-model="trueOrFalseRadio" :label="item" @change="handleTrueOrFalse ()">
                     </el-radio>
                   </li>
                 </div>
@@ -66,8 +63,7 @@
               <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">
                 上一题
               </iep-button>
-              <iep-button style="margin:0 10px;" @click="next"
-                :disabled="resdata.questionNum === resdata.questionTotalNum">下一题</iep-button>
+              <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.questionNum === resdata.questionTotalNum">下一题</iep-button>
             </div>
           </el-col>
 
@@ -81,16 +77,13 @@
                 <span class="TotalNum">{{resdata.questionTotalNum}}</span>
               </div>
 
-              <ve-ring class="ring" height="200px" :data="chartData" :settings="chartSettings"
-                :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+              <ve-ring class="ring" height="200px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
 
               <div class="card">
                 <div v-if="resdata.radioMap.length > 0">
                   <span class="answerSheet">{{resdata.radioMap[0].questionType}}</span>
                   <div class="answerSheetTop">
-                    <iep-button class="choices" v-for="(item,index) in resdata.radioMap"
-                      :key="index" @click="handleCard(item)"
-                      :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                    <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
                       {{item.questionNum}}</iep-button>
                   </div><br>
                 </div>
@@ -98,9 +91,7 @@
                 <div v-if="resdata.checkboxMap.length > 0">
                   <span class="answerSheet">{{resdata.checkboxMap[0].questionType}}</span>
                   <div class="answerSheetTop">
-                    <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap"
-                      :key="index" @click="handleCard(item)"
-                      :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                    <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
                       {{item.questionNum}}</iep-button>
                   </div><br>
                 </div>
@@ -108,9 +99,7 @@
                 <div v-if="resdata.checkedMap.length > 0">
                   <span class="answerSheet">{{resdata.checkedMap[0].questionType}}</span>
                   <div class="answerSheetTop">
-                    <iep-button class="choices" v-for="(item,index) in resdata.checkedMap"
-                      :key="index" @click="handleCard(item)"
-                      :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                    <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
                       {{item.questionNum}}</iep-button>
                   </div><br>
                 </div>
@@ -118,9 +107,7 @@
                 <div v-if="resdata.operationMap.length > 0">
                   <span class="answerSheet">{{resdata.operationMap[0].questionType}}</span>
                   <div class="answerSheetTop">
-                    <iep-button class="choices" v-for="(item,index) in resdata.operationMap"
-                      :key="index" @click="handleCard(item)"
-                      :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                    <iep-button class="choices" v-for="(item,index) in resdata.operationMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
                       {{item.questionNum}}</iep-button>
                   </div><br>
                 </div>
@@ -128,9 +115,7 @@
                 <div v-if="resdata.textMap.length > 0">
                   <span class="answerSheet">{{resdata.textMap[0].questionType}}</span>
                   <div class="answerSheetTop">
-                    <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index"
-                      @click="handleCard(item)"
-                      :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                    <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
                       {{item.questionNum}}</iep-button>
                   </div><br>
                 </div>
@@ -141,8 +126,7 @@
         </el-row>
       </div>
 
-      <iep-dialog :dialog-show="dialogShow" title="" class="success-box" width="420px"
-        @close="handleCancel" center>
+      <iep-dialog :dialog-show="dialogShow" title="" class="success-box" width="420px" @close="handleCancel" center>
         <div class="center-box">
           <p class="success-title"><i class="el-icon-success"></i>交卷成功！</p>
           <p style="margin-bottom: 10px">很感谢你参加本场考试</p>

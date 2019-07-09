@@ -4,7 +4,7 @@
       <div :label="title" name="first">{{title}}</div>
     </div>
     <div class="right">
-      <operation-search @search-page="searchPage">
+      <operation-search @search-page="searchPage" prop="projectName">
       </operation-search>
     </div>
   </div>

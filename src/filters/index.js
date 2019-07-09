@@ -1,7 +1,10 @@
 import moment from 'moment'
 
 export function parseDate (date, formatString) {
-  if(moment(date).isValid()) {
+  if (date === undefined) {
+    return '暂无'
+  }
+  if (moment(date).isValid()) {
     return moment(date).format(formatString)
   } else {
     return '暂无'

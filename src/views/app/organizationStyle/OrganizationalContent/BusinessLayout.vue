@@ -1,8 +1,9 @@
 <template>
   <div class="business-layout">
     <IepAppTabCard :title="title">
-      <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue" height="210px"></ve-radar>
+      <ve-radar :data="chartData" :settings="chartSettings" :legendVisible="isTrue" height="220px"></ve-radar>
     </IepAppTabCard>
+    <div class="zhezhao"></div><!-- 临时的遮罩层 -->
   </div>
 </template>
 
@@ -37,8 +38,17 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
+.business-layout >>> .el-card {
+  height: 300px;
+}
 .business-layout {
-  margin-bottom: 30px;
+  position: relative;
+}
+.zhezhao {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
 }
 </style>

@@ -33,6 +33,12 @@ export function getBudgetList () {
     method: 'get',
   })
 }
+export function getBossBudgetList () {
+  return request({
+    url: `${prefixUrl}/all/budget/list`,
+    method: 'get',
+  })
+}
 // 取 3 条
 export function getOrgBudgetList (type) {
   return request({
@@ -156,17 +162,39 @@ export function getOrgProjectPage (query) {
   })
 }
 
-export function postUnionProject (obj) {
-  return request({
-    url: `${prefixUrl}/create/business_index`,
-    method: 'post',
-    data: obj,
-  })
-}
 export function putUnionProject (obj) {
   return request({
     url: `${prefixUrl}/update/business_index`,
     method: 'post',
     data: obj,
+  })
+}
+
+export function createUnionProject (year) {
+  return request({
+    url: `${prefixUrl}/create/business_index/${year}`,
+    method: 'get',
+  })
+}
+
+// 组织资产
+export function getAssetsList () {
+  return request({
+    url: `${prefixUrl}/org/assets/list`,
+    method: 'get',
+  })
+}
+export function getAssetDataById (id) {
+  return request({
+    url: `${prefixUrl}/org/assets/${id}`,
+    method: 'get',
+  })
+}
+
+// 组织资产统计排名
+export const getOrgAssetsById = (id) => {
+  return request({
+    url: `${prefixUrl}/org/assets_ranking/${id}`,
+    method: 'get',
   })
 }

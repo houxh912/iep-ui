@@ -4,7 +4,6 @@
       <iep-page-header title="业务指标"></iep-page-header>
       <operation-container style="margin-top: 10px;">
         <template slot="left">
-          <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增业务指标</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -20,26 +19,19 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作" width="100">
-          <template slot-scope="scope">
-            <iep-button @click.stop="handleEdit(scope.row)">编辑</iep-button>
-          </template>
-        </el-table-column>
       </iep-table>
     </basic-container>
-    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { getOrgProjectPage } from '@/api/fams/statistics'
-import DialogForm from './DialogForm'
 import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initForm } from './options'
+import { columnsMap } from './options'
 export default {
-  components: { DialogForm, AdvanceSearch },
+  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
@@ -55,17 +47,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleAdd () {
-      this.$refs['DialogForm'].form = initForm()
-      this.$refs['DialogForm'].form.orgId = this.userInfo.orgId
-      this.$refs['DialogForm'].isEdit = false
-      this.$refs['DialogForm'].dialogShow = true
-    },
-    handleEdit (row) {
-      this.$refs['DialogForm'].form = { ...row }
-      this.$refs['DialogForm'].isEdit = true
-      this.$refs['DialogForm'].dialogShow = true
-    },
     handleDetail (row) {
       this.$openPage(`/fams_spa/project/${row.orgId}?name=${row.orgName}`)
     },

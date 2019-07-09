@@ -1,10 +1,14 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="关联回款表" width="700px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="项目关联回款表" width="700px" @close="close">
     <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable">
       <el-table-column label="回款状态">
         <template slot-scope="scope">
-          <!-- <span>{{scope.row.artificialPaymentStatus ? dictsMap.artificialPaymentStatus[scope.row.artificialPaymentStatus] : dictsMap.paymentStatus[scope.row.paymentStatus]}}</span> -->
           <span>{{dictsMap.paymentStatus[scope.row.paymentStatus]}}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="提成">
+        <template slot-scope="scope">
+          <span>{{scope.row.payments}}</span>
         </template>
       </el-table-column>
       <el-table-column label="操作" width="150" fixed="right">
@@ -14,8 +18,6 @@
               {{dictsMap.artificialPaymentStatus[scope.row.artificialPaymentStatus]}}<i class="el-icon-arrow-down el-icon--right"></i>
             </iep-button>
             <el-dropdown-menu slot="dropdown">
-              <!-- <el-dropdown-item @click.native="handleRejected(scope.row)">驳回</el-dropdown-item> -->
-              <!-- eslint-disable-next-line -->
               <template v-for="(s,i) in dictsMap.artificialPaymentStatus">
                 <el-dropdown-item :key="i" v-if="+i !== scope.row.artificialPaymentStatus" @click.native="handleChangeStatus(scope.row, i)">{{s}}</el-dropdown-item>
               </template>
@@ -30,7 +32,6 @@
   </iep-dialog>
 </template>
 <script>
-// @selection-change="handleSelectionChange" is-mutiple-selection
 import mixins from '@/mixins/mixins'
 import { getProjectPaymentPlanList, updatePayment } from '@/api/gpms/fas'
 export default {
@@ -52,11 +53,11 @@ export default {
       columnsMap: [
         {
           prop: 'paymentAmount',
-          label: '预计项目回款金额',
+          label: '预计回款金额',
         },
         {
           prop: 'projectPaymentTime',
-          label: '预计项目回款时间',
+          label: '预计回款时间',
         },
       ],
       incomeId: '',
@@ -82,6 +83,7 @@ export default {
           return {
             id: m.id,
             artificialPaymentStatus: m.artificialPaymentStatus,
+            amount: m.payments,
           }
         }))
         if (data.data) {

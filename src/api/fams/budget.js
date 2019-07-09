@@ -67,3 +67,30 @@ export function putBudgetMonthRelation (obj) {
     data: obj,
   })
 }
+
+export function getUnionYearByYear (year) {
+  return request({
+    url: `${prefixUrl}/union/year/${year}`,
+    method: 'get',
+  })
+}
+
+export function getUnionQuatorByYear (year) {
+  return request({
+    url: `${prefixUrl}/union/quarter/${year}`,
+    method: 'get',
+  })
+}
+
+
+export function getUnionMonthByDate (year, quarter) {
+  return request({
+    url: `${prefixUrl}/union/month`,
+    params: {
+      year,
+      quarter,
+    },
+    method: 'get',
+  })
+}
+

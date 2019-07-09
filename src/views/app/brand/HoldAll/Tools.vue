@@ -75,6 +75,9 @@ export default {
     grid-template-columns: 1fr 1fr;
     .piece {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
       .img {
         float: left;
         width: 50px;

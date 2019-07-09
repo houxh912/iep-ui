@@ -11,10 +11,27 @@ export function geOrgPage (query) {
 }
 
 // 新增
+export function orgUpdate (data) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: data,
+  })
+}
+
+// 修改
 export function orgCreate (data) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
     data: data,
+  })
+}
+
+// 删除
+export function orgDelete (id) {
+  return request({
+    url: `${prefixUrl}/delete/${id}`,
+    method: 'post',
   })
 }

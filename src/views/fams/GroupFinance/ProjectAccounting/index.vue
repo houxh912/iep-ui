@@ -28,18 +28,23 @@
         <template slot="before-columns">
           <el-table-column label="时间">
             <template slot-scope="scope">
-              {{scope.row.businessYear + '年' + scope.row.businessMonth + '月'}}
+              {{scope.row.businessYear + '年'}}
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="应收账款金额">
+        <!-- <el-table-column label="合同金额">
           <template slot-scope="scope">
-            {{!scope.row.invoicingAmount ? '暂无' : (scope.row.invoicingAmount||0 - scope.row.projectIncome||0) }}
+            {{ ((scope.row.contractAmount||0) + (scope.row.projectAmount||0)) }}
+          </template>
+        </el-table-column> -->
+        <el-table-column label="开票应收账款金额">
+          <template slot-scope="scope">
+            {{!scope.row.invoicingAmount ? '暂无' : ((scope.row.invoicingAmount||0) - (scope.row.projectIncome||0)) }}
           </template>
         </el-table-column>
-        <el-table-column label="业务指标完成率">
+        <el-table-column label="业务指标完成率(%)">
           <template slot-scope="scope">
-            {{!scope.row.contractAmount ? '暂无' : (scope.row.contractAmount||0 / scope.row.amount||1) }}
+            {{!scope.row.amount ? '暂无' : (((scope.row.contractAmount||0) / (scope.row.amount))*100).toFixed(2) }}
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -50,6 +55,7 @@
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <create-dialog ref="CreateDialog" @load-page="loadPage"></create-dialog>
   </div>
 </template>
 
@@ -57,27 +63,29 @@
 import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import { getUnionProjectPage } from '@/api/fams/statistics'
 import DialogForm from './DialogForm'
+import CreateDialog from './CreateDialog'
 import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initForm } from './options'
 export default {
-  components: { DialogForm, AdvanceSearch, IepStatisticsHeader },
+  components: { DialogForm, CreateDialog, AdvanceSearch, IepStatisticsHeader },
   mixins: [mixins],
   data () {
     return {
       columnsMap,
-      statistics: [0, 0, 0, 0, 0, 0],
+      statistics: [0, 0, 0, 0, 0, 0, 0],
     }
   },
   computed: {
     financialData () {
       return {
         '业务指标总金额': this.statistics[0],
-        '项目总金额': this.statistics[1],
+        '待签项目总金额': this.statistics[1],
         '合同总金额': this.statistics[2],
         '到账总金额': this.statistics[3],
-        '待签总金额': this.statistics[4],
+        '未到账总金额': this.statistics[4],
         '开票总金额': this.statistics[5],
+        '开票应收账款': this.statistics[6],
       }
     },
   },
@@ -86,13 +94,11 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['DialogForm'].form = initForm()
-      this.$refs['DialogForm'].isEdit = false
-      this.$refs['DialogForm'].dialogShow = true
+      this.$refs['CreateDialog'].form = initForm()
+      this.$refs['CreateDialog'].dialogShow = true
     },
     handleEdit (row) {
       this.$refs['DialogForm'].form = { ...row }
-      this.$refs['DialogForm'].isEdit = true
       this.$refs['DialogForm'].dialogShow = true
     },
     handleDetail (row) {

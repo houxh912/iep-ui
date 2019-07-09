@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="其他应收账款"></page-header>
+      <iep-page-header title="其他应收账款"></iep-page-header>
       <operation-container>
         <template slot="right">
           <el-select size="small" v-model="type" placeholder="请选择其他应收款类别" @change="hanldeChange">

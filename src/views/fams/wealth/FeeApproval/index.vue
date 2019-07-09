@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="费用审核"></page-header>
+      <iep-page-header title="费用核准"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">

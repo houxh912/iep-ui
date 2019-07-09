@@ -26,6 +26,12 @@
                   <span class="value">{{form.contactMethod}}</span>
                 </div>
               </div>
+              <div class="col">
+                <div class="form-item-wrapper">
+                  <label for="">联系地址：</label>
+                  <span class="value">{{form.address}}</span>
+                </div>
+              </div>
             </div>
           </div>
           <iep-divider dashed />

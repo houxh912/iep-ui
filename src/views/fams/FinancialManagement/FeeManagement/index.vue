@@ -2,8 +2,8 @@
   <div>
     <basic-container>
       <!-- TODO: 费用统计 -->
-      <!-- <page-header title="费用管理" :replaceText="replaceText" :data="statistics"></page-header> -->
-      <page-header title="费用管理"></page-header>
+      <!-- <iep-page-header title="费用管理" :replaceText="replaceText" :data="statistics"></iep-page-header> -->
+      <iep-page-header title="费用管理"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -41,7 +41,7 @@ export default {
       columnsMap,
       // TODO: 费用统计
       // statistics: [0, 0, 0, 0],
-      // replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
+      // replaceText: (data) => `（待核准：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
     }
   },
   created () {

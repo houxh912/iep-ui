@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="员工" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="员工" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleHeaderSetting">表头设置</iep-button>

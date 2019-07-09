@@ -55,7 +55,7 @@ export default {
 }
 </style>
 <style scoped>
-.events-con >>> .el-card__body {
-  height: 270px;
+.events-con >>> .el-card {
+  height: 275px;
 }
 </style>

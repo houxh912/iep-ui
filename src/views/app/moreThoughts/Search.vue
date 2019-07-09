@@ -1,18 +1,22 @@
 <template>
   <div class="expert-search">
-    <h3>{{title}}<span>{{num}}</span></h3>
-    <div class="search-con">
+    <h3>{{title}}<span>{{`（共${num}条）`}}</span></h3>
+    <!-- <div class="search-con">
       <operation-search @search-page="searchPage"></operation-search>
       <el-button type="danger" plain>高级搜索</el-button>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 export default {
+  props: {
+    num: {
+      type: Number,
+    },
+  },
   data () {
     return {
       title: '说说',
-      num: '（共9865个）',
     }
   },
   methods: {

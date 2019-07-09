@@ -1,6 +1,6 @@
 <template>
   <div class="iep-page-form project-relation">
-    <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
+    <iep-page-header :title="`${methodName}合同`" :backOption="backOption"></iep-page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。" maxlength="50"></el-input>
@@ -107,6 +107,11 @@
         <el-col :span='12'>
           <el-form-item label="历史合同：" prop="isHistory">
             <el-switch v-model="formData.isHistory" :active-value="2" :inactive-value="1" active-color="#13ce66" />
+          </el-form-item>
+        </el-col>
+        <el-col :span='12'>
+          <el-form-item label="签署主体：">
+            <iep-select v-model="formData.signCompany" autocomplete="off" prefix-url="fams/company" placeholder="请选择签署主体"></iep-select>
           </el-form-item>
         </el-col>
       </el-row>

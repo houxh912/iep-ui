@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <div class="video">
       <div class="video-con">
         <video-left></video-left>
@@ -8,8 +8,7 @@
       <video-operate></video-operate>
       <IepAppEvaluationReview></IepAppEvaluationReview>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import VideoLeft from './VideoLeft'

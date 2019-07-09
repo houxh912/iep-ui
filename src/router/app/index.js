@@ -168,7 +168,7 @@ export default [
           },
           {
             path: 'mechanism',
-            name: '组织机构',
+            name: '组织架构',
             component: () => import('@/views/app/allianceDetails/mechanism/'),
             meta: noAuth,
           },
@@ -271,6 +271,26 @@ export default [
         path: 'organizational_list',
         name: '组织列表',
         component: () => import('@/views/app/organizationalList/'),
+      },
+      {
+        path: 'data_assets',
+        name: '组织资产',
+        component: () => import('@/views/app/data/organizationalAssets/component'),
+      },
+      {
+        path: 'data_assets_detail',
+        name: '数据资产',
+        component: () => import('@/views/app/data/organizationalAssets/tab/component'),
+      },
+      {
+        path: 'contract_list',
+        name: '合同',
+        component: () => import('@/views/app/resource/contractList/'),
+      },
+      {
+        path: 'contract_detail/:id',
+        name: '合同详情',
+        component: () => import('@/views/app/resource/contractList/detail/'),
       },
     ],
   },

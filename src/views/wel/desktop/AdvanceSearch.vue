@@ -7,9 +7,9 @@
       <!-- <el-form-item label="项目阶段">
         <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_stage" style="width: 100%"></iep-dict-select>
       </el-form-item> -->
-      <el-form-item label="所属组织">
+      <!-- <el-form-item label="所属组织">
         <iep-select v-model="form.orgId" prefix-url="admin/org/all" style="width: 100%"></iep-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="项目等级">
         <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_level" style="width: 100%"></iep-dict-select>
       </el-form-item>
@@ -51,7 +51,6 @@ export default {
       restaurants: [],
       clientList: [],
       isLoading: true,
-      orgId: '',
     }
   },
   computed: {

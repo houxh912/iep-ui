@@ -115,6 +115,12 @@ export default {
     },
   },
   created () {
+    if (this.$route.query.id) {
+      this.params.orgId = this.$route.query.id
+    }
+    if (this.$route.query.materialType) {
+      this.params.materialType = this.$route.query.materialType
+    }
     this.loadPage()
   },
 }
@@ -153,7 +159,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 15px;
     line-height: 24px;
     color: #aaa;
     i {

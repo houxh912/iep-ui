@@ -5,7 +5,9 @@
       <div class="texture-score-list">
         <div v-if="textureScoreList.length !== 0">
           <div v-for="(item,index) in textureScoreList" :key="index" class="piece">
-            <div class="img"><iep-img :src="item.avatar"></iep-img></div>
+            <div class="img">
+              <iep-img :src="item.avatar"></iep-img>
+            </div>
             <div class="box">
               <div class="piece-title">
                 <span class="name">{{item.creatorName}}<span class="department">{{item.department}}</span><span class="time">{{item.createTime}}</span></span>
@@ -58,7 +60,7 @@ export default {
   },
   methods: {
     getOrgevaluatePage () {
-      getOrgevaluatePage({size: 5, orgId: this.$route.params.id}).then(({data}) => {
+      getOrgevaluatePage({ size: 5, orgId: this.$route.params.id }).then(({ data }) => {
         this.textureScoreList = data.data.records
       })
     },
@@ -71,7 +73,7 @@ export default {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           console.log('form: ', this.form)
-          postOrgevaluateForm(this.form).then(({data}) => {
+          postOrgevaluateForm(this.form).then(({ data }) => {
             if (data.data) {
               this.$message.success('评价成功！')
               this.getOrgevaluatePage()
@@ -94,9 +96,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.texture-score {
-  margin: 30px 0 60px;
-}
 .texture-score-list {
   max-height: 261px;
   .piece {
@@ -185,7 +184,8 @@ export default {
   display: block;
 }
 
-.el-card {
+.texture-score >>> .el-card {
   padding: 0 20px;
+  height: 330px;
 }
 </style>

@@ -86,7 +86,7 @@ const tabList = [
     value: '1',
   },
   {
-    label: '公海客户',
+    label: '公海库',
     value: '4',
   },
 ]

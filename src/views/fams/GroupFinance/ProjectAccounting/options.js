@@ -1,15 +1,15 @@
-import { getYear, getMonth } from '@/util/date'
+import { getYear } from '@/util/date'
 
 const rules = {
-  orgId: [
-    { required: true, message: '请选择组织', trigger: 'blur' },
-  ],
-  businessDate: [
-    { required: true, message: '请选择日期', trigger: 'blur' },
-  ],
-  amount: [
-    { type:'number', required: true, message: '请输入日期', trigger: 'blur' },
-  ],
+	orgId: [
+		{ required: true, message: '请选择组织', trigger: 'blur' },
+	],
+	businessDate: [
+		{ required: true, message: '请选择日期', trigger: 'blur' },
+	],
+	amount: [
+		{ type: 'number', required: true, message: '请输入日期', trigger: 'blur' },
+	],
 }
 
 const columnsMap = [
@@ -30,12 +30,12 @@ const columnsMap = [
 		label: '合同金额',
 	},
 	{
-		prop: 'projectIncome',
-		label: '到账金额',
+		prop: 'projectAmount',
+		label: '待签金额',
 	},
 	{
-		prop: 'signedAmount',
-		label: '待签金额',
+		prop: 'projectIncome',
+		label: '到账金额',
 	},
 	{
 		prop: 'invoicingAmount',
@@ -43,33 +43,30 @@ const columnsMap = [
 	},
 ]
 
-const initForm = () => {
-  return {
-    orgId: '',
-    businessDate: '',
-    amount: 0,
-  }
+function initForm () {
+	return {
+		year: '',
+		amount: '',
+	}
 }
 
 const initSearchForm = () => {
-  return {
-    businessMonth: '',
-    businessYear: '',
-  }
+	return {
+		orgName: '',
+		businessYear: '',
+	}
 }
 
 const toDtoSearchForm = (row) => {
-	const newForm = {...row}
+	const newForm = { ...row }
 	newForm.businessYear = getYear(row.businessYear) || null
-  return newForm
+	return newForm
 }
 
 const toDtoForm = (row) => {
-  const newForm = {...row}
-  newForm.businessYear = getYear(row.businessDate) || null
-  newForm.businessMonth = getMonth(row.businessDate) || null
-	delete newForm.businessDate
-  return newForm
+	const newForm = { ...row }
+	newForm.year = getYear(row.year) || null
+	return newForm
 }
 
 export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm, rules }

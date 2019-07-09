@@ -41,7 +41,7 @@ export default {
   border: 1px solid #eee;
   .logo-container {
     text-align: center;
-    padding: 15px;
+    padding: 20px;
     width: 20%;
     min-height: 36px;
     border-right: 1px solid #eee;
@@ -55,9 +55,15 @@ export default {
       display: block;
       text-align: center;
       font-size: 14px;
-      color: #aaa;
+      color: #666;
       margin-bottom: 0;
       line-height: 1.8;
+    }
+    p {
+      font-size: 16px;
+    }
+    .day {
+      margin-top: 5px;
     }
     i {
       font-size: 20px !important;
@@ -79,6 +85,6 @@ export default {
 <style scoped>
 .logo-container >>> .el-image {
   margin-bottom: 10px;
-  height: 60px;
+  height: 50px;
 }
 </style>

@@ -23,6 +23,9 @@ export default {
   padding: 0;
   height: 22px;
   line-height: 22px;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 </style>
 <style scoped>
@@ -39,6 +42,6 @@ export default {
   padding: 18px 0 9px;
 }
 .research >>> .el-card {
-  height: 312px;
+  height: 320px;
 }
 </style>

@@ -21,7 +21,7 @@
     <!-- <el-form-item label="负责部门" v-if="type==='1'">
       <el-input v-model="form.deptName" placeholder="请输入负责部门"></el-input>
     </el-form-item> -->
-    <el-form-item label="距离上次拜访" v-if="type!='1'">
+    <el-form-item label="距离上次拜访" v-if="isShow(type)">
       <el-select v-model="form.timeSerach" placeholder="请选择">
         <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
@@ -80,6 +80,15 @@ export default {
         this.form = allSearchForm()
       } else {
         this.form = initSearchForm()
+      }
+    },
+    isShow (type) {
+      if (type === '1') {
+        return false
+      } else if (this.type === '4') {
+        return false
+      } else {
+        return true
       }
     },
   },

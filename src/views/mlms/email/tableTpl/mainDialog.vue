@@ -2,11 +2,11 @@
   <div class="inbox">
     <basic-container>
       <div class="head">
-        <page-header :title="formData.subject" class="title" :backOption="backOption">
+        <iep-page-header :title="formData.subject" class="title" :backOption="backOption">
           <div slot="sub" class="tags">
             <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
           </div>
-        </page-header>
+        </iep-page-header>
       </div>
       <div class="info">
         <!-- <div class="title">{{formData.subject}}</div> -->

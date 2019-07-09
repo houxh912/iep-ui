@@ -29,9 +29,15 @@ const columnsMap = [
     prop: 'assetOrg',
     label: '资产所属',
   },
+  {
+    prop: 'status',
+    label: '状态',
+    type: 'dict',
+    width: '150px',
+  },
 ]
 
-const initMemberForm = () => {
+const initForm = () => {
   return {
     userId: '',
     username: '',
@@ -41,6 +47,7 @@ const initMemberForm = () => {
     orgNames: [],
     assetOrgId: '',
     avatar: '',
+    message: '',
   }
 }
 
@@ -52,4 +59,4 @@ const initSearchForm = () => {
 }
 
 
-export { dictsMap, columnsMap, optionMap, initSearchForm, initMemberForm }
+export { dictsMap, columnsMap, optionMap, initSearchForm, initForm }

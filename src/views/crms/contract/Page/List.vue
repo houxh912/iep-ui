@@ -1,46 +1,51 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="合同"></page-header>
+      <iep-page-header title="合同"></iep-page-header>
       <!-- <div class="info">回款总金额：123,000,000，待收款 <i class="el-icon-question"></i> ：3，000，000，回款率：89%</div> -->
-      <operation-container>
-        <template v-if="+type !=0" slot="left">
-          <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
-        </template>
-        <template slot="right">
-          <el-radio-group v-model="type" size="small" @change="changeType">
-            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
-          </el-radio-group>
-          <advance-search @search-page="searchPage"></advance-search>
-        </template>
-      </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" @row-click="handleDetail" :dictsMap="dictsMap">
-        <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="250">
-          <template slot-scope="scope">
-            <operation-wrapper>
-              <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handeleDelete(scope.row)">删除</iep-button>
-            </operation-wrapper>
+      <div v-if="pageState=='list'">
+        <operation-container>
+          <template v-if="+type !=0" slot="left">
+            <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
           </template>
-        </el-table-column>
-      </iep-table>
-      <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer>
+          <template slot="right">
+            <el-radio-group v-model="type" size="small" @change="changeType">
+              <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+            </el-radio-group>
+            <advance-search @search-page="searchPage"></advance-search>
+          </template>
+        </operation-container>
+        <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" @row-click="handleDetail" :dictsMap="dictsMap">
+          <el-table-column v-if="+type !== 0" prop="operation" label="操作" width="250">
+            <template slot-scope="scope">
+              <operation-wrapper>
+                <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+                <iep-button @click="handeleDelete(scope.row)">删除</iep-button>
+              </operation-wrapper>
+            </template>
+          </el-table-column>
+        </iep-table>
+        <!-- <detail-drawer ref="DetailDrawer" @load-page="loadPage"></detail-drawer> -->
+      </div>
+      <detailDialog ref="detail" @load-page="pageState='list'" v-if="pageState == 'detail'"></detailDialog>
     </basic-container>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMapByTypeId, dictsMap } from '../columns'
-import { getContractPage, postContract, putContract, deleteContract, getDataById } from '@/api/crms/contract'
-import DetailDrawer from './DetailDrawer'
+import { getContractPage, postContract, putContract, deleteContract } from '@/api/crms/contract'
+// import DetailDrawer from './DetailDrawer'
+import detailDialog from './Detail'
 import AdvanceSearch from './AdvanceSearch'
-import { getObj } from '@/api/admin/user'
+// import { getObj } from '@/api/admin/user'
 import { mapGetters } from 'vuex'
 export default {
   name: 'List',
   mixins: [mixins],
   components: {
-    DetailDrawer,
+    // DetailDrawer,
+    detailDialog,
     AdvanceSearch,
   },
   data () {
@@ -49,6 +54,7 @@ export default {
       type: '1',
       deleteAll: false,
       dialogVisible: false,
+      pageState: 'list',
       tabList: [
         {
           label: '我的合同',
@@ -96,32 +102,36 @@ export default {
       if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
         return false
       }
-      this.$refs['DetailDrawer'].drawerShow = true
-      getDataById(row.contractId).then(res => {
-        this.$refs['DetailDrawer'].formData = res.data.data
-        this.$refs['DetailDrawer'].formData.signDeptOrgName = res.data.data.signDeptOrgName.name
-        let directorList = {
-          id: res.data.data.directorId,
-          name: res.data.data.directorRealName,
-        }
-        this.$set(this.$refs['DetailDrawer'].formData, 'directorList', directorList)
-        // this.$refs['DetailDrawer'].formData.directorList = directorList
-        // 业务类型处理
-        let businessType = res.data.data.businessType.split(','), list = []
-        for (let type of businessType) {
-          for (let item of this.dictGroup.prms_business_type) {
-            for (let t of item.children) {
-              if (t.value == type) {
-                list.push(t.label)
-              }
-            }
-          }
-        }
-        this.$refs['DetailDrawer'].infoList = list.toString()
-        getObj(res.data.data.creatorId).then(res => {
-          this.$set(this.$refs['DetailDrawer'].formData, 'Manager', res.data.data.realName)
-        })
+      this.pageState = 'detail'
+      this.$nextTick(() => {
+        this.$refs['detail'].open(row.contractId)
       })
+      // this.$refs['DetailDrawer'].drawerShow = true
+      // getDataById(row.contractId).then(res => {
+      //   this.$refs['DetailDrawer'].formData = res.data.data
+      //   this.$refs['DetailDrawer'].formData.signDeptOrgName = res.data.data.signDeptOrgName.name
+      //   let directorList = {
+      //     id: res.data.data.directorId,
+      //     name: res.data.data.directorRealName,
+      //   }
+      //   this.$set(this.$refs['DetailDrawer'].formData, 'directorList', directorList)
+      //   // this.$refs['DetailDrawer'].formData.directorList = directorList
+      //   // 业务类型处理
+      //   let businessType = res.data.data.businessType.split(','), list = []
+      //   for (let type of businessType) {
+      //     for (let item of this.dictGroup.prms_business_type) {
+      //       for (let t of item.children) {
+      //         if (t.value == type) {
+      //           list.push(t.label)
+      //         }
+      //       }
+      //     }
+      //   }
+      //   this.$refs['DetailDrawer'].infoList = list.toString()
+      //   getObj(res.data.data.creatorId).then(res => {
+      //     this.$set(this.$refs['DetailDrawer'].formData, 'Manager', res.data.data.realName)
+      //   })
+      // })
     },
     handeleDelete (row) {
       this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {

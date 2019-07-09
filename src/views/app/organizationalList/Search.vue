@@ -4,7 +4,7 @@
       <operation-search @search-page="searchPage" :paramForm="paramForm" prop="orgName">
         <!-- <advance-search></advance-search> -->
       </operation-search>
-      <!-- <el-button type="danger" plain>高级搜索</el-button> -->
+      <el-button type="danger" plain>高级搜索</el-button>
     </div>
   </div>
 </template>

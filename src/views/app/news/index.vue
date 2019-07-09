@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <iep-app-layout>
     <news-top></news-top>
     <news-content></news-content>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>

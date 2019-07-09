@@ -9,15 +9,15 @@
       </template>
     </operation-container>
     <div class="album-block" v-for="(item, index) in list" :key="index">
-      <div class="title" @click="handleClick">
+      <div class="title" @click="handleClick(index)">
         <span class="time">{{item.time}}</span>
-        <!-- <span class="num">(共{{90}}张)</span> -->
-        <i :class="isRotate" class="el-icon-arrow-down"></i>
+        <i :class="isShow[index] ? '' : 'isRotate'" class="el-icon-arrow-down"></i>
+        <!-- <i :class="isRotate" class="el-icon-arrow-down"></i> -->
       </div>
-      <div class="album-lib" v-show="isShow">
-        <div class="lib-ibox" v-for="(t, i) in item.list" :key="i">
-          <iep-img :src="t.imageUrl" alt=""></iep-img>
-          <!-- <i class="icon-shanchu1 close" @click="handleClose(index)"></i> -->
+      <div class="album-lib" v-show="isShow[index]">
+        <div class="lib-ibox" v-for="(t, i) in item.list" :key="i" @mouseenter="mouseover(t, i)" @mouseleave="mouseLeave(t, i)">
+          <div class="close" v-if="mouseIndex === i" @click="handleDelete(t)"><i class="el-icon-close"></i></div>
+          <iep-img :src="t.imageUrl" alt="" @click.native="handleUpdate(t)"></iep-img>
           <span>{{t.title}}</span>
         </div>
       </div>
@@ -33,21 +33,30 @@
 import { geOrgPage } from '@/api/goms/org_album'
 import formDialog from './formDialog'
 import { dateFormat } from '@/util/date'
+import { mapGetters } from 'vuex'
+import mixins from '@/mixins/mixins'
+import { orgDelete } from '@/api/goms/org_album'
 
 export default {
   components: { formDialog },
+  mixins: [mixins],
   data () {
     return {
-      isShow: true,
+      isShow: [],
       isRotate: '',
       list: [],
+      mouseIndex: -1,
       params: {
         current: 1,
         size: 12,
+        orgId: '',
       },
       paramForm: {title: ''},
       total: 0,
     }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
   },
   methods:{
     loadPage () {
@@ -71,19 +80,21 @@ export default {
         } else {
           this.activeNames.push(this.activeNames[this.activeNames.length-1]+1)
           list.push(obj)
+          this.isShow.push(true)
           obj = {time: startTime, list: [item]}
         }
       }
       list.push(obj)
+      this.isShow.push(true)
       return list
     },
     currentChange (val) {
       this.params.current = val
       this.loadPage()
     },
-    handleClick () {
-      this.isShow = !this.isShow
-      this.isRotate = this.isRotate? '' : 'isRotate'
+    handleClick (index) {
+      this.$set(this.isShow, index, !this.isShow[index])
+      console.log('isShow: ', this.isShow)
     },
     handleClose (index) {
       this.imgList.splice(index,1)
@@ -91,12 +102,25 @@ export default {
     handleCreate () {
       this.$refs['create'].open()
     },
+    handleUpdate (row) {
+      this.$refs['create'].open(row)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, orgDelete)
+    },
     searchPage (val) {
       this.paramForm = val
       this.loadPage()
     },
+    mouseover (val, index) {
+      this.mouseIndex = index
+    },
+    mouseLeave () {
+      this.mouseIndex = -1
+    },
   },
   created () {
+    this.params.orgId = this.userInfo.orgId
     this.loadPage()
   },
 }

@@ -17,7 +17,7 @@ export default {
       data: [
         { levelName: '集团概况', materialCount: '11', path: 'group' },
         { levelName: '企业文化', materialCount: '11', path: 'culture' },
-        { levelName: '组织机构', materialCount: '11', path: 'mechanism' },
+        { levelName: '组织架构', materialCount: '11', path: 'mechanism' },
         { levelName: '专家团队', materialCount: '11', path: 'team' },
         { levelName: '发展历程', materialCount: '11', path: 'development' },
         { levelName: '业务领域', materialCount: '11', path: 'business' },

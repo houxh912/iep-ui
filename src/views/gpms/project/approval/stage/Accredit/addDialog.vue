@@ -1,6 +1,6 @@
 <template>
   <basic-container class="iep-page-form">
-    <page-header :title="methodName" :backOption="backOption"></page-header>
+    <iep-page-header :title="methodName" :backOption="backOption"></iep-page-header>
 
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px">
 

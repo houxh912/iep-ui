@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="模块配置"></page-header>
+      <iep-page-header title="模块配置"></iep-page-header>
       <el-row class="row-bg module" :gutter="20">
         <h3 class="item-title">已选模块<span class="sub-title">系统基础模块，不可移除</span></h3>
         <el-col :span="6" class="module-item">

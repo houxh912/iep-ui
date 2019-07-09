@@ -20,10 +20,11 @@ export function postExcelExport (fileds) {
     link.click()
   })
 }
-export function postAppprovalExcelExport () {
+export function postAppprovalExcelExport (query) {
   return request({
     url: `${prefixUrl}/excel/applic_export`,
     method: 'post',
+    params: query,
     headers: {
       'Content-Type': 'application/json',
     },

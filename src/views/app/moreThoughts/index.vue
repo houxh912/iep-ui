@@ -7,7 +7,7 @@
           <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-      <search @load-page="searchPage"></search>
+      <search @load-page="searchPage" :num="total"></search>
       <div class="material">
         <div class="library">
           <div class="items" v-for="(item, index) in dataList" :key="index">
@@ -21,7 +21,7 @@
                   <div class="date">{{getNumber(index)}}</div>
                   <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
                 </div>
-                <el-button size="mini" round>只看此人</el-button>
+                <!-- <el-button size="mini" round>只看此人</el-button> -->
               </div>
               <div class="item">{{item.content}}</div>
               <!-- 说说评论 -->
@@ -36,9 +36,9 @@
                   <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
                   <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
                 </div>
-                <div v-show="isShow" style="text-align: right;margin: 20px 0;">
+                <!-- <div v-show="isShow" style="text-align: right;margin: 20px 0;">
                   <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
-                </div>
+                </div> -->
               </div>
               <!-- 按钮组 -->
               <div class="footer">

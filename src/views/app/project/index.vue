@@ -1,9 +1,8 @@
 <template>
-  <div class="projects-quality">
+  <iep-app-layout class="projects-quality">
     <projects-quality-top></projects-quality-top>
     <projects-quality-content></projects-quality-content>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>
@@ -17,7 +16,7 @@ export default {
     }
   },
   created () {
-    
+
   },
 }
 </script>

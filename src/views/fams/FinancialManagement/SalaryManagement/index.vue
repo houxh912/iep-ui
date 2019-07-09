@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="工资管理" :replaceText="replaceText"></page-header>
+      <iep-page-header title="工资管理" :replaceText="replaceText"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button icon="el-icon-plus" @click="handleAdd()">新增工资单</iep-button>
@@ -21,15 +21,18 @@
         </el-table-column>
       </iep-table>
     </basic-container>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <iep-upload-dialog ref="uploadDialog" :action="action" @on-finish="handleFinish"></iep-upload-dialog>
   </div>
 </template>
 <script>
-import { getSalaryPage, grantSalaryById, addSalary, deleteSalaryById } from '@/api/fams/salary'
+import { getSalaryPage, grantSalaryById, deleteSalaryById } from '@/api/fams/salary'
 import { downloadUrl } from '@/api/common'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
+import DialogForm from './DialogForm'
 export default {
+  components: { DialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -49,7 +52,7 @@ export default {
   },
   methods: {
     handleDownload () {
-      downloadUrl('files-67e757b556894b22b089536cd49304f4.xls')
+      downloadUrl('files-de2862a1f76c4b79a6129566881e1242.xls')
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteSalaryById)
@@ -71,9 +74,7 @@ export default {
       this.loadTable(param, getSalaryPage)
     },
     handleAdd () {
-      addSalary().then(() => {
-        this.loadPage()
-      })
+      this.$refs['DialogForm'].dialogShow = true
     },
   },
 }

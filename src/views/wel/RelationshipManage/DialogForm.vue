@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}自定义分组`" width="500px" @close="loadPage">
     <el-form :model="form" size="small" ref="form" :rules="rules" label-width="140px">
       <iep-form-item label-name="自定义分组名" prop="name">
-        <el-input v-model="form.name" maxlength="6"></el-input>
+        <el-input v-model="form.name" maxlength="10"></el-input>
       </iep-form-item>
     </el-form>
     <template slot="footer">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="银行存款日记账" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="银行存款日记账" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-select size="small" v-model="companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择公司" @change="searchPageByCompany()"></iep-select>

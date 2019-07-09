@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="通知公告"></page-header>
+      <iep-page-header title="通知公告"></iep-page-header>
       <iep-tabs v-model="type" :tab-list="announcementTypeList" @tab-click="changeType"></iep-tabs>
       <operation-container>
         <template slot="left">

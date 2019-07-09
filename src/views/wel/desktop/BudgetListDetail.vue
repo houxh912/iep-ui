@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="项目列表"></page-header>
+      <iep-page-header title="项目列表"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-select

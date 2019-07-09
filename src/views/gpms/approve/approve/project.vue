@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header title="我的审批" :backOption="backOption"></page-header>
+    <iep-page-header title="我的审批" :backOption="backOption"></iep-page-header>
     <!-- 立项信息 -->
     <div class="contianBox">
       <el-row class="title">

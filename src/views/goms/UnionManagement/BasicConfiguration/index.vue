@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="联盟基本信息"></page-header>
+      <iep-page-header title="联盟基本信息"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='UnionInformation'" v-slot:UnionInformation>
           <union-information v-loading="activeTab !=='UnionInformation'"></union-information>

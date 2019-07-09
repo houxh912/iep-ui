@@ -6,7 +6,7 @@
   <el-col :span="20">-->
   <div>
     <basic-container>
-      <page-header title="栏目管理" :replaceText="replaceText" :data="statistics" :backOption="backOption"></page-header>
+      <iep-page-header title="栏目管理" :replaceText="replaceText" :data="statistics" :backOption="backOption"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" plain @click="handleAdd">新增</iep-button>

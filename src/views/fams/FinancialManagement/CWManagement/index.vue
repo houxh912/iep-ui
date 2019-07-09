@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="提现管理" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="提现管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleGrantBatch">批量发放</iep-button>

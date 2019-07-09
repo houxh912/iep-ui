@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="客户" :replaceText="replaceText" :data="[increasedClient]"></page-header>
+      <iep-page-header title="客户" :replaceText="replaceText" :data="[increasedClient]"></iep-page-header>
       <operation-container>
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>

@@ -8,7 +8,7 @@
     <div class="organizationDetails">
       <menus></menus>
       <div class="con">
-        <page-header :title="title" :backOption="backOption"></page-header>
+        <iep-page-header :title="title" :backOption="backOption"></iep-page-header>
         <router-view></router-view>
       </div>
     </div>

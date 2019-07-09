@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="合同应收账款"></page-header>
+      <iep-page-header title="合同应收账款"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="projectName">

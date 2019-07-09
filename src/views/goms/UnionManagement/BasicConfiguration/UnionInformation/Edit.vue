@@ -1,11 +1,11 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header title="修改联盟基本信息" :backOption="backOption">
+      <iep-page-header title="修改联盟基本信息" :backOption="backOption">
         <template>
           <iep-button type="primary" @click="handleSubmit">保存</iep-button>
         </template>
-      </page-header>
+      </iep-page-header>
       <el-form :model="form" class="form-detail" ref="form" size="small" label-width="120px">
         <el-form-item label="联盟Logo：">
           <iep-avatar v-model="form.logo"></iep-avatar>

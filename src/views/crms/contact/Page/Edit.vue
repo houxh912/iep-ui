@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${methodName}联系人`"></page-header>
+      <iep-page-header :title="`${methodName}联系人`"></iep-page-header>
       <el-form :model="formData" :rules="rules" ref="formName" label-width="130px" size="small" class="form-detail">
         <el-row>
           <el-col :span="12">

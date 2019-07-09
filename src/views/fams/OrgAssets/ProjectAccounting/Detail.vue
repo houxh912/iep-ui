@@ -1,8 +1,8 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="form.projectName" :back-option="backOption">
-      </page-header>
+      <iep-page-header :title="form.projectName" :back-option="backOption">
+      </iep-page-header>
       <el-card class="box-card" shadow="never" :body-style="{ display: 'flex' }">
         <div class="left-wrapper">
           <span>合同金额</span>

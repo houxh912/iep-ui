@@ -1,6 +1,6 @@
 <template>
   <div class="iep-page-form">
-    <page-header title="本地上传" :backOption="backOption"></page-header>
+    <iep-page-header title="本地上传" :backOption="backOption"></iep-page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;">
       <el-form-item label="名称：">
         <span slot="label">

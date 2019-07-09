@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <div v-show="pageState == 'list'">
-      <page-header title="收件箱" class="title" :data="subTitle" :replaceText="subTitleFn"></page-header>
+      <iep-page-header title="收件箱" class="title" :data="subTitle" :replaceText="subTitleFn"></iep-page-header>
       <iep-tabs v-model="tabName" :tab-list="tabList">
         <template v-if="tabName ==='alltabTemplate'" v-slot:alltabTemplate>
           <web-tab-tpl @readList="(val)=>{subTitle=val}" @materialDetail="materialDetail"></web-tab-tpl>

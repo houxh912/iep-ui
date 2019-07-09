@@ -1,6 +1,6 @@
 <template>
   <basic-container>
-    <page-header :title="`组织资产-${deptData.name}`" :backOption="backOption"></page-header>
+    <iep-page-header :title="`组织资产-${deptData.name}`" :backOption="backOption"></iep-page-header>
     <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='dataAssets'" v-slot:dataAssets>
         <dataAssets ref="dataAssets" :orgId="orgId" :tabType="1"></dataAssets>

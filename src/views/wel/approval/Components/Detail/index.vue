@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${currentName}单`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${currentName}单`" :backOption="backOption"></iep-page-header>
       <component :is="currentLabel" :type="applicType" :form="form" @load-page="loadPage"></component>
     </basic-container>
   </div>

@@ -14,7 +14,7 @@
       </el-card>
     </el-col>
     <el-col :span="20">
-      <page-header title="系统消息"></page-header>
+      <iep-page-header title="系统消息"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-read-mark-del :enableList="[true, true, false]" @on-view-batch="handleViewBatch" @on-mark-batch="onMarkBatch"></iep-read-mark-del>

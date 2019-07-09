@@ -1,11 +1,11 @@
 <template>
   <div class="iep-page-form culture-form">
     <basic-container>
-      <page-header :backOption="backOption">
+      <iep-page-header :backOption="backOption">
         <template>
           <iep-button type="primary" @click="handleSubmit">保存</iep-button>
         </template>
-      </page-header>
+      </iep-page-header>
       <el-form :model="form" class="form-detail" size="small" ref="form" label-width="120px">
         <el-form-item label="内容：" prop="structure">
           <iep-froala-editor v-model="form.structure"></iep-froala-editor>

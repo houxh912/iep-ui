@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="专题考试记录" :data="[10, 5]"></page-header>
+      <iep-page-header title="专题考试记录" :data="[10, 5]"></iep-page-header>
       <operation-container>
         <template slot="right">
           <el-button-group>

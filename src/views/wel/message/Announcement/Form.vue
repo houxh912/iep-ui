@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}公告`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}公告`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
         <iep-form-item prop="name" label-name="主题" tip="主题请务必包含关于+事由+通知类型，如关于学习内网2.0相关功能操作的通知。">
           <el-input v-model="form.name" :disabled="disabled"></el-input>

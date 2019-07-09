@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="收到的建议"></page-header>
+      <iep-page-header title="收到的建议"></iep-page-header>
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">

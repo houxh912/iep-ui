@@ -98,6 +98,9 @@ export default {
     margin-right: 10px;
     color: #333;
     font-size: 16px;
+    &:hover {
+      color: #cb3737;
+    }
   }
   i {
     color: #666;
@@ -123,6 +126,9 @@ export default {
     color: #999;
     font-size: 12px;
     line-height: 24px;
+    &:hover {
+      color: #cb3737;
+    }
     i {
       margin-right: 5px;
       font-size: 16px !important;

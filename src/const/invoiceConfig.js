@@ -6,4 +6,15 @@ const genStatus = (row) => {
   if (status == 2) return '已确认'
   if (status == 3) return '驳回'
 }
-export {genStatus}
+
+const feeStatus = {
+  0: '待提交',
+  1: '部门审核',
+  2: '财务审核',
+  3: '部门驳回',
+  4: '财务通过',
+  5: '财务驳回',
+  6: '已生成流水',
+}
+
+export {genStatus, feeStatus}

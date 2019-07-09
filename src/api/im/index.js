@@ -32,9 +32,26 @@ export function createGroup (data) {
   })
 }
 
+export function updateGroupMember (data) {
+  return request({
+    url: `${prefixUrl}/update_member`,
+    method: 'post',
+    data,
+  })
+}
+
 export function getGroup () {
   return request({
     url: `${prefixUrl}/get_group`,
     method: 'get',
   })
 }
+
+export function getGroupMembers (params) {
+  return request({
+    url: `${prefixUrl}/get_group_members`,
+    method: 'get',
+    params,
+  })
+}
+

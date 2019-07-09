@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       title: '提交成功',
-      description: '等待财务审核，财务审核及发放过程中提现资金将被冻结。同时在财务未审核通过前撤销申请。',
+      description: '等待财务核准，财务核准及发放过程中提现资金将被冻结。同时在财务未核准通过前撤销申请。',
     }
   },
   methods: {

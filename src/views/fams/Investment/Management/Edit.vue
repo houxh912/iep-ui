@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`投资管理 - ${methodName}`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`投资管理 - ${methodName}`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="190px" size="small">
         <el-row>
           <el-col :span="12">

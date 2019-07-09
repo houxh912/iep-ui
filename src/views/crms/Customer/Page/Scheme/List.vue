@@ -29,9 +29,9 @@
       <el-table-column label="操作" width="300px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="relateEdit(scope.row)" type="warning" plain v-if="!scope.row.status" v-show="scope.row.creatorId===userInfo.userId">保存至材料库</iep-button>
-            <iep-button @click="scope.row.status==0?localEdit(scope.row):relateEdit(scope.row)" type="warning" plain v-if="scope.row.creatorId===userInfo.userId">编辑</iep-button>
-            <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+            <iep-button @click="relateEdit(scope.row)" type="warning" plain v-if="!scope.row.status" v-show="!isEdit(scope.row)">保存至材料库</iep-button>
+            <iep-button @click="scope.row.status==0?localEdit(scope.row):relateEdit(scope.row)" type="warning" plain :disabled="isEdit(scope.row)">编辑</iep-button>
+            <iep-button @click="handleDeleteById(scope.row)" :disabled="isEditDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -66,7 +66,6 @@ export default {
       default: () => { },
     },
   },
-
   data () {
     return {
       formData: {},
@@ -97,6 +96,30 @@ export default {
     })
   },
   methods: {
+    // 材料
+    isEdit (row) {
+      if (this.record.marketManager == this.userInfo.userId) {
+        return false
+      } else {
+        if (this.userInfo.userId == row.materialCreatorId) {
+          return false
+        } else {
+          return true
+        }
+      }
+    },
+    // 方案删除 
+    isEditDelete (row) {
+      if (this.record.marketManager == this.userInfo.userId) {
+        return false
+      } else {
+        if (this.userInfo.userId == row.creatorId) {
+          return false
+        } else {
+          return true
+        }
+      }
+    },
     handleDetail (row, column) {
       if (column.label == '方案名称') {
         if (row.status === 0) {

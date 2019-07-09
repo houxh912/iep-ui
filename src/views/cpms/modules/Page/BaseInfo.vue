@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span='8'>
         <el-form-item label="模块编号：">
-          <div>{{form.number}}</div>
+          <iep-div-detail :value="form.number"></iep-div-detail>
         </el-form-item>
       </el-col>
       <el-col :span='8'>
@@ -13,7 +13,7 @@
       </el-col>
       <el-col :span='8'>
         <el-form-item label="测试地址：">
-          <div>{{form.website}}</div>
+          <iep-div-detail :value="form.website"></iep-div-detail>
         </el-form-item>
       </el-col>
       <el-col :span='8'>

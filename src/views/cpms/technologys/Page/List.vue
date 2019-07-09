@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="技术应用"></page-header>
+      <iep-page-header title="技术应用"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="cpms_technologys_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${record.methodName}考试`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${record.methodName}考试`" :backOption="backOption"></iep-page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current" v-if="!record.id">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />

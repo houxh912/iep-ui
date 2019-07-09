@@ -12,4 +12,16 @@ export default [
       },
     ],
   },
+  {
+    path: '/crms_spa',
+    component: Layout,
+    redirect: '/crms_spa/business_detail/:id',
+    children: [
+      {
+        path: 'business_detail/:id',
+        name: '商机详情',
+        component: () => import('@/views/crms/business/Detail.vue'),
+      },
+    ],
+  },
 ]

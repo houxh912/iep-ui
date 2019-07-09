@@ -1,73 +1,96 @@
 <template>
   <div class="bulleted-list">
-    <IepAppTabCard :title="title" :linkName="linkName" isMore>
-      <div class="bulleted-item" v-for="(item,index) in dataList" :key="index">
-        <span class="sub-item">{{item.typeName}}</span>
-        <el-progress :percentage="item.percentage" status="success" class="right"></el-progress>
+    <el-card class="index-card" shadow="never">
+      <div slot="header" class="title-con clearfix">
+        <span class="title">
+          {{title}}
+        </span>
+        <slot name="statistics"></slot>
+        <el-button class="btn" type="text" @click="getMore">更多></el-button>
+        <slot name="right"></slot>
       </div>
-    </IepAppTabCard>
+      <el-scrollbar style="height:240px">
+        <div class="bulleted-item" @click="handleDetail(item)" v-for="(item,index) in dataList" :key="index">
+          <span class="sub-item">{{item.project_name}}</span>
+        </div>
+      </el-scrollbar>
+    </el-card>
   </div>
 </template>
 
 <script>
+import { getProjectRecProjects } from '@/api/app/prms/'
 export default {
   data () {
     return {
       title: '项目列表',
       linkName: '',
       dataList: [
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
-        { typeName: '--', percentage: 0 },
       ],
     }
+  },
+  created () {
+    this.linkName = '/wel/budget_list_detail'
+    getProjectRecProjects().then(({ data }) => {
+      this.dataList = data.data.list
+    })
+  },
+  methods: {
+    getMore () {
+      this.$router.push({
+        path: this.linkName,
+      })
+    },
+     handleDetail (row) {
+      this.$router.push(`/gpms_spa/project/detail/${row.id}`)
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.title-con {
+  display: flex;
+  justify-content: space-between;
+}
+.title {
+  flex: 2;
+  font-size: 16px;
+  color: #303133;
+  margin: 0 4px;
+  height: 22px;
+  line-height: 22px;
+}
+.btn {
+  margin-right: 5px;
+  padding: 0;
+  height: 22px;
+  line-height: 22px;
+  color: #999;
+  cursor: pointer;
+}
+.datas {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #999;
+}
 .bulleted-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 5px;
   padding: 0 10px;
   line-height: 32px;
   font-size: 14px;
   color: #333;
+  cursor: pointer;
   .sub-item {
     display: inline-block;
-    width: 170px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-  }
-  .right {
-    display: inline-block;
-    width: 70px;
-  }
-}
-.bulleted-list-box {
-  position: relative;
-  .new {
-    padding: 0 3px;
-    height: 20px;
-    line-height: 18px;
-    font-size: 12px;
-    background-color: #fff;
-    border-radius: 3px;
-    border: 1px solid #cb3737;
-    color: #cb3737;
-    position: absolute;
-    right: 0;
-    top: 7px;
-  }
-  .assort .piece {
-    padding-right: 40px;
+    &:hover {
+      color: #cb3737;
+    }
   }
 }
 .bulleted-list .el-card {
@@ -75,6 +98,9 @@ export default {
 }
 </style>
 <style scoped>
+.el-card {
+  padding: 0 20px;
+}
 .bulleted-list >>> .el-card {
   height: 351px;
 }

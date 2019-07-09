@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="topTitle" :backOption="backOption"></page-header>
+      <iep-page-header :title="topTitle" :backOption="backOption"></iep-page-header>
 
       <div class="top">
         <div class="row">

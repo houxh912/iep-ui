@@ -1,6 +1,6 @@
 <template>
   <div class="empolyee">
-    <el-carousel height="200px" :interval="5000" indicator-position="none">
+    <el-carousel height="200px" :interval="2000000000000" indicator-position="none">
       <el-carousel-item v-for="item in 4" :key="item">
         <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
           <div class="img">
@@ -28,10 +28,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 .empolyee {
-  padding-top: 15px;
   .piece {
     text-align: center;
-    width: 260px;
+    width: 268px;
     float: left;
     margin: 0 5px;
     cursor: pointer;
@@ -53,10 +52,10 @@ export default {
       line-height: 40px;
     }
     &:first-child {
-      margin: 0 15px 0 10px;
+      margin: 0 15px 0 0;
     }
     &:last-child {
-      margin: 0 10px 0 15px;
+      margin: 0 -1px 0 15px;
     }
   }
 }

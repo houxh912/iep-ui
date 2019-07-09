@@ -26,6 +26,8 @@
         <div @click="$openPage('/fams_spa/group_reward_user')">打赏/扣减(个人)</div>
         <div>投资管理</div>
         <div>组织预算</div>
+        <div @click="$openPage('/fams_spa/union_payment_plan')">回款计划</div>
+        <div @click="$openPage('/app/data_assets?type=1')">组织资产</div>
       </div>
     </iep-fams-card>
   </div>

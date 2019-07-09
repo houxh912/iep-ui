@@ -2,7 +2,7 @@
   <el-card class="account-wrapper" shadow="never" :body-style="bodyStyle">
     <div class="user-simple-box">
       <div class="user-info">
-        <iep-img class="user-avatar" :src="userInfo.avatar"></iep-img>
+        <iep-img class="user-avatar" :src="userInfo.avatar" @click.native="$openPage(`/app/personal_style/${userInfo.userId}`)"></iep-img>
         <iep-div-detail class="user-code" :value="form.staffId"></iep-div-detail>
       </div>
       <el-tooltip class="item" effect="dark" content="资料完善度" placement="top">
@@ -28,6 +28,7 @@
                 <i class="el-icon-d-arrow-right"></i>
               </span>
             </span>
+            <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
             <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
           </div>
         </div>
@@ -99,6 +100,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handManage () {
+      this.$router.push({
+        path: '/wel/relationship_manage',
+      })
+    },
     handleSome1 () {
       this.$message('页面建设中')
     },
@@ -200,6 +206,12 @@ export default {
       font-size: 14px;
       border-radius: 3px;
       color: #666;
+      span {
+        font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
       > .icon {
         font-size: 20px;
         color: #ffbc01;
@@ -247,6 +259,7 @@ export default {
   }
 }
 .user-avatar {
+  cursor: pointer;
   width: 90px;
   height: 90px;
 }

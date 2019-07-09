@@ -1,7 +1,7 @@
 <template>
   <div>
     <search @load-page="loadPage"></search>
-    <qualification-content ref="content"></qualification-content> 
+    <qualification-content ref="content"></qualification-content>
   </div>
 </template>
 <script>
@@ -13,7 +13,7 @@ export default {
     return {
     }
   },
-  components:{
+  components: {
     Search,
     QualificationContent,
   },
@@ -24,5 +24,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-</style>

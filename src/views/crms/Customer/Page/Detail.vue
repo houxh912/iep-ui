@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="formData.clientName" :backOption="backOption"></page-header>
+      <iep-page-header :title="formData.clientName" :backOption="backOption"></iep-page-header>
       <!-- <div class="head-button">
         <iep-button class="tabs" type="primary" size="small">暂无需求</iep-button>
         <iep-button class="tabs" type="primary" size="small" @click="transfer">转移给他人</iep-button>
@@ -59,6 +59,7 @@ export default {
         type: this.$route.query.type,
         flag: this.$route.query.flag,
         collaborations: '',
+        marketManager: '',
       },
       backOption: {
         isBack: true,
@@ -131,6 +132,7 @@ export default {
           this.formData = data.data
         this.record.collaborations = this.formData.collaborations
         this.record.clientName = this.formData.clientName
+        this.record.marketManager = this.formData.marketManager
         // if (this.formData.preMarketManagerName == '') {
         //   this.formData.preMarketManagerName = '暂无'
         // }

@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${methodName}加班申请单`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}加班申请单`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" label-width="120px" size="small">
         <el-row>
           <el-col :span="12">
@@ -100,7 +100,7 @@
         <el-form-item label="附件：">
           <el-input v-model="form.annex"></el-input>
         </el-form-item>
-        <el-form-item label="审批人：">
+        <el-form-item label="核准人：">
           <el-input v-model="form.approver"></el-input>
         </el-form-item>
         <el-form-item label="抄送人：">

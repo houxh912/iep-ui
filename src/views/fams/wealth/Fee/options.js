@@ -1,126 +1,140 @@
 // import { checkContactUser } from '@/util/rules'
-import { genStatus } from '@/const/invoiceConfig'
-
+import { mergeByFirst } from '@/util/util'
+import { feeStatus } from '@/const/invoiceConfig.js'
 const dictsMap = {
+  payType: {
+    '0': '库存现金',
+    '1': '银行存款',
+  },
   processStatus: {
-    0: '待审核',
+    0: '待核准',
     1: '通过',
     2: '驳回',
     3: '转交',
   },
-  status: {
-    0: '待提交',
-    1: '部门审批',
-    2: '财务审批',
-    3: '已完成',
-  },
-  referType: {
-    1: '项目管理类',
-    2: '日常管理类',
-    3: '其他类(发票抵税)',
-  },
-  invoiceType: {
-    1: '增值税专用发票',
-    2: '增值税普通发票',
-    3: '其他',
-  },
+  status: feeStatus,
 }
-
 function initTableForm () {
   return {
     type: [],
-    invoiceType: '',
+    bank: '',
     amount: 0,
   }
 }
+
+function initFlowForm () {
+  return {
+    costId: '',
+    bankId: '',
+    companyId: '',
+    payType: '0',
+  }
+}
+
 function initForm () {
   return {
-    id: '',
-    referType: 1,
+    costId: '',
+    isSubstitute: 0,
     orgId: '',
+    costFile: '',
+    ccOrgId: '',
     orgName: '',
+    ccOrgName: '',
     companyId: '',
+    ccCompanyId: '',
     companyName: '',
+    ccCompanyName: '',
+    protocolId: '',
+    protocolName: '',
     projectId: '',
     projectName: '',
+    auditorId: '',
+    auditorName: '',
     auditor: {
-      id: 0,
+      id: '',
       name: '',
     },
     creatorName: '',
-    financialName: '',
+    financeUserName: '',
+    status: '',
     primaryAudit: '',
-    auditorName: '',
     remarks: '',
-    financialAudit:0,
+    financialAudit: 0,
     relations: [],
     processes: [],
   }
 }
 
+const formToVo = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  newForm.auditor = {
+    id: newForm.auditorId,
+    name: newForm.auditorName,
+  }
+  return newForm
+}
+
 const columnsMap = [
-	{
-		prop: 'referType',
-		label: '报销类型',
-		type: 'dict',
-	},
-	{
-		prop: 'companyName',
-		label: '报销抬头',
-	},
-	{
-		prop: 'totalAmount',
-		label: '报销金额',
-	},
-	{
-		prop: 'createTime',
-		label: '申请日期',
-	},
-	{
-		prop: null,
+  {
+    prop: 'costId',
+    label: 'ID',
+  },
+  {
+    prop: 'totalAmount',
+    label: '报销金额',
+  },
+  {
+    prop: 'createTime',
+    label: '申请日期',
+  },
+  {
+    prop: 'status',
     label: '状态',
-    type: 'custom',
-    customFunction: genStatus,
-	},
-	{
-		prop: 'auditorName',
-    label: '部门审批人',
-	},
-	{
-		prop: 'auditingTime',
-    label: '审核日期',
-	},
-	{
-		prop: 'remarks',
-    label: '备注',
-	},
+    type: 'dict',
+  },
+  {
+    prop: 'auditorName',
+    label: '部门核准人',
+  },
 ]
+
+const flowRules = {
+  bankId: [
+    { required: true, message: '请选择支出账户', trigger: 'change' },
+  ],
+}
 
 const rules = {
   referType: [
     { required: true, message: '请选择报销类型', trigger: 'blur' },
   ],
   orgId: [
-    { required: true, message: '请选择报销组织', trigger: 'blur' },
+    { required: true, message: '请选择报销组织', trigger: 'change' },
   ],
   companyId: [
-    { required: true, message: '请选择报销抬头', trigger: 'blur' },
+    { required: true, message: '请选择报销公司', trigger: 'change' },
   ],
-  projectId: [
-    { required: true, message: '请选择项目', trigger: 'blur' },
+  ccOrgId: [
+    { required: true, message: '请选择代缴组织', trigger: 'change' },
   ],
-  remarks: [
-    { required: false, trigger: 'blur' },
+  ccCompanyId: [
+    { required: true, message: '请选择代缴公司', trigger: 'change' },
+  ],
+  costFile: [
+    { required: false, message: '请上传附件', trigger: 'blur' },
   ],
   auditor: [
-    { required: false, trigger: 'blur' },
+    { required: false, trigger: 'change' },
   ],
 }
 
 export {
-	columnsMap,
-	dictsMap,
-	rules,
-	initTableForm,
-	initForm,
+  columnsMap,
+  dictsMap,
+  rules,
+  flowRules,
+  initTableForm,
+  initForm,
+  initFlowForm,
+  formToVo,
 }

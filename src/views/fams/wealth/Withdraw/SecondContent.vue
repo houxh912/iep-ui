@@ -1,7 +1,7 @@
 <template>
   <steps-content>
     <a-form class="content-wrapper">
-      <a-alert :closable="true" type="error" message="确认提现后，财务将对您的提现申请进行审核。" style="margin-bottom: 24px;" />
+      <a-alert :closable="true" type="error" message="确认提现后，财务将对您的提现申请进行核准。" style="margin-bottom: 24px;" />
       <a-form-item label="提现金额：" :labelCol="labelCol" :wrapperCol="wrapperCol" class="stepFormText">
         ￥ {{formatNumber(data.amount)}}
       </a-form-item>

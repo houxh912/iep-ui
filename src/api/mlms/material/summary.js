@@ -72,7 +72,6 @@ export function deleteData (ids) {
   if (typeof ids == 'number') {
     ids = [ids]
   }
-  console.log('ids: ', ids)
   return request({
     url: `${prefixUrl}/delete/batch`,
     method: 'post',

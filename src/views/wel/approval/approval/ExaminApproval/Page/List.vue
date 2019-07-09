@@ -3,6 +3,7 @@
     <operation-container>
       <template slot="left">
         <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发起申请</iep-button>
+        <iep-button @click="handleReviewBatch">批量审核</iep-button>
       </template>
       <template slot="right">
         <operation-search @search-page="searchPage">
@@ -27,7 +28,7 @@
       <el-table-column label="审核人">
         <template slot-scope="scope">
           <div>
-            <iep-tag-detail v-if="!scope.row.status" :value="scope.row.approverNameList"></iep-tag-detail>
+            <span v-if="!scope.row.approveResult">{{scope.row.approverNameList.join('、')}}</span>
             <span v-else>{{scope.row.approverName}}</span>
           </div>
         </template>
@@ -82,6 +83,17 @@ export default {
       this.$router.push({
         path: `/hrms_spa/approval_detail/${row.id}`,
       })
+    },
+    handleReviewBatch () {
+      // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
+      this.$refs['iepReviewForm'].title = '审核'
+      this.$refs['iepReviewForm'].ids = this.multipleSelection
+      this.$refs['iepReviewForm'].formRequestFn = reviewApprovaBatch
+      this.$refs['iepReviewForm'].dialogShow = true
     },
     handleReview (row) {
       this.$refs['iepReviewForm'].title = '审核'

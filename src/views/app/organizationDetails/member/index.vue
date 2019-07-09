@@ -1,20 +1,20 @@
 <template>
   <div class="member">
     <div class="block">
-      <span class="details-title">{{subTitle1}}</span>
+      <span class="details-title">{{subTitle1}}（{{datailList.length}}）</span>
       <div class="con">
-        <div class="item" v-for="detail in datailList" :key="detail.id">
-          <div class="img"><iep-img :src="detail.img" alt=""></iep-img></div>
+        <div class="item" v-for="detail in datailList" :key="detail.id" @click="handleDetail(detail)">
+          <div class="img"><iep-img :src="detail.avatar" alt=""></iep-img></div>
           <span class="name">{{detail.name}}</span>
-          <span class="post">{{detail.post}}</span>
+          <!-- <span class="post">{{detail.post}}</span> -->
         </div>
       </div>
     </div>
     <div class="block">
-      <span class="details-title">{{subTitle2}}</span>
+      <span class="details-title">{{subTitle2}}（{{datailList2.length}}）</span>
       <div class="con">
-        <div class="item" v-for="detail2 in datailList2" :key="detail2.id">
-          <div class="img"><iep-img :src="detail2.img" alt=""></iep-img></div>
+        <div class="item" v-for="detail2 in datailList2" :key="detail2.id" @click="handleDetail(detail2)">
+          <div class="img"><iep-img :src="detail2.avatar" alt=""></iep-img></div>
           <span class="name">{{detail2.name}}</span>
         </div>
       </div>
@@ -22,97 +22,30 @@
   </div>
 </template>
 <script>
+import { getOrgDetail } from '@/api/app/upms/'
+
 export default {
   data () {
     return {
-      subTitle1: '管理者',
-      subTitle2: '普通成员',
-      datailList: [
-        {
-          img: require('./img/p100.jpg'),
-          name: '黄磊',
-          post: '（所有者）',
-        },
-        {
-          img: require('./img/p120.jpg'),
-          name: '何益挺',
-        },
-        {
-          img: require('./img/p322.jpg'),
-          name: '潘超巧',
-        },
-      ],
-      datailList2: [
-        {
-          img: require('./img/p07.jpg'),
-          name: '张兵',
-        },
-        {
-          img: require('./img/p05.jpg'),
-          name: '阮晨光',
-        },
-        {
-          img: require('./img/p08.jpg'),
-          name: '何舟杰',
-        },
-        {
-          img: require('./img/p07.jpg'),
-          name: '张兵',
-        },
-        {
-          img: require('./img/p05.jpg'),
-          name: '阮晨光',
-        },
-        {
-          img: require('./img/p08.jpg'),
-          name: '何舟杰',
-        },
-        {
-          img: require('./img/p07.jpg'),
-          name: '张兵',
-        },
-        {
-          img: require('./img/p05.jpg'),
-          name: '阮晨光',
-        },
-        {
-          img: require('./img/p08.jpg'),
-          name: '何舟杰',
-        },
-        {
-          img: require('./img/p06.jpg'),
-          name: '杜召红',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-        {
-          img: require('./img/p02.jpg'),
-          name: '符恩祖',
-        },
-      ],
+      subTitle1: '组织成员',
+      subTitle2: '协作成员',
+      datailList: [],
+      datailList2: [],
     }
+  },
+  methods: {
+    loadData () {
+      getOrgDetail(this.$route.query.id).then(({data}) => {
+        this.datailList = data.data.members
+        this.datailList2 = data.data.cooperations
+      })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/personal_style/${row.id}`)
+    },
+  },
+  created () {
+    this.loadData()
   },
 }
 </script>
@@ -132,6 +65,7 @@ export default {
         margin: 0 20px 25px;
         flex-direction: column;
         align-items: center;
+        cursor: pointer;
         .name {
           margin-top: 10px;
         }

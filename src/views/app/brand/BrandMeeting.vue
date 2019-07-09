@@ -57,9 +57,10 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__body {
-  padding: 16px 0 2px;
+  padding-top: 15px;
 }
 .el-card {
-  padding: 0 20px;
+  padding: 0 15px;
+  height: 320px;
 }
 </style>

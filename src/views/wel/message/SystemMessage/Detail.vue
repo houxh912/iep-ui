@@ -1,6 +1,6 @@
 <template>
   <basic-container>
-    <page-header :title="form.name" :backOption="backOption"></page-header>
+    <iep-page-header :title="form.name" :backOption="backOption"></iep-page-header>
     <div class="detail-container">
       <div class="item-title">
         <ul>

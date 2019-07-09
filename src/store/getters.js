@@ -45,5 +45,7 @@ const getters = {
   imUnread: state => key => state.im.unreadMap[key],
   imUnreadTotal: state => state.im.unreadTotal,
   imGroups: state => state.im.groups,
+  imGroupMember: state => key => state.im.groupMemberMap[key],
+  imGroupMemberAll: state => state.im.groupMemberMap,
 }
 export default getters

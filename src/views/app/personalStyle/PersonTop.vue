@@ -1,55 +1,73 @@
 <template>
   <div class="personal-top">
     <el-card class="box-card" shadow="hover">
-      <div class="img-con">
-        <div class="img"><iep-img :src="user_info.avatar" alt=""></iep-img></div>
-        <span class="num">{{user_info.staffId}}</span>
-      </div>
-      <div class="text">
-        <div class="name-con">
-          <span class="name">{{user_info.name}}</span>
-          <span class="post">{{user_info.positionName}}
-            <!-- <span class="dn show1" :class="show1">V</span>
-            <span class="dn show2 el-icon-star-on" :class="show2"></span>
-            <span class="dn show3 iconfont icon-huangguan" :class="show2"></span> -->
-            <iep-identity-mark class="mark" :icon="item.icon" :title="item.label" v-for="(item, index) in user_info.identityMarks" :key="index"></iep-identity-mark>
-          </span>
-        </div>
-        <span class="autograph">个性签名：{{user_info.signature}}</span>
-        <div class="classTags">
-          <div class="classTag">
-            <div class="label">卓越标签：</div>
-            <div class="span">
-              <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index">{{item}}</el-tag>
+      <div class="content">
+        <div class="info">
+          <div class="img-con">
+            <div class="img">
+              <iep-img :src="user_info.avatar" alt=""></iep-img>
+            </div>
+            <!-- <span class="num">{{user_info.staffId}}</span> -->
+            <span class="integrity">
+              <div class="integrity-desc">资料完善度{{`${user_info.integrity}%`}}</div>
+              <el-progress :percentage="user_info.integrity" :color="integrityColors" :show-text="false"></el-progress>
+            </span>
+          </div>
+          <div class="text">
+            <div class="name-con">
+              <span class="name">{{user_info.name}}</span>
+              <span class="post">{{user_info.positionName}}
+                <!-- <span class="dn show1" :class="show1">V</span>
+                <span class="dn show2 el-icon-star-on" :class="show2"></span>
+                <span class="dn show3 iconfont icon-huangguan" :class="show2"></span> -->
+                <iep-identity-mark class="mark" :icon="item.icon" :title="item.label" v-for="(item, index) in user_info.identityMarks" :key="index"></iep-identity-mark>
+              </span>
+            </div>
+            <span class="autograph">个性签名：{{user_info.signature}}</span>
+            <div class="classTags">
+              <div class="classTag">
+                <div class="label">卓越标签：</div>
+                <div class="span">
+                  <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
+                </div>
+              </div>
+              <div class="classTag">
+                <div class="label">专业标签：</div>
+                <div class="span">
+                  <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
+                </div>
+              </div>
+              <div class="classTag">
+                <div class="label">进步标签：</div>
+                <div class="span">
+                  <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
+                </div>
+              </div>
+              <div class="classTag more" v-if="!userInfoShow">
+                <div class="label" @click="()=>{userInfoShow=true}">查看更多<i class="el-icon-arrow-down"></i></div>
+              </div>
             </div>
           </div>
-          <div class="classTag">
-            <div class="label">专业标签：</div>
-            <div class="span">
-              <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index">{{item}}</el-tag>
+          <div class="right-con">
+            <div class="labs-con">
+              <div class="data-lab" v-for="lab in labList" :key="lab.id">
+                <div class="count">{{user_info.rankMap[lab.prop]}}</div>
+                <div class="labTitle"><span>{{lab.labTitle}}</span></div>
+              </div>
             </div>
-          </div>
-          <div class="classTag">
-            <div class="label">进步标签：</div>
-            <div class="span">
-              <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index">{{item}}</el-tag>
-            </div>
+            <el-row>
+              <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
+              <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
+              <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
+              <el-button size="mini" type="danger" plain @click="handleProposal">建议</el-button>
+              <el-button size="mini" type="danger" plain @click="handlePk">PK</el-button>
+            </el-row>
+            <el-row class="apply">
+              <el-button type="danger" plain  @click="handleApply">申请授权</el-button>
+            </el-row>
           </div>
         </div>
-      </div>
-      <div class="right-con">
-        <div class="labs-con">
-          <div class="data-lab" v-for="lab in labList" :key="lab.id">
-            <div class="count">{{lab.data}}</div>
-            <div class="labTitle"><span>{{lab.labTitle}}</span></div>
-          </div>
-        </div>
-        <el-row>
-          <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
-          <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
-          <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
-          <el-button size="mini" type="info" plain disabled>PK</el-button>
-        </el-row>
+        <moreTemplate v-if="userInfoShow" :userInfo='user_info' @handleClose="()=> {userInfoShow=false}"></moreTemplate>
       </div>
     </el-card>
 
@@ -60,10 +78,11 @@
 
 <script>
 import EmailDialog from '@/views/app/components/email/'
+import moreTemplate from './moreTemplate/'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  components: { EmailDialog },
+  components: { EmailDialog, moreTemplate },
   props: {
     user_info: {
       type: Object,
@@ -81,18 +100,24 @@ export default {
       show3: 'show',
       labList: [
         {
-          data: '--',
+          prop: 'xyz',
           labTitle: '信用值',
         },
         {
-          data: '--',
-          labTitle: '活跃度',
+          prop: 'hydpm',
+          labTitle: '活跃度排名',
         },
         {
-          data: '--',
-          labTitle: '资产排名',
+          prop: 'gmbpm',
+          labTitle: '财富排名',
+        },
+        {
+          prop: 'sjzc',
+          labTitle: '数据资产',
         },
       ],
+      userInfoShow: true,
+      integrityColors: '#66cb68',
     }
   },
   methods: {
@@ -107,16 +132,33 @@ export default {
         this.$message.error('无法向自己拜师')
         return
       }
-      this.ApprenticeApply({id: this.user_info.id, name: this.user_info.name})
+      this.ApprenticeApply({ id: this.user_info.id, name: this.user_info.name })
     },
     // 邮件
     handleEmail () {
       let receiverList = {
         unions: [],
         orgs: [],
-        users: [{id: this.user_info.id, name: this.user_info.name}],
+        users: [{ id: this.user_info.id, name: this.user_info.name }],
       }
-      this.$refs['email'].open({receiverList: receiverList})
+      this.$refs['email'].open({ receiverList: receiverList })
+    },
+    // 建议
+    handleProposal () {
+      let userInfo = this.userInfo
+      let obj = {
+        subject: `${userInfo.realName}的建议`,
+        receiverList: {
+          unions: [],
+          orgs: [],
+          users: [{ id: this.user_info.id, name: this.user_info.name }],
+        },
+      }
+      this.$refs['email'].open(obj)
+    },
+    // pk
+    handlePk () {
+      this.$router.push('/app/resource/expert?type=1')
     },
     // 打赏
     ...mapActions(['famsReward']),
@@ -125,7 +167,20 @@ export default {
         this.$message.error('无法向自己打赏')
         return
       }
-      this.famsReward({id: this.user_info.id, name: this.user_info.name})
+      this.famsReward({ id: this.user_info.id, name: this.user_info.name })
+    },
+    // 申请授权
+    handleApply () {
+      let userInfo = this.userInfo
+      let obj = {
+        subject: `${userInfo.realName}向您发起个人资料授权申请`,
+        receiverList: {
+          unions: [],
+          orgs: [],
+          users: [{ id: this.user_info.id, name: this.user_info.name }],
+        },
+      }
+      this.$refs['email'].open(obj)
     },
   },
 }
@@ -140,6 +195,13 @@ export default {
 .personal-top {
   margin-top: 30px;
   .box-card {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    .content {
+      width: 100%;
+    }
+    .info {
+      display: flex;
+    }
     .img-con {
       display: flex;
       margin-top: 15px;
@@ -162,6 +224,15 @@ export default {
           &:hover {
             transform: scale(1.1);
           }
+        }
+      }
+      .integrity {
+        margin-top: 30px;
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+        .integrity-desc {
+          margin-bottom: 5px;
         }
       }
     }
@@ -204,8 +275,11 @@ export default {
     .classTag {
       margin-bottom: 10px;
       display: flex;
+      align-items: flex-start;
       .label {
-        width: 80px;
+        margin-bottom: 5px;
+        line-height: 26px;
+        width: 70px;
       }
       .span {
         flex: 1;
@@ -213,10 +287,9 @@ export default {
       .el-tag {
         margin-right: 5px;
         margin-bottom: 5px;
+        cursor: pointer;
         &:hover {
           color: #cb3737;
-          background: #fef0f0;
-          border-color: #cb3737;
         }
       }
     }
@@ -225,6 +298,10 @@ export default {
       margin-top: 15px;
       flex-direction: column;
       align-items: center;
+      .apply {
+        margin-top: 25px;
+        text-align: right;
+      }
     }
     .labs-con {
       margin-bottom: 30px;
@@ -232,7 +309,7 @@ export default {
         font-size: 24px;
       }
       .data-lab {
-        &:nth-child(3) {
+        &:nth-child(4) {
           border: 0;
         }
       }
@@ -240,11 +317,11 @@ export default {
     .name-con {
       display: flex;
       justify-content: flex-start;
-      align-items: flex-end;
       margin-bottom: 10px;
       .name {
         margin-right: 10px;
-        font-size: 20px;
+        font-size: 24px;
+        font-weight: 700;
       }
     }
     .autograph {
@@ -301,11 +378,28 @@ export default {
   align-items: stretch;
 }
 .personal-top >>> .el-tag--white {
-  border: 1px solid #dcdfe6;
+  position: relative;
+  border: 0;
   height: 28px;
   line-height: 26px;
-  background: #fff;
+  background: none;
   color: #606266;
+}
+.personal-top >>> .el-tag--white:before {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: -10px;
+  width: 15px;
+  height: 1px;
+  background-color: #aaa;
+  transform: rotate(125deg);
+  -o-transform: rotate(125deg);
+  -moz-transform: rotate(125deg);
+  -webkit-transform: rotate(125deg);
+}
+.personal-top >>> .el-tag--white:last-child:before {
+  background: none;
 }
 .personal-top >>> .el-button--danger {
   color: #fff;

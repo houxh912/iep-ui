@@ -63,7 +63,7 @@ export default {
     }
   },
   created () {
-    getProjectCount().then(({data}) => {
+    getProjectCount().then(({ data }) => {
       this.counts = data.data
     })
   },
@@ -71,7 +71,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .top-class {
-  margin: 25px auto;
+  margin: 20px auto;
   width: 1200px;
   .top-class-list {
     flex: 1;
@@ -84,9 +84,12 @@ export default {
       display: block;
       line-height: 28px;
     }
+    .numTotal {
+      font-size: 18px;
+    }
     .num {
       margin: 0 5px;
-      font-size: 24px;
+      font-size: 22px;
     }
     &:last-child {
       border-right: 0;

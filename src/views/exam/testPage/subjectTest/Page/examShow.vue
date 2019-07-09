@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="专题考试" :data="[10, 5]"></page-header>
+      <iep-page-header title="专题考试" :data="[10, 5]"></iep-page-header>
       <el-form :model="searchForm">
         <el-form-item label="科目：" prop="field">
           <el-radio-group size="small" v-model="searchForm.field" style="width: 90%;">

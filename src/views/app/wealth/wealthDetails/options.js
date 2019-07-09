@@ -19,6 +19,7 @@ const dictsMap = {
 	  investmentMoneyType: '0',//支付方式（0国脉贝，1现金）
 		investmentId: '',//投资
 		orgId: '',//投资组织
+		orgName: '',//投资组织名
 		targetAmount: 0,//目标金额
 		sharesUnivalent: 0,//每股单价
 	}

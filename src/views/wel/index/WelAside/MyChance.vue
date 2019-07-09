@@ -1,6 +1,7 @@
 <template>
   <div class="chance">
     <div class="title">我的机会</div>
+    <iep-no-data v-if="!opportunity.length"></iep-no-data>
     <div class="treasure-content" v-for="item in opportunity" :key="item.id">
       <div class="subtitle cursor" @click="chanceDetail(item.id)">{{item.name}}</div>
       <div class="text">

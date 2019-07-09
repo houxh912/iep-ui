@@ -22,13 +22,13 @@
             <div>{{dictsMap[item.prop][scope.row[item.prop]]}}</div>
           </template>
           <template v-else-if="item.type==='dictGroup'">
-            <div>{{caculateDict(item, scope)}}</div>
+            <div>{{calculateDict(item, scope)}}</div>
           </template>
           <template v-else-if="item.type==='date'">
-            <div>{{caculateDate(item, scope)}}</div>
+            <div>{{calculateDate(item, scope)}}</div>
           </template>
           <template v-else-if="item.type==='custom'">
-            <div>{{caculateCustom(item, scope)}}</div>
+            <div>{{calculateCustom(item, scope)}}</div>
           </template>
           <template v-else-if="item.type==='tag'">
             <iep-tag-detail :value="scope.row[item.prop]" :iep-type="item.iepType"></iep-tag-detail>
@@ -174,14 +174,18 @@ export default {
     },
   },
   methods: {
-    caculateCustom (item, scope) {
+    calculateCustom (item, scope) {
       return item.customFunction(scope.row)
     },
-    caculateDate (item, scope) {
+    calculateDate (item, scope) {
       return parseDate(scope.row[item.prop], item.formatString)
     },
     calculateDict (item, scope) {
-      return keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]].label
+      if (scope.row[item.prop]) {
+        return keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]].label
+      } else {
+        return '暂无'
+      }
     },
     handleSizeChange (val) {
       this.$emit('size-change', val)

@@ -1,12 +1,12 @@
 <template>
   <div>
     <basic-container>
-        <page-header title="系统设置" :data="[10, 5]"></page-header>
-        <el-tabs v-model="tabName" type="border-card" >
-            <el-tab-pane label="试题设置" name="testSetting">
-                <test-show></test-show>
-            </el-tab-pane>
-            <!-- <el-tab-pane label="试卷设置" name="paperSetting">
+      <iep-page-header title="系统设置" :data="[10, 5]"></iep-page-header>
+      <el-tabs v-model="tabName" type="border-card">
+        <el-tab-pane label="试题设置" name="testSetting">
+          <test-show></test-show>
+        </el-tab-pane>
+        <!-- <el-tab-pane label="试卷设置" name="paperSetting">
                 功能开发中……
             </el-tab-pane>
             <el-tab-pane label="考试设置" name="examSetting">
@@ -18,7 +18,7 @@
             <el-tab-pane label="审核权限设置" name="auditSetting">
                 功能开发中……
             </el-tab-pane> -->
-        </el-tabs>
+      </el-tabs>
     </basic-container>
   </div>
 </template>
@@ -26,16 +26,16 @@
 <script>
 import TestShow from './testShow.vue'
 export default {
-    components: {
-        TestShow,
-    },
-    data () {
-        return {
-            tabName: 'testSetting',
-        }
-    },
-    methods: {
-    },
+  components: {
+    TestShow,
+  },
+  data () {
+    return {
+      tabName: 'testSetting',
+    }
+  },
+  methods: {
+  },
 }
 </script>
 <style lang="scss" scoped>

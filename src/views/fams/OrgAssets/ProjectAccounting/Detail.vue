@@ -1,8 +1,8 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="form.projectName" :back-option="backOption">
-      </page-header>
+      <iep-page-header :title="form.projectName" :back-option="backOption">
+      </iep-page-header>
       <el-card class="box-card" shadow="never" :body-style="{ display: 'flex' }">
         <div class="left-wrapper">
           <span>合同金额</span>
@@ -39,14 +39,14 @@
         <template v-if="activeTab ==='Accounting'" v-slot:Accounting>
           <accounting v-loading="activeTab !=='Accounting'"></accounting>
         </template>
-        <!-- <template v-if="activeTab ==='Budget'" v-slot:Budget>
-          <budget v-loading="activeTab !=='Budget'"></budget>
-        </template> -->
         <template v-if="activeTab ==='Cost'" v-slot:Cost>
           <cost v-loading="activeTab !=='Cost'"></cost>
         </template>
         <template v-if="activeTab ==='Payback'" v-slot:Payback>
           <payback v-loading="activeTab !=='Payback'"></payback>
+        </template>
+        <template v-if="activeTab ==='Budget'" v-slot:Budget>
+          <budget v-loading="activeTab !=='Budget'"></budget>
         </template>
       </iep-tabs>
     </basic-container>
@@ -55,32 +55,32 @@
 <script>
 import { getProjectInformationById } from '@/api/fams/statistics'
 import Accounting from './Accounting/'
-import { initForm } from './options'
-// import Budget from './Budget/'
+import { initDetailForm } from './options'
+import Budget from './Budget/'
 import mixins from '@/mixins/mixins'
 import Cost from './Cost/'
 import Payback from './Payback/'
 export default {
-  components: { Accounting, Cost, Payback },
+  components: { Accounting, Cost, Payback, Budget },
   mixins: [mixins],
   data () {
     return {
       backOption: {
         isBack: true,
       },
-      form: initForm(),
+      form: initDetailForm(),
       tabList: [{
         label: '项目核算表',
         value: 'Accounting',
       }, {
-        //   label: '项目预算表',
-        //   value: 'Budget',
-        // }, {
         label: '项目费用表',
         value: 'Cost',
       }, {
         label: '项目回款表',
         value: 'Payback',
+      }, {
+        label: '项目回款计划',
+        value: 'Budget',
       }],
       activeTab: 'Accounting',
     }
@@ -98,7 +98,7 @@ export default {
       if (this.id) {
         this.isLoadTable = true
         getProjectInformationById(this.id).then(({ data }) => {
-          this.form = this.$mergeByFirst(initForm(), data.data)
+          this.form = this.$mergeByFirst(initDetailForm(), data.data)
           this.isLoadTable = false
         })
       }

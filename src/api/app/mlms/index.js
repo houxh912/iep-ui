@@ -86,3 +86,43 @@ export const getNewsList = (params) => {
     params: params,
   })
 }
+
+// 数据-资料统计
+export const getRankList = () => {
+  return request({
+    url: `${prefixUrl}/material/rankList`,
+    method: 'get',
+  })
+}
+
+// 数据-会议概况
+export const getweek = () => {
+  return request({
+    url: `${prefixUrl}/meeting/week`,
+    method: 'get',
+  })
+}
+
+// 数据-客户拜访
+export const getvisit = () => {
+  return request({
+    url: `${prefixUrl}/customer/visit`,
+    method: 'get',
+  })
+}
+
+// achievement
+export const getAchievement = (id) => {
+  return request({
+    url: `${prefixUrl}/achievement/${id}`,
+    method: 'get',
+  })
+}
+
+// 投资达人
+export const getInvestmentList = () => {
+  return request({
+    url: `${prefixUrl}/investment_list`,
+    method: 'get',
+  })
+}

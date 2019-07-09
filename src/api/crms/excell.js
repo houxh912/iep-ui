@@ -16,7 +16,6 @@ export function downloadModel () {
     link.download = filename
     document.body.appendChild(link)
     link.style.display = 'none'
-    console.log(link)
     link.click()
   })
 }
@@ -37,7 +36,6 @@ export function downloadContactModel () {
     link.download = filename
     document.body.appendChild(link)
     link.style.display = 'none'
-    console.log(link)
     link.click()
   })
 }

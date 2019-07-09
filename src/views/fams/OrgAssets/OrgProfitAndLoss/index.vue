@@ -1,7 +1,7 @@
 <template>
   <div class="profit-loss">
     <basic-container>
-      <page-header title="组织盈亏">
+      <iep-page-header title="组织盈亏">
         <div class="right">
           <el-form :inline="true" :model="form" class="demo-form-inline">
             <el-form-item label="日期：">
@@ -10,7 +10,7 @@
             </el-form-item>
           </el-form>
         </div>
-      </page-header>
+      </iep-page-header>
       <p class="title">2018年度本部门财务财务核算情况</p>
       <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable">
       </iep-table>

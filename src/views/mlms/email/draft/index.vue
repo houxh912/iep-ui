@@ -1,7 +1,7 @@
 <template>
   <div class="draft">
     <div v-show="dialogShow">
-      <page-header title="草稿箱" class="title"></page-header>
+      <iep-page-header title="草稿箱" class="title"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button size="small" @click="allDelete">删除</iep-button>

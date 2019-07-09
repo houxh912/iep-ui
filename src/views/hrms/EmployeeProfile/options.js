@@ -33,6 +33,7 @@ const initForm = () => {
     avatar: '', // 头像
     roleName: [], // 角色
     // orgName: '组织', // 资产所属公司 不可编辑
+    integrity: 0, // 资料完善
     position: [], // 岗位
     positionName: '', // 岗位
     signature: '', // 个性签名

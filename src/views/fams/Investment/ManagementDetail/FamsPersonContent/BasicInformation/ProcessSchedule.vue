@@ -18,7 +18,7 @@ export default {
           description: '何益挺 / 2019-05-06 10:00',
         },
         {
-          title: '资产委员会审核',
+          title: '资产委员会核准',
           description: '黄磊 / 2019-05-07 10: 00',
         },
         {

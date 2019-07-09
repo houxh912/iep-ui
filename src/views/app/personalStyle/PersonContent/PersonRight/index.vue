@@ -1,20 +1,22 @@
 <template>
   <div class="person-right">
     <feelings :userId="userId"></feelings>
+    <my-need></my-need>
     <rewards :userId="userId"></rewards>
-    <person-mark :userId="userId"></person-mark>
+    <person-mark :userId="userId" :indexMap="userInfo.indexMap"></person-mark>
     <relation :userId="userId" :similarUser="similarUser"></relation>
   </div>
 </template>
 
 <script>
 import PersonMark from './PersonMark'
+import MyNeed from './MyNeed'
 import Feelings from './Feelings'
 import Rewards from './Rewards'
 import Relation from './Relation'
 export default {
   components: {
-    PersonMark, Feelings, Relation, Rewards,
+    PersonMark, Feelings, Relation, Rewards, MyNeed,
   },
   props: {
     userId: {
@@ -23,6 +25,9 @@ export default {
     },
     similarUser: {
       type: Array,
+    },
+    userInfo: {
+      type: Object,
     },
   },
   data () {

@@ -39,13 +39,13 @@ export default [
         ],
       },
       {
-        path: 'general',
+        path: 'information',
         name: '政策资讯',
         icon: 'icon-dangan',
-        component: () => import('@/views/app/policyCenter/general/'),
+        component: () => import('@/views/app/policyCenter/information/'),
         children: [
           {
-            path: 'general_detail/:id',
+            path: 'information_detail/:id',
             name: '政策资讯详情',
             component: () => import('@/views/app/policyCenter/detail'),
           },

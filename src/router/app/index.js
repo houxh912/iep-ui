@@ -88,7 +88,7 @@ export default [
       {
         path: 'policyCenter',
         name: '政策中心频道',
-        component: () => import('@/views/app/policyCenter/general'),
+        component: () => import('@/views/app/policyCenter/'),
         redirect:'/app/policyCenter/general',
         meta: noAuth,
         children: policyRoute,

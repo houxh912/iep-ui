@@ -19,12 +19,13 @@ const navList = [
     id: '/app/data',
     name: '数据',
   }, {
+  //   id: '/app/policyCenter',
+  //   name: '政策中心',
+  //   show: 'show',
+  // }, {
     id: '/app/wealth',
     name: '财富',
   },{
-  //   id: '/app/policyCenter',
-  //   name: '政策中心',
-  // }, {
     id: '/app/project',
     name: '项目',
   }, {

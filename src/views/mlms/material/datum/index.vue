@@ -1,6 +1,6 @@
 <template>
   <basic-container>
-    <page-header title="资料"></page-header>
+    <iep-page-header title="资料"></iep-page-header>
     <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='materialDialog'" v-slot:materialDialog>
         <material-dialog></material-dialog>

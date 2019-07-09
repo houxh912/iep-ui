@@ -1,7 +1,7 @@
 <template>
   <div class="wb-content">
     <basic-container>
-      <page-header :title="`欢迎您，${userInfo.realName}`"></page-header>
+      <iep-page-header :title="`欢迎您，${userInfo.realName}`"></iep-page-header>
       <el-alert title="模块更新" type="info" description="商机对接模块全新上线，请在模块设置中配置使用。" show-icon></el-alert>
       <div class="time-log-list-wrapper">
         <a-timeline :pending="pendingText" :reverse="true">

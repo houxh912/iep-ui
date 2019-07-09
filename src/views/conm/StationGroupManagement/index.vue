@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="站群管理" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="站群管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" plain @click="handleAdd">新增</iep-button>
@@ -28,7 +28,7 @@
               <div>{{scope.row.id}}</div>
             </template>
           </el-table-column>
-          <el-table-column label="姓名">
+          <el-table-column label="站名">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.siteName}}</iep-table-link>
             </template>

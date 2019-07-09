@@ -46,7 +46,7 @@
         <apprentice></apprentice>
       </el-col>
       <el-col :span="20" v-else>
-        <!-- <page-header title=""></page-header> -->
+        <!-- <iep-page-header title=""></iep-page-header> -->
         <operation-container>
           <template slot="left">
             <iep-button type="primary" @click="handleAddBatch" plain v-show="mark==''">批量添加</iep-button>

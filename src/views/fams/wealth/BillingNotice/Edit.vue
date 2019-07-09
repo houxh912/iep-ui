@@ -1,9 +1,9 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}开票通知-${dictsMap.invoicingType[this.form.invoicingType]}`" :back-option="backOption">
+      <iep-page-header :title="`${methodName}开票通知-${dictsMap.invoicingType[this.form.invoicingType]}`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="200px" size="small">
         <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" prop="buyerName" class="form-half">
@@ -123,7 +123,7 @@ export default {
       return +this.$route.params.id
     },
     invoicingType () {
-      return +this.$route.query.invoicingType
+      return this.$route.query.invoicingType ? +this.$route.query.invoicingType : this.form.invoicingType
     },
     methodName () {
       return this.id ? '编辑' : '新增'
@@ -163,7 +163,6 @@ export default {
       })
     },
     handleChangeCompanyId (value) {
-      console.log(value)
       getCompanyById(value).then(({ data }) => {
         this.companyForm = data.data
       })

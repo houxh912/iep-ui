@@ -2,7 +2,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}产品`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}产品`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">

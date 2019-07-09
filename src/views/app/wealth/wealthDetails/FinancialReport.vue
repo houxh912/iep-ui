@@ -1,5 +1,5 @@
 <template>
-    <IepAppTabCard title="投资记录">
+    <IepAppTabCard title="财务报告">
         <iep-table :isLoadTable="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false">
           
         </iep-table>

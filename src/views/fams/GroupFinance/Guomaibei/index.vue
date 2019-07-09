@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="国脉贝发行"></page-header>
+      <iep-page-header title="国脉贝发行"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发行</iep-button>

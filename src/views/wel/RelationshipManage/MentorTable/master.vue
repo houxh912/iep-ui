@@ -1,6 +1,6 @@
 <template>
   <div>
-    <page-header title="我的师父"></page-header>
+    <iep-page-header title="我的师父"></iep-page-header>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <template slot="before-columns">
       </template>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="合同"></page-header>
+      <iep-page-header title="合同"></iep-page-header>
       <!-- <div class="info">回款总金额：123,000,000，待收款 <i class="el-icon-question"></i> ：3，000，000，回款率：89%</div> -->
       <div v-if="pageState=='list'">
         <operation-container>

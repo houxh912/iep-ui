@@ -1,9 +1,8 @@
 <template>
-  <div class="training-list">
+  <iep-app-layout class="training-list">
     <training-list-top :total="total"></training-list-top>
     <training-list-content @getTotal="getTotal"></training-list-content>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>
@@ -23,7 +22,7 @@ export default {
     },
   },
   created () {
-    
+
   },
 }
 </script>

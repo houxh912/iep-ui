@@ -6,7 +6,7 @@
   <el-col :span="20">-->
   <div>
     <basic-container>
-      <page-header title="栏目管理" :replaceText="replaceText" :data="statistics" :backOption="backOption"></page-header>
+      <iep-page-header title="栏目管理" :replaceText="replaceText" :data="statistics" :backOption="backOption"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" plain @click="handleAdd">新增</iep-button>
@@ -126,7 +126,10 @@ export default {
       this.$refs['DialogMerge'].methodName = '合并'
     },
     handleDoc (row) {
-      this.$router.push(`/comn/document_management/${row.id}`)
+      this.$router.push({
+        path:`/comn/document_management/${row.id}`,
+        query:{siteId:this.siteId},
+      })
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteNodeById)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="考试库管理"></page-header>
+      <iep-page-header title="考试库管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permissionAdd || permissionAll">新增</iep-button>

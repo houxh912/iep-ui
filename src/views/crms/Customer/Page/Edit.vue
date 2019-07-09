@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}客户`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}客户`" :backOption="backOption"></iep-page-header>
       <div class="edit-wrapper">
         <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap">
           <el-row>
@@ -29,7 +29,6 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="负责部门:">
-                <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
                 <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
               </el-form-item>
             </el-col>
@@ -47,8 +46,7 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="市场经理:" prop="Manager">
-                <!-- <el-input v-model="formData.Manager" :disabled="true"></el-input> -->
-                {{this.Claim == true?formData.Manager:''}}
+                {{this.Claim == true?'':formData.Manager}}
               </el-form-item>
             </el-col>
           </el-row>

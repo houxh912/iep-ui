@@ -1,6 +1,6 @@
 <template>
   <div class="abs iep-page-form">
-    <page-header :title="`${methodName}项目`" :backOption="backOption"></page-header>
+    <iep-page-header :title="`${methodName}项目`" :backOption="backOption"></iep-page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px" class="form form-detail">
       <el-row>
         <el-col :span="12">

@@ -22,7 +22,7 @@
         </template>
       </div>
     </div>
-    <div class="user-operation">
+    <!-- <div class="user-operation">
       <div class="item">
         <div class="count">670</div>
         <div class="label">信用值</div>
@@ -39,7 +39,7 @@
         <div class="count">1</div>
         <div class="label">数据资产</div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>

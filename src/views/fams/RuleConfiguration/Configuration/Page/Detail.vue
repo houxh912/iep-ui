@@ -1,8 +1,8 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="流水详情" :backOption="backOption">
-      </page-header>
+      <iep-page-header title="流水详情" :backOption="backOption">
+      </iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="targetName">

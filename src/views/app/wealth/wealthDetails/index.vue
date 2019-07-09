@@ -10,7 +10,7 @@
                 <div class="main">
                   <h4 class="investmentName">{{form.orgName}}</h4>
                   <div class="way">
-                    <span>投资方式：{{form.way}}</span>
+                    <span>投资方式：国脉贝</span>
                     <span>投资人次：{{form.investmentNumber}}</span>
                   </div>
                   <div class="span-list">
@@ -54,7 +54,7 @@
               </div>
               <div>
                 <div class="label">组织排行</div>
-                <div class="num">9/15</div>
+                <div class="num">--</div>
               </div>
             </div>
             <div class="schedule">
@@ -63,7 +63,7 @@
               <el-progress :text-inside="true" :stroke-width="8" :percentage="form.percentage" status="success" style="margin-top:10px;"></el-progress>
               <div class="release release-bottom">
                 <span><span class="schedule-title-sub">目标金额：</span>￥{{form.targetAmount}}</span>
-                <span><span class="schedule-title-sub">当前金额：</span>￥{{form.nowAmount}}</span></div>
+                <span><span class="schedule-title-sub">当前金额：</span>￥{{form.hadMoney}}</span></div>
             </div>
           </IepAppTabCard>
         </div>

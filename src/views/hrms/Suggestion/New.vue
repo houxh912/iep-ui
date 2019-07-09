@@ -1,9 +1,9 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}建议`">
+      <iep-page-header :title="`${methodName}建议`">
         <iep-button @click="back">返回建议列表</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <iep-form-item class="form-half" label-name="建议主题" prop="theme">
           <el-input v-model="form.theme"></el-input>

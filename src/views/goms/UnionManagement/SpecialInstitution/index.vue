@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="特设机构管理"></page-header>
+      <iep-page-header title="特设机构管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -35,7 +35,7 @@
   </div>
   <!-- <div>
     <basic-container>
-      <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="[4,2]"></page-header>
+      <iep-page-header :title="userInfo.orgName" :replaceText="replaceText" :data="[4,2]"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleReview()">批量审核</iep-button>

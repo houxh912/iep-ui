@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="通知公告"></page-header>
+      <iep-page-header title="通知公告"></iep-page-header>
       <iep-tabs v-model="type" :tab-list="announcementTypeList" @tab-click="changeType"></iep-tabs>
       <operation-container>
         <template slot="left">
@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column label="主题" min-width="400">
             <template slot-scope="scope">
-              <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <iep-table-link :is-read="scope.row.isRead" is-dot @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>

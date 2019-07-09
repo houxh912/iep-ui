@@ -1,7 +1,7 @@
 <template>
   <div class="master">
-    <page-header title="推荐师父">
-    </page-header>
+    <iep-page-header title="推荐师父">
+    </iep-page-header>
      <operation-container>
         <template slot="left">
           <iep-button @click="handleClick2">我的师徒</iep-button>

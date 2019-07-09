@@ -1,9 +1,9 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header title="建议详情">
+      <iep-page-header title="建议详情">
         <iep-button @click="onGoBack()">返回建议列表</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <iep-form-item label-name="建议主题">
           <div class="content">{{form.theme}}</div>

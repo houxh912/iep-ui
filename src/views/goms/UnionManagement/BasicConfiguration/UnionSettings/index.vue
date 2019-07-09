@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="联盟设置"></page-header>
+      <iep-page-header title="联盟设置"></iep-page-header>
       <el-row class="row-bg">
         <el-col :span="12" class="organize-item">
           <div class="organize-con">

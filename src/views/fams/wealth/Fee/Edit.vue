@@ -1,10 +1,10 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}财务费用申请`" :back-option="backOption">
+      <iep-page-header :title="`${methodName}财务费用申请`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
         <iep-button type="primary" @click="handleSubmit(true)">保存并发送</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="type" label="付款事项">
           <template slot-scope="scope">

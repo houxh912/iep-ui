@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="试题库管理" :data="[10, 5]"></page-header>
+      <iep-page-header title="试题库管理" :data="[10, 5]"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain v-if="exam_question_add">新增试题</iep-button>

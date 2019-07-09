@@ -2,7 +2,7 @@
   <div :oncontextmenu="`return ${formData.secrecyLevel == 1 ? false : true}`" :onselectstart="`return ${formData.secrecyLevel == 1 ? false : true}`">
     <basic-container>
       <el-col class="left">
-        <page-header :title="formData.materialName" :backOption="backOption"></page-header>
+        <iep-page-header :title="formData.materialName" :backOption="backOption"></iep-page-header>
 
         <el-row class="info">
           <div class="person">

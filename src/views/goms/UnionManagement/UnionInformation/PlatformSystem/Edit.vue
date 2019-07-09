@@ -1,8 +1,8 @@
 <template>
   <div class="iep-page-form culture-form">
     <basic-container>
-      <page-header title="新增平台" :backOption="backOption">
-      </page-header>
+      <iep-page-header title="新增平台" :backOption="backOption">
+      </iep-page-header>
       <el-form :model="form" class="form-detail" size="small" :rules="rules" ref="form" label-width="120px">
         <el-form-item label="平台图片：" required>
           <el-upload class="upload" drag action="" multiple>

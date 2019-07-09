@@ -1,7 +1,7 @@
 <template>
   <div class="execution">
     <basic-container>
-      <page-header title="密钥管理"></page-header>
+      <iep-page-header title="密钥管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="generator_syssocialdetails_add" type="primary" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>

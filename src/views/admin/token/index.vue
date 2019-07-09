@@ -1,7 +1,7 @@
 <template>
   <div class="log">
     <basic-container>
-      <page-header title="令牌管理"></page-header>
+      <iep-page-header title="令牌管理"></iep-page-header>
       <operation-container>
         <template slot="right">
           <!-- <iep-button icon="el-icon-refresh" circle @refresh-change="refreshChange"></iep-button>

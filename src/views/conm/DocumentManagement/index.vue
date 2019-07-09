@@ -1,7 +1,7 @@
 <template>
   <div class="document-management">
     <basic-container>
-      <page-header title="文档管理" :backOption="backOption"></page-header>
+      <iep-page-header title="文档管理" :backOption="backOption"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='AllDocument'" v-slot:AllDocument>
           <all-document v-loading="activeTab !=='AllDocument'"></all-document>

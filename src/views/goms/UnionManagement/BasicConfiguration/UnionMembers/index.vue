@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="联盟成员"></page-header>
+      <iep-page-header title="联盟成员"></iep-page-header>
       <div class="members">
         <div class="member" v-for="(item, index) in orgList" :key="index">
           <a-button @click="handleRemoveOrg(item.value)" block>{{ item.label }}</a-button>

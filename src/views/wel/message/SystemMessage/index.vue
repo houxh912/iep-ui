@@ -14,7 +14,7 @@
       </el-card>
     </el-col>
     <el-col :span="20">
-      <page-header title="系统消息"></page-header>
+      <iep-page-header title="系统消息"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-read-mark-del :enableList="[true, true, false]" @on-view-batch="handleViewBatch" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
@@ -34,7 +34,7 @@
           </el-table-column>
           <el-table-column label="主题">
             <template slot-scope="scope">
-              <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <iep-table-link :is-read="scope.row.isRead" is-dot @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>

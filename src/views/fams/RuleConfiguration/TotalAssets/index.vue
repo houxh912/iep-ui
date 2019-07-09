@@ -43,7 +43,7 @@
         <el-card class="box-card">
           <operation-container>
             <template slot="left">
-              <page-header title="内网资金分布情况"></page-header>
+              <iep-page-header title="内网资金分布情况"></iep-page-header>
             </template>
             <template slot="right">
               <div class="time">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}客户`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}客户`" :backOption="backOption"></iep-page-header>
       <div class="edit-wrapper">
         <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap">
           <el-row>

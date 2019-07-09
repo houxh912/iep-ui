@@ -30,7 +30,7 @@
         <el-card shadow="never">
           <operation-container>
             <template slot="left">
-              <page-header title="国脉贝财富统计" :replaceText="replaceText" :data="['（此功能暂未开放）']"></page-header>
+              <iep-page-header title="国脉贝财富统计" :replaceText="replaceText" :data="['（此功能暂未开放）']"></iep-page-header>
             </template>
             <template slot="right">
               <div class="time">

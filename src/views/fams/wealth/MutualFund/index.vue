@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="互助基金" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="互助基金" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" icon="el-icon-magic-stick" @click="handleFund" plain>捐助</iep-button>

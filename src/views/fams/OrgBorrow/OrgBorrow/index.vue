@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织拆借"></page-header>
+      <iep-page-header title="组织拆借"></iep-page-header>
       <operation-container>
         <template slot="left">
           <el-dropdown>

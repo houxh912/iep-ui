@@ -1,9 +1,9 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header title="新增资金调拨" :back-option="backOption">
+      <iep-page-header title="新增资金调拨" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="200px" size="small">
         <h4 class="iep-sub-title">基础信息</h4>
         <iep-form-item label-name="调拨金额(元)" prop="amount" class="form-half">

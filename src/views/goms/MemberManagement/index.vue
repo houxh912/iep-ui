@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header :title="userInfo.orgName" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>批量添加成员</iep-button>

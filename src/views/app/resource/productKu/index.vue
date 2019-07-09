@@ -35,6 +35,11 @@ export default {
       activeTab: 'Module',
     }
   },
+  created () {
+    if (this.$route.query.type == 2) {
+      this.activeTab = 'Customized'
+    }
+  },
 }
 </script>
 <style scoped lang="scss">

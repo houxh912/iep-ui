@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="联盟成员"></page-header>
+      <iep-page-header title="联盟成员"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="realName">

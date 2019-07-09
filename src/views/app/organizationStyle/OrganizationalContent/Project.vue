@@ -58,7 +58,7 @@ export default {
           name: '方案',
           data: this.counts.planCount1,
           text: `（本月新增 ${this.counts.planCount2}）`,
-          link: `/app/resource/material?id=${this.$route.params.id}`,
+          link: `/app/resource/material?id=${this.$route.params.id}&materialType=4`,
         },
         {
           icon: 'icon-lianxiren',
@@ -72,14 +72,14 @@ export default {
           name: '合同',
           data: this.counts.contractCount1,
           text: `（待签 ${this.counts.contractCount2}）`,
-          link: `/app/project?id=${this.$route.params.id}`,
+          link: `/app/contract_list?id=${this.$route.params.id}`,
         },
         {
           icon: 'icon-dongtai',
           name: '产品',
           data: this.counts.productCount,
           text: '（最新代理 0）',
-          link: `/app/products?id=${this.$route.params.id}`,
+          link: `/app/resource/product_ku?id=${this.$route.params.id}&type=2`,
         },
       ]
     },

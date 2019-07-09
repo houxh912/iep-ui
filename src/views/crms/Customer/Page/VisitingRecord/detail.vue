@@ -1,14 +1,14 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="80%" @close="close">
     <el-col class="left">
-      <page-header :title="formData.title">
+      <iep-page-header :title="formData.title">
         <!-- <div slot="sub" class="tags">
           <el-tag type="info" v-for="(item, index) in formData.tagKeyWords" :key="index">{{item}}</el-tag>
         </div> -->
         <div slot="sub" class="tags">
           <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
         </div>
-      </page-header>
+      </iep-page-header>
 
       <div class="detail">
         <div class="content">

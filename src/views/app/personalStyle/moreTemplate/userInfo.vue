@@ -3,7 +3,11 @@
     <div class="row">
       <div class="item" v-for="(item, index) in firstFormList" :key="index">
         <span class="label">{{item.name}}：</span>
-        <span class="span">{{item.type ? userInfo[item.value].join('、') : userInfo[item.value]}}</span>
+        <!-- <span class="span">{{item.type ? userInfo[item.value].map(m => m.name).join('、') : userInfo[item.value]}}</span> -->
+        <span class="span" v-if="item.type">
+          <el-tag type="white" style="cursor: pointer;" v-for="(t, i) in userInfo[item.value]" :key="i" @click="() => { $router.push(`/app/organization_style/${t.id}`) }">{{t.name}}</el-tag>
+        </span>
+        <span class="span" v-else>{{userInfo[item.value]}}</span>
       </div>
     </div>
   </div>
@@ -37,7 +41,7 @@ const firstFormList = [
     value: 'email',
   }, {
     name: '所在组织',
-    value: 'orgList',
+    value: 'dept',
     type: 'list',
   },
 ]

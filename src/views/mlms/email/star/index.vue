@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <div v-show="pageState == 'list'">
-      <page-header title="星标邮件" class="title"></page-header>
+      <iep-page-header title="星标邮件" class="title"></iep-page-header>
       <iep-tabs v-model="tabName" :tab-list="tabList">
         <template v-if="tabName ==='alltabTemplate'" v-slot:alltabTemplate>
           <web-tab-tpl @materialDetail="materialDetail"></web-tab-tpl>

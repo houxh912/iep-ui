@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <div class="breadcrumb-wrapper">
       <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
@@ -8,12 +8,11 @@
     <div class="organizationDetails">
       <menus></menus>
       <div class="con">
-        <page-header :title="title" :backOption="backOption"></page-header>
+        <iep-page-header :title="title" :backOption="backOption"></iep-page-header>
         <router-view></router-view>
       </div>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import Menus from './Menus'

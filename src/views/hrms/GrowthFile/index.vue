@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="员工成长档案" :backOption="backOption"></page-header>
+      <iep-page-header title="员工成长档案" :backOption="backOption"></iep-page-header>
       <el-card class="staff-headers" shadow="hover">
         <div class="left">
           <span class="img-header zoom">

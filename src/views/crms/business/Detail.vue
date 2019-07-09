@@ -2,7 +2,7 @@
   <!-- 商机认领户后消息提示跳转的详情 -->
   <div>
     <basic-container>
-      <page-header title="合作机会" :backOption="backOption"></page-header>
+      <iep-page-header title="合作机会" :backOption="backOption"></iep-page-header>
       <el-form :model="formData" label-width="100px" size="small">
         <el-form-item label="客户名称：">
           {{formData.clientName}}

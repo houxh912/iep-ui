@@ -85,10 +85,12 @@ export default {
       pagedTable: [
       ],
       id: '',
+      siteId: '',
     }
   },
   created () {
     this.id = this.$route.params.id
+    this.siteId = this.$route.query.siteId
     this.loadPage()
   },
   methods: {
@@ -110,7 +112,7 @@ export default {
       this.$refs['DialogForm'].methodName = '编辑'
     },
     async loadPage (param = this.searchForm) {
-      await this.loadTable({ ...param, nodeId: this.id }, getPage)
+      await this.loadTable({ ...param, nodeId: this.id, siteId: this.siteId }, getPage)
     },
   },
 }

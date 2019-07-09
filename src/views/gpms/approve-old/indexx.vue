@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我的审批" :replaceText="replaceText" :data="[16]"></page-header>
+      <iep-page-header title="我的审批" :replaceText="replaceText" :data="[16]"></iep-page-header>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="全部" name="first">
           <operation-container>

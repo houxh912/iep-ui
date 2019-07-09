@@ -2,8 +2,8 @@
   <div>
     <basic-container>
       <!-- TODO: 费用统计 -->
-      <!-- <page-header title="费用管理" :replaceText="replaceText" :data="statistics"></page-header> -->
-      <page-header title="费用管理"></page-header>
+      <!-- <iep-page-header title="费用管理" :replaceText="replaceText" :data="statistics"></iep-page-header> -->
+      <iep-page-header title="费用管理"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">

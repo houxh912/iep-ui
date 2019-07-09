@@ -1,6 +1,6 @@
 <template>
   <div class="organizationalAssets">
-    <page-header title="组织资产"></page-header>
+    <iep-page-header title="组织资产"></iep-page-header>
     <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false" @row-click="rowClick">
       <el-table-column label="排行" slot="before-columns" width="90px">
         <template slot-scope="scope">

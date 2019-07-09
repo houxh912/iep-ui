@@ -1,11 +1,11 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织基本信息">
+      <iep-page-header title="联盟信息">
         <template>
           <el-button class="modify" size="small" @click="handleEdit">修改</el-button>
         </template>
-      </page-header>
+      </iep-page-header>
       <div class="org-detail-wrapper">
         <div class="content">
           <div class="top">

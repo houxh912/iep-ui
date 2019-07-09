@@ -1,7 +1,7 @@
 <template>
 
     <div class="iep-page-form">
-        <page-header :title="`${methodName}配置`" :backOption="backOption"></page-header>
+        <iep-page-header :title="`${methodName}配置`" :backOption="backOption"></iep-page-header>
 
         <el-form label-width="130px" :model="formData" :rules="rules" ref="ruleForm">
             <el-form-item label="名称：" prop='name'>

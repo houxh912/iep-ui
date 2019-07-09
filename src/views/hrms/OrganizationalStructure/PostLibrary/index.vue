@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="岗位库"></page-header>
+      <iep-page-header title="岗位库"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='PostLibrary'" v-slot:PostLibrary>
           <post-library v-loading="activeTab !=='PostLibrary'"></post-library>

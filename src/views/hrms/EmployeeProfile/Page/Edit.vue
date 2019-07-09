@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="员工信息管理"></page-header>
+      <iep-page-header title="员工信息管理"></iep-page-header>
       <el-form v-loading="formLoading" ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
         <iep-tab-scroll :tab-list="tabList" :height="270">
           <div>

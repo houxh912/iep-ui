@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <div v-if="pageState == 'list'">
-      <page-header title="我的配置" :replaceText="replaceText" :data="[16]"></page-header>
+      <iep-page-header title="我的配置" :replaceText="replaceText" :data="[16]"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleCreate" type="primary" icon="el-icon-plus">新增</iep-button>

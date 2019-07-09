@@ -154,6 +154,10 @@ export default {
     border: 1px solid #ebeef5;
     border-radius: 50%;
     overflow: hidden;
+    .el-image {
+      width: 60px;
+      height: 60px;
+    }
     img {
       width: 100%;
       height: 100%;

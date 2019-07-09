@@ -38,7 +38,6 @@ const initForm = () => {
     title: '',
     happenTime: '',
     content: '',
-    orgId: '',
   }
 }
 

@@ -24,13 +24,13 @@
         <div class="classTag">
           <div class="label">专业标签：</div>
           <div class="span">
-            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
         <div class="classTag">
           <div class="label">进步标签：</div>
           <div class="span">
-            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
       </div>
@@ -109,7 +109,7 @@ export default {
   display: flex;
   align-items: center;
   align-content: center;
-  height: 220px;
+  min-height: 220px;
   text-align: center;
   background: #fafafa url(./img/zzbg.png) no-repeat;
   background-size: 100% 100%;

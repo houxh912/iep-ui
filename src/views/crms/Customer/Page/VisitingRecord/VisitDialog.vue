@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="80%" @close="close">
-    <page-header :title="`${methodName}纪要`"></page-header>
+    <iep-page-header :title="`${methodName}纪要`"></iep-page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
       <!-- <el-form-item label="会议类型：" prop="meetingType">
           <el-radio-group v-model="formData.meetingType">

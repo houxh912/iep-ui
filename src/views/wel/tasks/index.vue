@@ -1,7 +1,7 @@
 <template>
   <div class="tasks">
     <basic-container>
-      <page-header title="我的任务"></page-header>
+      <iep-page-header title="我的任务"></iep-page-header>
       <div class="tasks-info">
         <span>我的任务模块与内网中的项目、财务、人力、会议纪要等其他模块和功能相关联，成为内网使用频率最高且功能强大的模块。</span>
         <span>我的任务模块亦可成为用户自主填写的效率清单</span>

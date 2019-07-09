@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我发起的"></page-header>
+      <iep-page-header title="我发起的"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>发起申请</iep-button>

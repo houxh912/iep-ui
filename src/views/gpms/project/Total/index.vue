@@ -23,7 +23,7 @@
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
       <el-table-column label="项目名称" slot="before-columns" width="300px">
         <template slot-scope="scope">
-          <div style="cursor: pointer;" @click="handleDetail(scope.row)">
+          <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
             <span>{{ scope.row.projectName }}</span>
           </div>
         </template>
@@ -33,11 +33,17 @@
           <span>{{ scope.row.projectTime.slice(0, 10) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" v-if="tabType!=='3'">
         <template slot-scope="scope">
           <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
           <el-button size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del">编辑</el-button>
           <el-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</el-button>
+          <el-button size="small" @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" v-else>
+        <template slot-scope="scope">
+          <el-button size="small" @click="handleDefine(scope.row)">认领</el-button>
         </template>
       </el-table-column>
     </iep-table>
@@ -48,6 +54,7 @@
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData } from '@/api/gpms/index'
+import { getProjectPage, statusCancel, statusDefine } from '@/api/gpms/fas'
 import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
 const optNameMap = {
@@ -81,14 +88,19 @@ export default {
   mixins: [mixins],
   methods: {
     loadPage (params = {}) {
-      this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+      if (this.tabType === 3) {
+        this.loadTable(Object.assign({}, params, this.searchForm), getProjectPage)
+      } else {
+        this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+      }
     },
     closeDialog () {
       this.dialogIsShow = false
       this.paramForm = paramForm()
     },
     searchPage (val) {
-      this.loadPage(val)
+      this.searchForm = Object.assign({}, this.searchForm, val)
+      this.loadPage()
     },
     //勾选行执行
     selectionChange (val) {
@@ -129,6 +141,28 @@ export default {
             })
           }
           this.load()
+        })
+      })
+    },
+    handleClaim (row) {
+      this.$confirm('是否确认取消认领此数据?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(() => {
+        statusCancel([row.id]).then(() => {
+          this.$message.success('取消成功！')
+          this.loadPage()
+        })
+      })
+    },
+    handleDefine (row) {
+      this.$confirm('是否确认认领此数据?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(() => {
+        statusDefine([row.id]).then(() => {
+          this.$message.success('取消成功！')
+          this.loadPage()
         })
       })
     },

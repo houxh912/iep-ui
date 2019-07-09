@@ -132,7 +132,6 @@ const initDtoForm = () => {
 
 const formToDto = (form) => {
   const newForm = mergeByFirst(initForm(), form)
-  console.log(form)
   newForm.positionId = form.position[form.position.length - 1]
   newForm.attach = form.attach[0] || ''
   return newForm

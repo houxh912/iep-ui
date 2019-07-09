@@ -38,16 +38,16 @@ export default {
       title2: '上月最佳',
       linkName: '',
       technologyList: [
-        { id:35, img: require('./img/optimal1.jpg'), name: '钟乙乔', department: '集团研发中心', label: '需求分析/原型设计/知识图谱' },
-        { id:30, img: require('./img/optimal2.jpg'), name: '张灵', department: '国脉集团研发中心运维组', label: 'DNA运维/环境配置/服务器部署' },
+        { id: 35, img: require('./img/optimal1.jpg'), name: '钟乙乔', department: '集团研发中心', label: '需求分析/原型设计/知识图谱' },
+        { id: 30, img: require('./img/optimal2.jpg'), name: '张灵', department: '国脉集团研发中心运维组', label: 'DNA运维/环境配置/服务器部署' },
       ],
-      lastMonth: [{ id:11, img: require('./img/optimal3.jpg'), name: '丁斌', department: '产品与技术委员会', label: '微服务/需求梳理/数据门户' }],
+      lastMonth: [{ id: 11, img: require('./img/optimal3.jpg'), name: '丁斌', department: '产品与技术委员会', label: '微服务/需求梳理/数据门户' }],
     }
   },
   methods: {
     technologyDetail (val) {
       this.$router.push({
-        path:`/app/personal_style/${val}`,
+        path: `/app/personal_style/${val}`,
       })
     },
   },
@@ -69,6 +69,9 @@ export default {
       width: 50px;
       height: 50px;
       margin-right: 18px;
+    }
+    &:hover .name {
+      color: #cb3737;
     }
     .text {
       width: 270px;
@@ -112,5 +115,10 @@ export default {
 .last-month >>> .el-image {
   width: 50px;
   height: 50px;
+}
+.optimal {
+  height: 330px;
+  overflow: hidden;
+  border-bottom: 1px solid #ebeef5;
 }
 </style>

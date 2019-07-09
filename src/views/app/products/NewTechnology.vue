@@ -123,14 +123,14 @@ export default {
           -webkit-box-orient: vertical;
         }
       }
+      &:hover .text {
+        color: #cb3737;
+      }
     }
   }
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__header {
-  padding: 16px 0 10px;
-}
 .new-tehnology >>> .el-card {
   height: 354px;
 }

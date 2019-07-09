@@ -1,17 +1,17 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="查看财务费用申请" :back-option="backOption">
-        <template v-if="form.status===1">
+      <iep-page-header title="查看财务费用申请" :back-option="backOption">
+        <template v-if="form.status===1 && isApproval">
           <iep-button @click="handlePass(form, false)">通过</iep-button>
           <iep-button @click="handleReject(form, false)">驳回</iep-button>
           <iep-button @click="handleTrans(form)">转交</iep-button>
         </template>
-        <template v-if="form.status===2">
+        <template v-if="form.status===2 && isApproval">
           <iep-button @click="handlePass(form, true)">通过</iep-button>
           <iep-button @click="handleReject(form, true)">驳回</iep-button>
         </template>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" class="form-detail" :model="flowForm" :rules="rules" label-width="140px" size="small">
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
           <el-table-column prop="expenditureType" label="付款事项">
@@ -19,7 +19,7 @@
               <iep-dict-cascader-detail dictName="fams_expenditure_type" :value="scope.row.type"></iep-dict-cascader-detail>
             </template>
           </el-table-column>
-          <el-table-column label="收款单位账号及开户行">
+          <el-table-column label="收款单位、账号及开户行">
             <template slot-scope="scope">
               <iep-div-detail :value="scope.row.bank"></iep-div-detail>
             </template>
@@ -53,11 +53,11 @@
           <iep-div-detail v-model="form.creatorName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="财务审批人">
+        <iep-form-item class="form-half" label-name="财务核准人">
           <iep-div-detail v-model="form.financeUserName"></iep-div-detail>
         </iep-form-item>
 
-        <iep-form-item class="form-half" label-name="部门审批人">
+        <iep-form-item class="form-half" label-name="部门核准人">
           <iep-div-detail v-model="form.auditorName"></iep-div-detail>
         </iep-form-item>
 
@@ -158,6 +158,9 @@ export default {
   computed: {
     id () {
       return this.$route.params.id
+    },
+    isApproval () {
+      return this.$route.query.approval === 'true'
     },
     bankAmountOption () {
       if (this.flowForm.payType === '1') {

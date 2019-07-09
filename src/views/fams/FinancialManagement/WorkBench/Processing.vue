@@ -1,5 +1,5 @@
 <template>
-  <iep-fams-card title="待处理">
+  <iep-slot-card title="待处理">
     <div class="processing-wrapper">
       <div class="processing-data">
         <iep-no-data v-if="!pagedTable.length"></iep-no-data>
@@ -28,11 +28,11 @@
         </a-list-item>
       </a-list>
     </div>
-  </iep-fams-card>
+  </iep-slot-card>
 </template>
 <script>
 import keyBy from 'lodash/keyBy'
-import IepFamsCard from './IepFamsCard'
+import IepSlotCard from '@/views/fams/Components/SlotCard'
 import mixins from '@/mixins/mixins'
 import { getPendingPage } from '@/api/fams/statistics'
 function pageOption () {
@@ -50,7 +50,7 @@ const typeMap = {
 }
 export default {
   mixins: [mixins],
-  components: { IepFamsCard },
+  components: { IepSlotCard },
   data () {
     return {
       selectType: 1,

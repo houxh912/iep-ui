@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="formData.clientName" :backOption="backOption"></page-header>
+      <iep-page-header :title="formData.clientName" :backOption="backOption"></iep-page-header>
       <!-- <div class="head-button">
         <iep-button class="tabs" type="primary" size="small">暂无需求</iep-button>
         <iep-button class="tabs" type="primary" size="small" @click="transfer">转移给他人</iep-button>

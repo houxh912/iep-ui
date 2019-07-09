@@ -7,14 +7,17 @@
             <span class="title">通讯录</span>
           </div>
           <el-menu :default-openeds="selectType" class="menu-vertical">
-            <el-submenu index="1" collapse>
+            <!-- <el-submenu index="1" collapse>
               <template slot="title">
                 <span>国脉人</span>
               </template>
               <el-menu-item class="menu-item" :index="item.value+''" :key="item.value" v-for="item in allPeople" @click.native="handleAllPeople(item.value)">
                 <span>{{item.label}}</span>
               </el-menu-item>
-            </el-submenu>
+            </el-submenu> -->
+            <el-menu-item index="1" @click.native="handleAllPeople(1001)">
+              <span slot="title">国脉人</span>
+            </el-menu-item>
             <el-submenu index="2" collapse>
               <template slot="title">
                 <span>我的关系</span>
@@ -43,7 +46,7 @@
         <apprentice></apprentice>
       </el-col>
       <el-col :span="20" v-else>
-        <!-- <page-header title=""></page-header> -->
+        <!-- <iep-page-header title=""></iep-page-header> -->
         <operation-container>
           <template slot="left">
             <iep-button type="primary" @click="handleAddBatch" plain v-show="mark==''">批量添加</iep-button>
@@ -120,6 +123,7 @@ export default {
   computed: {
   },
   created () {
+    this.mark = this.$route.query.mark? this.$route.query.mark:''
     this.loadPage()
   },
   methods: {
@@ -130,6 +134,10 @@ export default {
       this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAddBatch () {
+      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+        this.$message('请先选择需要添加的选项')
+        return
+      }
       this.$refs['AddDialogForm'].form.userId = this.multipleSelection
       this.$refs['AddDialogForm'].methodName = '添加到'
       this.$refs['AddDialogForm'].formRequestFn = joinGroup
@@ -155,7 +163,9 @@ export default {
         this.sort.jobId=''
         this.sort.professionalTitleId='1'
       }
-      this.$refs['OperationSearch'].input = ''
+      if (typeof this.$refs['OperationSearch']!='undefined'){
+        this.$refs['OperationSearch'].input = ''
+      }
       this.searchPage()
     },
     handleRemove (row) {
@@ -181,6 +191,10 @@ export default {
       })
     },
     handleRemoveBatch () {
+      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+        this.$message('请先选择需要移除的选项')
+        return
+      }
       this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -226,7 +240,9 @@ export default {
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
-      this.$refs['OperationSearch'].input = ''
+      if (typeof this.$refs['OperationSearch']!='undefined'){
+        this.$refs['OperationSearch'].input = ''
+      }
       this.searchPage()
     },
     loadTypeList () {

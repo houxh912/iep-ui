@@ -38,7 +38,7 @@ export default {
   computed: {
     newSearchForm () {
       return {
-        month: getMonth(this.yearMonth) + 1,
+        month: getMonth(this.yearMonth),
       }
     },
   },

@@ -1,8 +1,8 @@
 <template>
-<!-- 商机认领户后消息提示跳转的详情 -->
+  <!-- 商机认领户后消息提示跳转的详情 -->
   <div>
     <basic-container>
-      <page-header title="合作机会"></page-header>
+      <iep-page-header title="合作机会" :backOption="backOption"></iep-page-header>
       <el-form :model="formData" label-width="100px" size="small">
         <el-form-item label="客户名称：">
           {{formData.clientName}}
@@ -52,8 +52,10 @@ export default {
       formData: {},
       methodName: '',
       drawerShow: false,
-      record: {
-        id: this.$route.query.id,
+      id: this.$route.params.id,
+      backOption: {
+        isBack: true,
+        backPath: this.$route.query.redirect,
       },
     }
   },
@@ -63,7 +65,7 @@ export default {
     ]),
   },
   created () {
-    getBusinessById(this.record.id).then(res => {
+    getBusinessById(this.id).then(res => {
       this.formData = res.data.data.data
       this.formData.tags = res.data.data.data.tags.map(m => m.commonName)
     })

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="费用审核"></page-header>
+      <iep-page-header title="费用核准"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -65,6 +65,9 @@ export default {
     handleDetail (row) {
       this.$router.push({
         path: `/fams_spa/fee_detail/${row.costId}`,
+        query: {
+          approval: 'true',
+        },
       })
     },
     loadPage (param = this.searchForm) {

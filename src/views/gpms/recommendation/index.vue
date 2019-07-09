@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="recommendation">
     <basic-container>
       <div class="box">
         <operation-container class="clearmagin">
@@ -33,21 +33,8 @@
             <!-- 标签组件 -->
             <el-col :span="24">
               <span>我的项目有什么标签：</span>
-              <el-tag
-                      :key="tag"
-                      v-for="tag in dynamicTags"
-                      closable
-                      :disable-transitions="false"
-                      @close="handleClose(tag)"
-              >{{tag}}</el-tag>
-              <el-input
-                      class="input-new-tag"
-                      v-if="inputVisible"
-                      v-model="inputValue"
-                      ref="saveTagInput"
-                      size="small"
-                      @keyup.enter.native="handleInputConfirm"
-                      @blur="handleInputConfirm">
+              <el-tag :key="tag" v-for="tag in dynamicTags" closable :disable-transitions="false" @close="handleClose(tag)">{{tag}}</el-tag>
+              <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
               </el-input>
               <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
             </el-col>
@@ -65,7 +52,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -77,7 +64,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -89,7 +76,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -101,7 +88,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -113,7 +100,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -125,7 +112,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -137,7 +124,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -149,7 +136,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -161,7 +148,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -173,7 +160,7 @@
                   <p class="sixsix">2018年度无锡市年度网站群考核评测及调研项目</p>
                   <el-col class="smallfonts" :span='24'>
                     <el-col :span='5' class="mbs">项目阶段：项目立项</el-col>
-                    <el-col :span='19'>
+                    <el-col :span='18'>
                       项目标签：
                       <el-button class="btns">数据基因</el-button>
                       <el-button class="btns">互联网+政务服务</el-button>
@@ -342,62 +329,62 @@ export default {
       dynamicTags: ['互联网+政务服务'],
       inputVisible: false,
       inputValue: '',
-      bt:[
-        {name:'方案'},
-        {name:'报告 · 清单'},
-        {name:'制度 · 规范 · 领导讲话'},
-        {name:'说明书 · 白皮书 · 模板'},
-        {name:'招投标 · 专利 · 软著'},
-        {name:'培训材料'},
+      bt: [
+        { name: '方案' },
+        { name: '报告 · 清单' },
+        { name: '制度 · 规范 · 领导讲话' },
+        { name: '说明书 · 白皮书 · 模板' },
+        { name: '招投标 · 专利 · 软著' },
+        { name: '培训材料' },
       ],
-      isgrays:0,
-      boss:[
+      isgrays: 0,
+      boss: [
         {
-          id:1,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201806/20180613132622_36g2wcsum1.jpg',
-          name:'杨冰之',
-          company:'北京国脉互联信息顾问有限公司',
+          id: 1,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201806/20180613132622_36g2wcsum1.jpg',
+          name: '杨冰之',
+          company: '北京国脉互联信息顾问有限公司',
         },
         {
-          id:2,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201806/20180613132726_f73x92rxqx.jpg',
-          name:'郑爱军',
-          company:'北京仓颉数源网络有限公司',
+          id: 2,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201806/20180613132726_f73x92rxqx.jpg',
+          name: '郑爱军',
+          company: '北京仓颉数源网络有限公司',
         },
         {
-          id:3,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201807/20180711133414_5p2xxp0oft.png',
-          name:'李凯',
-          company:'北京区业务一部',
+          id: 3,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201807/20180711133414_5p2xxp0oft.png',
+          name: '李凯',
+          company: '北京区业务一部',
         },
         {
-          id:4,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201806/20180613133008_elbcrpj4uh.jpg',
-          name:'黄磊',
-          company:'北京仓颉数源网络有限公司',
+          id: 4,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201806/20180613133008_elbcrpj4uh.jpg',
+          name: '黄磊',
+          company: '北京仓颉数源网络有限公司',
         },
         {
-          id:5,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201807/20180713091722_f1hj7qt0to.png',
-          name:'谢海燕',
-          company:'北京国脉互联信息顾问有限公司',
+          id: 5,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201807/20180713091722_f1hj7qt0to.png',
+          name: '谢海燕',
+          company: '北京国脉互联信息顾问有限公司',
         },
         {
-          id:6,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201804/20180412223734_afni46vbiw.jpg',
-          name:'王路燕',
-          company:'北京国脉互联信息顾问有限公司',
+          id: 6,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201804/20180412223734_afni46vbiw.jpg',
+          name: '王路燕',
+          company: '北京国脉互联信息顾问有限公司',
         },
         {
-          id:6,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201812/20181217181100_rj5ie4iop1.jpg',
-          name:'刘佳',
-          company:'北京国脉互联信息顾问有限公司',
+          id: 6,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201812/20181217181100_rj5ie4iop1.jpg',
+          name: '刘佳',
+          company: '北京国脉互联信息顾问有限公司',
         },
       ],
     }
   },
-  created () {},
+  created () { },
   methods: {
     // 标签组件
     handleClose (tag) {
@@ -420,7 +407,7 @@ export default {
       this.inputValue = ''
     },
     // 按钮点击
-    handlebtnclick (index){
+    handlebtnclick (index) {
       this.isgrays = index
     },
   },
@@ -434,7 +421,7 @@ export default {
   position: relative;
   font-size: 14px;
   box-sizing: border-box;
-  .el-row{
+  .el-row {
     margin-top: 10px;
   }
   .clearmagin {
@@ -456,7 +443,6 @@ export default {
   }
   .groupBottom span {
     font-size: 14px;
-    
   }
 }
 // 标签组件
@@ -475,15 +461,15 @@ export default {
   margin-left: 10px;
   vertical-align: bottom;
 }
-.Secondtab{
+.Secondtab {
   padding: 0 15px;
   box-sizing: border-box;
   position: relative;
-  .SecondtBox{
+  .SecondtBox {
     border: 1px solid #f6f6f6;
     position: relative;
-    padding-bottom: 10px; 
-    .borbomes{
+    padding-bottom: 10px;
+    .borbomes {
       padding: 15px;
       margin: 0 auto;
       border-bottom: 1px solid #f6f6f6;
@@ -492,44 +478,44 @@ export default {
       width: 96%;
       padding-left: 0;
     }
-    .Reference{
+    .Reference {
       width: 100%;
-      .Referencetit{
+      .Referencetit {
         padding: 10px 0 0 25px;
         box-sizing: border-box;
-        p{
+        p {
           margin: 0;
         }
-        .smallfonts{
+        .smallfonts {
           font-size: 12px;
           padding-top: 5px;
           margin-bottom: 0;
-          color: #B8B8B8;
+          color: #b8b8b8;
         }
-        .mbs{
-          margin: 0;
+        .mbs {
+          margin: 1px 5px 5px 0;
           line-height: 23px;
         }
       }
     }
   }
 }
-.btns{
+.btns {
   padding: 5px;
-  margin: 0 0 0 5px;
+  margin: 0 0 5px 5px;
   font-size: 12px;
-  color: #B8B8B8;
+  color: #b8b8b8;
 }
-.posbox{
+.posbox {
   padding: 10px 10px 5px 10px;
 }
-.postit{
+.postit {
   cursor: pointer;
 }
-.postit::after{
-  content: ' / '
+.postit::after {
+  content: " / ";
 }
-.posmenu{
+.posmenu {
   // border: 1px solid #ccc;
   height: 325px;
   overflow: hidden;
@@ -537,38 +523,67 @@ export default {
   box-sizing: border-box;
   // padding-right: 15px;
 }
-.mbss{
-  margin: 0;
+.mbss {
+  margin: 0 5px 5px 0;
   line-height: 23px;
 }
-.smallfontss{
+.smallfontss {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   font-size: 12px;
   padding-top: 5px;
   margin-bottom: 0;
-  color: #B8B8B8;
+  color: #b8b8b8;
 }
-.Referencetits{
+.Referencetits {
   padding: 10px 0 0 20px;
   box-sizing: border-box;
 }
-.Referencetits p{
+.Referencetits p {
   margin: 0;
 }
-.grays{
+.grays {
   // background-color: #E4E4E4;
-  color:#BA1B21;
+  color: #ba1b21;
 }
-.sixsix{
+.sixsix {
   color: #717276;
 }
-.padL{
+.padL {
   padding-left: 30px;
 }
-.coles{
-  color: #B8B8B8;
+.coles {
+  color: #b8b8b8;
 }
-.rads{
+.rads {
+  margin-bottom: 5px;
   color: #717276;
+}
+</style>
+<style scoped>
+.recommendation >>> ::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+.recommendation >>> ::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+.recommendation >>> ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+  display: none;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.recommendation >>> :hover::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>
 

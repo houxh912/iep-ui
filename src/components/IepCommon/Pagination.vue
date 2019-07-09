@@ -38,14 +38,6 @@ export default {
 .content-footer >>> .btn-next {
   padding: 0 15px;
 }
-/* .content-footer
-  >>> .el-pagination.is-background
-  .el-pager
-  li:not(.disabled).active {
-  font-weight: 400;
-  background-color: #fb5966;
-  color: #ccdfe6;
-} */
 .content-footer >>> .el-range-editor.is-active,
 .content-footer >>> .el-range-editor.is-active:hover,
 .content-footer >>> .el-select .el-input.is-focus .el-input__inner,

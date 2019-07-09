@@ -103,6 +103,9 @@ export default {
   > .publish {
     margin-right: 10px;
     color: #cb3737 !important;
+    &:hover {
+      opacity: 0.7;
+    }
   }
 }
 .star-list {
@@ -218,6 +221,10 @@ export default {
   float: right;
   padding: 5px 0;
   color: #999;
+  transition: all 0.5s;
+}
+.thoughts >>> .el-button:hover {
+  color: #cb3737;
 }
 .star-list >>> .el-button {
   padding: 5px 15px;
@@ -240,7 +247,9 @@ export default {
   height: 22px;
   line-height: 22px;
 }
-.thoughts >>> .el-card__body {
-  height: 166px;
+.thoughts {
+  height: 436px;
+  overflow: hidden;
+  border-bottom: 1px solid #ebeef5;
 }
 </style>

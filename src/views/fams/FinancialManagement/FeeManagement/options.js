@@ -23,7 +23,7 @@ const columnsMap = [
 	},
 	{
 		prop: 'auditorName',
-    label: '部门审批人',
+    label: '部门核准人',
 	},
 ]
 

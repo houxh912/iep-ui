@@ -18,27 +18,27 @@
         <div class="classTag">
           <div class="label">卓越标签：</div>
           <div class="span">
-            <el-tag type="white" v-for="(item, index) in data.abilityTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.abilityTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
         <div class="classTag">
           <div class="label">专业标签：</div>
           <div class="span">
-            <el-tag type="white" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
         <div class="classTag">
           <div class="label">进步标签：</div>
           <div class="span">
-            <el-tag type="white" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
       </div>
       <el-row class="operation">
         <ranking></ranking>
         <el-button type="danger" plain size="small" @click="handleProposal">建议</el-button>
-        <el-button type="info" plain size="small" disabled>pk</el-button>
-        <el-button type="danger" plain size="small" @click="handleInvestment">投资</el-button>
+        <el-button type="danger" size="small" @click="handleInvestment">投资</el-button>
+        <el-button type="danger" size="small" @click="handlePk">pk</el-button>
       </el-row>
     </div>
   </div>
@@ -49,20 +49,20 @@ import Ranking from './OrganizationalContent/Ranking'
 
 // 月份日期前一位补0
 function formatDig (num) {
-  return num>9?''+num:'0'+num
+  return num > 9 ? '' + num : '0' + num
 }
 
 // 根据传入的时间，返回 MM-DD
-function formatDate (mill){
+function formatDate (mill) {
   var y = new Date(mill)
   let raws = [
-      y.getFullYear(),
-      formatDig(y.getMonth() + 1),
-      formatDig(y.getDate()),
-      '',
+    y.getFullYear(),
+    formatDig(y.getMonth() + 1),
+    formatDig(y.getDate()),
+    '',
   ]
-  let format = ['年','月', '日']
-  return String.raw({raw:raws}, ...format)
+  let format = ['年', '月', '日']
+  return String.raw({ raw: raws }, ...format)
 }
 
 export default {
@@ -77,6 +77,14 @@ export default {
     return {
       dateFormat,
       formatDate,
+      projectTag: [
+        {
+          item: '111',
+        },
+        {
+          item: '111',
+        },
+      ],
     }
   },
   methods: {
@@ -85,6 +93,12 @@ export default {
     },
     handleProposal () {
       this.$router.push('/hrms_spa/suggestion_new')
+    },
+    handleDetail (row) {
+      this.$openTagDetail(row)
+    },
+    handlePk () {
+      this.$router.push('/app/organizational_list')
     },
   },
 }
@@ -95,6 +109,7 @@ export default {
   display: flex;
   align-items: center;
   align-content: center;
+  min-height: 220px;
   text-align: center;
   background: #fafafa url(./img/zzbg.png) no-repeat;
   background-size: 100% 100%;
@@ -144,17 +159,34 @@ export default {
           text-align: left;
         }
         .el-tag {
+          cursor: pointer;
+          position: relative;
           margin-right: 5px;
           margin-bottom: 5px;
-          border: 1px solid #dcdfe6;
-          height: 28px;
-          line-height: 26px;
-          background: #fff;
+          padding: 0 5px;
+          border: 0;
+          height: auto;
+          line-height: 20px;
+          background: none;
           color: #606266;
           &:hover {
-            color: #cb3737;
-            background: #fef0f0;
-            border-color: #cb3737;
+            opacity: 0.7;
+          }
+          &:before {
+            position: absolute;
+            content: "";
+            top: 10px;
+            right: -8px;
+            width: 15px;
+            height: 1px;
+            background-color: #aaa;
+            -webkit-transform: rotate(110deg);
+            transform: rotate(110deg);
+          }
+          &:last-child {
+            &:before {
+              background: none;
+            }
           }
         }
       }
@@ -203,11 +235,16 @@ export default {
         transition: 0.5s;
       }
       .img-avatar {
+        padding: 4px;
         width: 196px;
         height: 124px;
+        background-color: #fff;
+        &:hover {
+          box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        }
       }
       .integrity {
-        margin-top: 30px;
+        margin-top: 15px;
         font-size: 12px;
         text-align: center;
         width: 100%;
@@ -229,7 +266,7 @@ export default {
   height: 40px !important;
 }
 .organizational-top >>> .el-card {
-  background-color: #fafafa;
+  background: none;
 }
 .organizational-top >>> .search-con .input-wrapper {
   max-width: 510px;
@@ -245,5 +282,9 @@ export default {
   background: #cb3737;
   border-color: #ba1b21;
   color: #fff;
+}
+.organizational-top >>> .el-button--danger {
+  background: #cb3737;
+  border-color: #ba1b21;
 }
 </style>

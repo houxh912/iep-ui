@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="提现管理" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="提现管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleGrantBatch">批量发放</iep-button>
@@ -46,7 +46,7 @@ export default {
       dictsMap,
       columnsMap,
       statistics: [0, 0, 0, 0, 0, 0],
-      replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，待发放：${data[2]}笔，总计：${data[3]}，已发放：${data[4]}笔，总计：${data[5]}）`,
+      replaceText: (data) => `（待核准：${data[0]}笔，总计：${data[1]}，待发放：${data[2]}笔，总计：${data[3]}，已发放：${data[4]}笔，总计：${data[5]}）`,
     }
   },
   created () {

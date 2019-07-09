@@ -56,7 +56,7 @@ export default {
     margin: 0 auto;
     color: #d1d1d1;
     a {
-      padding: 0 15px;
+      padding: 0 13px;
       color: #d1d1d1;
       &:hover {
         color: #bb1a20;
@@ -66,7 +66,7 @@ export default {
       padding-left: 0;
     }
     span {
-      padding-left: 15px;
+      padding-left: 13px;
     }
     .number {
       color: #a6a6a6;

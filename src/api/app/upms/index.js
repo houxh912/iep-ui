@@ -25,3 +25,19 @@ export const getRectagsOrgPage = (params) => {
     params: params,
   })
 }
+
+// 数据资产
+export const getOrgAssets = (id) => {
+  return request({
+    url: `${prefixUrl}/org_assets/${id}`,
+    method: 'get',
+  })
+}
+
+// 数据资产
+export const getOrgCredit = () => {
+  return request({
+    url: `${prefixUrl}/org/credit`,
+    method: 'get',
+  })
+}

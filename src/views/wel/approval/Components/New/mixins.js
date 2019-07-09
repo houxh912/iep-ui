@@ -48,7 +48,7 @@ export default {
       if (this.id) {
         getAdministrativeApprovalById(this.id).then(({ data }) => {
           this.form = formToVo(data.data)
-          getEmployeeProfileSelf().then(({data}) => {
+          getEmployeeProfileSelf().then(({ data }) => {
             this.form.dept = data.data.dept
           })
         })
@@ -62,7 +62,6 @@ export default {
         const valid = await this.$refs['form'].validate()
         if (valid) {
           const { data } = await submitFunction(formToDto(this.form, this.type, this.userInfo.userId))
-          console.log(data)
           if (!data.data) {
             this.$message(data.msg)
           } else {
@@ -90,8 +89,10 @@ export default {
       this.form.duration = hours + '小时' + minutes + '分钟'
     },
     startChange (val) {
-      this.form.startTime = val
-      this.dealTime(val, this.form.endTime)
+      if (this.form.endTime) {
+        this.form.startTime = val
+        this.dealTime(val, this.form.endTime)
+      }
     },
     endChange (val) {
       this.form.endTime = val

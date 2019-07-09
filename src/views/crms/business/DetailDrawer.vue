@@ -2,10 +2,10 @@
   <iep-drawer :drawer-show="drawerShow" type="drawer" :title="'商机'+methodName" width="40%" @close="loadPage">
     <el-form :model="formData" label-width="100px" size="small">
       <el-form-item label="客户名称：">
-        <el-input v-model="formData.clientName" placeholder="客户名称" :disabled="true"></el-input>
+        <span>{{formData.clientName}}</span>
       </el-form-item>
       <el-form-item label="项目名称：">
-        <el-input v-model="formData.projectName" placeholder="项目名称" :disabled="true"></el-input>
+        <span>{{formData.projectName}}</span>
       </el-form-item>
       <el-form-item label="业务类型：">
         <el-tag type="info" class="tag-style" v-for="(item,index) in formData.businessType" :key="index">{{item.commonName}}</el-tag>

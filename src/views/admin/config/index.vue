@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="系统配置"></page-header>
+      <iep-page-header title="系统配置"></iep-page-header>
       <iep-to-dev></iep-to-dev>
     </basic-container>
   </div>

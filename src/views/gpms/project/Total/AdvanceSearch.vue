@@ -4,8 +4,11 @@
       <el-form-item label="项目名称">
         <el-input v-model="form.projectName"></el-input>
       </el-form-item>
-      <el-form-item label="项目阶段">
+      <!-- <el-form-item label="项目阶段">
         <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_stage" style="width: 100%"></iep-dict-select>
+      </el-form-item> -->
+      <el-form-item label="所属组织">
+        <iep-select v-model="form.orgId" prefix-url="admin/org/all" style="width: 100%"></iep-select>
       </el-form-item>
       <el-form-item label="项目等级">
         <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_level" style="width: 100%"></iep-dict-select>
@@ -17,7 +20,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="项目经理">
-        <el-input v-model="form.projectManager"></el-input>
+        <el-input v-model="form.manager"></el-input>
       </el-form-item>
       <el-form-item label="">
         <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>
@@ -30,7 +33,7 @@
 import { initSearchForm,dictMap,rules} from './const'
 // import { getContactAssociate } from '@/api/crms/contact'
 // import { getPageData } from '@/api/crms/customer'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -45,7 +48,11 @@ export default {
   computed: {
     ...mapGetters([
       'userInfo',
+      'dictGroup',
     ]),
+    ...mapState({
+      orgId: state => state.user.userInfo.orgIds,
+    }),
   },
   // mounted () {
   //   this.restaurants = this.loadAll()

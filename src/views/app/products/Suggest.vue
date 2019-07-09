@@ -5,7 +5,9 @@
       <div>
         <div class="suggest-list">
           <div v-for="(item,index) in suggestList" :key="index" class="piece">
-            <div @click="peopleDetail(item.userId)"><iep-img :src="item.avatar" class="photo"></iep-img></div>
+            <div @click="peopleDetail(item.userId)">
+              <iep-img :src="item.avatar" class="photo"></iep-img>
+            </div>
             <div class="box">
               <div class="piece-title">
                 <span class="name" @click="peopleDetail(item.userId)">{{item.name}}</span>
@@ -93,8 +95,8 @@ export default {
 }
 </style>
 <style scoped>
-.suggest >>> .el-card__body {
-  height: 242px;
+.suggest >>> .el-card {
+  height: 300px;
 }
 .suggest >>> .btn {
   margin-right: 5px;
@@ -102,5 +104,8 @@ export default {
   height: 22px;
   line-height: 22px;
   color: #cb3737;
+}
+.suggest >>> .btn:hover {
+  opacity: 0.7;
 }
 </style>

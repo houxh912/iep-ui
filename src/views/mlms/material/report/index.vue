@@ -1,6 +1,6 @@
 <template>
   <div class="report">
-    <page-header title="报表"></page-header>
+    <iep-page-header title="报表"></iep-page-header>
     <iep-tabs v-model="tabName" :tab-list="tabList">
       <template v-if="tabName ==='dailyTab'" v-slot:dailyTab>
         <daily-dialog></daily-dialog>

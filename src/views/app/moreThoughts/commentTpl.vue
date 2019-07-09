@@ -15,14 +15,14 @@
         <!-- 评论的按钮行 -->
         <div class="button-list" v-if="item.thoughtsReplyList">
           <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
-          <div class="button" @click="hadnleComComment(item)"><i class="icon-pinglun1"></i> 评论（{{item.thoughtsReplyList.length}}）</div>
+          <div class="button" @click="hadnleComComment(item)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsReplyList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
         </div>
       </div>
       <div class="comment-comment" v-if="commontActiveIndex == 1">
         <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
         <iep-button class="comment-submit" @click="() => {commontActiveIndex = -1}">取消</iep-button>
-        <iep-button type="primary" class="comment-submit" @click="comCommentSubmit">提交</iep-button>
+        <iep-button type="primary" class="comment-submit" @click="comCommentSubmit">发送</iep-button>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@ export default {
     // 回复评论提交
     comCommentSubmit () {
       if (this.form.replyMsg == '') return
-      CommentReply(this.form).then(({data}) => {
+      CommentReply(this.form).then(({ data }) => {
         if (data.data) {
           this.$message.success('回复成功！')
           this.commontActiveIndex = -1
@@ -96,7 +96,7 @@ export default {
     // 打赏
     ...mapActions(['famsReward']),
     handleReward (row) {
-      this.famsReward({id: row.commentUserId, name: row.realName})
+      this.famsReward({ id: row.commentUserId, name: row.realName })
     },
   },
 }
@@ -107,15 +107,17 @@ export default {
   .comment-item {
     border-bottom: 1px solid #ddd;
     margin-top: 10px;
-    padding-bottom: 3px;
+    padding-bottom: 10px;
     text-align: left;
     .comment-head {
       display: flex;
+      align-items: center;
       .comment-avatar {
-        margin-right: 20px;
+        margin-right: 5px;
         width: 30px;
         height: 30px;
         border-radius: 50%;
+        border: 1px solid #eee;
         img {
           width: 30px;
           height: 30px;
@@ -123,11 +125,10 @@ export default {
         }
       }
       .huuifu {
-        margin-top: 3px;
       }
       .comment-name {
-        margin: 3px 15px;
-        color: #5883ce;
+        margin: 3px 5px;
+        color: #4c6f8d;
       }
     }
     .comment-content {
@@ -148,6 +149,10 @@ export default {
         .button {
           margin-right: 20px;
           cursor: pointer;
+          &:hover {
+            color: #cb3737;
+            border-color: #cb3737;
+          }
         }
       }
     }

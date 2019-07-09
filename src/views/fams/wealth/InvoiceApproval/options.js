@@ -2,24 +2,24 @@
 import { genStatus } from '@/const/invoiceConfig'
 // org config options
 const dictsMap = {
-  primaryAudit: {
-    0: '待审核',
-    1: '已确认',
-    2: '已拒绝',
-  },
-  referType: {
-    1: '项目管理类',
-    2: '日常管理类',
-    3: '其他类',
-  },
+	primaryAudit: {
+		0: '待核准',
+		1: '已确认',
+		2: '已拒绝',
+	},
+	referType: {
+		1: '项目管理类',
+		2: '日常管理类',
+		3: '其他类',
+	},
 }
 
 const columnsMap = [
-  {
-    prop: 'creatorName',
-    label: '申请人',
-  },
-  {
+	{
+		prop: 'creatorName',
+		label: '申请人',
+	},
+	{
 		prop: 'referType',
 		label: '发票类型',
 		type: 'dict',
@@ -38,21 +38,21 @@ const columnsMap = [
 	},
 	{
 		prop: null,
-    label: '状态',
-    type: 'custom',
-    customFunction: genStatus,
+		label: '状态',
+		type: 'custom',
+		customFunction: genStatus,
 	},
 	{
 		prop: 'auditorName',
-    label: '部门审批人',
+		label: '部门核准人',
 	},
 	{
 		prop: 'auditingTime',
-    label: '审核日期',
+		label: '核准日期',
 	},
 	{
 		prop: 'remarks',
-    label: '备注',
+		label: '备注',
 	},
 ]
 

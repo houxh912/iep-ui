@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="集团申请借款" :replaceText="replaceText" :backOption="backOption"></page-header>
+      <iep-page-header title="集团申请借款" :replaceText="replaceText" :backOption="backOption"></iep-page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -49,7 +49,7 @@ export default {
         data: undefined,
         onData: this.handleSecond,
       }, {
-        title: '集团财政财务审核',
+        title: '集团财政财务核准',
         content: 'ThirdContent',
         nextText: '撤销',
         prevText: '',

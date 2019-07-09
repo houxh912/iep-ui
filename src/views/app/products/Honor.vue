@@ -34,7 +34,7 @@ export default {
         '软著|数据基因数据元标准化管理系统',
         '软著|数据基因基于应用场景的数据架构管理系统',
       ],
-      size:12,
+      size: 12,
     }
   },
   methods: {
@@ -42,7 +42,7 @@ export default {
       this.$router.push(`/mlms_spa/aptitude/detail/${row.id}`)
     },
     loadList () {
-      getHonorPage1(this.size).then(({data}) => {
+      getHonorPage1(this.size).then(({ data }) => {
         this.HonorList = data.data.records
       })
     },
@@ -80,7 +80,15 @@ export default {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      &:hover {
+        color: #cb3737;
+      }
     }
   }
+}
+</style>
+<style scoped>
+.honor >>> .el-card {
+  height: 300px;
 }
 </style>

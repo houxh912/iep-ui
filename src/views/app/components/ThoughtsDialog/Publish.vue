@@ -23,6 +23,7 @@
 </template>
 <script>
 import { thoughtsCreate } from '@/api/cpms/thoughts'
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
 function initFormData () {
   return {
@@ -56,13 +57,12 @@ export default {
         if (valid) {
           this.loadState = true
           thoughtsCreate(this.formData).then(() => {
-            this.$message({
-              message: '发表成功',
-              type: 'success',
+            addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+              this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
+              this.loadState = false
+              this.loadPage()
+              this.dialogShow = false
             })
-            this.loadState = false
-            this.loadPage()
-            this.dialogShow = false
           })
         } else {
           return false

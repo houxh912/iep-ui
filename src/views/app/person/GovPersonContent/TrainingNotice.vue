@@ -12,28 +12,28 @@
 </template>
 
 <script>
-import { getNoticeList } from '@/api/app/hrms'
+import { getPastList } from '@/api/app/hrms'
 // 根据传入的时间，返回YYYY-MM-DD
-function formatYear (mill){
+function formatYear (mill) {
   var y = new Date(mill)
   let raws = [
-      y.getFullYear(),
-      formatDig(y.getMonth() + 1),
-      formatDig(y.getDate()),
-      // y.getDay() || 7,
+    y.getFullYear(),
+    formatDig(y.getMonth() + 1),
+    formatDig(y.getDate()),
+    // y.getDay() || 7,
   ]
-  let format = ['-','-','-']
-  return String.raw({raw:raws}, ...format)
+  let format = ['-', '-', '-']
+  return String.raw({ raw: raws }, ...format)
 }
 // 月份日期前一位补0
 function formatDig (num) {
-  return num>9?''+num:'0'+num
+  return num > 9 ? '' + num : '0' + num
 }
 
 export default {
   data () {
     return {
-      title: '培训预告',
+      title: '培训内容',
       data: '',
       trainingNotice: [],
       linkName: '/app/resource/training',
@@ -42,8 +42,8 @@ export default {
   },
   methods: {
     loadList () {
-      getNoticeList().then(({data}) => {
-        this.trainingNotice = data.data
+      getPastList().then(({ data }) => {
+        this.trainingNotice = data.data.slice(0, 7)
       })
     },
     handleDetail (row) {
@@ -97,7 +97,7 @@ export default {
 }
 </style>
 <style scoped>
-.training-con >>> .el-card__body {
-  height: 270px;
+.training-con >>> .el-card {
+  height: 330px;
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header title="开票通知详情" :back-option="backOption">
-      </page-header>
+      <iep-page-header title="开票通知详情" :back-option="backOption">
+      </iep-page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="150px" size="small">
         <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" class="form-half">
@@ -71,7 +71,7 @@
           <iep-div-detail :value="form.remarks"></iep-div-detail>
         </iep-form-item>
         <template v-if="form.status">
-          <h4 class="iep-sub-title">审批内容</h4>
+          <h4 class="iep-sub-title">核准内容</h4>
           <iep-form-item label-name="状态">
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>

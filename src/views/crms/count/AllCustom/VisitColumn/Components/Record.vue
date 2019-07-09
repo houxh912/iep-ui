@@ -1,6 +1,9 @@
 <template>
   <div>
-    <ve-ring :data="chartData" :settings="chartSettings" :extend="chartExtend" height="300px"></ve-ring>
+    <div v-if="this.chartData.rows.length == 0" class="center"><span>暂无客户出单拜访记录</span></div>
+    <div v-else>
+      <ve-ring :data="chartData" :settings="chartSettings" :extend="chartExtend" height="300px"></ve-ring>
+    </div>
   </div>
 </template>
 
@@ -10,7 +13,7 @@ export default {
   data () {
     this.chartSettings = {
       roseType: 'radius',
-
+      legendLimit: 10,
     },
       this.chartExtend = {
         legend: {
@@ -25,16 +28,7 @@ export default {
     return {
       chartData: {
         columns: ['marketManager', 'contactQuantity'],
-        rows: [
-          { marketManager: '刘大力', contactQuantity: 41.8 },
-          { marketManager: '王浩', contactQuantity: 38 },
-          { marketManager: '李四', contactQuantity: 33.7 },
-          { marketManager: '张三', contactQuantity: 30.7 },
-          { marketManager: '寒冬', contactQuantity: 25.8 },
-          { marketManager: '夏凉', contactQuantity: 31.7 },
-          { marketManager: '秋霜', contactQuantity: 33 },
-          { marketManager: '春雪', contactQuantity: 46 },
-        ],
+        rows: [],
       },
     }
   },
@@ -45,3 +39,10 @@ export default {
   },
 }
 </script>
+<style scoped>
+.center {
+  text-align: center;
+  line-height: 300px;
+}
+</style>
+

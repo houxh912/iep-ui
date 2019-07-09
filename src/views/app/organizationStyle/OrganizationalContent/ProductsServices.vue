@@ -4,7 +4,7 @@
       <div class="products-services" v-if="productsServices.length !== 0">
         <div v-for="(item, index) in productsServices" :key="index" class="piece">
           <span class="name">{{item.name}}</span>
-          <span class="operate">申请代理</span>
+          <!-- <span class="operate">申请代理</span> -->
         </div>
       </div>
       <IepNoData v-else></IepNoData>
@@ -30,7 +30,7 @@ export default {
   },
   watch: {
     orgId (newVal) {
-      if (newVal) getDetailsList(newVal).then(({data}) => {
+      if (newVal) getDetailsList(newVal).then(({ data }) => {
         this.productsServices = data.data
       })
     },
@@ -39,7 +39,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .products-services-con {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .products-services {
   .piece {
@@ -80,7 +80,7 @@ export default {
 }
 </style>
 <style scoped>
-.products-services-con >>> .el-card__body {
-  height: 209px;
+.products-services-con >>> .el-card {
+  height: 338px;
 }
 </style>

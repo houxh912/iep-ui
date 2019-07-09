@@ -4,7 +4,9 @@
       <div class="title">{{data.trainingTheme}}</div>
       <div class="inform">
         <div class="info">
-          <div class="img"><iep-img :src="data.creatorImage" :alt="data.creatorName"></iep-img></div>
+          <div class="img">
+            <iep-img :src="data.creatorImage" :alt="data.creatorName"></iep-img>
+          </div>
           <span>{{data.creatorName}}</span>
           <span class="time">{{data.createTime}}</span>
           <span><i class="iconfont icon-yanjing"></i>{{data.views}}</span>
@@ -35,7 +37,7 @@ export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
@@ -163,6 +165,7 @@ export default {
     .classTag {
       .el-tag {
         margin-right: 5px;
+        cursor: pointer;
         &:hover {
           color: #cb3737;
           background: #fef0f0;

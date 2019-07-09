@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${methodName}联系人`"></page-header>
+      <iep-page-header :title="`${methodName}联系人`"></iep-page-header>
       <el-form :model="formData" :rules="rules" ref="formName" label-width="130px" size="small" class="form-detail">
         <el-row>
           <el-col :span="12">
@@ -28,7 +28,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="电话：" prop="telephoneNo">
-              <el-input v-model="formData.telephoneNo" placeholder="座机（区号+号码）"></el-input>
+              <el-input v-model="formData.telephoneNo" placeholder="座机（区号+号码）（多个号码空格隔开）"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -49,7 +49,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="手机：" prop="cellphone">
-              <el-input v-model="formData.cellphone" placeholder="手机号"></el-input>
+              <el-input v-model="formData.cellphone" placeholder="常用手机号码（多个号码空格隔开）"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">

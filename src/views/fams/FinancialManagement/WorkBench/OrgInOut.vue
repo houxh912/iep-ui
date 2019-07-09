@@ -1,5 +1,5 @@
 <template>
-  <iep-fams-card title="组织收支">
+  <iep-slot-card title="组织收支">
     <template slot="right">
       <!-- <div style="width: 350px;">
         <iep-date-picker v-model="rangeTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions" size="small">
@@ -16,13 +16,13 @@
       <el-table-column prop="budgetExpenditure" label="预算支出">
       </el-table-column>
     </el-table>
-  </iep-fams-card>
+  </iep-slot-card>
 </template>
 <script>
 import { getBudgetList } from '@/api/fams/statistics'
-import IepFamsCard from './IepFamsCard'
+import IepSlotCard from '@/views/fams/Components/SlotCard'
 export default {
-  components: { IepFamsCard },
+  components: { IepSlotCard },
   data () {
     return {
       rangeTime: [],

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="模块清单"></page-header>
+      <iep-page-header title="模块清单"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="cpms_modules_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>

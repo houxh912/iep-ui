@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="版本记录"></page-header>
+      <iep-page-header title="版本记录"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>

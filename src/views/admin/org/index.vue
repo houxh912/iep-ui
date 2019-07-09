@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织管理"></page-header>
+      <iep-page-header title="组织管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <!-- <iep-button @click="handleAdd" type="primary" plain>添加组织</iep-button> -->
+          <!-- <iep-button v-if="sys_org_add" @click="handleAdd" type="primary" plain>添加组织</iep-button> -->
           <iep-button @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
@@ -28,10 +28,10 @@
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
+              <iep-button v-if="sys_org_edit" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
               <!-- <iep-button @click="handlePerson(scope.row, scope.index)">人员</iep-button> -->
               <iep-button v-if="scope.row.status === 1" type="default" @click="handleReviewDialog(scope.row, scope.index)">审核</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button v-if="sys_org_del" @click="handleDeleteById(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -43,6 +43,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import AddDialogForm from './AddDialogForm'
 import PersonDialogForm from './PersonDialogForm'
 import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
@@ -56,9 +57,20 @@ export default {
       dictsMap,
       columnsMap,
       paramForm: initOrgSearchForm(),
+      sys_org_add: false,
+      sys_org_edit: false,
+      sys_org_del: false,
     }
   },
+  computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
+  },
   created () {
+    this.sys_org_add = this.permissions['sys_org_add']
+    this.sys_org_edit = this.permissions['sys_org_edit']
+    this.sys_org_del = this.permissions['sys_org_del']
     this.loadPage()
   },
   methods: {

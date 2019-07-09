@@ -1,8 +1,8 @@
 // import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
-  status: { // （待审核—通过—上架—下架—结束）
-    1:'待审核',
+  status: { // （待核准—通过—上架—下架—结束）
+    1:'待核准',
     2:'通过',
     3:'拒绝',
     4:'上架',

@@ -1,53 +1,64 @@
 <template>
   <div class="app-more-thoughts">
-    <div class="breadcrumb-wrapper">
-      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
-    <div class="material">
-      <div class="library">
-        <div class="items" v-for="(item, index) in dataList" :key="index">
-          <div class="avatar">
-            <iep-img :src="item.avatar" alt="" class="img"></iep-img>
-          </div>
-          <div class="content">
-            <div class="title">
-              <div class="name">{{item.userName}}</div>
-              <div class="date">{{getNumber(index)}}</div>
-              <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
+    <IepNoData v-if="dataList.length == 0"></IepNoData>
+    <div v-else>
+      <div class="breadcrumb-wrapper">
+        <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <search @load-page="searchPage" :num="total"></search>
+      <div class="material">
+        <div class="library">
+          <div class="items" v-for="(item, index) in dataList" :key="index">
+            <div class="avatar">
+              <iep-img :src="item.avatar" @click.native="handleDetail(item.userId)" alt="" class="img"></iep-img>
             </div>
-            <div class="item">{{item.content}}</div>
-            <!-- 说说评论 -->
-            <div class="comment" v-if="activeIndex == index">
-              <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
-              <iep-button class="comment-submit" @click="() => {activeIndex = -1}">取消</iep-button>
-              <iep-button type="primary" class="comment-submit" @click="commentSubmit">提交</iep-button>
-            </div>
-            <!-- 评论列表 -->
-            <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
-              <div v-for="(t, i) in item.thoughtsCommentList" :key="i" >
-                <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
-                <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
+            <div class="content">
+              <div class="top">
+                <div class="title">
+                  <div class="name" @click="handleDetail(item.userId)">{{item.userName}}</div>
+                  <div class="date">{{getNumber(index)}}</div>
+                  <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
+                </div>
+                <!-- <el-button size="mini" round>只看此人</el-button> -->
+              </div>
+              <div class="item">{{item.content}}</div>
+              <!-- 说说评论 -->
+              <div class="comment" v-if="activeIndex == index">
+                <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
+                <iep-button class="comment-submit" @click="() => {activeIndex = -1}">取消</iep-button>
+                <iep-button type="primary" class="comment-submit" @click="commentSubmit">提交</iep-button>
+              </div>
+              <!-- 评论列表 -->
+              <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
+                <div v-for="(t, i) in item.thoughtsCommentList" :key="i">
+                  <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
+                  <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
+                </div>
+                <!-- <div v-show="isShow" style="text-align: right;margin: 20px 0;">
+                  <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+                </div> -->
+              </div>
+              <!-- 按钮组 -->
+              <div class="footer">
+                <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+                <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
+                <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
               </div>
             </div>
-            <!-- 按钮组 -->
-            <div class="footer">
-              <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
-              <div class="button" @click="hadnleComment(item, index)"><i class="icon-pinglun1"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
-              <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
-            </div>
+          </div>
+          <div style="text-align: center;margin: 20px 0;">
+            <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
           </div>
         </div>
-      </div>
-      <div style="text-align: center;margin: 20px 0;">
-        <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Search from './Search'
 import { geTallPage, CommentThoughts, addThumbsUpByRecord } from '@/api/cpms/thoughts'
 import commentTpl from './commentTpl'
 import { mapActions } from 'vuex'
@@ -67,9 +78,10 @@ const initFormData = () => {
 }
 
 export default {
-  components: { commentTpl },
+  components: { Search, commentTpl },
   data () {
     return {
+      isShow: true,
       routerMatch: [
         {
           path: '/app/index',
@@ -85,7 +97,7 @@ export default {
         },
       ],
       dataList: [
-        {thoughtsCommentList: []},
+        { thoughtsCommentList: [] },
       ],
       total: 0,
       params: initParams(),
@@ -95,11 +107,20 @@ export default {
     }
   },
   methods: {
+    searchPage (params) {
+      this.paramData.name = params.name
+      this.loadPage()
+    },
     loadPage () {
       geTallPage(this.params).then(({ data }) => {
         this.dataList = data.data.records
         this.total = data.data.total
         this.activeIndex = -1
+      })
+    },
+    handleDetail (id) {
+      this.$router.push({
+        path:`/app/personal_style/${id}`,
       })
     },
     currentChange (val) {
@@ -133,7 +154,7 @@ export default {
     // 打赏
     ...mapActions(['famsReward']),
     handleReward (row) {
-      this.famsReward({id: row.userId, name: row.userName})
+      this.famsReward({ id: row.userId, name: row.userName })
     },
     // 获取编号
     getNumber (index) {
@@ -151,6 +172,9 @@ export default {
     },
   },
   created () {
+    if (this.$route.query.id) {
+      this.params.userId = this.$route.query.id
+    }
     this.loadPage()
   },
 }
@@ -166,18 +190,29 @@ export default {
 .material {
   width: 1200px;
   margin: 0 auto;
-  border-top: 1px solid #eee;
   .library {
     margin-top: 20px;
     .items {
       margin-bottom: 40px;
       display: flex;
+      .name{
+        cursor: pointer;
+      }
       .avatar {
-        width: 115px;
+        margin-right: 35px;
+        width: 70px;
+        .img{
+          cursor: pointer;
+        }
       }
       .content {
         flex: 1;
         margin-top: 5px;
+        .top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
         .comment {
           margin-top: 20px;
           text-align: right;
@@ -191,18 +226,25 @@ export default {
           background-color: #fafafa;
           margin-top: 15px;
           border-radius: 3px;
+          .comment {
+            margin: 0 10px;
+            border-bottom: 1px solid #eee;
+          }
         }
         .title {
           display: flex;
           .name {
             font-size: 16px;
-            color: #5883ce;
+            color: #4c6f8d;
           }
           .date {
-            padding: 2px 0 0 40px;
+            padding: 2px 0 0 15px;
             color: #666;
             i {
               font-size: 14px !important;
+            }
+            &:nth-child(2) {
+              color: #999;
             }
           }
         }
@@ -224,6 +266,10 @@ export default {
             cursor: pointer;
             i {
               margin-right: 5px;
+            }
+            &:hover {
+              color: #cb3737;
+              border-color: #cb3737;
             }
           }
         }
@@ -249,6 +295,33 @@ export default {
       }
     }
   }
+  .el-button--mini.is-round {
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+}
+
+.comment-list .el-pagination.is-background .el-pager li:not(.disabled).active {
+  border: 1px solid #eee;
+  background-color: #f1eff0;
+  color: #666;
+}
+
+.comment-list
+  .el-pagination.is-background
+  .el-pager
+  li:not(.disabled).active:hover {
+  border-color: #666;
+  background-color: #666;
+  color: #fff;
+}
+.comment-list .el-pagination.is-background .el-pager li {
+  background-color: #fff;
+  border: 1px solid #eee;
+  font-weight: 400;
+}
+.comment-list .el-pagination.is-background .el-pager li :hover {
+  color: #666;
 }
 </style>
 

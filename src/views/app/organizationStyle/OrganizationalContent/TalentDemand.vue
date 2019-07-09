@@ -72,7 +72,7 @@ export default {
   },
   watch: {
     orgId (newVal) {
-      getRecruitList(newVal).then(({data}) => {
+      getRecruitList(newVal).then(({ data }) => {
         this.tableData = data.data
       })
     },
@@ -101,8 +101,8 @@ export default {
 .leader-board >>> .el-table tr {
   cursor: pointer;
 }
-.leader-board >>> .el-card__body {
-  height: 332px;
+.leader-board >>> .el-card {
+  height: 330px;
 }
 .leader-board >>> .el-table .cell {
   overflow: hidden;

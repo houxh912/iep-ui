@@ -55,8 +55,6 @@ export default {
         this.form = this.selfToVo(data.data)
       })
     },
-    handlePublish () {
-    },
   },
 }
 </script>

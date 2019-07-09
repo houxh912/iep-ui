@@ -9,6 +9,41 @@ const dictsMap = {
   },
 }
 
+const dsType = [
+  {
+    label: '全部',
+    value: 0,
+    disabled: false,
+  },
+  {
+    label: '本级及子级',
+    value: 2,
+    disabled: false,
+  },
+  {
+    label: '本级',
+    value: 3,
+    disabled: false,
+  },
+]
+const orgDsType = [
+  {
+    label: '全部',
+    value: 0,
+    disabled: true,
+  },
+  {
+    label: '本级及子级',
+    value: 2,
+    disabled: true,
+  },
+  {
+    label: '本级',
+    value: 3,
+    disabled: false,
+  },
+]
+
 const columnsMap = [
   {
     prop: 'roleName',
@@ -33,14 +68,14 @@ const columnsMap = [
   },
 ]
 
-const initMemberForm = () => {
+const initForm = () => {
   return {
-    roleId:'',
-    dsType: '',
+    roleId: '',
+    dsType: 3,
     roleCode: '',
     roleDesc: '',
     roleName: '',
   }
 }
 
-export { dictsMap, columnsMap, initMemberForm }
+export { dictsMap, columnsMap, initForm, dsType, orgDsType }

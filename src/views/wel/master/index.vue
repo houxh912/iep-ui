@@ -1,16 +1,15 @@
 <template>
   <div class="master">
-    <page-header title="推荐师父">
-    </page-header>
+    <iep-page-header title="推荐师父">
+    </iep-page-header>
      <operation-container>
         <template slot="left">
-          <iep-button @click="handleClick">国脉人</iep-button>
           <iep-button @click="handleClick2">我的师徒</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage">
           </operation-search>
+          <iep-button @click="handleClick">国脉人</iep-button>
         </template>
       </operation-container>
     <div v-loading="loadState" v-if="loadState"></div>
@@ -52,6 +51,10 @@ export default {
     return {
       loadState: true,
       masterList: [],
+      params: {
+        name: '',
+      },
+      mark:'master',
     }
   },
   methods: {
@@ -65,16 +68,23 @@ export default {
       })
     },
     getPageRecommend () {
-      getPageRecommend().then(({data}) => {
+      getPageRecommend(this.params).then(({data}) => {
         this.loadState = false
         this.masterList = data.records
       })
     },
     handleClick () {
-      this.$router.push('/app/person')
+      this.$router.push('/app/resource/expert?type=1')
     },
     handleClick2 () {
-      // this.$router.push('/app/person')
+      this.$router.push({
+        path:'/wel/relationship_manage',
+        query:{mark:this.mark},
+      })
+    },
+    searchPage (val) {
+      this.params = val
+      this.getPageRecommend()
     },
   },
   created () {

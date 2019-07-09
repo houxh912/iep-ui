@@ -5,7 +5,7 @@
       <div class="img">
         <iep-img :src="item.imageUrl" alt=""></iep-img>
       </div>
-      <div class="module-title iep-ellipsis">{{item.name}}</div>
+      <iep-div-detail class="title" :value="item.name"></iep-div-detail>
     </div>
   </div>
 </template>
@@ -46,16 +46,14 @@ export default {
   }
   .img {
     padding: 5px;
-    img {
-      width: 88px;
-      height: 88px;
-      padding: 0;
-      margin: 0;
-      display: block;
-      box-sizing: border-box;
-    }
+    width: 88px;
+    height: 88px;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+    box-sizing: border-box;
   }
-  .module-title {
+  .title {
     width: 100%;
     padding-top: 10px;
     text-align: center;

@@ -40,12 +40,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .organiz-events {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 </style>
 <style scoped>
-.organiz-events >>> .el-card__body {
-  height: 279px;
+.organiz-events >>> .el-card {
+  height: 275px;
 }
 </style>
 

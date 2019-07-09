@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <div class="technology-details">
       <div>
         <menus></menus>
@@ -12,8 +12,7 @@
         <related-materials :form="form"></related-materials>
       </div>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import Menus from './Menus'

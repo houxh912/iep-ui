@@ -9,3 +9,11 @@ export function getGroupWealthFlowPage (query) {
     params: query,
   })
 }
+
+// 收款情况
+export function getGroupReceipts () {
+  return request({
+    url: `${prefixUrl}/group/receipts`,
+    method: 'get',
+  })
+}

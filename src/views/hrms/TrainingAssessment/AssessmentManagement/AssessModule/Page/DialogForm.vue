@@ -56,7 +56,6 @@ export default {
       this.$emit('load-page')
     },
     submitForm (formName) {
-      console.log('for: ', this.form)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.formRequestFn(this.form).then(() => {
@@ -89,7 +88,7 @@ export default {
             this.form.checks.splice(index, 1)
           })
         }).catch(() => {
-                  
+
         })
       } else {
         this.form.checks.splice(index, 1)

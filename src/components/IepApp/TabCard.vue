@@ -1,7 +1,7 @@
 <template>
   <el-card class="index-card" shadow="never">
     <div slot="header" class="title-con clearfix">
-      <span class="title">{{title}}<span class="datas">{{data}}</span><i class="iconfont icon-wenhao" v-if="icon"></i></span>
+      <span class="title">{{title}}<span class="datas">{{data}}</span><i class="iconfont icon-wenhao" v-if="icon"></i></span><span class="tip">{{tip}}</span>
       <slot name="statistics"></slot>
       <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
       <slot name="right"></slot>
@@ -33,6 +33,10 @@ export default {
       type: String,
       default: '',
     },
+    tip: {
+      type: String,
+      default: '',
+    },
   },
   data () {
     return {
@@ -55,7 +59,7 @@ export default {
 }
 .title {
   flex: 2;
-  font-size: 16px;
+  font-size: 18px;
   color: #303133;
   margin: 0 4px;
   height: 22px;
@@ -68,11 +72,20 @@ export default {
   line-height: 22px;
   color: #999;
   cursor: pointer;
+  transition: all 0.5s;
+  &:hover {
+    color: #cb3737;
+  }
 }
 .datas {
   margin-left: 5px;
   font-size: 14px;
   color: #999;
+}
+.tip {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #666;
 }
 .iconfont {
   margin-left: 5px;
@@ -82,13 +95,13 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__header {
-  padding: 18px 0 9px;
+  padding: 18px 0 18px;
 }
 .index-card >>> .el-card__body {
-  padding: 16px 0;
+  padding: 15px 0;
 }
 .el-card {
-  padding: 0 20px;
+  padding: 0 15px !important;
 }
 </style>
 

@@ -8,7 +8,7 @@
       <iep-form-item label-name="投资股份比例">
         <iep-div-detail :value="`${data.orgInterest}%`"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="支付方式"> 
+      <iep-form-item label-name="支付方式">
         <el-radio-group v-model="data.investmentMoneyType">
           <el-radio v-for="(item, idx) in dictsMap.investmentMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
         </el-radio-group>
@@ -105,7 +105,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@import "./borrow.scss";
-</style>

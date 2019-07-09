@@ -28,7 +28,7 @@ export default {
     return {
       loading: true,
       chartData: {
-        columns: ['marketManager', 'contractQuantity'],
+        columns: ['planUpload', 'other'],
         rows: [],
       },
     }

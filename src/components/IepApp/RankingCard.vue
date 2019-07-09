@@ -35,6 +35,9 @@ export default {
 .ranking {
   padding: 2px 0;
   .piece {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     color: #333;
     transition-duration: 0.3s;
     cursor: pointer;

@@ -26,6 +26,7 @@ const initForm = () => {
     'id': '', // ID
     'userId': '',//userId
     'theme': '',
+    'type': '',
     'status': '',//
     'proposeContent': '',//内容
     'attendeeList': '',//接收对象
@@ -62,6 +63,9 @@ const formToDto = (row) => {
 const rules = {
   theme: [
     { required: true, message: '请填写建议主题', trigger: 'blur' },
+  ],
+  type: [
+    { required: true, message: '请选择反馈类型', trigger: 'blur' },
   ],
   proposeContent: [
     { required: true, message: '请填写建议内容', trigger: 'blur' },

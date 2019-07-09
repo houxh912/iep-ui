@@ -11,6 +11,7 @@ const initForm = () => {
     parentId: '',
     nodeDescribe: '',
     // modelId: '',
+    nodeNumber: '',
     nodeName: '',
     status: '',
     tagKeyWords:[],
@@ -40,12 +41,8 @@ const columnsMap = [
     label: '栏目名称',
   },
   {
-    prop: 'modelId',
-    label: '模型',
-  },
-  {
-    prop: 'numberOfArticles',
-    label: '文章数',
+    prop: 'nodeNumber',
+    label: '栏目编码',
   },
   {
     prop: 'status',

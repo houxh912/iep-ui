@@ -9,12 +9,16 @@
           <el-input v-model="form.theme"></el-input>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="proposeContent" label-name="建议内容">
-          <iep-input-area v-model="form.proposeContent"></iep-input-area>
+        <iep-form-item class="form-half" label-name="反馈类型" prop="type">
+          <iep-dict-select v-model="form.type" dict-name="cpms_propose_type"></iep-dict-select>
         </iep-form-item>
 
         <iep-form-item prop="attendeeId" label-name="接收对象">
           <iep-select v-model="form.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+        </iep-form-item>
+
+        <iep-form-item class="form-half" prop="proposeContent" label-name="建议内容">
+          <iep-froala-editor v-model="form.proposeContent"></iep-froala-editor>
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="annexList" label-name="附件">

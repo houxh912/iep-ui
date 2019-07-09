@@ -3,11 +3,10 @@
     <basic-container>
       <iep-statistics-header :title="title" :dataMap="financialData">
         <template slot="left">
-          <iep-tip icon="el-icon-question" content="项目金额=已签合同金额+待签项目金额（包括历史项目）<br/>
-                            历史项目金额，为历史合同的项目金额<br/>
+          <iep-tip icon="el-icon-question" content="待签项目金额为未签订合同的项目金额（包括历史项目）<br/>
                             合同金额：已经签订合同的项目金额（包括历史项目）<br/>
                             到账金额：已经到账的项目金额（历史项目除外）
-                            待签金额：未签订合同的项目金额<br/>
+                            未到账金额：签订合同后未到账的金额<br/>
                             开票金额：已经开发票的项目金额（历史项目除外）<br/>
                             应收账款金额：已经开发票的未到账的项目金额（历史项目除外）"></iep-tip>
         </template>
@@ -40,6 +39,8 @@
               <iep-div-detail :value="scope.row.projectName">
               </iep-div-detail>
               <a-tag v-if="scope.row.isHistory===2" color="orange">历</a-tag>
+              <a-tag v-if="scope.row.projectType==='1'" color="pink">内</a-tag>
+              <a-tag v-if="scope.row.isHistory===1 && scope.row.amount!==scope.row.projectIncome" color="red">未结清</a-tag>
             </template>
           </el-table-column>
         </template>
@@ -63,7 +64,7 @@
             <iep-div-detail :value="到账金额(scope.row)"></iep-div-detail>
           </template>
         </el-table-column>
-        <el-table-column label="应收账款金额">
+        <el-table-column label="开票应收账款金额">
           <template slot-scope="scope">
             <iep-div-detail :value="应收账款金额(scope.row)"></iep-div-detail>
           </template>
@@ -101,13 +102,12 @@ export default {
     },
     financialData () {
       return {
-        '项目总金额': this.statistics[0],
-        '历史项目金额': this.statistics[1],
-        '合同总金额': this.statistics[2],
-        '到账总金额': this.statistics[3],
-        '未到账总金额': this.statistics[4],
-        '开票总金额': this.statistics[5],
-        '应收账款': this.statistics[6],
+        '待签项目总金额': this.statistics[0],
+        '合同总金额': this.statistics[1],
+        '到账总金额': this.statistics[2],
+        '未到账总金额': this.statistics[3],
+        '开票总金额': this.statistics[4],
+        '开票应收账款': this.statistics[5],
       }
     },
   },
@@ -126,7 +126,7 @@ export default {
       if (row.isHistory === 2) {
         return row.amount
       } else {
-        return row.projectIncome
+        return row.invoicingAmount
       }
     },
     到账金额 (row) {

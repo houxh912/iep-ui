@@ -9,7 +9,7 @@
           <iep-read-mark-del :enableList="[type==='2', true, false]" @on-view-batch="handleViewBatch" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage"></operation-search>
+          <operation-search @search-page="searchPage" prop="title"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>

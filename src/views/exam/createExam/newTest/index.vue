@@ -1,6 +1,6 @@
 <template>
   <div class="report">
-    <page-header title="创建新试题" :data="[10, 5]"></page-header>
+    <iep-page-header title="创建新试题" :data="[10, 5]"></iep-page-header>
     <el-form :model="form" ref="form" label-width="110px" :rules="rules">
       <el-form-item label="题库：" prop="field" style="width:35%;float:left;">
         <el-select v-model="form.field" size="small" clearable :disabled="flag">

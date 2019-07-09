@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="客户" :replaceText="replaceText" :data="[increasedClient]"></page-header>
+      <iep-page-header title="客户" :replaceText="replaceText" :data="[increasedClient]"></iep-page-header>
       <operation-container>
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
@@ -50,7 +50,7 @@
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="addContact(scope.row)">添加联系人</el-dropdown-item>
                   <el-dropdown-item @click.native="handleCooperation(scope.row)">添加协作人</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleCancelClaim(scope.row)">取消认领</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleCancelClaim(scope.row)">移入公海库</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>

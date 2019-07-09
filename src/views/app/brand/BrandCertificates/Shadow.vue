@@ -3,7 +3,9 @@
     <el-carousel :interval="5000" arrow="always">
       <el-carousel-item class="department-con" v-for="(item,index) in itemList" :key="index">
         <div class="department-list piece" v-for="item in item.childList" :key="item.id">
-          <div class="img"><iep-img :src="item.img" alt="" class="img"></iep-img></div>
+          <div class="img">
+            <iep-img :src="item.img" alt="" class="img"></iep-img>
+          </div>
           <span class="sub-title name">{{ item.subtitle }}</span>
         </div>
       </el-carousel-item>
@@ -72,16 +74,16 @@ export default {
   padding-top: 15px;
   .piece {
     text-align: center;
-    width: 270px;
+    width: 238px;
     float: left;
-    margin: 0 5px;
+    margin: 0 17px;
     .img {
       width: 100%;
-      height: 165px;
+      height: 142px;
       overflow: hidden;
-      img {
+      .img {
         width: 100%;
-        height: 165px;
+        height: 142px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;
@@ -93,16 +95,16 @@ export default {
       line-height: 40px;
     }
     &:first-child {
-      margin: 0 15px 0 10px;
+      margin: 0 27px 0 22px;
     }
     &:last-child {
-      margin: 0 10px 0 15px;
+      margin: 0 22px 0 27px;
     }
   }
 }
 </style>
 <style scoped>
-.shadow >>> .el-carousel__container{
-  height: 200px;
+.shadow >>> .el-carousel__container {
+  height: 180px;
 }
 </style>

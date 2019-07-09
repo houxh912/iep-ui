@@ -5,7 +5,6 @@
         <span class="navTitle">我的关系</span>
         <relationship-nav-tab :nav-list="relationship" @tab="tab"></relationship-nav-tab>
       </div>
-      <el-button size="mini" plain @click="handManage">通讯录管理</el-button>
     </div>
     <relationship-content :contentData="contentData" :mark="mark"></relationship-content>
   </div>
@@ -25,9 +24,9 @@ export default {
       ],
       relationship: [],
       content: [
-        {userList:[]},
+        { userList: [] },
       ],
-      mark:0,
+      mark: 0,
     }
   },
   created () {
@@ -35,24 +34,20 @@ export default {
   },
   methods: {
     tab (val) {
-      if(val>0){
-        this.contentData = this.content[val-1].userList
+      if (val > 0) {
+        this.contentData = this.content[val - 1].userList
       }
-      this.mark=val
-    },
-    handManage () {
-      this.$router.push({
-        path: '/wel/relationship_manage',
-      })
+      this.mark = val
     },
     loadTypeList () {
       getRelationshipList().then(({ data }) => {
-        this.relationship = data.data
+        this.relationship = data.data.splice(0, 3)
+        this.relationship[0].name = '好友'
       })
       getCustomList().then(({ data }) => {
         this.content = data.data
       })
-      
+
     },
   },
 }

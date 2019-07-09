@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我的今日内网使用动态"></page-header>
+      <iep-page-header title="我的今日内网使用动态"></iep-page-header>
        <div class="dynamic-info">
         <span>我的动态频道用于记录用户在内网的所有行为轨迹，用于记录与分析用户行为，构建用户画像，为大数据、数据赋能提供基础</span>
         <span>我的动态频道回顾和追溯个人在内网中的行为记录，帮助大家记录和查询内网的工作内容，帮助大家养成良好的工作习惯，形成数据思维意思</span>

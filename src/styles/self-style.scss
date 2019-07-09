@@ -44,7 +44,7 @@
   color: #606266;
 }
 .el-carousel__arrow{
-  top:40%;
+  top:50%;
 }
 .el-image{
   width: 100%;
@@ -58,4 +58,10 @@
 .el-carousel__indicator.is-active button{
   border-radius: 20px;
   width: 30px;
+}
+
+.el-tooltip__popper.is-dark {
+  max-width: 290px;
+  line-height: 24px;
+  text-align: justify;
 }

@@ -44,7 +44,7 @@ function initForm () {
     projectId: '',
     projectName: '',
     auditor: {
-      id: 0,
+      id: '',
       name: '',
     },
     creatorName: '',
@@ -101,13 +101,13 @@ const rules = {
     { required: true, message: '请选择报销类型', trigger: 'blur' },
   ],
   orgId: [
-    { required: true, message: '请选择报销组织', trigger: 'blur' },
+    { required: true, message: '请选择报销组织', trigger: 'change' },
   ],
   companyId: [
-    { required: true, message: '请选择报销抬头', trigger: 'blur' },
+    { required: true, message: '请选择报销抬头', trigger: 'change' },
   ],
   projectId: [
-    { required: true, message: '请选择项目', trigger: 'blur' },
+    { required: true, message: '请选择项目', trigger: 'change' },
   ],
   remarks: [
     { required: false, trigger: 'blur' },

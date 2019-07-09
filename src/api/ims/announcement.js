@@ -43,3 +43,14 @@ export function readAnnouncementBatch (ids) {
     },
   })
 }
+
+export function markAnnouncementBatch (ids) {
+  return request({
+    url: `${prefixUrl}/read_or_set/batch`,
+    method: 'post',
+    data: ids,
+    params: {
+      type: 9,
+    },
+  })
+}

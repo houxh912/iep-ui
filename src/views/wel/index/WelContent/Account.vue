@@ -28,6 +28,7 @@
                 <i class="el-icon-d-arrow-right"></i>
               </span>
             </span>
+            <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
             <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
           </div>
         </div>
@@ -99,6 +100,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handManage () {
+      this.$router.push({
+        path: '/wel/relationship_manage',
+      })
+    },
     handleSome1 () {
       this.$message('页面建设中')
     },
@@ -202,6 +208,9 @@ export default {
       color: #666;
       span {
         font-size: 12px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
       > .icon {
         font-size: 20px;

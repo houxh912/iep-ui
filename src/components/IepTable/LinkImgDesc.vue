@@ -4,7 +4,7 @@
       <iep-img class="img" :src="img" alt=""></iep-img>
     </div>
     <div>
-      <iep-table-link @click="handleClick" disabled>{{name}}</iep-table-link>
+      <iep-table-link :isDot="false" @click="handleClick" disabled>{{name}}</iep-table-link>
       <div class="desc">{{desc}}</div>
     </div>
   </div>

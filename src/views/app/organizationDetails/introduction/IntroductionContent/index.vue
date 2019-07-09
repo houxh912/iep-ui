@@ -16,6 +16,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .introduction {
-  margin: 20px;
+  margin: 0 20px;
 }
 </style>

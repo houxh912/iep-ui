@@ -13,7 +13,7 @@
       </el-card>
     </el-col>
     <el-col :span="20">
-      <page-header :title="rssTitle"></page-header>
+      <iep-page-header :title="rssTitle"></iep-page-header>
       <!-- <div class="info">
         <span>我的订阅模块主要为个人在内网中订阅的内容。</span>
         <span class="red">我的订阅模块还在开发中，敬请期待，本页面仅为样式效果演示</span>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="投资人核准"></page-header>
+      <iep-page-header title="投资人核准"></iep-page-header>
       <operation-container>
         <template slot="left">
         </template>

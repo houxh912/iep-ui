@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="联盟管理"></page-header>
+      <iep-page-header title="联盟管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleReviewDialog">批量审核</iep-button>

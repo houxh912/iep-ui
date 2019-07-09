@@ -1,11 +1,11 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header title="修改组织基本信息" :backOption="backOption">
+      <iep-page-header title="修改组织基本信息" :backOption="backOption">
         <template>
           <iep-button type="primary" @click="handleSubmit">保存</iep-button>
         </template>
-      </page-header>
+      </iep-page-header>
       <el-form :model="form" class="form-detail" size="small" ref="form" label-width="120px">
         <el-form-item label="组织Logo：">
           <iep-avatar v-model="form.logo"></iep-avatar>
@@ -24,6 +24,9 @@
         </el-form-item>
         <el-form-item label="联系方式：" prop="contactMethod" class="form-half">
           <el-input v-model="form.contactMethod" placeholder="请输入联系方式"></el-input>
+        </el-form-item>
+        <el-form-item label="联系地址：" prop="address" class="form-half">
+          <el-input v-model="form.address" placeholder="请输入联系地址"></el-input>
         </el-form-item>
         <el-form-item label="卓越标签：">
           <iep-tag v-model="form.abilityTag"></iep-tag>

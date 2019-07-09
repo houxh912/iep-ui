@@ -3,7 +3,7 @@
     <IepAppTabsCard :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='TeamDemeanor'" v-slot:TeamDemeanor>
-          <team-demeanor v-loading="activeTab !=='TeamDemeanor'"></team-demeanor>
+          <team-demeanor v-loading="activeTab !=='TeamDemeanor'" :orgId="orgId"></team-demeanor>
         </template>
         <template v-if="activeTab ==='Honor'" v-slot:Honor>
           <honor v-loading="activeTab !=='Honor'" :list="honorList"></honor>
@@ -27,15 +27,19 @@ export default {
     TeamDemeanor,
     Honor,
   },
-  data () {
-    return {
-      tabList: [{
+  computed: {
+    tabList () {
+      return [{
         label: '团队风采',
         value: 'TeamDemeanor',
       }, {
-        label: '荣誉资质',
+        label: `荣誉资质(${this.honorList.length})`,
         value: 'Honor',
-      }],
+      }]
+    },
+  },
+  data () {
+    return {
       activeTab: 'TeamDemeanor',
       linkName: '',
       honorList: [],
@@ -43,7 +47,7 @@ export default {
   },
   watch: {
     orgId (newVal) {
-      getHonorList(newVal).then(({data}) => {
+      getHonorList(newVal).then(({ data }) => {
         this.honorList = data.data
       })
     },

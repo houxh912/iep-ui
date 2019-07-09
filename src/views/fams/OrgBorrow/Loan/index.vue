@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="待处理借款"></page-header>
+      <iep-page-header title="待处理借款"></iep-page-header>
       <operation-container>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">

@@ -1,6 +1,6 @@
 <template>
   <div class="relation">
-    <IepAppTabCard :title="title">
+    <IepAppTabCard :title="title" :data="`（${relation.masters.length}/${relation.pupils.length}）`">
       <el-button class="btn" type="text" slot="right" @click="show" :class="isShow?'el-icon-arrow-up':'el-icon-arrow-down'"></el-button>
       <div class="item" v-for="(row, index) in titleList" :key="index" v-show="isShow">
         <span class="title">{{row.title1}}</span>
@@ -23,6 +23,7 @@
 
 <script>
 import { getproductMentors } from '@/api/app/cpms/channel'
+import { getCommunication } from '@/api/app/hrms/'
 
 export default {
   props: {
@@ -40,6 +41,10 @@ export default {
       title: '人物关系',
       MentorsList: [],
       cooperationList: [],
+      relation: {
+        masters: [],
+        pupils: [],
+      },
     }
   },
   computed: {
@@ -63,6 +68,7 @@ export default {
   watch: {
     userId (newVal) {
       this.loadRelation(newVal)
+      this.getCommunication(newVal)
     },
   },
   methods: {
@@ -75,7 +81,13 @@ export default {
         for (let item of data.data.masters) {
           item.show = true
         }
+        this.relation = data.data
         this.MentorsList = data.data.masters.concat(data.data.pupils)
+      })
+    },
+    getCommunication (id) {
+      getCommunication(id).then(({ data }) => {
+        this.cooperationList = data.data
       })
     },
   },

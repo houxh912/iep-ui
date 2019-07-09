@@ -17,3 +17,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.recommendable >>> .el-card {
+  height: 324px;
+}
+</style>

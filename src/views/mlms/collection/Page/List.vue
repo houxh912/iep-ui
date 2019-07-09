@@ -54,7 +54,7 @@
       </el-card>
     </el-col>
     <el-col :span="20">
-      <page-header :title="pageTitle"></page-header>
+      <iep-page-header :title="pageTitle"></iep-page-header>
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">

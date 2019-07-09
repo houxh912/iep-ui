@@ -1,6 +1,6 @@
 <template>
   <basic-container class="abs">
-    <page-header title="详情" :backOption="backOption"></page-header>
+    <iep-page-header title="详情" :backOption="backOption"></iep-page-header>
     
     <detailPage ref="detail"></detailPage>
   </basic-container>

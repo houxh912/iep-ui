@@ -83,4 +83,12 @@ export default [
     countName: 'countProduct',
     component: () => import('@/views/app/resource/productKu/'),
   },
+  {
+    path: 'project_list',
+    name: '项目库',
+    icon: 'icon-xiangmu',
+    count: 0,
+    countName: 'countProject',
+    component: () => import('@/views/app/projectList/'),
+  },
 ]

@@ -1,6 +1,6 @@
 import request from '@/router/axios'
 const prefixUrl = '/hrms/channel_recruit'
-
+// @/api/app/hrms/index
 export const getPostList = (params) => {
   return request({
     url: `${prefixUrl}/list`,
@@ -102,6 +102,22 @@ export const getRecruitList = (id) => {
 export const getUserDetail = (id) => {
   return request({
     url: `${prefixUrl}/user_detail/${id}`,
+    method: 'get',
+  })
+}
+
+// 交流密切
+export const getCommunication = (id) => {
+  return request({
+    url: `${prefixUrl}/communication/${id}`,
+    method: 'get',
+  })
+}
+
+// 数据-个人信用
+export const getCredit = () => {
+  return request({
+    url: `${prefixUrl}/personal/credit`,
     method: 'get',
   })
 }

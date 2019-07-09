@@ -28,19 +28,19 @@
               <div class="classTag">
                 <div class="label">卓越标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag">
                 <div class="label">专业标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag">
                 <div class="label">进步标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag more" v-if="!userInfoShow">
@@ -51,7 +51,7 @@
           <div class="right-con">
             <div class="labs-con">
               <div class="data-lab" v-for="lab in labList" :key="lab.id">
-                <div class="count">{{lab.data}}</div>
+                <div class="count">{{user_info.rankMap[lab.prop]}}</div>
                 <div class="labTitle"><span>{{lab.labTitle}}</span></div>
               </div>
             </div>
@@ -59,11 +59,11 @@
               <el-button size="mini" type="danger" plain @click="handleEmail">邮件</el-button>
               <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
               <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
-              <el-button size="mini" type="info" plain disabled>建议</el-button>
-              <el-button size="mini" type="info" plain disabled>PK</el-button>
+              <el-button size="mini" type="danger" plain @click="handleProposal">建议</el-button>
+              <el-button size="mini" type="danger" plain @click="handlePk">PK</el-button>
             </el-row>
             <el-row class="apply">
-              <el-button type="info" plain disabled>申请授权</el-button>
+              <el-button type="danger" plain  @click="handleApply">申请授权</el-button>
             </el-row>
           </div>
         </div>
@@ -100,19 +100,19 @@ export default {
       show3: 'show',
       labList: [
         {
-          data: '--',
+          prop: 'xyz',
           labTitle: '信用值',
         },
         {
-          data: '--',
-          labTitle: '活跃度',
+          prop: 'hydpm',
+          labTitle: '活跃度排名',
         },
         {
-          data: '--',
+          prop: 'gmbpm',
           labTitle: '财富排名',
         },
         {
-          data: '--',
+          prop: 'sjzc',
           labTitle: '数据资产',
         },
       ],
@@ -143,6 +143,23 @@ export default {
       }
       this.$refs['email'].open({ receiverList: receiverList })
     },
+    // 建议
+    handleProposal () {
+      let userInfo = this.userInfo
+      let obj = {
+        subject: `${userInfo.realName}的建议`,
+        receiverList: {
+          unions: [],
+          orgs: [],
+          users: [{ id: this.user_info.id, name: this.user_info.name }],
+        },
+      }
+      this.$refs['email'].open(obj)
+    },
+    // pk
+    handlePk () {
+      this.$router.push('/app/resource/expert?type=1')
+    },
     // 打赏
     ...mapActions(['famsReward']),
     handleReward () {
@@ -151,6 +168,19 @@ export default {
         return
       }
       this.famsReward({ id: this.user_info.id, name: this.user_info.name })
+    },
+    // 申请授权
+    handleApply () {
+      let userInfo = this.userInfo
+      let obj = {
+        subject: `${userInfo.realName}向您发起个人资料授权申请`,
+        receiverList: {
+          unions: [],
+          orgs: [],
+          users: [{ id: this.user_info.id, name: this.user_info.name }],
+        },
+      }
+      this.$refs['email'].open(obj)
     },
   },
 }
@@ -245,8 +275,11 @@ export default {
     .classTag {
       margin-bottom: 10px;
       display: flex;
+      align-items: flex-start;
       .label {
-        width: 80px;
+        margin-bottom: 5px;
+        line-height: 26px;
+        width: 70px;
       }
       .span {
         flex: 1;
@@ -257,13 +290,8 @@ export default {
         cursor: pointer;
         &:hover {
           color: #cb3737;
-          background: #fef0f0;
-          border-color: #cb3737;
         }
       }
-    }
-    .more {
-      cursor: pointer;
     }
     .right-con {
       display: flex;
@@ -289,11 +317,11 @@ export default {
     .name-con {
       display: flex;
       justify-content: flex-start;
-      align-items: flex-end;
       margin-bottom: 10px;
       .name {
         margin-right: 10px;
-        font-size: 20px;
+        font-size: 24px;
+        font-weight: 700;
       }
     }
     .autograph {
@@ -350,11 +378,28 @@ export default {
   align-items: stretch;
 }
 .personal-top >>> .el-tag--white {
-  border: 1px solid #dcdfe6;
+  position: relative;
+  border: 0;
   height: 28px;
   line-height: 26px;
-  background: #fff;
+  background: none;
   color: #606266;
+}
+.personal-top >>> .el-tag--white:before {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: -10px;
+  width: 15px;
+  height: 1px;
+  background-color: #aaa;
+  transform: rotate(125deg);
+  -o-transform: rotate(125deg);
+  -moz-transform: rotate(125deg);
+  -webkit-transform: rotate(125deg);
+}
+.personal-top >>> .el-tag--white:last-child:before {
+  background: none;
 }
 .personal-top >>> .el-button--danger {
   color: #fff;

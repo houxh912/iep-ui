@@ -1,6 +1,6 @@
 <template>
   <div class="abs iep-page-form">
-    <page-header :title="`${methodName}项目`" :backOption="backOption"></page-header>
+    <iep-page-header :title="`${methodName}项目`" :backOption="backOption"></iep-page-header>
     <el-form :model="formData" :rules="rules" ref="form" label-width="200px" class="form form-detail">
       <el-row>
         <el-col :span="12">
@@ -121,6 +121,21 @@
         <el-col :span="12">
           <el-form-item label="项目阶段：" prop="projectStage">
             <iep-dict-select v-model="formData.projectStage" dict-name="prms_project_stage"></iep-dict-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="所属组织：" prop="orgId">
+            <span slot="label">
+              所属组织：
+            </span>
+            <iep-select v-model="formData.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="放入公海库：" prop="isClaim">
+            <span style="padding: 0 5px;">否</span>
+            <el-switch v-model="formData.isClaim" :active-value="2" :inactive-value="1" active-color="#13ce66"></el-switch>
+            <span style="padding: 0 5px;">是</span>
           </el-form-item>
         </el-col>
       </el-row>
@@ -286,7 +301,9 @@ export default {
           data.groupExternalCooperatePartner
         )
         // 判断是否关联合同，若关联，修改字段，并获取到合同的金额
-        // 
+        if (data.contractList && data.contractList.length > 0) {
+          data.projectAmount = data.contractList[0].amount
+        }
         this.formData = Object.assign({}, this.formData, data)
         this.methodName = '修改'
       }

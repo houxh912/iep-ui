@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="绩效考核" :replaceText="replaceText" :data="[120]"></page-header>
+      <iep-page-header title="绩效考核" :replaceText="replaceText" :data="[120]"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='AssessManagement'" v-slot:AssessManagement>
           <assess-management v-loading="activeTab !=='AssessManagement'"></assess-management>

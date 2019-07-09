@@ -14,10 +14,10 @@
       </el-card>
     </el-col>
     <el-col :span="20">
-      <page-header title="系统消息"></page-header>
+      <iep-page-header title="系统消息"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-read-mark-del :enableList="[true, true, false]" @on-view-batch="handleViewBatch"></iep-read-mark-del>
+          <iep-read-mark-del :enableList="[true, true, false]" @on-view-batch="handleViewBatch" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="title">
@@ -27,6 +27,11 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
+          <el-table-column label="" width="50">
+            <template slot-scope="scope">
+              <i v-if="scope.row.isMark" class="el-icon-s-flag"></i>
+            </template>
+          </el-table-column>
           <el-table-column label="主题">
             <template slot-scope="scope">
               <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
@@ -39,7 +44,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getSystemMessagePage, getTypeCountMap, readSystemMessageBatch } from '@/api/ims/system_message'
+import { getSystemMessagePage, getTypeCountMap, readSystemMessageBatch, markSystemMessageBatch } from '@/api/ims/system_message'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 // import AdvanceSearch from './AdvanceSearch'
@@ -77,6 +82,14 @@ export default {
         return
       }
       this._handleComfirm(this.multipleSelection, readSystemMessageBatch, '批量已读', '', '操作成功')
+    },
+    onMarkBatch () {
+      // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
+      this._handleComfirm(this.multipleSelection, markSystemMessageBatch, '批量设置 / 取消标记', '', '操作成功')
     },
     handleSelectType (k) {
       this.selectType = k

@@ -2,14 +2,14 @@
   <div class="gird-qualification">
     <div class="leaderBoard">
       <IepAppTabsCard :linkName="linkName">
-        
-      <iep-tabs v-model="activeTab" :tab-list="tabList"></iep-tabs>
-      <whole :list="list"></whole>
 
-      <div class="page">
-        <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
-        </el-pagination>
-      </div>
+        <iep-tabs v-model="activeTab" :tab-list="tabList"></iep-tabs>
+        <whole :list="list"></whole>
+
+        <div class="page">
+          <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
+          </el-pagination>
+        </div>
       </IepAppTabsCard>
     </div>
   </div>
@@ -46,7 +46,7 @@ export default {
     },
     // 获取分页
     loadPage (params = {}) {
-      getHonorPage(Object.assign({}, this.params, params)).then(({data}) => {
+      getHonorPage(Object.assign({}, this.params, params)).then(({ data }) => {
         this.list = data.data.records
         this.total = data.data.total
       })
@@ -57,7 +57,7 @@ export default {
     },
     // 获取选项卡
     getHonorSign () {
-      getHonorSign().then(({data}) => {
+      getHonorSign().then(({ data }) => {
         this.tabList = this.tabList.concat(data.data)
       })
     },
@@ -83,9 +83,10 @@ export default {
   padding: 0 20px 20px 20px;
 }
 .gird-qualification {
-  width: 1200px;
-  padding: 20px 0;
   margin: 0 auto;
+  padding: 20px 0;
+  width: 1200px;
+  height: 100vh;
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 20px;
@@ -94,15 +95,15 @@ export default {
       100px,
       28fr
     );
-    .leaderBoard{
-      grid-column-start: 1;
-      grid-column-end: 4;
-    }
+  .leaderBoard {
+    grid-column-start: 1;
+    grid-column-end: 4;
+  }
 }
 </style>
 <style scoped>
-.gird-qualification >>> .el-card{
-  border:none;
-  padding:0;
+.gird-qualification >>> .el-card {
+  border: none;
+  padding: 0;
 }
 </style>

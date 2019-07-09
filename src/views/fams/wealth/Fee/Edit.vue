@@ -1,17 +1,17 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}财务费用申请`" :back-option="backOption">
+      <iep-page-header :title="`${methodName}财务费用申请`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
         <iep-button type="primary" @click="handleSubmit(true)">保存并发送</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="type" label="付款事项">
           <template slot-scope="scope">
             <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.type"></iep-dict-cascader>
           </template>
         </el-table-column>
-        <el-table-column label="收款单位账号及开户行">
+        <el-table-column label="收款单位、账号及开户行">
           <template slot-scope="scope">
             <el-input size="small" v-model="scope.row.bank"></el-input>
           </template>
@@ -48,7 +48,7 @@
         </el-form-item>
 
         <iep-form-item class="form-half" prop="auditor" label-name="部门核准">
-          <iep-contact-select v-model="form.auditor"></iep-contact-select>
+          <iep-contact-select v-model="form.auditor" placeholder="如只需财务核准，无需填写部门核准，直接发送即可"></iep-contact-select>
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="是否代缴">

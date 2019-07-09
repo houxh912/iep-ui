@@ -2,7 +2,7 @@
   <div class="gird-item">
     <el-card shadow="never" class="box-card" :body-style="bodyStyle">
       <div slot="header" class="clearfix">
-        <page-header title="岗位统计"></page-header>
+        <iep-page-header title="岗位统计"></iep-page-header>
       </div>
       <!-- <el-table style="width: 100%"> -->
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">    </iep-table>

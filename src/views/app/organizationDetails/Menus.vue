@@ -15,12 +15,12 @@ export default {
     return {
       current: ['组织介绍'],
       data: [
-        {levelName:'组织介绍',materialCount:'11',path:'introduction'},
-        {levelName:'组织成员',materialCount:'11',path:'member'},
-        {levelName:'组织大事记',materialCount:'11',path:'memorabilia'},
-        {levelName:'组织相册',materialCount:'11',path:'album'},
-        {levelName:'组织荣誉',materialCount:'11',path:'honor'},
-        {levelName:'组织评价',materialCount:'11',path:'evaluation'},
+        { levelName: '组织介绍', materialCount: '11', path: 'introduction' },
+        { levelName: '组织成员', materialCount: '11', path: 'member' },
+        { levelName: '组织大事记', materialCount: '11', path: 'memorabilia' },
+        { levelName: '组织相册', materialCount: '11', path: 'album' },
+        { levelName: '组织荣誉', materialCount: '11', path: 'honor' },
+        { levelName: '组织评价', materialCount: '11', path: 'evaluation' },
       ],
     }
   },
@@ -48,7 +48,7 @@ export default {
 <style lang="scss" scoped>
 .menus {
   border-right: 1px solid #eee;
-  height: 100%;
+  height: 100vh;
   .ant-menu-inline {
     border-right: 0;
   }

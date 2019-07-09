@@ -9,10 +9,15 @@
 <script>
 import 'v-charts/lib/style.css'
 export default {
+  props: {
+    indexMap: {
+      type: Object,
+    },
+  },
   data () {
     this.chartSettings = {
-      dimension: ['日期'],
-      metrics: ['引用', '产量', '贡献', '口碑', '热度'],
+      dimension: ['服务创新'],
+      metrics: ['服务创新', '协作', '管理', '财富增值', '学习', '工作'],
       lineStyle: {
         width: 2,
         type: 'solid',
@@ -22,18 +27,24 @@ export default {
     this.isTrue = false
     return {
       title: 'TA的指数',
-      chartData: {
-        columns: ['引用', '产量', '贡献', '口碑', '热度'],
-        rows: [
-          { '引用': 1393, '产量': 1093, '贡献': 3393, '口碑': 2500, '热度': 1200 },
-          { '引用': 3530, '产量': 3230, '贡献': 2566, '口碑': 2800, '热度': 3400 },
-          { '引用': 2923, '产量': 2623, '贡献': 3456, '口碑': 3500, '热度': 2000 },
-          { '引用': 1723, '产量': 1423, '贡献': 1530, '口碑': 1900, '热度': 3105 },
-          { '引用': 3792, '产量': 3492, '贡献': 3254, '口碑': 3500, '热度': 1359 },
-          { '引用': 4593, '产量': 4293, '贡献': 1200, '口碑': 4500, '热度': 3200 },
-        ],
-      },
     }
+  },
+  computed: {
+    chartData () {
+      let num = 0
+      for (let item in this.indexMap) {
+        if (num < this.indexMap[item]) {
+          num = this.indexMap[item]
+        }
+      }
+      return {
+        columns: ['服务创新', '协作', '管理', '财富增值', '学习', '工作'],
+        rows: [
+          { '服务创新': this.indexMap.cxfw, '协作': this.indexMap.xz, '管理': this.indexMap.gl, '财富增值': this.indexMap.cfzz, '学习': this.indexMap.xx, '工作': this.indexMap.gz },
+          { '服务创新': num, '协作': num, '管理': num, '财富增值': num, '学习': num, '工作': num },
+        ],
+      }
+    },
   },
 }
 </script>

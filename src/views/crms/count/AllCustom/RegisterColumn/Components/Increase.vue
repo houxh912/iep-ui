@@ -108,7 +108,9 @@ export default {
         { timeInterval: '第三季度', clientQuantity: 0, contactQuantity: 0 },
         { timeInterval: '第四季度', clientQuantity: 0, contactQuantity: 0 },
       ],
-      data4: [],
+      data4: [
+        { timeInterval: '2019', clientQuantity: 0, contactQuantity: 0 },
+      ],
     }
   },
   created () {
@@ -180,7 +182,16 @@ export default {
             m.timeInterval = year
             return m
           })
-          this.data4 = arr
+          for (let i in this.data4) {
+            for (let m in arr) {
+              if (arr[m].timeInterval == this.data4[i].timeInterval) {
+                this.data4[i].clientQuantity = arr[m].clientQuantity
+                break
+              } else {
+                this.data4[i].clientQuantity = 0
+              }
+            }
+          }
           this.chartData.rows = this.data4
         }
       })
@@ -248,16 +259,13 @@ export default {
             m.timeInterval = year
             return m
           })
-          this.data4 = this.data4.map(m => {
-            if (!m.hasOwnProperty('contactQuantity')) {
-              m.contactQuantity = 0
-              return m
-            }
-          })
           for (let i in this.data4) {
             for (let m in arr) {
-              if (this.data4[i].timeInterval == arr[m].timeInterval) {
+              if (arr[m].timeInterval == this.data4[i].timeInterval) {
                 this.data4[i].contactQuantity = arr[m].contactQuantity
+                break
+              } else {
+                this.data4[i].contactQuantity = 0
               }
             }
           }

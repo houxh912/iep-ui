@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`编辑-${form.ruleName}-规则`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`编辑-${form.ruleName}-规则`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" label-width="120px" size="small">
         <iep-form-item label-name="国脉贝数量">
           <iep-input-number v-model="form.score"></iep-input-number>

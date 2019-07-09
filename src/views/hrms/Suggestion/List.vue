@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我发出的建议" :back-option="backOption"></page-header>
+      <iep-page-header title="我发出的建议" :back-option="backOption"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>

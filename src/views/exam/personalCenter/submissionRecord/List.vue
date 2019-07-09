@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="出题记录"></page-header>
+      <iep-page-header title="出题记录"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增试题</iep-button>

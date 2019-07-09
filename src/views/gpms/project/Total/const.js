@@ -176,6 +176,8 @@ export function initFormData () {
     projectBudgetList: {},
     projectAmount: '',
     projectStage: '',
+    orgId:'',
+    isClaim: 1,
   }
 }
 

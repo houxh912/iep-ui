@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="支出管理" class="data-title"></page-header>
+      <iep-page-header title="支出管理" class="data-title"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleExpenditure()" type="danger" icon="el-icon-plus" plain>添加支出</iep-button>

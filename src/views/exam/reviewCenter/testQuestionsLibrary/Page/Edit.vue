@@ -1,6 +1,6 @@
 <template>
   <div class="report">
-    <page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption"></page-header>
+    <iep-page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption"></iep-page-header>
     <el-form :model="form" ref="form" label-width="110px" :rules="rules">
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">

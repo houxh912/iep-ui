@@ -30,12 +30,12 @@ const columnsMap = [
 		label: '合同金额',
 	},
 	{
-		prop: 'projectIncome',
-		label: '到账金额',
+		prop: 'projectAmount',
+		label: '待签金额',
 	},
 	{
-		prop: 'signedAmount',
-		label: '待签金额',
+		prop: 'projectIncome',
+		label: '到账金额',
 	},
 	{
 		prop: 'invoicingAmount',
@@ -46,6 +46,7 @@ const columnsMap = [
 function initForm () {
 	return {
 		year: '',
+		amount: '',
 	}
 }
 
@@ -65,7 +66,7 @@ const toDtoSearchForm = (row) => {
 const toDtoForm = (row) => {
 	const newForm = { ...row }
 	newForm.year = getYear(row.year) || null
-	return newForm.year
+	return newForm
 }
 
 export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm, rules }

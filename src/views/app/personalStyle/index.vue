@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <iep-app-layout>
     <div class="personal">
       <person-top :user_info="userInfo"></person-top>
       <person-content :userInfo="userInfo"></person-content>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>
@@ -30,13 +29,15 @@ export default {
         tagList: [],
         similarUser: [],
         orgList: [],
+        rankMap: { xyz: 0, hydpm: 0, sjzc: 0, gmbpm: 0 },
+        indexMap: { xx: 0, cxfw: 0, xz: 0, gz: 0, gl: 0, cfzz: 0 },
       },
     }
   },
   methods: {
     // 获取用户信息
     getUserDetail () {
-      getUserDetail(this.$route.params.id).then(({data}) => {
+      getUserDetail(this.$route.params.id).then(({ data }) => {
         let obj = data.data
         obj.tagList = obj.abilityTag.concat(obj.learningTag, obj.projectTag)
         this.userInfo = obj

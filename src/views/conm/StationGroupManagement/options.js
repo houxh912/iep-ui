@@ -1,28 +1,32 @@
 const dictsMap = {
   status: {
-    0: '正常',
-    1: '禁用',
+    0: '禁用',
+    1: '正常',
   },
 }
 
 const initForm = () => {
   return {
-    superiorSite:'',//上级站点
-    organization: '',//组织
-    name: '',//名称
-    domainName: '',//域名
-    phoneName: '',//手机端域名
+    parentId:'',//上级站点
+    // orgId: '',//组织
+    siteName: '',//名称
+    url: '',//域名
+    mobileUrl: '',//手机端域名
     status: '',//状态
   }
 }
 const columnsMap = [
   {
-    prop: 'domainName',
+    prop: 'url',
     label: '域名',
   },
+  // {
+  //   prop: 'orgId',
+  //   label: '组织',
+  // },
   {
-    prop: 'organization',
-    label: '组织',
+    prop:'mobileUrl',
+    label: '手机端域名',
   },
   {
     prop: 'status',
@@ -37,7 +41,11 @@ const initSearchForm = () => {
 }
 
 const rules = {
-
+  siteName: [{
+    required: true,
+    message: '请输入站点名称',
+    trigger: 'blur',
+  }],
 }
 
 const selfRules = {

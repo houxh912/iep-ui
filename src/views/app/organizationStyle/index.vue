@@ -1,9 +1,8 @@
 <template>
-  <div>
+  <iep-app-layout>
     <organizational-top :data="data"></organizational-top>
     <organizational-content :data="data"></organizational-content>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import OrganizationalContent from './OrganizationalContent/'
@@ -15,12 +14,14 @@ export default {
   components: { OrganizationalContent, OrganizationalTop },
   data () {
     return {
-      data: {},
+      data: {
+        visitVOs: [],
+      },
     }
   },
   methods: {
     loadData () {
-      getOrgDetail(this.$route.params.id).then(({data}) => {
+      getOrgDetail(this.$route.params.id).then(({ data }) => {
         this.data = data.data
       })
     },

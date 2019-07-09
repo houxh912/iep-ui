@@ -17,12 +17,12 @@ const columnsMap = [
 	},
 	{
 		prop: 'status',
-    label: '状态',
-    type: 'dict',
+		label: '状态',
+		type: 'dict',
 	},
 	{
 		prop: 'auditorName',
-    label: '部门核准人',
+		label: '部门核准人',
 	},
 ]
 

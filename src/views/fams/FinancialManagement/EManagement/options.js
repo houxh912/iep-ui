@@ -75,7 +75,7 @@ const toDtoForm = (row) => {
 
 const rules = {
 	type: [
-		{ required: true, message: '请输入支出类型', trigger: 'blur' },
+		{ required: true, type: 'array', message: '请输入支出类型', trigger: 'change' },
 	],
 	createTime: [
 		{ required: true, message: '请输入支出时间', trigger: 'blur' },
@@ -87,10 +87,10 @@ const rules = {
 		{ required: true, message: '请输入支出方式', trigger: 'blur' },
 	],
 	companyId: [
-		{ required: true, message: '请输入支出公司', trigger: 'blur' },
+		{ required: true, message: '请输入支出公司', trigger: 'change' },
 	],
 	accountId: [
-		{ required: true, message: '请输入银行户头', trigger: 'blur' },
+		{ required: true, message: '请输入银行户头', trigger: 'change' },
 	],
 	amount: [
 		{ required: true, message: '请输入支出金额', trigger: 'blur', type: 'number' },

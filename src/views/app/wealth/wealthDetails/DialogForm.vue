@@ -64,7 +64,7 @@ export default {
           const { data } = await this.formRequestFn(formToDto(this.form))
           if (data.data) {
             this.$message({
-              message: '操作成功',
+              message: `感谢您投资${this.form.orgName}公司。未来，请让我们一起继续携手相伴，披荆斩棘，共闯前路！`,
               type: 'success',
             })
             this.loadPage()

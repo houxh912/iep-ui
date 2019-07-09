@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="现金日记账" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="现金日记账" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-select size="small" v-model="companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择公司" @change="searchPage()"></iep-select>
@@ -30,6 +30,9 @@
 import { getLastSummaries } from '@/util/table'
 import { getCashDiaryList } from '@/api/fams/statistics'
 import { columnsMap, initSearchForm, initNow, getYear, getMonth } from './options'
+function initStatistics () {
+  return [0, 0, 0]
+}
 export default {
   data () {
     return {
@@ -40,8 +43,8 @@ export default {
       pagedTable: [],
       tableHeight: 'calc(100vh - 200px)',
       searchForm: initSearchForm(),
-      statistics: [0, 0],
-      replaceText: (data) => `（累计总支出：${data[0]}元，累计总收入：${data[1]}元）`,
+      statistics: initStatistics(),
+      replaceText: (data) => `（累计总支出：${data[0]}元，累计总收入：${data[1]}元，最新本期余额：${data[2]}元）`,
     }
   },
   computed: {
@@ -62,7 +65,7 @@ export default {
       const { data } = await requestFn({ ...param, ...this.pageOption })
       this.companyId = data.data.companyId
       this.pagedTable = data.data.diaryList
-      this.statistics = [data.data.expenditureTotal, data.data.inComeTotal]
+      this.statistics = [data.data.expenditureTotal, data.data.inComeTotal, data.data.newTotal]
       this.isLoadTable = false
     },
     searchPage () {

@@ -34,6 +34,12 @@ export default [
         meta: noAuth,
       },
       {
+        path: 'product_detail/:id',
+        name: '产品详情',
+        component: () => import('@/views/app/productDetail/'),
+        meta: noAuth,
+      },
+      {
         path: 'project',
         name: '项目频道',
         component: () => import('@/views/app/project/'),

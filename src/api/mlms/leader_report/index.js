@@ -33,3 +33,17 @@ export function getOgrReport (id) {
     method: 'get',
   })
 }
+export function putStaffReport (obj) {
+  return request({
+    url: '/mlms/weekmonthreport/report/time',
+    method: 'post',
+    data: obj,
+  })
+}
+export function putOrgReport (obj) {
+  return request({
+    url: '/mlms/orgreport/report/time',
+    method: 'post',
+    data: obj,
+  })
+}

@@ -89,7 +89,7 @@ export default {
       justify-content: flex-start;
       align-items: center;
       width: 100%;
-      font-size: 18px;
+      font-size: 16px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;

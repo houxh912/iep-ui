@@ -37,9 +37,6 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-.el-card {
-  height: 325px;
-}
 .title {
   color: #000;
 }
@@ -100,6 +97,6 @@ export default {
   border-radius: 50%;
 }
 .grid-content >>> .el-card {
-  height: 310px;
+  height: 320px;
 }
 </style>

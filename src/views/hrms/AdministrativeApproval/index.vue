@@ -1,78 +1,41 @@
 <template>
-  <div>
-    <basic-container>
-      <page-header title="审批记录" :replaceText="replaceText" :data="statistics"></page-header>
-      <operation-container>
-        <template slot="left">
-          <iep-button @click="handleDownload" icon="el-icon-download">导出全部</iep-button>
-        </template>
-        <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
-          </operation-search>
-        </template>
-      </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column label="申请人" width="90px">
-            <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
-            </template>
-          </el-table-column>
-        </template>
-        <el-table-column label="操作">
-          <template>
-            <el-button size="small" :disabled="true">分享</el-button>
-          </template>
-        </el-table-column>
-      </iep-table>
-    </basic-container>
-  </div>
+  <keep-alive include="List">
+    <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  </keep-alive>
 </template>
 
 <script>
-import { getAdministrativeApprovalPage } from '@/api/hrms/administrative_approval'
-import { postAppprovalExcelExport } from '@/api/hrms/excel'
-import mixins from '@/mixins/mixins'
-import AdvanceSearch from './AdvanceSearch'
-import { dictsMap, columnsMap } from './options'
+// 动态切换组件
+import List from './List'
+import Detail from '@/views/wel/approval/Components/Detail/index.vue'
+
 export default {
+  name: 'AdminApprovalList',
   components: {
-    AdvanceSearch,
+    List,
+    Detail,
   },
-  mixins: [mixins],
   data () {
     return {
-      dictsMap,
-      columnsMap,
-      statistics: [0, 0, 0, 0, 0, 0],
-      replaceText: (data) => `（本周新增${data[0]}条请假申请，${data[1]}条出差申请，${data[2]}条转正申请，${data[3]}条加班申请，${data[4]}条调岗申请，${data[5]}条调离职申请）`,
+      currentComponet: 'List',
+      record: '',
     }
   },
-  created () {
-    this.loadPage()
-  },
   methods: {
-    handleDetail (row) {
-      this.$router.push({
-        path: `/hrms_spa/approval_detail/${row.id}`,
-      })
+    handleDetail (record) {
+      this.record = record
+      this.currentComponet = 'Detail'
     },
-    handleDownload () {
-      postAppprovalExcelExport()
+    handleGoBack () {
+      this.record = ''
+      this.currentComponet = 'List'
     },
-    async loadPage (param = this.searchForm) {
-      const data = await this.loadTable(param, getAdministrativeApprovalPage)
-      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
-    },
-    handleCommandType () {
-      // console.log(val)
-    },
-    handleCommandUser () {
-      // console.log(val)
+  },
+  watch: {
+    '$route.path' () {
+      this.record = ''
+      this.currentComponet = 'List'
     },
   },
 }
 </script>
-<style scoped>
-</style>

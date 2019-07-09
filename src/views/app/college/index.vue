@@ -1,9 +1,8 @@
 <template>
-  <div class="school">
+  <iep-app-layout>
     <school-top></school-top>
     <school-content></school-content>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>
@@ -17,7 +16,7 @@ export default {
     }
   },
   created () {
-    
+
   },
 }
 </script>

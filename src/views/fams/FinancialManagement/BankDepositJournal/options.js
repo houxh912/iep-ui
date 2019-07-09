@@ -6,8 +6,12 @@ const columnsMap = [
     label: '序号',
   },
   {
+    prop: 'inputTime',
+    label: '录入日期',
+  },
+  {
     prop: 'createTime',
-    label: '日期',
+    label: '系统生成日期',
   },
   {
     prop: 'summary',
@@ -20,7 +24,7 @@ const initSearchForm = () => {
     year: new Date().getFullYear(),
     companyId: '0',
     bankId: '0',
-    month: new Date().getMonth()+1,
+    month: new Date().getMonth() + 1,
   }
 }
 

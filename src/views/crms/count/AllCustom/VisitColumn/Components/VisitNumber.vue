@@ -81,35 +81,37 @@ export default {
       },
       year: '',
       data1: [
-        { timeInterval: '周一', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '周二', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '周三', visitTheNumber: 0, increasedOpportunity: 3, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '周四', visitTheNumber: 0, increasedOpportunity: 32, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '周五', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '周六', visitTheNumber: 0, increasedOpportunity: 12, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '周日', visitTheNumber: 0, increasedOpportunity: 55, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '周一', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '周二', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '周三', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '周四', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '周五', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '周六', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '周日', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
       ],
       data2: [
-        { timeInterval: '一月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '二月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '三月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '四月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '五月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '六月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '七月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '八月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '九月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '十月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '十一月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '十二月', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '一月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '二月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '三月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '四月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '五月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '六月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '七月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '八月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '九月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '十月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '十一月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '十二月', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
       ],
       data3: [
-        { timeInterval: '第一季度', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '第二季度', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '第三季度', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
-        { timeInterval: '第四季度', visitTheNumber: 0, increasedOpportunity: 22, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '第一季度', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '第二季度', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '第三季度', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+        { timeInterval: '第四季度', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
       ],
-      data4: [],
+      data4: [
+        { timeInterval: '2019', visitTheNumber: 0, increasedOpportunity: 0, contractQuantity: 0, contactQuantity: 0, clientQuantity: 0 },
+      ],
     }
   },
   created () {
@@ -189,7 +191,16 @@ export default {
             m.timeInterval = year
             return m
           })
-          this.data4 = arr
+          for (let i in this.data4) {
+            for (let m in arr) {
+              if (arr[m].timeInterval == this.data4[i].timeInterval) {
+                this.data4[i].visitTheNumber = arr[m].visitTheNumber
+                break
+              } else {
+                this.data4[i].visitTheNumber = 0
+              }
+            }
+          }
           this.chartData.rows = this.data4
         }
       })
@@ -258,16 +269,13 @@ export default {
             m.timeInterval = year
             return m
           })
-          this.data4 = this.data4.map(m => {
-            if (!m.hasOwnProperty('increasedOpportunity')) {
-              m.increasedOpportunity = 0
-              return m
-            }
-          })
           for (let i in this.data4) {
             for (let m in arr) {
-              if (this.data4[i].timeInterval == arr[m].timeInterval) {
+              if (arr[m].timeInterval == this.data4[i].timeInterval) {
                 this.data4[i].increasedOpportunity = arr[m].increasedOpportunity
+                break
+              } else {
+                this.data4[i].increasedOpportunity = 0
               }
             }
           }
@@ -312,7 +320,9 @@ export default {
               }
             }
           }
-          this.chartData.rows = this.data2
+          if(this.data4.length !== 0){
+            this.chartData.rows = this.data4
+          }
         }
         else if (this.interval == 3) {
           let arr = res.data.data.map(m => m.timeInterval.substring(3, 4))
@@ -339,16 +349,13 @@ export default {
             m.timeInterval = year
             return m
           })
-          this.data4 = this.data4.map(m => {
-            if (!m.hasOwnProperty('contractQuantity')) {
-              m.contractQuantity = 0
-              return m
-            }
-          })
           for (let i in this.data4) {
             for (let m in arr) {
-              if (this.data4[i].timeInterval == arr[m].timeInterval) {
+              if (arr[m].timeInterval == this.data4[i].timeInterval) {
                 this.data4[i].contractQuantity = arr[m].contractQuantity
+                break
+              } else {
+                this.data4[i].contractQuantity = 0
               }
             }
           }
@@ -420,16 +427,13 @@ export default {
             m.timeInterval = year
             return m
           })
-          this.data4 = this.data4.map(m => {
-            if (!m.hasOwnProperty('contactQuantity')) {
-              m.contactQuantity = 0
-              return m
-            }
-          })
           for (let i in this.data4) {
             for (let m in arr) {
-              if (this.data4[i].timeInterval == arr[m].timeInterval) {
+              if (arr[m].timeInterval == this.data4[i].timeInterval) {
                 this.data4[i].contactQuantity = arr[m].contactQuantity
+                break
+              } else {
+                this.data4[i].contactQuantity = 0
               }
             }
           }
@@ -501,16 +505,13 @@ export default {
             m.timeInterval = year
             return m
           })
-          this.data4 = this.data4.map(m => {
-            if (!m.hasOwnProperty('clientQuantity')) {
-              m.clientQuantity = 0
-              return m
-            }
-          })
           for (let i in this.data4) {
             for (let m in arr) {
-              if (this.data4[i].timeInterval == arr[m].timeInterval) {
+              if (arr[m].timeInterval == this.data4[i].timeInterval) {
                 this.data4[i].clientQuantity = arr[m].clientQuantity
+                break
+              } else {
+                this.data4[i].clientQuantity = 0
               }
             }
           }

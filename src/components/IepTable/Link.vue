@@ -1,5 +1,5 @@
 <template>
-  <el-badge :hidden="!!isRead" is-dot class="item">
+  <el-badge :hidden="!isDot||!!isRead" is-dot class="item">
     <el-link :type="isRead?'info':'default'" v-bind="$attrs" v-on="$listeners">
       <slot></slot>
     </el-link>
@@ -15,7 +15,11 @@ export default {
     },
     isRead: {
       type: Number,
-      default: 1,
+      default: 0,
+    },
+    isDot: {
+      type: Boolean,
+      default: true,
     },
   },
 }

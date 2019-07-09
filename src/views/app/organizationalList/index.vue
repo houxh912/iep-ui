@@ -1,9 +1,8 @@
 <template>
-  <div class="organizational-list">
+  <iep-app-layout class="organizational-list">
     <organizational-list-top></organizational-list-top>
     <organizational-con></organizational-con>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>

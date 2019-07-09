@@ -25,7 +25,6 @@ Vue.prototype.$wsUrl = wsUrl
 
 Vue.use(Avue, { menuType: 'text' })
 
-
 //加载过滤器
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

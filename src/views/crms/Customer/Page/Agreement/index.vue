@@ -30,15 +30,16 @@
         <el-table-column prop="operation" label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" plain size="small" type="warning" :disabled="scope.row.userId !== userInfo.userId">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)" size="small" :disabled="scope.row.userId !== userInfo.userId">删除</iep-button>
+              <iep-button @click="handleEdit(scope.row)" plain size="small" type="warning" :disabled="isEditDelete(scope.row)">编辑</iep-button>
+              <iep-button @click="handleDeleteById(scope.row)" size="small" :disabled="isEditDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </div>
     <edit ref="EditDialog" @load-page="loadPage" v-if="pageState=='dialog'" @dialog="isShow" @async="async" :record="record" :add="add"></edit>
-    <detail ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail>
+    <!-- <detail ref="DetailDialog" v-if="pageState=='detail'" @detail="isShow" :add="add"></detail> -->
+    <detailDialog ref="detail" @load-page="pageState='list'" v-if="pageState == 'detail'"></detailDialog>
   </div>
 </template>
 
@@ -47,11 +48,12 @@ import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 import { getAgreementPage, postAgreement, putAgreement, deleteAgreementById } from '@/api/crms/agreement'
 import Edit from './Edit'
-import Detail from './Detail'
+// import Detail from './Detail'
+import detailDialog from './Detail'
 import { mapGetters } from 'vuex'
 export default {
   name: 'contract',
-  components: { Edit, Detail },
+  components: { Edit, detailDialog },
   mixins: [mixins],
   data () {
     return {
@@ -78,6 +80,17 @@ export default {
     ]),
   },
   methods: {
+    isEditDelete (row) {
+      if (this.record.marketManager == this.userInfo.userId) {
+        return false
+      } else {
+        if (this.userInfo.userId == row.userId) {
+          return false
+        } else {
+          return true
+        }
+      }
+    },
     async () {
       this.$emit('load-page')
     },
@@ -96,7 +109,7 @@ export default {
     handleEdit (row) {
       this.add = {
         formRequestFn: putAgreement,
-        methodName: '编辑',
+        methodName: '修改',
         id: this.id,
         contractId: row.contractId,
       }
@@ -106,13 +119,17 @@ export default {
       if (column.label == '操作' || column.type == 'selection' || column.type == 'index') {
         return false
       }
-      this.add = {
-        formRequestFn: putAgreement,
-        methodName: '详情',
-        id: this.id,
-        contractId: row.contractId,
-      }
+      // this.add = {
+      //   formRequestFn: putAgreement,
+      //   methodName: '详情',
+      //   id: this.id,
+      //   contractId: row.contractId,
+      // }
+      // this.pageState = 'detail'
       this.pageState = 'detail'
+      this.$nextTick(() => {
+        this.$refs['detail'].open(row.contractId)
+      })
     },
     isShow () {
       this.pageState = 'list'

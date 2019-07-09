@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="创建新试卷" :data="[10, 5]"></page-header>
+      <iep-page-header title="创建新试卷" :data="[10, 5]"></iep-page-header>
     </basic-container>
   </div>
 </template>

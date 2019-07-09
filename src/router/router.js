@@ -11,6 +11,7 @@ import crmsRouter from './crms/'
 import appRouter from './app/'
 import cpmsRouter from './cpms/'
 import famsRouter from './fams/'
+import conmRouter from './conm/'
 import exceptionRouter from './exception/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
@@ -47,6 +48,7 @@ Router.addRoutes([
   ...appRouter,
   ...cpmsRouter,
   ...famsRouter,
+  ...conmRouter,
   ...exceptionRouter,
   ...ViewsRouter,
   ...PageRouter,

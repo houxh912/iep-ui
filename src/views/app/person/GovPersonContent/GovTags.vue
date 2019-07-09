@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     loadList () {
-      getTagsList().then(({data}) => {
+      getTagsList().then(({ data }) => {
         this.leaderBoardList = data.data.tags
         this.data = `( ${data.data.size}个 )`
       })
@@ -80,8 +80,8 @@ export default {
 }
 </style>
 <style scoped>
-.tags >>> .el-card__body {
-  height: 302px;
+.tags >>> .el-card {
+  height: 362px;
 }
 </style>
 

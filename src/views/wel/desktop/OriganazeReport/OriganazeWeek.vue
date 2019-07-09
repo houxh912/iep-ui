@@ -41,6 +41,7 @@ export default {
       columnsMap,
       orgIds: '',
       realName: '',
+      isLoadTable: false,
     }
   },
   props: {
@@ -69,7 +70,7 @@ export default {
       this.loadTable({ realName: this.realName, orgId: this.orgIds, reportType: 0, ...param }, getOrgTableData)
     },
     handleClick (row) {
-      this.$router.push(`/wel/origanaze_detail/${row.reportId}`)
+      this.$router.push(`/wel/origanaze_week_detail/${row.reportId}`)
     },
     listPage () {
       this.realName = ''

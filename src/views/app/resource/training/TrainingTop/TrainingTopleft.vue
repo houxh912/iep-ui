@@ -48,7 +48,7 @@ export default {
       })
     },
     getNewestList () {
-      getNewestList().then(({data}) => {
+      getNewestList().then(({ data }) => {
         this.data = data.data
       })
     },
@@ -68,9 +68,13 @@ export default {
     padding: 20px;
   }
   .img {
-    display: inline-block;
+    display: flex;
     width: 340px;
     height: 350px;
+    align-items: center;
+    img {
+      height: auto;
+    }
   }
   .text {
     margin-left: 20px;
@@ -147,5 +151,10 @@ export default {
   line-height: 26px;
   background: #fff;
   color: #606266;
+}
+</style>
+<style scoped>
+.training-top-left >>> .el-image__inner {
+  height: auto;
 }
 </style>

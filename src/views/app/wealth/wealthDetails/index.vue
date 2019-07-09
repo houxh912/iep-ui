@@ -3,14 +3,14 @@
     <basic-container>
       <div class="grid-container">
         <div class="title">
-          <el-card shadow="never" class="box-card" :body-style="bodyStyle">
+          <el-card shadow="always" class="box-card" :body-style="bodyStyle">
             <div class="title-wrapper">
               <div class="left">
-                <iep-img style="width: 350px;height:300px;" :src="form.orgLogo" alt=""></iep-img>
+                <iep-img style="width: 194px;height:124px;" :src="form.orgLogo" alt=""></iep-img>
                 <div class="main">
                   <h4 class="investmentName">{{form.orgName}}</h4>
                   <div class="way">
-                    <!-- <span>投资方式：{{way}}</span> -->
+                    <span>投资方式：国脉贝</span>
                     <span>投资人次：{{form.investmentNumber}}</span>
                   </div>
                   <div class="span-list">
@@ -21,15 +21,15 @@
               <div class="right">
                 <div>目标金额</div>
                 <div>{{form.targetAmount}}</div>
-                <el-button @click="handleAdd()" type="danger" size="medium" plain v-show="form.status==4">马上参与</el-button>
-                <el-button type="warning" disabled size="medium" plain v-show="form.status==1">待审核</el-button>
-                <el-button type="info" disabled size="medium" plain v-show="form.status==6">已结束</el-button>
-                <el-button type="info" disabled size="medium" plain v-show="form.status==5 || form.status==2">待上架</el-button>
+                <el-button @click="handleAdd()" type="primary" v-show="form.status==4" plain>马上参与</el-button>
+                <el-button type="warning" disabled plain v-show="form.status==1">待审核</el-button>
+                <el-button type="info" disabled plain v-show="form.status==6">已结束</el-button>
+                <el-button type="info" disabled plain v-show="form.status==5 || form.status==2">待上架</el-button>
               </div>
             </div>
           </el-card>
         </div>
-        <div>
+        <div class="basic-info-achievement">
           <IepAppTabCard title="基本信息">
             <div class="information-wrapper">
               <div>
@@ -38,7 +38,7 @@
               </div>
               <div>
                 <div class="label">当前股权单价</div>
-                <div class="num">{{form.sharesUnivalent}}<span style="font-size:16px;color:#666;">（贝）</span></div>
+                <div class="num">{{form.sharesUnivalent}}<span style="font-size:12px;">（贝）</span></div>
               </div>
               <div>
                 <div class="label">预计年化收益率</div>
@@ -46,7 +46,7 @@
               </div>
               <div>
                 <div class="label">最低起投金额</div>
-                <div class="num">{{form.minimumAmount}}<span style="font-size:16px;color:#666;">（元）</span></div>
+                <div class="num">{{form.minimumAmount}}<span style="font-size:12px;">（元）</span></div>
               </div>
               <div>
                 <div class="label">投资人最低信用评分</div>
@@ -54,63 +54,41 @@
               </div>
               <div>
                 <div class="label">组织排行</div>
-                <div class="num">9/15</div>
+                <div class="num">--</div>
               </div>
             </div>
             <div class="schedule">
               <div class="schedule-title">投资进度</div>
-              <div class="release">正式发布：2019-06-03</div>
-              <div class="release">目标金额：￥{{form.targetAmount}}</div>
-              <el-progress :text-inside="true" :stroke-width="18" :percentage="form.percentage" status="exception" style="margin-top:10px;"></el-progress>
+              <div class="release"><span class="schedule-title-sub">正式发布：</span>2019-06-03</div>
+              <el-progress :text-inside="true" :stroke-width="8" :percentage="form.percentage" status="success" style="margin-top:10px;"></el-progress>
+              <div class="release release-bottom">
+                <span><span class="schedule-title-sub">目标金额：</span>￥{{form.targetAmount}}</span>
+                <span><span class="schedule-title-sub">当前金额：</span>￥{{form.hadMoney}}</span></div>
             </div>
           </IepAppTabCard>
         </div>
-        <div>
+        <div class="basic-info-achievement">
           <IepAppTabCard title="业绩趋势">
-            <ve-line :data="chartData" :settings="chartSettings" height="350px"></ve-line>
+            <ve-line :colors="colors" :data="chartData" :settings="chartSettings" height="350px"></ve-line>
           </IepAppTabCard>
         </div>
         <div>
-          <IepAppTabCard title="财务报告">
-            <el-table :data="reportData" style="width: 100%">
-              <el-table-column prop="type" label="资产类型">
-              </el-table-column>
-              <el-table-column prop="type" label="金额">
-              </el-table-column>
-              <el-table-column prop="type" label="升降（同期）">
-              </el-table-column>
-              <el-table-column prop="type" label="更新时间">
-              </el-table-column>
-            </el-table>
-          </IepAppTabCard>
+          <financial-report></financial-report>
         </div>
         <div>
-          <IepAppTabCard title="投资记录">
-            <el-table :data="form.record" style="width: 100%">
-              <el-table-column prop="id" label="序号" width="60px;">
-              </el-table-column>
-              <el-table-column prop="userName" label="投资人" width="80px;">
-              </el-table-column>
-              <el-table-column prop="totalAmount" label="投资金额（元）" width="120px;">
-              </el-table-column>
-              <el-table-column prop="status" label="支付方式">
-              </el-table-column>
-              <el-table-column prop="updateTime" label="投资时间" width="160px;">
-              </el-table-column>
-            </el-table>
-          </IepAppTabCard>
+          <investment-record></investment-record>
         </div>
         <div class="last-grid">
-          <IepAppTabCard title="股东信息">
+          <IepAppTabCard title="股东信息" tip="当前持股90%  还有10%股份未认购">
             <div class="shareholder-inform" v-for="(item, index) in shareholderData" :key="index">
               <div class="img">
                 <iep-img :src="item.img" alt=""></iep-img>
                 <span v-show="item.type" class="type">{{item.type}}</span>
               </div>
-              <div class="row">股东：{{item.name}}</div>
+              <div class="row"><span class="name">股东：</span>{{item.name}}</div>
               <div class="row">
-                <span>持股：{{item.proportion}}</span>
-                <span style="float:right;">{{item.time}}</span>
+                <span><span class="name">持股：</span>{{item.proportion}}</span>
+                <span style="float:right;font-size:12px;color:#999;">{{item.time}}</span>
               </div>
             </div>
           </IepAppTabCard>
@@ -125,10 +103,13 @@ import { getInvestmentById, joinInvestment } from '@/api/fams/investment'
 import mixins from '@/mixins/mixins'
 import { initForm } from './options'
 import DialogForm from './DialogForm'
+import InvestmentRecord from './InvestmentRecord'
+import FinancialReport from './FinancialReport'
 export default {
   mixins: [mixins],
-  components: { DialogForm },
+  components: { DialogForm, InvestmentRecord, FinancialReport },
   data () {
+    this.colors = ['#d66368', '#eebc7d']
     this.chartSettings = {
       metrics: ['本组织', '组织业绩平均值对比'],
       dimension: ['日期'],
@@ -165,10 +146,10 @@ export default {
         columns: ['日期', '本组织', '组织业绩平均值对比'],
         rows: [
           { '日期': '2019-05-21', '本组织': 1393, '组织业绩平均值对比': 1093 },
-          { '日期': '2019-05-22', '本组织': 3530, '组织业绩平均值对比': 3230 },
-          { '日期': '2019-05-23', '本组织': 2923, '组织业绩平均值对比': 2623 },
-          { '日期': '2019-05-24', '本组织': 1723, '组织业绩平均值对比': 1423 },
-          { '日期': '2019-05-25', '本组织': 3792, '组织业绩平均值对比': 3492 },
+          { '日期': '2019-05-22', '本组织': 2030, '组织业绩平均值对比': 1830 },
+          { '日期': '2019-05-23', '本组织': 2223, '组织业绩平均值对比': 2123 },
+          { '日期': '2019-05-24', '本组织': 2723, '组织业绩平均值对比': 2403 },
+          { '日期': '2019-05-25', '本组织': 3592, '组织业绩平均值对比': 3492 },
           { '日期': '2019-05-26', '本组织': 4593, '组织业绩平均值对比': 4293 },
         ],
       },
@@ -197,11 +178,6 @@ export default {
       getInvestmentById(this.id).then(({ data }) => {
         this.form = data.data
         this.form.percentage = this.form.hadMoney / this.form.targetAmount * 100
-        var recordLen = this.form.record.length
-        for (var i = 0; i < recordLen; i++) {
-          var surname = this.form.record[i].userName.substring(0, 1)
-          this.form.record[i].userName = surname + '**'
-        }
       })
     },
     handleAdd () {
@@ -209,6 +185,7 @@ export default {
       this.$refs['DialogForm'].formRequestFn = joinInvestment
       this.$refs['DialogForm'].form.investmentId = this.id
       this.$refs['DialogForm'].form.orgId = this.form.orgId
+      this.$refs['DialogForm'].form.orgName = this.form.orgName
       this.$refs['DialogForm'].form.minimumBuy = this.form.minimumBuy
       this.$refs['DialogForm'].form.remainSharesNumber = this.form.remainSharesNumber
       this.$refs['DialogForm'].form.sharesUnivalent = this.form.sharesUnivalent
@@ -222,6 +199,9 @@ export default {
 .wealth-details {
   width: 1200px;
   margin: 0 auto;
+  .basic-container {
+    padding-top: 0;
+  }
 }
 .box-card {
   height: 100%;
@@ -229,7 +209,7 @@ export default {
 .grid-container {
   display: grid;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
+  grid-row-gap: 20px;
   grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
   .title {
@@ -238,16 +218,24 @@ export default {
     display: grid;
     .title-wrapper {
       display: flex;
+      align-items: center;
       .left {
         display: flex;
         flex-grow: 1;
+        align-items: center;
         > img {
-          width: 220px;
-          height: 140px;
+          width: 194px;
+          height: 124px;
+        }
+        .el-image {
+          border: 1px solid #ebeef5;
+          width: 194px;
+          height: 124px;
         }
         .main {
           padding-left: 20px;
           .investmentName {
+            margin-bottom: 5px;
             height: 50px;
             line-height: 50px;
             font-size: 20px;
@@ -260,8 +248,8 @@ export default {
           }
           .span-list {
             display: inline-block;
-            height: 60px;
-            line-height: 60px;
+            height: 70px;
+            line-height: 70px;
             :after {
               content: "/";
               width: 30px;
@@ -279,9 +267,11 @@ export default {
       }
       .right {
         width: 250px;
+        text-align: right;
         > div:first-child {
           height: 30px;
           line-height: 30px;
+          color: #666;
         }
         > div:nth-child(2) {
           height: 40px;
@@ -291,10 +281,8 @@ export default {
           &:before {
             content: "￥";
             font-size: 16px;
-            width: 30px;
-            height: 30px;
             line-height: 30px;
-            color: #666;
+            color: #999;
             margin-left: -20px;
             text-align: center;
             display: inline-block;
@@ -313,21 +301,23 @@ export default {
       padding-left: 10px;
       margin-bottom: 20px;
       > .label {
-        font-size: 16px;
+        font-size: 14px;
         color: #666;
         height: 30px;
         line-height: 30px;
       }
       > .num {
+        display: flex;
+        align-items: flex-end;
         font-size: 20px;
-        height: 50px;
-        line-height: 50px;
+        height: 40px;
+        line-height: 40px;
       }
     }
   }
   .schedule {
     .schedule-title {
-      font-size: 16px;
+      font-size: 14px;
       height: 50px;
       line-height: 50px;
     }
@@ -336,19 +326,43 @@ export default {
       height: 35px;
       line-height: 35px;
     }
+    .release-bottom {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      align-items: center;
+    }
+    .schedule-title-sub {
+      font-size: 14px;
+      color: #666;
+    }
   }
   .shareholder-inform {
     width: 16%;
     float: left;
     margin: 0 22px;
+    cursor: pointer;
     .img {
       width: 180px;
       height: 120px;
       position: relative;
       margin-bottom: 10px;
+      overflow: hidden;
+      border: 1px solid #ebeef5;
+      .el-image {
+        width: 100%;
+        height: 100%;
+        transition: 0.5s;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
       > img {
         width: 180px;
         height: 120px;
+      }
+      .name {
+        color: #999;
       }
       .type {
         position: absolute;
@@ -388,5 +402,41 @@ export default {
 }
 .wealth-details >>> .el-button {
   margin: 0;
+}
+.wealth-details >>> .el-progress-bar__innerText {
+  display: none;
+}
+.basic-info-achievement >>> .el-card,
+.financial-investment >>> .el-card {
+  height: 416px;
+}
+.title >>> .el-card__body {
+  padding: 20px 30px;
+}
+.financial-investment >>> .el-table__body-wrapper {
+  height: 290px;
+  overflow: auto;
+  overflow-x: hidden;
+}
+.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  transition: 0.3s background-color;
+}
+.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  transition: 0.3s background-color;
+  display: none;
+  transition: all 0.5s;
+}
+.financial-investment
+  >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>

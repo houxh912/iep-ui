@@ -1,10 +1,11 @@
 <template>
   <basic-container>
-    <page-header :title="formData.contractName" :backOption="backOption">
+    <iep-page-header :title="formData.contractName" :backOption="backOption" :isAdvance="true">
+      <div slot="custom" class="page-hander-title">{{formData.contractName}} <span class="sub-title" v-if="formData.isHistory === 2">历史合同</span></div>
       <div slot="sub" class="tags">
         <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
       </div>
-    </page-header>
+    </iep-page-header>
 
     <el-row class="info">
       <el-col class="item" :span='12' v-for="(item, index) in infoList" :key="index">
@@ -144,7 +145,7 @@ export default {
         // }
         // data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length - 1)
         data.companyRealName = data.companyName ? `${data.companyName.name} - ${data.companyName.orgName}` : ''
-        data.signCompanyName = data.signCompanyRealName ? `${data.signCompanyRealName.name} - ${data.signCompanyRealName.orgName}` : ''
+        data.signCompanyRealNameName = data.signCompanyRealName ? `${data.signCompanyRealName.name} - ${data.signCompanyRealName.orgName}` : ''
         data.underTakeDeptNames = ''
         if (data.underTakeDeptName) data.underTakeDeptNames = data.underTakeDeptName.map(m => m.name).join('、')
         data.projectName = data.projectRelation ? data.projectRelation.name : '无'
@@ -185,6 +186,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.page-hander-title {
+  font-size: 20px;
+  .sub-title {
+    font-size: 12px;
+    color: #ba1b21;
+  }
+}
 .tags {
   .el-tag {
     margin-right: 10px;

@@ -1,22 +1,5 @@
 <template>
   <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable">
-    <template slot="before-columns">
-      <el-table-column label="签订时间">
-        <template slot-scope="scope">
-          {{scope.row.signingTime|parseToDay}}
-        </template>
-      </el-table-column>
-      <el-table-column label="合同金额">
-        <template slot-scope="scope">
-          {{scope.row.contractAmount}}
-        </template>
-      </el-table-column>
-      <el-table-column label="合同完结时间">
-        <template slot-scope="scope">
-          {{scope.row.contractClosureTime|parseToDay}}
-        </template>
-      </el-table-column>
-    </template>
     <el-table-column label="利润">
       <template slot-scope="scope">
         <div :class="{'is-red': scope.row.profit<=20}">{{scope.row.profit+'%'}}</div>
@@ -37,8 +20,28 @@ export default {
       },
       columnsMap: [
         {
+          prop: 'contractClosureTime',
+          label: '合同完结时间',
+          type: 'date',
+          formatString: 'YYYY-MM-DD',
+        },
+        {
+          prop: 'contractAmount',
+          label: '合同金额',
+        },
+        {
+          prop: 'signingTime',
+          label: '签订时间',
+          type: 'date',
+          formatString: 'YYYY-MM-DD',
+        },
+        {
           prop: 'projectIncome',
           label: '到账金额',
+        },
+        {
+          prop: 'outstandingAmount',
+          label: '未到账金额',
         },
         {
           prop: 'projectExpenditure',
@@ -55,6 +58,10 @@ export default {
         {
           prop: 'invoicingAmount',
           label: '开票金额',
+        },
+        {
+          prop: 'unInvoicedAmount',
+          label: '未开票金额',
         },
         {
           prop: 'isCleared',
@@ -84,7 +91,7 @@ export default {
         })
       }
     },
-    
+
   },
 }
 </script>

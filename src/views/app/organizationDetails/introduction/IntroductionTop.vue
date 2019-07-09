@@ -1,45 +1,47 @@
 <template>
   <div class="introduction-top">
     <div class="introduction-top-con">
-      <div class="img"><iep-img :src="img" alt=""></iep-img></div>
+      <div class="img">
+        <iep-img :src="data.logo" alt=""></iep-img>
+      </div>
       <div class="text">
-        <span class="title">{{title}}<span class="sub-title">{{subTitle}}</span></span>
-        <span class="detail"><span>创建人：{{founder}}</span><span>成立时间：{{time}}</span><span>人员规模：{{scale}}</span></span>
-        <div class="labs-con">
+        <span class="title">{{data.name}}</span>
+        <span class="detail"><span>创建人：{{data.creatorName}}</span><span>成立时间：{{data.establishTime.slice(0, 10)}}</span><span>人员规模：{{data.memberNum}}</span></span>
+        <!-- <div class="labs-con">
           <div class="data-lab" v-for="lab in labList" :key="lab.id">
             <div class="count">{{lab.data}}</div>
             <div class="labTitle"><span>{{lab.labTitle}}</span></div>
           </div>
-        </div>
+        </div> -->
+        <span class="detail"><span>联系电话：{{data.contactMethod}}</span><span>联系地址：{{data.address}}</span></span>
       </div>
     </div>
   </div>
 </template>
 <script>
 export default {
+  props: {
+    data: {
+      type: Object,
+    },
+  },
   data () {
     return {
-      title: '国脉互联',
-      subTitle: 'govemade',
-      founder: '杨冰之',
-      time: '2017-12-13',
-      scale: '500',
-      img: require('./img/logo01.jpg'),
       labList: [
         {
-          data: '670',
+          data: '--',
           labTitle: '信用值',
         },
         {
-          data: '1455',
+          data: '--',
           labTitle: '贡献',
         },
         {
-          data: '5',
+          data: '--',
           labTitle: '综合排名',
         },
         {
-          data: '19',
+          data: '--',
           labTitle: '业绩排名',
         },
       ],
@@ -51,7 +53,6 @@ export default {
 <style lang="scss" scoped>
 .introduction-top {
   display: flex;
-  margin: 0 20px;
   align-items: center;
   align-content: center;
   height: 180px;
@@ -66,9 +67,12 @@ export default {
     align-content: center;
     .detail {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      width: 55%;
+      width: 100%;
+      margin-top: 20px;
+      span {
+        margin-right: 20px;
+      }
     }
     .labs-con {
       display: flex;
@@ -100,7 +104,7 @@ export default {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        margin-bottom: 18px;
+        margin-bottom: 5px;
         font-size: 18px;
       }
       .sub-title {

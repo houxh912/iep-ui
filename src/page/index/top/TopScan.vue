@@ -1,7 +1,7 @@
 <template>
   <el-popover placement="bottom" width="336" trigger="click">
     <!-- TODO: -->
-    <iep-img src="//cloud.govmade.com/upload/iep/201906/491345f6-ac0b-449d-a78d-3e55bf669ae4_TIM%E5%9B%BE%E7%89%8720190606183914.jpg"></iep-img>
+    <iep-img src="//183.131.134.242:10060/upload/iep/qrcode.jpg"></iep-img>
     <el-tooltip slot="reference" effect="dark" content="手机版二维码" placement="bottom">
       <iep-button>
         <a-icon type="scan" />

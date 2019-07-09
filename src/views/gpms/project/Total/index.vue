@@ -6,32 +6,44 @@
         <iep-button @click="handleDeleteAll" class="add" v-if="gpms_project_edit_del">批量删除</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advanceSearch placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow" prop="projectName">
+        <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advance-search placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow" prop="projectName">
           <!--title-->
-          <el-row class="search">
+          <!-- <el-row class="search">
             <el-col :span="23">高级搜索</el-col>
             <el-col :span="1">
               <i class="iconfon el-icon-plus" @click="closeDialog" style="cursor: pointer;"></i>
             </el-col>
-          </el-row>
+          </el-row> -->
           <!--表单-->
-          <!-- <searchForm></searchForm> -->
+          <!-- <search-form></search-form> -->
+            <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
       <el-table-column label="项目名称" slot="before-columns" width="300px">
         <template slot-scope="scope">
-          <div style="cursor: pointer;" @click="handleDetail(scope.row)">
+          <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
             <span>{{ scope.row.projectName }}</span>
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="立项时间" width="150px">
+        <template slot-scope="scope">
+          <span>{{ scope.row.projectTime.slice(0, 10) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" v-if="tabType!=='3'">
         <template slot-scope="scope">
           <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
           <el-button size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del">编辑</el-button>
           <el-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</el-button>
+          <el-button size="small" @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" v-else>
+        <template slot-scope="scope">
+          <el-button size="small" @click="handleDefine(scope.row)">认领</el-button>
         </template>
       </el-table-column>
     </iep-table>
@@ -42,17 +54,17 @@
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData } from '@/api/gpms/index'
-// import searchForm from './searchForm'
+import { getProjectPage, statusCancel, statusDefine } from '@/api/gpms/fas'
+import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
 const optNameMap = {
   delete: '删除',
 }
 export default {
-  components: {},
+  components: {AdvanceSearch},
   props: {
     tabType: {
       type: String,
-      default: '',
     },
   },
   computed: {
@@ -67,6 +79,7 @@ export default {
       dialogIsShow: true,
       paramForm: paramForm(),
       value: '',
+      searchForm: {},
       gpms_project_add: false,
       gpms_project_view: false,
       gpms_project_edit_del: false,
@@ -75,14 +88,19 @@ export default {
   mixins: [mixins],
   methods: {
     loadPage (params = {}) {
-      this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+      if (this.tabType === 3) {
+        this.loadTable(Object.assign({}, params, this.searchForm), getProjectPage)
+      } else {
+        this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+      }
     },
     closeDialog () {
       this.dialogIsShow = false
       this.paramForm = paramForm()
     },
     searchPage (val) {
-      if (val.projectName) this.loadPage(val)
+      this.searchForm = Object.assign({}, this.searchForm, val)
+      this.loadPage()
     },
     //勾选行执行
     selectionChange (val) {
@@ -123,6 +141,28 @@ export default {
             })
           }
           this.load()
+        })
+      })
+    },
+    handleClaim (row) {
+      this.$confirm('是否确认取消认领此数据?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(() => {
+        statusCancel([row.id]).then(() => {
+          this.$message.success('取消成功！')
+          this.loadPage()
+        })
+      })
+    },
+    handleDefine (row) {
+      this.$confirm('是否确认认领此数据?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(() => {
+        statusDefine([row.id]).then(() => {
+          this.$message.success('取消成功！')
+          this.loadPage()
         })
       })
     },

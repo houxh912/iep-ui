@@ -2,11 +2,11 @@
   <div>
     <basic-container>
       <div v-if="!dialogTableVisible">
-        <page-header title="我的定位">
+        <iep-page-header title="我的定位">
           <template>
             <el-button class="modify" size="small" @click="handleClicks">PK对比</el-button>
           </template>
-        </page-header>
+        </iep-page-header>
         <div class="box">
           <!-- 定位分析 -->
           <el-row>

@@ -4,7 +4,7 @@
       <el-card class="news-list" v-for="item in pageList" :key="item.id" shadow="hover" @click.native="handleDetail(item)">
         <div class="text">
           <h4 class="sub-title">
-            <el-tag class="classTag">{{item.type}}</el-tag><span class="sub-title-con">{{item.trainingTheme}}</span>
+            <span class="sub-title-con">{{item.trainingTheme}}</span>
           </h4>
           <p class="list-content">{{`讲师：${item.trainerName}`}}</p>
           <div class="list-item-description">
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { getTrainingRecordPage } from '@/api/hrms/training_record'
+import { getRecruitPage } from '@/api/app/hrms/'
 
 export default {
   props: {
@@ -40,14 +40,14 @@ export default {
       params: {
         current: 1,
         size: 10,
-        userId: this.userId,
+        trainer: this.userId,
       },
       pageList: [],
     }
   },
   methods: {
     loadPage () {
-      getTrainingRecordPage(this.params).then(({data}) => {
+      getRecruitPage(this.params).then(({ data }) => {
         this.pageList = data.data.records
         this.total = data.data.total
       })
@@ -102,6 +102,9 @@ export default {
     flex: 1;
     margin-right: 20px;
     overflow: hidden;
+    .sub-title-con {
+      margin-left: 10px;
+    }
     &:hover .sub-title-con {
       color: #cb3737;
     }
@@ -116,6 +119,7 @@ export default {
   .list-item-description {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     font-size: 12px;
     .time,
     .see {
@@ -124,12 +128,16 @@ export default {
       align-items: center;
       margin-right: 30px;
       color: #999;
+      min-width: 72px;
       i {
         margin-right: 3px;
+        font-size: 12px;
       }
     }
     .time {
+      min-width: 124px;
       i {
+        margin-right: 3px;
         font-size: 12px;
       }
     }
@@ -141,9 +149,16 @@ export default {
         border-color: #cb3737;
       }
     }
-  }
-  .classTag {
-    margin-right: 8px;
+    .classTag {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-right: 8px;
+      padding: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
 .news-con {

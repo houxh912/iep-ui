@@ -1,36 +1,31 @@
 <template>
-  <div class="app-container calendar-list-container">
+  <div>
     <basic-container>
-      <avue-crud :option="tableOption" :data="list" ref="crud" :page="page" v-model="form" :table-loading="listLoading" :before-open="handleOpenBefore" @on-load="getList" @search-change="handleFilter" @refresh-change="handleRefreshChange" @row-update="update" @row-save="create">
-        <template slot="menuLeft">
-          <el-button class="filter-item" @click="handleCreate" size="small" type="primary" icon="el-icon-edit">添加
-          </el-button>
+      <iep-page-header title="角色管理"></iep-page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button v-if="goms_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
         </template>
-        <template slot="dsScopeForm">
-          <div v-if="form.dsType == 1">
-            <el-tree class="filter-tree" :data="dsScopeData" :check-strictly="true" node-key="id" highlight-current :props="defaultProps" ref="scopeTree" :default-checked-keys="checkedDsScope" show-checkbox>
-            </el-tree>
-          </div>
+        <template slot="right">
+          <operation-search @search-page="searchPage">
+          </operation-search>
         </template>
-
-        <template slot="menu" slot-scope="scope">
-          <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row, scope.index)">编辑
-          </el-button>
-          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row, scope.index)">删除
-          </el-button>
-          <el-button size="mini" type="text" icon="el-icon-plus" @click="handlePermission(scope.row, scope.index)">权限
-          </el-button>
-        </template>
-      </avue-crud>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column prop="operation" label="操作" width="260">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
+              <iep-button v-if="goms_role_edit" @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="goms_role_del" @click="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button @click="handlePermission(scope.row, scope.index)" v-if="goms_role_perm">权限</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
     </basic-container>
-    <el-dialog title="分配权限" :visible.sync="dialogPermissionVisible">
-      <el-tree class="filter-tree" :data="treeData" :default-checked-keys="checkedKeys" :check-strictly="false" node-key="id" highlight-current :props="defaultProps" show-checkbox ref="menuTree" :filter-node-method="filterNode">
-      </el-tree>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="updatePermession(roleId, roleCode)">更 新
-        </el-button>
-      </div>
-    </el-dialog>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <permission-dialog-form ref="PermissionDialogForm" @load-page="loadPage"></permission-dialog-form>
   </div>
 </template>
 
@@ -38,15 +33,17 @@
 import {
   addObj,
   delObj,
+  getObj,
   fetchList,
   fetchRoleTree,
-  permissionUpd,
   putObj,
 } from '@/api/admin/role'
-import { tableOption } from './role'
-import { fetchTree } from '@/api/admin/dept'
 import { fetchMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
+import mixins from '@/mixins/mixins'
+import { dictsMap, columnsMap, initForm, orgDsType } from '@/views/admin/role/options'
+import DialogForm from '@/views/admin/role/DialogForm'
+import PermissionDialogForm from '@/views/admin/role/PermissionDialogForm'
 function filterTree (arr, selectedKey) {
   return arr.filter(item => !selectedKey.includes(item.id)).map(item => {
     item = Object.assign({}, item)
@@ -58,104 +55,96 @@ function filterTree (arr, selectedKey) {
 }
 export default {
   name: 'TableRole',
+  mixins: [mixins],
+  components: {
+    DialogForm,
+    PermissionDialogForm,
+  },
   data () {
     return {
-      tableOption: tableOption,
+      columnsMap,
+      dictsMap,
       dsScopeData: [],
-      treeData: [],
-      checkedKeys: [],
       checkedDsScope: [],
       defaultProps: {
         label: 'name',
         value: 'id',
       },
-      page: {
-        total: 0, // 总页数
-        currentPage: 1, // 当前页数
-        pageSize: 20, // 每页显示多少条
-      },
-      menuIds: '',
-      list: [],
-      listLoading: true,
       form: {},
-      roleId: undefined,
-      roleCode: undefined,
       rolesOptions: undefined,
-      dialogPermissionVisible: false,
+      goms_role_add: false,
+      goms_role_edit: false,
+      goms_role_del: false,
+      goms_role_perm: false,
     }
+  },
+  created () {
+    this.loadPage()
+    this.goms_role_add = this.permissions['goms_role_add']
+    this.goms_role_edit = this.permissions['goms_role_edit']
+    this.goms_role_del = this.permissions['goms_role_del']
+    this.goms_role_perm = this.permissions['goms_role_perm']
   },
   computed: {
     ...mapGetters(['permissions']),
   },
   methods: {
-    getList (page, params) {
-      this.listLoading = true
-      fetchList(
-        Object.assign(
-          {
-            current: page.currentPage,
-            size: page.pageSize,
-          },
-          params
-        )
-      ).then(response => {
-        this.list = response.data.data.records
-        this.page.total = response.data.data.total
-        this.listLoading = false
-      })
+    async loadPage (param = this.searchForm) {
+      await this.loadTable(param, fetchList)
     },
-    handleRefreshChange () {
-      this.getList(this.page)
+    handleAdd () {
+      this.$refs['DialogForm'].methodName = '创建'
+      this.$refs['DialogForm'].formRequestFn = addObj
+      this.$refs['DialogForm'].dsType = orgDsType
+      this.$refs['DialogForm'].disabled = false
+      this.$refs['DialogForm'].roleCodeDisabled = false
+      this.$refs['DialogForm'].dialogShow = true
     },
-    handleFilter (param) {
-      this.page.page = 1
-      this.getList(this.page, param)
+    handleEdit (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].methodName = '编辑'
+      this.$refs['DialogForm'].formRequestFn = putObj
+      this.$refs['DialogForm'].dsType = orgDsType
+      this.$refs['DialogForm'].disabled = false
+      this.$refs['DialogForm'].roleCodeDisabled = true
+      this.$refs['DialogForm'].dialogShow = true
     },
-    handleCreate () {
-      this.$refs.crud.rowAdd()
-    },
-    handleOpenBefore (show) {
-      fetchTree().then(response => {
-        this.dsScopeData = response.data.data
-        if (this.form.dsScope) {
-          this.checkedDsScope = this.form.dsScope.split(',')
-        } else {
-          this.checkedDsScope = []
-        }
-      })
-      show()
-    },
-    handleUpdate (row, index) {
-      this.$refs.crud.rowEdit(row, index)
+    handleDetail (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].methodName = '查看'
+      this.$refs['DialogForm'].formRequestFn = getObj
+      this.$refs['DialogForm'].dsType = orgDsType
+      this.$refs['DialogForm'].disabled = true
+      this.$refs['DialogForm'].roleCodeDisabled = true
+      this.$refs['DialogForm'].dialogShow = true
     },
     handlePermission (row) {
       fetchRoleTree(row.roleId)
         .then(response => {
-          this.checkedKeys = response.data
+          this.$refs['PermissionDialogForm'].checkedKeys = response.data
           return fetchMenuTree()
         })
         .then(response => {
-          this.treeData = response.data.data
-          this.treeData = filterTree(this.treeData, [8300, 8400, 10000])
-          // 解析出所有的太监节点
-          this.checkedKeys = this.resolveAllEunuchNodeId(
-            this.treeData,
-            this.checkedKeys,
+          const treeData = response.data.data
+          this.$refs['PermissionDialogForm'].treeData = filterTree(treeData, [8230, 8300, 8400, 10000])
+          // 解析出所有的节点
+          this.$refs['PermissionDialogForm'].checkedKeys = this.resolveAllEunuchNodeId(
+            this.$refs['PermissionDialogForm'].treeData,
+            this.$refs['PermissionDialogForm'].checkedKeys,
             []
           )
-          this.dialogStatus = 'permission'
-          this.dialogPermissionVisible = true
-          this.roleId = row.roleId
-          this.roleCode = row.roleCode
-          this.$refs.menuTree.filter()
+          this.$refs['PermissionDialogForm'].roleId = row.roleId
+          this.$refs['PermissionDialogForm'].roleCode = row.roleCode
+          this.$refs['PermissionDialogForm'].title = row.roleName
+          this.$refs['PermissionDialogForm'].dialogShow = true
         })
     },
     /**
-     * 解析出所有的太监节点id
+     * 解析出所有的节点id
      * @param json 待解析的json串
      * @param idArr 原始节点数组
      * @param temp 临时存放节点id的数组
-     * @return 太监节点id数组
+     * @return 节点id数组
      */
     resolveAllEunuchNodeId (json, idArr, temp) {
       for (let i = 0; i < json.length; i++) {
@@ -170,103 +159,14 @@ export default {
       return temp
     },
     filterNode (value, data) {
-      if (data.id == 10000) {
-        console.log(10000)
-        return false
-      } else if (data.id == 8300) {
-        console.log(8300)
-        return false
-      } else if (data.id == 8400) {
-        console.log(8400)
-        return false
-      } else {
-        return true
-      }
+      if (!value) return true
+      return data.label.indexOf(value) !== -1
     },
     getNodeData (data, done) {
       done()
     },
-    handleDelete (row, index) {
-      var _this = this
-      this.$confirm(
-        '是否确认删除名称为"' + row.roleName + '"' + '"的数据项?',
-        '警告',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-        }
-      )
-        .then(function () {
-          return delObj(row.roleId)
-        })
-        .then(() => {
-          this.getList(this.page)
-          this.list.splice(index, 1)
-          _this.$message({
-            showClose: true,
-            message: '删除成功',
-            type: 'success',
-          })
-        })
-        .catch(function () { })
-    },
-    create (row, done, loading) {
-      if (this.form.dsType === 1) {
-        this.form.dsScope = this.$refs.scopeTree.getCheckedKeys().join(',')
-      }
-      addObj(this.form)
-        .then(() => {
-          this.getList(this.page)
-          done()
-          this.$message({
-            message: '创建成功',
-            type: 'success',
-          })
-        })
-        .catch(() => {
-          loading()
-        })
-    },
-    update (row, index, done, loading) {
-      if (this.form.dsType === 1) {
-        this.form.dsScope = this.$refs.scopeTree.getCheckedKeys().join(',')
-      }
-      putObj(this.form)
-        .then(() => {
-          this.getList(this.page)
-          done()
-          this.$message({
-            message: '修改成功',
-            type: 'success',
-          })
-        })
-        .catch(() => {
-          loading()
-        })
-    },
-    updatePermession (roleId) {
-      this.menuIds = ''
-      this.menuIds = this.$refs.menuTree
-        .getCheckedKeys()
-        .join(',')
-        .concat(',')
-        .concat(this.$refs.menuTree.getHalfCheckedKeys().join(','))
-      permissionUpd(roleId, this.menuIds).then(() => {
-        this.dialogPermissionVisible = false
-        fetchMenuTree()
-          .then(response => {
-            this.form = response.data.data
-            return fetchRoleTree(roleId)
-          })
-          .then(response => {
-            this.checkedKeys = response.data
-            this.$message({
-              message: '修改成功',
-              type: 'success',
-            })
-          })
-      })
+    handleDeleteById (row) {
+      this._handleGlobalDeleteById(row.roleId, delObj)
     },
   },
 }

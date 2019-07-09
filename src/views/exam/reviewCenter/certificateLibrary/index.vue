@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="证书库管理"></page-header>
+      <iep-page-header title="证书库管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button size="small" type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>

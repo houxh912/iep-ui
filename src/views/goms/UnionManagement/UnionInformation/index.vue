@@ -17,8 +17,8 @@
         <template v-if="activeTab ==='Album'" v-slot:Album>
           <album v-loading="activeTab !=='Album'"></album>
         </template>
-        <template v-if="activeTab ==='EvaluationManagement'" v-slot:EvaluationManagement>
-          <evaluation-management v-loading="activeTab !=='EvaluationManagement'"></evaluation-management>
+        <template v-if="activeTab ==='PlatformSystem'" v-slot:PlatformSystem>
+          <platform-system v-loading="activeTab !=='PlatformSystem'"></platform-system>
         </template>
       </iep-tabs>
     </basic-container>
@@ -30,9 +30,9 @@ import Memorabilia from './Memorabilia/'
 import Development from './Development'
 import Album from './Album/'
 import Culture from './Culture'
-import EvaluationManagement from './EvaluationManagement/'
+import PlatformSystem from './PlatformSystem/'
 export default {
-  components: { BasicInformation, Memorabilia, Development, Album, Culture, EvaluationManagement },
+  components: { BasicInformation, Memorabilia, Development, Album, Culture, PlatformSystem },
   data () {
     return {
       tabList: [{
@@ -41,18 +41,18 @@ export default {
       }, {
         label: '联盟大事记',
         value: 'Memorabilia',
-      },{
+      }, {
         label: '联盟发展历程',
         value: 'Development',
-      },{
+      }, {
         label: '联盟文化',
         value: 'Culture',
-      },{
+      }, {
         label: '联盟相册',
         value: 'Album',
-      },{
-        label: '评价管理',
-        value: 'EvaluationManagement',
+      }, {
+        label: '平台体系',
+        value: 'PlatformSystem',
       }],
       activeTab: 'BasicInformation',
     }

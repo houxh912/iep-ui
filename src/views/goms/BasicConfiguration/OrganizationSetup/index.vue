@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织设置"></page-header>
+      <iep-page-header title="组织设置"></iep-page-header>
       <div class="message-box" v-for="(item,i) in message" :key="i">
         <template v-if="item.status===3">
           <i class="el-icon-info"></i>
@@ -133,7 +133,6 @@ export default {
     loadPage () {
       getOrgMessage().then(({ data }) => {
         this.message = data.data
-        console.log(data.data)
       })
     },
   },

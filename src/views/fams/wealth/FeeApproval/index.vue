@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="费用审核"></page-header>
+      <iep-page-header title="费用核准"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -12,29 +12,29 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleTrans(scope.row)">转交</iep-button>
+              <iep-button @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button @click.stop="handleReject(scope.row)">驳回</iep-button>
+              <iep-button @click.stop="handleTrans(scope.row)">转交</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </basic-container>
-    <invoice-pass-dialog-form ref="InvoicePassDialogForm" @load-page="loadPage"></invoice-pass-dialog-form>
-    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" @load-page="loadPage"></invoice-reject-dialog-form>
-    <invoice-trans-dialog-form ref="InvoiceTransDialogForm" @load-page="loadPage"></invoice-trans-dialog-form>
+    <fee-pass-dialog-form ref="FeePassDialogForm" @load-page="loadPage"></fee-pass-dialog-form>
+    <fee-reject-dialog-form ref="FeeRejectDialogForm" @load-page="loadPage"></fee-reject-dialog-form>
+    <fee-trans-dialog-form ref="FeeTransDialogForm" @load-page="loadPage"></fee-trans-dialog-form>
   </div>
 </template>
 
 <script>
-import { getMyInvoiceApprovalPage } from '@/api/fams/invoice'
+import { getMyFeeApprovalPage } from '@/api/fams/fee'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options.js'
-import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
-import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
-import InvoiceTransDialogForm from '@/views/fams/Components/InvoiceTransDialogForm'
+import FeePassDialogForm from '@/views/fams/Components/FeePassDialogForm.vue'
+import FeeRejectDialogForm from '@/views/fams/Components/FeeRejectDialogForm.vue'
+import FeeTransDialogForm from '@/views/fams/Components/FeeTransDialogForm'
 export default {
-  components: { InvoiceRejectDialogForm, InvoicePassDialogForm, InvoiceTransDialogForm },
+  components: { FeeRejectDialogForm, FeePassDialogForm, FeeTransDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -47,31 +47,32 @@ export default {
   },
   methods: {
     handleTrans (row) {
-      this.$refs['InvoiceTransDialogForm'].id = row.id
-      this.$refs['InvoiceTransDialogForm'].user = { id: '', name: '' }
-      this.$refs['InvoiceTransDialogForm'].content = ''
-      this.$refs['InvoiceTransDialogForm'].dialogShow = true
+      this.$refs['FeeTransDialogForm'].id = row.costId
+      this.$refs['FeeTransDialogForm'].user = { id: '', name: '' }
+      this.$refs['FeeTransDialogForm'].content = ''
+      this.$refs['FeeTransDialogForm'].dialogShow = true
     },
     handlePass (row) {
-      this.$refs['InvoicePassDialogForm'].id = row.id
-      this.$refs['InvoicePassDialogForm'].content = ''
-      this.$refs['InvoicePassDialogForm'].dialogShow = true
+      this.$refs['FeePassDialogForm'].id = row.costId
+      this.$refs['FeePassDialogForm'].content = ''
+      this.$refs['FeePassDialogForm'].dialogShow = true
     },
     handleReject (row) {
-      this.$refs['InvoiceRejectDialogForm'].id = row.id
-      this.$refs['InvoiceRejectDialogForm'].content = ''
-      this.$refs['InvoiceRejectDialogForm'].dialogShow = true
+      this.$refs['FeeRejectDialogForm'].id = row.costId
+      this.$refs['FeeRejectDialogForm'].content = ''
+      this.$refs['FeeRejectDialogForm'].dialogShow = true
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/invoice_detail/${row.id}`,
+        path: `/fams_spa/fee_detail/${row.costId}`,
+        query: {
+          approval: 'true',
+        },
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getMyInvoiceApprovalPage)
+      this.loadTable(param, getMyFeeApprovalPage)
     },
   },
 }
 </script>
-<style scoped>
-</style>

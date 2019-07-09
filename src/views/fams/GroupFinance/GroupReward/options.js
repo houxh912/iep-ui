@@ -30,13 +30,13 @@ const initForm = () => {
     amount: 0, // 打赏金额
     message: '', // 打赏备注
     type: '', // 打赏类型
-    isReward: '', // 打赏/扣减
+    isReward: '1', // 打赏/扣减
     targetOrgId: '', // 打赏对象
   }
 }
 
 const dtoForm = (row) => {
-  const newForm = {...row}
+  const newForm = { ...row }
   return newForm
 }
 

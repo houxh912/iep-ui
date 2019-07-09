@@ -1,7 +1,9 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="费用管理" :replaceText="replaceText" :data="statistics"></page-header>
+      <!-- TODO: 费用统计 -->
+      <!-- <iep-page-header title="费用管理" :replaceText="replaceText" :data="statistics"></iep-page-header> -->
+      <iep-page-header title="费用管理"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -12,33 +14,34 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.financialAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
-              <iep-button v-if="scope.row.financialAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
+              <iep-button v-if="scope.row.status===2" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.status===2" @click.stop="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </basic-container>
-    <invoice-pass-dialog-form ref="InvoicePassDialogForm" is-financial @load-page="loadPage"></invoice-pass-dialog-form>
-    <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" is-financial @load-page="loadPage"></invoice-reject-dialog-form>
+    <fee-pass-dialog-form ref="FeePassDialogForm" is-financial @load-page="loadPage"></fee-pass-dialog-form>
+    <fee-reject-dialog-form ref="FeeRejectDialogForm" is-financial @load-page="loadPage"></fee-reject-dialog-form>
   </div>
 </template>
 
 <script>
-import { getInvoicePage } from '@/api/fams/invoice'
+import { getFeePage } from '@/api/fams/fee'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
-import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
-import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
+import FeePassDialogForm from '@/views/fams/Components/FeePassDialogForm.vue'
+import FeeRejectDialogForm from '@/views/fams/Components/FeeRejectDialogForm.vue'
 export default {
-  components: { InvoicePassDialogForm, InvoiceRejectDialogForm },
+  components: { FeePassDialogForm, FeeRejectDialogForm },
   mixins: [mixins],
   data () {
     return {
       dictsMap,
       columnsMap,
-      statistics: [0, 0, 0, 0],
-      replaceText: (data) => `（待审核：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
+      // TODO: 费用统计
+      // statistics: [0, 0, 0, 0],
+      // replaceText: (data) => `（待核准：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
     }
   },
   created () {
@@ -46,26 +49,29 @@ export default {
   },
   methods: {
     handlePass (row) {
-      this.$refs['InvoicePassDialogForm'].id = row.id
-      this.$refs['InvoicePassDialogForm'].content = ''
-      this.$refs['InvoicePassDialogForm'].dialogShow = true
+      this.$refs['FeePassDialogForm'].id = row.costId
+      this.$refs['FeePassDialogForm'].content = ''
+      this.$refs['FeePassDialogForm'].dialogShow = true
     },
     handleReject (row) {
-      this.$refs['InvoiceRejectDialogForm'].id = row.id
-      this.$refs['InvoiceRejectDialogForm'].content = ''
-      this.$refs['InvoiceRejectDialogForm'].dialogShow = true
+      this.$refs['FeeRejectDialogForm'].id = row.costId
+      this.$refs['FeeRejectDialogForm'].content = ''
+      this.$refs['FeeRejectDialogForm'].dialogShow = true
     },
     handleDetail (row) {
       this.$router.push({
-        path: `/fams_spa/invoice_detail/${row.id}`,
+        path: `/fams_spa/fee_detail/${row.costId}`,
+        query: {
+          approval: 'true',
+        },
       })
     },
     async loadPage (param = this.searchForm) {
-      const data = await this.loadTable(param, getInvoicePage)
-      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
+      await this.loadTable(param, getFeePage)
+      // TODO: 费用统计
+      // const data = await this.loadTable(param, getFeePage)
+      // this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }
 </script>
-<style scoped>
-</style>

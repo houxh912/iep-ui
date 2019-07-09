@@ -1,6 +1,6 @@
 <template>
   <basic-container>
-    <page-header title="这里是系统消息的标题" :backOption="backOption"></page-header>
+    <iep-page-header title="这里是系统消息的标题" :backOption="backOption"></iep-page-header>
     <div class="detail-container">
       <div class="item-title">
         <ul>

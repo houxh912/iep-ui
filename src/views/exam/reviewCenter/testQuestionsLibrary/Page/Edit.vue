@@ -1,44 +1,36 @@
 <template>
   <div class="report">
-    <page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption">
-    </page-header>
+    <iep-page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption">
+    </iep-page-header>
     <el-form :model="form" ref="form" label-width="120px" :rules="rules" size="small">
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">
-          <el-select clearable :disabled="questionTypeDisabled" class="selectItem"
-            :value="form.questionType" @input="updateValue(arguments[0])">
-            <el-option v-for="(item, index) in res.exms_question_type" :key="index"
-              :label="item.label" :value="item.id"></el-option>
+          <el-select clearable :disabled="questionTypeDisabled" class="selectItem" :value="form.questionType" @input="updateValue(arguments[0])">
+            <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:4%">
           <el-select v-model="form.difficulty" clearable :disabled="btnDisabled" class="selectItem">
-            <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+            <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="科目：" prop="field">
           <el-select v-model="form.field" clearable :disabled="btnDisabled" class="selectItem">
-            <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+            <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="题类：" prop="kind" style="margin-left:4%">
           <el-select v-model="form.kind" clearable :disabled="btnDisabled" class="selectItem">
-            <el-option v-for="(item, index) in res.exms_question_category" :key="index"
-              :label="item.label" :value="item.id"></el-option>
+            <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="关联：" prop="associatedState">
-          <el-select v-model="form.associatedState" clearable :disabled="btnDisabled"
-            class="selectItem">
-            <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+          <el-select v-model="form.associatedState" clearable :disabled="btnDisabled" class="selectItem">
+            <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" v-if="tabName ==='single'"
-          style="margin-left:4%">
+        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" v-if="tabName ==='single'" style="margin-left:4%">
           <iep-tag v-if="!btnDisabled" v-model="form.tagKeyWords"></iep-tag>
           <iep-tag-detail v-else :value="form.tagKeyWords"></iep-tag-detail>
         </el-form-item>
@@ -66,8 +58,7 @@
       </el-tab-pane>
     </el-tabs>
 
-    <iep-dialog :dialog-show="dialogExamine" title="审核试题" width="520px" @close="handleExamineCancel"
-      center>
+    <iep-dialog :dialog-show="dialogExamine" title="审核试题" width="520px" @close="handleExamineCancel" center>
       <div style="margin-bottom:16px">
         <span class="explain">说明： </span>
         <span class="explainTxt">每过审入库 1 题，奖励出题人 5 贝 !</span>
@@ -77,8 +68,7 @@
           <el-radio :label="0">审核通过</el-radio>
           <el-radio :label="1">审核不通过</el-radio>
         </el-radio-group>
-        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="250" rows="4"
-          style="margin-top:25px;" placeholder="请输入理由，字数不超过 250 ！" show-word-limit>
+        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="250" rows="4" style="margin-top:25px;" placeholder="请输入理由，字数不超过 250 ！" show-word-limit>
         </el-input>
       </div>
       <template slot="footer">

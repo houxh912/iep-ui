@@ -1,6 +1,6 @@
 <template>
   <div class="iep-page-form">
-    <page-header title="新建文档" :backOption="backOption"></page-header>
+    <iep-page-header title="新建文档" :backOption="backOption"></iep-page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName" maxlength="50" :placeholder="tipContent2.materialName"></el-input>

@@ -1,16 +1,5 @@
 <template>
   <div class="new-down">
-    <IepAppTabCard :title="title">
-      <div v-if="visitVOs.length !== 0" class="list">
-        <div class="item" v-for="(item, index) in visitVOs" :key="index" @click="handleDetail(item)">
-          <div class="img">
-            <iep-img :src="item.visitorAvatar" alt=""></iep-img>
-          </div>
-          <span>{{item.visitorName}}</span>
-        </div>
-      </div>
-      <IepNoData v-else class="iepnodata"></IepNoData>
-    </IepAppTabCard>
     <el-card class="classTag-con" shadow="never">
       <div slot="header" class="clearfix">
         <span class="title">{{effect}}</span>
@@ -22,7 +11,7 @@
       </div>
       <div class="append" style="margin-top: 15px;">
         <el-input class="append-input" placeholder="添加新标记" v-model="input3" size="small">
-          <el-button slot="append" icon="el-icon-search">添加</el-button>
+          <el-button slot="append" icon="el-icon-plus">添加</el-button>
         </el-input>
         <el-select class="prepend" v-model="select" slot="prepend" placeholder="常用印象" size="small">
           <el-option label="技术达人" value="1"></el-option>
@@ -31,6 +20,17 @@
         </el-select>
       </div>
     </el-card>
+    <IepAppTabCard :title="title">
+      <div v-if="visitVOs.length !== 0" class="list">
+        <div class="item" v-for="(item, index) in visitVOs" :key="index" @click="handleDetail(item)">
+          <div class="img">
+            <iep-img :src="item.visitorAvatar" alt=""></iep-img>
+          </div>
+          <span>{{item.visitorName}}</span>
+        </div>
+      </div>
+      <IepNoData v-else class="iepnodata"></IepNoData>
+    </IepAppTabCard>
   </div>
 </template>
 
@@ -102,12 +102,12 @@ export default {
     .item {
       margin: 0 10px 10px;
       text-align: center;
-    }
-    &:hover {
-      opacity: 0.7;
+      &:hover {
+        opacity: 0.7;
+      }
     }
     .img {
-      margin-bottom: 5px;
+      margin: 0 auto 5px;
       width: 50px;
       height: 50px;
       border: 1px solid #ebeef5;
@@ -177,5 +177,8 @@ export default {
 }
 .new-down >>> .prepend {
   margin-left: -2px;
+}
+.new-down >>> .title-con .title {
+  font-size: 16px;
 }
 </style>

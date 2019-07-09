@@ -1,7 +1,8 @@
 <template>
   <basic-container>
     <div v-if="pageState === 'list'">
-      <page-header title="我的项目" :replaceText="replaceText" :data="[16]"></page-header>
+      <!-- <iep-page-header title="我的项目" :replaceText="replaceText" :data="[16]"></iep-page-header> -->
+      <iep-page-header title="我的项目"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Total'" v-slot:Total>
           <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm"></total>
@@ -11,6 +12,9 @@
         </template>
         <template v-if="activeTab === 'TakePartIn'" v-slot:TakePartIn>
           <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'2'"></total>
+        </template>
+        <template v-if="activeTab === 'International'" v-slot:International>
+          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'3'"></total>
         </template>
       </iep-tabs>
     </div>
@@ -37,6 +41,9 @@ export default {
       }, {
         label: '全部',
         value: 'Total',
+      }, {
+        label: '项目公海库',
+        value: 'International',
       }],
       activeTab: 'Release',
       pageState: 'list',

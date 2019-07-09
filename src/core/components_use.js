@@ -6,7 +6,6 @@ import BasicAsideContainer from '@/components/BasicAsideContainer/index'
 import OperationWrapper from '@/components/Operation/Wrapper'
 import OperationSearch from '@/components/Operation/Search'
 import OperationContainer from '@/components/Operation/Container'
-import PageHeader from '@/components/Page/Header'
 import IepPageHeader from '@/components/IepCommon/PageHeader'
 import FooterToolBar from '@/components/FooterToolbar'
 import IepResult from '@/components/IepResult/index'
@@ -27,6 +26,7 @@ import IepIdentityMark from '@/components/IepCommon/IdentityMark'
 import IepReadMarkDel from '@/components/IepCommon/ReadMarkDel'
 import IepFiveKay from '@/components/IepCommon/FiveKey'
 import IepKeyItem from '@/components/IepCommon/KeyItem'
+import IepUserCard from '@/components/IepCommon/UserCard'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -105,7 +105,6 @@ Vue.component(BasicAsideContainer.name, BasicAsideContainer)
 Vue.component(OperationWrapper.name, OperationWrapper)
 Vue.component(OperationContainer.name, OperationContainer)
 Vue.component(OperationSearch.name, OperationSearch)
-Vue.component(PageHeader.name, PageHeader)
 Vue.component(IepPageHeader.name, IepPageHeader)
 Vue.component(FooterToolBar.name, FooterToolBar)
 Vue.component(IepResult.name, IepResult)
@@ -126,6 +125,7 @@ Vue.component(IepIdentityMark.name, IepIdentityMark)
 Vue.component(IepReadMarkDel.name, IepReadMarkDel)
 Vue.component(IepFiveKay.name, IepFiveKay)
 Vue.component(IepKeyItem.name, IepKeyItem)
+Vue.component(IepUserCard.name, IepUserCard)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)

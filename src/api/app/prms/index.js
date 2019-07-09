@@ -40,3 +40,35 @@ export const getProjectProjectManager = () => {
     method: 'get',
   })
 }
+
+// 业绩变化
+export const getPerformanceChanges = () => {
+  return request({
+    url: `${prefixUrl}/Performance/changes`,
+    method: 'get',
+  })
+}
+
+// 项目概况
+export const getOverview = () => {
+  return request({
+    url: `${prefixUrl}/project/overview`,
+    method: 'get',
+  })
+}
+
+// 产品销售
+export const getSales = () => {
+  return request({
+    url: `${prefixUrl}/product/sales`,
+    method: 'get',
+  })
+}
+
+// 数据-产品销售
+export const getRanking = () => {
+  return request({
+    url: `${prefixUrl}/performance/ranking`,
+    method: 'get',
+  })
+}

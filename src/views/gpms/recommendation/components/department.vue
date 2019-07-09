@@ -90,55 +90,55 @@ import { getDepartmentList } from '@/api/gpms/recommend'
 export default {
   data () {
     return {
-      boss:[
+      boss: [
         {
-          id:1,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201806/20180613132622_36g2wcsum1.jpg',
-          name:'杨冰之',
-          company:'北京国脉互联信息顾问有限公司',
+          id: 1,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201806/20180613132622_36g2wcsum1.jpg',
+          name: '杨冰之',
+          company: '北京国脉互联信息顾问有限公司',
         },
         {
-          id:2,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201806/20180613132726_f73x92rxqx.jpg',
-          name:'郑爱军',
-          company:'北京仓颉数源网络有限公司',
+          id: 2,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201806/20180613132726_f73x92rxqx.jpg',
+          name: '郑爱军',
+          company: '北京仓颉数源网络有限公司',
         },
         {
-          id:3,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201807/20180711133414_5p2xxp0oft.png',
-          name:'李凯',
-          company:'北京区业务一部',
+          id: 3,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201807/20180711133414_5p2xxp0oft.png',
+          name: '李凯',
+          company: '北京区业务一部',
         },
         {
-          id:4,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201806/20180613133008_elbcrpj4uh.jpg',
-          name:'黄磊',
-          company:'北京仓颉数源网络有限公司',
+          id: 4,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201806/20180613133008_elbcrpj4uh.jpg',
+          name: '黄磊',
+          company: '北京仓颉数源网络有限公司',
         },
         {
-          id:5,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201807/20180713091722_f1hj7qt0to.png',
-          name:'谢海燕',
-          company:'北京国脉互联信息顾问有限公司',
+          id: 5,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201807/20180713091722_f1hj7qt0to.png',
+          name: '谢海燕',
+          company: '北京国脉互联信息顾问有限公司',
         },
         {
-          id:6,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201804/20180412223734_afni46vbiw.jpg',
-          name:'王路燕',
-          company:'北京国脉互联信息顾问有限公司',
+          id: 6,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201804/20180412223734_afni46vbiw.jpg',
+          name: '王路燕',
+          company: '北京国脉互联信息顾问有限公司',
         },
         {
-          id:6,
-          url:'https://ioa.govmade.com/uploads/2/image/public/201812/20181217181100_rj5ie4iop1.jpg',
-          name:'刘佳',
-          company:'北京国脉互联信息顾问有限公司',
+          id: 6,
+          url: 'https://ioa.govmade.com/uploads/2/image/public/201812/20181217181100_rj5ie4iop1.jpg',
+          name: '刘佳',
+          company: '北京国脉互联信息顾问有限公司',
         },
       ],
     }
   },
   methods: {
     getDepartment () {
-      getDepartmentList().then(({data}) => {
+      getDepartmentList().then(({ data }) => {
         console.log('data: ', data)
       })
     },
@@ -150,15 +150,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.Firsttable{
+.Firsttable {
   padding: 0 15px 10px 15px;
   box-sizing: border-box;
-  .firstbox{
+  .firstbox {
     border: 1px solid #f6f6f6;
     padding: 0 0 5px 0;
     overflow: hidden;
     height: 300px;
-    .borbom{
+    .borbom {
       padding: 13px;
       margin: 0 auto;
       border-bottom: 1px solid #f6f6f6;
@@ -168,8 +168,8 @@ export default {
       padding-left: 0;
       color: #444444;
     }
-    
-    .borboms{
+
+    .borboms {
       padding: 13px;
       margin: 0 auto;
       border-bottom: 1px solid #f6f6f6;
@@ -179,70 +179,73 @@ export default {
       padding-left: 0;
       color: #444444;
     }
-    .Recommend{
+    .Recommend {
       width: 100%;
       padding: 14px 20px 0 20px;
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
       // background-color: yellow;
-      .clemr{
+      .clemr {
         margin-bottom: 18px;
       }
-      p{
+      p {
         margin: 0;
       }
-      .imgs{
+      .imgs {
         width: 53px;
         height: 53px;
         display: inline-block;
         border-radius: 30px;
       }
-      .offdiv{
+      .offdiv {
         display: inline-block;
         vertical-align: top;
         font-size: 11px;
         padding-left: 10px;
         line-height: 25px;
         padding-top: 2px;
-        .bigfon{
-          font-size: 18px;
+        .bigfon {
+          font-size: 16px;
         }
       }
     }
-    .Studys{
+    .Studys {
       width: 100%;
       // background-color: yellow;
       padding: 10px 10px 0 25px;
       box-sizing: border-box;
-      .mbs{
+      .mbs {
         margin-bottom: 0;
       }
-      p{
+      p {
         margin: 0;
       }
-      .smallfont{
+      .smallfont {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
         font-size: 12px;
         padding-top: 5px;
         margin-bottom: 0;
-        color: #B8B8B8;
-        .mb{
-          margin: 0;
+        color: #b8b8b8;
+        .mb {
+          margin: 1px 5px 5px 0;
           line-height: 23px;
         }
       }
     }
   }
 }
-.btns{
+.btns {
   padding: 5px;
-  margin: 0 0 0 5px;
+  margin: 0 0 5px 5px;
   font-size: 12px;
-  color: #B8B8B8;
+  color: #b8b8b8;
 }
-.sixsix{
+.sixsix {
   color: #717276;
 }
-.coles{
-  color: #B8B8B8;
+.coles {
+  color: #b8b8b8;
 }
 </style>

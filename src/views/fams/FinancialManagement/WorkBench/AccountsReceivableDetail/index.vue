@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="合同应收账款"></page-header>
+      <iep-page-header title="合同应收账款"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="projectName">
@@ -9,6 +9,16 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+        <el-table-column label="合同应收账款金额">
+          <template slot-scope="scope">
+            {{!scope.row.amount ? '暂无' : (scope.row.amount - (scope.row.projectIncome||0)) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="应收账款金额">
+          <template slot-scope="scope">
+            {{!scope.row.invoicingAmount ? '暂无' : (scope.row.invoicingAmount - (scope.row.projectIncome||0)) }}
+          </template>
+        </el-table-column>
       </iep-table>
     </basic-container>
   </div>

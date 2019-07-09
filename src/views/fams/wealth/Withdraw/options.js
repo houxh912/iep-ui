@@ -30,7 +30,7 @@ const columnsMap = [
   },
   {
     prop: 'auditorName',
-    label: '审核人',
+    label: '核准人',
   },
   {
     prop: 'createTime',
@@ -38,7 +38,7 @@ const columnsMap = [
   },
   {
     prop: 'auditingTime',
-    label: '审核日期',
+    label: '核准日期',
   },
   {
     prop: 'grantTime',
@@ -70,10 +70,10 @@ const initSearchForm = () => {
 
 const rules = {
   amount: [
-    { required: true, message: '账户余额1000以上且输入100以上数字', trigger: 'blur', type:'number', min:100 },
+    { required: true, message: '账户余额1000以上且输入100以上数字', trigger: 'blur', type: 'number', min: 100 },
   ],
   deductionInvoice: [
-    { required: true, message: '在用户发票额度范围内', trigger: 'blur', type:'number', min:0 },
+    { required: true, message: '在用户发票额度范围内', trigger: 'blur', type: 'number', min: 0 },
   ],
 }
 

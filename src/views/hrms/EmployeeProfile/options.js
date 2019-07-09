@@ -297,10 +297,12 @@ const columnsMap = [
     key: 'recommend',
   },
   {
-    prop: 'accountTypes',
+    prop: 'residentType',
     label: '户口类别',
     hidden: true,
-    key: 'accountTypes',
+    key: 'residentType',
+    type: 'dictGroup',
+    dictName: 'hrms_resident_type',
   },
   // {
   //   prop: 'accountLocation',

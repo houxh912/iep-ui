@@ -22,6 +22,8 @@ const columnsMap = [
   {
     prop: 'jobType',
     label: '工作类型',
+    type: 'dictGroup',
+    dictName: 'hrms_work_type',
   },
   {
     prop: 'applicationTime',
@@ -174,7 +176,7 @@ const rules = {
     { required: true, message: '请填写招聘期限', trigger: 'blur' },
   ],
   welfare: [
-    { type:'array', required: true, message: '请填写福利待遇', trigger: 'blur' },
+    { type: 'array', required: true, message: '请填写福利待遇', trigger: 'blur' },
   ],
   duties: [
     { required: true, message: '请填写岗位职责', trigger: 'blur' },

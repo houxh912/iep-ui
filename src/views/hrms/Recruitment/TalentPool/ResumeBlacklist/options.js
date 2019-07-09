@@ -9,6 +9,8 @@ const columnsMap = [
   {
     prop: 'education',
     label: '学历',
+    type: 'dictGroup',
+    dictName: 'hrms_highest_educational',
   },
   {
     prop: 'birthday',

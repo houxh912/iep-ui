@@ -92,7 +92,7 @@ export default {
       this.loadPage()
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getPolicyPage)
+      this.loadTable({...param, beforeDays: 3, policyType: 'general'}, getPolicyPage)
     },
   },
 }

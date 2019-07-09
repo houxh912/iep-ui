@@ -187,7 +187,7 @@
           </el-form-item>
           <hr>
           <el-form-item>
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <el-form-item prop="showResult">
                 <el-switch active-text="考后显示成绩" v-model="examForm.showResult" :active-value="1"
                   :inactive-value="0" :disabled="readOnly"></el-switch>
@@ -198,14 +198,14 @@
                 <el-switch active-text="考后显示答案和解析" v-model="examForm.showAnswer" :active-value="1"
                   :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
-            </el-col>
-            <el-col :span="6">
+            </el-col> -->
+            <el-col :span="12">
               <el-form-item prop="addInterview">
                 <el-switch active-text="添加面试判分" v-model="examForm.addInterview" :active-value="1"
                   :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="12">
               <el-form-item prop="registrationState">
                 <el-switch active-text="报名自动审核通过" v-model="examForm.registrationState"
                   :active-value="1" :inactive-value="0" :disabled="readOnly"></el-switch>

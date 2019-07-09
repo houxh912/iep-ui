@@ -304,9 +304,9 @@ export const examFormRules = {
   description: [
     { required: true, message: '必填', trigger: 'blur' },
   ],
-  oncludingRemarks: [
-    { required: true, message: '必填', trigger: 'blur' },
-  ],
+  // oncludingRemarks: [
+  //   { required: true, message: '必填', trigger: 'blur' },
+  // ],
   operateUserids: [
     { required: true, message: '请选择报名管理&考卷管理的阅卷老师', trigger: 'change' },
   ],

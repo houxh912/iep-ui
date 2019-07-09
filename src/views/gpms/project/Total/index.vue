@@ -2,10 +2,12 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleCreate" class="add" type="primary" v-if="gpms_project_add">新增</iep-button>
-        <iep-button @click="handleDeleteAll" class="add" v-if="gpms_project_edit_del">批量删除</iep-button>
+        <iep-button type="primary" icon="el-icon-plus" @click="handleCreate"  plain>新增</iep-button>
+        <iep-button v-if="onlyResponsible==true" @click="handleDeleteAll" >批量删除</iep-button>
+        <iep-button v-if="onlyResponsible==true" @click="transferMentor" >批量移交</iep-button>
       </template>
       <template slot="right">
+        <el-checkbox v-model="onlyResponsible" @change="changeResponsible()">仅看我负责的项目</el-checkbox>
         <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advance-search placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow" prop="projectName">
           <!--title-->
           <!-- <el-row class="search">
@@ -28,25 +30,26 @@
           </div>
         </template>
       </el-table-column>
+      <el-table-column label="项目经理">
+        <template slot-scope="scope">
+          <span>{{ scope.row.projectManagerList.name }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="立项时间" width="150px">
         <template slot-scope="scope">
-          <span>{{ scope.row.projectTime.slice(0, 10) }}</span>
+          <span>{{ scope.row.approvalTime || parseToDay }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-if="tabType!=='3'">
+      <el-table-column label="操作">
         <template slot-scope="scope">
-          <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
-          <el-button size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del">编辑</el-button>
-          <el-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</el-button>
-          <el-button size="small" @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</el-button>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作" v-else>
-        <template slot-scope="scope">
-          <el-button size="small" @click="handleDefine(scope.row)">认领</el-button>
+          <operation-wrapper>
+            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">编辑</iep-button>
+            <iep-button @click="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">删除</iep-button>
+          </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
+    <transfer-dialog-form ref="TransferDialogForm" @load-page="loadPage"></transfer-dialog-form>
   </div>
 </template>
 
@@ -54,25 +57,22 @@
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData } from '@/api/gpms/index'
-import { getProjectPage, statusCancel, statusDefine } from '@/api/gpms/fas'
+import { getProjectPage } from '@/api/gpms/fas'
 import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
-const optNameMap = {
-  delete: '删除',
-}
+import TransferDialogForm from '../TransferDialogForm'
 export default {
-  components: {AdvanceSearch},
+  components: { AdvanceSearch, TransferDialogForm },
   props: {
     tabType: {
       type: String,
     },
   },
   computed: {
-    ...mapGetters(['permissions']),
+    ...mapGetters(['permissions','userInfo']),
   },
   data () {
     return {
-      addDialogShow: false,
       isLoadTable: false,
       dictMap,
       columnsMap,
@@ -80,9 +80,7 @@ export default {
       paramForm: paramForm(),
       value: '',
       searchForm: {},
-      gpms_project_add: false,
-      gpms_project_view: false,
-      gpms_project_edit_del: false,
+      onlyResponsible:false,
     }
   },
   mixins: [mixins],
@@ -107,67 +105,41 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     handleDetail (row) {
-      // this.$store.commit('SET_ACCESS_TOKEN',row)
-      if (this.gpms_project_view) {
-        this.$router.push(`/gpms_spa/project/detail/${row.id}`)
-      }
+      this.$router.push(`/gpms_spa/project/detail_test/${row.id}`)
     },
     handleCreate () {
-      this.$emit('toggle-show', 'create')
+      this.$router.push('/gpms_spa/project/add')
     },
     handleUpdate (row) {
-      this.$emit('toggle-show', 'update', row)
+      this.$router.push(`/gpms_spa/project/add/${row.id}`)
     },
     handleDelete (val) {
-      this._handleGlobalById1(val.id, deleteData)
-    },
-    _handleGlobalById1 (id, optFunction, opt = 'delete') {
-      const optName = optNameMap[opt]
-      this.$confirm(`此操作将永久${optName}该数据, 是否继续?`, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        optFunction(id).then(res => {
-          if (res.data.data.data) {
-            this.$message({
-              type: 'success',
-              message: `${optName}成功!`,
-            })
-          } else {
-            this.$message({
-              type: 'info',
-              message: `${optName}失败，${res.data.data.msg}`,
-            })
-          }
-          this.load()
-        })
-      })
-    },
-    handleClaim (row) {
-      this.$confirm('是否确认取消认领此数据?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-      }).then(() => {
-        statusCancel([row.id]).then(() => {
-          this.$message.success('取消成功！')
-          this.loadPage()
-        })
-      })
-    },
-    handleDefine (row) {
-      this.$confirm('是否确认认领此数据?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-      }).then(() => {
-        statusDefine([row.id]).then(() => {
-          this.$message.success('取消成功！')
-          this.loadPage()
-        })
-      })
+      this._handleGlobalById(val.id, deleteData)
     },
     handleDeleteAll () {
       this._handleGlobalAll(deleteData)
+    },
+    //移交
+    transferMentor () {
+      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+        this.$message('请先选择需要移交的选项')
+        return
+      }
+      this.$refs['TransferDialogForm'].methodName = '项目经理'
+      this.$refs['TransferDialogForm'].ids = this.multipleSelection
+      this.$refs['TransferDialogForm'].dialogShow = true
+    },
+    changeResponsible () {
+      if(this.onlyResponsible){
+        this.searchForm.listType = 1
+        this.loadPage()
+      }
+      else{
+        this.searchForm.listType = 2
+        this.loadPage()
+      }
+      this.onlyResponsible!=this.onlyResponsible
+      return false
     },
   },
   mounted () {
@@ -175,9 +147,6 @@ export default {
     this.loadPage()
   },
   created () {
-    this.gpms_project_add = this.tabType == 1 ? true : this.permissions.gpms_project_add
-    this.gpms_project_view = this.tabType == 1 ? true : this.permissions.gpms_project_view
-    this.gpms_project_edit_del = this.tabType == 1 ? true : this.permissions.gpms_project_edit_del
   },
 }
 </script>

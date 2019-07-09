@@ -46,10 +46,6 @@ export const columnsMap = [
     label: '项目阶段',
     type: 'dict',
   },
-  {
-    prop: 'publisherName',
-    label: '发布人',
-  },
   // {
   //   prop: 'projectTime',
   //   label: '立项时间',
@@ -76,9 +72,6 @@ export const rules = {
   ],
   projectTagList: [
     { required: true, message: '请输入项目标签', trigger: 'change' },
-  ],
-  projectTime: [
-    { required: true, message: '请选择立项时间', trigger: 'change' },
   ],
   projectBudget: [
     { validator: intValidate, message: '请输入正整数', trigger: 'change' },
@@ -118,37 +111,41 @@ export function paramForm () {
   }
 }
 
-export function initFormData () {
+export function initFormData (obj) {
+  const name = obj ? obj.realName : ''
+  const id = obj ? obj.userId : ''
   return {
+    projectStatus:'',//保存状态 1为草稿
     projectName: '', // 项目名称
+    projectExplain: '',//项目说明
+    projectTypeBefore: '', // 项目类型
     projectType: '', // 项目类型
     businessType: '', // 业务类型
     businessTypeSec: '', // 其他
+    attendeeId:'',//委托组织
     relatedClient: '', // 相关客户
     relatedClientList: {
       id: '',
       name: '',
     },
     projectBudget: '', // 项目预算
-    projectTime:'',
+    approvalTime:'',//立项时间及审批时间
     endTime:'',
     projectManager:'',// 项目经理
     projectManagerList:{
-      id: '',
-      name: '',
+      id,
+      name,
     },// 项目经理
-    projectMembersList: [], // 项目成员
+    projectHandles:'',// 执行项目经理
+    projectHandlesList:[],
+    memberList: [], // 项目成员
     membersList: [],
     mktManager: '', // 市场经理
-    mktManagerList: {
-      id: '',
-      name: '',
-    },
+    marketManagerList:[],
+    mktManagerList: [],
     projectMentor: '', // 项目指导人
-    projectMentorList: {
-      id: '',
-      name: '',
-    },
+    mentorList:[],
+    projectMentorList: [],
     projectTagList: [], // 项目标签
     isRelevanceProduct: '', // 是否关联产品
     notRelevanceProductReason: '', // 不关联理由
@@ -230,5 +227,16 @@ export const initBudgetForm = () => {
     travelFee: '', // 差旅费
     projectBudget: '', // 项目总预算(必填)
     forecastProfits: '', // 预估利润
+  }
+}
+
+export function initTransferForm () {
+  return {
+    name:'',
+    projectManagerList:{
+      id: '',
+      name: '',
+    },
+    pubilsh:false,
   }
 }

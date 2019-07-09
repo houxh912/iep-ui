@@ -1,47 +1,32 @@
 <template>
   <basic-container>
     <div v-if="pageState === 'list'">
-      <!-- <iep-page-header title="我的项目" :replaceText="replaceText" :data="[16]"></iep-page-header> -->
-      <iep-page-header title="我的项目"></iep-page-header>
+      <iep-page-header title="我的项目" :replaceText="replaceText" :data="[16]"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='Total'" v-slot:Total>
-          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm"></total>
-        </template>
         <template v-if="activeTab ==='Release'" v-slot:Release>
-          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'1'"></total>
-        </template>
-        <template v-if="activeTab === 'TakePartIn'" v-slot:TakePartIn>
-          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'2'"></total>
+          <total ref="table" :tabType="'2'"></total>
         </template>
         <template v-if="activeTab === 'International'" v-slot:International>
-          <total ref="table" :isShow="addDialogShow" @toggle-show="dealForm" :tabType="'3'"></total>
+          <total ref="table" :tabType="'3'"></total>
         </template>
       </iep-tabs>
     </div>
-    <add-dialog v-else @close="closeForm" ref="form"></add-dialog>
+    <add-dialog v-else ref="form"></add-dialog>
   </basic-container>
 </template>
 <script>
 import Total from './Total/'
-import addDialog from './addDialog'
-import { getDataDetail } from '@/api/gpms/index'
+// import { getDataDetail } from '@/api/gpms/index'
 
 export default {
-  components: { Total, addDialog },
+  components: { Total },
   data () {
     return {
       replaceText: (data) => `[共${data[0]}条数据]`,
-      addDialogShow: false,
       tabList: [{
-        label: '我发布的',
+        label: '我的项目',
         value: 'Release',
-      }, {
-        label: '我参与的',
-        value: 'TakePartIn',
-      }, {
-        label: '全部',
-        value: 'Total',
-      }, {
+      },  {
         label: '项目公海库',
         value: 'International',
       }],
@@ -50,24 +35,6 @@ export default {
     }
   },
   methods: {
-    dealForm (type, row) {
-      if (row) {
-        getDataDetail(row.id).then(({data}) => {
-          this.pageState = 'form'
-          this.$nextTick(() => {
-            this.$refs['form'].open(type, data.data)
-          })
-        })
-      } else {
-        this.pageState = 'form'
-        this.$nextTick(() => {
-          this.$refs['form'].open(type, false)
-        })
-      }
-    },
-    closeForm () {
-      this.pageState = 'list'
-    },
   },
 }
 </script>

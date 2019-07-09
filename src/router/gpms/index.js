@@ -10,6 +10,31 @@ export default [
         name: '查看项目详情',
         component: () => import('@/views/gpms/project/approval/index.vue'),
       },
+      {
+        path: 'project/add_first',
+        name: '选择项目主题',
+        component: () => import('@/views/gpms/project/addFirst.vue'),
+      },
+      {
+        path: 'project/add',
+        name: '新增',
+        component: () => import('@/views/gpms/project/add.vue'),
+      },
+      {
+        path: 'project/add/:id',
+        name: '编辑',
+        component: () => import('@/views/gpms/project/add.vue'),
+      },
+      {
+        path: 'project/recommend_add',
+        name: '推荐新增',
+        component: () => import('@/views/gpms/project/recommendAdd.vue'),
+      },
+      {
+        path: 'project/detail_test/:id',
+        name: '查看项目详情',
+        component: () => import('@/views/gpms/project/detail.vue'),
+      },
     ],
   },
 ]

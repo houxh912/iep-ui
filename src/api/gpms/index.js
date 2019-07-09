@@ -60,4 +60,43 @@ export function getApprovalList (obj) {
     params: obj,
   })
 }
+// 推荐项目名字
+export function getRecommendedProjectList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendProjectName`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 推荐项目名字
+export function getRecommendedHandlesList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendManagerByTag`,
+    method: 'post',
+    data: obj,
+  })
+}
+// //变更
+// export function transferMentorList (obj) {
+//   return request({
+//     url: `${prefixUrl}/change/guidance`,
+//     method: 'post',
+//     data: obj,
+//   })
+// }
+// //变更
+// export function transferHandlesList (obj) {
+//   return request({
+//     url: `${prefixUrl}/change/handle`,
+//     method: 'post',
+//     data: obj,
+//   })
+// }
+export function transferManagerList (obj) {
+  return request({
+    url: `${prefixUrl}/change/handle`,
+    method: 'post',
+    data: obj,
+  })
+}
 

@@ -1,59 +1,85 @@
 <template>
-  <basic-container>
-    <div v-if="pageState == 'list'">
-      
-      <div class="head">
-        <div class="item" :class="selectIndex==1?'item-select':''" @click="changeItem(1)">项目审批</div>
-        <div class="middle"> / </div>
-        <div class="item" :class="selectIndex==2?'item-select':''" @click="changeItem(2)">项目经理审批</div>
-      </div>
+  <div>
+    <basic-container>
+      <iep-page-header title="项目审批" :back-option="backOption"></iep-page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button >批量审核</iep-button>
+        </template>
+        <template slot="right">
+          <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称" prop="projectName">
+            <!--title-->
+            <!-- <el-row class="search">
+              <el-col :span="23">高级搜索</el-col>
+              <el-col :span="1">
+                <i class="iconfon el-icon-plus" @click="closeDialog" style="cursor: pointer;"></i>
+              </el-col>
+            </el-row> -->
+            <!--表单-->
+            <!-- <search-form></search-form> -->
+          </operation-search>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+        <el-table-column label="项目名称" slot="before-columns" width="300px">
+          <template slot-scope="scope">
+            <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
+              <span>{{ scope.row.projectName }}</span>
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button size="small" type="danger" v-if="scope.row.approvalStatus==1">立项审核</iep-button>
+              <iep-button size="small" v-if="scope.row.approvalStatus==2">锁定</iep-button>
+              <iep-button size="small" v-if="scope.row.approvalStatus==3">启用</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
 
-      <project-page ref="project" @handleApprove="projectApprove" v-if="selectIndex==1"></project-page>
-      <author-page ref="author" @handleApprove="authorApprove" v-if="selectIndex==2"></author-page>
-
-    </div>
-    <div v-if="pageState == 'project'">
-      <projectApprove :form="formData" @close="pageState = 'list'"></projectApprove>
-    </div>
-    <div v-if="pageState == 'author'">
-      <authorApprove ref="authorApprove" @close="pageState = 'list'"></authorApprove>
-    </div>
-  </basic-container>
+    </basic-container>
+  </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
-import projectApprove from './approve/project'
-import authorApprove from './approve/author'
-import { getDataDetail } from '@/api/gpms/index'
-import ProjectPage from './project/index'
-import AuthorPage from './author/index'
+// import { getDataDetail } from '@/api/gpms/index'
+import { columnsMap, dictsMap } from './option.js'
+import { getApprovalList } from '@/api/gpms/index'
 
 export default {
   mixins: [mixins],
-  name: 'index',
-  components: { projectApprove, ProjectPage, AuthorPage, authorApprove },
   data () {
     return {
-      pageState: 'list',
-      selectIndex: 1,
+      columnsMap,
+      dictsMap,
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.close()
+        },
+      },
     }
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
-    projectApprove (row) {
-      getDataDetail(row.id).then(({data}) => {
-        this.formData = data.data
-        this.pageState = 'project'
-      })
+    close () {
+      this.$router.history.go(-1)
     },
-    authorApprove (row) {
-      this.pageState = 'author'
-      this.$nextTick(() => {
-        this.$refs['authorApprove'].open(row.id, row.projectInfoId)
-      })
+    searchPage (val) {
+      this.searchForm = Object.assign({}, this.searchForm, val)
+      this.loadPage()
     },
-    changeItem (index) {
-      this.selectIndex = index
+    loadPage ( param = this.searchForm ) {
+      this.loadTable({approvalStatus:0,param}, getApprovalList)
+    },
+    handleDetail (row) {
+      this.$router.push(`/gpms_spa/project/detail_test/${row.id}`)
     },
   },
 }

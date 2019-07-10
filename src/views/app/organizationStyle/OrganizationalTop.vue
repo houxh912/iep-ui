@@ -37,8 +37,8 @@
       <el-row class="operation">
         <ranking></ranking>
         <el-button type="danger" plain size="small" @click="handleProposal">建议</el-button>
+        <el-button type="danger" plain size="small" @click="handlePk">PK</el-button>
         <el-button type="danger" size="small" @click="handleInvestment">投资</el-button>
-        <el-button type="danger" size="small" @click="handlePk">pk</el-button>
       </el-row>
     </div>
   </div>
@@ -286,5 +286,6 @@ export default {
 .organizational-top >>> .el-button--danger {
   background: #cb3737;
   border-color: #ba1b21;
+  width: 62px
 }
 </style>

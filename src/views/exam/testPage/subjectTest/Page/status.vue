@@ -46,26 +46,24 @@ export default {
   position: absolute;
   right: 8px;
   top: 8px;
-  font-size: 12px;
-  border-radius: 2px;
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.23);
 
   > span {
     color: #fff;
     border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
   }
 
   .states-1 {
-    background: #67c23a;
+    background: #f44336;
   }
   .states-2 {
-    background: #f44336;
+    background: #67c23a;
   }
   .states-3 {
     background: #909399;
   }
   .states-4 {
-    background: #67c23a;
+    background: #409eff;
   }
   .states-5 {
     background: #e6a23c;

@@ -72,6 +72,6 @@ export default {
   color: #fff;
 }
 .qualification-search >>> .el-input__icon {
-  line-height: 40px;
+  line-height: 42px;
 }
 </style>

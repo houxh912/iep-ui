@@ -73,7 +73,12 @@ export default {
       this.loadTable({approvalStatus:0,...param}, getApprovalList)
     },
     handleDetail (row) {
-      this.$router.push(`/gpms_spa/project/detail_test/${row.id}`)
+      this.$router.push({
+        path:`/gpms_spa/project/detail/${row.id}`,
+        query: {
+          isApprove: true,
+        },
+      })
     },
     //审核
     handleReviewDialog (row) {

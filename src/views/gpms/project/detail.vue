@@ -114,7 +114,10 @@
         <el-row class="topBot">
           <el-form label-width="150px">
             <el-row>
-              <el-col :span="12" class="item">
+              <el-col :span="20" class="item">
+                <el-form-item>
+                  <material-table :dataList="formData.materialList"></material-table>
+                </el-form-item>
               </el-col>
             </el-row>
           </el-form>
@@ -128,7 +131,10 @@
         <el-row class="topBot">
           <el-form label-width="150px">
             <el-row>
-              <el-col :span="12" class="item">
+              <el-col :span="20" class="item">
+                <el-form-item>
+                  <collection-table :dataList="[formData.projectBudgetList]"></collection-table>
+                </el-form-item>
               </el-col>
             </el-row>
           </el-form>
@@ -161,7 +167,20 @@
         <el-row class="topBot">
           <el-form label-width="150px">
             <el-row>
-              <el-col :span="12" class="item">
+              <el-col :span="20" class="item" style="height:200px;">
+                <el-form-item class="center-box">
+                  <el-radio-group v-model="projectStatus" class="projectStatus" :disabled="isApprove.isApprove==false">
+                    <el-radio :label="3">审核通过</el-radio>
+                    <el-radio :label="4">审核不通过</el-radio>
+                  </el-radio-group>
+                  <iep-input-area v-if="projectStatus === 4" class="content" v-model="content">
+                  </iep-input-area>
+                </el-form-item>
+              </el-col>
+              <el-col :span="20" class="data">
+                <el-form-item>
+                  <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+                </el-form-item>
               </el-col>
             </el-row>
           </el-form>
@@ -173,11 +192,15 @@
 </template>
 
 <script>
-import { getDataDetail } from '@/api/gpms/index'
+import { getDataDetail, approvalById } from '@/api/gpms/index'
 import TransferDialogForm from './TransferDialogForm'
+import collectionTable from './collectionTable'
+import materialTable from './materialTable'
 export default {
   components: {
     TransferDialogForm,
+    collectionTable,
+    materialTable,
   },
   data () {
     return {
@@ -189,10 +212,20 @@ export default {
           this.close()
         },
       },
+      projectStatus:3,
+      content:'',
     }
   },
   created () {
     this.getDetailData()
+  },
+  computed: {
+    id () {
+      return this.$route.params.id ? +this.$route.params.id : null
+    },
+    isApprove () {
+      return this.$route.query
+    },
   },
   methods:{
     close () {
@@ -222,20 +255,26 @@ export default {
         this.formData = data.data
       })
     },
-    // transferMentor (val) {
-    //   this.$refs['TransferDialogForm'].form.projectMentorList = val
-    //   this.$refs['TransferDialogForm'].methodName = '项目指导人'
-    //   this.$refs['TransferDialogForm'].formRequestFn = transferMentorList
-    //   this.$refs['TransferDialogForm'].dialogShow = true
-    //   this.$refs['TransferDialogForm'].type = 'mentor'
-    // },
-    // transferHandles (val) {
-    //   this.$refs['TransferDialogForm'].form.projectHandlesList = val
-    //   this.$refs['TransferDialogForm'].methodName = '执行项目经理'
-    //   this.$refs['TransferDialogForm'].formRequestFn = transferHandlesList
-    //   this.$refs['TransferDialogForm'].dialogShow = true
-    //   this.$refs['TransferDialogForm'].type = 'handles'
-    // },
+    handleSubmit () {
+      approvalById({
+        ids: [this.id],
+        projectStatus: this.projectStatus, // 用来变更状态
+        content: this.content,
+      }).then(({ data }) => {
+        if (data.data) {
+          this.$message({
+            message: '成功',
+            type: 'success',
+          })
+        } else {
+          this.$message({
+            message: data.msg,
+            type: 'warning',
+          })
+        }
+        this.close()
+      })
+    },
   },
 }
 </script>
@@ -273,5 +312,24 @@ export default {
 .el-form-item {
   margin-bottom: 0;
 }
-
+.center-box {
+  text-align: center;
+  padding: 0 20px;
+  .projectStatus {
+    margin-bottom: 20px;
+  }
+  .content {
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    padding: 0 20px;
+  }
+}
+</style>
+<style scoped>
+.contianBox >>> .el-form-item__content{
+  text-align: left;
+}
+.contianBox >>> .center-box .content{
+  padding:0;
+}
 </style>

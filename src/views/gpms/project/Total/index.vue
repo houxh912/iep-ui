@@ -103,7 +103,12 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     handleDetail (row) {
-      this.$router.push(`/gpms_spa/project/detail_test/${row.id}`)
+      this.$router.push({
+        path:`/gpms_spa/project/detail/${row.id}`,
+        query: {
+          isApprove: false,
+        },
+      })
     },
     handleCreate () {
       this.$router.push('/gpms_spa/project/add')

@@ -25,17 +25,20 @@
         <el-form-item label="卓越标签：">
           <iep-tag v-model="form.abilityTag"></iep-tag>
         </el-form-item>
+        <el-form-item label="专业标签：">
+          <iep-tag v-model="form.projectTag"></iep-tag>
+        </el-form-item>
         <el-form-item label="进步标签：">
           <iep-tag v-model="form.learningTag"></iep-tag>
         </el-form-item>
         <el-form-item label="联盟简介：" prop="intro">
-          <el-input v-model="form.intro" type="textarea" placeholder="验证码登录使用"></el-input>
+          <iep-input-area v-model="form.intro" placeholder="验证码登录使用"></iep-input-area>
         </el-form-item>
         <el-form-item label="联盟架构：" prop="orgStructure">
-          <el-input v-model="form.structure" type="textarea"></el-input>
+          <iep-froala-editor v-model="form.structure"></iep-froala-editor>
         </el-form-item>
         <el-form-item label="核心优势：" prop="coreAdvantage">
-          <el-input v-model="form.coreAdvantage" type="textarea" placeholder="请输入核心优势"></el-input>
+          <iep-input-area v-model="form.coreAdvantage" placeholder="请输入核心优势"></iep-input-area>
         </el-form-item>
         <!-- <el-form-item label="联盟客服人员：" prop="phone">
           <el-input></el-input>

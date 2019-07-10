@@ -38,19 +38,29 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    unionId: '',
-    logo: '',
-    name: '',
-    ubName:'govmade',
-    establishTime: '',
-    scale:'500',
-    creator: {},
-    contactMethod: '',
-    intro: '',
-    structure: '',
-    coreAdvantage: '',
     abilityTag: [],
+    abrName: '',
+    adminList: [],
+    contactMethod: '',
+    coreAdvantage: '',
+    createTime: '',
+    creator: { name: '', id: '', avatar: '' },
+    establishTime: '',
+    intro: '',
     learningTag: [],
+    logo: '',
+    memberNum: '',
+    name: '',
+    orgId: '',
+    orgNum: '',
+    projectTag: [],
+    status: '',
+    structure: '',
+    unionId: '',
+    updateTime: '',
+    userId: '',
+
+    creatorName: '',
   }
 }
 

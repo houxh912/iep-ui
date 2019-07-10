@@ -38,10 +38,13 @@
               联盟标签
             </div>
             <div class="tag-wrapper">
-              <div class="tag-item">
+              <div class="item">
                 卓越标签：<iep-tag-detail :value="form.abilityTag"></iep-tag-detail>
               </div>
-              <div>
+              <div class="item">
+                专业标签：<iep-tag-detail :value="form.projectTag"></iep-tag-detail>
+              </div>
+              <div class="item">
                 进步标签：<iep-tag-detail :value="form.learningTag"></iep-tag-detail>
               </div>
             </div>
@@ -58,7 +61,7 @@
             <div class="title">
               联盟架构
             </div>
-            <p>{{form.structure}}</p>
+            <iep-html v-model="form.structure"></iep-html>
           </div>
           <iep-divider dashed />
           <div class="bottom">
@@ -111,7 +114,7 @@ export default {
 <style lang="scss" scoped>
 .tag-wrapper {
   margin-left: 20px;
-  .tag-item {
+  .item {
     margin-bottom: 10px;
   }
 }

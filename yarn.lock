@@ -6883,6 +6883,11 @@ numerify@1.2.9:
   resolved "https://registry.npm.taobao.org/numerify/download/numerify-1.2.9.tgz#af4696bb1d57f8d3970a615d8b0cd53d932bd559"
   integrity sha1-r0aWux1X+NOXCmFdiwzVPZMr1Vk=
 
+nzh@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/nzh/-/nzh-1.0.4.tgz#bded5492cd7148fa5fe1c809fa61932a899769c5"
+  integrity sha512-A1qQSJTctuzmNlAAqV8AcvcOcsGn0iBbRn2Jhw4KkEFCDkXd5YV7SkfPQ6fw6fGVtJzo6++sGS/W1JZizRmCNQ==
+
 oauth-sign@~0.9.0:
   version "0.9.0"
   resolved "https://registry.npm.taobao.org/oauth-sign/download/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"

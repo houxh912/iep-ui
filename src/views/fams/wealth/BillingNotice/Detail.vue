@@ -20,7 +20,7 @@
         <iep-form-item label-name="开户行及账户" class="form-half">
           <iep-div-detail :value="form.buyerAccount"></iep-div-detail>
         </iep-form-item>
-        <iep-form-item label-name="发票邮寄地址">
+        <iep-form-item label-name="发票邮寄地址、联系人、电话">
           <iep-div-detail :value="form.buyerMail"></iep-div-detail>
         </iep-form-item>
         <h4 class="iep-sub-title">货物或应税劳务、服务名称</h4>
@@ -41,6 +41,9 @@
         </iep-form-item>
         <iep-form-item label-name="金额" class="form-half">
           <iep-div-detail :value="form.amount"></iep-div-detail>
+        </iep-form-item>
+        <iep-form-item label-name="金额大写" class="form-half">
+          {{form.amount | parseToHanZiMoney}}
         </iep-form-item>
         <iep-form-item label-name="发票种类">
           <iep-div-detail :value="dictsMap.invoicingType[form.invoicingType]"></iep-div-detail>

@@ -3,6 +3,7 @@
     <div class="drag" @mousedown="mousedown"></div>
     <div class="im-main">
       <div class="im-info">
+        <el-input style="height: 30px;" placeholder="输入关键字进行过滤" v-model="chatFilter" clearable></el-input>
         <div class="close-button" @click="showSmall"></div>
       </div>
       <ul class="im-table">
@@ -15,7 +16,7 @@
         </li>
       </ul>
       <div class="im-tabel-content-large-im">
-        <el-tree class="im-tabel-tree" v-show="tableChosen === 'book'" @node-click="toChatUser" :data="$store.getters.imUserTree" node-key="id" :expand-on-click-node="false">
+        <el-tree ref="chatTree" class="im-tabel-tree" :filter-node-method="chatFilterNode" v-show="tableChosen === 'book'" @node-click="toChatUser" :data="$store.getters.imUserTree" node-key="id" :expand-on-click-node="false">
           <div v-if="data.leaf" class="im-friend" slot-scope="{ node, data }">
             <iep-img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
             <span>{{data.label}}</span>
@@ -32,19 +33,19 @@
           </div>
           <span v-else>{{ data.label }}</span>
         </el-tree>
-        <custom-group @toChatUser="toChatUser" v-show="tableChosen === 'book'"></custom-group>
+        <custom-group :filter="chatFilter" @toChatUser="toChatUser" v-show="tableChosen === 'book'"></custom-group>
         <div v-show="tableChosen === 'book'" style="max-width: 260px;padding: 10px 0;text-align: center;">
           <el-button @click="addCustomGroup" class="btn-addgroup" size="mini" round>创建分组+</el-button>
         </div>
         <ul v-show="tableChosen === 'chat'" class="im-chat-list">
-          <li class="im-friend" v-for="chat in $store.getters.imChatList" @click="toChat(chat)" :key="chat.chatNo">
+          <li class="im-friend" v-for="chat in getChatList" @click="toChat(chat)" :key="chat.chatNo">
             <iep-img class="im-friend-head" :src="chat.avatar ? chat.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
             <span>{{chat.realName}}</span>
             <el-badge class="unread-point" v-show="getImUnread(chat)" :max="99" :value="getImUnread(chat)"></el-badge>
           </li>
         </ul>
         <ul v-show="tableChosen === 'group'" class="im-chat-list">
-          <li class="im-friend" v-for="group in $store.getters.imGroups" @click="toChatGroup(group)" :key="group.id">
+          <li class="im-friend" v-for="group in getGroups" @click="toChatGroup(group)" :key="group.id">
             <iep-img class="im-friend-head" :src="group.avatar ? group.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
             <span>{{group.groupName}}</span>
           </li>
@@ -121,6 +122,7 @@ export default {
         membersId: [],
         originatorId: 0,
       },
+      chatFilter: '',
     }
   },
   mounted () {
@@ -168,6 +170,10 @@ export default {
       this.dialogShow = false
     },
     filterNode (value, data) {
+      if (!value) return true
+      return data.label.indexOf(value) !== -1
+    },
+    chatFilterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
@@ -299,6 +305,32 @@ export default {
     windowSize () {
       return this.$store.getters.windowSize
     },
+    getChatList () {
+      let chatList = []
+      if (this.chatFilter) {
+        for (let i = this.$store.getters.imChatList.length; i--;) {
+          if (this.$store.getters.imChatList[i].realName.indexOf(this.chatFilter) !== -1) {
+            chatList.push(this.$store.getters.imChatList[i])
+          }
+        }
+      } else {
+        chatList = Object.assign([], this.$store.getters.imChatList)
+      }
+      return chatList
+    },
+    getGroups () {
+      let groups = []
+      if (this.chatFilter) {
+        for (let i = this.$store.getters.imGroups.length; i--;) {
+          if (this.$store.getters.imGroups[i].groupName.indexOf(this.chatFilter) !== -1) {
+            groups.push(this.$store.getters.imGroups[i])
+          }
+        }
+      } else {
+        groups = Object.assign([], this.$store.getters.imGroups)
+      }
+      return groups
+    },
   },
   watch: {
     windowSize () {
@@ -309,6 +341,9 @@ export default {
     },
     filterText (val) {
       this.$refs.tree.filter(val)
+    },
+    chatFilter (val) {
+      this.$refs.chatTree.filter(val)
     },
     optionId (val) {
       if (!val) {
@@ -340,6 +375,16 @@ export default {
 }
 .el-tag {
   border-style: none;
+}
+.im-info >>> .el-input {
+  margin-left: 20px;
+  height: 30px;
+  line-height: 30px;
+  width: 200px;
+}
+.im-info >>> .el-input__inner {
+  height: 30px;
+  line-height: 30px;
 }
 </style>
 

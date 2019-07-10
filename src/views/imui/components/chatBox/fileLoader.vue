@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { getFile } from '@/api/im'
+import { getFile, getFileName } from '@/api/im'
 export default {
   data () {
     return {
@@ -19,10 +19,28 @@ export default {
     name: {},
   },
   created () {
-    getFile(this.name).then(data => {
-      let blob = new Blob([data.data])
+    let url = this.name
+    let type = ''
+    let index = this.name.indexOf('-', this.name.indexOf('-') + 1)
+    if (index > 0) {
+      url = this.name.substring(0, index)
+      type = this.name.substring(index + 1)
+    } else {
+      let suffix = this.name.substring(this.name.lastIndexOf('.') + 1)
+      if (suffix === 'mp4') {
+        type = 'video/mp4'
+      } else if (suffix === 'mp3') {
+        type = 'audio/mpeg'
+      }
+    }
+    getFile(url, type).then(data => {
+      let blob = new Blob([data.data], { type })
       this.fileUrl = window.URL.createObjectURL(blob)
-      this.fileName = data.headers.filename
+      getFileName(url).then(({ data }) => {
+        this.fileName = data
+      }, () => {
+        this.fileName = `未知文件${this.fileUrl.substring(this.fileUrl.lastIndexOf('.'))}`
+      })
     }, error => {
       this.$message.error(error.msg)
     })

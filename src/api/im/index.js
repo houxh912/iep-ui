@@ -71,11 +71,21 @@ export function deleteGroup (data) {
   })
 }
 
-export function getFile (fileName) {
+export function getFile (fileName, mimeType) {
   return request({
     url: `${prefixUrl}/file/${fileName}`,
     method: 'get',
-    responseType: 'blob',
+    responseType: 'arraybuffer',
+    params: {
+      mimeType,
+    },
+  })
+}
+
+export function getFileName (fileName) {
+  return request({
+    url: `${prefixUrl}/getfileName/${fileName}`,
+    method: 'get',
   })
 }
 

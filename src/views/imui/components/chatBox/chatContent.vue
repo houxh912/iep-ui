@@ -94,25 +94,30 @@
                     class="btn-media">
               <i slot="trigger" class="el-icon-picture-outline"></i>
             </el-upload>
-            <el-upload :headers="headers"
-                       :action="action"
-                       :showFileList="false"
-                       :on-success="fileUpload"
-                       class="btn-media">
+            <el-upload
+                    :headers="headers"
+                    :action="action"
+                    :showFileList="false"
+                    :on-success="fileUpload"
+                    class="btn-media">
               <i slot="trigger" class="el-icon-folder"></i>
             </el-upload>
-            <el-upload :headers="headers"
-                       :action="action"
-                       :showFileList="false"
-                       :on-success="audioUpload"
-                       class="btn-media">
+            <el-upload
+                    :headers="headers"
+                    :action="action"
+                    :showFileList="false"
+                    :on-success="audioUpload"
+                    accept="audio/mpeg, video/mp4"
+                    class="btn-media">
               <i slot="trigger" class="el-icon-headset"></i>
             </el-upload>
-            <el-upload :headers="headers"
-                       :action="action"
-                       :showFileList="false"
-                       :on-success="videoUpload"
-                       class="btn-media">
+            <el-upload
+                    :headers="headers"
+                    :action="action"
+                    :showFileList="false"
+                    :on-success="videoUpload"
+                    accept="video/mp4"
+                    class="btn-media">
               <i slot="trigger" class="el-icon-film"></i>
             </el-upload>
           </div>

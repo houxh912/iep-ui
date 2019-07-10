@@ -1,5 +1,5 @@
 <template>
-  <el-tree @node-click="toChatUser" :data="$store.getters.imCustomGroups" node-key="id" :expand-on-click-node="false">
+  <el-tree ref="tree" :filter-node-method="filterNode" @node-click="toChatUser" :data="$store.getters.imCustomGroups" node-key="id" :expand-on-click-node="false">
     <div v-if="data.leaf && data.value" class="im-friend" slot-scope="{ node, data }">
       <template>
         <iep-img class="im-friend-head" :src="data.avatar ? data.avatar : '/img/icons/apple-touch-icon-60x60.png'"></iep-img>
@@ -26,6 +26,12 @@ export default {
     return {
       optionId: '',
     }
+  },
+  props: {
+    filter: {
+      type: String,
+      default: '',
+    },
   },
   methods: {
     toChatUser (data) {
@@ -78,6 +84,15 @@ export default {
         })
       }).catch(() => {
       })
+    },
+    filterNode (value, data) {
+      if (!value) return true
+      return (data.label || '').indexOf(value) !== -1
+    },
+  },
+  watch: {
+    filter (val) {
+      this.$refs.tree.filter(val)
     },
   },
 }

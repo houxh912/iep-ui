@@ -18,8 +18,22 @@ export default {
     type: {},
   },
   created () {
-    getFile(this.url).then(data => {
-      let blob = new Blob([data.data])
+    let url = this.url
+    let type = ''
+    let index = this.url.indexOf('-', this.url.indexOf('-') + 1)
+    if (index > 0) {
+      url = this.url.substring(0, index)
+      type = this.url.substring(index + 1)
+    } else {
+      let suffix = this.url.substring(this.url.lastIndexOf('.') + 1)
+      if (suffix === 'mp4') {
+        type = 'video/mp4'
+      } else if (suffix === 'mp3') {
+        type = 'audio/mpeg'
+      }
+    }
+    getFile(url, type).then(data => {
+      let blob = new Blob([data.data], { type })
       this.src = window.URL.createObjectURL(blob)
     }, error => {
       this.$message.error(error.msg)

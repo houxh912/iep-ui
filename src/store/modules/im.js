@@ -1,4 +1,4 @@
-import { getCustomGroup, getGroup, clearUnread, getGroupMembers, updateGroupInfo, deleteGroup, updateCustomGroup, deleteCustomGroup } from '@/api/im'
+import { getCustomGroup, getGroup, clearUnread, getGroupMembers, updateGroupInfo, deleteGroup, updateCustomGroup, deleteCustomGroup, getTotalHistory } from '@/api/im'
 import { getUserListTree } from '@/api/admin/contacts'
 
 function addChat (state, data, isNew = true) {
@@ -419,6 +419,20 @@ const im = {
     },
   },
   actions: {
+    initHistory ({ commit }, selfId) {
+      return new Promise((resolve, reject) => {
+        getTotalHistory().then(({ data }) => {
+          if (data.code === 0) {
+            commit('initHistory', {history: data.data, selfId})
+            resolve()
+          } else {
+            reject(new Error(data.msg))
+          }
+        }, error => {
+          reject(error)
+        })
+      })
+    },
     initCustomGroup ({ commit }) {
       return new Promise((resolve, reject) => {
         getCustomGroup().then(({data}) => {

@@ -86,4 +86,7 @@ export default {
   border-color: #ba1b21;
   color: #fff;
 }
+.gov-person-top >>> .el-input__icon {
+  line-height: 40px;
+}
 </style>

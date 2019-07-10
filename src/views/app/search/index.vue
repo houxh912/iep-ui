@@ -147,6 +147,9 @@ export default {
 .gov-info >>> .el-timeline-item__tail {
   top: 15px;
 }
+.search >>> .el-input__icon {
+  line-height: 40px;
+}
 </style>
 
 <style lang="scss" scoped>

@@ -64,6 +64,7 @@ export default {
   color: #cb3737;
   background: #fef0f0;
   border-color: #cb3737;
+  margin-left: 10px
 }
 .gov-projects-top >>> .el-button--danger.is-plain:hover,
 .gov-projects-top >>> .el-button--danger.is-plain:focus {

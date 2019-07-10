@@ -88,7 +88,7 @@ export default {
     }
     .piece {
       float: left;
-      margin: 0 5px;
+      margin: 0 7px;
       width: 60px;
       text-align: center;
       overflow: hidden;

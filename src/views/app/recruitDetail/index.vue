@@ -8,42 +8,47 @@
       </div>
       <customer></customer>
     </div> -->
-    <customerDetail :formData="formData"></customerDetail>
+    <customerDetail ref="detail"></customerDetail>
     <div class="piece">
-      
+      <IepAppTabCard :title="labelTitle">
+        <IepAppListCard :dataList="labelList" name="positionName" @click="handleDetail"></IepAppListCard>
+      </IepAppTabCard>
     </div>
   </div>
 </template>
 <script>
-import customerDetail from './Customer/'
-import { getCustomerById } from '@/api/crms/customer'
+import customerDetail from './detail/'
+import { getPostList } from '@/api/app/hrms/'
 
 export default {
   components: {
-    // Customer,
     customerDetail,
   },
   data () {
     return {
-      formData: {},
+      labelTitle: '推荐岗位',
+      labelList: [],
     }
   },
   beforeRouteUpdate (to, from, next) {
     this.$nextTick(() => {
-      this.getCustomerById(this.$route.params.id)
+      this.$refs['detail'].loadPage()
     })
     next()
   },
   methods: {
-    getCustomerById (id) {
-      getCustomerById(id).then(({ data }) => {
-        this.formData = data.data
+    // 推荐岗位
+    getRectagsList () {
+      getPostList().then(({data}) => {
+        this.labelList = data.data
       })
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/recruitDetail/${row.id}`)
     },
   },
   created () {
-    let params = this.$route.params
-    this.getCustomerById(params.id)
+    this.getRectagsList()
   },
 }
 </script>

@@ -28,7 +28,7 @@
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="项目标签：">
-                  <el-tag type='info' v-for="(item, index) in formData.projectTag" :key="index">{{item}}</el-tag>
+                  <el-tag type='info' v-for="(item, index) in formData.projectTagList" :key="index">{{item}}</el-tag>
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item" v-show="this.formData.projectType==2">

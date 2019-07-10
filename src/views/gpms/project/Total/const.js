@@ -115,13 +115,14 @@ export function initFormData (obj) {
   const name = obj ? obj.realName : ''
   const id = obj ? obj.userId : ''
   return {
-    projectStatus:'',//保存状态 1为草稿
+    status:'',//保存状态 1为草稿
     projectName: '', // 项目名称
     projectExplain: '',//项目说明
     projectTypeBefore: '', // 项目类型
     projectType: '', // 项目类型
     businessType: '', // 业务类型
     businessTypeSec: '', // 其他
+    projectLevel: '',//项目等级
     attendeeId:'',//委托组织
     relatedClient: '', // 相关客户
     relatedClientList: {

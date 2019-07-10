@@ -8,16 +8,7 @@
       </template>
       <template slot="right">
         <el-checkbox v-model="onlyResponsible" @change="changeResponsible()">仅看我负责的项目</el-checkbox>
-        <operation-search @search-page="searchPage" @closed="dialogIsShow = true" advance-search placeHolder="请输入项目名称" :dialogIsShow="dialogIsShow" prop="projectName">
-          <!--title-->
-          <!-- <el-row class="search">
-            <el-col :span="23">高级搜索</el-col>
-            <el-col :span="1">
-              <i class="iconfon el-icon-plus" @click="closeDialog" style="cursor: pointer;"></i>
-            </el-col>
-          </el-row> -->
-          <!--表单-->
-          <!-- <search-form></search-form> -->
+        <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称" prop="projectName">
             <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
@@ -40,11 +31,22 @@
           <span>{{ scope.row.approvalTime || parseToDay }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="项目状态">
+        <template slot-scope="scope">
+          <span v-if="scope.row.projectStatus==1">待提交</span>
+          <span v-if="scope.row.projectStatus==2">待审核</span>
+          <span v-if="scope.row.projectStatus==3">已立项</span>
+          <span v-if="scope.row.projectStatus==4">审核未通过</span>
+          <span v-if="scope.row.projectStatus==5">锁定</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">编辑</iep-button>
-            <iep-button @click="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">删除</iep-button>
+            <iep-button @click="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'">立项</iep-button>
+            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'">编辑</iep-button>
+            <iep-button @click="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'">删除</iep-button>
+            <iep-button @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'">撤回</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -56,7 +58,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
-import { getTableData, deleteData } from '@/api/gpms/index'
+import { getTableData, deleteData, withdrawById } from '@/api/gpms/index'
 import { getProjectPage } from '@/api/gpms/fas'
 import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
@@ -92,10 +94,6 @@ export default {
         this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
       }
     },
-    closeDialog () {
-      this.dialogIsShow = false
-      this.paramForm = paramForm()
-    },
     searchPage (val) {
       this.searchForm = Object.assign({}, this.searchForm, val)
       this.loadPage()
@@ -118,6 +116,29 @@ export default {
     },
     handleDeleteAll () {
       this._handleGlobalAll(deleteData)
+    },
+    //撤回
+    handleWithdraw (ids,val,name) {
+      this.$confirm(`此操作将${name}该数据, 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        withdrawById({ids:[ids],projectStatus:val}).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: `${name}成功!`,
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `撤回失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
     //移交
     transferMentor () {

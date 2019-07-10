@@ -77,21 +77,6 @@ export function getRecommendedHandlesList (obj) {
   })
 }
 // //变更
-// export function transferMentorList (obj) {
-//   return request({
-//     url: `${prefixUrl}/change/guidance`,
-//     method: 'post',
-//     data: obj,
-//   })
-// }
-// //变更
-// export function transferHandlesList (obj) {
-//   return request({
-//     url: `${prefixUrl}/change/handle`,
-//     method: 'post',
-//     data: obj,
-//   })
-// }
 export function transferManagerList (obj) {
   return request({
     url: `${prefixUrl}/change/handle`,
@@ -99,4 +84,19 @@ export function transferManagerList (obj) {
     data: obj,
   })
 }
-
+//审核
+export function approvalById (obj) {
+  return request({
+    url: `${prefixUrl}/updateApproval`,
+    method: 'post',
+    data: obj,
+  })
+}
+//撤回
+export function withdrawById (obj) {
+  return request({
+    url: `${prefixUrl}/batch/withdrawal`,
+    method: 'post',
+    data: obj,
+  })
+}

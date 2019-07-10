@@ -329,8 +329,8 @@
       </el-form>
 
       <footer-tool-bar>
-        <iep-button type="primary" @click="save">保存并发布</iep-button>
-        <iep-button @click="saveDraft">保存为草稿</iep-button>
+        <iep-button type="primary" @click="save('2')">保存并发布</iep-button>
+        <iep-button @click="save('1')">保存为草稿</iep-button>
       </footer-tool-bar>
     </basic-container>
       <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
@@ -458,11 +458,8 @@ export default {
         this.methodName = '修改'
       }
     },
-    saveDraft () {
-      this.formData.projectStatus='1'
-      this.save(true)
-    },
-    save () {
+    save (val) {
+      this.formData.projectStatus=val
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 进行数据的转换先

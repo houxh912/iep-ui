@@ -4,23 +4,14 @@
       <iep-page-header title="项目审批" :back-option="backOption"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button >批量审核</iep-button>
+          <iep-button @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称" prop="projectName">
-            <!--title-->
-            <!-- <el-row class="search">
-              <el-col :span="23">高级搜索</el-col>
-              <el-col :span="1">
-                <i class="iconfon el-icon-plus" @click="closeDialog" style="cursor: pointer;"></i>
-              </el-col>
-            </el-row> -->
-            <!--表单-->
-            <!-- <search-form></search-form> -->
+          <operation-search @search-page="searchPage" placeHolder="请输入项目名称" prop="projectName">
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <el-table-column label="项目名称" slot="before-columns" width="300px">
           <template slot-scope="scope">
             <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
@@ -31,15 +22,16 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button size="small" type="danger" v-if="scope.row.approvalStatus==1">立项审核</iep-button>
-              <iep-button size="small" v-if="scope.row.approvalStatus==2">锁定</iep-button>
-              <iep-button size="small" v-if="scope.row.approvalStatus==3">启用</iep-button>
+              <iep-button size="small" type="danger" plain v-if="scope.row.projectStatus==2" @click="handleReviewDialog(scope.row, scope.index)">立项审核</iep-button>
+              <iep-button size="small" v-if="scope.row.projectStatus==3" @click="lockingEnable(scope.row.id,5,'锁定')">锁定</iep-button>
+              <iep-button size="small" v-if="scope.row.projectStatus==5" @click="lockingEnable(scope.row.id,3,'启用')">启用</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
 
     </basic-container>
+    <review-confirm is-inverse ref="ReviewForm" @load-page="loadPage"></review-confirm>
   </div>
 </template>
 
@@ -47,10 +39,12 @@
 import mixins from '@/mixins/mixins'
 // import { getDataDetail } from '@/api/gpms/index'
 import { columnsMap, dictsMap } from './option.js'
-import { getApprovalList } from '@/api/gpms/index'
+import { getApprovalList, approvalById } from '@/api/gpms/index'
+import ReviewConfirm from './ReviewConfirm'
 
 export default {
   mixins: [mixins],
+  components: { ReviewConfirm },
   data () {
     return {
       columnsMap,
@@ -76,10 +70,55 @@ export default {
       this.loadPage()
     },
     loadPage ( param = this.searchForm ) {
-      this.loadTable({approvalStatus:0,param}, getApprovalList)
+      this.loadTable({approvalStatus:0,...param}, getApprovalList)
     },
     handleDetail (row) {
       this.$router.push(`/gpms_spa/project/detail_test/${row.id}`)
+    },
+    //审核
+    handleReviewDialog (row) {
+      if (row.id) {
+        this.$refs['ReviewForm'].id = row.id
+      } else {
+        // TODO: 是否多选提醒
+        if (!this.multipleSelection.length) {
+          this.$message('请先选择需要的选项')
+          return
+        }
+        this.$refs['ReviewForm'].ids = this.multipleSelection
+      }
+      this.$refs['ReviewForm'].title = '审核'
+      this.$refs['ReviewForm'].formRequestFn = approvalById
+      this.$refs['ReviewForm'].dialogShow = true
+    },
+    //锁定启用
+    lockingEnable (id,val,name) {
+      this.$confirm(`此操作将${name}该项目 , 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        approvalById({
+          ids: [id],
+          projectStatus: val, // 用来变更状态
+        }).then(({ data }) => {
+          if (data.data) {
+            this.$message({
+              message: `${name}成功`,
+              type: 'success',
+            })
+          } else {
+            this.$message({
+              message: data.msg,
+              type: 'warning',
+            })
+          }
+          this.loadPage()
+        })
+      })
+    },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
     },
   },
 }

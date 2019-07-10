@@ -1,10 +1,10 @@
 <template>
   <basic-container>
     <div v-if="pageState === 'list'">
-      <iep-page-header title="我的项目" :replaceText="replaceText" :data="[16]"></iep-page-header>
+      <iep-page-header title="我的项目" :replaceText="replaceText" :data="[sum]"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Release'" v-slot:Release>
-          <total ref="table" :tabType="'2'"></total>
+          <total ref="table" :tabType="'2'" @statistics="statistics($event)"></total>
         </template>
         <template v-if="activeTab === 'International'" v-slot:International>
           <total ref="table" :tabType="'3'"></total>
@@ -32,9 +32,13 @@ export default {
       }],
       activeTab: 'Release',
       pageState: 'list',
+      sum:'',
     }
   },
   methods: {
+    statistics (val) {
+      this.sum=val
+    },
   },
 }
 </script>

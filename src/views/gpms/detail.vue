@@ -187,18 +187,15 @@
         </el-row>
       </div>
     </basic-container>
-    <transfer-dialog-form ref="TransferDialogForm" @load-page="getDetailData"></transfer-dialog-form>
   </div>
 </template>
 
 <script>
 import { getDataDetail, approvalById } from '@/api/gpms/index'
-import TransferDialogForm from './TransferDialogForm'
 import collectionTable from './collectionTable'
 import materialTable from './materialTable'
 export default {
   components: {
-    TransferDialogForm,
     collectionTable,
     materialTable,
   },

@@ -83,16 +83,19 @@ export default {
       value: '',
       searchForm: {},
       onlyResponsible:false,
+      statistics:'',
     }
   },
   mixins: [mixins],
   methods: {
-    loadPage (params = {}) {
+    async loadPage (params = {}) {
       if (this.tabType === 3) {
         this.loadTable(Object.assign({}, params, this.searchForm), getProjectPage)
       } else {
-        this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+        const data = await this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+        this.statistics=data.total
       }
+      this.$emit('statistics', this.statistics)
     },
     searchPage (val) {
       this.searchForm = Object.assign({}, this.searchForm, val)

@@ -6,11 +6,6 @@ export default [
     redirect: '/gpms_spa/project/detail/:id',
     children: [
       {
-        path: 'project/detail_test/:id',
-        name: '查看项目详情',
-        component: () => import('@/views/gpms/project/approval/index.vue'),
-      },
-      {
         path: 'project/add_first',
         name: '选择项目主题',
         component: () => import('@/views/gpms/project/addFirst.vue'),
@@ -33,7 +28,7 @@ export default [
       {
         path: 'project/detail/:id',
         name: '查看项目详情',
-        component: () => import('@/views/gpms/project/detail.vue'),
+        component: () => import('@/views/gpms/detail.vue'),
       },
     ],
   },

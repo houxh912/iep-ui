@@ -136,11 +136,18 @@ export default {
 </style>
 
 <style scoped>
+.person >>> .el-carousel__arrow {
+  background: none;
+}
 .person >>> .el-carousel__arrow--left {
   left: 0;
 }
 .person >>> .el-carousel__arrow--right {
   right: 0;
+}
+.person >>> .el-carousel__arrow i {
+  font-size: 36px;
+  color: #666;
 }
 .person >>> .el-carousel__item {
   left: 40px;

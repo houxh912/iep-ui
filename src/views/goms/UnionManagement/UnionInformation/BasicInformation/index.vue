@@ -1,7 +1,6 @@
 <template>
   <div>
     <basic-container>
-      <el-button style="float:right" class="modify" size="small" @click="handleEdit">修改</el-button>
       <div class="org-detail-wrapper">
         <div class="content">
           <div class="top">
@@ -17,7 +16,7 @@
                 </div>
                 <div class="form-item-wrapper">
                   <label for="">成立时间：</label>
-                  <span class="value">{{form.establishTime}}</span>
+                  <span class="value">{{form.establishTime | parseToDay}}</span>
                 </div>
                 <div class="form-item-wrapper">
                   <label for="">人员规模：</label>
@@ -35,23 +34,28 @@
         </div>
         <div class="introduction-details">
           <div class="tags-detail">
-            <span class="details-title">{{subTitle1}}</span>
-            <iep-goms-tags title="卓越" :tags="tags"></iep-goms-tags>
-            <iep-goms-tags title="专业" :tags="tags2"></iep-goms-tags>
+            <span class="details-title">联盟标签</span>
+            <iep-goms-tags title="卓越" :tags="form.abilityTag"></iep-goms-tags>
+            <iep-goms-tags title="专业" :tags="form.projectTag"></iep-goms-tags>
+            <iep-goms-tags title="进步" :tags="form.learningTag"></iep-goms-tags>
           </div>
           <div class="brief">
-            <span class="details-title">{{subTitle2}}</span>
-            <p class="con">{{con}}</p>
+            <span class="details-title">联盟简介</span>
+            <p class="con">{{form.intro}}</p>
           </div>
           <div class="contact">
-            <span class="details-title">{{subTitle3}}</span>
-            <span class="con"><span>官网地址 ：{{website}}</span>
-              <span>官方新浪微博：{{blog}}</span></span>
+            <span class="details-title">联系方式</span>
+            <span class="con"><span>官网地址 ：www.govmade.com</span>
+              <span>官方新浪微博：@国脉集团</span></span>
+          </div>
+          <div class="framework">
+            <span class="details-title">联盟架构</span>
+            <iep-html v-model="form.structure"></iep-html>
           </div>
           <framework></framework>
           <business-layout></business-layout>
           <div class="opex">
-            <span class="details-title">{{subTitle4}}</span>
+            <span class="details-title">联盟客服人员</span>
             <div class="con">
               <div class="opex-item" v-for="opex in opexList" :key="opex.id">
                 <div class="img">
@@ -63,7 +67,7 @@
             </div>
           </div>
           <div class="opex">
-            <span class="details-title">{{subTitle5}}</span>
+            <span class="details-title">系统联络人员</span>
             <div class="con">
               <div class="opex-item" v-for="opex2 in opexList2" :key="opex2.id">
                 <div class="img">
@@ -83,11 +87,10 @@
 import { mapState } from 'vuex'
 import { getUnionBySelf } from '@/api/goms/union'
 import { initForm } from './options'
-import Framework from './Framework'
 import BusinessLayout from './BusinessLayout'
 import IepGomsTags from '@/views/goms/Components/tags.vue'
 export default {
-  components: { Framework, BusinessLayout, IepGomsTags },
+  components: { BusinessLayout, IepGomsTags },
   data () {
     return {
       form: initForm(),
@@ -109,11 +112,6 @@ export default {
           labTitle: '业绩排名',
         },
       ],
-      subTitle1: '联盟标签',
-      subTitle2: '联盟简介',
-      subTitle3: '联系方式',
-      subTitle4: '联盟客服人员',
-      subTitle5: '系统联络人员',
       opexList: [
         {
           img: require('./img/people1.png'),
@@ -143,28 +141,6 @@ export default {
           name: '技术支持',
         },
       ],
-      tags: [
-        '中高层任免',
-        '文化深化',
-        '组织架构',
-        '管理规范',
-        '战略合作',
-        '制度制定',
-        '战略设计与管理',
-        '股权设计',
-        '员工激励',
-        '种子培养',
-      ],
-      tags2: [
-        '数据能力',
-        '内部协作',
-        '内网建设',
-        '战略合作',
-        '资本运作',
-      ],
-      con: '国脉集团是中国领先的大数据治理和数据服务专业机构。创新提出“软件+咨询+平台+数据+创新业务”五位一体的服务模型，拥有数据基因（DNA）和水巢（DIPS）两大系列几十项软件产品。',
-      website: 'www.bing.com',
-      blog: '@国脉研发中心',
     }
   },
   computed: {
@@ -180,11 +156,8 @@ export default {
       this.$openPage('/goms/union_management/basic_configuration')
     },
     loadPage () {
-      // getOrgBySelf(this.orgId).then(({ data }) => {
-      //   this.form = this.$mergeByFirst(initForm(), data.data)
-      // })
-      getUnionBySelf().then((res) => {
-        this.form = res.data.data
+      getUnionBySelf().then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
       })
     },
   },

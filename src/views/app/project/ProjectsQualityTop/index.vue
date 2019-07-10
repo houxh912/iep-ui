@@ -72,4 +72,7 @@ export default {
   border-color: #ba1b21;
   color: #fff;
 }
+.gov-projects-top >>> .el-input__icon {
+  line-height: 40px;
+}
 </style>

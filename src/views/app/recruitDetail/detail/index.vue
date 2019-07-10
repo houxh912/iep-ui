@@ -88,13 +88,6 @@
 import { getPublishRecruitmentById } from '@/api/hrms/publish_recruitment'
 import { initForm, dictsMap } from '../options'
 export default {
-  beforeRouteUpdate (to, from, next) {
-    console.log('hahaha')
-    this.$nextTick(() => {
-      this.loadPage()
-    })
-    next()
-  },
   data () {
     return {
       backOption: {

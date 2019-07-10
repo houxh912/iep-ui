@@ -5,54 +5,81 @@
       v-model="checkAll"
       @change="handleCheckAllChange"
     >全选</el-checkbox>
+    <!-- <span @click="handleAllDelete">删除</span> -->
     <i class="icon-guanbi" @click="close"></i>
     <div style="margin: 15px 0;"></div>
-    <el-checkbox-group class="options" v-model="checkedCities" @change="handleCheckedCitiesChange">
-      <el-checkbox v-for="option in cities" :label="option.id" :key="option.id">
-        <span>{{option.label}}</span>
-        <span>{{option.money}}</span>
-        <i @click.stop="handleDelete" class="icon-shanchu"></i>
-      </el-checkbox>
-    </el-checkbox-group>
+    <el-scrollbar style="height:300px">
+      <el-checkbox-group
+        class="options"
+        v-model="checkedCities"
+        @change="handleCheckedCitiesChange"
+      >
+        <el-checkbox v-for="option in cities" :label="option.id" :key="option.id">
+          <span>{{option.moduleName}}</span>
+          <span>{{option.preferentialPrice}}</span>
+          <i @click.stop="handleDelete(option.id)" class="icon-shanchu"></i>
+        </el-checkbox>
+      </el-checkbox-group>
+    </el-scrollbar>
     <div class="dialog-bottom">
       <div class="count">
-        <span>5个模块</span>
-        <span>共计：￥90000</span>
+        <span>{{size}}个模块</span>
+        <span>共计：￥{{count}}</span>
       </div>
       <el-button type="primary" @click="handeleCustom">产品定制</el-button>
     </div>
   </div>
 </template>
 <script>
-const optionOptions = [
-  { id: 1, label: '智能系统十世纪案件', money: '23112' },
-  { id: 2, label: '智能系统十世纪案件', money: '23112' },
-  { id: 3, label: '智能系统十世纪案件', money: '23112' },
-  { id: 4, label: '智能系统十世纪案件', money: '23112' },
-]
+import { getCusList, deleteModuleById } from '@/api/app/cpms/custom_module'
+import mixins from '@/mixins/mixins'
 export default {
+  mixins: [mixins],
   data () {
     return {
       dialogShow: false,
       checkAll: false,
       checkedCities: [],
-      cities: optionOptions,
+      cities: [],
       isIndeterminate: true,
+      size: '',
+      count: '',
     }
+  },
+  created () {
+    this.loadPage()
   },
   methods: {
     close () {
       this.dialogShow = false
     },
-    handleDelete () {
-      console.log(1)
+    async loadPage () {
+      await getCusList().then(({ data }) => {
+        this.cities = data.data
+        this.size = data.data.length ? data.data.length : 0
+        this.$emit('get-size', this.size)
+        let arr = []
+        data.data.forEach(item => {
+          arr.push(item.preferentialPrice)
+          let result = arr.reduce((total, currentValue) => {
+            return total + currentValue
+          })
+          this.count = result
+        })
+      })
+    },
+    // handleAllDelete () {
+    //   this._handleGlobalAll(deleteBatchDelete)
+    // },
+    handleDelete (id) {
+      this._handleGlobalDeleteById(id, deleteModuleById)
     },
     handeleCustom () {
-        this.$router.push('/app/resource/product_ku/product_customization')
-    },  
+      this.$router.push('/app/resource/product_ku/product_customization')
+    },
     handleCheckAllChange () {
       this.checkAll = !!this.checkAll
-      let checked = optionOptions.map(function (item) { return item.id })
+      let checked = this.cities.map(function (item) { return item.id })
       this.checkedCities = this.checkAll ? checked : []
       this.isIndeterminate = false
     },
@@ -66,10 +93,16 @@ export default {
 </script>
 <style scoped lang='scss'>
 .dialog-show {
-  position: relative;
   padding: 15px;
   box-shadow: 0 0 1px #ccc;
   background-color: #fff;
+  & > span {
+    position: absolute;
+    left: 94px;
+    top: 30px;
+    color: #aaa;
+    cursor: pointer;
+  }
   & > i {
     position: absolute;
     right: 15px;
@@ -88,13 +121,28 @@ export default {
     }
   }
   .options {
+    position: relative;
+    width: 100%;
     margin-bottom: 15px;
     border-bottom: 1px solid #eee;
     span {
-      margin-right: 15px;
+      display: inline-block;
+      vertical-align: -5px;
+      line-height: 22px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      &:nth-child(1) {
+        width: 200px;
+      }
+      &:nth-child(2) {
+        width: 100px;
+      }
     }
     i {
-      margin-left: 25px;
+      position: absolute;
+      right: 0;
+      top: 0;
       font-size: 16px;
       color: #aaa;
     }
@@ -103,7 +151,8 @@ export default {
 </style>
 <style scoped>
 .dialog-show >>> .el-checkbox {
+  position: relative;
   display: block;
-  margin: 15px 0;
+  margin: 15px 8px 15px 0;
 }
 </style>

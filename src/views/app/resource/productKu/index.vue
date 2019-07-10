@@ -1,25 +1,28 @@
 <template>
-<div>
-  <div class="gird-product"  v-if="'/app/resource/product_ku'==routerMatch[routerMatch.length-1].path">
-    <div class="leaderBoard">
-      <IepAppTabsCard :linkName="linkName">
-        <iep-tabs v-model="activeTab" :tab-list="tabList">
-          <template v-if="activeTab ==='Module'" v-slot:Module>
-            <module v-loading="activeTab !=='Module'"></module>
-          </template>
-          <template v-if="activeTab ==='Customized'" v-slot:Customized>
-            <customized v-loading="activeTab !=='Customized'"></customized>
-          </template>
-        </iep-tabs>
-      </IepAppTabsCard>
-      <el-badge v-if="activeTab=='Customized'"  @click.native="dialogShow" :value="12" class="item">
-        <el-button size="medium" icon="el-icon-goods"></el-button>
-      </el-badge>
-      <dialog-show v-if="activeTab=='Customized'" class="dialog-show" ref="DialogShow"></dialog-show>
+  <div>
+    <div
+      class="gird-product"
+      v-if="'/app/resource/product_ku'==routerMatch[routerMatch.length-1].path"
+    >
+      <div class="leaderBoard">
+        <IepAppTabsCard :linkName="linkName">
+          <iep-tabs v-model="activeTab" :tab-list="tabList">
+            <template v-if="activeTab ==='Module'" v-slot:Module>
+              <module v-loading="activeTab !=='Module'" @click-add="handleAdd"></module>
+            </template>
+            <template v-if="activeTab ==='Customized'" v-slot:Customized>
+              <customized v-loading="activeTab !=='Customized'" @click-add="handleAdd"></customized>
+            </template>
+          </iep-tabs>
+        </IepAppTabsCard>
+        <el-badge @click.native="dialogShow" :value="countValue" class="item">
+          <el-button size="medium" icon="el-icon-goods"></el-button>
+        </el-badge>
+        <dialog-show class="dialog-show" ref="DialogShow" @get-size="handleGetSize"></dialog-show>
+      </div>
     </div>
+    <router-view v-else></router-view>
   </div>
-  <router-view v-else></router-view>
-</div>
 </template>
 <script>
 import Module from './Module'
@@ -33,6 +36,7 @@ export default {
   },
   data () {
     return {
+      countValue: '',
       linkName: '',
       tabList: [{
         label: '按模块',
@@ -42,14 +46,20 @@ export default {
         value: 'Customized',
       }],
       activeTab: 'Module',
-       routerMatch: this.$route.matched,
+      routerMatch: this.$route.matched,
     }
   },
-   beforeRouteUpdate (to, from, next) {
+  beforeRouteUpdate (to, from, next) {
     this.routerMatch = to.matched
     next()
   },
   methods: {
+    handleGetSize (val) {
+      this.countValue = val
+    },
+    handleAdd () {
+      this.$refs['DialogShow'].loadPage()
+    },
     dialogShow () {
       this.$refs['DialogShow'].dialogShow = true
     },

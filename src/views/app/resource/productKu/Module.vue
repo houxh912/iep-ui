@@ -6,7 +6,7 @@
         <div class="content">
           <!-- <i class="iconfont icon-tongyongleiziyuanpeizhi"></i> -->
           <div class="img">
-            <iep-img :src="item.imageUrl" alt=""></iep-img>
+            <iep-img :src="item.imageUrl" alt></iep-img>
           </div>
           <div class="text">
             <h4 class="item-title">{{item.name}}</h4>
@@ -18,13 +18,18 @@
         </div>
         <div class="header clearfix">
           <span class="price">指导价：¥{{item.guidePrice}}</span>
-          <!-- <el-button icon="el-icon-plus"></el-button> -->
+          <el-button @click.native="handleModuleClick(item.id)" icon="el-icon-plus"></el-button>
         </div>
       </el-card>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
-      </el-pagination>
+      <el-pagination
+        background
+        layout="prev, pager, next, total"
+        :total="total"
+        :page-size="params.size"
+        @current-change="currentChange"
+      ></el-pagination>
     </div>
   </div>
 </template>
@@ -32,6 +37,7 @@
 <script>
 import Search from './Search'
 import { getModulePage } from '@/api/app/cpms/channel'
+import { putModuleById } from '@/api/app/cpms/custom_module'
 
 export default {
   data () {
@@ -53,6 +59,11 @@ export default {
       this.paramForm = val
       this.params.current = 1
       this.getModulePage()
+    },
+    handleModuleClick (moduleId) {
+      putModuleById(moduleId).then(()=>{
+        this.$emit('click-add')
+      })
     },
     getModulePage () {
       getModulePage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {

@@ -8,6 +8,8 @@ const columnsMap = [
   {
     prop: 'inputTime',
     label: '录入日期',
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
   },
   {
     prop: 'createTime',

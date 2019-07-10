@@ -35,6 +35,11 @@ export default {
       activeTab: 'Module',
     }
   },
+  created () {
+    if (this.$route.query.type == 2) {
+      this.activeTab = 'Customized'
+    }
+  },
 }
 </script>
 <style scoped lang="scss">
@@ -42,9 +47,9 @@ export default {
   padding: 0 20px 20px 20px;
 }
 .gird-product {
-  width: 1200px;
-  padding: 0 0 25px 0;
   margin: 0 auto;
+  padding: 0 0 25px 0;
+  width: 1200px;
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 25px;

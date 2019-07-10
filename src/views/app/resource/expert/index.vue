@@ -52,9 +52,10 @@ export default {
   padding: 0 20px 20px 20px;
 }
 .gird-expert {
-  width: 1200px;
-  padding: 0 0 25px 0;
   margin: 0 auto;
+  padding: 0 0 25px 0;
+  width: 1200px;
+  height: 100vh;
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 25px;
@@ -78,7 +79,7 @@ export default {
   justify-content: center;
 }
 .gird-expert >>> .el-tabs__item {
-  font-size: 18px;
+  font-size: 22px;
 }
 .gird-expert >>> .el-tabs__header {
   margin-bottom: 30px;

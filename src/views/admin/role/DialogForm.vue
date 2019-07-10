@@ -13,7 +13,7 @@
       </el-form-item>
       <el-form-item label="数据权限：" prop="dsType">
         <el-select v-model="form.dsType" placeholder="选择数据权限">
-          <el-option v-for="(v,k) in dictsMap.dsType" :key="k" :label="v" :value="+k" :disabled="k==1"></el-option>
+          <el-option v-for="item in dsType" :key="item.value" :label="item.label" :value="+item.value" :disabled="item.disabled"></el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -26,11 +26,11 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap } from './options'
+import { initForm } from './options'
 export default {
   data () {
     return {
-      dictsMap,
+      dsType: [],
       dialogShow: false,
       disabled: false,
       roleCodeDisabled: false,

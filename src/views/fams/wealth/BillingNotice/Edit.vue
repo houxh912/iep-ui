@@ -1,9 +1,9 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}开票通知-${dictsMap.invoicingType[this.form.invoicingType]}`" :back-option="backOption">
+      <iep-page-header :title="`${methodName}开票通知-${dictsMap.invoicingType[this.form.invoicingType]}`" :back-option="backOption">
         <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="200px" size="small">
         <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" prop="buyerName" class="form-half">
@@ -26,7 +26,7 @@
         </iep-form-item>
         <h4 class="iep-sub-title">货物或应税劳务、服务名称</h4>
         <iep-form-item label-name="一级科目" prop="firstSubject" class="form-half">
-          <iep-dict-select v-model="form.firstSubject" dict-name="fams_tax_subject"></iep-dict-select>
+          <iep-dict-select v-model="form.firstSubject" dict-name="fams_tax_subject" placeholder="鉴证咨询服务和软件科目，北京公司不开"></iep-dict-select>
         </iep-form-item>
         <iep-form-item label-name="二级科目" prop="secondSubject" class="form-half">
           <el-input v-model="form.secondSubject"></el-input>
@@ -38,7 +38,7 @@
           </el-select>
         </iep-form-item>
         <iep-form-item label-name="单位" prop="unit" class="form-half">
-          <el-input v-model="form.unit"></el-input>
+          <el-input v-model="form.unit" placeholder="单位诠释：项、个"></el-input>
         </iep-form-item>
         <iep-form-item label-name="金额" prop="amount" class="form-half">
           <iep-input-number v-model="form.amount"></iep-input-number>
@@ -123,7 +123,7 @@ export default {
       return +this.$route.params.id
     },
     invoicingType () {
-      return +this.$route.query.invoicingType
+      return this.$route.query.invoicingType ? +this.$route.query.invoicingType : this.form.invoicingType
     },
     methodName () {
       return this.id ? '编辑' : '新增'
@@ -163,7 +163,6 @@ export default {
       })
     },
     handleChangeCompanyId (value) {
-      console.log(value)
       getCompanyById(value).then(({ data }) => {
         this.companyForm = data.data
       })

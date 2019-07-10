@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`站点${methodName}`" width="500px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" :title="`站点${methodName}`" width="500px" @close="loadPage">
     <el-form
       class="form-detail"
       :model="form"
@@ -8,35 +8,30 @@
       :rules="rules"
       label-width="120px"
     >
-      <el-form-item label="上级站点" prop="superiorSite">
-        <iep-select
-          v-model="form.superiorSite"
-          autocomplete="off"
-          prefix-url="fams/company"
-          placeholder="请选择收入公司"
-        ></iep-select>
+      <el-form-item label="上级站点" prop="parentId">
+        <el-input v-model="form.parentId" disabled></el-input>
       </el-form-item>
-      <el-form-item label="组织" prop="organization">
+      <!-- <el-form-item label="组织" prop="orgId">
         <iep-select
-          v-model="form.organization"
+          v-model="form.orgId"
           autocomplete="off"
           prefix-url="admin/org/all"
-          placeholder="请选择收入公司"
+          placeholder="请选择"
         ></iep-select>
+      </el-form-item> -->
+      <el-form-item label="名称" prop="siteName">
+        <el-input v-model="form.siteName"></el-input>
       </el-form-item>
-      <el-form-item label="名称" prop="name">
-        <el-input v-model="form.name"></el-input>
+      <el-form-item label="域名" prop="url">
+        <el-input v-model="form.url"></el-input>
       </el-form-item>
-      <el-form-item label="域名" prop="domainName">
-        <el-input v-model="form.domainName"></el-input>
-      </el-form-item>
-      <el-form-item label="手机端域名" prop="phoneName">
-        <el-input v-model="form.phoneName"></el-input>
+      <el-form-item label="手机端域名" prop="mobileUrl">
+        <el-input v-model="form.mobileUrl"></el-input>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="form.status">
-          <el-radio :label="0">正常</el-radio>
-          <el-radio :label="1">禁用</el-radio>
+          <el-radio :label="1">正常</el-radio>
+          <el-radio :label="0">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -47,11 +42,12 @@
   </iep-dialog>
 </template>
 <script>
+import { getPageById } from '@/api/conm/index'
 import { initForm, dictsMap, rules } from './options'
-// import formMixins from '@/mixins/formMixins'
+import formMixins from '@/mixins/formMixins'
 // import { mapGetters } from 'vuex'
 export default {
-  // mixins: [formMixins],
+  mixins: [formMixins],
   data () {
     return {
       dictsMap,
@@ -60,14 +56,31 @@ export default {
       methodName: '创建',
       form: initForm(),
       rules,
+      id: '',
     }
   },
   // },
   methods: {
-    close () {
+     loadPage () {
       this.form = initForm()
+      this.loadTypeList()
       this.dialogShow = false
       this.$emit('load-page')
+    },
+    loadTypeList () {
+      getPageById(this.id).then(({ data }) => {
+        console.log(data.data)
+      })
+    },
+     async submitForm () {
+      this.formRequestFn({id:this.id,...this.form}).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('修改成功')
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
+      })
     },
   },
 }

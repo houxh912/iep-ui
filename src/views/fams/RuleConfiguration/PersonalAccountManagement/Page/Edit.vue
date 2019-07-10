@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="`${methodName}加班申请单`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}加班申请单`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" label-width="120px" size="small">
         <el-row>
           <el-col :span="12">

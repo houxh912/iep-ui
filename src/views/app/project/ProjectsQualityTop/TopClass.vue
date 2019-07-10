@@ -89,7 +89,7 @@ export default {
     }
     .num {
       margin: 0 5px;
-      font-size: 24px;
+      font-size: 22px;
     }
     &:last-child {
       border-right: 0;

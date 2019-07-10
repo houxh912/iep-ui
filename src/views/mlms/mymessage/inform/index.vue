@@ -12,7 +12,7 @@
     </div>
     <div class="rightBox">
       <basic-container>
-        <page-header title="系统消息"></page-header>
+        <iep-page-header title="系统消息"></iep-page-header>
         <operation-container>
           <template slot="left">
             <el-button-group class="btns">

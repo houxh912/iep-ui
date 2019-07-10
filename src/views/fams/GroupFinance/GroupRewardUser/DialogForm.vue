@@ -5,7 +5,7 @@
         <iep-input-number v-model="form.amount"></iep-input-number>
       </el-form-item>
       <el-form-item label="方式：" prop="isReward">
-        <el-radio-group v-model="form.isReward" size="medium">
+        <el-radio-group v-model="form.isReward" size="medium" @change="form.type=''">
           <el-radio v-for="(v,k) in dictsMap.isReward" :key="k" :label="k">{{v}}</el-radio>
         </el-radio-group>
       </el-form-item>

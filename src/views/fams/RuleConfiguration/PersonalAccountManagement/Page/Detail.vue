@@ -1,8 +1,8 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="加班申请单" :backOption="backOption">
-      </page-header>
+      <iep-page-header title="加班申请单" :backOption="backOption">
+      </iep-page-header>
       <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
         <div slot="header" class="clearfix">
           <span>其他要求</span>

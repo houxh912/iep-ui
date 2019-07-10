@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="报销管理" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="报销管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">

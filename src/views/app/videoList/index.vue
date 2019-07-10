@@ -1,9 +1,8 @@
 <template>
-  <div class="video-list">
+  <iep-app-layout class="video-list">
     <video-list-top></video-list-top>
     <video-list-content></video-list-content>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>
@@ -17,7 +16,7 @@ export default {
     }
   },
   created () {
-    
+
   },
 }
 </script>

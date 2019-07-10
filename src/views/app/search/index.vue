@@ -1,5 +1,5 @@
 <template>
-  <div class="search">
+  <iep-app-layout class="search">
     <el-row :gutter="20" class="gov-search">
       <el-col :span="12" :offset="6">
         <div class="grid-content">
@@ -17,28 +17,21 @@
     <el-row :gutter="20" class="bg-white">
       <el-col :span="20" :offset="2">
         <div class="grid-content grid-border">
-          <span class="keyword">热搜词：</span>
-          <span
-            class="listName"
-            v-for="(item,index) in listName"
-            :key="index"
-            @click="handleClick(item)"
-          >{{item}}</span>
+          <span class="keyword">热搜词</span>
+          <span class="listName" v-for="(item,index) in listName" :key="index" @click="handleClick(item)">{{item}}</span>
+          <span class="more">查看所有标签 ></span>
         </div>
       </el-col>
     </el-row>
     <el-row :gutter="20" class="gov-info">
       <el-col :offset="2" :span="11">
         <el-card class="box-card" shadow="never">
-          <div slot="header" class="clearfix">
+          <div slot="header" class="header">
             <span style="font-size:18px;">集团要闻</span>
+            <span class="more">更多></span>
           </div>
           <el-timeline>
-            <el-timeline-item
-              v-for="(item,index) in dataList"
-              @click.native="handleDetail(item.id)"
-              :key="index"
-            >{{item.name}}</el-timeline-item>
+            <el-timeline-item v-for="(item,index) in dataList" @click.native="handleDetail(item.id)" :key="index"><span class="item-time">{{item.time}}</span>{{item.name}}</el-timeline-item>
           </el-timeline>
         </el-card>
       </el-col>
@@ -47,20 +40,16 @@
           <div slot="header" class="clearfix">
             <span style="font-size:18px;">集团喜讯</span>
           </div>
-          <div
-            style="padding:15px;display:inline-block; width:50%;cursor:pointer;"
-            v-for="(item,index) in imgList"
-            :key="index"
-            @click="$openPage(item.url)"
-          >
-            <iep-img style="width:100%;height:138px;" :src="item.imgSrc" class="image"></iep-img>
-            <p class="imgDes" v-text="item.imgDes"></p>
+          <div class="item-list">
+            <div style="cursor:pointer;" v-for="(item,index) in imgList" :key="index" @click="$openPage(item.url)">
+              <iep-img style="width:100%;height:120px;" :src="item.imgSrc" class="image"></iep-img>
+              <p class="imgDes" v-text="item.imgDes"></p>
+            </div>
           </div>
         </el-card>
       </el-col>
     </el-row>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>
@@ -94,17 +83,23 @@ export default {
     searchPage (val) {
       this.$router.push({ path: '/app/search_detail', query: val })
     },
-    handleDetail (id) { 
+    handleDetail (id) {
       this.$router.push({
-        path:`/app/resource/material/material_detail/${id}`,
+        path: `/app/resource/material/material_detail/${id}`,
       })
     },
   },
 }
 </script>
 <style scoped>
-.gov-info >>> .el-timeline-item{
+.gov-info >>> .el-timeline-item {
   cursor: pointer;
+}
+.gov-info >>> .el-timeline {
+  padding-left: 0;
+}
+.gov-info >>> .el-card__header {
+  padding: 15px;
 }
 .search-con >>> .el-button {
   background-color: #ba1b21;
@@ -140,21 +135,11 @@ export default {
 .gov-info >>> .el-timeline-item__node {
   position: relative;
   top: 15px;
-  left: -3px;
-  width: 15px;
-  height: 15px;
+  left: -1px;
+  width: 11px;
+  height: 11px;
   background-color: #fff;
   border: 1px solid #e4e7ed;
-}
-.gov-info >>> .el-timeline-item__node::before {
-  position: absolute;
-  content: "";
-  top: 4px;
-  left: 4px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: #e4e7ed;
 }
 .gov-info >>> .el-timeline-item__tail {
   border-width: 1px;
@@ -165,6 +150,39 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.gov-info {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .more {
+    margin-right: 5px;
+    padding: 0;
+    height: 22px;
+    line-height: 22px;
+    color: #999;
+    cursor: pointer;
+    &:hover {
+      color: #cb3737;
+    }
+  }
+}
+.gov-info .item-time {
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 5px;
+  font-size: 12px;
+  color: #999;
+}
+.item-list {
+  display: grid;
+  grid-auto-flow: row dense;
+  margin-top: 30px;
+  grid-row-gap: 30px;
+  grid-column-gap: 30px;
+  grid-template-columns: 1fr 1fr;
+}
 .bg-white,
 .gov-search,
 .gov-info {
@@ -193,7 +211,9 @@ export default {
 .bg-white {
   background-color: #fff;
   .keyword {
-    font-size: 16px;
+    padding-right: 15px;
+    font-size: 18px;
+    border-right: 1px solid #eee;
   }
   .listName {
     font-size: 14px;
@@ -205,6 +225,21 @@ export default {
     padding: 14px;
     span {
       cursor: pointer;
+      &:first-child {
+        padding-left: 5px;
+      }
+    }
+    &:hover {
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    }
+    .more {
+      float: right;
+      height: 19px;
+      line-height: 29px;
+      color: #cb3737;
+      &:hover {
+        color: #f35f5f;
+      }
     }
     .keyMore {
       margin-left: 20px;
@@ -221,8 +256,12 @@ export default {
 }
 .imgDes {
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  color: #444;
+  text-align: justify;
 }
 .search-con {
   display: flex;

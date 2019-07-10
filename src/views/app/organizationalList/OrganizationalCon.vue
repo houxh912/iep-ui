@@ -8,12 +8,12 @@
             <iep-img :src="item.logo" alt="" />
             <div class="title">{{item.name}}</div>
           </div>
-          <span class="effect">
+          <!-- <span class="effect">
             <span class="item-effect" v-for="effect in effects" :key="effect.id">
               <span class="num">{{effect.num}}</span>
               <span>{{effect.name}}</span>
             </span>
-          </span>
+          </span> -->
           <div>
             <div class="organization-tag">
               <span class="tag-name">组织标签：</span>
@@ -141,6 +141,8 @@ export default {
     }
   }
   .content {
+    // height: 380px;
+    height: 270px;
     cursor: pointer;
   }
   .title {
@@ -260,6 +262,7 @@ export default {
     opacity: 0;
     transition: all 0.5s;
     .sub-title {
+      margin-top: 10px;
       font-size: 18px;
     }
     .btn {
@@ -273,7 +276,7 @@ export default {
     }
     .con {
       margin-bottom: 15px;
-      height: 270px;
+      height: 166px;
       line-height: 24px;
       text-indent: 2em;
       text-align: justify;

@@ -1,67 +1,89 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <!-- 使用CDN的CSS文件 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn &&
+    htmlWebpackPlugin.options.cdn.css) { %>
+    <link
+      href="<%= htmlWebpackPlugin.options.cdn.css[i] %>"
+      rel="preload"
+      as="style"
+    />
+    <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet" />
+    <% } %>
 
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-  <meta name="renderer" content="webkit" />
-  <!-- 使用CDN的CSS文件 -->
-  <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.css) { %>
-  <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="preload" as="style">
-  <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet">
-  <% } %>
+    <!-- 使用CDN的JS文件 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn &&
+    htmlWebpackPlugin.options.cdn.js) { %>
+    <link
+      href="<%= htmlWebpackPlugin.options.cdn.js[i] %>"
+      rel="preload"
+      as="script"
+    />
+    <% } %>
 
-  <!-- 使用CDN的JS文件 -->
-  <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
-  <link href="<%= htmlWebpackPlugin.options.cdn.js[i] %>" rel="preload" as="script">
-  <% } %>
+    <link rel="stylesheet" href="/cdn/animate/animate.css" />
+    <link rel="stylesheet" href="/cdn/iconfont/index.css" />
+    <link rel="stylesheet" href="/cdn/iep/index.css" />
+    <link rel="stylesheet" href="/cdn/avue.index.css" />
 
-  <link rel="stylesheet" href="/cdn/animate/animate.css" />
-  <link rel="stylesheet" href="/cdn/iconfont/index.css" />
-  <link rel="stylesheet" href="/cdn/iep/index.css" />
-  <link rel="stylesheet" href="/cdn/avue.index.css" />
+    <link
+      rel="stylesheet"
+      href="/cdn/froala-editor/css/froala_editor.pkgd.min.css"
+    />
+    <link rel="stylesheet" href="/cdn/froala-editor/css/froala_style.min.css" />
+    <link rel="stylesheet" href="/cdn/froala-editor/css/themes/gray.min.css" />
+    <link rel="icon" href="/favicon.ico" />
+    <title>国脉内部智慧平台</title>
+  </head>
 
-  <link rel="stylesheet" href="/cdn/froala-editor/css/froala_editor.pkgd.min.css" />
-  <link rel="stylesheet" href="/cdn/froala-editor/css/froala_style.min.css" />
-  <link rel="stylesheet" href="/cdn/froala-editor/css/themes/gray.min.css" />
-  <link rel="icon" href="/favicon.ico" />
-  <title>国脉内部智慧平台</title>
-</head>
-
-<body>
-  <noscript>
-    <strong>很抱歉，如果没有 JavaScript 支持，网站将不能正常工作。请启用浏览器的
-      JavaScript 然后继续。</strong>
-  </noscript>
-  <div id="app">
-    <div class="iep-home">
-      <div class="iep-home__main">
-        <img class="iep-home__loading" src="/svg/loading-spin.svg" alt="loading" />
-        <div class="iep-home__title">
-          正在加载资源
+  <body>
+    <noscript>
+      <strong
+        >很抱歉，如果没有 JavaScript 支持，网站将不能正常工作。请启用浏览器的
+        JavaScript 然后继续。</strong
+      >
+    </noscript>
+    <div id="app">
+      <div class="iep-home">
+        <div class="iep-home__main">
+          <img
+            class="iep-home__loading"
+            src="/svg/loading-spin.svg"
+            alt="loading"
+          />
+          <div class="iep-home__title">
+            正在加载资源
+          </div>
+          <div class="iep-home__sub-title">
+            初次加载资源可能需要较多时间 请耐心等待
+          </div>
         </div>
-        <div class="iep-home__sub-title">
-          初次加载资源可能需要较多时间 请耐心等待
+        <div class="iep-home__footer">
+          <a href="https://iep.govmade.com/" target="_blank">
+            Copyright © 2019 iep.govmade.com</a
+          >
         </div>
-      </div>
-      <div class="iep-home__footer">
-        <a href="https://iep.govmade.com/" target="_blank">
-          Copyright © 2019 iep.govmade.com</a>
       </div>
     </div>
-  </div>
-  <% for (var i in htmlWebpackPlugin.options.cdn && htmlWebpackPlugin.options.cdn.js) { %>
-  <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
-  <% } %>
-  <script src="/cdn/jquery.min.js"></script>
-  <script src="/cdn/froala-editor/froala_editor.pkgd.min.js"></script>
-  <script src="/cdn/froala-editor/zh_cn.js"></script>
-  <!-- built files will be auto injected -->
-</body>
-
+    <% for (var i in htmlWebpackPlugin.options.cdn &&
+    htmlWebpackPlugin.options.cdn.js) { %>
+    <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %>
+    <script src="/cdn/jquery.min.js"></script>
+    <script src="/cdn/froala-editor/froala_editor.pkgd.min.js"></script>
+    <script src="/cdn/froala-editor/zh_cn.js"></script>
+    <!-- built files will be auto injected -->
+  </body>
 </html>

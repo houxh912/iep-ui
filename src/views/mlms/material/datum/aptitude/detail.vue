@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <el-col class="left">
-      <page-header :title="formData.honorQualName" :backOption="backOption"></page-header>
+      <iep-page-header :title="formData.honorQualName" :backOption="backOption"></iep-page-header>
 
       <el-row class="info">
         <div class="person">

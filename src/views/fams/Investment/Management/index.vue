@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="投资管理"></page-header>
+      <iep-page-header title="投资管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="danger" icon="el-icon-plus" plain @click="handleAdd">

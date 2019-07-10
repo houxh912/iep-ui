@@ -1,7 +1,7 @@
 <template>
   <div class="person-con">
     <person-left :counts="userInfo.map" :userId="userInfo.id" :visitVOs="userInfo.visitVOs"></person-left>
-    <person-right :userId="userInfo.id" :similarUser="userInfo.similarUsers"></person-right>
+    <person-right :userId="userInfo.id" :similarUser="userInfo.similarUsers" :userInfo="userInfo"></person-right>
   </div>
 </template>
 
@@ -30,8 +30,8 @@ export default {
   padding-top: 20px;
   width: 1200px;
   grid-auto-flow: row dense;
-  grid-row-gap: 40px;
-  grid-column-gap: 40px;
+  grid-row-gap: 20px;
+  grid-column-gap: 25px;
   grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
 }
 </style>

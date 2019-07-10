@@ -1,8 +1,8 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${applyName}财富流水`" :replaceText="replaceText" :data="statistics"  :backOption="backOption">
-      </page-header>
+      <iep-page-header :title="`${applyName}财富流水`" :replaceText="replaceText" :data="statistics"  :backOption="backOption">
+      </iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks" advance-search>

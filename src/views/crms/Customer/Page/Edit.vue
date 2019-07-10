@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}客户`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}客户`" :backOption="backOption"></iep-page-header>
       <div class="edit-wrapper">
         <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap">
           <el-row>
@@ -29,7 +29,6 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="负责部门:">
-                <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
                 <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
               </el-form-item>
             </el-col>
@@ -47,8 +46,7 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="市场经理:" prop="Manager">
-                <!-- <el-input v-model="formData.Manager" :disabled="true"></el-input> -->
-                {{this.Claim == true?formData.Manager:''}}
+                {{this.Claim == true?'':formData.Manager}}
               </el-form-item>
             </el-col>
           </el-row>
@@ -100,8 +98,8 @@
               {{tag.commonName}}
             </a-tag>
           </el-form-item>
-          <el-form-item label="是否认领">
-            <el-switch v-model="Claim" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
+          <el-form-item label="放入公海：">
+            <el-switch v-model="Claim" active-color="#13ce66" active-text="是" inactive-text="否">
             </el-switch>
           </el-form-item>
           <!-- <el-form-item label="跟进状态:" prop="followUpStatus">
@@ -300,9 +298,9 @@ export default {
           this.formData.Manager = res.data.data.realName
         })
         if (this.formData.marketManager == 0) {
-          this.Claim = false
-        } else {
           this.Claim = true
+        } else {
+          this.Claim = false
         }
       })
     } else if (this.flag) {
@@ -387,7 +385,7 @@ export default {
       })
     },
     submitForm (formName) {
-      if (!this.Claim) {
+      if (this.Claim) {
         this.formData.toClaim = 1
       } else {
         this.formData.toClaim = 0

@@ -1,9 +1,8 @@
 <template>
-  <div class="gov-person">
+  <iep-app-layout class="gov-person">
     <gov-person-top></gov-person-top>
     <gov-person-content></gov-person-content>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>

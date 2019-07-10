@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <div v-show="pageState == 'list'">
-      <page-header title="详情" :backOption="backOption"></page-header>
+      <iep-page-header title="详情" :backOption="backOption"></iep-page-header>
       <div class="content">
         <div class="left">
           <el-card class="box-card">

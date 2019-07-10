@@ -8,7 +8,7 @@
     </a-tooltip>
     <a-tooltip v-if="enableList[1]">
       <template slot="title">
-        <span>标记</span>
+        <span>设置 / 取消标记</span>
       </template>
       <a-button icon="flag" @click="handleMarkBatch"></a-button>
     </a-tooltip>

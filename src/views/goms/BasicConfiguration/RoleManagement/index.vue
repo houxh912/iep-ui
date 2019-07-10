@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="角色管理"></page-header>
+      <iep-page-header title="角色管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="goms_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
@@ -41,9 +41,9 @@ import {
 import { fetchMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap, initForm } from './options'
-import DialogForm from './DialogForm'
-import PermissionDialogForm from './PermissionDialogForm'
+import { dictsMap, columnsMap, initForm, orgDsType } from '@/views/admin/role/options'
+import DialogForm from '@/views/admin/role/DialogForm'
+import PermissionDialogForm from '@/views/admin/role/PermissionDialogForm'
 function filterTree (arr, selectedKey) {
   return arr.filter(item => !selectedKey.includes(item.id)).map(item => {
     item = Object.assign({}, item)
@@ -95,6 +95,7 @@ export default {
     handleAdd () {
       this.$refs['DialogForm'].methodName = '创建'
       this.$refs['DialogForm'].formRequestFn = addObj
+      this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = false
       this.$refs['DialogForm'].dialogShow = true
@@ -103,6 +104,7 @@ export default {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putObj
+      this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = true
       this.$refs['DialogForm'].dialogShow = true
@@ -111,6 +113,7 @@ export default {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '查看'
       this.$refs['DialogForm'].formRequestFn = getObj
+      this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = true
       this.$refs['DialogForm'].roleCodeDisabled = true
       this.$refs['DialogForm'].dialogShow = true
@@ -123,7 +126,7 @@ export default {
         })
         .then(response => {
           const treeData = response.data.data
-          this.$refs['PermissionDialogForm'].treeData = filterTree(treeData, [8300, 8400, 10000])
+          this.$refs['PermissionDialogForm'].treeData = filterTree(treeData, [8230, 8300, 8400, 10000])
           // 解析出所有的节点
           this.$refs['PermissionDialogForm'].checkedKeys = this.resolveAllEunuchNodeId(
             this.$refs['PermissionDialogForm'].treeData,

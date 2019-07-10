@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}纪要`" :backOption="backOption"></iep-page-header>
       <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
         <el-form-item label="会议类型：" prop="meetingType">
           <el-radio-group v-model="formData.meetingType">

@@ -54,7 +54,7 @@
                 </el-form-item>
               </el-col>
             </el-row>
-              <hr>
+            <hr>
             <el-row>
               <el-col :span="12" class="item">
                 <el-form-item label="项目经理：">
@@ -179,7 +179,7 @@
               </el-col>
               <el-col :span="20" class="data">
                 <el-form-item>
-                  <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+                  <iep-button type="primary" @click="handleSubmit" :disabled="isApprove.isApprove==false">提交</iep-button>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -209,8 +209,8 @@ export default {
           this.close()
         },
       },
-      projectStatus:3,
-      content:'',
+      projectStatus: 3,
+      content: '',
     }
   },
   created () {
@@ -224,12 +224,12 @@ export default {
       return this.$route.query
     },
   },
-  methods:{
+  methods: {
     close () {
       this.$router.history.go(-1)
     },
     getDetailData () {
-      getDataDetail(this.$route.params.id).then(({data}) => {
+      getDataDetail(this.$route.params.id).then(({ data }) => {
         let list = [
           // { name: 'projectMentorName', list: 'projectMentorList' },
           { name: 'approverName', list: 'approverList' },
@@ -323,10 +323,10 @@ export default {
 }
 </style>
 <style scoped>
-.contianBox >>> .el-form-item__content{
+.contianBox >>> .el-form-item__content {
   text-align: left;
 }
-.contianBox >>> .center-box .content{
-  padding:0;
+.contianBox >>> .center-box .content {
+  padding: 0;
 }
 </style>

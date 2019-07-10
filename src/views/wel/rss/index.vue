@@ -80,7 +80,7 @@ export default {
   methods: {
     handleAdd () {
       getThemeList().then(({ data }) => {
-        this.$refs['DialogForm'].themeList = data.map(m => m.value)
+        this.$refs['DialogForm'].themeList = data.data.map(m => m.value)
         this.$refs['DialogForm'].dialogShow = true
       })
     },

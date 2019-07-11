@@ -63,6 +63,7 @@ export default {
       padding: 5px 0;
     }
     .name {
+      margin-right: 10px;
       color: #333;
     }
     .time div {

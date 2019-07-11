@@ -150,7 +150,7 @@ export default {
 }
 .user-simple-box {
   border-right: 2px dotted #eee;
-  padding: 20px 30px;
+  padding: 20px 15px;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -260,12 +260,12 @@ export default {
 }
 .user-avatar {
   cursor: pointer;
-  width: 90px;
-  height: 90px;
+  width: 74px;
+  height: 74px;
 }
 .user-code {
   font-size: 13px;
-  color: #7d7d7d;
+  color: #444;
   line-height: 20px;
 }
 .position-item {
@@ -288,8 +288,8 @@ export default {
 </style>
 <style scoped>
 .user-avatar {
-  width: 90px;
-  height: 90px;
+  width: 74px;
+  height: 74px;
 }
 .user-avatar >>> .el-image__inner {
   border-radius: 50%;

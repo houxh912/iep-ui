@@ -44,7 +44,7 @@ export default {
 .find {
   box-sizing: border-box;
   position: relative;
-  margin: 10px;
+  margin: 10px 5px;
   border-bottom: 1px solid #ccc;
   .subtitle {
     font-size: 14px;

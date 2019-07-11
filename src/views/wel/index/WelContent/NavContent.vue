@@ -42,6 +42,7 @@ export default {
     color: #5f5f5f;
     .title {
       font-size: 14px;
+      color: #333;
       cursor: pointer;
       &:hover {
         color: #cb3737;

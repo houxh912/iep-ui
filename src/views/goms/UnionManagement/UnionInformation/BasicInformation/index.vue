@@ -52,7 +52,6 @@
             <span class="details-title">联盟架构</span>
             <iep-html v-model="form.structure"></iep-html>
           </div>
-          <framework></framework>
           <business-layout></business-layout>
           <div class="opex">
             <span class="details-title">联盟客服人员</span>

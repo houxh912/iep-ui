@@ -69,16 +69,16 @@ export default {
       font-size: 24px !important;
     }
     .icon-fangan {
-      color: #5c79a5;
+      color: #459fb9;
     }
     .icon-shangjifaxian {
-      color: #c78a53;
+      color: #5d78a5;
     }
     .icon-peixun {
-      color: #47a1bb;
+      color: #c68b52;
     }
     .icon-shifu {
-      color: #cc8082;
+      color: #cb8082;
     }
   }
 }

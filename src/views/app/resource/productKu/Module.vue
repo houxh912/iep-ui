@@ -2,7 +2,7 @@
   <div>
     <search @search-page="searchData"></search>
     <div class="module">
-      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
+      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover" @click.native="handleDetail(item)">
         <div class="content">
           <!-- <i class="iconfont icon-tongyongleiziyuanpeizhi"></i> -->
           <div class="img">
@@ -63,6 +63,9 @@ export default {
     currentChange (val) {
       this.params.current = val
       this.getModulePage()
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/module_details/${row.id}`)
     },
   },
   created () {
@@ -202,6 +205,7 @@ export default {
 .module >>> .el-card.module-item {
   height: 228px;
   border: 1px solid #dcdfe6;
+  cursor: pointer;
 }
 .img >>> .el-image {
   width: 120px;

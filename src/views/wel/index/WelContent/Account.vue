@@ -102,11 +102,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    handManage () {
-      this.$router.push({
-        path: '/wel/relationship_manage',
-      })
-    },
     handleSome1 () {
       this.$message('页面建设中')
     },
@@ -158,7 +153,6 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
   text-align: center;
   .user-info {
     display: flex;

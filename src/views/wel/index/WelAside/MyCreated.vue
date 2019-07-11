@@ -101,7 +101,7 @@ export default {
 <style  lang="scss" scoped>
 .created {
   box-sizing: border-box;
-  margin: 10px;
+  margin: 10px 5px;
   .disabled {
     color: #ccc;
     cursor: not-allowed;

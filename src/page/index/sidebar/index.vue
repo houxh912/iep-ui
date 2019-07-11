@@ -49,7 +49,7 @@ export default {
     },
     asideWidth () {
       if (!this.keyCollapse) {
-        return '200px'
+        return '220px'
       } else {
         return '64px'
       }
@@ -91,8 +91,8 @@ export default {
   border-top: 1px solid #eee;
   .el-menu-item {
     margin-left: 0 !important;
-    height: 40px;
-    line-height: 40px;
+    height: 36px;
+    line-height: 36px;
     border-left: 3px solid #fafafa;
     &:hover,
     &:focus {
@@ -103,8 +103,8 @@ export default {
   }
   .sub-menu {
     font-size: 14px;
-    height: 40px;
-    line-height: 40px;
+    height: 36px;
+    line-height: 36px;
     padding-left: 20px;
     white-space: nowrap;
     list-style: none;
@@ -145,8 +145,8 @@ export default {
 }
 .avue-sidebar >>> .el-submenu .el-submenu__title,
 .avue-sidebar >>> .el-menu-item {
-  height: 40px;
-  line-height: 40px;
+  height: 36px;
+  line-height: 36px;
 }
 .avue-sidebar >>> .el-menu {
   border-right: none;

@@ -96,7 +96,7 @@ export default {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  margin: 10px;
+  margin: 10px 5px;
   .el-icon-question {
     &:hover {
       opacity: 0.7;
@@ -115,7 +115,7 @@ export default {
     width: auto;
   }
   .line {
-    padding: 0 10px 0 2px;
+    padding-right: 5px;
     color: #e0e0e0;
   }
   .small {
@@ -129,13 +129,16 @@ export default {
       color: #cb3737;
     }
     span {
-      margin-left: 5px;
       color: #bbb;
     }
   }
 }
 .operation-btn-group {
   margin: 10px 0;
+  .el-button {
+    height: 30px;
+    padding: 0 15px;
+  }
 }
 .treasure-data {
   padding: 15px 0;
@@ -195,6 +198,12 @@ export default {
 }
 .cursor {
   cursor: pointer;
+}
+</style>
+<style scoped>
+.operation-btn-group >>> .el-button {
+  height: 30px;
+  padding: 0 13px;
 }
 </style>
 

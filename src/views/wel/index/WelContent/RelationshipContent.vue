@@ -83,14 +83,13 @@ li {
   .title {
     display: inline-block;
     margin-bottom: 5px;
-    padding: 5px 15px;
-    width: 100px;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
     font-size: 14px;
     text-align: center;
-    background-color: #eee;
-    &:hover {
-      color: #cb3737;
-    }
+    background-color: rgba(250, 250, 250, 1);
+    border: 1px solid #d9d9d9;
   }
   ul {
     display: flex;

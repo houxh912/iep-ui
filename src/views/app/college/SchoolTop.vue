@@ -29,7 +29,7 @@ export default {
   padding: 25px 20px;
   text-align: center;
   h3 {
-    font-size: 24px;
+    font-size: 22px;
     span {
       font-size: 14px;
       color: #999;

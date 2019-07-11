@@ -22,14 +22,16 @@
             <iep-div-detail class="position-item job-label" :value="form.job" nullmsg="暂无岗位"></iep-div-detail>
           </div>
           <div class="user-operation-box">
-            <span class="inline task" @click="handleSome1()">
-              <i class="icon-qian icon padding"></i>
-              <span>完成每日工作，领国脉贝
-                <i class="el-icon-d-arrow-right"></i>
+            <div class="operation-box-con">
+              <span class="inline task" @click="handleSome1()">
+                <i class="icon-qian icon padding"></i>
+                <span>完成每日工作，领国脉贝
+                  <i class="el-icon-d-arrow-right"></i>
+                </span>
               </span>
-            </span>
-            <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
-            <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
+              <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
+              <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
+            </div>
             <div class="user-tags-box">
               <div class="user-height">
                 <div class="user-tag">
@@ -152,10 +154,11 @@ export default {
 }
 .user-simple-box {
   border-right: 2px dotted #eee;
-  padding: 20px 15px;
+  padding: 15px 20px;
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   text-align: center;
   .user-info {
     display: flex;
@@ -169,7 +172,7 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
-  padding: 20px;
+  padding: 20px 20px 15px;
   .user-welcome-box {
     .user-title {
       font-size: 16px;
@@ -182,15 +185,20 @@ export default {
   }
   .user-position-box {
     display: flex;
-    margin: 10px 0;
+    margin: 5px 0;
     justify-content: center;
     align-items: center;
   }
   .user-operation-box {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
+    .operation-box-con {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
     .leader-btn {
       margin-left: 10px;
       padding: 0;
@@ -240,7 +248,7 @@ export default {
 .user-tags-box {
   padding-left: 20px;
   display: flex;
-  flex: 0 0 270px;
+  flex: 0 0 250px;
   justify-content: space-around;
   align-items: center;
   .user-height {
@@ -277,6 +285,7 @@ export default {
   height: 74px;
 }
 .user-code {
+  margin-bottom: 5px;
   font-size: 13px;
   color: #444;
   line-height: 20px;

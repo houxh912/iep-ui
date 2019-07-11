@@ -34,11 +34,14 @@
         <el-form-item label="联盟简介：" prop="intro">
           <iep-input-area v-model="form.intro" placeholder="验证码登录使用"></iep-input-area>
         </el-form-item>
-        <el-form-item label="联盟架构：" prop="orgStructure">
-          <iep-froala-editor v-model="form.structure"></iep-froala-editor>
-        </el-form-item>
         <el-form-item label="核心优势：" prop="coreAdvantage">
           <iep-input-area v-model="form.coreAdvantage" placeholder="请输入核心优势"></iep-input-area>
+        </el-form-item>
+        <el-form-item label="联盟架构：" prop="structure">
+          <iep-froala-editor v-model="form.structure"></iep-froala-editor>
+        </el-form-item>
+        <el-form-item label="联盟文化：" prop="unionCulture">
+          <iep-froala-editor v-model="form.unionCulture"></iep-froala-editor>
         </el-form-item>
         <!-- <el-form-item label="联盟客服人员：" prop="phone">
           <el-input></el-input>

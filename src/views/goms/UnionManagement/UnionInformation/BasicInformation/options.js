@@ -57,6 +57,7 @@ const initForm = () => {
     status: '',
     structure: '',
     unionId: '',
+    unionCulture: '',
     updateTime: '',
     userId: '',
 

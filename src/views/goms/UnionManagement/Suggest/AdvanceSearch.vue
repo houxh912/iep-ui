@@ -9,7 +9,7 @@
   </el-form>
 </template>
 <script>
-import { dictsMap } from '../options'
+import { dictsMap } from './options'
 export default {
   data () {
     return {

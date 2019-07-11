@@ -1,13 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`站点${methodName}`" width="500px" @close="loadPage">
-    <el-form
-      class="form-detail"
-      :model="form"
-      size="small"
-      ref="form"
-      :rules="rules"
-      label-width="120px"
-    >
+    <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="上级站点" prop="parentId">
         <el-input v-model="form.parentId" disabled></el-input>
       </el-form-item>
@@ -30,8 +23,8 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="form.status">
-          <el-radio :label="1">正常</el-radio>
-          <el-radio :label="0">禁用</el-radio>
+          <el-radio :label="1">启用</el-radio>
+          <el-radio :label="0">停用</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -61,7 +54,7 @@ export default {
   },
   // },
   methods: {
-     loadPage () {
+    loadPage () {
       this.form = initForm()
       this.loadTypeList()
       this.dialogShow = false
@@ -72,10 +65,10 @@ export default {
         console.log(data.data)
       })
     },
-     async submitForm () {
-      this.formRequestFn({id:this.id,...this.form}).then(({ data }) => {
+    async submitForm () {
+      this.formRequestFn({ id: this.id, ...this.form }).then(({ data }) => {
         if (data.data) {
-          this.$message.success('修改成功')
+          this.$message.success('操作成功')
           this.loadPage()
         } else {
           this.$message(data.msg)

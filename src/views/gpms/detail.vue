@@ -48,7 +48,12 @@
                   {{this.formData.relatedProduct}}
                 </el-form-item>
               </el-col>
-              <el-col :span="12" class="item">
+              <el-col :span="12" class="item" v-if="formData.contractList.length > 0">
+                <el-form-item label="合同金额：">
+                  {{this.formData.contractAmount}}
+                </el-form-item>
+              </el-col>
+              <el-col :span="12" class="item" v-else>
                 <el-form-item label="项目预算：">
                   {{this.formData.projectBudget}}
                 </el-form-item>

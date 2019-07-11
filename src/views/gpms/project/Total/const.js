@@ -164,6 +164,7 @@ export function initFormData (obj) {
     materialIds: [], // 材料
     materialList: [],
     contractIds: [], // 合同
+    contractAmount: '',//合同金额
     contractList: [],
     projectIds: [], // 项目
     projectList: [],

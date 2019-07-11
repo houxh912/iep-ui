@@ -85,7 +85,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-          <hr>
+        <hr>
         <el-row>
           <el-col :span="12">
             <el-form-item label="项目阶段：" prop="projectStage">
@@ -124,10 +124,8 @@
           </el-col>
           <el-col :span="12">
             <el-form-item :label="`${formData.contractList.length > 0 ? '合同' : '项目'}金额：`" prop="projectAmount">
-              <el-input 
-                v-model="formData.projectAmount" 
-                type="number" 
-                placeholder="请正确输入非负金额" />
+              <el-input v-if="formData.contractList.length > 0" v-model="formData.contractAmount" disabled />
+              <el-input v-else v-model="formData.projectAmount" type="number" placeholder="请正确输入非负金额" />
             </el-form-item>
           </el-col>
           <!-- <el-col :span="12">
@@ -261,9 +259,9 @@
               </template>
             </el-table-column>
             <el-table-column prop="projectBudget" align='center'>
-                <template slot="header">
-                  <span class="column-header">费用总预算</span>
-                </template>
+              <template slot="header">
+                <span class="column-header">费用总预算</span>
+              </template>
               <template slot-scope="scope">
                 <el-input v-model="scope.row.projectBudget" maxlength="12" type="number" min=0></el-input>
               </template>
@@ -279,27 +277,13 @@
           <el-table :data="formData.paymentRelations" style="width: 100%" border class="table">
             <el-table-column prop="projectPaymentTime" label="回款时间" align='center'>
               <template slot-scope="scope">
-                <el-date-picker
-                  v-model="formData.paymentRelations[scope.$index].projectPaymentTime"
-                  type="date"
-                  placeholder="选择时间"
-                  format="yyyy-MM-dd"
-                  value-format="yyyy-MM-dd hh:mm:ss"
-                  :readonly="formData.paymentRelations[scope.$index].id?true:false">
+                <el-date-picker v-model="formData.paymentRelations[scope.$index].projectPaymentTime" type="date" placeholder="选择时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss" :readonly="formData.paymentRelations[scope.$index].id?true:false">
                 </el-date-picker>
               </template>
             </el-table-column>
             <el-table-column prop="paymentAmount" label="回款金额" align='center'>
               <template slot-scope="scope">
-                <el-input 
-                  v-if="selectIndex==scope.$index" 
-                  v-model="formData.paymentRelations[scope.$index].paymentAmount" 
-                  @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" 
-                  maxlength="10" 
-                  type="number" 
-                  min=0
-                  placeholder="请正确输入非负回款金额"
-                  :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
+                <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" maxlength="10" type="number" min=0 placeholder="请正确输入非负回款金额" :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
                 <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
               </template>
             </el-table-column>
@@ -309,15 +293,7 @@
                 <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
                 <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelete(scope.$index)">删除</iep-button>
                 <div class="project-select-delay" v-if="selectDelay.index == scope.$index">
-                  <el-date-picker
-                    v-model="selectDelay.value" 
-                    type="date" 
-                    placeholder="选择延期时间" 
-                    ref="selectDelay" 
-                    @change="changeDelay" 
-                    @blur="selectDelay.index = -1"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd hh:mm:ss">
+                  <el-date-picker v-model="selectDelay.value" type="date" placeholder="选择延期时间" ref="selectDelay" @change="changeDelay" @blur="selectDelay.index = -1" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss">
                   </el-date-picker>
                 </div>
                 <iep-button size="small" v-if="!formData.paymentRelations[scope.$index].id" @click="handleDelete(scope.$index)">删除</iep-button>
@@ -333,8 +309,8 @@
         <iep-button @click="save('1')">保存为草稿</iep-button>
       </footer-tool-bar>
     </basic-container>
-      <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
-      <product-relation-dialog ref="productRelationDialog" @relativeSubmit="relativeProductSubmit"></product-relation-dialog>
+    <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
+    <product-relation-dialog ref="productRelationDialog" @relativeSubmit="relativeProductSubmit"></product-relation-dialog>
   </div>
 </template>
 
@@ -423,14 +399,14 @@ export default {
       getDataDetail(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initFormData(), data.data)
         this.tableData = [this.formData.projectBudgetList]
-        if(this.formData.projectType=='1'){
-          this.formData.projectTypeBefore=true
+        if (this.formData.projectType == '1') {
+          this.formData.projectTypeBefore = true
         }
-        else{
-          this.formData.projectTypeBefore=false
+        else {
+          this.formData.projectTypeBefore = false
         }
       })
-      this.type='update'
+      this.type = 'update'
     }
     getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
@@ -459,7 +435,7 @@ export default {
       }
     },
     save (val) {
-      this.formData.projectStatus=val
+      this.formData.projectStatus = val
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 进行数据的转换先
@@ -476,7 +452,7 @@ export default {
               list: 'projectMentorList',
             },
           ]
-          let form = { id:this.id,...this.formData }
+          let form = { id: this.id, ...this.formData }
           form.memberList = this.formData.membersList.map(m => m.id)
           form.marketManagerList = this.formData.mktManagerList.map(m => m.id)
           form.mentorList = this.formData.projectMentorList.map(m => m.id)
@@ -531,11 +507,11 @@ export default {
           }
           form.projectBudgetList = this.tableData[0]
           form.projectBudget = this.tableData[0].projectBudget
-          if(form.projectTypeBefore==true){
-            form.projectType='1'
+          if (form.projectTypeBefore == true) {
+            form.projectType = '1'
           }
-          else{
-            form.projectType='2'
+          else {
+            form.projectType = '2'
           }
           this.typeObj[this.type].requestFn(form).then(() => {
             this.$message({

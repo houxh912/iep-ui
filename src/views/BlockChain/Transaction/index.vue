@@ -7,7 +7,7 @@
           <iep-button v-if="userInfo.userId !== 1" type="primary" @click="handleTransaction" icon="el-icon-plus" plain>发起交易</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="hash">
+          <operation-search @search-page="searchPage" prop="hash" placeholder="输入Hash值查询交易信息">
           </operation-search>
         </template>
       </operation-container>
@@ -45,8 +45,12 @@ export default {
     handleTransaction () {
       this.$refs['DialogForm'].dialogShow = true
     },
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getMyPage)
+    async loadPage (param = this.searchForm) {
+      try {
+        await this.loadTable(param, getMyPage)
+      } catch (error) {
+        this.$message(error.message)
+      }
     },
     loadSelfAmount () {
       getAmountByUserId(this.userInfo.userId).then(({ data }) => {

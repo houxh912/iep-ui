@@ -6,16 +6,17 @@ const columnsMap = [
     width: '55',
   },
   {
+    prop: 'hash',
+    label: '哈希值',
+    minWidth: '200',
+  },
+  {
     prop: 'sender',
     label: '发送者',
   },
   {
     prop: 'receiver',
     label: '接收者',
-  },
-  {
-    prop: 'hash',
-    label: '哈希值',
   },
   {
     prop: 'amount',

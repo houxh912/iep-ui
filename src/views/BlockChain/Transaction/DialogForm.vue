@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="发起交易" width="600px" @close="close">
     <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="接收者：" prop="user">
-        <iep-contact-select v-model="form.user"></iep-contact-select>
+        <iep-contact-select v-model="form.user" :filter-user-list="[userInfo.userId]"></iep-contact-select>
       </el-form-item>
       <el-form-item label="交易金额：" prop="amount">
         <iep-input-number v-model="form.amount" placeholder="请输入交易金额"></iep-input-number>
@@ -17,6 +17,7 @@
   </iep-dialog>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import { initForm, rules, toDtoFrom } from './options'
 import { sendAmount } from '@/api/fams/block_chain'
 export default {
@@ -27,6 +28,9 @@ export default {
       form: initForm(),
       rules,
     }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
   },
   methods: {
     close () {

@@ -6,7 +6,7 @@
         <template slot="left">
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="hash">
+          <operation-search @search-page="searchPage" prop="hash" placeholder="输入Hash值查询交易信息">
             <!-- advance-search -->
             <!-- <advance-search @search-page="searchPage"></advance-search> -->
           </operation-search>
@@ -35,8 +35,12 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getPage)
+    async loadPage (param = this.searchForm) {
+      try {
+        await this.loadTable(param, getPage)
+      } catch (error) {
+        this.$message(error.message)
+      }
     },
   },
 }

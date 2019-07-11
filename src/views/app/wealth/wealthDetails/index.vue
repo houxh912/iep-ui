@@ -247,9 +247,11 @@ export default {
             color: #666;
           }
           .span-list {
+            width: 630px;
             display: inline-block;
             height: 70px;
             line-height: 70px;
+            overflow : hidden;text-overflow: ellipsis;white-space: nowrap;
             :after {
               content: "/";
               width: 30px;

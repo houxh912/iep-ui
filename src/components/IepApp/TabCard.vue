@@ -79,7 +79,7 @@ export default {
 }
 .datas {
   margin-left: 5px;
-  font-size: 14px;
+  font-size: 16px;
   color: #999;
 }
 .tip {

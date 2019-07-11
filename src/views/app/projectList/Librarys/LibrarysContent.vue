@@ -120,6 +120,9 @@ export default {
     margin-right: 10px;
     font-size: 16px;
     color: #333;
+    &:hover {
+      color: #cb3737;
+    }
   }
   i {
     margin-right: 10px;

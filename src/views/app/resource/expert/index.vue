@@ -55,7 +55,7 @@ export default {
   margin: 0 auto;
   padding: 0 0 25px 0;
   width: 1200px;
-  height: 100vh;
+  height: 100%;
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 25px;

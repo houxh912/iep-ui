@@ -53,7 +53,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 16px;
-    color: #000;
+    color: #333;
   }
   .content {
     padding: 10px 0;
@@ -61,6 +61,10 @@ export default {
     .item {
       cursor: pointer;
       padding: 5px 0;
+    }
+    .name {
+      margin-right: 10px;
+      color: #333;
     }
     .time div {
       text-align: right;

@@ -31,7 +31,7 @@ export default {
   text-align: center;
   background: #fafafa url(./linebg.png) no-repeat;
   h3 {
-    font-size: 24px;
+    font-size: 22px;
     span {
       color: #cb3737;
     }

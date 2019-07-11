@@ -278,7 +278,7 @@ export default {
       align-items: flex-start;
       .label {
         margin-bottom: 5px;
-        line-height: 26px;
+        line-height: 28px;
         width: 70px;
       }
       .span {

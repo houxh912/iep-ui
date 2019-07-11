@@ -147,6 +147,11 @@ export default {
 .avue-sidebar >>> .el-menu-item {
   height: 36px;
   line-height: 36px;
+  color: #444;
+}
+.avue-sidebar >>> .el-menu-item i,
+.avue-sidebar >>> .el-submenu__title i {
+  color: #666;
 }
 .avue-sidebar >>> .el-menu {
   border-right: none;

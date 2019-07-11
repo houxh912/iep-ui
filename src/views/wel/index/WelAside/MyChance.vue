@@ -32,7 +32,7 @@ export default {
   margin: 10px 5px;
   .text {
     padding-bottom: 5px;
-    color: #979797;
+    color: #999;
     .date {
       padding-right: 10px;
     }

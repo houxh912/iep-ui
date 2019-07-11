@@ -126,6 +126,9 @@ export default {
       color: #cb132d;
     }
   }
+  .add i {
+    color: #999;
+  }
 }
 .title {
   padding: 0 0 10px;

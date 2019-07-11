@@ -193,7 +193,7 @@ export default {
   }
   .color {
     color: #cb132d;
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 .cursor {

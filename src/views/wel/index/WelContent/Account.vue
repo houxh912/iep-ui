@@ -30,29 +30,29 @@
             </span>
             <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
             <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
-          </div>
-        </div>
-        <div class="user-tags-box">
-          <div class="user-height">
-            <div class="user-tag">
-              <div class="count" @click="handleSome3()">{{form.tagNum}}</div>
-              <div class="name">标签
-                <iep-tip class="tag-icon" icon="el-icon-question" content="您的个人标签总数">
-                </iep-tip>
-              </div>
-            </div>
-            <div class="user-tag">
-              <div class="count" @click="handleSome4()">{{form.materialNum}}</div>
-              <div class="name">材料
-                <iep-tip class="tag-icon" icon="el-icon-question" content="您上传材料的总数量">
-                </iep-tip>
-              </div>
-            </div>
-            <div class="user-tag">
-              <div class="count" @click="handleSome5()">{{form.credit}}</div>
-              <div class="name">信用
-                <iep-tip class="tag-icon" icon="el-icon-question" content="个人信用是基于内网创建的一套征信系统，依据个人在内网中的各项行为数据，<br/>运用云计算和机器学习等技术，对各维度数据进行综合处理和评估，<br/>在个人工作、学习、管理、协作五个维度客观呈现个人信用状况的综合分值。<br/>信用值的高低将影响项目承接机会、企业内部投资、员工提拔、晋升、领导表扬/奖励及享受特权的重要依据。">
-                </iep-tip>
+            <div class="user-tags-box">
+              <div class="user-height">
+                <div class="user-tag">
+                  <div class="count" @click="handleSome3()">{{form.tagNum}}</div>
+                  <div class="name">标签
+                    <iep-tip class="tag-icon" icon="el-icon-question" content="您的个人标签总数">
+                    </iep-tip>
+                  </div>
+                </div>
+                <div class="user-tag">
+                  <div class="count" @click="handleSome4()">{{form.materialNum}}</div>
+                  <div class="name">材料
+                    <iep-tip class="tag-icon" icon="el-icon-question" content="您上传材料的总数量">
+                    </iep-tip>
+                  </div>
+                </div>
+                <div class="user-tag">
+                  <div class="count" @click="handleSome5()">{{form.credit}}</div>
+                  <div class="name">信用
+                    <iep-tip class="tag-icon" icon="el-icon-question" content="个人信用是基于内网创建的一套征信系统，依据个人在内网中的各项行为数据，<br/>运用云计算和机器学习等技术，对各维度数据进行综合处理和评估，<br/>在个人工作、学习、管理、协作五个维度客观呈现个人信用状况的综合分值。<br/>信用值的高低将影响项目承接机会、企业内部投资、员工提拔、晋升、领导表扬/奖励及享受特权的重要依据。">
+                    </iep-tip>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -144,9 +144,11 @@ export default {
 }
 .user-position-operation-box {
   display: flex;
+  margin-top: 10px;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+  width: 100%;
 }
 .user-simple-box {
   border-right: 2px dotted #eee;
@@ -180,6 +182,7 @@ export default {
   }
   .user-position-box {
     display: flex;
+    margin: 10px 0;
     justify-content: center;
     align-items: center;
   }
@@ -187,8 +190,17 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
     .leader-btn {
       margin-left: 10px;
+      padding: 0;
+      width: 84px;
+      height: 30px;
+      line-height: 14px;
+      text-align: center;
+      i {
+        font-size: 14px;
+      }
     }
     .inline {
       justify-content: center;
@@ -202,7 +214,8 @@ export default {
     .task {
       cursor: pointer;
       background: #f9eae7;
-      padding: 1px 10px;
+      padding: 0 10px;
+      height: 30px;
       font-size: 14px;
       border-radius: 3px;
       color: #666;
@@ -225,15 +238,15 @@ export default {
   }
 }
 .user-tags-box {
-  padding-right: 20px;
+  padding-left: 20px;
   display: flex;
-  flex: 0 0 300px;
+  flex: 0 0 270px;
   justify-content: space-around;
   align-items: center;
   .user-height {
     display: flex;
     width: 100%;
-    height: 60px;
+    height: 50px;
   }
   .user-tag {
     display: flex;

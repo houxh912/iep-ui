@@ -149,13 +149,15 @@ export default {
 }
 .user-simple-box {
   border-right: 2px dotted #eee;
-  padding: 15px 20px;
+  margin: 4px 0;
+  padding: 7px 20px;
   flex: 1;
   display: flex;
   flex-direction: column;
   text-align: center;
   .user-info {
     display: flex;
+    margin-top: 5px;
     flex-direction: column;
     align-items: center;
   }

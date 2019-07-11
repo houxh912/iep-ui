@@ -78,6 +78,7 @@ export default {
       min-width: 25%;
       .label {
         text-align: right;
+        line-height: 28px;
       }
       .span {
         flex: 1;

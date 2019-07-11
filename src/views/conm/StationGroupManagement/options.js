@@ -7,12 +7,12 @@ const dictsMap = {
 
 const initForm = () => {
   return {
-    parentId:'',//上级站点
+    parentId: '',//上级站点
     // orgId: '',//组织
     siteName: '',//名称
     url: '',//域名
     mobileUrl: '',//手机端域名
-    status: '',//状态
+    status: 1,//状态
   }
 }
 const columnsMap = [
@@ -25,7 +25,7 @@ const columnsMap = [
   //   label: '组织',
   // },
   {
-    prop:'mobileUrl',
+    prop: 'mobileUrl',
     label: '手机端域名',
   },
   {

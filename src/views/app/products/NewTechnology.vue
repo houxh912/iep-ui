@@ -105,6 +105,7 @@ export default {
         float: left;
         width: 50px;
         height: 50px;
+        border: 1px solid #ebeef5;
       }
       .text {
         display: flex;

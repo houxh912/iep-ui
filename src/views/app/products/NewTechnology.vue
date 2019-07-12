@@ -98,7 +98,7 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     .piece {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       cursor: pointer;
       .img {
@@ -107,10 +107,12 @@ export default {
         height: 50px;
       }
       .text {
-        float: left;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         width: 300px;
         height: 50px;
-        margin-left: 19px;
+        margin-left: 15px;
         span {
           display: block;
         }

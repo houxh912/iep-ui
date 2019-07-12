@@ -23,6 +23,6 @@ export function postThemeRss (obj) {
   return request({
     url: `${prefixUrl}/webUserContact/insert`,
     method: 'post',
-    params: obj,
+    data: obj,
   })
 }

@@ -37,10 +37,14 @@ export default {
       this.$emit('load-page')
     },
     submitForm () {
-      postThemeRss({
-        keys: this.themeList.join(','),
-        type: 0,
-      }).then(() => {
+      const dictArr = this.themeList.map(v => {
+        return {
+          dictValueKey: v,
+          isMail: 0,
+          type: 0,
+        }
+      })
+      postThemeRss(dictArr).then(() => {
         this.$message({
           message: '操作成功',
           type: 'success',

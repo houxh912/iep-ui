@@ -60,10 +60,10 @@
               <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
               <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
               <el-button size="mini" type="danger" plain @click="handleProposal">建议</el-button>
-              <el-button size="mini" type="danger" plain @click="handlePk">PK</el-button>
             </el-row>
             <el-row class="apply">
-              <el-button type="danger" plain  @click="handleApply">申请授权</el-button>
+              <el-button type="danger" plain @click="handleApply">申请授权</el-button>
+              <el-button size="mini" type="danger" @click="handlePk" class="no-hover">PK</el-button>
             </el-row>
           </div>
         </div>
@@ -278,7 +278,7 @@ export default {
       align-items: flex-start;
       .label {
         margin-bottom: 5px;
-        line-height: 26px;
+        line-height: 28px;
         width: 70px;
       }
       .span {
@@ -287,6 +287,7 @@ export default {
       .el-tag {
         margin-right: 5px;
         margin-bottom: 5px;
+        font-size: 14px;
         cursor: pointer;
         &:hover {
           color: #cb3737;
@@ -298,9 +299,33 @@ export default {
       margin-top: 15px;
       flex-direction: column;
       align-items: center;
-      .apply {
-        margin-top: 25px;
+      .el-row {
+        width: 100%;
         text-align: right;
+      }
+      .el-button--danger {
+        background: #cb3737;
+        border-color: #ba1b21;
+        padding: 7px 15px;
+        min-width: 62px;
+      }
+      .el-button--danger.is-plain {
+        color: #cb3737;
+        background: #fef0f0;
+        border-color: #cb3737;
+      }
+      .el-button--danger.is-plain:hover {
+        background: #cb3737;
+        border-color: #ba1b21;
+        color: #fff;
+      }
+      .apply {
+        margin-top: 10px;
+        .no-hover:hover {
+          background: #cb3737;
+          border-color: #ba1b21;
+          color: #fff;
+        }
       }
     }
     .labs-con {
@@ -381,7 +406,8 @@ export default {
   position: relative;
   border: 0;
   height: 28px;
-  line-height: 26px;
+  line-height: 28px;
+  font-size: 14px;
   background: none;
   color: #606266;
 }

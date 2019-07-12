@@ -38,7 +38,7 @@ export default {
     async submitForm () {
       try {
         await this.mixinsValidate()
-        createUnionProject(toDtoForm(this.form)).then(({ data }) => {
+        createUnionProject(toDtoForm(this.form).year).then(({ data }) => {
           if (data.data) {
             this.$message('操作成功')
             this.close()

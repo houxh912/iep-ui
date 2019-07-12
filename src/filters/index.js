@@ -1,7 +1,11 @@
 import moment from 'moment'
+import Nzh from 'nzh'
 
 export function parseDate (date, formatString) {
-  if(moment(date).isValid()) {
+  if (date === undefined) {
+    return '暂无'
+  }
+  if (moment(date).isValid()) {
     return moment(date).format(formatString)
   } else {
     return '暂无'
@@ -33,6 +37,9 @@ export function formatTime (time) {
 
 export function parseToMoney (money) {
   return new Intl.NumberFormat().format(money)
+}
+export function parseToHanZiMoney (money) {
+  return Nzh.cn.encodeB(money)
 }
 export function parseToM (v) {
   if (v === '-') {

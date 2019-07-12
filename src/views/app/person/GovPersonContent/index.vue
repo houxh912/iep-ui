@@ -88,7 +88,7 @@ export default {
     grid-auto-flow: row dense;
     grid-row-gap: 25px;
     grid-column-gap: 25px;
-    grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
+    grid-template-columns: minmax(100px, 875px) minmax(100px, 300px);
   }
   .first-img,
   .second-img {
@@ -104,10 +104,7 @@ export default {
     grid-auto-flow: row dense;
     grid-row-gap: 25px;
     grid-column-gap: 25px;
-    grid-template-columns: minmax(100px, 2fr) minmax(100px, 2fr) minmax(
-        100px,
-        2fr
-      );
+    grid-template-columns: minmax(100px, 2fr) minmax(100px, 2fr) minmax(100px,2fr);
   }
 }
 </style>

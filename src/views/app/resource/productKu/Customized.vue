@@ -2,7 +2,7 @@
   <div>
     <search @search-page="searchData"></search>
     <div class="module">
-      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
+      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover" @click.native="handleleDetail(item)">
         <div class="content">
           <div class="img">
             <iep-img :src="item.imageUrl" alt=""></iep-img>
@@ -60,6 +60,9 @@ export default {
       this.params.current = val
       this.getDetailsPage()
     },
+    handleleDetail (row) {
+      this.$router.push(`/app/product_detail/${row.id}`)
+    },
   },
   created () {
     this.getDetailsPage()
@@ -87,6 +90,7 @@ export default {
       3fr
     );
   .module-item {
+    cursor: pointer;
     .img {
       margin-right: 15px;
       width: 120px;

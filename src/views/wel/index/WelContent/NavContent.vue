@@ -2,7 +2,7 @@
   <div class="navContent">
     <iep-no-data v-if="!contentData.length" message="暂无内容"></iep-no-data>
     <el-row v-else v-for="(item,index) in contentData" :key="index">
-      <el-col :span="16">
+      <el-col :span="14">
         <div class="iep-ellipsis title" @click="handleDetail(item)">{{item.name}}</div>
       </el-col>
       <el-col :span="6" v-if="item.subName">
@@ -11,7 +11,7 @@
       <el-col :span="6" v-if="item.process">
         <el-progress :percentage="item.process" color="#68C769"></el-progress>
       </el-col>
-      <el-col :span="2">
+      <el-col :span="4">
         <div class="iep-ellipsis text-right text-time">{{item.time | parseToMonthDay}}</div>
       </el-col>
     </el-row>
@@ -41,7 +41,9 @@ export default {
     padding: 5px 0;
     color: #5f5f5f;
     .title {
+      margin-right: 10px;
       font-size: 14px;
+      color: #333;
       cursor: pointer;
       &:hover {
         color: #cb3737;

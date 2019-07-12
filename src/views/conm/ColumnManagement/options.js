@@ -13,8 +13,8 @@ const initForm = () => {
     // modelId: '',
     nodeNumber: '',
     nodeName: '',
-    status: '',
-    tagKeyWords:[],
+    status: 1,
+    tagKeyWords: [],
   }
 }
 const toNewParentForm = (row) => {
@@ -24,10 +24,10 @@ const toNewParentForm = (row) => {
   })
 }
 const toDtoForm = (row) => {
-	const newForm = { ...row }
-	newForm.type = newForm.type[1]
-	newForm.parentType = newForm.type[0]
-	return newForm
+  const newForm = { ...row }
+  newForm.type = newForm.type[1]
+  newForm.parentType = newForm.type[0]
+  return newForm
 }
 const initMergeForm = () => {
   return {
@@ -65,4 +65,4 @@ const rules = {
 }
 
 
-export { dictsMap, columnsMap, initForm, initMergeForm,toNewParentForm,toDtoForm, initSearchForm, rules }
+export { dictsMap, columnsMap, initForm, initMergeForm, toNewParentForm, toDtoForm, initSearchForm, rules }

@@ -1,7 +1,10 @@
 <template>
   <basic-container>
     <iep-page-header :title="formData.contractName" :backOption="backOption" :isAdvance="true">
-      <div slot="custom" class="page-hander-title">{{formData.contractName}} <span class="sub-title" v-if="formData.isHistory === 2">历史合同</span></div>
+      <div slot="custom" class="page-hander-title">{{formData.contractName}} 
+        <span class="sub-title" v-if="formData.isHistory === 2">历史合同</span>
+        <span class="sub-title" v-else>{{dictsMap.contractStatus[formData.contractStatus]}}</span>
+      </div>
       <div slot="sub" class="tags">
         <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
       </div>
@@ -11,7 +14,7 @@
       <el-col class="item" :span='12' v-for="(item, index) in infoList" :key="index">
         <div class="label">{{item.name}}：</div>
         <div class="span" v-if="item.type == 'dict'">{{dictsMap[item.value][formData[item.value]]}}</div>
-        <div class="span" v-else-if="item.type == 'date'">{{formatYear(formData[item.value])}}</div>
+        <div class="span" v-else-if="item.type == 'date'">{{dateFormat(formData[item.value])}}</div>
         <div class="span" v-else>{{formData[item.value]}}</div>
       </el-col>
       <el-col class="item remark">
@@ -42,7 +45,8 @@
       <el-row class="list">
         <el-col class="title">回款率：</el-col>
         <el-col class="content">
-          <label>{{formData.contractCollection ? calculation(formData.contractCollection[formData.contractCollection.length-1].cumulativeAmount, formData.contractAmount) : '0%'}}</label>
+          <label v-if="formData.isHistory === 2">100%</label>
+          <label v-else>{{formData.contractCollection ? calculation(formData.contractCollection[formData.contractCollection.length-1].cumulativeAmount, formData.contractAmount) : '0%'}}</label>
         </el-col>
       </el-row>
       <el-row class="list">
@@ -88,21 +92,7 @@ import { getDataById } from '@/api/mlms/material/datum/contract'
 import { dictsMap, infoList } from './option'
 import { mapGetters } from 'vuex'
 import { downloadFile } from '@/api/common'
-
-function formatDig (num) {
-  return num > 9 ? '' + num : '0' + num
-}
-
-function formatYear (mill) {
-  var y = new Date(mill)
-  let raws = [
-    y.getFullYear(),
-    formatDig(y.getMonth() + 1),
-    formatDig(y.getDate()),
-  ]
-  let format = ['-', '-', '-']
-  return String.raw({ raw: raws }, ...format)
-}
+import { dateFormat } from '@/util/date'
 
 export default {
   data () {
@@ -128,7 +118,7 @@ export default {
       payList: [
         { waibao: '8000', pingshen: '20000', fuwu: '3000' },
       ],
-      formatYear,
+      dateFormat,
     }
   },
   computed: {

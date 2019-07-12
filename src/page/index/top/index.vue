@@ -25,6 +25,7 @@
       <top-search-icon></top-search-icon>
       <top-scan></top-scan>
       <top-guide></top-guide>
+      <top-chat></top-chat>
       <top-message></top-message>
       <top-email></top-email>
       <top-user></top-user>
@@ -40,6 +41,7 @@ import TopGuide from './TopGuide'
 import TopScan from './TopScan'
 import TopSearchIcon from './TopSearchIcon'
 import TopUser from './TopUser'
+import TopChat from './TopChat'
 export default {
   components: {
     TopNavbar,
@@ -49,6 +51,7 @@ export default {
     TopGuide,
     TopScan,
     TopUser,
+    TopChat,
   },
   name: 'Top',
   data () {

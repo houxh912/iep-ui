@@ -1,6 +1,6 @@
 <template>
   <div style="position: fixed;z-index: 1000">
-    <im-ui-small v-show="showType === 'small'" @showLarge="showType = 'large'"></im-ui-small>
+    <im-ui-small v-show="showType === 'none'" @showLarge="showType = 'large'"></im-ui-small>
     <im-ui-large v-show="showType === 'large'" @showSmall="showType = 'small'"></im-ui-large>
     <chat-box
       v-show="$store.getters.imCurrentChatList.length > 0 && $store.getters.imChatShow"
@@ -36,6 +36,9 @@ export default {
   },
   created () {
     this.initWebSocket()
+    this.$eventBus.$on('chatShow', () => {
+      this.showType = 'large'
+    })
   },
   methods: {
     initWebSocket () {

@@ -59,7 +59,7 @@ import VisitDialog from './VisitDialog'
 import Detail from './detail'
 import { mapGetters } from 'vuex'
 import { updateData, getDataById, deleteVisitLog } from '@/api/mlms/material/summary'
-// import { initFormData } from './options'
+import { initFormData } from './options'
 export default {
   mixins: [mixins],
   props: ['record'],
@@ -75,7 +75,6 @@ export default {
   },
   created () {
     this.loadPage()
-    console.log(this.record)
   },
   computed: {
     ...mapGetters([
@@ -95,7 +94,7 @@ export default {
       }
     },
     handleAdd () {
-      // this.$refs['VisitDialog'].formData = initFormData()
+      this.$refs['VisitDialog'].formData = initFormData()
       this.$refs['VisitDialog'].methodName = '创建'
       this.$refs['VisitDialog'].formRequestFn = createVisitLog
       this.$refs['VisitDialog'].id = this.id

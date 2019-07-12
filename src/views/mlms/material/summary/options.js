@@ -67,6 +67,7 @@ export const initFormData = () => {
 export const initSearchForm = () => {
   return {
     name: '',
+    realName: '',
   }
 }
 

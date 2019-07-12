@@ -95,7 +95,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 0;
+  margin: 0 !important;
   height: 44px;
   text-align: center;
   line-height: 44px;

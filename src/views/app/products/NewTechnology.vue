@@ -109,9 +109,7 @@ export default {
       .text {
         display: flex;
         flex-direction: column;
-        align-items: center;
         width: 300px;
-        height: 50px;
         margin-left: 15px;
         span {
           display: block;

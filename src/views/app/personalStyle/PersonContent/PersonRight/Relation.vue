@@ -119,8 +119,8 @@ export default {
       align-items: center;
       cursor: pointer;
       .img {
-        width: 60px;
-        height: 60px;
+        width: 54px;
+        height: 54px;
         border: 1px solid #ebeef5;
         // overflow: hidden;
         position: relative;

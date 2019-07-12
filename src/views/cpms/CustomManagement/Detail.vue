@@ -10,19 +10,19 @@
             <div class="title1">定制信息</div>
             <div class="con-item">
               <span class="title2">提交人：</span>
-              <iep-div-detail class="content" :value="form.title"></iep-div-detail>
+              <iep-div-detail class="content" :value="form.creatorName"></iep-div-detail>
             </div>
             <div class="con-item">
               <span class="title2">提交时间：</span>
-              <iep-div-detail class="content" :value="form.title"></iep-div-detail>
+              <iep-div-detail class="content" :value="form.createTime"></iep-div-detail>
             </div>
             <div class="con-item">
               <span class="title2">定制产品名称：</span>
-              <iep-div-detail class="content" :value="form.title"></iep-div-detail>
+              <iep-div-detail class="content" :value="form.customName"></iep-div-detail>
             </div>
             <div class="con-item">
               <span class="title2">产品说明：</span>
-              <iep-div-detail class="content" :value="form.title"></iep-div-detail>
+              <iep-div-detail class="content" :value="form.synopsis"></iep-div-detail>
             </div>
           </div>
         </div>
@@ -38,14 +38,18 @@
 <script>
 function initForm () {
   return {
-    title: '',
-    orgName: '',
+    creatorName: '',
     createTime: '',
-    realName: '',
+    customName: '',
+    synopsis: '',
   }
 }
+import mixins from '@/mixins/mixins'
 import CustomForm from '../Components/CustomForm'
+import { getListById } from '@/api/app/cpms/custom_product'
+
 export default {
+  mixins: [mixins],
   components: {
     CustomForm,
   },
@@ -56,6 +60,22 @@ export default {
       },
       form: initForm(),
     }
+  },
+  computed: {
+    id () {
+      return +this.$route.params.id
+    },
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      await getListById(this.id).then((data) => {
+        // const { creatorName, createTime, customName,synopsis } = data.data.data
+        this.form = this.$mergeByFirst(initForm(), data.data.data)
+      })
+    },
   },
 }
 </script>

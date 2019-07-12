@@ -1,19 +1,11 @@
 <template>
   <div class="dialog-show" v-show="dialogShow">
-    <el-checkbox
-      :indeterminate="isIndeterminate"
-      v-model="checkAll"
-      @change="handleCheckAllChange"
-    >全选</el-checkbox>
+    <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
     <!-- <span @click="handleAllDelete">删除</span> -->
     <i class="icon-guanbi" @click="close"></i>
     <div style="margin: 15px 0;"></div>
     <el-scrollbar style="height:300px">
-      <el-checkbox-group
-        class="options"
-        v-model="checkedCities"
-        @change="handleCheckedCitiesChange"
-      >
+      <el-checkbox-group class="options" v-model="checkedCities" @change="handleCheckedCitiesChange">
         <el-checkbox v-for="option in cities" :label="option.id" :key="option.id">
           <span>{{option.moduleName}}</span>
           <span>{{option.preferentialPrice}}</span>
@@ -94,6 +86,7 @@ export default {
 <style scoped lang='scss'>
 .dialog-show {
   padding: 15px;
+  min-width: 300px;
   box-shadow: 0 0 1px #ccc;
   background-color: #fff;
   & > span {

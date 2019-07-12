@@ -38,3 +38,9 @@ export function refuseCustomById (id) {
     method: 'post',
   })
 }
+export function getListById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

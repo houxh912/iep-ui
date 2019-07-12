@@ -10,48 +10,105 @@
             <div class="title1">定制信息</div>
             <div class="con-item">
               <span class="title2">提交人：</span>
-              <iep-div-detail class="content" :value="form.title"></iep-div-detail>
+              <iep-div-detail class="content" :value="form.creatorName"></iep-div-detail>
             </div>
             <div class="con-item">
               <span class="title2">提交时间：</span>
-              <iep-div-detail class="content" :value="form.title"></iep-div-detail>
+              <iep-div-detail class="content" :value="form.createTime"></iep-div-detail>
             </div>
             <div class="con-item">
               <span class="title2">定制产品名称：</span>
-              <iep-div-detail class="content" :value="form.title"></iep-div-detail>
+              <iep-div-detail class="content" :value="form.customName"></iep-div-detail>
             </div>
             <div class="con-item">
               <span class="title2">产品说明：</span>
-              <iep-div-detail class="content" :value="form.title"></iep-div-detail>
+              <iep-div-detail class="content" :value="form.synopsis"></iep-div-detail>
             </div>
           </div>
         </div>
       </div>
-      <custom-form></custom-form>
+      <div>
+        <iep-table :isLoadTable="false" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+        </iep-table>
+        <div class="counts">
+          <span>
+            <span class="size">{{size}}</span>个模块
+          </span>
+          <span>
+            共计:
+            <span class="count">{{count}}</span>
+          </span>
+        </div>
+      </div>
     </basic-container>
   </div>
 </template>
 <script>
 function initForm () {
   return {
-    title: '',
-    orgName: '',
+    creatorName: '',
     createTime: '',
-    realName: '',
+    customName: '',
+    synopsis: '',
   }
 }
-import CustomForm from '../Components/CustomForm'
-export default {
-  components: {
-    CustomForm,
+const columnsMap = [
+  {
+    prop: 'moduleName',
+    label: '模块名称',
   },
+  {
+    prop: 'guidePrice',
+    label: '指导价格',
+  },
+  {
+    prop: 'preferentialPrice',
+    label: '优惠价格',
+  },
+]
+import mixins from '@/mixins/mixins'
+import { getListById } from '@/api/app/cpms/custom_product'
+
+export default {
+  mixins: [mixins],
   data () {
     return {
       backOption: {
         isBack: true,
       },
       form: initForm(),
+      columnsMap,
+      size: '',
+      count: '',
+      pagedTable: [],
     }
+  },
+  computed: {
+    id () {
+      return +this.$route.params.id
+    },
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      await getListById(this.id).then((data) => {
+        // const { creatorName, createTime, customName,synopsis } = data.data.data
+        this.form = this.$mergeByFirst(initForm(), data.data.data)
+        const customModules = data.data.data.customModules
+        this.pagedTable = customModules
+        this.size = this.pagedTable.length ? this.pagedTable.length : 0
+        let arr = []
+        this.pagedTable.forEach(item => {
+          arr.push(item.preferentialPrice)
+          let result = arr.reduce((total, currentValue) => {
+            return total + currentValue
+          })
+          this.count = result
+        })
+      })
+    },
   },
 }
 </script>
@@ -86,6 +143,21 @@ export default {
       font-size: 14px;
       color: #999;
       vertical-align: -4px;
+    }
+  }
+}
+.counts {
+  padding: 15px;
+  text-align: right;
+  & > span {
+    margin-right: 15px;
+    font-size: 14px;
+    .size,
+    .count {
+      font-size: 16px;
+    }
+    .count {
+      color: #ba1b21;
     }
   }
 }

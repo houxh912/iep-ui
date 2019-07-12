@@ -27,11 +27,19 @@
           </div>
         </div>
       </div>
-      <custom-form></custom-form>
-      <FooterToolBar>
-        <iep-button type="primary">通过</iep-button>
-        <iep-button>不通过</iep-button>
-      </FooterToolBar>
+      <div>
+        <iep-table :isLoadTable="false" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+        </iep-table>
+        <div class="counts">
+          <span>
+            <span class="size">{{size}}</span>个模块
+          </span>
+          <span>
+            共计:
+            <span class="count">{{count}}</span>
+          </span>
+        </div>
+      </div>
     </basic-container>
   </div>
 </template>
@@ -44,21 +52,39 @@ function initForm () {
     synopsis: '',
   }
 }
+const columnsMap = [
+  {
+    prop: 'moduleName',
+    label: '模块名称',
+  },
+  {
+    prop: 'guidePrice',
+    label: '指导价格',
+  },
+  {
+    prop: 'preferentialPrice',
+    label: '优惠价格',
+  },
+]
 import mixins from '@/mixins/mixins'
-import CustomForm from '../Components/CustomForm'
+// import CustomForm from '../Components/CustomForm'
 import { getListById } from '@/api/app/cpms/custom_product'
 
 export default {
   mixins: [mixins],
-  components: {
-    CustomForm,
-  },
+  // components: {
+  //   CustomForm,
+  // },
   data () {
     return {
       backOption: {
         isBack: true,
       },
       form: initForm(),
+      columnsMap,
+      size: '',
+      count: '',
+      pagedTable: [],
     }
   },
   computed: {
@@ -74,6 +100,17 @@ export default {
       await getListById(this.id).then((data) => {
         // const { creatorName, createTime, customName,synopsis } = data.data.data
         this.form = this.$mergeByFirst(initForm(), data.data.data)
+        const customModules = data.data.data.customModules
+        this.pagedTable = customModules
+        this.size = this.pagedTable.length ? this.pagedTable.length : 0
+        let arr = []
+        this.pagedTable.forEach(item => {
+          arr.push(item.preferentialPrice)
+          let result = arr.reduce((total, currentValue) => {
+            return total + currentValue
+          })
+          this.count = result
+        })
       })
     },
   },
@@ -110,6 +147,21 @@ export default {
       font-size: 14px;
       color: #999;
       vertical-align: -4px;
+    }
+  }
+}
+.counts {
+  padding: 15px;
+  text-align: right;
+  & > span {
+    margin-right: 15px;
+    font-size: 14px;
+    .size,
+    .count {
+      font-size: 16px;
+    }
+    .count {
+      color: #ba1b21;
     }
   }
 }

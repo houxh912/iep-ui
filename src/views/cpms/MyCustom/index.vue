@@ -20,7 +20,7 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleCancel(scope.row)">取消</iep-button>
+              <iep-button @click="handleCancel(scope.row)" v-if="scope.row.status==0">取消</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

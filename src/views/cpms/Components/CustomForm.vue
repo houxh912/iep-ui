@@ -37,7 +37,26 @@ export default {
       columnsMap,
       size: '',
       count: '',
+      pagedTable: [],
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    loadPage () {
+      this.$emit('load-table')
+      console.log(this.pagedTable)
+      this.size = this.pagedTable.length ? this.pagedTable.length : 0
+      let arr = []
+      this.pagedTable.forEach(item => {
+        arr.push(item.preferentialPrice)
+        let result = arr.reduce((total, currentValue) => {
+          return total + currentValue
+        })
+        this.count = result
+      })
+    },
   },
 }
 </script>

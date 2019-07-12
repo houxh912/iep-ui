@@ -61,7 +61,7 @@
 <script>
 // import Menus from './Menus'
 import { addObj, getPage, logicDeleteNodeById, updateObj } from '@/api/conm/article_controller'
-import { columnsMap, initSearchForm, dictsMap, initForm } from './options'
+import { columnsMap, initSearchForm, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 export default {
@@ -77,6 +77,7 @@ export default {
       ],
       id: '',
       siteId: '',
+      nodeName: '',
     }
   },
   created () {
@@ -96,10 +97,10 @@ export default {
       this._handleGlobalDeleteById(row.id, logicDeleteNodeById)
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].id = row.nodeId
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].id = row.id
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].formRequestFn = updateObj
+      this.$refs['DialogForm'].loadTypeList()
       this.$refs['DialogForm'].methodName = '编辑'
     },
     async loadPage (param = this.searchForm) {

@@ -26,21 +26,27 @@ export default {
       backOption: {
         isBack: true,
       },
+      nodeName: '',
       tabList: [{
         label: '所有',
         value: 'AllDocument',
       },
-      // , {
-      //   label: '回收站',
-      //   value: 'RecycleBin',
-      // }
+        // , {
+        //   label: '回收站',
+        //   value: 'RecycleBin',
+        // }
       ],
       activeTab: 'AllDocument',
     }
   },
-  mounted () {
+  created () {
+    this.nodeName = this.$route.query.nodeName
+    this.loadPage()
   },
   methods: {
+    loadPage () {
+      this.tabList[0].label = `栏目名称：${this.nodeName}`
+    },
   },
 }
 </script>

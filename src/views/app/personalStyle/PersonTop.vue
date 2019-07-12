@@ -23,7 +23,7 @@
                 <iep-identity-mark class="mark" :icon="item.icon" :title="item.label" v-for="(item, index) in user_info.identityMarks" :key="index"></iep-identity-mark>
               </span>
             </div>
-            <span class="autograph">个性签名：{{user_info.signature}}</span>
+            <span class="autograph"><span class="autograph-con">个性签名：</span>{{user_info.signature}}</span>
             <div class="classTags">
               <div class="classTag">
                 <div class="label">卓越标签：</div>
@@ -351,6 +351,10 @@ export default {
     }
     .autograph {
       color: #666;
+      .autograph-con {
+        display: inline-block;
+        padding-right: 10px;
+      }
     }
     .dn {
       opacity: 0;

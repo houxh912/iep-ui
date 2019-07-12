@@ -265,7 +265,6 @@ export default {
     getMyPosition () {
       getMyPosition({ userId: this.userInfo.userId }).then(({ data }) => {
         this.myData = data.data
-        this.myData.exponent = Math.round(data.data.exponent / 10000)
         this.title.subtext = Math.round(data.data.contarctCount / 10000)
         for (let item of this.chartDataHistogram.rows) {
           item['总数'] = data.data[item.prop]

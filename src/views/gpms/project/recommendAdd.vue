@@ -1,271 +1,343 @@
 <template>
   <div class="abs iep-page-form">
     <basic-container>
-      <iep-page-header :title="`${methodName}项目`" :backOption="backOption"></iep-page-header>
+      <iep-page-header title="新增项目" :backOption="backOption"></iep-page-header>
       <div class="main">
-      <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="200px" class="form form-detail">
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="项目名称：" prop="projectName">
-              <el-input v-model="formData.projectName" :placeholder="tipContent.projectName"></el-input>
-            </el-form-item>
-            <iep-button class="recom-btn" @click="cRecommendType('project')">荐</iep-button>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目类型：" prop="projectType">
-              <iep-dict-select v-model="formData.projectType" dict-name="prms_project_type"></iep-dict-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12" v-if="formData.projectType == 2">
-            <el-form-item label="客户名称：" prop="relatedClient">
-              <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
-              <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
-              </IepCrmsSelect>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目标签：" prop="projectTagList">
-              <span slot="label">
-                项目标签
-                <iep-tip :content="tipContent.projectTagList"></iep-tip>：
-              </span>
-              <iep-tag v-model="formData.projectTagList"></iep-tag>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目总负责人：" prop="projectManagerList">
-              <iep-contact-select v-model="formData.projectManagerList" :is-show-contact-btn="false"></iep-contact-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="市场经理：" prop="mktManagerList">
-              <span slot="label">
-                市场经理
-                <iep-tip :content="tipContent.mktManagerList"></iep-tip>：
-              </span>
-              <iep-contact-multiple-user v-model="formData.mktManagerList" :is-show-contact-btn="false"></iep-contact-multiple-user>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目指导与审核人：" prop="projectMentorList">
-              <span slot="label">
-                项目指导与审核人
-                <iep-tip :content="tipContent.projectMentorList"></iep-tip>：
-              </span>
-              <iep-contact-multiple-user v-model="formData.projectMentorList" :is-show-contact-btn="false"></iep-contact-multiple-user>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目成员：" prop="membersList">
-              <span slot="label">
-                项目成员：
-                <!-- <iep-tip :content="tipContent.membersList"></iep-tip>： -->
-              </span>
-              <iep-contact-multiple-user v-model="formData.membersList" :is-show-contact-btn="false"></iep-contact-multiple-user>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目经理：" prop="projectHandlesList">
-              <span slot="label">
-                项目经理：
-                <!-- <iep-tip :content="tipContent.projectHandlesList"></iep-tip>： -->
-              </span>
-              <iep-contact-multiple-user v-model="formData.projectHandlesList" :is-show-contact-btn="false"></iep-contact-multiple-user>
-            </el-form-item>
-            <iep-button class="recom-btn" @click="cRecommendType('projectHandles')">荐</iep-button>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目预算：" prop="projectBudget">
-              <span slot="label">
-                项目预算(元)
-                <iep-tip :content="tipContent.projectBudget"></iep-tip>：
-              </span>
-              <el-input v-model="formData.projectBudget" readonly @click.native="handleBudget" placeholder="点击填写项目预算"></el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目等级：" prop="projectLevel">
-              <span slot="label">
-                项目等级：
-                <!-- <iep-tip :content="tipContent.relatedClient"></iep-tip>： -->
-              </span>
-              <iep-dict-select v-model="formData.projectLevel" dict-name="prms_project_level"></iep-dict-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="立项时间:" prop="projectTime">
-              <span slot="label">
-                立项时间：
-              </span>
-              <iep-date-picker v-model="formData.projectTime" type="date" placeholder="立项时间"></iep-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="结束时间：" prop="endTime">
-              <span slot="label">
-                结束时间：
-              </span>
-              <iep-date-picker v-model="formData.endTime" type="date" placeholder="结束时间"></iep-date-picker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="集团外部合作伙伴：" prop="groupExternalCooperatePartner">
-              <span slot="label">
-                集团外部合作伙伴
-                <iep-tip :content="tipContent.groupExternalCooperatePartner"></iep-tip>：
-              </span>
-              <IepCrmsSelect v-model="formData.groupExternalCooperatePartner" :option="[{id: formData.groupExternalCooperatePartnerList.id, name: formData.groupExternalCooperatePartnerList.name}]" prefixUrl="crm/customer/all/list">
-              </IepCrmsSelect>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="预计签订时间：" prop="estimatedSigntime">
-              <IepDatePicker v-model="formData.estimatedSigntime"></IepDatePicker>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item :label="`${formData.contractList.length > 0 ? '合同' : '项目'}金额：`" prop="projectAmount">
-              <el-input 
-                v-model="formData.projectAmount" 
-                type="number" 
-                placeholder="请正确输入非负金额" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="项目阶段：" prop="projectStage">
-              <iep-dict-select v-model="formData.projectStage" dict-name="prms_project_stage"></iep-dict-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="所属组织：" prop="orgId">
-              <span slot="label">
-                所属组织：
-              </span>
-              <iep-select v-model="formData.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="放入公海库：" prop="isClaim">
-              <span style="padding: 0 5px;">否</span>
-              <el-switch v-model="formData.isClaim" :active-value="2" :inactive-value="1" active-color="#13ce66"></el-switch>
-              <span style="padding: 0 5px;">是</span>
-            </el-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
-          <span slot="label">
-            是否关联产品
-            <iep-tip :content="tipContent.isRelevanceProduct"></iep-tip>：
-          </span>
-          <el-radio-group v-model="formData.isRelevanceProduct">
-            <el-radio v-for="item in dictMap.is_yes" :key="item.value" :label="item.value">{{item.label}}</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="添加关联产品：" v-if="formData.isRelevanceProduct === 1">
-          <el-button @click="handleAddProduct">添加关联</el-button>
-          <ul class="relevance-list" v-if="formData.productList.length > 0">
-            <li class="item" v-for="t in formData.productList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'productList', 'productIds')"></i></li>
-          </ul>
-        </el-form-item>
-        <el-form-item label="未关联产品理由：" prop="notRelevanceProductReason" v-if="formData.isRelevanceProduct === 2">
-          <el-input type="textarea" rows="5" v-model="formData.notRelevanceProductReason"></el-input>
-        </el-form-item>
-        <el-form-item label="添加其他关联：">
-          <el-button @click="handleAdd">添加关联</el-button>
-        </el-form-item>
-        <div v-for="(item, index) in relatedFormList" :key="index">
-          <el-form-item :label="`${item.name}：`" v-if="formData[item.list].length > 0">
-            <ul class="relevance-list">
-              <li class="item" v-for="(t, i) in formData[item.list]" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, item.list, item.ids)"></i></li>
+        <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="200px" class="form form-detail">
+          <el-row>
+            <el-col :span="12">
+              <el-form-item label="项目名称：" prop="projectName">
+                <el-input v-model="formData.projectName" :placeholder="tipContent.projectName"></el-input>
+              </el-form-item>
+              <iep-button class="recom-btn" @click="cRecommendType('project')">荐</iep-button>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item prop="projectTypeBefore">
+                <el-checkbox v-model="formData.projectTypeBefore">内部项目</el-checkbox>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" v-if="formData.projectTypeBefore == true">
+              <el-form-item label="委托组织：" prop="attendeeId">
+                <iep-select v-model="formData.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" v-if="formData.projectTypeBefore == false">
+              <el-form-item label="客户名称：" prop="relatedClient">
+                <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
+                <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
+                </IepCrmsSelect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="项目标签：" prop="projectTagList">
+                <span slot="label">
+                  项目标签
+                  <iep-tip :content="tipContent.projectTagList"></iep-tip>：
+                </span>
+                <iep-tag v-model="formData.projectTagList"></iep-tag>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="项目总负责人：" prop="projectManagerList">
+                <iep-contact-select v-model="formData.projectManagerList" :is-show-contact-btn="false"></iep-contact-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="项目经理：" prop="projectManagerList">
+                <span slot="label">
+                  项目经理
+                  <iep-tip :content="tipContent.projectManagerList"></iep-tip>：
+                </span>
+                <iep-contact-select v-model="formData.projectManagerList" :is-show-contact-btn="false" disabled></iep-contact-select>
+              </el-form-item>
+              <iep-button class="recom-btn" @click="cRecommendType('projectHandles')">荐</iep-button>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="项目督导：" prop="projectMentorList">
+                <span slot="label">
+                  项目督导
+                  <iep-tip :content="tipContent.projectMentorList"></iep-tip>：
+                </span>
+                <iep-contact-multiple-user v-model="formData.projectMentorList" :is-show-contact-btn="false"></iep-contact-multiple-user>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="市场经理：" prop="mktManagerList">
+                <span slot="label">
+                  市场经理
+                  <iep-tip :content="tipContent.mktManagerList"></iep-tip>：
+                </span>
+                <iep-contact-multiple-user v-model="formData.mktManagerList" :is-show-contact-btn="false"></iep-contact-multiple-user>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="执行项目经理：" prop="projectHandlesList">
+                <span slot="label">
+                  执行项目经理：
+                </span>
+                <iep-contact-multiple-user v-model="formData.projectHandlesList" :is-show-contact-btn="false"></iep-contact-multiple-user>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="项目成员：" prop="membersList">
+                <span slot="label">
+                  项目成员：
+                  <!-- <iep-tip :content="tipContent.membersList"></iep-tip>： -->
+                </span>
+                <iep-contact-multiple-user v-model="formData.membersList" :is-show-contact-btn="false"></iep-contact-multiple-user>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="项目说明：" prop="projectExplain">
+                <el-input v-model="formData.projectExplain"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="项目阶段：" prop="projectStage">
+                <iep-dict-select v-model="formData.projectStage" dict-name="prms_project_stage"></iep-dict-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="项目等级：" prop="projectLevel">
+                <span slot="label">
+                  项目等级：
+                  <!-- <iep-tip :content="tipContent.relatedClient"></iep-tip>： -->
+                </span>
+                <iep-dict-select v-model="formData.projectLevel" dict-name="prms_project_level"></iep-dict-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="立项时间:" prop="approvalTime">
+                <span slot="label">
+                  立项时间：
+                </span>
+                <iep-date-picker v-model="formData.approvalTime" type="date" placeholder="立项时间" disabled></iep-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="结束时间：" prop="endTime">
+                <span slot="label">
+                  结束时间：
+                </span>
+                <iep-date-picker v-model="formData.endTime" type="date" placeholder="结束时间"></iep-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="签订时间：" prop="estimatedSigntime">
+                <IepDatePicker v-model="formData.estimatedSigntime"></IepDatePicker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item :label="`${formData.contractList.length > 0 ? '合同' : '项目'}金额：`" prop="projectAmount">
+                <el-input v-if="formData.contractList.length > 0" v-model="formData.contractAmount" disabled />
+                <el-input v-else v-model="formData.projectAmount" type="number" placeholder="请正确输入非负金额" />
+              </el-form-item>
+            </el-col>
+            <!-- <el-col :span="12">
+              <el-form-item label="项目预算：" prop="projectBudget">
+                <span slot="label">
+                  项目预算
+                  <iep-tip :content="tipContent.projectBudget"></iep-tip>：
+                </span>
+                <el-input v-model="formData.projectBudget" readonly @click.native="handleBudget" placeholder="点击填写项目预算"></el-input>
+              </el-form-item>
+            </el-col> -->
+            <el-col :span="12">
+              <el-form-item label="外部合作：" prop="groupExternalCooperatePartner">
+                <span slot="label">
+                  外部合作
+                  <iep-tip :content="tipContent.groupExternalCooperatePartner"></iep-tip>：
+                </span>
+                <IepCrmsSelect v-model="formData.groupExternalCooperatePartner" :option="[{id: formData.groupExternalCooperatePartnerList.id, name: formData.groupExternalCooperatePartnerList.name}]" prefixUrl="crm/customer/all/list">
+                </IepCrmsSelect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="所属组织：" prop="orgId">
+                <span slot="label">
+                  所属组织：
+                </span>
+                <iep-select v-model="formData.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
+            <span slot="label">
+              是否关联产品
+              <iep-tip :content="tipContent.isRelevanceProduct"></iep-tip>：
+            </span>
+            <el-radio-group v-model="formData.isRelevanceProduct">
+              <el-radio v-for="item in dictMap.is_yes" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="添加关联产品：" v-if="formData.isRelevanceProduct === 1">
+            <el-button @click="handleAddProduct">添加关联</el-button>
+            <ul class="relevance-list" v-if="formData.productList.length > 0">
+              <li class="item" v-for="t in formData.productList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'productList', 'productIds')"></i></li>
             </ul>
           </el-form-item>
-        </div>
-        <el-form-item label="预计回款时间：" class="table">
-          <el-table :data="formData.paymentRelations" style="width: 100%">
-            <el-table-column prop="projectPaymentTime" label="月份">
-              <template slot-scope="scope">
-                <el-date-picker
-                  v-model="formData.paymentRelations[scope.$index].projectPaymentTime"
-                  type="date"
-                  placeholder="选择时间"
-                  format="yyyy-MM-dd"
-                  value-format="yyyy-MM-dd hh:mm:ss"
-                  :readonly="formData.paymentRelations[scope.$index].id?true:false">
-                </el-date-picker>
-              </template>
-            </el-table-column>
-            <el-table-column prop="paymentAmount" label="回款金额">
-              <template slot-scope="scope">
-                <el-input 
-                  v-if="selectIndex==scope.$index" 
-                  v-model="formData.paymentRelations[scope.$index].paymentAmount" 
-                  @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" 
-                  maxlength="10" 
-                  type="number" 
-                  min=0
-                  placeholder="请正确输入非负回款金额"
-                  :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
-                <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column prop="menu" label="操作" width="200px">
-              <template slot-scope="scope">
-                <!-- 0可以延期 -->
-                <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
-                <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelete(scope.$index)">删除</iep-button>
-                <div class="project-select-delay" v-if="selectDelay.index == scope.$index">
-                  <el-date-picker
-                    v-model="selectDelay.value" 
-                    type="date" 
-                    placeholder="选择延期时间" 
-                    ref="selectDelay" 
-                    @change="changeDelay" 
-                    @blur="selectDelay.index = -1"
-                    format="yyyy-MM-dd"
-                    value-format="yyyy-MM-dd hh:mm:ss">
+          <el-form-item label="未关联产品理由：" prop="notRelevanceProductReason" v-if="formData.isRelevanceProduct === 2">
+            <el-input type="textarea" rows="5" v-model="formData.notRelevanceProductReason"></el-input>
+          </el-form-item>
+          <el-form-item label="添加其他关联：">
+            <el-button @click="handleAdd">添加关联</el-button>
+          </el-form-item>
+          <div v-for="(item, index) in relatedFormList" :key="index">
+            <el-form-item :label="`${item.name}：`" v-if="formData[item.list].length > 0">
+              <ul class="relevance-list">
+                <li class="item" v-for="(t, i) in formData[item.list]" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, item.list, item.ids)"></i></li>
+              </ul>
+            </el-form-item>
+          </div>
+          <el-form-item label="项目成本预算：">
+            <div>
+              <!-- <p>注：外包费用、佣金、项目总预算为必填项，<span style="color: #f00;">如不填，则不发项目提成</span></p>
+              <el-table :data="tableData" style="width: 100%" class="table">
+                <el-table-column prop="artificialCost" label="人工成本" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.artificialCost" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="projectCommission" label="项目提成" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.projectCommission" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column label="项目费用" align='center'>
+                  <el-table-column prop="taxes" label="税费" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.taxes" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="bidWinning" label="中标服务费" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.bidWinning" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="outsourcingCost" align='center'>
+                    <template slot="header">
+                      <span class="column-header">外包费用</span>
+                    </template>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.outsourcingCost" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="expertsFee" label="项目评审专家费" align='center' width="150">
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.expertsFee" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="commission" align='center'>
+                    <template slot="header">
+                      <span class="column-header">佣金</span>
+                    </template>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.commission" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="otherFees" label="其他" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.otherFees" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                </el-table-column>
+                <el-table-column prop="managementFee" label="项目管理费" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.managementFee" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="invoiceFee" label="开票费用" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.invoiceFee" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="travelFee" label="差旅费" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.travelFee" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="projectBudget" align='center'>
+                  <template slot="header">
+                    <span class="column-header">费用总预算</span>
+                  </template>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.projectBudget" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="forecastProfits" label="预估利润" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.forecastProfits" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+              </el-table> -->
+            </div>
+          </el-form-item>
+          <el-form-item label="预计回款时间：" class="table">
+            <el-table :data="formData.paymentRelations" style="width: 100%">
+              <el-table-column prop="projectPaymentTime" label="月份">
+                <template slot-scope="scope">
+                  <el-date-picker v-model="formData.paymentRelations[scope.$index].projectPaymentTime" type="date" placeholder="选择时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss" :readonly="formData.paymentRelations[scope.$index].id?true:false">
                   </el-date-picker>
-                </div>
-                <iep-button size="small" v-if="!formData.paymentRelations[scope.$index].id" @click="handleDelete(scope.$index)">删除</iep-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
-        </el-form-item>
-      </el-form>
-      <div class="recommend-project" v-if="this.recommendType=='project'">
-        <h4 class="recommend-title">同类项目推荐</h4>
-        <div class="recommend-container" v-for="r in recommendProjectList" :key="r.id">
-          <span class="name">{{r.projectName}}</span>
-          <iep-button class="recommend-container-btn" type="danger" plain @click="referenceName(r.projectName)" size="mini">参考名称</iep-button>
-          <span style="display:flex;">
-            <div class="grade" v-show="r.projectLevel==1">重</div>
-            <div class="grade" v-show="r.projectLevel==2">中</div>
-            <div class="grade" v-show="r.projectLevel==3">一</div>
-            <div class="stage" v-show="r.projectStage==1">初</div>
-            <div class="stage" v-show="r.projectStage==2">方</div>
-            <div class="stage" v-show="r.projectStage==3">正</div>
-            <div class="stage" v-show="r.projectStage==4">项</div>
-            负责人：{{r.projectManagerList.name}}
-          </span>
-          <span class="sign">
-            <div v-for="(s,index) in r.projectTagList" :key="index" @click="openSign(s)">{{s}}</div>
-          </span>
-        </div>
-      </div>
-      <div class="recommend-projectHandles" v-if="this.recommendType=='projectHandles'">
-        <h4 class="recommend-title">优秀项目经理推荐</h4>
-        <div class="recommend-container" v-for="r in recommendHandlesList" :key="r.id">
-          <div class="img"><iep-img :src="r.avatar" :alt="r.name" class="img-box"></iep-img></div>
-          <div class="right">
-            <span class="name">{{r.name}}</span>
-            <iep-button class="recommend-container-btn" type="danger" plain @click="referenceHandles(r.name,r.id)" size="mini">设为项目经理</iep-button>
-            <span>负责了{{r.id}}个项目 | 参与了{{r.id}}个项目</span>
+                </template>
+              </el-table-column>
+              <el-table-column prop="paymentAmount" label="回款金额">
+                <template slot-scope="scope">
+                  <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" maxlength="10" type="number" min=0 placeholder="请正确输入非负回款金额" :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
+                  <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column prop="menu" label="操作" width="200px">
+                <template slot-scope="scope">
+                  <!-- 0可以延期 -->
+                  <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
+                  <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelete(scope.$index)">删除</iep-button>
+                  <div class="project-select-delay" v-if="selectDelay.index == scope.$index">
+                    <el-date-picker v-model="selectDelay.value" type="date" placeholder="选择延期时间" ref="selectDelay" @change="changeDelay" @blur="selectDelay.index = -1" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss">
+                    </el-date-picker>
+                  </div>
+                  <iep-button size="small" v-if="!formData.paymentRelations[scope.$index].id" @click="handleDelete(scope.$index)">删除</iep-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
+          </el-form-item>
+        </el-form>
+        <div class="recommend-project" v-if="this.recommendType=='project'">
+          <h4 class="recommend-title">同类项目推荐</h4>
+          <div class="recommend-container" v-for="r in recommendProjectList" :key="r.id">
+            <span class="name">{{r.projectName}}</span>
+            <iep-button class="recommend-container-btn" type="danger" plain @click="referenceName(r.projectName)" size="mini">参考名称</iep-button>
+            <span style="display:flex;">
+              <div class="grade" v-show="r.projectLevel==1">重</div>
+              <div class="grade" v-show="r.projectLevel==2">中</div>
+              <div class="grade" v-show="r.projectLevel==3">一</div>
+              <div class="stage" v-show="r.projectStage==1">初</div>
+              <div class="stage" v-show="r.projectStage==2">方</div>
+              <div class="stage" v-show="r.projectStage==3">正</div>
+              <div class="stage" v-show="r.projectStage==4">项</div>
+              负责人：{{r.projectManagerList.name}}
+            </span>
             <span class="sign">
-              <div v-for="(s,index) in r.projectTag" :key="index" @click="openSign(s)">{{s}}</div>
+              <div v-for="(s,index) in r.projectTagList" :key="index" @click="openSign(s)">{{s}}</div>
             </span>
           </div>
         </div>
-      </div>
+        <div class="recommend-projectHandles" v-if="this.recommendType=='projectHandles'">
+          <h4 class="recommend-title">优秀项目经理推荐</h4>
+          <div class="recommend-container" v-for="r in recommendHandlesList" :key="r.id">
+            <div class="img">
+              <iep-img :src="r.avatar" :alt="r.name" class="img-box"></iep-img>
+            </div>
+            <div class="right">
+              <span class="name">{{r.name}}</span>
+              <iep-button class="recommend-container-btn" type="danger" plain @click="referenceHandles(r.name,r.id)" size="mini">设为项目经理</iep-button>
+              <span>负责了{{r.id}}个项目 | 参与了{{r.id}}个项目</span>
+              <span class="sign">
+                <div v-for="(s,index) in r.projectTag" :key="index" @click="openSign(s)">{{s}}</div>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <footer-tool-bar>
@@ -273,14 +345,14 @@
         <iep-button @click="close">取消</iep-button>
       </footer-tool-bar>
     </basic-container>
-      <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
-      <product-relation-dialog ref="productRelationDialog" @relativeSubmit="relativeProductSubmit"></product-relation-dialog>
+    <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
+    <product-relation-dialog ref="productRelationDialog" @relativeSubmit="relativeProductSubmit"></product-relation-dialog>
   </div>
 </template>
 
 <script>
 import { dictMap, rules, initFormData, relatedFormList } from './Total/const.js'
-import { getDataDetail, createData, updateData, getRecommendedProjectList, getRecommendedHandlesList } from '@/api/gpms/index'
+import { createData, getRecommendedProjectList, getRecommendedHandlesList } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
@@ -308,17 +380,6 @@ export default {
       formData: initFormData(),
       rules,
       dictMap,
-      type: 'create',
-      typeObj: {
-        create: {
-          requestFn: createData,
-          name: '新增',
-        },
-        update: {
-          requestFn: updateData,
-          name: '编辑',
-        },
-      },
       clientList: [],
       typeOptions: dictMap.typeOptions, // 项目类型菜单
       isRelevOptions: dictMap.isRelevOptions, // 是否关联菜单
@@ -329,38 +390,27 @@ export default {
         value: '',
         index: -1,
       },
-      recommendProjectList:[
+      recommendProjectList: [
         // {id:1,projectName:'',projectLevel:'1',projectStage:'1',projectManagerList:{id:1,name:''},projectTagList:[]},
       ],
-      recommendHandlesList:[
+      recommendHandlesList: [
       ],
-      recommendType:'project',
+      recommendType: 'project',
     }
   },
   computed: {
     ...mapGetters(['dictGroup', 'userInfo']),
-    id () {
-      return +this.$route.params.id
-    },
-    methodName () {
-      return this.id ? '修改' : '新增'
-    },
     tagList () {
       return this.$route.query.allTagList
     },
   },
   created () {
-    this.formData.relatedClientList.name =  this.$route.query.clientName
-    if (this.id) {
-      getDataDetail(this.id).then(({ data }) => {
-        this.formData = this.$mergeByFirst(initFormData(), data.data)
-      })
-      this.type='update'
-    }
-    getRecommendedProjectList({tagList:this.tagList}).then(({ data }) => {
+    this.tableData = []
+    this.formData.relatedClientList.name = this.$route.query.clientName
+    getRecommendedProjectList({ tagList: this.tagList }).then(({ data }) => {
       this.recommendProjectList = data
     })
-    getRecommendedHandlesList({tagList:this.tagList}).then(({ data }) => {
+    getRecommendedHandlesList({ tagList: this.tagList }).then(({ data }) => {
       this.recommendHandlesList = data
     })
     getCustomerPage({ type: 1 }).then(({ data }) => {
@@ -373,25 +423,8 @@ export default {
     },
     returnIndex () {
       this.$router.push({
-        path:'/gpms/project',
+        path: '/gpms/project',
       })
-    },
-    open (type, data) {
-      this.type = type
-      if (!data) { // 新增
-        this.formData = initFormData()
-      } else { // 修改
-        data.relatedClient = parseInt(data.relatedClient)
-        data.groupExternalCooperatePartner = parseInt(
-          data.groupExternalCooperatePartner
-        )
-        // 判断是否关联合同，若关联，修改字段，并获取到合同的金额
-        if (data.contractList && data.contractList.length > 0) {
-          data.projectAmount = data.contractList[0].amount
-        }
-        this.formData = Object.assign({}, this.formData, data)
-        this.methodName = '修改'
-      }
     },
     save () {
       this.$refs['form'].validate((valid) => {
@@ -410,7 +443,7 @@ export default {
               list: 'projectMentorList',
             },
           ]
-          let form = { id:this.id,...this.formData }
+          let form = { id: this.id, ...this.formData }
           form.memberList = this.formData.membersList.map(m => m.id)
           form.marketManagerList = this.formData.mktManagerList.map(m => m.id)
           form.mentorList = this.formData.projectMentorList.map(m => m.id)
@@ -457,7 +490,21 @@ export default {
           delete form.contractList
           delete form.projectList
           delete form.reportList
-          this.typeObj[this.type].requestFn(form).then(() => {
+          for (let item of this.validate) {
+            if (this.tableData[0][item.prop] === '') {
+              this.$message.error(`请填写${item.name}，若无，请填写0`)
+              return
+            }
+          }
+          form.projectBudgetList = this.tableData[0]
+          form.projectBudget = this.tableData[0].projectBudget
+          if (form.projectTypeBefore == true) {
+            form.projectType = '1'
+          }
+          else {
+            form.projectType = '2'
+          }
+          createData.requestFn(form).then(() => {
             this.$message({
               message: `${this.methodName}成功`,
               type: 'success',
@@ -530,10 +577,6 @@ export default {
       this.formData.paymentRelations[this.selectDelay.index].projectPaymentTime = val
       this.selectDelay.index = -1
     },
-    // // 项目预算
-    // handleBudget () {
-    //   this.$refs['budgetDialog'].open(this.formData.projectBudgetList)
-    // },
     budgetSubmit (val) {
       this.formData.projectBudgetList = val
       this.formData.projectBudget = val.projectBudget
@@ -544,12 +587,12 @@ export default {
     referenceName (val) {
       this.formData.projectName = val
     },
-    referenceHandles (val,id) {
-      const projectHandles=this.formData.projectHandlesList.map(m => {
+    referenceHandles (val, id) {
+      const projectHandles = this.formData.projectHandlesList.map(m => {
         return m['id']
       })
-      if(projectHandles.includes(id)==false){
-        this.formData.projectHandlesList.push({id:id,name:val})
+      if (projectHandles.includes(id) == false) {
+        this.formData.projectHandlesList.push({ id: id, name: val })
       }
     },
     cRecommendType (val) {
@@ -593,51 +636,58 @@ export default {
     display: none;
   }
 }
-
 </style>
 <style lang="scss" scoped>
-.main{
+.main {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: 1fr 400px;
   border-top: 1px solid #eee;
-  .recommend-projectHandles,.recommend-project{
+  .recommend-projectHandles,
+  .recommend-project {
     padding: 20px;
     border-left: 1px solid #eee;
-    box-shadow:-2px 0px 2px #eee;
-    .recommend-title{
+    box-shadow: -2px 0px 2px #eee;
+    .recommend-title {
       font-size: 16px;
       height: 36px;
       margin-bottom: 20px;
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
     }
-    .recommend-container{
+    .recommend-container {
       margin-bottom: 10px;
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
       position: relative;
       overflow: hidden;
-      &:last-child{border:0;}
-      .recommend-container-btn{
+      &:last-child {
+        border: 0;
+      }
+      .recommend-container-btn {
         position: absolute;
         right: 0;
         top: 5px;
       }
     }
   }
-  .recommend-project{
-    .recommend-container{
-      > span{
+  .recommend-project {
+    .recommend-container {
+      > span {
         height: 38px;
         line-height: 38px;
       }
-      .name{
+      .name {
         width: 260px;
         display: block;
-        overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
       }
-      .grade,.stage{
+      .grade,
+      .stage {
         color: #fff;
         font-size: 12px;
         padding: 0 6px;
@@ -646,84 +696,92 @@ export default {
         margin-right: 4px;
         margin-top: 10px;
       }
-      .grade{
+      .grade {
         background-color: #b91b21;
       }
-      .stage{
+      .stage {
         background-color: #b5b5b5;
         margin-right: 10px;
       }
-      .sign{
-        overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
-        > div{
+      .sign {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        > div {
           color: #999;
           position: relative;
-          margin-right: 24px;
+          margin-right: 12px;
           display: inline-block;
           cursor: pointer;
-          &:after{
-            content: '/';
+          &:after {
+            content: "/";
             position: absolute;
             right: -14px;
             top: 0;
           }
-          &:last-child{
-            &:after{
-              content: '';
+          &:last-child {
+            &:after {
+              content: "";
             }
           }
         }
       }
     }
   }
-  .recommend-projectHandles{
-    .img{
-      width:80px;
+  .recommend-projectHandles {
+    .img {
+      width: 80px;
       float: left;
-      .img-box{
-        width:80px;
+      .img-box {
+        width: 80px;
       }
     }
-    .right{
+    .right {
       width: 260px;
       float: left;
       margin-left: 10px;
-      > span{
+      > span {
         height: 22px;
         line-height: 22px;
       }
-      .name{
+      .name {
         font-size: 16px;
         height: 34px;
         line-height: 34px;
-        width: 240px;
+        width: 120px;
         display: block;
-        overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
       }
-      .sign{
-        overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
-        > div{
+      .sign {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        > div {
           color: #999;
           position: relative;
-          margin-right: 24px;
+          margin-right: 12px;
           display: inline-block;
           cursor: pointer;
-          &:after{
-            content: '/';
+          &:after {
+            content: "/";
             position: absolute;
             right: -14px;
             top: 0;
           }
-          &:last-child{
-            &:after{
-              content: '';
+          &:last-child {
+            &:after {
+              content: "";
             }
           }
         }
       }
     }
   }
-  .recom-btn{
+  .recom-btn {
     position: absolute;
     right: -70px;
     top: 0;
@@ -731,7 +789,7 @@ export default {
 }
 </style>
 <style scoped>
-.main >>> .el-col-12{
+.main >>> .el-col-12 {
   width: 100%;
   position: relative;
 }

@@ -2,14 +2,14 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="primary" icon="el-icon-plus" @click="handleCreate"  plain>新增</iep-button>
-        <iep-button v-if="onlyResponsible==true" @click="handleDeleteAll" >批量删除</iep-button>
-        <iep-button v-if="onlyResponsible==true" @click="transferMentor" >批量移交</iep-button>
+        <iep-button type="primary" icon="el-icon-plus" @click="handleCreate" plain>新增</iep-button>
+        <iep-button v-if="onlyResponsible==true" @click="handleDeleteAll">批量删除</iep-button>
+        <iep-button v-if="onlyResponsible==true" @click="transferMentor">批量移交</iep-button>
       </template>
       <template slot="right">
         <el-checkbox v-model="onlyResponsible" @change="changeResponsible()">仅看我负责的项目</el-checkbox>
         <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称" prop="projectName">
-            <advance-search @search-page="searchPage"></advance-search>
+          <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
@@ -43,9 +43,9 @@
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'">立项</iep-button>
-            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'">编辑</iep-button>
-            <iep-button @click="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'">删除</iep-button>
+            <iep-button @click="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">立项</iep-button>
+            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">编辑</iep-button>
+            <iep-button @click="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">删除</iep-button>
             <iep-button @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'">撤回</iep-button>
           </operation-wrapper>
         </template>
@@ -59,7 +59,6 @@
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData, withdrawById } from '@/api/gpms/index'
-import { getProjectPage } from '@/api/gpms/fas'
 import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
 import TransferDialogForm from '../TransferDialogForm'
@@ -71,7 +70,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['permissions','userInfo']),
+    ...mapGetters(['permissions', 'userInfo']),
   },
   data () {
     return {
@@ -82,19 +81,15 @@ export default {
       paramForm: paramForm(),
       value: '',
       searchForm: {},
-      onlyResponsible:false,
-      statistics:'',
+      onlyResponsible: false,
+      statistics: '',
     }
   },
   mixins: [mixins],
   methods: {
     async loadPage (params = {}) {
-      if (this.tabType === 3) {
-        this.loadTable(Object.assign({}, params, this.searchForm), getProjectPage)
-      } else {
-        const data = await this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
-        this.statistics=data.total
-      }
+      const data = await this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+      this.statistics = data.total
       this.$emit('statistics', this.statistics)
     },
     searchPage (val) {
@@ -107,14 +102,14 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path:`/gpms_spa/project/detail/${row.id}`,
+        path: `/gpms_spa/project/detail/${row.id}`,
         query: {
           isApprove: false,
         },
       })
     },
     handleCreate () {
-      this.$router.push('/gpms_spa/project/add')
+      this.$router.push('/gpms_spa/project/add_first')
     },
     handleUpdate (row) {
       this.$router.push(`/gpms_spa/project/add/${row.id}`)
@@ -126,13 +121,13 @@ export default {
       this._handleGlobalAll(deleteData)
     },
     //撤回
-    handleWithdraw (ids,val,name) {
+    handleWithdraw (ids, val, name) {
       this.$confirm(`此操作将${name}该数据, 是否继续?`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        withdrawById({ids:[ids],projectStatus:val}).then(res => {
+        withdrawById({ ids: [ids], projectStatus: val }).then(res => {
           if (res.data.data) {
             this.$message({
               type: 'success',
@@ -150,7 +145,7 @@ export default {
     },
     //移交
     transferMentor () {
-      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+      if (this.multipleSelection === undefined || this.multipleSelection.length === 0) {
         this.$message('请先选择需要移交的选项')
         return
       }
@@ -159,15 +154,15 @@ export default {
       this.$refs['TransferDialogForm'].dialogShow = true
     },
     changeResponsible () {
-      if(this.onlyResponsible){
+      if (this.onlyResponsible) {
         this.searchForm.listType = 1
         this.loadPage()
       }
-      else{
+      else {
         this.searchForm.listType = 2
         this.loadPage()
       }
-      this.onlyResponsible!=this.onlyResponsible
+      this.onlyResponsible != this.onlyResponsible
       return false
     },
   },

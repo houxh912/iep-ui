@@ -1,17 +1,7 @@
 <template>
   <basic-container>
-    <div v-if="pageState === 'list'">
-      <iep-page-header title="我的项目" :replaceText="replaceText" :data="[sum]"></iep-page-header>
-      <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='Release'" v-slot:Release>
-          <total ref="table" :tabType="'2'" @statistics="statistics($event)"></total>
-        </template>
-        <template v-if="activeTab === 'International'" v-slot:International>
-          <total ref="table" :tabType="'3'"></total>
-        </template>
-      </iep-tabs>
-    </div>
-    <add-dialog v-else ref="form"></add-dialog>
+    <iep-page-header title="我的项目" :replaceText="replaceText" :data="[sum]"></iep-page-header>
+    <total ref="table" :tabType="'2'" @statistics="statistics($event)"></total>
   </basic-container>
 </template>
 <script>
@@ -23,21 +13,12 @@ export default {
   data () {
     return {
       replaceText: (data) => `[共${data[0]}条数据]`,
-      tabList: [{
-        label: '我的项目',
-        value: 'Release',
-      },  {
-        label: '项目公海库',
-        value: 'International',
-      }],
-      activeTab: 'Release',
-      pageState: 'list',
-      sum:'',
+      sum: '',
     }
   },
   methods: {
     statistics (val) {
-      this.sum=val
+      this.sum = val
     },
   },
 }

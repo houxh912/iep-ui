@@ -3,7 +3,7 @@
     <div class="search-con">
       <operation-search @search-page="searchPage">
       </operation-search>
-      <!-- <el-button type="danger" plain>高级搜索</el-button> -->
+      <el-button type="danger" @click="handeleCustom" plain>产品定制</el-button>
     </div>
   </div>
 </template>
@@ -18,6 +18,9 @@ export default {
     searchPage (val) {
       this.$emit('search-page', val)
     },
+     handeleCustom () {
+        this.$router.push('/app/resource/product_ku/product_customization')
+    }, 
   },
 }
 </script>

@@ -11,11 +11,11 @@
           <el-col :span="24">
             <div class="grid-content">
               <p style="color:#666;">您的个人项目(参与度)指数为
-                <span style="font-size:24px;color:#ba1a22;">174</span>
+                <span style="font-size:24px;color:#ba1a22;">{{myData.exponent}}</span>
                 ！您是一个
-                <span style="color:#000;">优秀</span>
+                <span style="color:#000;">{{myData.badge}}</span>
                 的
-                <span style="color:#000;">项目经理</span>
+                <span style="color:#000;">{{myData.dignity}}</span>
                 ，尤其擅长
                 <span style="color:#000;">营商环境</span>
                 、
@@ -32,7 +32,7 @@
           <div style="float: right;">
             <el-tooltip placement="right">
               <div slot="content" class="Blackwindow">
-                参与项目总数（个）：<br />
+                参与项目总数（个）：{{myData.participateCount}}<br />
                 项目合同总金额（万元）:<br />
                 担任项目经理次数（次）：<br />
                 担任项目成员次数（次）：<br />
@@ -51,20 +51,20 @@
           </div>
           <div class="piece">
             <h4>参与项目合同总金额（万元）</h4>
-            <el-tabs v-model="contractAmount" @tab-click="contractClick">
+            <el-tabs v-model="contractAmount">
               <el-tab-pane label="我的" name="my"></el-tab-pane>
               <el-tab-pane label="总数" name="all"></el-tab-pane>
             </el-tabs>
-            <ve-ring :data="chartDataRing" :settings="chartSettingsRing" :colors="colorsRing">
+            <ve-ring :data="chartDataRing" :settings="chartSettingsRing" :colors="colorsRing" :title="title">
             </ve-ring>
           </div>
           <div class="piece">
             <h4>担任项目经理或负责项目次数（次）</h4>
-            <project-manager></project-manager>
+            <project-manager ref="projectManager" :myData="myData"></project-manager>
           </div>
           <div class="piece">
             <h4>担任市场经理次数（次）</h4>
-            <market-manager></market-manager>
+            <market-manager ref="marketManager" :myData="myData"></market-manager>
           </div>
           <div class="piece">
             <h4>担任项目督导指导项目次数（次）</h4>
@@ -74,13 +74,17 @@
                 <div class="main">
                   <div class="main-box">
                     <span>指导项目：</span>
-                    <el-progress width="40%" :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
-                    <span>22</span>
+                    <span class="progress">
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.guidanceCount==0||myData.guidanceAllCount==0?0:myData.guidanceCount/myData.guidanceAllCount*100" :show-text="false" color="#23d05c"></el-progress>
+                    </span>
+                    <span>{{myData.guidanceCount}}</span>
                   </div>
                   <div class="main-box">
-                    <span>指导项目：</span>
-                    <el-progress width="40%" :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
-                    <span>22</span>
+                    <span>审核项目：</span>
+                    <span class="progress">
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.guidanceApprovalCount==0||myData.guidanceExternalAllCount==0?0:myData.guidanceApprovalCount/myData.guidanceExternalAllCount*100" :show-text="false" color="#23d05c"></el-progress>
+                    </span>
+                    <span>{{myData.guidanceApprovalCount}}</span>
                   </div>
                 </div>
               </div>
@@ -89,13 +93,17 @@
                 <div class="main">
                   <div class="main-box">
                     <span>指导项目：</span>
-                    <el-progress width="40%" :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
-                    <span>22</span>
+                    <span class="progress">
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.guidanceExternalTypeCount==0||myData.getUnapprovedCount==0?0:myData.guidanceExternalTypeCount/myData.getUnapprovedCount*100" :show-text="false" color="#23d05c"></el-progress>
+                    </span>
+                    <span>{{myData.guidanceExternalTypeCount}}</span>
                   </div>
                   <div class="main-box">
-                    <span>指导项目：</span>
-                    <el-progress width="40%" :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
-                    <span>22</span>
+                    <span>审核项目：</span>
+                    <span class="progress">
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.approvalExternalCount==0||myData.getUnapprovedExternalCount==0?0:myData.approvalExternalCount/myData.getUnapprovedExternalCount*100" :show-text="false" color="#23d05c"></el-progress>
+                    </span>
+                    <span>{{myData.approvalExternalCount}}</span>
                   </div>
                 </div>
               </div>
@@ -109,13 +117,17 @@
                 <div class="main">
                   <div class="main-box">
                     <span>方案共享：</span>
-                    <el-progress width="40%" :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
-                    <span>22</span>
+                    <span class="progress">
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
+                    </span>
+                    <span>{{myData.guidanceCount}}</span>
                   </div>
                   <div class="main-box">
                     <span>方案收藏：</span>
-                    <el-progress width="40%" :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
-                    <span>22</span>
+                    <span class="progress">
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
+                    </span>
+                    <span>{{myData.guidanceCount}}</span>
                   </div>
                 </div>
               </div>
@@ -124,13 +136,17 @@
                 <div class="main">
                   <div class="main-box">
                     <span>浏览：</span>
-                    <el-progress width="40%" :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
-                    <span>22</span>
+                    <span class="progress">
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
+                    </span>
+                    <span>{{myData.guidanceCount}}</span>
                   </div>
                   <div class="main-box">
                     <span>下载：</span>
-                    <el-progress width="40%" :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
-                    <span>22</span>
+                    <span class="progress">
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
+                    </span>
+                    <span>{{myData.guidanceCount}}</span>
                   </div>
                 </div>
               </div>
@@ -147,9 +163,16 @@
 import mixins from '@/mixins/mixins'
 import projectManager from './projectManager'
 import marketManager from './marketManager'
+import { getMyPosition } from '@/api/gpms/index'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: { projectManager, marketManager },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
   data () {
     //参与项目个数
     this.colorsHistogram = [
@@ -181,13 +204,14 @@ export default {
     }
     //参与项目合同总金额
     this.chartSettingsRing = {
+      radius: [70, 100],
       level: [
-        ['50万以下项目', '50-100万以下项目', '100-150万以下项目'],
+        ['20万以下项目', '20-50万项目', '50-100万项目', '百万级项目'],
       ],
     }
     this.colorsRing = [
       (paramsA) => {
-        var colorList1 = ['#90c0dc', '#b6cbc2', '#b4bbd7']
+        var colorList1 = ['#90c0dc', '#b6cbc2', '#b4bbd7', '#efbf8f']
         return colorList1[paramsA.dataIndex]
       },
     ]
@@ -195,31 +219,79 @@ export default {
 
 
     return {
+      myData: {},
       chartDataHistogram: {
         columns: ['dept', '总数', '外部项目'],
         rows: [
-          { 'dept': '重要项目', '总数': 100, '外部项目': 122 },
-          { 'dept': '中级项目', '总数': 100, '外部项目': 160 },
-          { 'dept': '一般项目', '总数': 100, '外部项目': 180 },
+          { 'dept': '重要项目', '总数': 0, '外部项目': 0, 'prop': 'importantCount', 'Exter': 'importantExterCount' },
+          { 'dept': '中级项目', '总数': 0, '外部项目': 0, 'prop': 'secondaryCount', 'Exter': 'secondaryExterCount' },
+          { 'dept': '一般项目', '总数': 0, '外部项目': 0, 'prop': 'commonlyCount', 'Exter': 'commonlyExterCount' },
         ],
       },
       chartDataRing: {
         columns: ['类型', '数量'],
         rows: [
-          { '类型': '50万以下项目', '数量': 13 },
-          { '类型': '50-100万以下项目', '数量': 35 },
-          { '类型': '100-150万以下项目', '数量': 29 },
+          { '类型': '20万以下项目', '数量': 0, 'prop': '百万级项目' },
+          { '类型': '20-50万项目', '数量': 0, 'prop': '五十万以上项目' },
+          { '类型': '50-100万项目', '数量': 0, 'prop': '二十万及以上项目' },
+          { '类型': '百万级项目', '数量': 0, 'prop': '二十万以下项目' },
         ],
       },
       contractAmount: 'my',
+      title: {
+        text: '总数',
+        subtext: 0,
+        textStyle: {
+          color: '#dcdcdc',
+          fontSize: 16,
+          // align: 'center'
+        },
+        subtextStyle: {
+          fontSize: 18,
+          color: ['#333'],
+        },
+        x: 'center',
+        y: 'center',
+      },
     }
+  },
+  created () {
+    this.getMyPosition()
   },
   methods: {
     handleClicks () {
 
     },
-    contractClick (tab, event) {
-      console.log(tab, event)
+    getMyPosition () {
+      getMyPosition({ userId: this.userInfo.userId }).then(({ data }) => {
+        this.myData = data.data
+        this.myData.exponent = Math.round(data.data.exponent / 10000)
+        this.title.subtext = Math.round(data.data.contarctCount / 10000)
+        for (let item of this.chartDataHistogram.rows) {
+          item['总数'] = data.data[item.prop]
+          item['外部项目'] = data.data[item.Exter]
+        }
+        this.chartDataRing.rows.forEach(function (item, index) {
+          item['数量'] = data.data.contarctCountDetail[index][item.prop]
+        })
+        this.$refs['projectManager'].seriesGauge1.data[0].value = data.data.importantLevelCount
+        this.$refs['projectManager'].seriesGauge2.data[0].value = data.data.secondaryLevelCount
+        this.$refs['projectManager'].seriesGauge3.data[0].value = data.data.commonlyLevelCount
+        this.$refs['projectManager'].seriesGauge4.data[0].value = data.data.externalCount
+
+        this.$refs['projectManager'].seriesGauge1.axisLine.lineStyle.color[0][0] = data.data.importantLevelCount == 0 ? 0 : data.data.importantLevelCount / data.data.importantMaxCount
+        this.$refs['projectManager'].seriesGauge2.axisLine.lineStyle.color[0][0] = data.data.secondaryLevelCount == 0 ? 0 : data.data.secondaryLevelCount / data.data.secondaryMaxCount
+        this.$refs['projectManager'].seriesGauge3.axisLine.lineStyle.color[0][0] = data.data.commonlyLevelCount == 0 ? 0 : data.data.commonlyLevelCount / data.data.commonlyMaxCount
+        this.$refs['projectManager'].seriesGauge4.axisLine.lineStyle.color[0][0] = data.data.externalCount == 0 ? 0 : data.data.externalCount / data.data.typeMaxCount
+        this.$refs['marketManager'].seriesGauge1.data[0].value = data.data.importantMarketLevelCount
+        this.$refs['marketManager'].seriesGauge2.data[0].value = data.data.secondaryMarketLevelCount
+        this.$refs['marketManager'].seriesGauge3.data[0].value = data.data.commonlyMarketLevelCount
+        this.$refs['marketManager'].seriesGauge4.data[0].value = data.data.marketExternalCount
+        this.$refs['marketManager'].seriesGauge1.axisLine.lineStyle.color[0][0] = data.data.importantMarketLevelCount == 0 ? 0 : data.data.importantLevelCount / data.data.importantMarketMaxCount
+        this.$refs['marketManager'].seriesGauge2.axisLine.lineStyle.color[0][0] = data.data.secondaryMarketLevelCount == 0 ? 0 : data.data.secondaryLevelCount / data.data.secondaryMarketMaxCount
+        this.$refs['marketManager'].seriesGauge3.axisLine.lineStyle.color[0][0] = data.data.commonlyMarketLevelCount == 0 ? 0 : data.data.commonlyLevelCount / data.data.commonlyMarketMaxCount
+        this.$refs['marketManager'].seriesGauge4.axisLine.lineStyle.color[0][0] = data.data.marketExternalCount == 0 ? 0 : data.data.externalCount / data.data.marketTypeMaxCount
+      })
     },
   },
 }
@@ -268,9 +340,10 @@ export default {
             .main-box {
               text-align: center;
               margin: 20px 0;
-              .el-progress {
-                display: inline-block;
+              .progress {
+                width: 40%;
                 margin: 0 5px;
+                display: inline-block;
               }
             }
           }

@@ -100,3 +100,11 @@ export function withdrawById (obj) {
     data: obj,
   })
 }
+//统计页面
+export function getMyPosition (obj) {
+  return request({
+    url: 'prms/iep-project-myposition/getDetail',
+    method: 'get',
+    params: obj,
+  })
+}

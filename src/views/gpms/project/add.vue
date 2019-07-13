@@ -518,7 +518,7 @@ export default {
               message: `${this.methodName}成功`,
               type: 'success',
             })
-            this.close(true)
+            this.$router.push('/gpms/project')
           })
         } else {
           return false

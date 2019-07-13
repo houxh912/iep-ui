@@ -98,19 +98,21 @@ export default {
     grid-template-columns: 1fr 1fr 1fr;
     .piece {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       cursor: pointer;
       .img {
         float: left;
         width: 50px;
         height: 50px;
+        border: 1px solid #ebeef5;
+        overflow: hidden;
       }
       .text {
-        float: left;
+        display: flex;
+        flex-direction: column;
         width: 300px;
-        height: 50px;
-        margin-left: 19px;
+        margin-left: 15px;
         span {
           display: block;
         }
@@ -133,6 +135,16 @@ export default {
 <style scoped>
 .new-tehnology >>> .el-card {
   height: 354px;
+}
+.new-tehnology >>> .piece .el-image__inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
+  border-radius: 50%;
+}
+.new-tehnology >>> .piece .el-image__inner:hover {
+  transform: scale(1.1);
 }
 </style>
 

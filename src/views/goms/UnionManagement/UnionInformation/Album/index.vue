@@ -8,6 +8,7 @@
         <operation-search @search-page="searchPage" placeHolder="请输入关键字" prop="title"></operation-search>
       </template>
     </operation-container>
+    <iep-no-data v-if="!list.length"></iep-no-data>
     <div class="album-block" v-for="(item, index) in list" :key="index">
       <div class="title" @click="handleClick(index)">
         <span class="time">{{item.time}}</span>
@@ -59,14 +60,15 @@ export default {
   methods: {
     loadPage () {
       getAlbumPage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {
-        if (data.data) {
-          this.list = this.dealWithList(data.data.records)
-          this.total = data.data.total
-        }
+        this.list = this.dealWithList(data.data.records)
+        this.total = data.data.total
       })
     },
     // 根据时间分组
     dealWithList (row) {
+      if (!row.length) {
+        return []
+      }
       let list = []
       let obj = { time: dateFormat(row[0].publishTime, 'yyyy-MM'), list: [] }
       this.activeNames = [0]

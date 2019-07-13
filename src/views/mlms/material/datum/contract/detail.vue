@@ -15,6 +15,7 @@
         <div class="label">{{item.name}}：</div>
         <div class="span" v-if="item.type == 'dict'">{{dictsMap[item.value][formData[item.value]]}}</div>
         <div class="span" v-else-if="item.type == 'date'">{{dateFormat(formData[item.value])}}</div>
+        <div class="span" v-else-if="item.type == 'project'">{{`${formData[item.value]} ${formData[item.value] === '无' ? '' : `  (${formData[item.subVal]})`}`}}</div>
         <div class="span" v-else>{{formData[item.value]}}</div>
       </el-col>
       <el-col class="item remark">
@@ -139,6 +140,7 @@ export default {
         data.underTakeDeptNames = ''
         if (data.underTakeDeptName) data.underTakeDeptNames = data.underTakeDeptName.map(m => m.name).join('、')
         data.projectName = data.projectRelation ? data.projectRelation.name : '无'
+        data.serialNo = data.projectRelation ? data.projectRelation.serialNo : '无编号'
         console.log('data: ', data)
         let businessType = data.businessType.split(','), list = []
         for (let type of businessType) {

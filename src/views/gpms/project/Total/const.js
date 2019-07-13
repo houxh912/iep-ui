@@ -208,7 +208,7 @@ export const initSearchForm = () => {
     orgId:'',//所属组织
     projectStage: [],//项目阶段
     projectLevel: [],//项目等级
-    associatedProducts: false,//是否项目关联
+    associatedProducts: 2,//是否项目关联
     manager: '',//项目经理
   }
 }

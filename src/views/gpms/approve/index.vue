@@ -11,7 +11,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <el-table-column label="项目名称" slot="before-columns" width="300px">
           <template slot-scope="scope">
             <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
@@ -69,12 +69,12 @@ export default {
       this.searchForm = Object.assign({}, this.searchForm, val)
       this.loadPage()
     },
-    loadPage ( param = this.searchForm ) {
-      this.loadTable({approvalStatus:0,...param}, getApprovalList)
+    loadPage (param = this.searchForm) {
+      this.loadTable({ approvalStatus: 0, ...param }, getApprovalList)
     },
     handleDetail (row) {
       this.$router.push({
-        path:`/gpms_spa/project/detail/${row.id}`,
+        path: `/gpms_spa/project/detail/${row.id}`,
         query: {
           isApprove: true,
         },
@@ -97,7 +97,7 @@ export default {
       this.$refs['ReviewForm'].dialogShow = true
     },
     //锁定启用
-    lockingEnable (id,val,name) {
+    lockingEnable (id, val, name) {
       this.$confirm(`此操作将${name}该项目 , 是否继续?`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',

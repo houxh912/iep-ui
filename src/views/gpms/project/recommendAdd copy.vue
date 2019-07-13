@@ -73,7 +73,7 @@
               </el-form-item>
               <iep-button class="recom-btn" @click="cRecommendType('projectHandles')">荐</iep-button>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="12">
               <el-form-item label="项目成员：" prop="membersList">
                 <span slot="label">
                   项目成员：
@@ -82,14 +82,11 @@
                 <iep-contact-multiple-user v-model="formData.membersList" :is-show-contact-btn="false"></iep-contact-multiple-user>
               </el-form-item>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="12">
               <el-form-item label="项目说明：" prop="projectExplain">
                 <el-input v-model="formData.projectExplain"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <hr>
-          <el-row>
             <el-col :span="12">
               <el-form-item label="项目阶段：" prop="projectStage">
                 <iep-dict-select v-model="formData.projectStage" dict-name="prms_project_stage"></iep-dict-select>
@@ -158,13 +155,6 @@
                 <iep-select v-model="formData.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
               </el-form-item>
             </el-col>
-            <!-- <el-col :span="12">
-              <el-form-item label="放入公海库：" prop="isClaim">
-                <span style="padding: 0 5px;">否</span>
-                <el-switch v-model="formData.isClaim" :active-value="2" :inactive-value="1" active-color="#13ce66"></el-switch>
-                <span style="padding: 0 5px;">是</span>
-              </el-form-item>
-            </el-col> -->
           </el-row>
           <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
             <span slot="label">
@@ -194,103 +184,104 @@
               </ul>
             </el-form-item>
           </div>
-          <hr>
           <el-form-item label="项目成本预算：">
-            <p>注：外包费用、佣金、项目总预算为必填项，<span style="color: #f00;">如不填，则不发项目提成</span></p>
-            <el-table :data="tableData" style="width: 100%" class="table">
-              <el-table-column prop="artificialCost" label="人工成本" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.artificialCost" maxlength="12" type="number" min=0></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="projectCommission" label="项目提成" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.projectCommission" maxlength="12" type="number" min=0></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column label="项目费用" align='center'>
-                <el-table-column prop="taxes" label="税费" align='center'>
+            <div>
+              <!-- <p>注：外包费用、佣金、项目总预算为必填项，<span style="color: #f00;">如不填，则不发项目提成</span></p>
+              <el-table :data="tableData" style="width: 100%" class="table">
+                <el-table-column prop="artificialCost" label="人工成本" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.taxes" maxlength="12" type="number" min=0></el-input>
+                    <el-input v-model="scope.row.artificialCost" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="bidWinning" label="中标服务费" align='center'>
+                <el-table-column prop="projectCommission" label="项目提成" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.bidWinning" maxlength="12" type="number" min=0></el-input>
+                    <el-input v-model="scope.row.projectCommission" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="outsourcingCost" align='center'>
+                <el-table-column label="项目费用" align='center'>
+                  <el-table-column prop="taxes" label="税费" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.taxes" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="bidWinning" label="中标服务费" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.bidWinning" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="outsourcingCost" align='center'>
+                    <template slot="header">
+                      <span class="column-header">外包费用</span>
+                    </template>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.outsourcingCost" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="expertsFee" label="项目评审专家费" align='center' width="150">
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.expertsFee" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="commission" align='center'>
+                    <template slot="header">
+                      <span class="column-header">佣金</span>
+                    </template>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.commission" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="otherFees" label="其他" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.otherFees" maxlength="12" type="number" min=0></el-input>
+                    </template>
+                  </el-table-column>
+                </el-table-column>
+                <el-table-column prop="managementFee" label="项目管理费" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.managementFee" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="invoiceFee" label="开票费用" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.invoiceFee" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="travelFee" label="差旅费" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.travelFee" maxlength="12" type="number" min=0></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="projectBudget" align='center'>
                   <template slot="header">
-                    <span class="column-header">外包费用</span>
+                    <span class="column-header">费用总预算</span>
                   </template>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.outsourcingCost" maxlength="12" type="number" min=0></el-input>
+                    <el-input v-model="scope.row.projectBudget" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="expertsFee" label="项目评审专家费" align='center' width="150">
+                <el-table-column prop="forecastProfits" label="预估利润" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.expertsFee" maxlength="12" type="number" min=0></el-input>
+                    <el-input v-model="scope.row.forecastProfits" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column prop="commission" align='center'>
-                  <template slot="header">
-                    <span class="column-header">佣金</span>
-                  </template>
-                  <template slot-scope="scope">
-                    <el-input v-model="scope.row.commission" maxlength="12" type="number" min=0></el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column prop="otherFees" label="其他" align='center'>
-                  <template slot-scope="scope">
-                    <el-input v-model="scope.row.otherFees" maxlength="12" type="number" min=0></el-input>
-                  </template>
-                </el-table-column>
-              </el-table-column>
-              <el-table-column prop="managementFee" label="项目管理费" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.managementFee" maxlength="12" type="number" min=0></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="invoiceFee" label="开票费用" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.invoiceFee" maxlength="12" type="number" min=0></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="travelFee" label="差旅费" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.travelFee" maxlength="12" type="number" min=0></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="projectBudget" align='center'>
-                <template slot="header">
-                  <span class="column-header">费用总预算</span>
-                </template>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.projectBudget" maxlength="12" type="number" min=0></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="forecastProfits" label="预估利润" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.forecastProfits" maxlength="12" type="number" min=0></el-input>
-                </template>
-              </el-table-column>
-            </el-table>
+              </el-table> -->
+            </div>
           </el-form-item>
           <el-form-item label="预计回款时间：" class="table">
-            <el-table :data="formData.paymentRelations" style="width: 100%" border class="table">
-              <el-table-column prop="projectPaymentTime" label="回款时间" align='center'>
+            <el-table :data="formData.paymentRelations" style="width: 100%">
+              <el-table-column prop="projectPaymentTime" label="月份">
                 <template slot-scope="scope">
                   <el-date-picker v-model="formData.paymentRelations[scope.$index].projectPaymentTime" type="date" placeholder="选择时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss" :readonly="formData.paymentRelations[scope.$index].id?true:false">
                   </el-date-picker>
                 </template>
               </el-table-column>
-              <el-table-column prop="paymentAmount" label="回款金额" align='center'>
+              <el-table-column prop="paymentAmount" label="回款金额">
                 <template slot-scope="scope">
                   <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" maxlength="10" type="number" min=0 placeholder="请正确输入非负回款金额" :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
                   <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
                 </template>
               </el-table-column>
-              <el-table-column prop="menu" label="操作" width="200px" align='center'>
+              <el-table-column prop="menu" label="操作" width="200px">
                 <template slot-scope="scope">
                   <!-- 0可以延期 -->
                   <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
@@ -345,8 +336,8 @@
       </div>
 
       <footer-tool-bar>
-        <iep-button type="primary" @click="save('2')">保存并发布</iep-button>
-        <iep-button @click="save('1')">保存为草稿</iep-button>
+        <iep-button type="primary" @click="save">保存</iep-button>
+        <iep-button @click="close">取消</iep-button>
       </footer-tool-bar>
     </basic-container>
     <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
@@ -355,8 +346,8 @@
 </template>
 
 <script>
-import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
-import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList } from '@/api/gpms/index'
+import { dictMap, rules, initFormData, relatedFormList } from './Total/const.js'
+import { createData, getRecommendedProjectList, getRecommendedHandlesList } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
@@ -384,17 +375,6 @@ export default {
       formData: initFormData(),
       rules,
       dictMap,
-      type: 'create',
-      typeObj: {
-        create: {
-          requestFn: createData,
-          name: '新增',
-        },
-        update: {
-          requestFn: updateData,
-          name: '编辑',
-        },
-      },
       clientList: [],
       typeOptions: dictMap.typeOptions, // 项目类型菜单
       isRelevOptions: dictMap.isRelevOptions, // 是否关联菜单
@@ -405,27 +385,12 @@ export default {
         value: '',
         index: -1,
       },
-      tableData: [],
-      validate: [
-        {
-          name: '外包费用',
-          prop: 'outsourcingCost',
-        },
-        {
-          name: '佣金',
-          prop: 'commission',
-        },
-        {
-          name: '项目总预算',
-          prop: 'projectBudget',
-        },
-      ],
-      recommendType: 'project',
       recommendProjectList: [
         // {id:1,projectName:'',projectLevel:'1',projectStage:'1',projectManagerList:{id:1,name:''},projectTagList:[]},
       ],
       recommendHandlesList: [
       ],
+      recommendType: 'project',
     }
   },
   computed: {
@@ -437,26 +402,26 @@ export default {
   created () {
     this.tableData = []
     this.formData.relatedClientList.name = this.$route.query.clientName
-    console.log(this.$route.query.clientName)
-    let obj = Object.assign({}, initBudgetForm(), this.formData.projectBudgetList)
-    this.tableData.push(obj)
-    getCustomerPage({ type: 1 }).then(({ data }) => {
-      this.clientList = data.data.records
-    })
-    this.formData = initFormData(this.userInfo)
     getRecommendedProjectList({ tagList: this.tagList }).then(({ data }) => {
       this.recommendProjectList = data
     })
     getRecommendedHandlesList({ tagList: this.tagList }).then(({ data }) => {
       this.recommendHandlesList = data
     })
+    getCustomerPage({ type: 1 }).then(({ data }) => {
+      this.clientList = data.data.records
+    })
   },
   methods: {
     close () {
       this.$router.history.go(-1)
     },
-    save (val) {
-      this.formData.projectStatus = val
+    returnIndex () {
+      this.$router.push({
+        path: '/gpms/project',
+      })
+    },
+    save () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 进行数据的转换先
@@ -534,17 +499,21 @@ export default {
           else {
             form.projectType = '2'
           }
-          this.typeObj[this.type].requestFn(form).then(() => {
+          createData.requestFn(form).then(() => {
             this.$message({
-              message: '新增成功',
+              message: `${this.methodName}成功`,
               type: 'success',
             })
-            this.$router.push('/gpms/project')
+            this.returnIndex()
           })
         } else {
           return false
         }
       })
+    },
+    // 业务类型
+    businessTypeChange (val) {
+      console.log('val: ', val)
     },
     handleAdd () {
       this.$refs['relationDialog'].dialogShow = true
@@ -603,6 +572,10 @@ export default {
       this.formData.paymentRelations[this.selectDelay.index].projectPaymentTime = val
       this.selectDelay.index = -1
     },
+    budgetSubmit (val) {
+      this.formData.projectBudgetList = val
+      this.formData.projectBudget = val.projectBudget
+    },
     openSign (val) {
       this.$openTagDetail(val)
     },
@@ -659,29 +632,14 @@ export default {
   }
 }
 </style>
-<style scoped>
-.table >>> .el-input__inner {
-  padding: 0;
-  border: 0;
-}
-.column-header {
-  color: #f00;
-}
-.main >>> .el-col-12 {
-  width: 100%;
-  position: relative;
-}
-</style>
 <style lang="scss" scoped>
 .main {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: 1fr 400px;
   border-top: 1px solid #eee;
-  .form-detail {
-    overflow: hidden;
-    margin-right: 0;
-    padding-right: 12%;
+  &:nth-child(1) {
+    width: 100%;
   }
   .recommend-projectHandles,
   .recommend-project {
@@ -826,5 +784,11 @@ export default {
     right: -70px;
     top: 0;
   }
+}
+</style>
+<style scoped>
+.main >>> .el-col-12 {
+  width: 100%;
+  position: relative;
 }
 </style>

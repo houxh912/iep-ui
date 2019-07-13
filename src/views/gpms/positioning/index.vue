@@ -33,9 +33,9 @@
             <el-tooltip placement="right">
               <div slot="content" class="Blackwindow">
                 参与项目总数（个）：{{myData.participateCount}}<br />
-                项目合同总金额（万元）:<br />
-                担任项目经理次数（次）：<br />
-                担任项目成员次数（次）：<br />
+                项目合同总金额（万元）: {{myData.contractCount}}<br />
+                担任项目经理次数（次）：{{myData.conscientiousCount}}<br />
+                担任项目成员次数（次）：{{myData.infoAsMemberCount}}<br />
                 分享项目材料总数（个）：<br />
                 平均水平：国脉人的平均数据<br />
                 同期水平：与当前用户入司时间相近的国脉人的平均数据

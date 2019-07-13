@@ -45,7 +45,8 @@
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="相关产品：">
-                  {{this.formData.relatedProduct}}
+                  <span v-if="formData.relatedProduct==''">无</span>
+                  <span v-else>{{this.formData.relatedProduct}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item" v-if="formData.contractList.length > 0">

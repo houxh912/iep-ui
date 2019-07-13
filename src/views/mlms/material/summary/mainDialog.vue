@@ -251,7 +251,7 @@ export default {
       // 发送链接
       this.formRequestFn(this.formData).then(({ data }) => {
         // 新建纪要及修改草稿，自动发送
-        let id = this.methodType == 'create' ? data.data : this.formData.id
+        let id = this.formData.id ? this.formData.id : data.data
         if (this.formData.status == 0 && this.formData.isSend == 1) {
           meetingSend(id).then(({ data }) => { // 保存后之后发送
             this.loadState = false

@@ -43,6 +43,7 @@
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
+            <!-- <iep-button @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</iep-button> -->
             <iep-button @click="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">立项</iep-button>
             <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">删除</iep-button>
@@ -59,6 +60,7 @@
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData, withdrawById } from '@/api/gpms/index'
+import { statusCancel } from '@/api/gpms/fas'
 import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
 import TransferDialogForm from '../TransferDialogForm'
@@ -164,6 +166,17 @@ export default {
       }
       this.onlyResponsible != this.onlyResponsible
       return false
+    },
+    handleClaim (row) {
+      this.$confirm('是否确认移入公海此数据?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(() => {
+        statusCancel([row.id]).then(() => {
+          this.$message.success('移入成功！')
+          this.loadPage()
+        })
+      })
     },
   },
   mounted () {

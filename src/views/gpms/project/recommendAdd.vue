@@ -335,7 +335,7 @@
             <div class="right">
               <span class="name">{{r.name}}</span>
               <iep-button class="recommend-container-btn" type="danger" plain @click="referenceHandles(r.name,r.id)" size="mini">设为项目经理</iep-button>
-              <span>负责了{{r.id}}个项目 | 参与了{{r.id}}个项目</span>
+              <span>负责了{{r.conscientiousCount}}个项目 | 参与了{{r.participateCount}}个项目</span>
               <span class="sign">
                 <div v-for="(s,index) in r.projectTag" :key="index" @click="openSign(s)">{{s}}</div>
               </span>

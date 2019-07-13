@@ -32,9 +32,8 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" width="200px">
-        <template>
-          <operation-wrapper>
-          </operation-wrapper>
+        <template slot-scope="scope">
+          <iep-button @click="handleDefine(scope.row)">认领</iep-button>
         </template>
       </el-table-column>
     </iep-table>
@@ -42,7 +41,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getProjectPage } from '@/api/gpms/fas'
+import { getProjectPage, statusDefine } from '@/api/gpms/fas'
 import { columnsMap, dictMap } from './option'
 
 export default {
@@ -65,6 +64,17 @@ export default {
     searchPage (val) {
       this.searchForm = Object.assign({}, this.searchForm, val)
       this.loadPage()
+    },
+    handleDefine (row) {
+      this.$confirm('是否确认认领此数据?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(() => {
+        statusDefine([row.id]).then(() => {
+          this.$message.success('取消成功！')
+          this.loadPage()
+        })
+      })
     },
   },
 }

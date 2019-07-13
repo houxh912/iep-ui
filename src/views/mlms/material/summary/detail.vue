@@ -40,7 +40,7 @@
         </div>
         <div class="form" v-if="isCommentShow">
           <h2 class="title">补充或评论</h2>
-          <el-input type="textarea" rows=5 v-model="commentForm.commentContent" maxlength="500"></el-input>
+          <el-input type="textarea" rows=5 v-model="commentForm.commentContent" maxlength="800"></el-input>
           <div class="button">
             <iep-button type="primary" @click="submit">发送</iep-button>
           </div>

@@ -102,6 +102,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handManage () {
+      this.$router.push({
+        path: '/wel/relationship_manage',
+      })
+    },
     handleSome1 () {
       this.$message('页面建设中')
     },

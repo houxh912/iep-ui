@@ -103,6 +103,9 @@ export default {
       this.$refs['DialogForm'].loadTypeList()
       this.$refs['DialogForm'].methodName = '编辑'
     },
+    handleDetail (row) {
+      this.$router.push(`/comn/document_management_detail/${row.id}`)
+    },
     async loadPage (param = this.searchForm) {
       await this.loadTable({ ...param, nodeId: this.id, siteId: this.siteId }, getPage)
     },

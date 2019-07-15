@@ -54,7 +54,6 @@ export default {
     loadTypeList () {
       getPageById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(this.form, data.data)
-        console.log(data)
       })
     },
     async submitForm () {

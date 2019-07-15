@@ -82,6 +82,13 @@ export default [
     count: 0,
     countName: 'countProduct',
     component: () => import('@/views/app/resource/productKu/'),
+    children: [
+      {
+        path: 'product_customization',
+        name: '产品定制',
+        component: () => import('@/views/app/resource/productKu/ProductCustomization.vue'),
+      },
+    ],
   },
   {
     path: 'project_list',

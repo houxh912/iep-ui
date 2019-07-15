@@ -1,26 +1,25 @@
 <template>
-  <div>
+  <div class="product-ku">
     <search @search-page="searchData"></search>
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover" @click.native="handleleDetail(item)">
         <div class="content">
           <div class="img">
-            <iep-img :src="item.imageUrl" alt=""></iep-img>
+            <iep-img :src="item.imageUrl" alt></iep-img>
           </div>
           <div class="text">
             <h4 class="item-title">{{item.name}}</h4>
             <p class="con">{{item.synopsis}}</p>
             <div class="header clearfix">
               <span class="price">指导价：¥{{item.valuation}}</span>
-              <!-- <el-button icon="el-icon-plus"></el-button> -->
+              <el-button @click.stop="handleProductClick(item.id)" icon="el-icon-plus"></el-button>
             </div>
           </div>
         </div>
       </el-card>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
-      </el-pagination>
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
   </div>
 </template>
@@ -28,6 +27,7 @@
 <script>
 import Search from './Search'
 import { getDetailsPage } from '@/api/app/cpms/channel'
+import { putProductById } from '@/api/app/cpms/custom_module'
 
 export default {
   data () {
@@ -54,6 +54,11 @@ export default {
       getDetailsPage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {
         this.moduleList = data.data.records
         this.total = data.data.total
+      })
+    },
+    handleProductClick (productId) {
+      putProductById(productId).then(() => {
+        this.$emit('click-add')
       })
     },
     currentChange (val) {

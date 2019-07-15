@@ -40,10 +40,10 @@
                 <div class="label">当前股权单价</div>
                 <div class="num">{{form.sharesUnivalent}}<span style="font-size:12px;">（贝）</span></div>
               </div>
-              <div>
+              <!-- <div>
                 <div class="label">预计年化收益率</div>
                 <div class="num" style="color:#c53b3e">{{form.returnRate}}%</div>
-              </div>
+              </div> -->
               <div>
                 <div class="label">最低起投金额</div>
                 <div class="num">{{form.minimumAmount}}<span style="font-size:12px;">（元）</span></div>

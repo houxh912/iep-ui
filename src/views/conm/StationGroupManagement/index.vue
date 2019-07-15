@@ -12,16 +12,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table
-        :isLoadTable="false"
-        :pagination="pagination"
-        :dictsMap="dictsMap"
-        :columnsMap="columnsMap"
-        :pagedTable="pagedTable"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        is-mutiple-selection
-      >
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="ID" width="90px">
             <template slot-scope="scope">
@@ -51,7 +42,7 @@
 <script>
 import { getStationManagementPage, postStationManagementCreate, deleteStationManagement, updateStationManagement } from '@/api/conm/index'
 import mixins from '@/mixins/mixins'
-import { columnsMap, initSearchForm, dictsMap, initForm } from './options'
+import { columnsMap, initSearchForm, dictsMap } from './options'
 import DialogForm from './DialogForm'
 export default {
   mixins: [mixins],
@@ -78,9 +69,9 @@ export default {
     },
     handleEdit (row) {
       this.$refs['DialogForm'].id = row.id
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].formRequestFn = updateStationManagement
       this.$refs['DialogForm'].dialogShow = true
+      this.$refs['DialogForm'].loadTypeList()
       this.$refs['DialogForm'].methodName = '编辑'
     },
     handleDelete (row) {

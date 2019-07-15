@@ -11,7 +11,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="关联项目：">
-        <IepProjectSelect v-model="formData.projectId" :projectName="formData.projectName" @change="projectChange"></IepProjectSelect>
+        <IepProjectSelect v-model="formData.projectId" :projectName="formData.projectName" @change="projectChange" serialNo></IepProjectSelect>
       </el-form-item>
       <el-form-item label="合同说明 / 收款方式：">
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 maxlength="200"></el-input>

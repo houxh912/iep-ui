@@ -64,13 +64,12 @@ export default {
   methods: {
     loadPage () {
       this.form = initForm()
-      this.loadTypeList()
       this.dialogShow = false
       this.$emit('load-page')
     },
     loadTypeList () {
       getPageById(this.id).then(({ data }) => {
-        this.form.tagKeyWords = data.data.tagKeyWords
+        this.form = this.$mergeByFirst(this.form, data.data)
       })
     },
     async submitForm () {

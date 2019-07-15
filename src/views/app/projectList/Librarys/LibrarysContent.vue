@@ -7,7 +7,7 @@
           <a-skeleton :loading="loading" active />
           <div v-if="!loading" style="cursor: pointer;" @click="handleOpen(item)">
             <div class="title">
-              <h4 class="name">{{item.projectName}}</h4>
+              <h4 class="name">{{item.projectName}}</h4><span class="sub-title">{{item.serialNo}}</span>
             </div>
             <div class="item">
               <span class="label">项目等级：{{transform(item.projectLevel, 'prms_project_level')}}</span>
@@ -129,6 +129,9 @@ export default {
     font-size: 22px;
     color: #aaa;
     vertical-align: -2px;
+  }
+  .sub-title {
+    font-size: 12px;
   }
 }
 .box {

@@ -13,7 +13,7 @@ export function getAlbumPage (query) {
 // 修改
 export function putAlbum (data) {
   return request({
-    url: `${prefixUrl}/update`,
+    url: '/admin/org_album/update',
     method: 'post',
     data: data,
   })
@@ -31,7 +31,7 @@ export function postAlbum (data) {
 // 删除
 export function deleteAlbum (id) {
   return request({
-    url: `${prefixUrl}/delete/${id}`,
+    url: `/admin/org_album/delete/${id}`,
     method: 'post',
   })
 }

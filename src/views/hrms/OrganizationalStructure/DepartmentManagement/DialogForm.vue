@@ -20,15 +20,17 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
       <iep-button @click="dialogShow = false">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import { initForm, toDtoForm } from './options'
 import { checkContactUser } from '@/util/rules'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       dialogShow: false,
@@ -57,20 +59,14 @@ export default {
       this.dialogShow = false
       this.$emit('load-page')
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(toDtoForm(this.form)).then(() => {
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
-            this.close()
-          })
-        } else {
-          return false
-        }
-      })
+    async submitForm () {
+      const { data } = await this.formRequestFn(toDtoForm(this.form))
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.close()
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

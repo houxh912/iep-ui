@@ -119,18 +119,18 @@ export default {
       align-items: center;
       cursor: pointer;
       .img {
-        width: 60px;
-        height: 60px;
+        width: 54px;
+        height: 54px;
         border: 1px solid #ebeef5;
-        // overflow: hidden;
+        //overflow: hidden;
         position: relative;
-        img {
+        .el-image {
           display: block;
           width: 100%;
           height: 100%;
           transition: 0.5s;
           &:hover {
-            transform: scale(1.1);
+            opacity: .7;
           }
         }
         .shifu {

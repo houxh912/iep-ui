@@ -1,7 +1,7 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`站点${methodName}`" width="500px" @close="loadPage">
-    <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
-      <el-form-item label="上级站点" prop="parentId">
+    <el-form class="form-detail" :model="form" size="small" :rules="rules" label-width="120px">
+      <el-form-item label="上级站点">
         <el-input v-model="form.parentId" disabled></el-input>
       </el-form-item>
       <!-- <el-form-item label="组织" prop="orgId">
@@ -15,13 +15,13 @@
       <el-form-item label="名称" prop="siteName">
         <el-input v-model="form.siteName"></el-input>
       </el-form-item>
-      <el-form-item label="域名" prop="url">
+      <el-form-item label="域名">
         <el-input v-model="form.url"></el-input>
       </el-form-item>
-      <el-form-item label="手机端域名" prop="mobileUrl">
+      <el-form-item label="手机端域名">
         <el-input v-model="form.mobileUrl"></el-input>
       </el-form-item>
-      <el-form-item label="状态" prop="status">
+      <el-form-item label="状态">
         <el-radio-group v-model="form.status">
           <el-radio :label="1">启用</el-radio>
           <el-radio :label="0">停用</el-radio>
@@ -53,16 +53,18 @@ export default {
     }
   },
   // },
+  created () {
+    this.loadPage()
+  },
   methods: {
     loadPage () {
       this.form = initForm()
-      this.loadTypeList()
       this.dialogShow = false
       this.$emit('load-page')
     },
     loadTypeList () {
       getPageById(this.id).then(({ data }) => {
-        console.log(data.data)
+        this.form = this.$mergeByFirst(this.form, data.data)
       })
     },
     async submitForm () {

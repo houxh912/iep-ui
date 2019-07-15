@@ -10,7 +10,7 @@
         </template>
         <template slot="right">
           <iep-button @click="handlePreClick">上周</iep-button>
-          <iep-button @click="handleNextClick">下周</iep-button>
+          <iep-button @click="handleNextClick" :disabled="isdisabled">下周</iep-button>
         </template>
       </operation-container>
       <div class="container">
@@ -59,6 +59,7 @@ export default {
         isBack: true,
       },
       form: initForm(),
+      isdisabled:false,
       useId: '',
       reportInfo: {
         reportType: 0,
@@ -100,11 +101,14 @@ export default {
     },
     handlePreClick () {
       this.resultData(this.dataReduce() - 7 * 24 * 60 * 60 * 1000)
+       let flag = this.dataReduce()<=new Date().getTime()
+      if(flag)  this.isdisabled = false
       this.putStaffReport()
     },
     handleNextClick () {
       this.resultData(this.dataReduce() + 7 * 24 * 60 * 60 * 1000)
-      this.putStaffReport()
+      let flag = this.dataReduce()>new Date().getTime()
+      flag? this.isdisabled = true:this.putStaffReport()
     },
   },
 }

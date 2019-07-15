@@ -27,7 +27,7 @@
   </iep-dialog>
 </template>
 <script>
-// import { getPageById } from '@/api/conm/article_controller'
+import { getPageById } from '@/api/conm/article_controller'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 // import { mapGetters } from 'vuex'
@@ -45,29 +45,17 @@ export default {
     }
   },
   // },
-  computed: {
-    timeDefault () {
-      var date = new Date()
-      var s1 = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + (date.getDate())
-      return s1
-    },
-  },
-  mounted () {
-    this.form.createTime = this.timeDefault
-  },
   methods: {
     loadPage () {
       this.form = initForm()
-      // this.loadTypeList()
-      this.form.createTime = this.timeDefault
       this.dialogShow = false
       this.$emit('load-page')
     },
-    // loadTypeList () {
-    //   getPageById(this.id).then(({ data }) => {
-    //     console.log(data)
-    //   })
-    // },
+    loadTypeList () {
+      getPageById(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(this.form, data.data)
+      })
+    },
     async submitForm () {
       this.formRequestFn({ nodeId: this.id, ...this.form }).then(({ data }) => {
         if (data.data) {

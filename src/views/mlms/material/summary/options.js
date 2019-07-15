@@ -57,7 +57,7 @@ export const initFormData = () => {
     visitType: -1,
     visitingAddress: '',
     visitingUserId: [],
-    status: 0,
+    status: 1,
     projectIds: [],
     projectList: [],
     isSend: 1,
@@ -67,6 +67,7 @@ export const initFormData = () => {
 export const initSearchForm = () => {
   return {
     name: '',
+    realName: '',
   }
 }
 

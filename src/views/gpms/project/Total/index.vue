@@ -43,7 +43,7 @@
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <!-- <iep-button @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</iep-button> -->
+            <iep-button @click="handleClaim(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">移入公海库</iep-button>
             <iep-button @click="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">立项</iep-button>
             <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">删除</iep-button>

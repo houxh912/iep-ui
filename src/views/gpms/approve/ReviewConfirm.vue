@@ -2,10 +2,10 @@
   <iep-dialog :dialog-show="dialogShow" :title="title" width="520px" @close="handleCancel" center>
     <div class="center-box">
       <el-radio-group v-model="projectStatus" class="projectStatus">
-        <el-radio :label="3">审核通过</el-radio>
-        <el-radio :label="4">审核不通过</el-radio>
+        <el-radio :label="'3'">审核通过</el-radio>
+        <el-radio :label="'4'">审核不通过</el-radio>
       </el-radio-group>
-      <iep-input-area v-if="projectStatus === 4 && isContent" class="content" v-model="content">
+      <iep-input-area v-if="projectStatus === '4' && isContent" class="content" v-model="content">
       </iep-input-area>
     </div>
     <template slot="footer">
@@ -28,7 +28,7 @@ export default {
       title: '',
       formRequestFn: () => { },
       dialogShow: false,
-      projectStatus: 3, // 待审核
+      projectStatus: '3', // 待审核
       content: '',
       id: null,
       ids: [],
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     loadPage () {
-      this.projectStatus = 3
+      this.projectStatus = '3'
       this.content = ''
       this.dialogShow = false
       this.$emit('load-page')

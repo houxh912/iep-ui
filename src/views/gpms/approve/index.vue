@@ -23,8 +23,8 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button size="small" type="danger" plain v-if="scope.row.projectStatus==2" @click="handleReviewDialog(scope.row, scope.index)">立项审核</iep-button>
-              <iep-button size="small" v-if="scope.row.projectStatus==3" @click="lockingEnable(scope.row.id,5,'锁定')">锁定</iep-button>
-              <iep-button size="small" v-if="scope.row.projectStatus==5" @click="lockingEnable(scope.row.id,3,'启用')">启用</iep-button>
+              <iep-button size="small" v-if="scope.row.projectStatus==3" @click="lockingEnable(scope.row.id,'5','锁定')">锁定</iep-button>
+              <iep-button size="small" v-if="scope.row.projectStatus==5" @click="lockingEnable(scope.row.id,'3','启用')">启用</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

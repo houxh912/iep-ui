@@ -305,8 +305,8 @@
       </el-form>
 
       <footer-tool-bar>
-        <iep-button type="primary" @click="save('2')">保存并发布</iep-button>
-        <iep-button @click="save('1')">保存为草稿</iep-button>
+        <iep-button type="primary" @click="save('2')" :loading="btnLoading">保存并发布</iep-button>
+        <iep-button @click="save('1')" :loading="btnLoading">保存为草稿</iep-button>
       </footer-tool-bar>
     </basic-container>
     <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
@@ -380,6 +380,7 @@ export default {
           prop: 'projectBudget',
         },
       ],
+      btnLoading: false,
     }
   },
   computed: {
@@ -434,6 +435,7 @@ export default {
         this.methodName = '修改'
       }
     },
+
     save (val) {
       this.formData.projectStatus = val
       this.$refs['form'].validate((valid) => {
@@ -513,6 +515,7 @@ export default {
           else {
             form.projectType = '2'
           }
+          this.btnLoading = true
           this.typeObj[this.type].requestFn(form).then(() => {
             this.$message({
               message: `${this.methodName}成功`,

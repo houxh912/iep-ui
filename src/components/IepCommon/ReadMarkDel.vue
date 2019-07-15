@@ -4,19 +4,19 @@
       <template slot="title">
         <span>已读</span>
       </template>
-      <a-button icon="eye" @click="handleViewBatch"></a-button>
+      <a-button :type="typeList[0] ? 'primary' : 'default'" icon="eye" @click="handleViewBatch"></a-button>
     </a-tooltip>
     <a-tooltip v-if="enableList[1]">
       <template slot="title">
         <span>设置 / 取消标记</span>
       </template>
-      <a-button icon="flag" @click="handleMarkBatch"></a-button>
+      <a-button :type="typeList[1] ? 'primary' : 'default'" icon="flag" @click="handleMarkBatch"></a-button>
     </a-tooltip>
     <a-tooltip v-if="enableList[2]">
       <template slot="title">
         <span>删除</span>
       </template>
-      <a-button icon="delete" @click="handleDelBatch"></a-button>
+      <a-button :type="typeList[2] ? 'primary' : 'default'" icon="delete" @click="handleDelBatch"></a-button>
     </a-tooltip>
   </a-button-group>
 </template>
@@ -27,6 +27,10 @@ export default {
     enableList: {
       type: Array,
       default: () => [true, true, true],
+    },
+    typeList: {
+      type: Array,
+      default: () => [false, false, false],
     },
   },
   methods: {

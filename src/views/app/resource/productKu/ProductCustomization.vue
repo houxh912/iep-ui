@@ -101,7 +101,7 @@ export default {
         } else {
           this.$message(data.msg)
         }
-      }), 200)
+      }), 1000)
     },
   },
 }

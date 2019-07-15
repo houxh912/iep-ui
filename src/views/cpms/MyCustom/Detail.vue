@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="我的定制" :backOption="backOption"></page-header>
+      <iep-page-header title="我的定制" :backOption="backOption"></iep-page-header>
       <operation-container>
       </operation-container>
       <div class="container">

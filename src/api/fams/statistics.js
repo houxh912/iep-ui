@@ -33,9 +33,9 @@ export function getBudgetList () {
     method: 'get',
   })
 }
-export function getBossBudgetList () {
+export function getBossBudgetList (id) {
   return request({
-    url: `${prefixUrl}/all/budget/list`,
+    url: `${prefixUrl}/all/budget/list/${id}`,
     method: 'get',
   })
 }

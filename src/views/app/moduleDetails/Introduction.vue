@@ -13,7 +13,7 @@
           <span v-for="(item,index) in form.tagKeywords" :key="index">{{item}}</span>
         </div>
         <span class="updateTime">更新时间：{{form.updateTime}}</span>
-        <el-button class="join">加入定制</el-button>
+        <el-button class="join" @click.stop="handleModuleClick">加入定制</el-button>
         <el-button class="use">立即使用</el-button>
       </div>
     </el-card>
@@ -21,12 +21,24 @@
 </template>
 <script>
 import { dictsMap } from '@/views/cpms/modules/options'
+import { putModuleById } from '@/api/app/cpms/custom_module'
 export default {
   props: ['form'],
   data () {
     return {
       dictsMap,
+      id: '',
     }
+  },
+  created () {
+    this.id = this.$route.params.id
+  },
+  methods: {
+    handleModuleClick () {
+      putModuleById(this.id).then(() => {
+        this.$router.push('/app/resource/product_ku')
+      })
+    },
   },
 }
 </script>

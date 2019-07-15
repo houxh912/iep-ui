@@ -18,18 +18,12 @@
         </div>
         <div class="header clearfix">
           <span class="price">指导价：¥{{item.guidePrice}}</span>
-          <el-button @click.native="handleModuleClick(item.id)" icon="el-icon-plus"></el-button>
+          <el-button @click.stop="handleModuleClick(item.id)" icon="el-icon-plus"></el-button>
         </div>
       </el-card>
     </div>
     <div class="page">
-      <el-pagination
-        background
-        layout="prev, pager, next, total"
-        :total="total"
-        :page-size="params.size"
-        @current-change="currentChange"
-      ></el-pagination>
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
   </div>
 </template>
@@ -61,7 +55,7 @@ export default {
       this.getModulePage()
     },
     handleModuleClick (moduleId) {
-      putModuleById(moduleId).then(()=>{
+      putModuleById(moduleId).then(() => {
         this.$emit('click-add')
       })
     },

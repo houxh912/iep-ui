@@ -27,6 +27,9 @@
       <el-form-item label="关联项目：">
         <iep-project-select v-model="form.projectId" :projectName="form.projectName" @relation-change="handleProjectChange"></iep-project-select>
       </el-form-item>
+      <el-form-item label="关联项目编号：">
+        <iep-div-detail :value="form.serialNo"></iep-div-detail>
+      </el-form-item>
       <el-form-item label="收入金额(元)：" prop="amount">
         <iep-input-number v-model="form.amount" :min="-99999999"></iep-input-number>
       </el-form-item>
@@ -93,16 +96,18 @@ export default {
     },
   },
   methods: {
-    handleContractChange (v) {
+    handleContractChange (v, n, value) {
       if (v) {
         this.form.projectId = v.id
         this.form.projectName = v.name
+        this.form.serialNo = value.serialNo
       }
     },
-    handleProjectChange (v) {
+    handleProjectChange (v, n, value) {
       if (v) {
         this.form.protocolId = v.id
         this.form.protocolName = v.name
+        this.form.serialNo = value.serialNo
       }
     },
     handleChange () {

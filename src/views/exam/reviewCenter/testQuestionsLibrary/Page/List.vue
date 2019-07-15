@@ -18,39 +18,39 @@
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
           @size-change="handleSizeChange" @current-change="handleCurrentChange"
           @selection-change="handleSelectChange" is-mutiple-selection>
-          <el-table-column prop="title" label="题目" width="416" sortable>
+          <el-table-column prop="title" label="题目" width="410">
             <template slot-scope="scope">
               <span class="hiddenOverText" :title="scope.row.title">{{scope.row.title}}</span>
               <span class="overText"
                 v-if="JSON.stringify(scope.row.title).length > 87">......</span>
             </template>
           </el-table-column>
-          <el-table-column prop="fieldName" label="科目" min-width="89" sortable>
+          <el-table-column prop="fieldName" label="科目" min-width="89">
             <template slot-scope="scope">
               {{scope.row.fieldName}}
             </template>
           </el-table-column>
-          <el-table-column prop="questionTypeName" label="题型" sortable>
+          <el-table-column prop="questionTypeName" label="题型">
             <template slot-scope="scope">
               {{scope.row.questionTypeName}}
             </template>
           </el-table-column>
-          <el-table-column prop="kindName" label="题类" sortable>
+          <el-table-column prop="kindName" label="题类">
             <template slot-scope="scope">
               {{scope.row.kindName}}
             </template>
           </el-table-column>
-          <!-- <el-table-column prop="title" label="内容" min-width="80" sortable>
+          <!-- <el-table-column prop="title" label="内容" min-width="80">
             <template slot-scope="scope">
               {{scope.row.title}}
             </template>
           </el-table-column> -->
-          <el-table-column prop="difficultyName" label="难度" sortable>
+          <el-table-column prop="difficultyName" label="难度">
             <template slot-scope="scope">
               {{scope.row.difficultyName}}
             </template>
           </el-table-column>
-          <el-table-column prop="associatedState" label="关联" sortable>
+          <el-table-column prop="associatedState" label="关联">
             <template slot-scope="scope">
               <el-tag type="success" size="medium" v-if="scope.row.associatedState === 0">不限
               </el-tag>
@@ -58,7 +58,7 @@
               </el-tag>
             </template>
           </el-table-column>
-          <el-table-column prop="status" label="状态" sortable>
+          <el-table-column prop="status" label="状态">
             <template slot-scope="scope">
               <el-tag type="info" size="medium" v-if="scope.row.status === 0">审核中</el-tag>
               <el-tag type="success" size="medium" v-if="scope.row.status === 1">通过</el-tag>
@@ -68,12 +68,12 @@
               </el-tooltip>
             </template>
           </el-table-column>
-          <el-table-column prop="username" label="创建者" min-width="89" sortable>
+          <el-table-column prop="username" label="创建者" min-width="89">
             <template slot-scope="scope">
               {{scope.row.username}}
             </template>
           </el-table-column>
-          <el-table-column prop="creatTime" label="创建时间" min-width="98" sortable>
+          <el-table-column prop="creatTime" label="创建时间" min-width="98">
             <template slot-scope="scope">
               {{scope.row.creatTime | setDate}}
             </template>

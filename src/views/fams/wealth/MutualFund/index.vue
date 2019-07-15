@@ -21,6 +21,7 @@
 </template>
 <script>
 import { getFundPage, postFund, getFundRankList, getMyFund } from '@/api/fams/fund'
+import { getTotal } from '@/api/fams/total'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
@@ -51,7 +52,9 @@ export default {
         this.$refs['RankDialogForm'].dialogShow = true
       })
     },
-    handleFund () {
+    async handleFund () {
+      const { data } = await getTotal()
+      this.$refs['DialogForm'].displayTotalAsset = data.data.govmadeBell + data.data.lockBell
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].formRequestFn = postFund
       this.$refs['DialogForm'].dialogShow = true

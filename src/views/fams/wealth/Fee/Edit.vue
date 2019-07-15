@@ -2,8 +2,8 @@
   <div class="iep-page-form">
     <basic-container>
       <iep-page-header :title="`${methodName}财务费用申请`" :back-option="backOption">
-        <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
-        <iep-button type="primary" @click="handleSubmit(true)">保存并发送</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">存为草稿</iep-button>
+        <iep-button :loading="submitFormLoading" @click="handlePublish()">保存并发送</iep-button>
       </iep-page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="type" label="付款事项">
@@ -96,6 +96,7 @@ export default {
       backOption: {
         isBack: true,
       },
+      isPublish: false,
     }
   },
   computed: {
@@ -143,34 +144,39 @@ export default {
       if (v) {
         this.form.projectId = v.id
         this.form.projectName = v.name
+        this.form.projectName = v.name
       }
     },
-    handleProjectChange (v) {
+    handleProjectChange (v, n, value) {
       if (v) {
         this.form.protocolId = v.id
         this.form.protocolName = v.name
       }
-    },
-    async handleSubmit (isPublish = false) {
-      try {
-        await this.mixinsValidate()
-        if (this.tableData.length === 0) {
-          this.$message('报销数目至少存在一条')
-          return
-        }
-        this.form.relations = this.tableData
-        this.form.auditorId = this.form.auditor.id
-        this.formRequestFn(this.form, isPublish).then(({ data }) => {
-          if (data.data) {
-            this.$message.success('操作成功')
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-          }
-        })
-      } catch (object) {
-        this.mixinsMessage(object)
+      if (value) {
+        this.form.auditor.id = value.userId
+        this.form.auditor.name = value.realName
       }
+    },
+    handlePublish () {
+      this.isPublish = true
+      this.mixinsSubmitFormGen()
+    },
+    async submitForm () {
+      const publish = this.isPublish
+      if (this.tableData.length === 0) {
+        this.$message('费用数目至少存在一条')
+        return
+      }
+      this.form.relations = this.tableData
+      this.form.auditorId = this.form.auditor.id
+      this.formRequestFn(this.form, publish).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('操作成功')
+          this.$router.history.go(-1)
+        } else {
+          this.$message(data.msg)
+        }
+      })
     },
     loadPage () {
       getFeeById(this.id).then(({ data }) => {

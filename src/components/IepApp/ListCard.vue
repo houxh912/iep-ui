@@ -36,10 +36,10 @@ export default {
     cursor: pointer;
     height: 30px;
     line-height: 30px;
-    color:#333;
+    color: #333;
     position: relative;
     padding-left: 15px;
-    overflow : hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;

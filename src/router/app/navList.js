@@ -21,7 +21,10 @@ const navList = [
   }, {
     id: '/app/wealth',
     name: '财富',
-  },{
+  }, {
+    id: '/app/more_thoughts',
+    name: '说说',
+  }, {
   //   id: '/app/policyCenter',
   //   name: '政策中心',
   // }, {

@@ -1,14 +1,20 @@
 <template>
   <div class="expert-search">
-    <h3>{{title}}<span>{{`（共${num}条）`}}</span></h3>
+    <h3>{{title}}<span class="count"> 早晚5分钟, 为智慧加油 {{`（共${num}条）`}}</span><span class="publish" @click="handlePublish">我要发表</span></h3>
     <!-- <div class="search-con">
       <operation-search @search-page="searchPage"></operation-search>
       <el-button type="danger" plain>高级搜索</el-button>
     </div> -->
+    <!-- 发表说说 -->
+    <publish-dialog ref="publish" @load-page="searchPage"></publish-dialog>
   </div>
 </template>
+
 <script>
+import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
+
 export default {
+  components: { PublishDialog },
   props: {
     num: {
       type: Number,
@@ -23,6 +29,9 @@ export default {
     searchPage (val) {
       this.$emit('load-page', val)
     },
+    handlePublish () {
+      this.$refs['publish'].open()
+    },
   },
 }
 </script>
@@ -30,11 +39,21 @@ export default {
 .expert-search {
   margin: 0 auto 25px;
   text-align: center;
+  width: 1200px;
   h3 {
     font-size: 24px;
-    span {
+    position: relative;
+    .count {
       font-size: 14px;
       color: #999;
+    }
+    .publish {
+      font-size: 14px;
+      color: #cb3737;
+      position: absolute;
+      right: 0;
+      line-height: 45px;
+      cursor: pointer;
     }
   }
 }

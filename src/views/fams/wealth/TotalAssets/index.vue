@@ -18,8 +18,8 @@
           <h4 class="title">快捷入口</h4>
           <ul>
             <li @click="$openPage('/wel/wealth/mutual_fund')">互助基金</li>
-            <li @click="$openPage('/wel/wealth/invoice')">发票提交</li>
-            <li @click="$openPage('/wel/wealth/billing_notice')">开票通知</li>
+            <li @click="$openPage('/wel/wealth/invoice')">报销申请</li>
+            <li @click="$openPage('/wel/wealth/billing_notice')">开票申请</li>
             <li @click="$openPage('/wel/wealth/withdraw')">我要提现</li>
             <li @click="handleReward()">我要打赏</li>
             <li @click="handleToReward()">我要投资</li>

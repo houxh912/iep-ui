@@ -27,6 +27,7 @@ const initForm = () => {
     'userId': '',//userId
     'theme': '',
     'type': '',
+    'objectType': 1,
     'status': '',//
     'proposeContent': '',//内容
     'attendeeList': '',//接收对象

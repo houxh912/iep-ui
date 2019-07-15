@@ -37,7 +37,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm()">提交</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
       <iep-button @click="dialogShow = false">取消</iep-button>
     </template>
   </iep-dialog>
@@ -67,30 +67,12 @@ export default {
       this.$emit('load-page')
     },
     async submitForm () {
-      try {
-        await this.mixinsValidate()
-        try {
-          const { data } = await this.formRequestFn(formToDto(this.form))
-          if (data.data) {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            this.close()
-          } else {
-            this.$message({
-              message: data.msg,
-              type: 'error',
-            })
-          }
-        } catch (error) {
-          this.$message({
-            message: error.message,
-            type: 'error',
-          })
-        }
-      } catch (object) {
-        this.mixinsMessage(object)
+      const { data } = await this.formRequestFn(formToDto(this.form))
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.close()
+      } else {
+        this.$message(data.msg)
       }
     },
   },

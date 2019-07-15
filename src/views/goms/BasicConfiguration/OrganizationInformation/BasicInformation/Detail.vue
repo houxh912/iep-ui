@@ -126,6 +126,7 @@ export default {
     margin-bottom: 20px;
     .top {
       display: flex;
+      align-items: center;
       .img-wrapper {
         width: 250px;
         height: 150px;

@@ -85,11 +85,17 @@ export default {
       line-height: 28px;
     }
     .numTotal {
-      font-size: 18px;
+      font-size: 16px;
     }
     .num {
       margin: 0 5px;
-      font-size: 22px;
+      font-size: 20px;
+    }
+    .numProjects{
+      font-size: 14px;
+    }
+    .numNow{
+      font-size: 14px; 
     }
     &:last-child {
       border-right: 0;

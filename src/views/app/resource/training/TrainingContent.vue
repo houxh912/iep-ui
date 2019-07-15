@@ -20,7 +20,9 @@
             <span class="item-title">{{item.trainingTheme}}</span>
             <p class="content">{{item.trainingBrief}}</p>
             <div class="classTag">
-              <el-tag type="white" v-for="(tag, index) in item.trainingTags" :key="index">{{tag}}</el-tag>
+              <div class="tagCon">
+                <el-tag type="white" v-for="(tag, index) in item.trainingTags" :key="index">{{tag}}</el-tag>
+              </div>
               <span class="see"><i class="iconfont icon-yanjing"></i>{{item.views}} 人浏览</span>
             </div>
           </el-card>
@@ -98,6 +100,26 @@ export default {
       text-align: left;
       width: 100%;
     }
+    .classTag {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .tagCon {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        max-width: 260px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        .el-tag:last-child {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+
     .item-title {
       margin: 10px 0;
       width: 100%;
@@ -145,14 +167,10 @@ export default {
 }
 .past-training-list >>> .el-tag--white {
   border: 1px solid #dcdfe6;
-  max-width: 70px;
   height: 28px;
   line-height: 26px;
   background: #fff;
   color: #606266;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .past-training-list >>> .el-col {
   display: grid;

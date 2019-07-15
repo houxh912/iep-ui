@@ -2,7 +2,7 @@
   <div class="iep-page-form">
     <basic-container>
       <iep-page-header :title="`${methodName}报销-${dictsMap.referType[this.form.referType]}`" :back-option="backOption">
-        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">存为草稿</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">存为草稿</iep-button>
         <iep-button :loading="submitFormLoading" @click="handlePublish()">保存并发送</iep-button>
       </iep-page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
@@ -142,14 +142,13 @@ export default {
       }
       this.form.relations = this.tableData
       this.form.auditorId = this.form.auditor.id
-      this.formRequestFn(this.form, publish).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('操作成功')
-          this.$router.history.go(-1)
-        } else {
-          this.$message(data.msg)
-        }
-      })
+      const { data } = await this.formRequestFn(this.form, publish)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
+      }
     },
     loadPage () {
       getInvoiceById(this.id).then(({ data }) => {

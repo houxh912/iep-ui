@@ -169,14 +169,13 @@ export default {
       }
       this.form.relations = this.tableData
       this.form.auditorId = this.form.auditor.id
-      this.formRequestFn(this.form, publish).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('操作成功')
-          this.$router.history.go(-1)
-        } else {
-          this.$message(data.msg)
-        }
-      })
+      const { data } = await this.formRequestFn(this.form, publish)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
+      }
     },
     loadPage () {
       getFeeById(this.id).then(({ data }) => {

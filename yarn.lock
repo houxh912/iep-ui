@@ -9880,7 +9880,7 @@ vue-eslint-parser@^5.0.0:
     esquery "^1.0.1"
     lodash "^4.17.11"
 
-vue-froala-wysiwyg@^2.9.5:
+vue-froala-wysiwyg@2.9.5:
   version "2.9.5"
   resolved "https://registry.npm.taobao.org/vue-froala-wysiwyg/download/vue-froala-wysiwyg-2.9.5.tgz#6e2ab42d5684579225c2ebf14423927033e5bb96"
   integrity sha1-biq0LVaEV5IlwuvxRCOScDPlu5Y=

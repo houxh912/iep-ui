@@ -48,7 +48,7 @@
                       </div>
 
                       <div class="finish button-set"
-                        v-if="item.status === 3 && item.examStatus !== 8">
+                        v-if="item.status === 3 && item.examStatus === 5">
                         <iep-button type="info" disabled>未参加</iep-button>
                       </div>
                       <div class="undone button-set" v-else>
@@ -85,6 +85,10 @@
 
                         <iep-button type="info" disabled
                           v-if="item.examStatus === 3 && item.status!==3">已交卷</iep-button>
+                        <iep-button type="primary" disabled
+                          v-if="item.examStatus === 7 && item.status === 3">未交卷</iep-button>
+                        <iep-button type="primary" disabled
+                          v-if="item.examStatus === 3 && item.status === 3">批卷中</iep-button>
                         <iep-button type="primary" v-if="item.examStatus === 8 "
                           @click="handleExamine(item)">查看成绩</iep-button>
                       </div>

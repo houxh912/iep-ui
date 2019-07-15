@@ -40,14 +40,14 @@ export default {
     width: 33.333%;
     margin-right: 30px;
     .grid-content:hover .masking-layer {
-      display: block;
+      opacity: 1;
     }
     .grid-content {
       width: 100%;
       position: relative;
       cursor: pointer;
       .masking-layer {
-        display: none;
+        opacity: 0;
         position: absolute;
         padding: 33px 20px;
         left: 0;
@@ -55,6 +55,7 @@ export default {
         width: 100%;
         height: 100%;
         background-color: rgba(255, 255, 255, 0.9);
+        transition: all 0.5s;
         p {
           margin-bottom: 0;
           font-size: 14px;

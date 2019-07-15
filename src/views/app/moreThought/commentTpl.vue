@@ -1,8 +1,8 @@
 <template>
   <div class="comment">
-    <div class="comment-item">
+    <div class="comment-item" :class="type == 'comment' ? '' : 'comment-reply'">
       <div class="comment-head">
-        <div class="comment-avatar"><img :src="item.avatar" alt=""></div>
+        <div class="comment-avatar"><iep-img :src="item.avatar" alt="" class="img" /></div>
         <div class="comment-name">{{item.realName}}</div>
         <div class="huuifu">{{type == 'comment' ? '评论' : '回复'}}</div>
         <div class="comment-name">{{userInfo.name}}</div>
@@ -118,13 +118,12 @@ export default {
         height: 30px;
         border-radius: 50%;
         border: 1px solid #eee;
-        img {
+        .img {
           width: 30px;
           height: 30px;
           border-radius: 50%;
+          overflow: hidden;
         }
-      }
-      .huuifu {
       }
       .comment-name {
         margin: 3px 5px;
@@ -170,6 +169,9 @@ export default {
     .comment-date {
       margin-bottom: 0;
     }
+  }
+  .comment-reply {
+    margin-left: 40px;
   }
 }
 </style>

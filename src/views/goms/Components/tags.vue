@@ -1,6 +1,7 @@
 <template>
   <div class="tags-con">
     <span>{{title}}：</span>
+    <span v-if="!tags.length">暂无</span>
     <span class="tags" @click="handleOpen(tag)" v-for="(tag, i) in tags" :key="i">
       {{tag}}
     </span>

@@ -43,7 +43,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: '2',
+      type: this.$route.query.type || '2',
       tabList: [
         {
           label: '我接收的',
@@ -110,6 +110,12 @@ export default {
     },
     //tab切换菜单
     changeType () {
+      this.$router.push({
+        path: '/wel/message/announcement',
+        query: {
+          type: this.type,
+        },
+      })
       this.loadPage()
     },
     handleSelectionChange (val) {

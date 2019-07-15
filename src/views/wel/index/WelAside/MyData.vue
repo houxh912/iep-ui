@@ -72,6 +72,7 @@ export default {
         for (const key in indexMap) {
           if (indexMap.hasOwnProperty(key)) {
             const element = indexMap[key]
+            this.sum += element
             if (max < element) {
               max = element
             }

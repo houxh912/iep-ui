@@ -24,6 +24,8 @@ export default {
         {
           prop: 'projectPaymentTime',
           label: '预计项目回款时间',
+          type: 'date',
+          formatString: 'YYYY-MM-DD',
         },
         {
           prop: 'actualRepayment',

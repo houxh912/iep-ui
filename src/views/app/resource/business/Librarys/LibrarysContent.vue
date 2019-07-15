@@ -99,7 +99,7 @@ export default {
     color: #333;
     font-size: 16px;
     &:hover {
-    color: #cb3737;
+      color: #cb3737;
     }
   }
   i {

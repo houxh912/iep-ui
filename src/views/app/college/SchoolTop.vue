@@ -29,7 +29,7 @@ export default {
   padding: 25px 20px;
   text-align: center;
   h3 {
-    font-size: 24px;
+    font-size: 22px;
     span {
       font-size: 14px;
       color: #999;
@@ -64,11 +64,15 @@ export default {
   color: #cb3737;
   background: #fef0f0;
   border-color: #cb3737;
+  margin-left: 10px
 }
 .qualification-search >>> .el-button--danger.is-plain:hover,
 .qualification-search >>> .el-button--danger.is-plain:focus {
   background: #cb3737;
   border-color: #ba1b21;
   color: #fff;
+}
+.qualification-search >>> .el-input__icon {
+  line-height: 42px;
 }
 </style>

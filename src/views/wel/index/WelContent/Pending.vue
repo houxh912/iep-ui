@@ -83,7 +83,7 @@ export default {
 
 <style lang="scss" scoped>
 .about-task {
-  padding: 15px 30px;
+  padding: 20px 30px 0;
   padding-bottom: 0;
   border-bottom: 1px solid #eee;
   .task-nav {
@@ -98,5 +98,10 @@ export default {
       color: #cb3737;
     }
   }
+}
+</style>
+<style scoped>
+.about-task >>> .iep-ellipsis {
+  color: #7f7f7f;
 }
 </style>

@@ -54,7 +54,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 16px;
-    color: #000;
+    color: #333;
   }
   .content {
     padding: 10px 0;

@@ -29,7 +29,7 @@ export default {
 <style lang="scss" scoped>
 .evaluation {
   box-sizing: border-box;
-  margin: 10px;
+  margin: 10px 5px;
   ul {
     margin: 0;
     padding: 0;

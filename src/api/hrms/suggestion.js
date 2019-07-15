@@ -17,6 +17,14 @@ export function getSuggestionReceivedPage (query) {
   })
 }
 
+export function getUnionSuggestionPage (query) {
+  return request({
+    url: `${prefixUrl}/union/received/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
 export function getSuggestionById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

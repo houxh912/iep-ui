@@ -7,7 +7,7 @@
         <slot v-if="isAdvance" name="custom"></slot>
       </div>
       <div class="right">
-        <operation-wrapper>
+        <operation-wrapper style="display: flex;">
           <slot></slot>
           <iep-button v-if="backOption.isBack" @click="handleBack">返回</iep-button>
         </operation-wrapper>

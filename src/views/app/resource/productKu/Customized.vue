@@ -12,20 +12,14 @@
             <p class="con">{{item.synopsis}}</p>
             <div class="header clearfix">
               <span class="price">指导价：¥{{item.valuation}}</span>
-          <el-button @click.native="handleProductClick(item.id)" icon="el-icon-plus"></el-button>
+              <el-button @click.stop="handleProductClick(item.id)" icon="el-icon-plus"></el-button>
             </div>
           </div>
         </div>
       </el-card>
     </div>
     <div class="page">
-      <el-pagination
-        background
-        layout="prev, pager, next, total"
-        :total="total"
-        :page-size="params.size"
-        @current-change="currentChange"
-      ></el-pagination>
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
   </div>
 </template>
@@ -63,7 +57,7 @@ export default {
       })
     },
     handleProductClick (productId) {
-      putProductById (productId).then(()=>{
+      putProductById(productId).then(() => {
         this.$emit('click-add')
       })
     },

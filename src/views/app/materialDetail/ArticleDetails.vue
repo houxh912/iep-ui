@@ -98,7 +98,7 @@ export default {
           type: 'warning',
         }).then(() => {
           fn()
-        }).catch(() => {})
+        }).catch(() => { })
       }
     },
     loadData (id) {
@@ -209,18 +209,27 @@ export default {
     .sc {
       right: 150px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
     .fx {
       right: 80px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
     .jc {
       right: 10px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
   }
   .classes {
-    margin: 0 0 10px 50px;
+    margin: 30px 0 20px 0;
   }
   .introduction {
     margin: 20px 0;
@@ -237,6 +246,13 @@ export default {
     margin-bottom: 20px;
     .file {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
+      &:hover i,
+      &:hover .tip {
+        color: #cb3737;
+      }
       i {
         font-size: 16px !important;
         margin-right: 10px;
@@ -253,8 +269,8 @@ export default {
 .app-material-detail {
   .inform {
     img {
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
       display: inline-block;
     }
@@ -264,8 +280,8 @@ export default {
 
 <style scoped>
 .inform >>> .el-image {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   cursor: pointer;
 }

@@ -2,7 +2,7 @@
   <div class="products-services-con">
     <iepAppTabCard :title="title" :linkName="linkName">
       <div class="products-services" v-if="productsServices.length !== 0">
-        <div v-for="(item, index) in productsServices" :key="index" class="piece">
+        <div v-for="(item, index) in productsServices" :key="index" class="piece" @click="handleDetail(item)">
           <span class="name">{{item.name}}</span>
           <!-- <span class="operate">申请代理</span> -->
         </div>
@@ -27,6 +27,11 @@ export default {
       productsServices: [],
       linkName: '',
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/product_detail/${row.product_id}`)
+    },
   },
   watch: {
     orgId (newVal) {

@@ -4,7 +4,7 @@
       <div class="important" slot="right">
         <el-button type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
       </div>
-      <el-table :data="tableData" style="width: 100%" v-if="tableData.length !== 0">
+      <el-table :data="tableData" style="width: 100%" v-if="tableData.length !== 0" @row-click="handleDetail">
         <el-table-column prop="positionName" label="岗位名称" width="180">
         </el-table-column>
         <el-table-column prop="recruitsCount" label="需求数" width="180">
@@ -68,6 +68,9 @@ export default {
         }
       }
       return '暂无'
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/recruitDetail/${row.id}`)
     },
   },
   watch: {

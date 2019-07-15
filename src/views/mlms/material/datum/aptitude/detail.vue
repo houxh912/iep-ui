@@ -205,7 +205,7 @@ export default {
       this.apprenticeShow = true
     },
     handleApprenticeConfirm () {
-      addMasterWorker({ masterWorker: [this.formData.creator] }).then(({data}) => {
+      addMasterWorker({ masterWorker: [this.formData.creator] }).then(({ data }) => {
         if (data.data) {
           this.$message.success('拜师成功！')
         } else {
@@ -305,6 +305,9 @@ export default {
     margin-bottom: 20px;
     .file {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
       i {
         font-size: 16px !important;
         margin-right: 10px;
@@ -312,6 +315,10 @@ export default {
       .tip {
         margin-left: 10px;
         color: #999;
+      }
+      &:hover i,
+      &:hover .tip {
+        color: #cb3737;
       }
     }
   }
@@ -371,6 +378,9 @@ export default {
     }
     p {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
     }
   }
 }
@@ -385,5 +395,11 @@ pre {
   width: 160px;
   display: inline-block;
   font-size: 28px;
+}
+</style>
+<style scoped>
+.footer-right >>> .icon-box {
+  margin: 5px;
+  padding: 0;
 }
 </style>

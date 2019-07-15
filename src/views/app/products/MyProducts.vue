@@ -2,13 +2,14 @@
   <div class="my-products">
     <div class="title">产品系列</div>
     <!-- <div class="title">我的产品<span>（{{num[0]}}）</span></div> -->
-    <!-- <div class="products-btn">
-      <el-button size="small">产品官网</el-button>
+    <div class="products-btn">
+      <!-- <el-button size="small">产品官网</el-button>
       <el-button size="small">代理政策</el-button>
       <el-button size="small">我要代理</el-button>
       <el-button size="small">申请技术服务</el-button>
-      <el-button size="small">联合开发</el-button>
-    </div> -->
+      <el-button size="small">联合开发</el-button> -->
+      <!-- <el-button size="small" @click="()=>{this.$router.push('/app/resource/product_ku')}">产品定制</el-button> -->
+    </div>
     <div class="deletion-box">
       <div class="codule-deletion">
         按分类：

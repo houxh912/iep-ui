@@ -2,7 +2,7 @@ import request from '@/router/axios'
 
 const prefixUrl = '/cms/info_article'
 // @/api/conm/index
-//栏目管理控制器
+//文章管理控制器
 
 export function getPageById (id) {
   return request({
@@ -11,7 +11,7 @@ export function getPageById (id) {
   })
 }
 
-//添加栏目
+//添加文章
 export function addObj (obj) {
   return request({
     url: `${prefixUrl}/create`,
@@ -19,7 +19,7 @@ export function addObj (obj) {
     data: obj,
   })
 }
-//栏目分页
+//文章分页
 export function getPage (params) {
   return request({
     url: `${prefixUrl}/page`,

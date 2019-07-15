@@ -34,6 +34,10 @@
         <iep-div-detail :value="form.projectName"></iep-div-detail>
       </el-form-item>
 
+      <el-form-item label="项目编号：">
+        <iep-div-detail :value="form.projectNumber"></iep-div-detail>
+      </el-form-item>
+
       <el-form-item label="支出金额：">
         <iep-div-detail :value="form.amount+' 元'"></iep-div-detail>
       </el-form-item>

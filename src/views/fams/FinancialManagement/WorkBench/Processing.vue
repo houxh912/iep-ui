@@ -46,7 +46,7 @@ const typeMap = {
   2: '发票',
   3: '开票',
   4: '组织拆借',
-  5: '资金调拨提现',
+  5: '资金调拨',
 }
 export default {
   mixins: [mixins],

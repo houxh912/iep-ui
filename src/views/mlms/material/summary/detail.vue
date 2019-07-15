@@ -32,15 +32,15 @@
             <IepKeyItem icon="icon-aixin" name="已收藏" @click.native="handleCollect" isChecked v-if="formData.collection == 1"></IepKeyItem>
             <IepKeyItem icon="icon-heart" name="收藏" @click.native="handleCollect" v-else></IepKeyItem>
             <IepKeyItem icon="icon-share" name="分享" @click.native="handleShare"></IepKeyItem>
-            <IepKeyItem icon="icon-chakantiezigengduojubao" name="纠错" @click.native="handleWrong"></IepKeyItem>
-            <IepKeyItem icon="icon-xiaoxi" name="评论" @click.native="handleComment"></IepKeyItem>
-            <IepKeyItem icon="icon-yuanbao" name="打赏" @click.native="handleReward"></IepKeyItem>
+            <IepKeyItem icon="icon-chakantiezigengduojubao" name="纠错" @click.native="handleWrong" v-if="userInfo.userId !== formData.userId"></IepKeyItem>
+            <IepKeyItem icon="icon-xiaoxi" name="评论" @click.native="handleComment" v-if="userInfo.userId !== formData.userId"></IepKeyItem>
+            <IepKeyItem icon="icon-yuanbao" name="打赏" @click.native="handleReward" v-if="userInfo.userId !== formData.userId"></IepKeyItem>
             <IepKeyItem icon="icon-piyue" name="领导批示" @click.native="Instructions" v-if="permission_instruct"></IepKeyItem>
           </IepFiveKay>
         </div>
         <div class="form" v-if="isCommentShow">
           <h2 class="title">补充或评论</h2>
-          <el-input type="textarea" rows=5 v-model="commentForm.commentContent" maxlength="500"></el-input>
+          <el-input type="textarea" rows=5 v-model="commentForm.commentContent" maxlength="800"></el-input>
           <div class="button">
             <iep-button type="primary" @click="submit">发送</iep-button>
           </div>
@@ -125,7 +125,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['permissions']),
+    ...mapGetters(['permissions', 'userInfo']),
   },
   data () {
     return {

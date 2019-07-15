@@ -35,6 +35,11 @@ const columnsMap = [
 
 const initForm = () => {
   return {
+    ruleId: '',
+    orgId: '',
+    creatorId: '',
+    createTime: '',
+    type: '',
     ruleName: '',
     number: '',
     score: '',

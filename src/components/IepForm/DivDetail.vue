@@ -1,5 +1,5 @@
 <template>
-  <div class="iep-ellipsis" :title="content">
+  <div :class="{'iep-ellipsis':issimgle}" :title="content">
     <slot name="prefix"></slot>
     <span>{{content}}</span>
     <slot></slot>
@@ -10,7 +10,19 @@ import { validatenull } from '@/util/validate'
 export default {
   //TODO: iep-ellipsis 副作用
   name: 'IepDivDetail',
-  props: ['value', 'nullmsg'],
+  props: {
+    value: [String, Number],
+    nullmsg: {
+      type: String,
+      require: false,
+      default: '暂无',
+    },
+    issimgle: {
+      type: Boolean,
+      require: false,
+      default: true,
+    },
+  },
   computed: {
     content () {
       const { value } = this

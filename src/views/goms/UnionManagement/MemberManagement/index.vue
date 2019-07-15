@@ -3,6 +3,9 @@
     <basic-container>
       <iep-page-header title="联盟成员"></iep-page-header>
       <operation-container>
+        <template slot="left">
+          <iep-select v-model="assetOrgId" size="small" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" clearable @change="loadPage"></iep-select>
+        </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="realName">
           </operation-search>
@@ -36,6 +39,7 @@ export default {
   data () {
     return {
       dictsMap,
+      assetOrgId: null,
       columnsMap: [
         {
           prop: 'staffNo',
@@ -65,7 +69,7 @@ export default {
       this.$refs['DetailDrawer'].drawerShow = true
     },
     async loadPage (param = this.searchForm) {
-      await this.loadTable(param, getUserPage)
+      await this.loadTable({ ...param, assetOrgId: this.assetOrgId }, getUserPage)
     },
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <el-select filterable remote placeholder="请输入项目关键词" :remote-method="remoteMethod" :loading="loading" @change="handleChange" clearable v-bind="$attrs" v-on="$listeners">
-    <el-option v-for="item in options" :key="item.id" :label="item.name" :value="item.id">
+    <el-option v-for="item in options" :key="item.id" :label="(serialNo && item.serialNo) ? `${item.name} - ${item.serialNo}` : item.name" :value="item.id">
     </el-option>
   </el-select>
 </template>
@@ -10,6 +10,10 @@ export default {
   name: 'IepProjectSelect',
   inheritAttrs: false,
   props: {
+    serialNo: {
+      type: Boolean,
+      default: false,
+    },
     projectName: {
       type: String,
       default: '',

@@ -29,17 +29,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table
-        :isLoadTable="false"
-        :pagination="pagination"
-        :dictsMap="dictsMap"
-        :columnsMap="columnsMap"
-        :pagedTable="pagedTable"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        is-mutiple-selection
-        is-tree
-      >
+      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
         <template slot="before-columns">
           <el-table-column label="ID" width="90px">
             <template slot-scope="scope">
@@ -55,13 +45,13 @@
               <iep-button @click="handleDelete(scope.row)">删除</iep-button> -->
               <iep-button @click="handleDoc(scope.row)">文档管理</iep-button>
               <el-dropdown size="medium">
-                  <iep-button type="default">
-                    <i class="el-icon-more-outline"></i>
-                  </iep-button>
-                  <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
-                    <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
-                  </el-dropdown-menu>
+                <iep-button type="default">
+                  <i class="el-icon-more-outline"></i>
+                </iep-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
           </template>
@@ -77,7 +67,7 @@
 <script>
 // import Menus from './Menus'
 import { addObj, getPage, deleteNodeById, updateObj } from '@/api/conm/node_controller'
-import { columnsMap, initSearchForm, dictsMap, initForm, toNewParentForm } from './options'
+import { columnsMap, initSearchForm, dictsMap, toNewParentForm } from './options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import DialogMerge from './DialogMerge'
@@ -116,8 +106,8 @@ export default {
     handleEdit (row) {
       this.$refs['DialogForm'].id = row.id
       this.$refs['DialogForm'].siteId = row.siteId
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].dialogShow = true
+      this.$refs['DialogForm'].loadTypeList()
       this.$refs['DialogForm'].formRequestFn = updateObj
       this.$refs['DialogForm'].methodName = '编辑'
     },
@@ -127,8 +117,8 @@ export default {
     },
     handleDoc (row) {
       this.$router.push({
-        path:`/comn/document_management/${row.id}`,
-        query:{siteId:this.siteId},
+        path: `/comn/document_management/${row.id}`,
+        query: { siteId: this.siteId, nodeName: row.nodeName },
       })
     },
     handleDelete (row) {
@@ -136,7 +126,7 @@ export default {
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable({ ...param, siteId: this.siteId }, getPage)
-      this.$set( this.statistics,0,data.total)
+      this.$set(this.statistics, 0, data.total)
     },
   },
 }

@@ -218,7 +218,7 @@ export function initSearchForm () {
 }
 
 export const infoList = [
-  { name: '关联项目', value: 'projectName' },
+  { name: '关联项目', value: 'projectName', type: 'project', subVal: 'serialNo' },
   { name: '市场经理', value: 'directorRealName' },
   { name: '合同类型', value: 'contractType', type: 'dict' },
   { name: '业务类型', value: 'businessTypeList' },

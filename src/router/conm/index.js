@@ -14,6 +14,11 @@ export default [
         name: '文档管理',
         component: () => import('@/views/conm/DocumentManagement/index'),
       },
+      {
+        path: 'document_management_detail/:id',
+        name: '文档管理详情',
+        component: () => import('@/views/conm/DocumentManagement/Detail'),
+      },
     ],
   },
 ]

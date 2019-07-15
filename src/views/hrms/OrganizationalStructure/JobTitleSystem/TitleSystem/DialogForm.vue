@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}职称`" width="500px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}职称`" width="500px" @close="close">
     <el-form :model="form" :rules="rules" ref="form" size="small" label-width="100px">
       <el-form-item label="职称名称" prop="name">
         <el-input :maxlength="80" v-model="form.name"></el-input>
@@ -12,13 +12,15 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">{{methodName}}</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import { initForm } from './options'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       dialogShow: false,
@@ -36,28 +38,19 @@ export default {
     }
   },
   methods: {
-    loadPage () {
+    close () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(this.form).then(() => {
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
-            this.loadPage()
-          })
-        } else {
-          return false
-        }
-      })
-    },
-    resetForm (formName) {
-      this.$refs[formName].resetFields()
+    async submitForm () {
+      const { data } = await this.formRequestFn((this.form))
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.close()
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

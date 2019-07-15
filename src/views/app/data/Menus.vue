@@ -1,7 +1,7 @@
 <template>
   <div class="menus">
     <a-menu @click="handleClick" :openKeys.sync="openKeys">
-      <a-menu-item v-for="(item, index) in menus" :key="index">
+      <a-menu-item :class="{ bgc:changeBgc == index}" @click="handleBgc(index)" v-for="(item, index) in menus" :key="index">
         <i class="iconfont" :class="item.icon"></i>
         {{item.name}}
       </a-menu-item>
@@ -51,6 +51,7 @@ export default {
           link: 'organizationalAssets',
         },
       ],
+      changeBgc: [0],
       openKeys: [0],
     }
   },
@@ -63,6 +64,9 @@ export default {
     },
     titleClick (e) {
       console.log('titleClick', e)
+    },
+    handleBgc (index) {
+      this.changeBgc = index
     },
   },
   watch: {
@@ -91,6 +95,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin: 0 !important;
   height: 44px;
   text-align: center;
   line-height: 44px;
@@ -99,6 +104,13 @@ export default {
   }
   &:hover {
     background-color: #fbedec;
+  }
+}
+.ant-menu-item.bgc {
+  background-color: #fbedec;
+  color: #ba1b21;
+  i {
+    color: #ba1b21;
   }
 }
 </style>

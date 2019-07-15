@@ -1,13 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`栏目${methodName}`" width="500px" @close="loadPage">
-    <el-form
-      class="form-detail"
-      :model="form"
-      size="small"
-      ref="form"
-      :rules="rules"
-      label-width="120px"
-    >
+    <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="所属栏目" prop="parentName">
         <el-input v-model="form.parentName" disabled></el-input>
       </el-form-item>
@@ -71,19 +64,18 @@ export default {
   methods: {
     loadPage () {
       this.form = initForm()
-      this.loadTypeList()
       this.dialogShow = false
       this.$emit('load-page')
     },
     loadTypeList () {
       getPageById(this.id).then(({ data }) => {
-        this.form.tagKeyWords = data.data.tagKeyWords
+        this.form = this.$mergeByFirst(this.form, data.data)
       })
     },
     async submitForm () {
       this.formRequestFn({ id: this.id, siteId: this.siteId, ...this.form }).then(({ data }) => {
         if (data.data) {
-          this.$message.success('修改成功')
+          this.$message.success('操作成功')
           this.loadPage()
         } else {
           this.$message(data.msg)

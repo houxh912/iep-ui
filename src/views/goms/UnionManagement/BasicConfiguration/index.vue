@@ -3,9 +3,6 @@
     <basic-container>
       <iep-page-header title="联盟基本信息"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='UnionInformation'" v-slot:UnionInformation>
-          <union-information v-loading="activeTab !=='UnionInformation'"></union-information>
-        </template>
         <template v-if="activeTab ==='UnionModule'" v-slot:UnionModule>
           <union-module v-loading="activeTab !=='UnionModule'"></union-module>
         </template>
@@ -20,19 +17,14 @@
   </div>
 </template>
 <script>
-import UnionInformation from './UnionInformation/'
 import UnionModule from './UnionModule/'
 import UnionSettings from './UnionSettings/'
 import UnionMembers from './UnionMembers/'
 export default {
-  components: { UnionInformation, UnionModule, UnionSettings, UnionMembers },
+  components: { UnionModule, UnionSettings, UnionMembers },
   data () {
     return {
       tabList: [
-        {
-          label: '联盟信息',
-          value: 'UnionInformation',
-        },
         {
           label: '联盟模块',
           value: 'UnionModule',
@@ -46,7 +38,7 @@ export default {
           value: 'UnionSettings',
         },
       ],
-      activeTab: 'UnionInformation',
+      activeTab: 'UnionModule',
     }
   },
 }

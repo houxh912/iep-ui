@@ -12,7 +12,7 @@ export default {
     return {
       showClass: 2,
       title: '品牌活动',
-      selectList: ['培训', '评估', '会议'],
+      selectList: ['会议','评估','培训'],
       linkName: '',
       dataList: [
         '2019首届长三角地区营商环境论坛',

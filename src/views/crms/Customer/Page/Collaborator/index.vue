@@ -1,9 +1,15 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`添加协作人`" width="50%" @close="close">
-    <div class="user">
-      <span class='text'>请选择需要添加的协作人：</span>
-      <iep-contact-multiple-user v-model="user"></iep-contact-multiple-user>
-    </div>
+    <el-form size="small">
+      <el-row>
+        请选择需要添加的协作人：
+      </el-row>
+      <el-row>
+        <el-form-item>
+          <iep-contact-multiple-user v-model="user"></iep-contact-multiple-user>
+        </el-form-item>
+      </el-row>
+    </el-form>
 
     <template slot="footer">
       <iep-button class="btn" @click="close">取消</iep-button>
@@ -59,13 +65,8 @@ export default {
 }
 </script>
 <style  scoped>
-.text {
-  display: inline-block;
-  padding-bottom: 10px;
-}
-.user {
-  padding-bottom: 30px;
-  font-size: 14px;
+.el-row {
+  padding: 5px 0;
 }
 </style>
 

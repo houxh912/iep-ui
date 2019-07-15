@@ -29,7 +29,7 @@
       <el-table-column label="操作" width="300px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="relateEdit(scope.row)" type="warning" plain v-if="!scope.row.status" v-show="!isEdit(scope.row)">保存至材料库</iep-button>
+            <iep-button @click="relateEdit(scope.row)" type="warning" plain v-if="scope.row.status == 0" v-show="!isEdit(scope.row)">保存至材料库</iep-button>
             <iep-button @click="scope.row.status==0?localEdit(scope.row):relateEdit(scope.row)" type="warning" plain :disabled="isEdit(scope.row)">编辑</iep-button>
             <iep-button @click="handleDeleteById(scope.row)" :disabled="isEditDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
@@ -179,38 +179,66 @@ export default {
     //保存至材料库/关联修改
     relateEdit (row) {
       if (row.materialId !== 0) {
-        getDataById(row.materialId).then((res) => {
-          this.$emit('onEdit', { data: res.data.data, programId: row.programId, save: false })
-        })
+        if (row.attachs.length !== 0) {
+          getDataById(row.materialId).then((res) => {
+            this.$emit('onEdit', { data: res.data.data, programId: row.programId, save: false })
+          })
+        } else {
+          getDataById(row.materialId).then((res) => {
+            this.$emit('onNewly', { data: res.data.data, programId: row.programId, save: false })
+          })
+        }
       } else {
         this.$emit('onEdit', { data: row, programId: row.programId, save: true })
       }
 
     },
     handleDeleteById (row) {
-      if (row.status && row.creatorId === this.userInfo.userId) {
-        this.$confirm('此操作将同时删除原件, 是否继续?', '提示', {
+      if (row.status == 1 && row.creatorId === this.userInfo.userId) {
+        this.$confirm('是否删除此条数据', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteData(row.materialId).then(() => {
-          })
-          deleteSchemeById(row.programId).then(res => {
-            if (res.data.data) {
-              this.$message({
-                type: 'success',
-                message: '删除成功!',
-              })
-              this.$emit('load-page')
-            } else {
-              this.$message({
-                type: 'info',
-                message: `删除失败，${res.data.msg}`,
-              })
-            }
-            this.loadPage()
-          })
+            this.$confirm('是否删除材料原件?', '提示', {
+            confirmButtonText: '是',
+            cancelButtonText: '否',
+            type: 'warning',
+          }).then(()=>{
+            deleteData(row.materialId).then(() => {
+            })
+            deleteSchemeById(row.programId).then(res => {
+              if (res.data.data) {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功!',
+                })
+                this.$emit('load-page')
+              } else {
+                this.$message({
+                  type: 'info',
+                  message: `删除失败，${res.data.msg}`,
+                })
+              }
+              this.loadPage()
+            })
+          }).catch(()=>{
+            deleteSchemeById(row.programId).then(res => {
+              if (res.data.data) {
+                this.$message({
+                  type: 'success',
+                  message: '删除成功!',
+                })
+                this.$emit('load-page')
+              } else {
+                this.$message({
+                  type: 'info',
+                  message: `删除失败，${res.data.msg}`,
+                })
+              }
+              this.loadPage()
+            })
+          })  
         })
       } else {
         this.$confirm('此操作将删除该条数据, 是否继续?', '提示', {

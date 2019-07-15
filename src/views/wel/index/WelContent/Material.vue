@@ -62,7 +62,7 @@ export default {
     display: flex;
     align-items: center;
     font-size: 16px;
-    color: #000;
+    color: #333;
   }
   .material-content {
     padding: 10px 0;
@@ -76,6 +76,7 @@ export default {
   }
   .title {
     margin-right: 10px;
+    color: #333;
     // padding: 5px 0;
     cursor: pointer;
     &:hover {

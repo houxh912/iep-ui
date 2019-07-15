@@ -26,7 +26,7 @@ export default {
   },
   computed: {
     styleOption () {
-      const menuWidth = this.isDesktop() ? '200px' : '64px'
+      const menuWidth = this.isDesktop() ? '220px' : '64px'
       return {
         width: `calc(100% - ${menuWidth})`,
       }

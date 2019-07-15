@@ -35,6 +35,12 @@ export default [
         meta: noAuth,
       },
       {
+        path: 'product_detail/:id',
+        name: '产品详情',
+        component: () => import('@/views/app/productDetail/'),
+        meta: noAuth,
+      },
+      {
         path: 'project',
         name: '项目频道',
         component: () => import('@/views/app/project/'),
@@ -294,6 +300,11 @@ export default [
         path: 'contract_detail/:id',
         name: '合同详情',
         component: () => import('@/views/app/resource/contractList/detail/'),
+      },
+      {
+        path: 'recruitDetail/:id',
+        name: '岗位详情',
+        component: () => import('@/views/app/recruitDetail/'),
       },
     ],
   },

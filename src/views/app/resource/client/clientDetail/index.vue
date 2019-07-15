@@ -122,13 +122,14 @@ export default {
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;
+  grid-column-gap: 20px;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
 }
 .ranking {
   padding: 0;
   .piece {
     .name {
-      width: 100%!important;
+      width: 100% !important;
     }
   }
 }
@@ -143,5 +144,8 @@ export default {
 <style scoped>
 .breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link {
   font-weight: normal;
+}
+.client-detail >>> .el-card {
+  padding: 0 !important;
 }
 </style>

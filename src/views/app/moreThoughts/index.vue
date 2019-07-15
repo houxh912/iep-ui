@@ -104,11 +104,14 @@ export default {
       activeIndex: -1,
       commontActiveIndex: -1,
       form: initFormData(),
+      paramData: {},
     }
   },
   methods: {
     searchPage (params) {
-      this.paramData.name = params.name
+      if (params) {
+        this.paramData = Object({}, this.paramData, params)
+      }
       this.loadPage()
     },
     loadPage () {

@@ -83,6 +83,6 @@ export default {
 </style>
 <style scoped>
 .ranking >>> .el-card__body {
-  padding: 15px;
+  padding: 15px 0;
 }
 </style>

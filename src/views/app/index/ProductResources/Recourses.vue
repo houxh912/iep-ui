@@ -73,14 +73,15 @@ export default {
     width: 100%;
     text-align: center;
     .iconfont {
-      width: 55%;
+      width: 65px;
+      height:65px;
       font-size: 30px;
       padding: 10px 0;
       border-radius: 50%;
       background-color: #f0f0f0;
       text-align: center;
       display: block;
-      margin: 0 auto;
+      margin: auto auto;
       &:hover {
         cursor: pointer;
         background-color: #cb3737;

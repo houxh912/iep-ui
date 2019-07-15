@@ -46,7 +46,7 @@ export default {
   data () {
     const navListRaw = [...navList]
     const nextList = remove(navListRaw, (v, i) => {
-      return i < 6
+      return i < 7
     })
     return {
       isShow: false,

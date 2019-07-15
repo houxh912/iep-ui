@@ -31,7 +31,7 @@ export default {
   text-align: center;
   background: #fafafa url(./linebg.png) no-repeat;
   h3 {
-    font-size: 24px;
+    font-size: 22px;
     span {
       color: #cb3737;
     }
@@ -64,11 +64,15 @@ export default {
   color: #cb3737;
   background: #fef0f0;
   border-color: #cb3737;
+  margin-left: 10px
 }
 .gov-projects-top >>> .el-button--danger.is-plain:hover,
 .gov-projects-top >>> .el-button--danger.is-plain:focus {
   background: #cb3737;
   border-color: #ba1b21;
   color: #fff;
+}
+.gov-projects-top >>> .el-input__icon {
+  line-height: 42px;
 }
 </style>

@@ -21,7 +21,11 @@
           <el-table-column label="合同名称" min-width="200px">
             <template slot-scope="scope">
               <div class="row-tpl" @click="handleDetail(scope.row)">
-                <div class="custom-name">{{scope.row.contractName}}</div>
+                <div class="custom-name">
+                  {{scope.row.contractName}}
+                  <el-tag type="warning" size="mini" v-if="scope.row.isHistory === 2">历</el-tag>
+                  <el-tag type="success" size="mini" v-if="scope.row.contractType === '0'">内</el-tag>
+                </div>
                 <el-col class="custom-tags">
                   <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
                 </el-col>

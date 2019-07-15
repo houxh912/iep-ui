@@ -43,7 +43,7 @@ export default {
     float: left;
     > div {
       display: inline-block;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 40px;
       padding: 0 10px;
       border-bottom: 2px solid #ba1b21;

@@ -23,9 +23,9 @@ export default {
   margin: 0 auto 25px;
   width: 1200px;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
+  grid-row-gap: 20px;
   grid-column-gap: 25px;
-  grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
+  grid-template-columns: minmax(100px, 875px) minmax(100px, 300px);
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="empolyee">
-    <el-carousel height="" :interval="5000" indicator-position="none">
+    <el-carousel height="" :interval="5000" arrow="always">
       <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/4)" :key="index">
         <div v-for="(t, i) in wonderfulList.slice(index*4, (index + 1)*4)" :key="i" class="piece">
           <div class="imgs">
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     loadPage (id) {
-      geOrgPage({ current: 1, size: 20, orgId: id }).then(({data}) => {
+      geOrgPage({ current: 1, size: 20, orgId: id }).then(({ data }) => {
         if (data.data) {
           this.wonderfulList = data.data.records
         }
@@ -50,17 +50,18 @@ export default {
   padding-top: 15px;
   .piece {
     float: left;
-    margin: 0 5px;
-    width: 270px;
+    margin: 0 17px;
+    width: 238px;
     text-align: center;
     overflow: hidden;
     height: 100%;
     .imgs {
       width: 100%;
-      height: 180px;
+      height: 142px;
       overflow: hidden;
       img {
         width: 100%;
+        height: 142px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;
@@ -72,11 +73,16 @@ export default {
       line-height: 40px;
     }
     &:first-child {
-      margin: 0 15px 0 10px;
+      margin: 0 27px 0 22px;
     }
     &:last-child {
-      margin: 0 10px 0 15px;
+      margin: 0 27px 0 27px;
     }
   }
+}
+</style>
+<style scoped>
+.empolyee >>> .el-carousel__container {
+  height: 180px;
 }
 </style>

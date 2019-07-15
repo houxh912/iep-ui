@@ -43,17 +43,17 @@ export default {
   },
   methods: {
     changePage (val) {
-      this.$refs['librarys'].loadPage({materialClsSecondClass: val})
+      this.$refs['librarys'].loadPage({ materialClsSecondClass: val })
     },
     // 猜你想找
     getGuessList () {
-      getGuessList().then(({data}) => {
+      getGuessList().then(({ data }) => {
         this.listList = data.data
       })
     },
     // 快速搜索
     handleSearch (row) {
-      this.$refs['librarys'].loadPage({name: row})
+      this.$refs['librarys'].loadPage({ name: row })
     },
   },
   created () {

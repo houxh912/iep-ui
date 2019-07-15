@@ -59,6 +59,7 @@ export default {
     },
     handleUpload (row) {
       this.actionId = row.id
+      this.$refs['uploadDialog'].fileList = []
       this.$refs['uploadDialog'].dialogShow = true
     },
     handleFinish () {

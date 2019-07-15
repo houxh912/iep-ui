@@ -59,6 +59,7 @@ const initForm = () => {
 		protocolName: '',
 		projectId: '',
 		projectName: '',
+		projectNumber: '',
 		amount: '',
 		remarks: '',
 		invoicingTax: '',

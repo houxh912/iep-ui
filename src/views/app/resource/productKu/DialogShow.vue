@@ -68,15 +68,29 @@ export default {
     handleDelete (id) {
       this._handleGlobalDeleteById(id, deleteModuleById)
     },
-    handleAllDelete () {
-      deleteBatchDelete(this.arrId).then((data) => {
-        if (data.data) {
-          this.$message.success('删除成功')
-          this.loadPage()
-        } else {
-          this.$message(data.msg)
-        }
-      })
+    async handleAllDelete () {
+      try {
+        await deleteBatchDelete(this.arrId).then((data) => {
+          if (data.data && this.arrId.length !== 0) {
+            this.$message.success({
+              message: '操作成功',
+              type: 'success',
+            })
+            this.arrId = []
+            this.loadPage()
+          } else {
+            this.$message({
+              message: '请选择删除对象',
+              type: 'warming',
+            })
+          }
+        })
+      } catch (error) {
+        this.$message({
+          message: error.message,
+          type: 'error',
+        })
+      }
     },
     handeleCustom () {
       this.$router.push('/app/resource/product_ku/product_customization')

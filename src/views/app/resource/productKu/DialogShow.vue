@@ -65,15 +65,17 @@ export default {
         })
       })
     },
-    // handleAllDelete () {
-    //   this._handleGlobalAll(deleteBatchDelete)
-    // },
     handleDelete (id) {
       this._handleGlobalDeleteById(id, deleteModuleById)
     },
     handleAllDelete () {
-      deleteBatchDelete(this.arrId).then(() => {
-        this.loadPage()
+      deleteBatchDelete(this.arrId).then((data) => {
+        if (data.data) {
+          this.$message.success('删除成功')
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
       })
     },
     handeleCustom () {

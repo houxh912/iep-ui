@@ -70,20 +70,20 @@
               <el-col :span="12" class="item">
                 <el-form-item label="项目督导：">
                   <span v-if="formData.projectMentorList.length==0">无</span>
-                  <span v-for="a in formData.projectMentorList" :key="a.id">{{a.name}}</span>
+                  <span v-for="a in formData.projectMentorList" :key="a.id" class="people">{{a.name}}</span>
                   <!-- <iep-button type="danger" plain size="mini" @click="transferMentor(formData.projectMentorList)">变更</iep-button> -->
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="市场经理：">
                   <span v-if="formData.mktManagerList.length==0">无</span>
-                  <span v-for="a in formData.mktManagerList" :key="a.id">{{a.name}}</span>
+                  <span v-for="a in formData.mktManagerList" :key="a.id" class="people">{{a.name}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="执行项目经理：">
                   <span v-if="formData.projectHandlesList.length==0">无</span>
-                  <span v-for="a in formData.projectHandlesList" :key="a.id">{{a.name}}</span>
+                  <span v-for="a in formData.projectHandlesList" :key="a.id" class="people">{{a.name}}</span>
                   <!-- <iep-button type="danger" plain size="mini" @click="transferHandles(formData.projectHandlesList)">变更</iep-button> -->
                 </el-form-item>
               </el-col>
@@ -95,7 +95,7 @@
               <el-col :span="12" class="item">
                 <el-form-item label="团队成员：">
                   <span v-if="formData.membersList.length==0">无</span>
-                  <span v-for="a in formData.membersList" :key="a.id">{{a.name}}</span>
+                  <span v-for="a in formData.membersList" :key="a.id" class="people">{{a.name}}</span>
                 </el-form-item>
               </el-col>
               <!-- <el-col :span="12" class="item">
@@ -309,6 +309,23 @@ export default {
   .item {
     line-height: 20px;
     // margin-bottom: 10px;
+    .people {
+      margin-right: 10px;
+      padding-right: 5px;
+      position: relative;
+      &:after {
+        content: "、";
+        position: absolute;
+        right: -12px;
+        top: -12px;
+      }
+      &:last-child:after {
+        content: "";
+        position: absolute;
+        right: -12px;
+        top: -12px;
+      }
+    }
   }
   .footer {
     margin: 20px 0 0 60px;

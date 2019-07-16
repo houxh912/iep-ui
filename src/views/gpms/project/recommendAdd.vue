@@ -797,12 +797,13 @@ export default {
           color: #999;
           position: relative;
           margin-right: 12px;
+          padding-right: 10px;
           display: inline-block;
           cursor: pointer;
           &:after {
             content: "/";
             position: absolute;
-            right: -14px;
+            right: -4px;
             top: 0;
           }
           &:last-child {

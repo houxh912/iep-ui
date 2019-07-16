@@ -66,6 +66,7 @@ const initForm = () => {
 		invoicingTax: '',
 		interestRate: '',
 		estimatedRefundTime: '',
+		relations: [],
 	}
 }
 

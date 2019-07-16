@@ -7,7 +7,7 @@
       <span class="time">{{formData.createTime}}</span>
       <span class="opt"><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>
       <span class="opt"><i class="iconfont icon-download1"></i>{{formData.downloadTimes}}</span>
-      <div class="btn sc" v-if="formData.collection == 0" @click="handleCollect(formData)"><i class="iconfont icon-xingxing"></i>收藏</div>
+      <div class="btn sc" v-if="formData.collection == 0" @click="handleCollect(formData)"><i class="iconfont icon-iconfontxingxing"></i>收藏</div>
       <div class="btn sc" v-else><i class="iconfont icon-iconfontxingxing"></i>已收藏</div>
       <div class="btn fx" @click="handleShare"><i class="iconfont icon-youxiangshixin"></i>分享</div>
       <div class="btn jc" @click="handleWrong"><i class="iconfont icon-zhuyi"></i>纠错</div>

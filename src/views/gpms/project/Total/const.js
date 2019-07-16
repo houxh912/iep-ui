@@ -73,6 +73,9 @@ export const rules = {
   projectTagList: [
     { required: true, message: '请输入项目标签', trigger: 'change' },
   ],
+  projectStage: [
+    { required: true, message: '请选择项目阶段', trigger: 'change' },
+  ],
   projectBudget: [
     { validator: intValidate, message: '请输入正整数', trigger: 'change' },
   ],
@@ -173,7 +176,7 @@ export function initFormData (obj) {
     paymentRelations: [], // 预计回款时间,
     estimatedSigntime: '', // 预计签订时间
     projectBudgetList: {},
-    projectAmount: '',
+    projectAmount: 0,
     projectStage: '',
     orgId:'',
     isClaim: 1,

@@ -13,8 +13,11 @@ export const columnsMap = [
     prop: 'projectBudget',
     label: '项目预算',
   }, {
-    prop: 'projectManager',
-    label: '项目经理',
+    prop: 'applicantName',
+    label: '申请人',
+  }, {
+    prop: 'approverName',
+    label: '审批人',
   }, {
     prop: 'applyTime',
     label: '项目开始时间',

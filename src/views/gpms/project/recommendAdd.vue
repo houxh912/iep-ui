@@ -63,6 +63,7 @@
                 </span>
                 <iep-contact-multiple-user v-model="formData.mktManagerList" :is-show-contact-btn="false"></iep-contact-multiple-user>
               </el-form-item>
+              <iep-button class="recom-btn" @click="cRecommendType('mktManager')">荐</iep-button>
             </el-col>
             <el-col :span="12">
               <el-form-item label="执行项目经理：" prop="projectHandlesList">
@@ -101,7 +102,7 @@
                   项目等级：
                   <!-- <iep-tip :content="tipContent.relatedClient"></iep-tip>： -->
                 </span>
-                <iep-dict-select v-model="formData.projectLevel" dict-name="prms_project_level"></iep-dict-select>
+                <iep-dict-select v-model="formData.projectLevel" dict-name="prms_project_level" disabled></iep-dict-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -335,7 +336,23 @@
             <div class="right">
               <span class="name">{{r.name}}</span>
               <iep-button class="recommend-container-btn" type="danger" plain @click="referenceHandles(r.name,r.id)" size="mini">设为项目经理</iep-button>
-              <span>负责了{{r.conscientiousCount}}个项目 | 参与了{{r.participateCount}}个项目</span>
+              <span>负责了<span style="font-size:16px;margin:0 2px;">{{r.conscientiousCount}}</span>个项目 | 参与了<span style="font-size:16px;margin:0 2px;">{{r.participateCount}}</span>个项目</span>
+              <span class="sign">
+                <div v-for="(s,index) in r.projectTag" :key="index" @click="openSign(s)">{{s}}</div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="recommend-mktManager" v-if="this.recommendType=='mktManager'">
+          <h4 class="recommend-title">优秀市场经理推荐</h4>
+          <div class="recommend-container" v-for="r in recommendMktManagerList" :key="r.id">
+            <div class="img">
+              <iep-img :src="r.avatar" :alt="r.name" class="img-box"></iep-img>
+            </div>
+            <div class="right">
+              <span class="name">{{r.name}}</span>
+              <iep-button class="recommend-container-btn" type="danger" plain @click="referenceMktManager(r.name,r.id)" size="mini">设为市场经理</iep-button>
+              <span>负责了<span style="font-size:16px;margin:0 2px;">{{r.conscientiousCount}}</span>个项目 | 参与了<span style="font-size:16px;margin:0 2px;">{{r.participateCount}}</span>个项目</span>
               <span class="sign">
                 <div v-for="(s,index) in r.projectTag" :key="index" @click="openSign(s)">{{s}}</div>
               </span>
@@ -356,7 +373,7 @@
 
 <script>
 import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
-import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList } from '@/api/gpms/index'
+import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList, getRecommendedMktManagerList } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
@@ -426,6 +443,7 @@ export default {
       ],
       recommendHandlesList: [
       ],
+      recommendMktManagerList: [],
     }
   },
   computed: {
@@ -436,19 +454,22 @@ export default {
   },
   created () {
     this.tableData = []
+    this.formData = initFormData(this.userInfo)
     this.formData.relatedClientList.name = this.$route.query.clientName
-    console.log(this.$route.query.clientName)
+    this.formData.projectTagList = this.$route.query.allTagList
     let obj = Object.assign({}, initBudgetForm(), this.formData.projectBudgetList)
     this.tableData.push(obj)
     getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
-    this.formData = initFormData(this.userInfo)
     getRecommendedProjectList({ tagList: this.tagList }).then(({ data }) => {
       this.recommendProjectList = data
     })
     getRecommendedHandlesList({ tagList: this.tagList }).then(({ data }) => {
       this.recommendHandlesList = data
+    })
+    getRecommendedMktManagerList({ tagList: this.tagList }).then(({ data }) => {
+      this.recommendMktManagerList = data
     })
   },
   methods: {
@@ -485,7 +506,6 @@ export default {
           for (let item of mentorList) {
             form[item.name] = this.formData[item.list].id
           }
-          // console.log(personList)
           if (this.formData.mktManager == '') {
             for (let item of personList) {
               form[item.name] = this.userInfo.userId
@@ -617,8 +637,33 @@ export default {
         this.formData.projectHandlesList.push({ id: id, name: val })
       }
     },
+    referenceMktManager (val, id) {
+      const mktManager = this.formData.mktManagerList.map(m => {
+        return m['id']
+      })
+      if (mktManager.includes(id) == false) {
+        this.formData.mktManagerList.push({ id: id, name: val })
+      }
+    },
     cRecommendType (val) {
       this.recommendType = val
+    },
+  },
+  watch: {
+    'formData.projectAmount': {
+      deep: true,
+      handler: function (val) {
+        if (val > 999999) {
+          this.formData.projectLevel = '1'
+        }
+        else if (499999 < val && val < 1000000) {
+          this.formData.projectLevel = '2'
+        }
+        else {
+          this.formData.projectLevel = '3'
+        }
+      },
+
     },
   },
 }
@@ -684,6 +729,7 @@ export default {
     padding-right: 12%;
   }
   .recommend-projectHandles,
+  .recommend-mktManager,
   .recommend-project {
     padding: 20px;
     border-left: 1px solid #eee;
@@ -768,9 +814,11 @@ export default {
       }
     }
   }
-  .recommend-projectHandles {
+  .recommend-projectHandles,
+  .recommend-mktManager {
     .img {
       width: 80px;
+      height: 80px;
       float: left;
       .img-box {
         width: 80px;
@@ -804,12 +852,13 @@ export default {
           color: #999;
           position: relative;
           margin-right: 12px;
+          padding-right: 10px;
           display: inline-block;
           cursor: pointer;
           &:after {
             content: "/";
             position: absolute;
-            right: -14px;
+            right: -4px;
             top: 0;
           }
           &:last-child {

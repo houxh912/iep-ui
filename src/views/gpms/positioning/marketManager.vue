@@ -41,11 +41,11 @@ export default {
           fontSize: '16',
           offsetCenter: [0, '-20%'],
         },
-        data: [{ value: 20, name: '重要项目' }],
+        data: [{ value: 0, name: '重要项目' }],
         axisLine: {
           show: true,
           lineStyle: {
-            color: [[0.4, new echarts.graphic.LinearGradient(
+            color: [[0, new echarts.graphic.LinearGradient(
               0, 0, 1, 0, [{
                 offset: 0,
                 color: '#8dbfac',
@@ -90,11 +90,11 @@ export default {
           fontSize: '16',
           offsetCenter: [0, '-20%'],
         },
-        data: [{ value: 40, name: '中级项目' }],
+        data: [{ value: 0, name: '中级项目' }],
         axisLine: {
           show: true,
           lineStyle: {
-            color: [[0.4, new echarts.graphic.LinearGradient(
+            color: [[0, new echarts.graphic.LinearGradient(
               0, 0, 1, 0, [{
                 offset: 0,
                 color: '#8dbfac',
@@ -139,11 +139,11 @@ export default {
           fontSize: '16',
           offsetCenter: [0, '-20%'],
         },
-        data: [{ value: 40, name: '一般项目' }],
+        data: [{ value: 0, name: '一般项目' }],
         axisLine: {
           show: true,
           lineStyle: {
-            color: [[0.4, new echarts.graphic.LinearGradient(
+            color: [[0, new echarts.graphic.LinearGradient(
               0, 0, 1, 0, [{
                 offset: 0,
                 color: '#7db2ca',
@@ -188,11 +188,11 @@ export default {
           fontSize: '16',
           offsetCenter: [0, '-20%'],
         },
-        data: [{ value: 40, name: '外部项目' }],
+        data: [{ value: 0, name: '外部项目' }],
         axisLine: {
           show: true,
           lineStyle: {
-            color: [[0.4, new echarts.graphic.LinearGradient(
+            color: [[0, new echarts.graphic.LinearGradient(
               0, 0, 1, 0, [{
                 offset: 0,
                 color: '#7db2ca',

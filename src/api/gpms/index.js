@@ -68,10 +68,18 @@ export function getRecommendedProjectList (obj) {
     data: obj,
   })
 }
-// 推荐项目名字
+// 推荐项目经理
 export function getRecommendedHandlesList (obj) {
   return request({
     url: `${prefixUrl}/recommendManagerByTag`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 推荐市场经理
+export function getRecommendedMktManagerList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendMarketByTag`,
     method: 'post',
     data: obj,
   })

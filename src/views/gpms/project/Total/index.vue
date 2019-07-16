@@ -40,14 +40,21 @@
           <span v-if="scope.row.projectStatus==5">锁定</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="200px">
+      <el-table-column label="操作" width="180px">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleClaim(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">移入公海库</iep-button>
-            <iep-button @click="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">立项</iep-button>
-            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">编辑</iep-button>
-            <iep-button @click="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">删除</iep-button>
             <iep-button @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'">撤回</iep-button>
+            <el-dropdown size="medium" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">
+              <iep-button type="default">
+                <i class="el-icon-more-outline"></i>
+              </iep-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="handleWithdraw(scope.row.id,2,'立项')">立项</el-dropdown-item>
+                <el-dropdown-item @click.native="handleUpdate(scope.row)">编辑</el-dropdown-item>
+                <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </operation-wrapper>
         </template>
       </el-table-column>

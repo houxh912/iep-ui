@@ -98,7 +98,7 @@
                 项目等级：
                 <!-- <iep-tip :content="tipContent.relatedClient"></iep-tip>： -->
               </span>
-              <iep-dict-select v-model="formData.projectLevel" dict-name="prms_project_level"></iep-dict-select>
+              <iep-dict-select v-model="formData.projectLevel" dict-name="prms_project_level" disabled></iep-dict-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -593,6 +593,23 @@ export default {
     //   this.formData.projectBudgetList = val
     //   this.formData.projectBudget = val.projectBudget
     // },
+  },
+  watch: {
+    'formData.projectAmount': {
+      deep: true,
+      handler: function (val) {
+        if (val > 999999) {
+          this.formData.projectLevel = '1'
+        }
+        else if (499999 < val && val < 1000000) {
+          this.formData.projectLevel = '2'
+        }
+        else {
+          this.formData.projectLevel = '3'
+        }
+      },
+
+    },
   },
 }
 </script>

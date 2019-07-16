@@ -2,12 +2,13 @@
   <div class="abs iep-page-form">
     <basic-container>
       <iep-page-header title="新增项目-选择项目主题" :backOption="backOption"></iep-page-header>
-      <div>* 即项目标签（可多选）；历史项目或信息明确的项目可直接<span class="jumpOver" @click="jumpOver">跳过</span>。</div>
-      <div class="tag-counter">
-        <span v-for="(item,index) in recommendTagList" :key="item.id" :class="item.isClick ? 'active':''" @click="changeTagList(index)">{{item.name}}</span>
-      </div>
+
       <el-form :model="form" ref="form" label-width="100px" class="form-detail" size="small">
         <el-row>
+          <div>* 即项目标签（可多选）；历史项目或信息明确的项目可直接<span class="jumpOver" @click="jumpOver">跳过</span>。</div>
+          <div class="tag-counter">
+            <span v-for="(item,index) in recommendTagList" :key="item.id" :class="item.isClick ? 'active':''" @click="changeTagList(index)">{{item.name}}</span>
+          </div>
           <el-col :span="24">
             <el-form-item label="项目标签：" prop="projectTagList" placeholder="添加自定义主题（标签）">
               <iep-tag v-model="form.projectTagList"></iep-tag>
@@ -41,12 +42,12 @@ export default {
           this.close()
         },
       },
-      recommendTagList:[],
-      form:{
-        clientName:'',
-        projectTagList:[],
+      recommendTagList: [],
+      form: {
+        clientName: '',
+        projectTagList: [],
       },
-      allTagList:[],
+      allTagList: [],
     }
   },
   computed: {
@@ -68,19 +69,25 @@ export default {
       this.$router.history.go(-1)
     },
     next () {
-      this.recommendTagList = this.recommendTagList.filter(item=> item.isClick===true)
-      this.recommendTagList=this.recommendTagList.map(m => {
+      this.recommendTagList = this.recommendTagList.filter(item => item.isClick === true)
+      this.recommendTagList = this.recommendTagList.map(m => {
         return m['name']
       })
-      this.allTagList=this.recommendTagList.concat(this.form.projectTagList)
-      this.allTagList=Array.from(new Set(this.allTagList))
-      this.$router.push({
-        path: '/gpms_spa/project/recommend_add',
-        query: {
-          allTagList: this.allTagList,
-          clientName: this.form.clientName,
-        },
-      })
+      this.allTagList = this.recommendTagList.concat(this.form.projectTagList)
+      this.allTagList = Array.from(new Set(this.allTagList))
+      if (this.allTagList == '') {
+        this.$message.error('请选择标签')
+        this.loadPage()
+      }
+      else {
+        this.$router.push({
+          path: '/gpms_spa/project/recommend_add',
+          query: {
+            allTagList: this.allTagList,
+            clientName: this.form.clientName,
+          },
+        })
+      }
     },
     jumpOver () {
       this.$router.push({
@@ -88,11 +95,11 @@ export default {
       })
     },
     changeTagList (val) {
-      if(this.recommendTagList[val].isClick==false){
-        this.recommendTagList[val].isClick=true
+      if (this.recommendTagList[val].isClick == false) {
+        this.recommendTagList[val].isClick = true
       }
-      else{
-        this.recommendTagList[val].isClick=false
+      else {
+        this.recommendTagList[val].isClick = false
       }
     },
   },
@@ -100,24 +107,27 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.jumpOver{color: #b91b21;cursor: pointer;}
-.tag-counter{
+.jumpOver {
+  color: #b91b21;
+  cursor: pointer;
+}
+.tag-counter {
   padding: 20px;
-  > span{
+  > span {
     display: inline-block;
     margin: 10px 5px;
     padding: 2px 10px;
     border: 1px solid #eee;
     transition: all 0.3s linear;
     color: #999;
-    &:hover{
+    &:hover {
       cursor: pointer;
-      color:#b91b21;
+      color: #b91b21;
       border: 1px solid #b91b21;
     }
   }
-  .active{
-    color:#b91b21;
+  .active {
+    color: #b91b21;
     border: 1px solid #b91b21;
   }
 }

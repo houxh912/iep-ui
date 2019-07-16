@@ -3,7 +3,7 @@
     <basic-container>
       <iep-page-header title="我的定位">
         <template>
-          <el-button class="modify" size="small" @click="handleClicks">项目PK</el-button>
+          <el-button class="modify" size="small" @click="handleClicks" disabled>项目PK</el-button>
         </template>
       </iep-page-header>
       <div class="title-box">
@@ -17,9 +17,9 @@
                 的
                 <span style="color:#000;">{{myData.dignity}}</span>
                 ，尤其擅长
-                <span style="color:#000;">营商环境</span>
+                <span style="color:#000;">{{firtTag}}</span>
                 、
-                <span style="color:#000;">数据基因</span>
+                <span style="color:#000;">{{secondTag}}</span>
                 主题的项目。</p>
               <p style="color:#666;">请继续努力，发挥自身价值，成为更优秀的国脉人!</p>
             </div>
@@ -159,7 +159,7 @@
 </template>
 
 <script>
-
+// import _ from 'lodash'
 import mixins from '@/mixins/mixins'
 import projectManager from './projectManager'
 import marketManager from './marketManager'
@@ -219,7 +219,12 @@ export default {
 
 
     return {
-      myData: {},
+      myData: {
+        getUnapprovedCount: 0,
+        guidanceAllCount: 0,
+        guidanceExternalAllCount: 0,
+        getUnapprovedExternalCount: 0,
+      },
       chartDataHistogram: {
         columns: ['dept', '总数', '外部项目'],
         rows: [
@@ -253,6 +258,9 @@ export default {
         x: 'center',
         y: 'center',
       },
+      projectTagList: [],
+      firtTag: '',
+      secondTag: '',
     }
   },
   created () {
@@ -290,6 +298,31 @@ export default {
         this.$refs['marketManager'].seriesGauge2.axisLine.lineStyle.color[0][0] = data.data.secondaryMarketLevelCount == 0 ? 0 : data.data.secondaryLevelCount / data.data.secondaryMarketMaxCount
         this.$refs['marketManager'].seriesGauge3.axisLine.lineStyle.color[0][0] = data.data.commonlyMarketLevelCount == 0 ? 0 : data.data.commonlyLevelCount / data.data.commonlyMarketMaxCount
         this.$refs['marketManager'].seriesGauge4.axisLine.lineStyle.color[0][0] = data.data.marketExternalCount == 0 ? 0 : data.data.externalCount / data.data.marketTypeMaxCount
+        this.projectTagList = data.data.projectTagList
+        var count = 1
+        var yuansu = new Array() //存放数组array的不重复的元素 
+        var sum = new Array() //存放数组array中每个不同元素的出现的次数  
+        for (var i = 0; i < this.projectTagList.length; i++) {
+          for (var j = i + 1; j < this.projectTagList.length; j++) {
+            if (this.projectTagList[i] == this.projectTagList[j]) {
+              count++ //用来计算与当前这个元素相同的个数  
+              this.projectTagList.splice(j, 1) //每找到一个相同的元素，就要把它移除掉，  
+              j--
+            }
+          }
+          yuansu[i] = this.projectTagList[i] //将当前的元素存入到yuansu数组中  
+          sum[i] = count //并且将有多少个当前这样的元素的个数存入sum数组中  
+          count = 1 //再将count重新赋值，进入下一个元素的判断  
+        }
+
+        //算出array数组中出现次数最多的元素  
+        var newsum = new Array() //  sum;  
+        for (var item in sum) {
+          newsum[item] = sum[item]
+        }
+        newsum.sort()
+        this.firtTag = yuansu[yuansu.length - 1]
+        this.secondTag = yuansu[yuansu.length - 2]
       })
     },
   },

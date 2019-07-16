@@ -4,11 +4,11 @@
     <div class="inform">
       <iep-img :src="formData.avatar" :alt="formData.creatorRealName" class="img"></iep-img>
       <span>{{formData.creatorRealName}}</span>
-      <span>{{formData.createTime}}</span>
-      <span><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>
-      <span><i class="iconfont icon-download1"></i>{{formData.downloadTimes}}</span>
+      <span class="time">{{formData.createTime}}</span>
+      <span class="opt"><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>
+      <span class="opt"><i class="iconfont icon-download1"></i>{{formData.downloadTimes}}</span>
       <div class="btn sc" v-if="formData.collection == 0" @click="handleCollect(formData)"><i class="iconfont icon-heart"></i>收藏</div>
-      <div class="btn sc" v-else><i class="iconfont icon-aixin"></i>已收藏</div>
+      <div class="btn sc" v-else><i class="iconfont icon-iconfontxingxing"></i>已收藏</div>
       <div class="btn fx" @click="handleShare"><i class="iconfont icon-youxiangshixin"></i>分享</div>
       <div class="btn jc" @click="handleWrong"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
@@ -170,10 +170,18 @@ export default {
 .article-details {
   padding: 20px 0;
   .title {
-    font-size: 18px;
+    font-size: 22px;
     color: #333;
     height: 50px;
     line-height: 50px;
+  }
+  .time,
+  .opt {
+    color: #999;
+  }
+  .opt {
+    display: flex;
+    align-items: center;
   }
   .inform {
     position: relative;
@@ -284,6 +292,7 @@ export default {
   height: 35px;
   border-radius: 50%;
   cursor: pointer;
+  border: 1px solid #f0f0f0;
 }
 .inform >>> .el-image__inner {
   border-radius: 50%;

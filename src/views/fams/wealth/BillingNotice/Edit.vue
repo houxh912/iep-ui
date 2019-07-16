@@ -2,9 +2,9 @@
   <div class="iep-page-form">
     <basic-container>
       <iep-page-header :title="`${methodName}开票通知-${dictsMap.invoicingType[this.form.invoicingType]}`" :back-option="backOption">
-        <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">保存</iep-button>
       </iep-page-header>
-      <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="200px" size="small">
+      <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="220px" size="small">
         <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" prop="buyerName" class="form-half">
           <el-input v-model="form.buyerName"></el-input>
@@ -170,19 +170,13 @@ export default {
         this.companyForm = data.data
       })
     },
-    async handleSubmit () {
-      try {
-        await this.mixinsValidate()
-        this.formRequestFn(this.form).then(({ data }) => {
-          if (data.data) {
-            this.$message.success('操作成功')
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-          }
-        })
-      } catch (object) {
-        this.mixinsMessage(object)
+    async submitForm () {
+      const { data } = await this.formRequestFn(this.form)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
       }
     },
   },

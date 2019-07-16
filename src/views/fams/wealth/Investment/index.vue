@@ -4,7 +4,7 @@
       <iep-page-header title="我的投资"></iep-page-header>
       <div class="grid-container">
         <div class="grid-item-1-3">
-          <el-card shadow="never" class="box-card" :body-style="bodyStyle" v-if="false">
+          <el-card shadow="never" class="box-card" :body-style="bodyStyle1" v-if="false">
             <div slot="header" class="clearfix">
               <h2>投资指数</h2>
             </div>
@@ -27,7 +27,7 @@
           </el-card>
         </div>
         <div class="grid-item-2">
-          <el-card shadow="never" class="box-card" :body-style="bodyStyle" v-if="false">
+          <el-card shadow="never" class="box-card" :body-style="bodyStyle1" v-if="false">
             <div slot="header" class="clearfix">
               <h2>我要投资</h2>
             </div>
@@ -95,11 +95,17 @@ export default {
   components: { MyData, MyInvestment, Recommend },
   data () {
     return {
-      pagination:{},
+      pagination: {},
       pagedTable: [],
       columnsMap,
       dictsMap,
       bodyStyle: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        height: '100%',
+      },
+      bodyStyle1: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
@@ -133,7 +139,7 @@ export default {
       'userInfo',
     ]),
   },
-  mixins:[mixins],
+  mixins: [mixins],
   created () {
     this.loadPage()
   },

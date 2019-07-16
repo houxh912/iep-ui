@@ -1,8 +1,9 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="详情" width="700px" @close="loadPage">
-    <el-form :model="form" size="small" ref="form" label-width="120px" disabled>
+  <iep-dialog :dialog-show="dialogShow" title="详情" width="700px" @close="close">
+    <el-form class="form-detail" :model="form" size="small" ref="form" label-width="120px">
+
       <el-form-item label="收入类型：">
-        <iep-div-detail :value="form.typeValue"></iep-div-detail>
+        <iep-dict-cascader dictName="fams_income_type" v-model="form.type" disabled></iep-dict-cascader>
       </el-form-item>
 
       <el-form-item label="收入时间：">
@@ -18,11 +19,11 @@
       </el-form-item>
 
       <el-form-item label="收入公司：">
-        <iep-div-detail :value="form.companyName"></iep-div-detail>
+        <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" disabled></iep-select>
       </el-form-item>
 
-      <el-form-item label="银行户头：">
-        <iep-div-detail :value="form.accountName"></iep-div-detail>
+      <el-form-item label="银行户头：" v-if="!bankAmountOption.disabled">
+        <iep-select v-model="form.accountId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" disabled></iep-select>
       </el-form-item>
 
       <el-form-item label="关联合同：">
@@ -37,22 +38,15 @@
         <iep-div-detail :value="form.projectNumber"></iep-div-detail>
       </el-form-item>
 
-      <el-form-item label="收入金额：">
+      <el-form-item label="支出金额：">
         <iep-div-detail :value="form.amount+' 元'"></iep-div-detail>
       </el-form-item>
 
-      <!-- <el-form-item label="开票费：">
-        <iep-div-detail :value="form.invoiceAmount+' 元'"></iep-div-detail>
+      <!-- <el-form-item label="税率：">
+        <iep-div-detail :value="(form.taxRate*100)+'%'"></iep-div-detail>
       </el-form-item> -->
 
-      <!-- <el-form-item label="开票组织：">
-        <iep-div-detail :value="form.invoiceOrgName"></iep-div-detail>
-      </el-form-item> -->
-      <!-- <el-form-item label="开票税率：">
-        <iep-div-detail :value="(form.invoicingTax*100)+'%'"></iep-div-detail>
-      </el-form-item> -->
-
-      <el-form-item v-if="form.parentType==='6'" label="计息比率：">
+      <el-form-item v-if="form.parentType==='17'" label="计息比率：">
         <iep-div-detail :value="form.interestRate+'%'"></iep-div-detail>
       </el-form-item>
 
@@ -60,11 +54,11 @@
         <iep-div-detail :value="form.remarks"></iep-div-detail>
       </el-form-item>
 
-      <h2 style="text-align: center;">代收</h2>
+      <h2 style="text-align: center;">代收 </h2>
       <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="orgId" label="组织名称">
           <template slot-scope="scope">
-            <iep-div-detail :value="scope.row.orgName"></iep-div-detail>
+            <iep-select size="small" v-model="scope.row.orgId" autocomplete="off" prefix-url="admin/org/all" disabled></iep-select>
           </template>
         </el-table-column>
         <el-table-column prop="amount" label="金额(元)">
@@ -75,31 +69,57 @@
       </el-table>
 
     </el-form>
+
+    <template slot="footer">
+      <iep-button type="primary" @click="submitForm()">确认</iep-button>
+      <iep-button @click="close">取消</iep-button>
+    </template>
+
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap } from './options'
-import formMixins from '@/mixins/formMixins'
-import { mapGetters } from 'vuex'
+import { initForm, dictsMap, toDtoForm } from './options'
 export default {
-  mixins: [formMixins],
   data () {
     return {
       dictsMap,
       dialogShow: false,
       form: initForm(),
+      formRequestFn: () => { },
     }
   },
   computed: {
-    ...mapGetters([
-      'dictGroup',
-    ]),
+    bankAmountOption () {
+      if (this.form.companyId && this.form.expenditureMode === '1') {
+        return {
+          disabled: false,
+          prefixUrl: `fams/bank_account/${this.form.companyId}`,
+        }
+      } else {
+        return {
+          disabled: true,
+          prefixUrl: `fams/bank_account/${this.form.companyId}`,
+        }
+      }
+    },
   },
   methods: {
-    loadPage () {
+    close () {
+      this.dialogShow = false
+    },
+    submitClose () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
+    },
+    async submitForm () {
+      const { data } = await this.formRequestFn(toDtoForm(this.form))
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.submitClose()
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

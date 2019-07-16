@@ -1,12 +1,10 @@
 <template>
   <div ref="imbox" class="im-box-small" :style="getPosition" @mousedown="mousedown">
-    <el-badge class="unread-point"
-              v-show="$store.getters.imUnreadTotal"
-              :max="99"
-              :value="$store.getters.imUnreadTotal">
-      <img @mousemove.prevent="" @mousedown.prevent="" @mouseup.prevent="" class="headimage" :src="$store.getters.userInfo.avatar"/>
-    </el-badge>
-    <img @mousemove.prevent="" @mousedown.prevent="" @mouseup.prevent="" v-show="!$store.getters.imUnreadTotal" class="headimage" :src="$store.getters.userInfo.avatar"/>
+    <span class="title">
+      <span>即时消息</span>
+      <span class="badge" v-show="$store.getters.imUnreadTotal">{{getUnreadTotal}}</span>
+    </span>
+    <i class="iconfont icon-arrow-up"></i>
   </div>
 </template>
 
@@ -78,6 +76,13 @@ export default {
     windowSize () {
       return this.$store.getters.windowSize
     },
+    getUnreadTotal () {
+      if (this.$store.getters.imUnreadTotal) {
+        return parseInt(this.$store.getters.imUnreadTotal) > 99 ? '99+' : parseInt(this.$store.getters.imUnreadTotal)
+      } else {
+        return ''
+      }
+    },
   },
   watch: {
     windowSize () {
@@ -102,22 +107,36 @@ export default {
 .im-box-small {
   box-sizing: border-box;
   position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   right: 0;
   bottom: 0;
-  background: #FFFFFF;
+  height: 40px;
+  width: 200px;
+  padding: 0 20px;
+  background: #BA1B21;
+  color: #FFFFFF;
   -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
-  border-radius: 30px;
-  cursor: move;
-  opacity: .4;
-  .headimage {
-    height: 60px;
-    width: 60px;
-    border-radius: 30px;
-    vertical-align: middle;
-    cursor: pointer;
-    overflow: hidden;
+  cursor: pointer;
+  opacity: .6;
+  .title {
+    span {
+      vertical-align: middle;
+    }
+    .badge {
+      margin-left: 10px;
+      display: inline-block;
+      padding: 0 7px;
+      height: 14px;
+      line-height: 14px;
+      border-radius: 7px;
+      background: #FFFFFF;
+      color: #BA1B21;
+    }
   }
+
   &:hover {
     opacity: 1;
   }

@@ -95,7 +95,6 @@ export default {
       this.mixinsSubmitFormGen()
     },
     async submitForm () {
-      this.isPublish = false
       const publish = this.isPublish
       const { data } = await this.formRequestFn(formToDto(this.form), publish)
       if (data.code === 0) {

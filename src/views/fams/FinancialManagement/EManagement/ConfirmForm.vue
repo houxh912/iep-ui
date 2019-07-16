@@ -1,9 +1,9 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="详情" width="700px" @close="close">
-    <el-form :model="form" size="small" ref="form" label-width="120px">
+    <el-form class="form-detail" :model="form" size="small" ref="form" label-width="120px">
 
       <el-form-item label="支出类型：">
-        <iep-div-detail :value="form.typeValue"></iep-div-detail>
+        <iep-dict-cascader dictName="fams_expenditure_type" v-model="form.type" disabled></iep-dict-cascader>
       </el-form-item>
 
       <el-form-item label="支出时间：">
@@ -19,11 +19,11 @@
       </el-form-item>
 
       <el-form-item label="支出公司：">
-        <iep-div-detail :value="form.companyName"></iep-div-detail>
+        <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" disabled></iep-select>
       </el-form-item>
 
-      <el-form-item label="银行户头：">
-        <iep-div-detail :value="form.accountName"></iep-div-detail>
+      <el-form-item label="银行户头：" v-if="!bankAmountOption.disabled">
+        <iep-select v-model="form.accountId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" disabled></iep-select>
       </el-form-item>
 
       <el-form-item label="关联合同：">
@@ -62,7 +62,7 @@
       <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="orgId" label="组织名称">
           <template slot-scope="scope">
-            <iep-div-detail :value="scope.row.orgName"></iep-div-detail>
+            <iep-select size="small" v-model="scope.row.orgId" autocomplete="off" prefix-url="admin/org/all" disabled></iep-select>
           </template>
         </el-table-column>
         <el-table-column prop="amount" label="金额(元)">
@@ -72,71 +72,58 @@
         </el-table-column>
       </el-table>
 
-      <template v-if="form.parentType==='17'">
-        <el-form-item label="">
-          <operation-wrapper>
-            <iep-button @click="handleIncome()">新增其他应收款收入</iep-button>
-            <iep-button @click="handleShow()">查看其他应收款收入</iep-button>
-          </operation-wrapper>
-        </el-form-item>
-      </template>
-
     </el-form>
-    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
-    <incomes ref="Incomes" :forms="forms" @load-page="loadPage"></incomes>
+
+    <template slot="footer">
+      <iep-button type="primary" @click="submitForm()">确认</iep-button>
+      <iep-button @click="close">取消</iep-button>
+    </template>
+
   </iep-dialog>
 </template>
 <script>
-import { mapGetters } from 'vuex'
-import { postIncome } from '@/api/fams/income'
-import { initForm, dictsMap } from './options'
-import DialogForm from '../IManagement/DialogForm'
-import Incomes from './Incomes'
-import { getExpenditureById } from '@/api/fams/expenditure'
-import { getIncomeById } from '@/api/fams/income'
+import { initForm, dictsMap, toDtoForm } from './options'
 export default {
-  components: { DialogForm, Incomes },
   data () {
     return {
-      id: '',
       dictsMap,
       dialogShow: false,
       form: initForm(),
-      forms: [],
+      formRequestFn: () => { },
     }
   },
   computed: {
-    ...mapGetters([
-      'userInfo',
-    ]),
+    bankAmountOption () {
+      if (this.form.companyId && this.form.expenditureMode === '1') {
+        return {
+          disabled: false,
+          prefixUrl: `fams/bank_account/${this.form.companyId}`,
+        }
+      } else {
+        return {
+          disabled: true,
+          prefixUrl: `fams/bank_account/${this.form.companyId}`,
+        }
+      }
+    },
   },
   methods: {
-    handleShow () {
-      this.form.incomeIds.map(async (idx) => {
-        const data = (await getIncomeById(idx)).data.data
-        this.forms.push(data)
-      })
-      this.$refs['Incomes'].dialogShow = true
-    },
-    handleIncome () {
-      this.$refs['DialogForm'].form = initForm()
-      this.$refs['DialogForm'].formRequestFn = postIncome
-      this.$refs['DialogForm'].form.expenditureId = this.form.expenditureId
-      this.$refs['DialogForm'].form.orgId = this.userInfo.orgId
-      this.$refs['DialogForm'].form.invoiceOrgId = this.userInfo.orgId
-      this.$refs['DialogForm'].form.orgName = this.userInfo.orgName
-      this.$refs['DialogForm'].dialogShow = true
-    },
-    loadPage () {
-      getExpenditureById(this.id).then(({ data }) => {
-        this.form = data.data
-        this.forms = []
-      })
-    },
     close () {
+      this.dialogShow = false
+    },
+    submitClose () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
+    },
+    async submitForm () {
+      const { data } = await this.formRequestFn(toDtoForm(this.form))
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.submitClose()
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

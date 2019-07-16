@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="新增支出" width="700px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="新增支出" width="700px" @close="close">
     <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="支出类型：" prop="type">
         <iep-dict-cascader dictName="fams_expenditure_type" v-model="form.type"></iep-dict-cascader>
@@ -54,18 +54,13 @@
       <div class="collection-box">
         <el-collapse-transition>
           <div v-show="isCollection" class="collection-wrapper">
-            <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
-              <el-table-column prop="type" label="支出类型">
+            <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
+              <el-table-column prop="orgId" label="组织名称">
                 <template slot-scope="scope">
-                  <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.type"></iep-dict-cascader>
+                  <iep-select size="small" v-model="scope.row.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
                 </template>
               </el-table-column>
-              <el-table-column label="发票类型">
-                <template slot-scope="scope">
-                  <el-input size="small" v-model="scope.row.bank"></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="amount" label="报销金额(元)">
+              <el-table-column prop="amount" label="金额(元)">
                 <template slot-scope="scope">
                   <iep-input-number size="small" v-model="scope.row.amount"></iep-input-number>
                 </template>
@@ -80,27 +75,29 @@
           </div>
         </el-collapse-transition>
         <div class="collection-real-wrapper"></div>
-        <iep-button :icon="isCollection ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" class="collection-btn" @click="isCollection = !isCollection">代收</iep-button>
+        <iep-button :icon="isCollection ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" class="collection-btn" @click="isCollection = !isCollection">代缴</iep-button>
       </div>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm()">提交</iep-button>
-      <iep-button @click="loadPage">取消</iep-button>
+      <iep-button type="primary" @click="confirmForm()">提交</iep-button>
+      <iep-button @click="close">取消</iep-button>
     </template>
+    <confirm-form ref="ConfirmForm" @load-page="close"></confirm-form>
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap, toDtoForm, rules } from './options'
+import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
+import ConfirmForm from './ConfirmForm'
 import { mapGetters } from 'vuex'
 function initTableForm () {
   return {
-    type: [],
-    bank: '',
+    orgId: '',
     amount: 0,
   }
 }
 export default {
+  components: { ConfirmForm },
   mixins: [formMixins],
   data () {
     return {
@@ -109,7 +106,6 @@ export default {
       isCollection: false,
       formRequestFn: () => { },
       methodName: '创建',
-      tableData: [],
       form: initForm(),
       rules,
     }
@@ -133,16 +129,31 @@ export default {
     },
   },
   methods: {
+    async confirmForm () {
+      const sumAmount = this.form.relations.reduce((accumulator, currentValue) => accumulator.amount + currentValue.amount)
+      // console.log(sumAmount, this.form.amount)
+      if (sumAmount > this.form.amount) {
+        this.$message('总代缴金额不得超过支出金额')
+        return
+      }
+      const valid = await this.mixinsForm()
+      if (valid) {
+        this.$refs['ConfirmForm'].form = { ...this.form }
+        this.$refs['ConfirmForm'].formRequestFn = this.formRequestFn
+        this.$refs['ConfirmForm'].dialogShow = true
+      }
+    },
     newMember () {
-      this.tableData.push(initTableForm())
+      this.form.relations.push(initTableForm())
     },
     handleDelete (row, i) {
-      this.tableData.splice(i, 1)
+      this.form.relations.splice(i, 1)
     },
     handleContractChange (v, n, value) {
       if (v) {
         this.form.projectId = v.id
         this.form.projectName = v.name
+        this.form.protocolName = value.name
         this.form.serialNo = value.serialNo
       }
     },
@@ -151,36 +162,16 @@ export default {
         this.form.protocolId = v.id
         this.form.protocolName = v.name
         this.form.serialNo = value.serialNo
+        this.form.projectName = value.name
       }
     },
     handleChange () {
       this.form.accountId = ''
     },
-    loadPage () {
+    close () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
-    },
-    async submitForm () {
-      try {
-        await this.mixinsValidate()
-        try {
-          const { data } = await this.formRequestFn(toDtoForm(this.form))
-          if (data.data) {
-            this.$message.success('操作成功')
-            this.loadPage()
-          } else {
-            this.$message(data.msg)
-          }
-        } catch (error) {
-          this.$message({
-            message: error.message,
-            type: 'error',
-          })
-        }
-      } catch (object) {
-        this.mixinsMessage(object)
-      }
     },
   },
 }

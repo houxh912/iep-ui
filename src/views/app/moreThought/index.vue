@@ -1,8 +1,8 @@
 <template>
   <iep-app-layout>
-    <headTpl></headTpl>
+    <headTpl class="head"></headTpl>
     <div class="content">
-      <div class="explain">共{{total}}条说说，<span class="publish" @click="handlePublish">我要发表</span></div>
+      <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
       <div class="list">
         <IepNoData v-if="dataList.length == 0"></IepNoData>
         <div v-else>
@@ -12,7 +12,7 @@
                 <div class="avatar">
                   <iep-img :src="item.avatar" @click.native="handleDetail(item.userId)" alt="" class="img"></iep-img>
                 </div>
-                <div class="content">
+                <div class="content-list">
                   <div class="top">
                     <div class="title">
                       <div class="name" @click="handleDetail(item.userId)">{{item.userName}}</div>
@@ -23,7 +23,8 @@
                   </div>
                   <!-- 说说的内容 -->
                   <!-- <div class="item">{{item.content}}</div> -->
-                  <div class="item" v-html="transfHtml(item.content)"></div>
+                  <!-- <div class="item" v-html="transfHtml(item.content)"></div> -->
+                  <contentTpl :data="item.content"></contentTpl>
                   <!-- 说说评论 -->
                   <div class="comment" v-if="activeIndex == index">
                     <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
@@ -65,6 +66,7 @@ import { geTallPage, CommentThoughts, addThumbsUpByRecord } from '@/api/cpms/tho
 import commentTpl from './commentTpl'
 import { mapActions } from 'vuex'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
+import contentTpl from './content'
 
 const initParams = () => {
   return {
@@ -81,7 +83,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { headTpl, commentTpl, PublishDialog },
+  components: { headTpl, commentTpl, PublishDialog, contentTpl },
   data () {
     return {
       isShow: true,
@@ -172,19 +174,9 @@ export default {
       }
       return number
     },
+    // 我要发布
     handlePublish () {
       this.$refs['publish'].open()
-    },
-    // 将说说的内容转换成为新的内容
-    transfHtml (val) {
-      if (!val) return val
-      let first = val.indexOf('#')
-      let second = val.indexOf('# ') + 1
-      if (second - first > 17) {
-        return val
-      } else {
-        return val.slice(0, first) + '<span class="subject">' + val.slice(first, second) + '</span>' + val.slice(second)
-      }
     },
   },
   created () {
@@ -197,16 +189,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.head {
+  margin-bottom: 20px;
+}
 .content {
   width: 1200px;
   margin: auto;
-  padding: 14px;
   border-bottom: 1px solid #ddd;
-  .publish {
-    color: #cb3737;
-    font-size: 16px;
-    text-decoration: underline;
-    cursor: pointer;
+  .explain {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    h3 {
+      font-size: 22px;
+      color: #000;
+      margin-right: 15px;
+    }
+    span {
+      color: #999;
+      font-size: 12px;
+      line-height: 45px;
+    }
   }
   .material {
     width: 1200px;
@@ -232,7 +235,7 @@ export default {
             overflow: hidden;
           }
         }
-        .content {
+        .content-list {
           flex: 1;
           margin-top: 5px;
           .top {
@@ -262,7 +265,7 @@ export default {
             display: flex;
             .name {
               font-size: 16px;
-              color: #4d6e90;
+              color: #4d6e8f;
             }
             .date {
               padding: 2px 0 0 15px;
@@ -310,10 +313,9 @@ export default {
 <style scoped>
 .content >>> .subject {
   color: #cb3737;
-  cursor: pointer;
 }
 .content >>> .person {
-  color: #4d6e90;
+  color: #cb3737;
   cursor: pointer;
 }
 </style>

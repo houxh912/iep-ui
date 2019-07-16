@@ -1,12 +1,12 @@
 <template>
   <div class="dialog-show" v-show="dialogShow">
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-    <span @click="handleAllDelete">删除</span>
+    <span @click="handleAllDelete">批量删除</span>
     <i class="icon-guanbi" @click="close"></i>
     <div style="margin: 15px 0;"></div>
     <el-scrollbar style="height:300px">
       <el-checkbox-group class="options" v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="option in cities" :label="option.id" :key="option.id">
+        <el-checkbox class="options-item" v-for="option in cities" :label="option.id" :key="option.id">
           <span>{{option.moduleName}}</span>
           <span>{{option.preferentialPrice}}</span>
           <i @click.stop="handleDelete(option.id)" class="icon-shanchu"></i>
@@ -121,8 +121,11 @@ export default {
     position: absolute;
     left: 94px;
     top: 30px;
-    color: #aaa;
+    color: #999;
     cursor: pointer;
+    &:hover {
+      color: #888;
+    }
   }
   & > i {
     position: absolute;
@@ -146,6 +149,11 @@ export default {
     width: 100%;
     margin-bottom: 15px;
     border-bottom: 1px solid #eee;
+    .options-item {
+      &:hover span {
+        color: #ba1b21;
+      }
+    }
     span {
       display: inline-block;
       vertical-align: -5px;

@@ -51,6 +51,37 @@
       <el-form-item label="备注：">
         <iep-input-area v-model="form.remarks"></iep-input-area>
       </el-form-item>
+      <div class="collection-box">
+        <el-collapse-transition>
+          <div v-show="isCollection" class="collection-wrapper">
+            <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
+              <el-table-column prop="type" label="支出类型">
+                <template slot-scope="scope">
+                  <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.type"></iep-dict-cascader>
+                </template>
+              </el-table-column>
+              <el-table-column label="发票类型">
+                <template slot-scope="scope">
+                  <el-input size="small" v-model="scope.row.bank"></el-input>
+                </template>
+              </el-table-column>
+              <el-table-column prop="amount" label="报销金额(元)">
+                <template slot-scope="scope">
+                  <iep-input-number size="small" v-model="scope.row.amount"></iep-input-number>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="100">
+                <template slot-scope="scope">
+                  <iep-button @click="handleDelete(scope.row, scope.$index)">删除</iep-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <iep-button type="primary" style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember">新增</iep-button>
+          </div>
+        </el-collapse-transition>
+        <div class="collection-real-wrapper"></div>
+        <iep-button :icon="isCollection ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" class="collection-btn" @click="isCollection = !isCollection">代收</iep-button>
+      </div>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm()">提交</iep-button>
@@ -62,14 +93,23 @@
 import { initForm, dictsMap, toDtoForm, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 import { mapGetters } from 'vuex'
+function initTableForm () {
+  return {
+    type: [],
+    bank: '',
+    amount: 0,
+  }
+}
 export default {
   mixins: [formMixins],
   data () {
     return {
       dictsMap,
       dialogShow: false,
+      isCollection: false,
       formRequestFn: () => { },
       methodName: '创建',
+      tableData: [],
       form: initForm(),
       rules,
     }
@@ -93,6 +133,12 @@ export default {
     },
   },
   methods: {
+    newMember () {
+      this.tableData.push(initTableForm())
+    },
+    handleDelete (row, i) {
+      this.tableData.splice(i, 1)
+    },
     handleContractChange (v, n, value) {
       if (v) {
         this.form.projectId = v.id
@@ -140,12 +186,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.el-tag {
-  margin-left: 10px;
-  margin-bottom: 10px;
+.collection-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.el-tag + .el-tag {
-  margin-left: 10px;
+.collection-btn {
+  margin: 0;
+  border-top: none;
+  margin-top: -1px;
+  border-radius: 0 0 5px 5px;
+}
+.collection-real-wrapper {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+}
+.collection-wrapper {
+  width: 100%;
 }
 </style>
 

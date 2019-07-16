@@ -144,7 +144,8 @@ export default {
       if (v) {
         this.form.projectId = v.id
         this.form.projectName = v.name
-        this.form.projectName = v.name
+        this.form.auditor.id = v.userId
+        this.form.auditor.name = v.realName
       }
     },
     handleProjectChange (v, n, value) {

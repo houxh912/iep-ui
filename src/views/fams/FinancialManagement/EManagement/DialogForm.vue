@@ -130,11 +130,13 @@ export default {
   },
   methods: {
     async confirmForm () {
-      const sumAmount = this.form.relations.reduce((accumulator, currentValue) => accumulator.amount + currentValue.amount)
-      // console.log(sumAmount, this.form.amount)
-      if (sumAmount > this.form.amount) {
-        this.$message('总代缴金额不得超过支出金额')
-        return
+      if (this.form.relations.length) {
+        const sumAmount = this.form.relations.reduce((accumulator, currentValue) => accumulator.amount + currentValue.amount)
+        // console.log(sumAmount, this.form.amount)
+        if (sumAmount > this.form.amount) {
+          this.$message('总代缴金额不得超过支出金额')
+          return
+        }
       }
       const valid = await this.mixinsForm()
       if (valid) {

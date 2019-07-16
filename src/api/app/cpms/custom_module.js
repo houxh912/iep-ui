@@ -25,9 +25,10 @@ export function deleteModuleById (id) {
     method: 'post',
   })
 }
-export function deleteBatchDelete () {
+export function deleteBatchDelete (obj) {
   return request({
     url: `${prefixUrl}/batch_delete`,
     method: 'post',
+    data: obj,
   })
 }

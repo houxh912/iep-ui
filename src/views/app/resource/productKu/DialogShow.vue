@@ -1,7 +1,7 @@
 <template>
   <div class="dialog-show" v-show="dialogShow">
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-    <!-- <span @click="handleAllDelete">删除</span> -->
+    <span @click="handleAllDelete">删除</span>
     <i class="icon-guanbi" @click="close"></i>
     <div style="margin: 15px 0;"></div>
     <el-scrollbar style="height:300px">
@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { getCusList, deleteModuleById } from '@/api/app/cpms/custom_module'
+import { getCusList, deleteModuleById, deleteBatchDelete } from '@/api/app/cpms/custom_module'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -36,10 +36,15 @@ export default {
       isIndeterminate: true,
       size: '',
       count: '',
+      arrId: [],
     }
   },
   created () {
     this.loadPage()
+  },
+  watch: {
+    arrId () {
+    },
   },
   methods: {
     close () {
@@ -66,6 +71,11 @@ export default {
     handleDelete (id) {
       this._handleGlobalDeleteById(id, deleteModuleById)
     },
+    handleAllDelete () {
+      deleteBatchDelete(this.arrId).then(() => {
+        this.loadPage()
+      })
+    },
     handeleCustom () {
       this.$router.push('/app/resource/product_ku/product_customization')
     },
@@ -74,11 +84,13 @@ export default {
       let checked = this.cities.map(function (item) { return item.id })
       this.checkedCities = this.checkAll ? checked : []
       this.isIndeterminate = false
+      this.arrId = this.checkedCities
     },
     handleCheckedCitiesChange (value) {
       let checkedCount = value.length
       this.checkAll = checkedCount === this.cities.length
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
+      this.arrId = value
     },
   },
 }

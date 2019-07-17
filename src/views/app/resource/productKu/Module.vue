@@ -55,7 +55,19 @@ export default {
       this.getModulePage()
     },
     handleModuleClick (moduleId) {
-      putModuleById(moduleId).then(() => {
+      putModuleById(moduleId).then((data) => {
+        const resData = data.data.data
+        if (resData) {
+          this.$message({
+            message: '操作成功',
+            type: 'success',
+          })
+        } else {
+          this.$message({
+            message: '请不要重复订购',
+            type: 'warming',
+          })
+        }
         this.$emit('click-add')
       })
     },

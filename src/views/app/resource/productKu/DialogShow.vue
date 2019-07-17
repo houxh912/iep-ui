@@ -63,6 +63,7 @@ export default {
           })
           this.count = result
         })
+        if (this.size == 0) this.count = 0
       })
     },
     handleDelete (id) {

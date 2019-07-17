@@ -9,11 +9,12 @@ const initForm = () => {
   return {
     id: '',
     title: '',
-    createTime: '',//发布时间
+    updateTime: '',//发布时间
     status: 1,//状态
     // infoDescribe: '',//信息描述
     tagKeyWords: [],
     content: '',
+    cover: '',
   }
   // {
   //   "content": "string",

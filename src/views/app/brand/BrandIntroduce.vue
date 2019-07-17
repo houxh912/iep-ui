@@ -134,6 +134,7 @@ export default {
     background-color: #f8f8f8;
     line-height: 35px;
     cursor: pointer;
+    transition: 0.5s;
     &:hover {
       background-color: #f0f0f0;
     }

@@ -101,6 +101,7 @@ export default {
       justify-content: flex-start;
       align-items: center;
       cursor: pointer;
+      transition: 0.5s;
       .img {
         float: left;
         width: 50px;
@@ -115,6 +116,7 @@ export default {
         margin-left: 15px;
         span {
           display: block;
+          transition: 0.5s;
         }
         .introduction {
           color: #999;

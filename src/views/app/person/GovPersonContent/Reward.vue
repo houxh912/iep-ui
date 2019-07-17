@@ -35,6 +35,7 @@ export default {
     cursor: pointer;
     position: relative;
     margin-left: 15px;
+    transition: 0.5s;
     .name {
       display: inline-block;
       width: 70%;

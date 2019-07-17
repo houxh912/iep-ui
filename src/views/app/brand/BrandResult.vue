@@ -51,13 +51,15 @@ export default {
       opacity: 0.7;
     }
     .num {
-      font-size: 22px;
+      font-size: 24px;
       margin-top: 5px;
       margin-bottom: 0;
       text-align: center;
     }
     .name {
-      margin-bottom: 7px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      line-height: 14px;
       text-align: center;
     }
   }

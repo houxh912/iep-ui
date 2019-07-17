@@ -50,6 +50,7 @@ export default {
     justify-content: flex-start;
     margin-bottom: 20px;
     overflow: hidden;
+    transition: 0.5s;
     .img-con {
       margin-right: 15px;
       min-width: 60px;

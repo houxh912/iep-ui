@@ -38,6 +38,7 @@ export default {
   .piece {
     cursor: pointer;
     position: relative;
+    transition: 0.5s;
     .name {
       display: inline-block;
       width: 200px;

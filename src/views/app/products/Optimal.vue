@@ -64,6 +64,7 @@ export default {
     margin-bottom: 10px;
     overflow: hidden;
     cursor: pointer;
+    transition: 0.5s;
     img {
       float: left;
       width: 50px;

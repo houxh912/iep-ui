@@ -64,6 +64,7 @@ export default {
     margin-bottom: 16px;
     overflow: hidden;
     cursor: pointer;
+    transition: 0.5s;
     .photo {
       width: 68px;
       height: 68px;

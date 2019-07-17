@@ -58,6 +58,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin-left: 15px;
+    transition: 0.5s;
     .name {
       display: inline-block;
       width: 200px;
@@ -97,6 +98,7 @@ export default {
     .con {
       width: 48%;
       cursor: pointer;
+      transition: 0.5s;
       &:hover {
         opacity: 0.7;
       }

@@ -41,6 +41,7 @@ export default {
     position: relative;
     margin-left: 15px;
     height: 30px;
+    transition: 0.5s;
     .name {
       display: inline-block;
       width: 100%;

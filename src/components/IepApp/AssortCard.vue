@@ -41,6 +41,7 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    transition: 0.5s;
     &:hover {
       color: #cb3737;
     }

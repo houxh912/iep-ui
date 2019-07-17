@@ -101,6 +101,9 @@ export default {
     &:nth-child(1) .num {
       color: #cb3737;
     }
+    &:hover {
+      opacity: 0.7;
+    }
   }
   .canRouter {
     cursor: pointer;

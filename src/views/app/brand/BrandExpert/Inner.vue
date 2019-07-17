@@ -46,10 +46,7 @@ export default {
     height: 60px;
     vertical-align: top;
     margin-right: 10px;
-    transition: 0.5s;
-    img {
-      transform: scale(1.1);
-    }
+    overflow: hidden;
   }
   .expert {
     display: inline-block;
@@ -61,5 +58,13 @@ export default {
     font-size: 14px;
     color: #aaa;
   }
+}
+</style>
+<style scoped>
+.piece >>> .el-image__inner {
+  transition: 0.5s;
+}
+.piece >>> .img:hover .el-image__inner {
+  transform: scale(1.1);
 }
 </style>

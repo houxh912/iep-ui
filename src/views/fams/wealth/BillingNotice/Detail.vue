@@ -3,7 +3,7 @@
     <basic-container>
       <iep-page-header title="开票通知详情" :back-option="backOption">
       </iep-page-header>
-      <el-form ref="form" class="form-detail" :model="form" label-width="150px" size="small">
+      <el-form ref="form" class="form-detail" :model="form" label-width="220px" size="small">
         <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" class="form-half">
           <iep-div-detail :value="form.buyerName"></iep-div-detail>

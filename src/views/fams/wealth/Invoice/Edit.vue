@@ -42,11 +42,11 @@
         </iep-form-item>
 
         <iep-form-item label-name="报销组织" prop="orgId" class="form-half">
-          <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择报销组织"></iep-select>
+          <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择报销组织"></iep-select>
         </iep-form-item>
 
-        <iep-form-item v-if="!companyOption.disabled" class="form-half" prop="companyId" label-name="报销抬头">
-          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="companyOption.prefixUrl" placeholder="请选择报销抬头"></iep-select>
+        <iep-form-item class="form-half" prop="companyId" label-name="报销抬头">
+          <iep-select v-model="form.companyId" filterable autocomplete="off" prefix-url="fams/company/all" placeholder="请选择报销抬头"></iep-select>
         </iep-form-item>
 
         <iep-form-item v-if="projectOption" class="form-half" prop="projectId" label-name="项目">

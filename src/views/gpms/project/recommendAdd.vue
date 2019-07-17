@@ -24,7 +24,7 @@
             <el-col :span="12" v-if="formData.projectTypeBefore == false">
               <el-form-item label="客户名称：" prop="relatedClient">
                 <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
-                <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list" v-on:close="clientClose($event)">
+                <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
                 </IepCrmsSelect>
               </el-form-item>
             </el-col>
@@ -455,6 +455,8 @@ export default {
   created () {
     this.tableData = []
     this.formData = initFormData(this.userInfo)
+    this.formData.relatedClient = this.$route.query.clientVal
+    this.formData.relatedClientList.id = this.$route.query.clientVal
     this.formData.relatedClientList.name = this.$route.query.clientName
     this.formData.projectTagList = this.$route.query.allTagList
     let obj = Object.assign({}, initBudgetForm(), this.formData.projectBudgetList)
@@ -647,11 +649,6 @@ export default {
     },
     cRecommendType (val) {
       this.recommendType = val
-    },
-    clientClose (val) {
-      console.log(val)
-      this.formData.relatedClient = val
-      this.formData.relatedClientList.name = val
     },
   },
   watch: {

@@ -16,7 +16,8 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="客户名称：" prop="projectName">
-              <el-input v-model="form.clientName" placeholder="请输入客户名称，内部项目可不填"></el-input>
+              <IepCrmsSelect v-model="form.clientVal" :option="[{id: form.relatedClientList.id, name: form.relatedClientList.name}]" prefixUrl="crm/customer/all/list" @change="changClient">
+              </IepCrmsSelect>
             </el-form-item>
           </el-col>
         </el-row>
@@ -45,7 +46,12 @@ export default {
       recommendTagList: [],
       form: {
         clientName: '',
+        clientVal: '',
         projectTagList: [],
+        relatedClientList: [{
+          id: '',
+          name: '',
+        }],
       },
       allTagList: [],
     }
@@ -84,6 +90,7 @@ export default {
           path: '/gpms_spa/project/recommend_add',
           query: {
             allTagList: this.allTagList,
+            clientVal: this.form.clientVal,
             clientName: this.form.clientName,
           },
         })
@@ -101,6 +108,10 @@ export default {
       else {
         this.recommendTagList[val].isClick = false
       }
+    },
+    changClient (newVal, name) {
+      this.form.clientVal = newVal
+      this.form.clientName = name
     },
   },
 }

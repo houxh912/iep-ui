@@ -12,18 +12,19 @@
             <el-row>
               <el-col :span="12" class="item">
                 <el-form-item label="项目名称：">
-                  {{this.formData.projectName}}
+                  {{formData.projectName}}
+                  <span v-if="formData.projectType==1" class="name-span">内部项目</span>
+                  <span v-else class="name-span">外部项目</span>
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="项目编号：">
-                  {{this.formData.serialNo}}
+                  {{formData.serialNo}}
                 </el-form-item>
               </el-col>
-              <el-col :span="12" class="item">
-                <el-form-item label="项目类型：">
-                  <span v-if="this.formData.projectType==1">内部项目</span>
-                  <span v-else>外部项目</span>
+              <el-col :span="12" class="item" v-show="formData.projectType==1">
+                <el-form-item label="委托组织：">
+                  {{formData.attendeeName}}
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
@@ -31,32 +32,63 @@
                   <el-tag type='info' v-for="(item, index) in formData.projectTagList" :key="index">{{item}}</el-tag>
                 </el-form-item>
               </el-col>
-              <el-col :span="12" class="item" v-show="this.formData.projectType==2">
+              <el-col :span="12" class="item" v-show="formData.projectType==2">
                 <el-form-item label="客户名称：">
-                  {{this.formData.relatedClient}}
+                  {{formData.relatedClient}}
+                </el-form-item>
+              </el-col>
+              <el-col :span="12" class="item">
+                <el-form-item label="项目阶段：">
+                  <span v-if="formData.projectStage==1">初步意向</span>
+                  <span v-else-if="formData.projectStage==2">方案提交</span>
+                  <span v-else-if="formData.projectStage==3">正在执行</span>
+                  <span v-else>项目完结</span>
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="项目等级：">
-                  <span v-if="this.formData.projectLevel==1">重要项目</span>
-                  <span v-else-if="this.formData.projectLevel==2">中级项目</span>
+                  <span v-if="formData.projectLevel==1">重要项目</span>
+                  <span v-else-if="formData.projectLevel==2">中级项目</span>
                   <span v-else>一般项目</span>
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
+                <el-form-item label="立项时间：">
+                  <span v-if="formData.approvalTime==''">--</span>
+                  <span v-else>{{formData.approvalTime|parseToDay}}</span>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12" class="item">
+                <el-form-item label="结束时间：">
+                  <span v-if="formData.endTime==''">--</span>
+                  <span v-else>{{formData.endTime|parseToDay}}</span>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12" class="item">
+                <el-form-item label="签订时间：">
+                  <span v-if="formData.estimatedSigntime==''">--</span>
+                  <span v-else>{{formData.estimatedSigntime|parseToDay}}</span>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12" class="item">
                 <el-form-item label="相关产品：">
-                  <span v-if="formData.relatedProduct==''">无</span>
-                  <span v-else>{{this.formData.relatedProduct}}</span>
+                  <span v-if="formData.productList.length==0">无</span>
+                  <span v-else v-for="(item, index) in formData.productList" :key="index" class="people">{{item.name}}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item" v-if="formData.contractList.length > 0">
                 <el-form-item label="合同金额：">
-                  {{this.formData.contractAmount}}
+                  {{formData.contractAmount}}
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item" v-else>
                 <el-form-item label="项目预算：">
-                  {{this.formData.projectBudget}}
+                  {{formData.projectBudget}}
+                </el-form-item>
+              </el-col>
+              <el-col :span="24" class="item">
+                <el-form-item label="项目说明：">
+                  {{formData.projectExplain}}
                 </el-form-item>
               </el-col>
             </el-row>
@@ -64,7 +96,7 @@
             <el-row>
               <el-col :span="12" class="item">
                 <el-form-item label="项目经理：">
-                  {{this.formData.projectManagerName}}
+                  {{formData.projectManagerName}}
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
@@ -89,7 +121,7 @@
               </el-col>
               <!-- <el-col :span="12" class="item">
                 <el-form-item label="外部合作伙伴：">
-                  {{this.formData.groupExternalCooperatePartnerName}}
+                  {{formData.groupExternalCooperatePartnerName}}
                 </el-form-item>
               </el-col> -->
               <el-col :span="12" class="item">
@@ -100,12 +132,12 @@
               </el-col>
               <!-- <el-col :span="12" class="item">
                 <el-form-item label="相关产品：">
-                  {{this.formData.relatedProductList}}
+                  {{formData.relatedProductList}}
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="项目核算：">
-                  {{this.formData.serialNo}}
+                  {{formData.serialNo}}
                 </el-form-item>
               </el-col> -->
             </el-row>
@@ -258,6 +290,17 @@ export default {
         this.formData = data.data
         this.projectStatus = this.formData.projectStatus
         this.content = this.formData.content
+        for (var i in data.data.reportList) {
+          data.data.reportList[i].type = '周报'
+        }
+        for (var j in data.data.summaryList) {
+          data.data.summaryList[j].type = '会议纪要'
+        }
+        for (var k in data.data.materialList) {
+          data.data.materialList[k].type = '材料'
+        }
+        this.formData.materialList = data.data.materialList.concat(data.data.reportList, data.data.summaryList)
+        console.log(this.formData.materialList)
       })
     },
     handleSubmit () {
@@ -304,6 +347,14 @@ export default {
     margin: 20px 0 30px;
     .el-tag {
       margin-right: 10px;
+    }
+    .name-span {
+      background-color: #ba1b21;
+      color: #fff;
+      padding: 2px 4px;
+      font-size: 12px;
+      border-radius: 4px;
+      margin-left: 5px;
     }
   }
   .item {

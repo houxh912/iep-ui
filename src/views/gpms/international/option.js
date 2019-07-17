@@ -21,8 +21,4 @@ export const columnsMap = [
     prop: 'contractAmount',
     label: '合同金额',
   },
-  {
-    prop: 'projectTime',
-    label: '立项时间',
-  },
 ]

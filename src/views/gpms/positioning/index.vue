@@ -10,7 +10,7 @@
         <el-row>
           <el-col :span="24">
             <div class="grid-content">
-              <p style="color:#666;">您的个人项目(参与度)指数为
+              <p style="color:#666;" v-if="myData.exponent>0">您的个人项目(参与度)指数为
                 <span style="font-size:24px;color:#ba1a22;">{{myData.exponent}}</span>
                 ！您是一个
                 <span style="color:#000;">{{myData.badge}}</span>
@@ -21,7 +21,8 @@
                 、
                 <span style="color:#000;">{{secondTag}}</span>
                 主题的项目。</p>
-              <p style="color:#666;">请继续努力，发挥自身价值，成为更优秀的国脉人!</p>
+              <p v-else style="font-size:24px;color:#ba1a22;">您还未参与任何项目</p>
+              <p style="color:#666;">请继续努力，发挥自身价值，成为更优秀的国脉人！</p>
             </div>
           </el-col>
         </el-row>
@@ -32,13 +33,13 @@
           <div style="float: right;">
             <el-tooltip placement="right">
               <div slot="content" class="Blackwindow">
-                参与项目总数（个）：{{myData.participateCount}}<br />
-                项目合同总金额（万元）: {{myData.contractCount}}<br />
-                担任项目经理次数（次）：{{myData.conscientiousCount}}<br />
-                担任项目成员次数（次）：{{myData.infoAsMemberCount}}<br />
-                分享项目材料总数（个）：<br />
+                参与项目总数（个）：{{myData.participateCount>0?myData.participateCount:0}}<br />
+                项目合同总金额（万元）: {{myData.contractCount>0?myData.contractCount:0}}<br />
+                担任项目经理次数（次）：{{myData.conscientiousCount>0?myData.conscientiousCount:0}}<br />
+                担任项目成员次数（次）：{{myData.infoAsMemberCount>0?myData.infoAsMemberCount:0}}<br />
+                <!-- 分享项目材料总数（个）：<br />
                 平均水平：国脉人的平均数据<br />
-                同期水平：与当前用户入司时间相近的国脉人的平均数据
+                同期水平：与当前用户入司时间相近的国脉人的平均数据 -->
               </div>
               <i class='iconfont icon-zhuyi'>分布说明</i>
             </el-tooltip>
@@ -51,10 +52,10 @@
           </div>
           <div class="piece">
             <h4>参与项目合同总金额（万元）</h4>
-            <el-tabs v-model="contractAmount">
+            <!-- <el-tabs v-model="contractAmount">
               <el-tab-pane label="我的" name="my"></el-tab-pane>
               <el-tab-pane label="总数" name="all"></el-tab-pane>
-            </el-tabs>
+            </el-tabs> -->
             <ve-ring :data="chartDataRing" :settings="chartSettingsRing" :colors="colorsRing" :title="title">
             </ve-ring>
           </div>
@@ -118,16 +119,16 @@
                   <div class="main-box">
                     <span>方案共享：</span>
                     <span class="progress">
-                      <el-progress :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="0" :show-text="false" color="#23d05c"></el-progress>
                     </span>
-                    <span>{{myData.guidanceCount}}</span>
+                    <span>0</span>
                   </div>
                   <div class="main-box">
                     <span>方案收藏：</span>
                     <span class="progress">
-                      <el-progress :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="0" :show-text="false" color="#23d05c"></el-progress>
                     </span>
-                    <span>{{myData.guidanceCount}}</span>
+                    <span>0</span>
                   </div>
                 </div>
               </div>
@@ -137,16 +138,16 @@
                   <div class="main-box">
                     <span>浏览：</span>
                     <span class="progress">
-                      <el-progress :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="0" :show-text="false" color="#23d05c"></el-progress>
                     </span>
-                    <span>{{myData.guidanceCount}}</span>
+                    <span>0</span>
                   </div>
                   <div class="main-box">
                     <span>下载：</span>
                     <span class="progress">
-                      <el-progress :text-inside="false" :stroke-width="10" :percentage="80" :show-text="false" color="#23d05c"></el-progress>
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="0" :show-text="false" color="#23d05c"></el-progress>
                     </span>
-                    <span>{{myData.guidanceCount}}</span>
+                    <span>0</span>
                   </div>
                 </div>
               </div>
@@ -310,6 +311,8 @@ export default {
               j--
             }
           }
+          // console.log(this.projectTagList[i])
+          // console.log(count)
           yuansu[i] = this.projectTagList[i] //将当前的元素存入到yuansu数组中  
           sum[i] = count //并且将有多少个当前这样的元素的个数存入sum数组中  
           count = 1 //再将count重新赋值，进入下一个元素的判断  
@@ -321,8 +324,18 @@ export default {
           newsum[item] = sum[item]
         }
         newsum.sort()
-        this.firtTag = yuansu[yuansu.length - 1]
-        this.secondTag = yuansu[yuansu.length - 2]
+        var maxItem = 0
+        var twoItem = 0
+        for (var item1 in sum) {
+          if (sum[item1] == newsum[newsum.length - 1]) {
+            maxItem = item1
+          }
+          if (sum[item1] == newsum[newsum.length - 2]) {
+            twoItem = item1
+          }
+        }
+        this.firtTag = yuansu[maxItem]
+        this.secondTag = yuansu[twoItem]
       })
     },
   },

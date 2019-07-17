@@ -19,7 +19,7 @@
       </el-table-column>
       <el-table-column label="立项时间" width="150px">
         <template slot-scope="scope">
-          <span>{{ scope.row.approvalTime || parseToDay }}</span>
+          <span>{{ scope.row.approvalTime | parseToDay }}</span>
         </template>
       </el-table-column>
       <el-table-column label="项目状态">

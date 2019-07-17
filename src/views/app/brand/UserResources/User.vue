@@ -53,7 +53,6 @@ export default {
     height: 30px;
     line-height: 30px;
     text-align: center;
-    margin-right: 20px;
     background-color: #fff;
     color: #bb1a20;
     border: 1px solid #bb1a20;

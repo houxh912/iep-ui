@@ -4,7 +4,7 @@
       <menus></menus>
     </el-col>
   <el-col :span="20">-->
-  <div>
+  <div class="column-management">
     <basic-container>
       <iep-page-header title="栏目管理" :replaceText="replaceText" :data="statistics" :backOption="backOption"></iep-page-header>
       <operation-container>
@@ -151,5 +151,9 @@ export default {
 <style scoped>
 .aside-main >>> .ant-menu-inline {
   border-right: none;
+}
+.column-management >>> .table .cell {
+  display: -moz-box;
+  display: -webkit-box;
 }
 </style> 

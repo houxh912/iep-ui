@@ -34,14 +34,6 @@ export const dictMap = {
 
 export const columnsMap = [
   {
-    prop: 'projectBudget',
-    label: '项目预算',
-  },
-  {
-    prop: 'contractAmount',
-    label: '合同金额',
-  },
-  {
     prop: 'projectStage',
     label: '项目阶段',
     type: 'dict',
@@ -119,6 +111,7 @@ export function initFormData (obj) {
   const id = obj ? obj.userId : ''
   return {
     status:'',//保存状态 1为草稿
+    projectStatus:'',//项目状态
     projectName: '', // 项目名称
     projectExplain: '',//项目说明
     projectTypeBefore: '', // 项目类型
@@ -133,7 +126,8 @@ export function initFormData (obj) {
       name: '',
     },
     projectBudget: '', // 项目预算
-    approvalTime:'',//立项时间及审批时间
+    approvalTime:'',//立项时间
+    applyTime:'',//审批时间
     endTime:'',
     projectManager:'',// 项目经理
     projectManagerList:{

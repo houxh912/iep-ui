@@ -106,11 +106,11 @@
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="立项时间:" prop="approvalTime">
+              <el-form-item label="立项时间:" prop="projectTime">
                 <span slot="label">
                   立项时间：
                 </span>
-                <iep-date-picker v-model="formData.approvalTime" type="date" placeholder="立项时间" disabled></iep-date-picker>
+                <iep-date-picker v-model="formData.projectTime" type="date" placeholder="立项时间"></iep-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="12">

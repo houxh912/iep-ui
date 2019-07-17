@@ -17,8 +17,21 @@
       <el-table-column label="项目名称" slot="before-columns" width="300px">
         <template slot-scope="scope">
           <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
+            <span class="grade" v-show="scope.row.projectLevel==1">重</span>
+            <span class="grade" v-show="scope.row.projectLevel==2">中</span>
+            <span class="grade" v-show="scope.row.projectLevel==3">一</span>
+            <span class="stage" v-show="scope.row.projectStage==1">初</span>
+            <span class="stage" v-show="scope.row.projectStage==2">方</span>
+            <span class="stage" v-show="scope.row.projectStage==3">正</span>
+            <span class="stage" v-show="scope.row.projectStage==4">项</span>
             <span>{{ scope.row.projectName }}</span>
           </div>
+        </template>
+      </el-table-column>
+      <el-table-column label="项目金额">
+        <template slot-scope="scope">
+          <span v-if="scope.row.contractAmount">{{ scope.row.contractAmount }}（合同）</span>
+          <span v-else>{{ scope.row.projectBudget }}（预算）</span>
         </template>
       </el-table-column>
       <el-table-column label="项目经理">
@@ -28,7 +41,8 @@
       </el-table-column>
       <el-table-column label="立项时间" width="150px">
         <template slot-scope="scope">
-          <span>{{ scope.row.approvalTime || parseToDay }}</span>
+          <span v-if="scope.row.projectStatus=='3'">{{ scope.row.approvalTime | parseToDay }}（审核）</span>
+          <span v-else>{{ scope.row.projectTime| parseToDay }}（预计）</span>
         </template>
       </el-table-column>
       <el-table-column label="项目状态">
@@ -44,6 +58,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleClaim(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">移入公海库</iep-button>
+            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='3'">编辑</iep-button>
             <iep-button @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'">撤回</iep-button>
             <el-dropdown size="medium" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">
               <iep-button type="default">
@@ -226,5 +241,22 @@ export default {
 }
 .el-button--small {
   padding: 8px 10px;
+}
+.grade,
+.stage {
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  height: 18px;
+  line-height: 18px;
+  margin-right: 4px;
+  margin-top: 10px;
+}
+.grade {
+  background-color: #b91b21;
+}
+.stage {
+  background-color: #b5b5b5;
+  margin-right: 10px;
 }
 </style>

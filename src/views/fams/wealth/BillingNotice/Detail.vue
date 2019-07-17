@@ -78,7 +78,7 @@
           <iep-form-item label-name="状态">
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>
-          <iep-form-item label-name="理由">
+          <iep-form-item label-name="备注">
             <iep-div-detail :value="form.content"></iep-div-detail>
           </iep-form-item>
         </template>

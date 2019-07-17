@@ -33,13 +33,6 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <iep-form-item label-name="预计年化收益率(%)" prop="returnRate" tip="预计年化收益率">
-              <iep-input-number v-model="form.returnRate"></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
             <iep-form-item label-name="开始日期" prop="startTime">
               <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>
             </iep-form-item>

@@ -78,4 +78,13 @@ export default {
 .empolyee >>> .el-carousel__container {
   height: 180px;
 }
+.empolyee >>> .el-image__inner {
+  width: 100%;
+  height: 142px;
+  transition: 0.5s;
+}
+.empolyee >>> .el-image__inner:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
 </style>

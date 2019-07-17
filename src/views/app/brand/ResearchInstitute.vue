@@ -29,19 +29,13 @@ export default {
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__header {
-  padding: 13px 0;
-}
 .index-card >>> .el-card__body {
-  padding: 16px 0 2px;
+  padding: 15px 0;
 }
 .el-card {
   padding: 0 20px;
 }
-.research >>> .el-card__header {
-  padding: 18px 0 9px;
-}
 .research >>> .el-card {
-  height: 320px;
+  height: 322px;
 }
 </style>

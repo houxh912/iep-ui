@@ -46,9 +46,13 @@ export default {
     display: inline-block;
     width: 50%;
     border-bottom: 1px solid #eee;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
     .num {
       font-size: 22px;
-      margin-top: 7px;
+      margin-top: 5px;
       margin-bottom: 0;
       text-align: center;
     }
@@ -70,7 +74,7 @@ export default {
 </style>
 <style scoped>
 .grid-content >>> .el-card {
-  height: 320px;
+  height: 322px;
 }
 </style>
 

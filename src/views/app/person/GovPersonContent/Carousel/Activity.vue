@@ -68,4 +68,13 @@ export default {
 .activity >>> .el-carousel__container {
   height: 180px;
 }
+.activity >>> .el-image__inner {
+  width: 100%;
+  height: 142px;
+  transition: 0.5s;
+}
+.activity >>> .el-image__inner:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
 </style>

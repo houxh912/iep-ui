@@ -1,8 +1,10 @@
 <template>
   <div>
     <div v-for="(item,index) in leaderBoardList" :key="index" class="piece">
-      <span class="name">{{item.name}}</span>
-      <span class="datas">{{item.datas}}</span>
+      <span>
+        <span class="name">{{item.name}}</span>
+        <span class="datas">{{item.datas}}</span>
+      </span>
       <span class="fr" :class="item.color">{{item.status}}</span>
     </div>
   </div>
@@ -10,7 +12,7 @@
 
 <script>
 export default {
-  name:'Media',
+  name: 'Media',
   data () {
     return {
       leaderBoardList: [
@@ -31,17 +33,25 @@ export default {
 .piece {
   margin-bottom: 8px;
   height: 30px;
+  line-height: 30px;
   cursor: pointer;
+  &:last-child {
+    margin-bottom: 0;
+  }
   .name {
     display: inline-block;
     width: 30%;
+    height: 30px;
+    line-height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    vertical-align: middle;
   }
   .fr {
     float: right;
     padding: 0 8px;
+    height: 30px;
     line-height: 30px;
     text-align: center;
     margin-right: 20px;
@@ -51,7 +61,7 @@ export default {
     border-radius: 3px;
     font-size: 14px;
   }
-  .fr:hover{
+  .fr:hover {
     background: #cb3737;
     border-color: #ba1b21;
     color: #fff;
@@ -60,8 +70,12 @@ export default {
     background-color: #fff;
   }
   .datas {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
     font-size: 14px;
     color: #aaa;
+    vertical-align: middle;
   }
   &:hover {
     color: #cb3737;

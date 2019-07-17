@@ -50,6 +50,7 @@ export default {
 }
 .aboutGov p {
   padding-top: 15px;
+  height: 160px;
   font-size: 14px;
   color: #333;
   display: -webkit-box;
@@ -88,7 +89,7 @@ export default {
   padding: 18px 0 18px;
 }
 .grid-content >>> .el-card__body {
-  padding: 0;
+  padding: 0 0 15px;
 }
 .grid-content >>> .el-card {
   padding: 0 15px;

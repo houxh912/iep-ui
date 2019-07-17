@@ -46,6 +46,10 @@ export default {
     height: 60px;
     vertical-align: top;
     margin-right: 10px;
+    transition: 0.5s;
+    img {
+      transform: scale(1.1);
+    }
   }
   .expert {
     display: inline-block;

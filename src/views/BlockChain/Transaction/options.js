@@ -10,6 +10,7 @@ const columnsMap = [
     prop: 'hash',
     label: '哈希值',
     minWidth: '200',
+    type: 'detail',
   },
   {
     prop: 'sender',

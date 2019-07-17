@@ -7,7 +7,7 @@
       </el-table-column>
       <!-- 为了实行点击查看的规定 -->
       <slot name="before-columns"></slot>
-      <el-table-column :label="item.label" :width="item.width" :min-width="item.minWidth" v-for="(item, idx) in columnsMap" :key="idx" :align="align">
+      <el-table-column :label="item.label" :width="item.width" :min-width="item.minWidth" v-for="(item, idx) in columnsMap" :key="idx" :align="align" :prop="item.prop">
         <template slot-scope="scope">
           <template v-if="isTree && idx === 0">
             <span v-for="space in scope.row._level" class="ms-tree-space" :key="space"></span>

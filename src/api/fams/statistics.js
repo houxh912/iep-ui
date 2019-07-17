@@ -198,3 +198,15 @@ export const getOrgAssetsById = (id) => {
     method: 'get',
   })
 }
+
+// 组织资产统计排名
+export const getOrgProfits = (orgId, year) => {
+  return request({
+    url: `${prefixUrl}/org/profits/losses`,
+    method: 'get',
+    params: {
+      orgId,
+      year,
+    },
+  })
+}

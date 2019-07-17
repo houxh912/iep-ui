@@ -17,7 +17,7 @@ const columnsMap = [
 
 const initForm = () => {
 	return {
-		amount: 0,
+		amount: 1,
 	}
 }
 

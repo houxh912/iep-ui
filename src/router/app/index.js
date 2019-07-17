@@ -259,6 +259,11 @@ export default [
         component: () => import('@/views/app/moreThoughts/'),
       },
       {
+        path: 'more_thought',
+        name: '新版说说',
+        component: () => import('@/views/app/moreThought/'),
+      },
+      {
         path: 'version_page',
         name: '版本记录',
         component: () => import('@/views/app/versionPage/'),

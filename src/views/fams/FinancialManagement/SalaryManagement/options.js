@@ -82,6 +82,7 @@ const payRollForm = () => {
     titleSubsidy: '',//职称补贴
     manageAllowance: '',//管理津贴
     urbanSubsidy: '',//城市补贴
+    serviceAllowance: '',//工龄补贴
     basicPaySubtotal: '',//基本工资小计
 
     thanksgivingFund: '',//浮动工资-感恩基金

@@ -9,53 +9,53 @@
 import Vue from 'vue'
 import {
   LocaleProvider,
-  Layout,
+  // Layout,
   Input,
   InputNumber,
   Button,
   Switch,
-  Radio,
-  Checkbox,
+  // Radio,
+  // Checkbox,
   Select,
   Card,
   Form,
   Row,
   Col,
   Modal,
-  Table,
-  Tabs,
+  // Table,
+  // Tabs,
   Icon,
-  Badge,
+  // Badge,
   Popover,
   Dropdown,
   List,
   Avatar,
-  Breadcrumb,
+  // Breadcrumb,
   Steps,
   Spin,
   Menu,
   Drawer,
   Tooltip,
-  Alert,
+  // Alert,
   Tag,
   Divider,
-  DatePicker,
-  TimePicker,
+  // DatePicker,
+  // TimePicker,
   Timeline,
-  Upload,
-  Progress,
+  // Upload,
+  // Progress,
   Skeleton,
   Popconfirm,
-  message,
-  notification,
-  AutoComplete,
+  // message,
+  // notification,
+  // AutoComplete,
 } from 'ant-design-vue'
 // import VueCropper from 'vue-cropper'
 
 Vue.use(LocaleProvider)
 // Vue.use(Layout)
 Vue.use(Input)
-Vue.use(AutoComplete)
+// Vue.use(AutoComplete)
 Vue.use(InputNumber)
 Vue.use(Button)
 Vue.use(Switch)
@@ -70,7 +70,7 @@ Vue.use(Modal)
 // Vue.use(Table)
 // Vue.use(Tabs)
 Vue.use(Icon)
-Vue.use(Badge)
+// Vue.use(Badge)
 Vue.use(Popover)
 Vue.use(Dropdown)
 Vue.use(List)
@@ -81,7 +81,7 @@ Vue.use(Spin)
 Vue.use(Menu)
 Vue.use(Drawer)
 Vue.use(Tooltip)
-Vue.use(Alert)
+// Vue.use(Alert)
 Vue.use(Tag)
 Vue.use(Divider)
 // Vue.use(DatePicker)

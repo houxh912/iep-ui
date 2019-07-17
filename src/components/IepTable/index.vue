@@ -33,6 +33,9 @@
           <template v-else-if="item.type==='tag'">
             <iep-tag-detail :value="scope.row[item.prop]" :iep-type="item.iepType"></iep-tag-detail>
           </template>
+          <template v-else-if="item.type==='detail'">
+            <detail :row="scope.row" :item="item"></detail>
+          </template>
           <template v-else>
             <iep-div-detail :value="scope.row[item.prop]" :nullmsg="item.nullmsg"></iep-div-detail>
           </template>
@@ -50,9 +53,11 @@ import { parseDate } from '@/filters/index'
 import treeToArray from './eval'
 import keyBy from 'lodash/keyBy'
 import { mapGetters } from 'vuex'
+import Detail from './Detail'
 export default {
   name: 'IepTable',
   inheritAttrs: false,
+  components: { Detail },
   props: {
     isLoadTable: {
       type: Boolean,

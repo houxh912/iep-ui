@@ -8,8 +8,7 @@
           <iep-button @click="handleFundRank">捐助排名</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
-          </operation-search>
+          <operation-search @search-page="searchPage" prop="userName"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
@@ -38,7 +37,6 @@ export default {
   },
   created () {
     this.loadPage()
-    this.loadMy()
   },
   methods: {
     loadMy () {
@@ -61,6 +59,7 @@ export default {
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getFundPage)
+      this.loadMy()
     },
   },
 }

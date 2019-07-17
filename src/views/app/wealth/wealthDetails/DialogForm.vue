@@ -53,7 +53,6 @@ export default {
       openWindow(url, name, 1400, 900)
     },
     loadPage () {
-      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },

@@ -43,6 +43,7 @@
                     <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
                     <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
                     <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
+                    <div class="button" @click="handleForward(item)"><i class="icon-zhuanfa1"></i> 转发</div>
                   </div>
                 </div>
               </div>
@@ -57,6 +58,8 @@
     </div>
     <!-- 发表说说 -->
     <publish-dialog ref="publish" @load-page="searchPage"></publish-dialog>
+    <!-- 转发 -->
+    <forwardDialog ref="forward"></forwardDialog>
   </iep-app-layout>
 </template>
 
@@ -67,6 +70,7 @@ import commentTpl from './commentTpl'
 import { mapActions } from 'vuex'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 import contentTpl from './content'
+import forwardDialog from './forwardDialog'
 
 const initParams = () => {
   return {
@@ -83,7 +87,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { headTpl, commentTpl, PublishDialog, contentTpl },
+  components: { headTpl, commentTpl, PublishDialog, contentTpl, forwardDialog },
   data () {
     return {
       isShow: true,
@@ -163,6 +167,10 @@ export default {
     ...mapActions(['famsReward']),
     handleReward (row) {
       this.famsReward({ id: row.userId, name: row.userName })
+    },
+    // 转发
+    handleForward (row) {
+      this.$refs['forward'].open(row)
     },
     // 获取编号
     getNumber (index) {

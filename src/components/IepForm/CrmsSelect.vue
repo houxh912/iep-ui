@@ -71,7 +71,13 @@ export default {
   watch: {
     selectValue (newVal) {
       this.$emit('input', newVal)
-      this.$emit('change', newVal)
+      let name = ''
+      for (let item of this.options) {
+        if (item.clientId === newVal) {
+          name = item.clientName
+        }
+      }
+      this.$emit('change', newVal, name)
     },
     option (newVal) {
       if (newVal[0].name != undefined) {

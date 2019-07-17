@@ -1,5 +1,10 @@
 <template>
-  <div vlass="content" v-html="transfHtml(data)"></div>
+  <div class="content-tpl">
+    <div class="content" v-html="transfHtml(data.content)"></div>
+    <div class="image-list">
+      <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img"></iep-img>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,8 +12,8 @@
 export default {
   props: {
     data: {
-      type: String,
-      default: '',
+      type: Object,
+      default: () => {},
     },
   },
   methods: {
@@ -87,3 +92,19 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.content-tpl {
+  .content {
+    margin-bottom: 20px;
+  }
+  .image-list {
+    display: flex;
+    justify-content: space-between;
+    .img {
+      width: 30%;
+      height: 175px;
+    }
+  }
+}
+</style>

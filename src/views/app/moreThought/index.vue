@@ -1,6 +1,6 @@
 <template>
   <iep-app-layout>
-    <headTpl class="head"></headTpl>
+    <headTpl class="head" @load-page="loadPage"></headTpl>
     <div class="content">
       <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
       <div class="list">
@@ -24,7 +24,7 @@
                   <!-- 说说的内容 -->
                   <!-- <div class="item">{{item.content}}</div> -->
                   <!-- <div class="item" v-html="transfHtml(item.content)"></div> -->
-                  <contentTpl :data="item.content"></contentTpl>
+                  <contentTpl :data="item"></contentTpl>
                   <!-- 说说评论 -->
                   <div class="comment" v-if="activeIndex == index">
                     <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>

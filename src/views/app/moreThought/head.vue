@@ -1,12 +1,17 @@
 <template>
   <div class="head">
     <div class="title">早晚五分钟，为<span class="akey">智慧</span>加油</div>
-    <div class="input">
-      <el-input type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea"></el-input>
-      <div class="img-list" v-show="formData.image.length > 0">
-        <iep-img v-for="(item, index) in formData.image" :key="index" :src="item" class="avatar"></iep-img>
+    <el-form :model="formData" :rules="rules" ref="form" label-width="0px" class="input">
+      <el-form-item prop="content">
+        <el-input type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea" maxlength="1000"></el-input>
+      </el-form-item>
+      <div class="img-list" v-if="formData.images.length > 0">
+        <div v-for="(item, index) in formData.images" :key="index" class="avatar">
+          <div class="close" @click="handleDeleteImage(index)"><i class="el-icon-close"></i></div>
+          <iep-img :src="item"></iep-img>
+        </div>
         <el-upload
-          v-show="formData.image.length < 3"
+          v-if="formData.images.length < 3"
           class="avatar-uploader"
           action="/api/admin/file/upload/avatar"
           :show-file-list="false"
@@ -18,7 +23,18 @@
         </el-upload>
       </div>
       <div class="button-list">
-        <div class="func" @click="handleImage">
+        <div class="func" @click="handleImage" v-if="formData.images.length === 0">
+          <el-upload
+            action="/api/admin/file/upload/avatar"
+            :show-file-list="false"
+            :headers="headers"
+            :on-success="handleAvatarSuccess"
+            accept="image/*"
+            ref="upload">
+            <div class="func"><i class="icon-tupian"></i><p>图片</p></div>
+          </el-upload>
+        </div>
+        <div class="func" v-else>
           <i class="icon-tupian"></i><p>图片</p>
         </div>
         <div class="func">
@@ -38,28 +54,37 @@
             :inactive-value="1">
           </el-switch>
         </div>
-        <iep-button type="primary" class="submit">保存</iep-button>
+        <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">保存</iep-button>
       </div>
-    </div>
+    </el-form>
   </div>
 </template>
 
 <script>
+import { thoughtsCreate } from '@/api/cpms/thoughts'
+import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
+
 import store from '@/store'
 
 const initForm = () => {
   return {
     content: '',
     status: 0,
-    image: [],
+    images: [],
   }
+}
+
+const rules = {
+  content: { required: true, message: '必填', trigger: 'change' },
 }
 
 export default {
   data () {
     return {
       formData: initForm(),
+      rules,
       limit: 3,
+      loadState: false,
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
       },
@@ -67,11 +92,37 @@ export default {
   },
   methods: {
     handleAvatarSuccess (row) {
-      this.formData.image.push(row.data.url)
+      this.formData.images.push(row.data.url)
     },
     // 上传图片
     handleImage () {
       this.$refs['upload'].submit()
+    },
+    resetForm () {
+      this.formData = initForm()
+      this.$nextTick(() => {
+        this.$refs['form'].clearValidate()
+      })
+    },
+    handleDeleteImage (index) {
+      this.formData.images.splice(index, 1)
+    },
+    handleSubmit (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.loadState = true
+          thoughtsCreate(this.formData).then(() => {
+            this.resetForm()
+            addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+              this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
+              this.loadState = false
+              this.$emit('load-page')
+            })
+          })
+        } else {
+          return false
+        }
+      })
     },
   },
 }
@@ -116,6 +167,25 @@ export default {
         width: 178px;
         height: 178px;
         display: block;
+        position: relative;
+        margin-right: 20px;
+        .close {
+          position: absolute;
+          right: 0px;
+          top: 0px;
+          width: 20px;
+          height: 20px;
+          font-size: 20px !important;
+          background-color: #f9eae7;
+          color: #fff;
+          border-radius: 50%;
+          line-height: 18px;
+          cursor: pointer;
+          &:hover {
+            color: #fff;
+            background-color: #e27474;
+          }
+        }
       }
     }
     .textarea {

@@ -55,7 +55,7 @@ export default {
             },
             {
               post: '客户名称',
-              name: 'groupExternalCooperatePartnerName',
+              name: 'relatedClientName',
             },
             {
               post: '项目预算',

@@ -60,7 +60,8 @@ export default {
       getDataDetail(id).then(({data}) => {
         let obj = data.data
         obj.publisherName = obj.publisherList ? obj.publisherList.name : ''
-        obj.groupExternalCooperatePartnerName = obj.groupExternalCooperatePartnerList ? obj.groupExternalCooperatePartnerList.name : ''
+        obj.relatedClientName = obj.relatedClientList ? obj.relatedClientList.name : ''
+        console.log('projectData: ', obj)
         this.projectData = obj
       })
     },

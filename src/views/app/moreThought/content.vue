@@ -1,7 +1,7 @@
 <template>
   <div class="content-tpl">
     <div class="content" v-html="transfHtml(data.content)"></div>
-    <div class="image-list">
+    <div class="image-list" v-if="data.images.length > 0">
       <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img"></iep-img>
     </div>
   </div>
@@ -95,10 +95,8 @@ export default {
 
 <style lang="scss" scoped>
 .content-tpl {
-  .content {
-    margin-bottom: 20px;
-  }
   .image-list {
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     .img {

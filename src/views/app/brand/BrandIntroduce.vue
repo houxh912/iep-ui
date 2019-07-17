@@ -5,7 +5,7 @@
         <span v-text="introduce"></span>
         <el-button class="red" type="text">【详细】</el-button>
         <div class="person">
-          <el-carousel height="64px" :interval="5000" arrow="always">
+          <el-carousel height="84px" :interval="5000" arrow="always">
             <el-carousel-item v-for="item in 4" :key="item">
               <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
                 <div class="img">
@@ -50,8 +50,8 @@ export default {
     line-height: 25px;
   }
   .person {
-    padding-top: 35px;
-    margin-bottom: 20px;
+    padding-top: 18px;
+    margin-bottom: 17px;
     overflow: hidden;
     .dn {
       opacity: 0;
@@ -72,13 +72,13 @@ export default {
       color: #fff;
     }
     .name {
-      line-height: 24px;
+      display: block;
+      margin-top: 10px;
     }
     .piece {
       float: left;
       margin: 0 9px;
       width: 54px;
-      height: 54px;
       text-align: center;
       overflow: hidden;
       .img {

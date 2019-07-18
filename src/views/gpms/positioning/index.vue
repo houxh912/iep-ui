@@ -60,7 +60,7 @@
             </ve-ring>
           </div>
           <div class="piece">
-            <h4>担任项目经理或负责项目次数（次）</h4>
+            <h4>担任项目经理次数（次）</h4>
             <project-manager ref="projectManager" :myData="myData"></project-manager>
           </div>
           <div class="piece">
@@ -245,7 +245,7 @@ export default {
       },
       contractAmount: 'my',
       title: {
-        text: '总数',
+        text: '总金额',
         subtext: 0,
         textStyle: {
           color: '#dcdcdc',

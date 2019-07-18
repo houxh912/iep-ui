@@ -20,10 +20,10 @@
             <span class="grade" v-show="scope.row.projectLevel==1">重要</span>
             <span class="grade" v-show="scope.row.projectLevel==2">中级</span>
             <span class="grade" v-show="scope.row.projectLevel==3">一般</span>
-            <span class="stage" v-show="scope.row.projectStage==1">初</span>
-            <span class="stage" v-show="scope.row.projectStage==2">方</span>
-            <span class="stage" v-show="scope.row.projectStage==3">正</span>
-            <span class="stage" v-show="scope.row.projectStage==4">项</span>
+            <span class="stage" v-show="scope.row.projectStage==1">初步</span>
+            <span class="stage" v-show="scope.row.projectStage==2">方案</span>
+            <span class="stage" v-show="scope.row.projectStage==3">执行</span>
+            <span class="stage" v-show="scope.row.projectStage==4">完结</span>
             <span>{{ scope.row.projectName }}</span>
           </div>
         </template>
@@ -54,10 +54,11 @@
           <span v-if="scope.row.projectStatus==5">锁定</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180px">
+      <el-table-column label="操作" width="250px">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleClaim(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">移入公海库</iep-button>
+            <iep-button @click="handleAccounting(scope.row.id)" v-if="scope.row.projectStatus=='3'">项目核算</iep-button>
             <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='3'">编辑</iep-button>
             <iep-button @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'">撤回</iep-button>
             <el-dropdown size="medium" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">
@@ -199,6 +200,9 @@ export default {
           this.loadPage()
         })
       })
+    },
+    handleAccounting (val) {
+      this.$router.push(`/fams_spa/project_accounting/${val}`)
     },
   },
   mounted () {

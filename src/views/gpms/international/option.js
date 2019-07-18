@@ -14,10 +14,6 @@ export const dictMap = {
 
 export const columnsMap = [
   {
-    prop: 'projectBudget',
-    label: '项目预算',
-  },
-  {
     prop: 'contractAmount',
     label: '合同金额',
   },

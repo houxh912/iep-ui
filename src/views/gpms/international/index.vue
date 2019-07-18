@@ -17,6 +17,12 @@
           </div>
         </template>
       </el-table-column>
+      <el-table-column label="项目金额" slot="before-columns">
+        <template slot-scope="scope">
+          <span v-if="scope.row.contractAmount">{{ scope.row.contractAmount }}（合同）</span>
+          <span v-else>{{ scope.row.projectBudget }}（预算）</span>
+        </template>
+      </el-table-column>
       <el-table-column label="立项时间" width="150px">
         <template slot-scope="scope">
           <span>{{ scope.row.approvalTime | parseToDay }}</span>

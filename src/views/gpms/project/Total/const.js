@@ -33,11 +33,6 @@ export const dictMap = {
 }
 
 export const columnsMap = [
-  {
-    prop: 'projectStage',
-    label: '项目阶段',
-    type: 'dict',
-  },
   // {
   //   prop: 'projectTime',
   //   label: '立项时间',

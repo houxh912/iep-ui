@@ -311,7 +311,7 @@
           <h4 class="recommend-title">同类项目推荐</h4>
           <div class="recommend-container" v-for="r in recommendProjectList" :key="r.id">
             <span class="name">{{r.projectName}}</span>
-            <iep-button class="recommend-container-btn" type="danger" plain @click="referenceName(r.projectName)" size="mini">参考名称</iep-button>
+            <iep-button class="recommend-container-btn" type="danger" plain @click="referenceName(r)" size="mini">参考项目</iep-button>
             <span style="display:flex;">
               <div class="grade" v-show="r.projectLevel==1">重</div>
               <div class="grade" v-show="r.projectLevel==2">中</div>
@@ -634,7 +634,11 @@ export default {
       this.$openTagDetail(val)
     },
     referenceName (val) {
-      this.formData.projectName = val
+      this.formData.projectName = val.projectName
+      this.formData.projectMentorList = val.projectMentorList
+      this.formData.mktManagerList = val.mktManagerList
+      this.formData.projectHandlesList = val.projectHandlesList
+      this.formData.membersList = val.membersList
     },
     referenceHandles (val, id) {
       const projectHandles = this.formData.projectHandlesList.map(m => {

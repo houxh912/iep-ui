@@ -46,7 +46,7 @@ export default {
     hanldeChange () {
       this.loadPage()
     },
-    loadPage (param = this.searchParam) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, type: this.type }, getExpenditurePage)
     },
   },

@@ -65,7 +65,7 @@ export default {
     this.loadPage()
   },
   methods: {
-    async loadPage (param = this.searchParam) {
+    async loadPage (param = this.searchForm) {
       const pageFunction = this.id ? getOrgPaymentPlanPageByOrgId(this.id) : getOrgPaymentPlanPage
       const data = await this.loadTable(param, pageFunction)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)

@@ -56,7 +56,7 @@ export default {
     this.loadPage()
   },
   methods: {
-    async loadPage (param = this.searchParam) {
+    async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, getPaymentPlanPage)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { getNewsList } from '@/api/app/mlms/index'
+import { getIndexPage } from '@/api/conm/article_controller'
 
 export default {
   data () {
@@ -19,12 +19,18 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+      this.$router.push(`/app/news/news_detail/${row.id}`)
     },
   },
   created () {
-    getNewsList().then(({ data }) => {
-      this.dataList = data.data.map(m => { return { id: m.id, desc: m.name, assort: `【${m.secondClassName}】` } })
+    let params = {
+      nodeId: 22,
+      siteId: 17,
+      current: 1,
+      size: 6,
+    }
+    getIndexPage(params).then(({data}) => {
+      this.dataList = data.data.records.map(m => { return { id: m.id, desc: m.title, assort: `【${m.nodeName}】` } })
     })
   },
 }

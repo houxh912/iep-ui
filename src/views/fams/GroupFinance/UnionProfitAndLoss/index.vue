@@ -1,49 +1,34 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="集团盈亏" :replaceText="replaceText" :data="statistics">
-      </iep-page-header>
-      <operation-container>
-        <template slot="right">
-          <iep-date-picker size="small" v-model="yearDate" align="right" type="year" placeholder="选择年" @change="loadPage()"></iep-date-picker>
+      <iep-page-header title="集团盈亏"></iep-page-header>
+      <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <template v-if="activeTab ==='Year'" v-slot:Year>
+          <year v-loading="activeTab !=='Year'"></year>
         </template>
-      </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary>
-      </iep-table>
+        <template v-if="activeTab ==='Month'" v-slot:Month>
+          <month v-loading="activeTab !=='Month'"></month>
+        </template>
+      </iep-tabs>
     </basic-container>
   </div>
 </template>
 <script>
-import { getOrgProfits } from '@/api/fams/statistics'
-import { getYear } from '@/util/date'
-import mixins from '@/mixins/mixins'
-import { columnsMap } from './options.js'
+import Month from './Month/'
+import Year from './Year/'
 export default {
-  mixins: [mixins],
+  components: { Month, Year },
   data () {
     return {
-      columnsMap,
-      yearDate: new Date(),
-      statistics: [0, 0],
-      replaceText: (data) => `（${data[0]}年度集团盈亏）`,
+      tabList: [{
+        label: '年度',
+        value: 'Year',
+      }, {
+        label: '月度',
+        value: 'Month',
+      }],
+      activeTab: 'Year',
     }
-  },
-  computed: {
-    year () {
-      return getYear(this.yearDate)
-    },
-  },
-  created () {
-    this.statistics = [this.year]
-    this.loadPage()
-  },
-  methods: {
-    async loadPage () {
-      this.isLoadTable = true
-      const { data } = await getOrgProfits(null, this.year)
-      this.pagedTable = data.data
-      this.isLoadTable = false
-    },
   },
 }
 </script>

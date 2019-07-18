@@ -210,6 +210,17 @@ export const getOrgProfits = (orgId, year) => {
     },
   })
 }
+// 集团资产统计排名
+export const getUnionProfits = (year, month) => {
+  return request({
+    url: `${prefixUrl}/group/profits/losses`,
+    method: 'get',
+    params: {
+      month,
+      year,
+    },
+  })
+}
 
 // 集团货币基金
 export const getCompanyCurrencyFund = (yearMonth) => {

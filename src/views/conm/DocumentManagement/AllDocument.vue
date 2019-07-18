@@ -78,7 +78,7 @@ export default {
       id: '',
       siteId: '',
       nodeName: '',
-      defaultValue: new Date(),
+      defaultValue: new Date(new Date().toLocaleDateString()).getTime(),
     }
   },
   created () {
@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['DialogForm'].form.updateTime = this.defaultValue
+      this.$refs['DialogForm'].form.updateTime = this.$refs['DialogForm'].creatTimeDefault()
       this.$refs['DialogForm'].nodeId = this.id
       this.$refs['DialogForm'].formRequestFn = addObj
       this.$refs['DialogForm'].dialogShow = true

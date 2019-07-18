@@ -25,7 +25,7 @@
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="proposeContent" label-name="建议内容">
-          <iep-froala-editor v-model="form.proposeContent"></iep-froala-editor>
+          <iep-input-area v-model="form.proposeContent"></iep-input-area>
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="annexList" label-name="附件">

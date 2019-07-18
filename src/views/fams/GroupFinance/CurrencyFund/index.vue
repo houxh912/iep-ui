@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="集团货币基金明细"></iep-page-header>
+      <iep-page-header title="货币资金明细"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Company'" v-slot:Company>
           <company v-loading="activeTab !=='Company'"></company>

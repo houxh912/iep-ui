@@ -8,7 +8,7 @@
         <iep-tag v-model="form.tagKeyWords"></iep-tag>
       </el-form-item>
       <el-form-item label="发布时间：" prop="updateTime" v-show="methodName==='新增'">
-        <iep-date-picker v-model="form.updateTime" type="datetime" :default-value="defaultValue" placeholder="请选择发布时间"></iep-date-picker>
+        <iep-date-picker v-model="form.updateTime" type="datetime" placeholder="请选择发布时间"></iep-date-picker>
       </el-form-item>
       <el-form-item label="状态：" prop="status">
         <el-radio-group v-model="form.status">
@@ -46,7 +46,6 @@ export default {
   mixins: [formMixins],
   data () {
     return {
-      defaultValue: new Date(),
       dictsMap,
       dialogShow: false,
       formRequestFn: () => { },
@@ -62,13 +61,24 @@ export default {
   },
   // },
   created () {
-    this.form.updateTime = this.defaultValue
+    this.form.updateTime = this.creatTimeDefault()
   },
   methods: {
     loadPage () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
+    },
+    creatTimeDefault () {
+      let date = new Date()
+      let y = date.getFullYear()
+      let m = ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)
+      let d = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate())
+      let h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours())
+      let mi = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes())
+      let s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds())
+      return y + '-' + m + '-' + d + ' ' + h + ':' + mi + ':' + s
+
     },
     loadTypeList () {
       getPageById(this.id).then(({ data }) => {

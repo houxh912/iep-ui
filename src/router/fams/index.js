@@ -138,13 +138,18 @@ export default [
       },
       {
         path: 'union_payment_plan',
-        name: '联盟回款计划',
+        name: '集团回款计划',
         component: () => import('@/views/fams/GroupFinance/PaymentPlan/index.vue'),
       },
       {
         path: 'business_indicator',
         name: '本组织业务指标',
         component: () => import('@/views/fams/OrgAssets/BusinessIndicator/index.vue'),
+      },
+      {
+        path: 'union_month_lf',
+        name: '集团月份盈亏',
+        component: () => import('@/views/fams/GroupFinance/UnionProfitAndLoss/MonthDetail/index.vue'),
       },
     ],
   },

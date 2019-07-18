@@ -61,7 +61,7 @@ export default {
   },
   // },
   created () {
-    this.form.updateTime = this.creatTimeDefault()
+    this.form.updateTime = this.createTimeDefault()
   },
   methods: {
     loadPage () {
@@ -69,7 +69,7 @@ export default {
       this.dialogShow = false
       this.$emit('load-page')
     },
-    creatTimeDefault () {
+    createTimeDefault () {
       let date = new Date()
       let y = date.getFullYear()
       let m = ((date.getMonth() + 1) < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1)

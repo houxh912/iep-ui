@@ -7,7 +7,9 @@
     </el-carousel>
   </div>
 </template>
+
 <script>
+import { getIndexPage } from '@/api/conm/article_controller'
 export default {
   data () {
     return {
@@ -39,6 +41,17 @@ export default {
         window.open(row.pathName)
       }
     },
+  },
+  created () {
+    let params = {
+      nodeId: 22,
+      siteId: 17,
+      current: 1,
+      size: 4,
+    }
+    getIndexPage(params).then(({data}) => {
+      console.log('data: ', data)
+    })
   },
 }
 </script>

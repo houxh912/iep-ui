@@ -19,25 +19,38 @@ export default {
           name: '国脉同学',
           prop: 'userCount',
           type: 1,
+          query: {
+            type: 1,
+          },
         },
         {
           id: '2',
           name: '外部同学',
           prop: 'externalCount',
           type: 1,
-          isOut: 1,
+          query: {
+            type: 1,
+            isOut: 1,
+          },
         },
         {
           id: '3',
           name: '国脉专家',
           prop: 'expertCount',
           type: 2,
+          query: {
+            type: 2,
+          },
         },
         {
           id: '4',
           name: '国脉校友',
           prop: 'alumnusCount',
           type: 1,
+          query: {
+            isAlumnu: 1,
+            type: 1,
+          },
         },
         {
           id: '5',
@@ -65,7 +78,7 @@ export default {
   methods: {
     handleDetail (row) {
       if (row.type) {
-        this.$router.push({ path: '/app/resource/expert', query: { type: row.type, isOut: row.isOut } })
+        this.$router.push({ path: '/app/resource/expert', query: row.query })
       } else {
         this.$openPage(row.router)
       }

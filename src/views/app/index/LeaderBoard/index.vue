@@ -46,7 +46,7 @@ export default {
 </script>
 <style scoped>
 .leaderBoard >>> .el-card {
-  height: 374px;
+  height: 376px;
 }
 </style>
 

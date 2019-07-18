@@ -34,6 +34,6 @@ export default {
 </script>
 <style scoped>
 .honor >>> .el-card {
-  height: 374px;
+  height: 376px;
 }
 </style>

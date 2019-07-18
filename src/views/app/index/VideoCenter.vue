@@ -50,6 +50,6 @@ export default {
 </style>
 <style scoped>
 .videoCenter >>> .el-card {
-  height: 280px;
+  height: 290px;
 }
 </style>

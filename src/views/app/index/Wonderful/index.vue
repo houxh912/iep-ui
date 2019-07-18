@@ -79,7 +79,7 @@ export default {
 
 <style scoped>
 .wonderful >>> .el-card {
-  height: 280px;
+  height: 290px;
 }
 </style>
 

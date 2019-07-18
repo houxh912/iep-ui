@@ -210,3 +210,24 @@ export const getOrgProfits = (orgId, year) => {
     },
   })
 }
+
+// 集团货币基金
+export const getCompanyCurrencyFund = (yearMonth) => {
+  return request({
+    url: `${prefixUrl}/company/balance`,
+    method: 'get',
+    params: {
+      month: yearMonth,
+    },
+  })
+}
+// 集团货币基金
+export const getBankCurrencyFund = (yearMonth) => {
+  return request({
+    url: `${prefixUrl}/bank/balance`,
+    method: 'get',
+    params: {
+      month: yearMonth,
+    },
+  })
+}

@@ -14,7 +14,11 @@
           <iep-div-detail class="content" :value="form.views"></iep-div-detail>
         </div>
         <div class="con-item">
-          <div class="title">内容</div>
+          <div class="title">图片</div>
+          <iep-img :src="form.cover" class="avatar"></iep-img>
+        </div>
+        <div class="con-item">
+          <div class="title">文档内容</div>
           <iep-froala-editor v-model="form.content"></iep-froala-editor>
         </div>
       </div>
@@ -26,6 +30,7 @@ import { getPageById } from '@/api/conm/article_controller'
 function initForm () {
   return {
     title: '',
+    cover: '',
     createTime: '',
     views: '',
     content: '',
@@ -73,5 +78,10 @@ export default {
       color: #999;
     }
   }
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
 }
 </style>

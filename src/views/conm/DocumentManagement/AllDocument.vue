@@ -78,6 +78,7 @@ export default {
       id: '',
       siteId: '',
       nodeName: '',
+      defaultValue: new Date(),
     }
   },
   created () {
@@ -87,8 +88,8 @@ export default {
   },
   methods: {
     handleAdd () {
-      // this.$refs['DialogForm'].form = toNewParentForm(row)
-      this.$refs['DialogForm'].id = this.id
+      this.$refs['DialogForm'].form.updateTime = this.defaultValue
+      this.$refs['DialogForm'].nodeId = this.id
       this.$refs['DialogForm'].formRequestFn = addObj
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].methodName = '新增'
@@ -98,6 +99,7 @@ export default {
     },
     handleEdit (row) {
       this.$refs['DialogForm'].id = row.id
+      this.$refs['DialogForm'].nodeId = this.id
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].formRequestFn = updateObj
       this.$refs['DialogForm'].loadTypeList()

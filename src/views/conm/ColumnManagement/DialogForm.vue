@@ -69,6 +69,7 @@ export default {
     },
     loadTypeList () {
       getPageById(this.id).then(({ data }) => {
+        console.log(data.data)
         this.form = this.$mergeByFirst(this.form, data.data)
       })
     },

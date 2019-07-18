@@ -9,7 +9,9 @@
             </el-col>
             <el-col :span="14" class="title">
               <div>
-                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">创建时间：{{form.onlineTime | parseToDay}}</span></div>
+                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">创建时间：{{form.onlineTime | parseToDay}}</span>
+                  <el-button size="small" class="join" @click.stop="handleProductClick">加入定制</el-button>
+                </div>
                 <div class="tags">
                   <iep-tag-detail :value="form.tagKeywords"></iep-tag-detail>
                 </div>
@@ -41,6 +43,7 @@ import Modules from '@/views/cpms/Components/Modules'
 import Materials from '@/views/cpms/Components/Materials'
 import { initForm } from './options'
 import { getProductById } from '@/api/cpms/product'
+import { putProductById } from '@/api/app/cpms/custom_module'
 export default {
   name: 'detail',
   components: { BaseInfo, TeamInfo, Versions, Modules, Materials },
@@ -83,6 +86,11 @@ export default {
     })
   },
   methods: {
+    handleProductClick () {
+      putProductById(this.id).then(() => {
+        this.$router.push('/app/resource/product_ku')
+      })
+    },
     handleGoBack () {
       this.$router.push('/app/resource/product_ku')
     },
@@ -106,11 +114,26 @@ export default {
     height: 100%;
   }
 }
+.join {
+  float: right;
+  background-color: #ba1b21;
+  border: 1px solid #ba1b21;
+  color: #fff;
+  transition: all 0.5s;
+  &:hover {
+    background-color: #fff;
+    border: 1px solid #ba1b21;
+    color: #ba1b21;
+  }
+}
 .title {
   margin-left: 10px;
   display: flex;
   height: 80px;
   align-items: center;
+  .time {
+    margin-right: 15px;
+  }
   .weight {
     font-size: 22px;
     font-weight: 600;

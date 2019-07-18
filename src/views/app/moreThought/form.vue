@@ -1,6 +1,5 @@
 <template>
   <div class="head">
-    <div class="title">早晚五分钟，为<span class="akey">智慧</span>加油</div>
     <el-form :model="formData" :rules="rules" ref="form" label-width="0px" class="input">
       <el-form-item prop="content">
         <el-input type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea" maxlength="1000"></el-input>
@@ -79,6 +78,10 @@ const rules = {
 }
 
 export default {
+  props: {
+    transmitId: Number,
+    default: -1,
+  },
   data () {
     return {
       formData: initForm(),
@@ -111,6 +114,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
+          if (this.transmitId > -1) {
+            this.formData.transmitId = this.transmitId
+          }
           thoughtsCreate(this.formData).then(() => {
             this.resetForm()
             addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
@@ -131,16 +137,8 @@ export default {
 <style lang="scss" scoped>
 .head {
   text-align: center;
-  padding: 30px 0 5px;
-  .title {
-    font-size: 24px;
-    margin-bottom: 20px;
-    .akey {
-      color: #c74c50;
-    }
-  }
   .input {
-    width: 1200px;
+    width: 100%;
     margin: auto;
     .img-list {
       display: flex;
@@ -171,12 +169,12 @@ export default {
         margin-right: 20px;
         .close {
           position: absolute;
-          right: 0px;
-          top: 0px;
+          right: -10px;
+          top: -10px;
           width: 20px;
           height: 20px;
           font-size: 20px !important;
-          background-color: #f9eae7;
+          background-color: #ddd;
           color: #fff;
           border-radius: 50%;
           line-height: 18px;
@@ -194,7 +192,7 @@ export default {
     .button-list {
       position: relative;
       display: flex;
-      padding: 10px 0;
+      padding: 0 0 10px;
       .func {
         display: flex;
         cursor: pointer;

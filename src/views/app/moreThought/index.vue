@@ -1,5 +1,6 @@
 <template>
   <iep-app-layout>
+    <h3 class="title">早晚五分钟，为<span class="akey">智慧</span>加油</h3>
     <headTpl class="head" @load-page="loadPage"></headTpl>
     <div class="content">
       <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
@@ -64,7 +65,7 @@
 </template>
 
 <script>
-import headTpl from './head'
+import headTpl from './form'
 import { geTallPage, CommentThoughts, addThumbsUpByRecord } from '@/api/cpms/thoughts'
 import commentTpl from './commentTpl'
 import { mapActions } from 'vuex'
@@ -197,8 +198,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h3.title {
+  text-align: center;
+  font-size: 24px;
+  padding: 30px 0 20px;
+  .akey {
+    color: #c74c50;
+  }
+}
 .head {
+  margin: auto;
   margin-bottom: 20px;
+  width: 1200px;
 }
 .content {
   width: 1200px;

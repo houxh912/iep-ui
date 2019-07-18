@@ -17,9 +17,9 @@
       <el-table-column label="项目名称" slot="before-columns" width="300px">
         <template slot-scope="scope">
           <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
-            <span class="grade" v-show="scope.row.projectLevel==1">重</span>
-            <span class="grade" v-show="scope.row.projectLevel==2">中</span>
-            <span class="grade" v-show="scope.row.projectLevel==3">一</span>
+            <span class="grade" v-show="scope.row.projectLevel==1">重要</span>
+            <span class="grade" v-show="scope.row.projectLevel==2">中级</span>
+            <span class="grade" v-show="scope.row.projectLevel==3">一般</span>
             <span class="stage" v-show="scope.row.projectStage==1">初</span>
             <span class="stage" v-show="scope.row.projectStage==2">方</span>
             <span class="stage" v-show="scope.row.projectStage==3">正</span>
@@ -42,7 +42,7 @@
       <el-table-column label="立项时间" width="150px">
         <template slot-scope="scope">
           <span v-if="scope.row.projectStatus=='3'">{{ scope.row.approvalTime | parseToDay }}（审核）</span>
-          <span v-else>{{ scope.row.projectTime| parseToDay }}（预计）</span>
+          <span v-else>{{ scope.row.projectTime | parseToDay }}（预计）</span>
         </template>
       </el-table-column>
       <el-table-column label="项目状态">

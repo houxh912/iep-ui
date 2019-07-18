@@ -320,7 +320,7 @@
               <div class="stage" v-show="r.projectStage==2">方</div>
               <div class="stage" v-show="r.projectStage==3">正</div>
               <div class="stage" v-show="r.projectStage==4">项</div>
-              负责人：{{r.projectManagerList.name}}
+              项目经理：{{r.projectManagerList.name}}
             </span>
             <span class="sign">
               <div v-for="(s,index) in r.projectTagList" :key="index" @click="openSign(s)">{{s}}</div>
@@ -373,7 +373,7 @@
 
 <script>
 import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
-import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList, getRecommendedMktManagerList } from '@/api/gpms/index'
+import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList, getRecommendedMktManagerList, generationProject } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
@@ -467,11 +467,16 @@ export default {
     getRecommendedProjectList({ tagList: this.tagList }).then(({ data }) => {
       this.recommendProjectList = data
     })
-    getRecommendedHandlesList({ tagList: this.tagList }).then(({ data }) => {
-      this.recommendHandlesList = data
-    })
-    getRecommendedMktManagerList({ tagList: this.tagList }).then(({ data }) => {
-      this.recommendMktManagerList = data
+    var newRelatedClient = 0
+    if (this.$route.query.clientVal) {
+      newRelatedClient = this.$route.query.clientVal
+    }
+    var newtagList = ''
+    if (this.$route.query.allTagList) {
+      newtagList = this.$route.query.allTagList
+    }
+    generationProject({ relatedClient: newRelatedClient, tagList: newtagList }).then(({ data }) => {
+      this.formData.projectName = `${this.nowTime()}${data}`
     })
   },
   methods: {
@@ -649,6 +654,23 @@ export default {
     },
     cRecommendType (val) {
       this.recommendType = val
+      if (val == 'projectHandles') {
+        getRecommendedHandlesList({ tagList: this.tagList }).then(({ data }) => {
+          this.recommendHandlesList = data
+        })
+      }
+      else if (val == 'mktManager') {
+        getRecommendedMktManagerList({ tagList: this.tagList }).then(({ data }) => {
+          this.recommendMktManagerList = data
+        })
+      }
+    },
+    nowTime () {
+      var nowDate = new Date()
+      var year = nowDate.getFullYear() //获取完整的年份
+      var month = nowDate.getMonth() + 1 //获取当前月份
+      month = (month < 10 ? '0' + month : month)
+      return year.toString() + month.toString()
     },
   },
   watch: {

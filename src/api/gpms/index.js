@@ -116,3 +116,11 @@ export function getMyPosition (obj) {
     params: obj,
   })
 }
+//自动生成项目名称
+export function generationProject (obj) {
+  return request({
+    url: `${prefixUrl}/generationProject`,
+    method: 'post',
+    data: obj,
+  })
+}

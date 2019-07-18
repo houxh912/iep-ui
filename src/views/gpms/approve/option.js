@@ -10,18 +10,6 @@ export const dictsMap = {
 
 export const columnsMap = [
   {
-    prop: 'projectBudget',
-    label: '项目预算',
-  }, {
-    prop: 'applicantName',
-    label: '申请人',
-  }, {
-    prop: 'approverName',
-    label: '审批人',
-  }, {
-    prop: 'applyTime',
-    label: '项目开始时间',
-  }, {
     prop: 'projectStatus',
     label: '审批状态',
     type: 'dict',

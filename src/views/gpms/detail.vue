@@ -178,6 +178,23 @@
           </el-form>
         </el-row>
       </div>
+      <!-- 预计回款时间 -->
+      <div class="contianBox">
+        <el-row class="title">
+          <el-col :span="20" class="data">预计回款时间</el-col>
+        </el-row>
+        <el-row class="topBot">
+          <el-form label-width="150px">
+            <el-row>
+              <el-col :span="20" class="item">
+                <el-form-item>
+                  <payback-table :dataList="formData.paymentRelations"></payback-table>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+        </el-row>
+      </div>
       <!-- 流转记录 -->
       <div class="contianBox">
         <el-row class="title">
@@ -232,10 +249,12 @@
 import { getDataDetail, approvalById } from '@/api/gpms/index'
 import collectionTable from './collectionTable'
 import materialTable from './materialTable'
+import paybackTable from './paybackTable'
 export default {
   components: {
     collectionTable,
     materialTable,
+    paybackTable,
   },
   data () {
     return {

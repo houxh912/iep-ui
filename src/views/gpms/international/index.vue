@@ -54,7 +54,6 @@ export default {
     }
   },
   created () {
-    this.loadPage()
   },
   methods: {
     async loadPage (params = {}) {
@@ -76,6 +75,10 @@ export default {
         })
       })
     },
+  },
+  mounted () {
+    this.searchForm.listType = 3
+    this.loadPage()
   },
 }
 </script>

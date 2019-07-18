@@ -19,6 +19,26 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column label="项目预算" slot="before-columns">
+          <template slot-scope="scope">
+            {{ scope.row.projectBudget }}
+          </template>
+        </el-table-column>
+        <el-table-column label="申请人" slot="before-columns">
+          <template slot-scope="scope">
+            {{ scope.row.applicantName }}
+          </template>
+        </el-table-column>
+        <el-table-column label="审批人" slot="before-columns">
+          <template slot-scope="scope">
+            {{ scope.row.approverName }}
+          </template>
+        </el-table-column>
+        <el-table-column label="项目开始时间" slot="before-columns">
+          <template slot-scope="scope">
+            {{ scope.row.applyTime | parseToDay }}
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>

@@ -35,6 +35,9 @@ export default {
     isOut: {
       default: '',
     },
+    query: {
+      type: Object,
+    },
   },
   data () {
     return {
@@ -76,6 +79,7 @@ export default {
     },
   },
   created () {
+    this.params = Object.assign({}, this.params, this.query) 
     this.loadPage()
   },
 }

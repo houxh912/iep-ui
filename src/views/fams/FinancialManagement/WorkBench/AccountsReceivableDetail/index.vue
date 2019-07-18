@@ -39,7 +39,7 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.searchParam) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getContractPage)
     },
     handleDetail (row) {

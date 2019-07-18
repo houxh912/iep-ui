@@ -116,6 +116,6 @@ export default {
 }
 
 .thoughts >>> .el-card {
-  height: 316px;
+  height: 318px;
 }
 </style>

@@ -164,7 +164,7 @@ export default {
   display: none;
 }
 .person >>> .el-card {
-  height: 316px;
+  height: 320px;
 }
 .person >>> .el-carousel__arrow {
   background: none;

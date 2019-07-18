@@ -42,7 +42,7 @@ export default {
 .piece {
   cursor: pointer;
   &:nth-child(1) {
-    margin-top: -7px;
+    margin-top: -6px;
   }
   .name {
     display: inline-block;
@@ -84,6 +84,6 @@ export default {
 </style>
 <style scoped>
 .tags >>> .el-card {
-  height: 348px;
+  height: 350px;
 }
 </style>

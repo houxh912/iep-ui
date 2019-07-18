@@ -85,6 +85,6 @@ export default {
   height: 270px;
 }
 .reward-con >>> .el-card {
-  height: 316px;
+  height: 318px;
 }
 </style>

@@ -90,6 +90,6 @@ export default {
 </style>
 <style scoped>
 .honor >>> .el-card {
-  height: 304px;
+  height: 306px;
 }
 </style>

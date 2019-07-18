@@ -121,7 +121,7 @@ export default {
   height: 50px;
 }
 .optimal {
-  height: 316px;
+  height: 318px;
   overflow: hidden;
   border-bottom: 1px solid #ebeef5;
 }

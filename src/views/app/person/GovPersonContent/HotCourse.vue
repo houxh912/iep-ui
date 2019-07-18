@@ -93,7 +93,7 @@ export default {
   }
   .con-course {
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     justify-content: space-between;
     .con {
       width: 48%;
@@ -131,6 +131,6 @@ export default {
 </style>
 <style scoped>
 .course-con >>> .el-card {
-  height: 312px;
+  height: 316px;
 }
 </style>

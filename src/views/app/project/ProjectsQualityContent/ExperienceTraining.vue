@@ -19,6 +19,6 @@ export default {
 </script>
 <style scoped>
 .recommendable >>> .el-card {
-  height: 316px;
+  height: 318px;
 }
 </style>

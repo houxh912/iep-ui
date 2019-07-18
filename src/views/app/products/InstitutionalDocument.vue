@@ -40,6 +40,6 @@ export default {
 </script>
 <style scoped>
 .InstitutionalDocument >>> .el-card {
-  height: 316px;
+  height: 318px;
 }
 </style>

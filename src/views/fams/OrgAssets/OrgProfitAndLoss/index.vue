@@ -42,7 +42,7 @@ export default {
     },
     orgName () {
       if (this.$route.query.orgName) {
-        return +this.$route.query.orgName
+        return this.$route.query.orgName
       } else {
         return this.userInfo.orgName
       }

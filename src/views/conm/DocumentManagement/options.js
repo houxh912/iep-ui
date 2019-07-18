@@ -14,7 +14,7 @@ const initForm = () => {
     // infoDescribe: '',//信息描述
     tagKeyWords: [],
     content: '',
-    cover: '',
+    image: '',
   }
   // {
   //   "content": "string",

@@ -3,7 +3,7 @@
     <div class="reward" v-if="reward.length !== 0">
       <div v-for="(item,index) in reward" :key="index" class="piece" @click="handleDetail(item.id)">
         <span class="title">{{item.projectName}}</span>
-        <span class="name">{{item.authorizations[0]}}</span>
+        <span class="name">{{item.authorizations}}</span>
         <span class="percentage">{{dictList[item.projectStage]}}</span>
       </div>
     </div>

@@ -41,3 +41,12 @@ export function updateObj (obj) {
     data: obj,
   })
 }
+
+// 前台分页查询文章
+export function getIndexPage (params) {
+  return request({
+    url: `${prefixUrl}/index_page`,
+    method: 'get',
+    params: params,
+  })
+}

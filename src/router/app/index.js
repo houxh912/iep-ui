@@ -308,6 +308,11 @@ export default [
         name: '岗位详情',
         component: () => import('@/views/app/recruitDetail/'),
       },
+      {
+        path: 'news/news_detail/:id',
+        name: '岗位详情',
+        component: () => import('@/views/app/newsDetail/'),
+      },
     ],
   },
 ]

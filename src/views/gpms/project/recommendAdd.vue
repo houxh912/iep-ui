@@ -461,12 +461,6 @@ export default {
     this.formData.projectTagList = this.$route.query.allTagList
     let obj = Object.assign({}, initBudgetForm(), this.formData.projectBudgetList)
     this.tableData.push(obj)
-    getCustomerPage({ type: 1 }).then(({ data }) => {
-      this.clientList = data.data.records
-    })
-    getRecommendedProjectList({ tagList: this.tagList }).then(({ data }) => {
-      this.recommendProjectList = data
-    })
     var newRelatedClient = 0
     if (this.$route.query.clientVal) {
       newRelatedClient = this.$route.query.clientVal
@@ -477,6 +471,12 @@ export default {
     }
     generationProject({ relatedClient: newRelatedClient, tagList: newtagList }).then(({ data }) => {
       this.formData.projectName = `${this.nowTime()}${data}`
+    })
+    getCustomerPage({ type: 1 }).then(({ data }) => {
+      this.clientList = data.data.records
+    })
+    getRecommendedProjectList({ tagList: this.tagList }).then(({ data }) => {
+      this.recommendProjectList = data
     })
   },
   methods: {

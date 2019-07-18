@@ -27,7 +27,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
         <template slot="before-columns">
           <el-table-column label="项目编号">
             <template slot-scope="scope">
@@ -147,7 +147,7 @@ export default {
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].dialogShow = true
     },
-    async loadPage (param = this.searchParam) {
+    async loadPage (param = this.searchForm) {
       const pageFunction = this.id ? getProjectPageByOrgId(this.id) : getProjectPage
       const data = await this.loadTable(param, pageFunction)
       this.statistics = this.$fillStatisticsArray(initStatistics(), data.statistics)

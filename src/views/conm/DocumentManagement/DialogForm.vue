@@ -16,13 +16,13 @@
           <el-radio :label="0">停用</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="图片：" prop="cover">
+      <el-form-item label="图片：" prop="image">
         <span slot="label">
           图片：
         </span>
         <!-- <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload> -->
         <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*">
-          <iep-img v-if="form.cover" :src="form.cover" class="avatar"></iep-img>
+          <iep-img v-if="form.image" :src="form.image" class="avatar"></iep-img>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -76,7 +76,7 @@ export default {
       })
     },
     handleAvatarSuccess (row) {
-      this.form.cover = row.data.url
+      this.form.image = row.data.url
     },
     async submitForm () {
       this.formRequestFn({ id: this.id, nodeId: this.nodeId, ...this.form }).then(({ data }) => {

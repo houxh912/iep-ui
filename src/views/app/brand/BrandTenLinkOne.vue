@@ -49,7 +49,7 @@ export default {
       color: #999;
     }
     .title {
-      margin-bottom: 15px;
+      margin-bottom: 5px;
       font-size: 16px;
     }
     p {

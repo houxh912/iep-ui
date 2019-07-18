@@ -133,6 +133,6 @@ export default {
 </style>
 <style scoped>
 .thoughts >>> .el-card {
-  height: 330px;
+  height: 312px;
 }
 </style>

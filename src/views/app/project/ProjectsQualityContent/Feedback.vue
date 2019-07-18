@@ -44,7 +44,6 @@ export default {
   color: #999;
 }
 .thoughtsList {
-  margin-top: 10px;
   .piece {
     display: flex;
     justify-content: flex-start;
@@ -117,6 +116,6 @@ export default {
 }
 
 .thoughts >>> .el-card {
-  height: 324px;
+  height: 316px;
 }
 </style>

@@ -41,7 +41,6 @@ export default {
 
 <style lang="scss" scoped>
 .empolyee {
-  padding-top: 15px;
   .piece {
     text-align: center;
     width: 238px;

@@ -46,6 +46,9 @@ export default {
     -webkit-box-orient: vertical;
     transition-duration: 0.3s;
     transition: 0.5s;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     &:hover {
       color: #cb3737;
       &:before {

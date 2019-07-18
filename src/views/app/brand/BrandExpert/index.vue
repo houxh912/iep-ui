@@ -38,7 +38,10 @@ export default {
 </script>
 <style scoped>
 .leaderBoard >>> .el-card {
-  height: 322px;
+  height: 316px;
+}
+.leaderBoard >>> .el-tabs__content {
+  margin-top: -8px;
 }
 </style>
 

@@ -131,6 +131,6 @@ export default {
 </style>
 <style scoped>
 .course-con >>> .el-card {
-  height: 330px;
+  height: 312px;
 }
 </style>

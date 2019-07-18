@@ -136,7 +136,7 @@ export default {
 </style>
 <style scoped>
 .new-tehnology >>> .el-card {
-  height: 354px;
+  height: 362px;
 }
 .new-tehnology >>> .piece .el-image__inner {
   display: block;

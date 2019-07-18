@@ -29,7 +29,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .share {
-  padding-top: 15px;
   .piece {
     text-align: center;
     width: 238px;

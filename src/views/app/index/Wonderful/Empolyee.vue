@@ -36,11 +36,11 @@ export default {
     cursor: pointer;
     .img {
       width: 100%;
-      height: 165px;
+      height: 160px;
       overflow: hidden;
       img {
         width: 100%;
-        height: 165px;
+        height: 160px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;

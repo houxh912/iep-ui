@@ -13,7 +13,7 @@
         </template>
       </iep-tabs>
       <div class="todyInfo">
-        <span>今日公告：</span>
+        <span style="font-weight:700;">今日公告：</span>
         <span>2019第十三届湖南连锁加盟</span>
       </div>
     </IepAppTabsCard>

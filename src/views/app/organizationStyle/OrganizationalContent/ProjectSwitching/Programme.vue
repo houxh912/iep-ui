@@ -50,6 +50,9 @@ export default {
     position: relative;
     margin-left: 15px;
     transition: 0.5s;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     .percentage {
       text-align: right;
       height: 30px;

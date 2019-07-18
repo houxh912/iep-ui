@@ -46,12 +46,13 @@ export default {
   color: #333;
 }
 .introduce {
+  margin-top: -7px;
   & > span {
     line-height: 25px;
   }
   .person {
-    padding-top: 18px;
-    margin-bottom: 17px;
+    padding-top: 20px;
+    margin-bottom: 20px;
     overflow: hidden;
     .dn {
       opacity: 0;

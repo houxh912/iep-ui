@@ -36,6 +36,6 @@ export default {
 </script>
 <style lang="css" scoped>
 .project >>> .el-card {
-  height: 360px;
+  height: 346px;
 }
 </style>

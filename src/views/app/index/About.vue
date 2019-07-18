@@ -72,8 +72,8 @@ export default {
   grid-column-gap: 10px;
   .piece {
     cursor: pointer;
-    height: 30px;
-    line-height: 30px;
+    height: 32px;
+    line-height: 32px;
     text-align: center;
     background-color: #f2f2f2;
     color: #333;
@@ -87,6 +87,6 @@ export default {
 </style>
 <style scoped>
 .about >>> .el-card {
-  height: 288px;
+  height: 280px;
 }
 </style>

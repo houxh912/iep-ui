@@ -248,7 +248,7 @@ export default {
   line-height: 22px;
 }
 .thoughts {
-  height: 436px;
+  height: 434px;
   overflow: hidden;
   border-bottom: 1px solid #ebeef5;
 }

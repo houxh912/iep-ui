@@ -29,7 +29,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .activity {
-  padding-top: 15px;
   .piece {
     position: relative;
     text-align: center;

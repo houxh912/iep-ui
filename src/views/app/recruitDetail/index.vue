@@ -39,7 +39,7 @@ export default {
   methods: {
     // 推荐岗位
     getRectagsList () {
-      getPostList().then(({data}) => {
+      getPostList().then(({ data }) => {
         this.labelList = data.data
       })
     },
@@ -77,8 +77,11 @@ export default {
 .ranking {
   padding: 0;
   .piece {
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     .name {
-      width: 100%!important;
+      width: 100% !important;
     }
   }
 }

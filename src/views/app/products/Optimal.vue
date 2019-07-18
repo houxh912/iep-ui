@@ -65,6 +65,9 @@ export default {
     overflow: hidden;
     cursor: pointer;
     transition: 0.5s;
+    &:last-child {
+      margin-bottom: 0;
+    }
     img {
       float: left;
       width: 50px;
@@ -118,7 +121,7 @@ export default {
   height: 50px;
 }
 .optimal {
-  height: 330px;
+  height: 316px;
   overflow: hidden;
   border-bottom: 1px solid #ebeef5;
 }

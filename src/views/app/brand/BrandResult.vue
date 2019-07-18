@@ -52,7 +52,7 @@ export default {
     }
     .num {
       font-size: 24px;
-      margin-top: 5px;
+      margin-top: 2px;
       margin-bottom: 0;
       text-align: center;
     }
@@ -76,7 +76,7 @@ export default {
 </style>
 <style scoped>
 .grid-content >>> .el-card {
-  height: 322px;
+  height: 316px;
 }
 </style>
 

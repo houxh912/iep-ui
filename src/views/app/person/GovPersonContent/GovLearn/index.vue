@@ -34,6 +34,6 @@ export default {
 
 <style scoped>
 .GovLearn >>> .el-card {
-  height: 436px;
+  height: 434px;
 }
 </style>

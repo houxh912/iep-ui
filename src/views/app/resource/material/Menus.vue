@@ -66,4 +66,16 @@ export default {
 .menus >>> .ant-menu-item:hover {
   background-color: rgba(250, 250, 250, 1);
 }
+.menus >>> .ant-menu-submenu-arrow::before,
+.menus >>> .ant-menu-submenu-arrow::after {
+  width: 6px !important;
+  height: 0.5px !important;
+  border-radius: 1px !important;
+}
+.menus >>> .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: rgba(250, 250, 250, 1);
+}
+.menus >>> .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected::after {
+  border-width: 2px;
+}
 </style>

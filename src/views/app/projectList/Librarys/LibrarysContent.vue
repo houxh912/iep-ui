@@ -115,8 +115,8 @@ export default {
 .title {
   .name {
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
+    height: 30px;
+    line-height: 30px;
     margin-right: 10px;
     font-size: 16px;
     color: #333;

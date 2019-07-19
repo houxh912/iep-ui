@@ -13,12 +13,9 @@ export const dictMap = {
     { value: 1, label: '是' },
     { value: 2, label: '否' },
   ],
-  status: [
-    { value: 1, label: '未提交' },
-    { value: 2, label: '待审核' },
-    { value: 3, label: '审核通过' },
-    { value: 4, label: '审核不通过' },
-  ],
+  projectStatus: {
+    1:'待提交',2:'待审核',3:'已立项',4:'审核未通过',5:'锁定',
+  },
   projectStage: changeDict(dicData.prms_project_stage),
   stageOptions: [],
   typeOptions: [
@@ -105,7 +102,6 @@ export function initFormData (obj) {
   const name = obj ? obj.realName : ''
   const id = obj ? obj.userId : ''
   return {
-    status:'',//保存状态 1为草稿
     projectStatus:'',//项目状态
     projectName: '', // 项目名称
     projectExplain: '',//项目说明

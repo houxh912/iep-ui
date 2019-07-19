@@ -193,121 +193,128 @@
           </el-form-item>
         </div>
         <hr>
-        <el-form-item label="项目成本预算：">
-          <p>注：外包费用、佣金、项目总预算为必填项，<span style="color: #f00;">如不填，则不发项目提成</span></p>
-          <el-table :data="tableData" style="width: 100%" class="table">
-            <el-table-column prop="artificialCost" label="人工成本" align='center'>
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.artificialCost" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column prop="projectCommission" label="项目提成" align='center'>
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.projectCommission" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column label="项目费用" align='center'>
-              <el-table-column prop="taxes" label="税费" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.taxes" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="bidWinning" label="中标服务费" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.bidWinning" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="outsourcingCost" align='center'>
-                <template slot="header">
-                  <span class="column-header">外包费用</span>
-                </template>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.outsourcingCost" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="expertsFee" label="项目评审专家费" align='center' width="150">
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.expertsFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="commission" align='center'>
-                <template slot="header">
-                  <span class="column-header">佣金</span>
-                </template>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.commission" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column prop="otherFees" label="其他" align='center'>
-                <template slot-scope="scope">
-                  <el-input v-model="scope.row.otherFees" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-                </template>
-              </el-table-column>
-            </el-table-column>
-            <el-table-column prop="managementFee" label="项目管理费" align='center'>
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.managementFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column prop="invoiceFee" label="开票费用" align='center'>
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.invoiceFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column prop="travelFee" label="差旅费" align='center'>
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.travelFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column prop="projectBudget" align='center'>
-              <template slot="header">
-                <span class="column-header">费用总预算</span>
-              </template>
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.projectBudget" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column prop="forecastProfits" label="预估利润" align='center'>
-              <template slot-scope="scope">
-                <el-input v-model="scope.row.forecastProfits" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-form-item>
-        <el-form-item label="预计回款时间：" class="table">
-          <el-table :data="formData.paymentRelations" style="width: 100%" border class="table">
-            <el-table-column prop="projectPaymentTime" label="回款时间" align='center'>
-              <template slot-scope="scope">
-                <el-date-picker v-model="formData.paymentRelations[scope.$index].projectPaymentTime" type="date" placeholder="选择时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss" :readonly="formData.paymentRelations[scope.$index].id?true:false">
-                </el-date-picker>
-              </template>
-            </el-table-column>
-            <el-table-column prop="paymentAmount" label="回款金额" align='center'>
-              <template slot-scope="scope">
-                <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" maxlength="10" type="number" min=0 placeholder="请正确输入非负回款金额" :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
-                <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
-              </template>
-            </el-table-column>
-            <el-table-column prop="menu" label="操作" width="200px" align='center'>
-              <template slot-scope="scope">
-                <!-- 0可以延期 -->
-                <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
-                <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelete(scope.$index)">删除</iep-button>
-                <div class="project-select-delay" v-if="selectDelay.index == scope.$index">
-                  <el-date-picker v-model="selectDelay.value" type="date" placeholder="选择延期时间" ref="selectDelay" @change="changeDelay" @blur="selectDelay.index = -1" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss">
-                  </el-date-picker>
-                </div>
-                <iep-button size="small" v-if="!formData.paymentRelations[scope.$index].id" @click="handleDelete(scope.$index)">删除</iep-button>
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
-        </el-form-item>
+        <el-button @click="shrinkOpen()" class="show3">{{shrink}}</el-button>
+        <el-collapse-transition>
+          <div v-show="show3">
+            <el-form-item>
+            </el-form-item>
+            <el-form-item label="项目成本预算：">
+              <p>注：外包费用、佣金、项目总预算为必填项，<span style="color: #f00;">如不填，则不发项目提成</span></p>
+              <el-table :data="tableData" style="width: 100%" class="table">
+                <el-table-column prop="artificialCost" label="人工成本" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.artificialCost" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="projectCommission" label="项目提成" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.projectCommission" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column label="项目费用" align='center'>
+                  <el-table-column prop="taxes" label="税费" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.taxes" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="bidWinning" label="中标服务费" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.bidWinning" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="outsourcingCost" align='center'>
+                    <template slot="header">
+                      <span class="column-header">外包费用</span>
+                    </template>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.outsourcingCost" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="expertsFee" label="项目评审专家费" align='center' width="150">
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.expertsFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="commission" align='center'>
+                    <template slot="header">
+                      <span class="column-header">佣金</span>
+                    </template>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.commission" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    </template>
+                  </el-table-column>
+                  <el-table-column prop="otherFees" label="其他" align='center'>
+                    <template slot-scope="scope">
+                      <el-input v-model="scope.row.otherFees" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    </template>
+                  </el-table-column>
+                </el-table-column>
+                <el-table-column prop="managementFee" label="项目管理费" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.managementFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="invoiceFee" label="开票费用" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.invoiceFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="travelFee" label="差旅费" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.travelFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="projectBudget" align='center'>
+                  <template slot="header">
+                    <span class="column-header">费用总预算</span>
+                  </template>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.projectBudget" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="forecastProfits" label="预估利润" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-model="scope.row.forecastProfits" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-form-item>
+            <el-form-item label="预计回款时间：" class="table">
+              <el-table :data="formData.paymentRelations" style="width: 100%" border class="table">
+                <el-table-column prop="projectPaymentTime" label="回款时间" align='center'>
+                  <template slot-scope="scope">
+                    <el-date-picker v-model="formData.paymentRelations[scope.$index].projectPaymentTime" type="date" placeholder="选择时间" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss" :readonly="formData.paymentRelations[scope.$index].id?true:false">
+                    </el-date-picker>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="paymentAmount" label="回款金额" align='center'>
+                  <template slot-scope="scope">
+                    <el-input v-if="selectIndex==scope.$index" v-model="formData.paymentRelations[scope.$index].paymentAmount" @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" maxlength="10" type="number" min=0 placeholder="请正确输入非负回款金额" :readonly="formData.paymentRelations[scope.$index].id?true:false"></el-input>
+                    <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column prop="menu" label="操作" width="200px" align='center'>
+                  <template slot-scope="scope">
+                    <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelay(scope.$index)">延期</iep-button>
+                    <iep-button size="small" v-if="formData.paymentRelations[scope.$index].timeStatus == 0" @click="handleDelete(scope.$index)">删除</iep-button>
+                    <div class="project-select-delay" v-if="selectDelay.index == scope.$index">
+                      <el-date-picker v-model="selectDelay.value" type="date" placeholder="选择延期时间" ref="selectDelay" @change="changeDelay" @blur="selectDelay.index = -1" format="yyyy-MM-dd" value-format="yyyy-MM-dd hh:mm:ss">
+                      </el-date-picker>
+                    </div>
+                    <iep-button size="small" v-if="!formData.paymentRelations[scope.$index].id" @click="handleDelete(scope.$index)">删除</iep-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+              <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
+            </el-form-item>
+          </div>
+        </el-collapse-transition>
       </el-form>
 
       <footer-tool-bar>
-        <iep-button type="primary" @click="save('2')" :loading="btnLoading">保存并发布</iep-button>
-        <iep-button @click="save('1')" :loading="btnLoading">保存为草稿</iep-button>
+        <iep-button v-show="formData.projectStatus!='3'" type="primary" @click="save('2')" :loading="btnLoading">保存并发布</iep-button>
+        <iep-button v-show="formData.projectStatus!='3'" @click="save('1')" :loading="btnLoading">保存为草稿</iep-button>
+        <iep-button v-show="formData.projectStatus=='3'" type="primary" @click="save('3')" :loading="btnLoading">保存</iep-button>
       </footer-tool-bar>
     </basic-container>
     <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
@@ -382,6 +389,8 @@ export default {
         },
       ],
       btnLoading: false,
+      show3: true,
+      shrink: '收缩',
     }
   },
   computed: {
@@ -594,6 +603,15 @@ export default {
     //   this.formData.projectBudgetList = val
     //   this.formData.projectBudget = val.projectBudget
     // },
+    shrinkOpen () {
+      this.show3 = !this.show3
+      if (this.show3 == true) {
+        this.shrink = '收缩'
+      }
+      else {
+        this.shrink = '展开'
+      }
+    },
   },
   watch: {
     'formData.projectAmount': {
@@ -649,6 +667,12 @@ export default {
     display: none;
   }
 }
+.show3 {
+  margin: -20px auto 0;
+  display: block;
+  border-top: 0;
+  padding: 8px 20px;
+}
 </style>
 <style scoped>
 .table >>> .el-input__inner {
@@ -657,5 +681,11 @@ export default {
 }
 .column-header {
   color: #f00;
+}
+.abs >>> .el-collapse-item__header {
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  color: #999;
 }
 </style>

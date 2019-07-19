@@ -4,7 +4,7 @@
       <template slot="left">
         <iep-button type="primary" icon="el-icon-plus" @click="handleCreate" plain>新增</iep-button>
         <iep-button v-if="onlyResponsible==true" @click="handleDeleteAll">批量删除</iep-button>
-        <iep-button v-if="onlyResponsible==true" @click="transferMentor">批量移交</iep-button>
+        <iep-button v-if="onlyResponsible==true" @click="transferMentor">项目移交</iep-button>
       </template>
       <template slot="right">
         <el-checkbox v-model="onlyResponsible" @change="changeResponsible()">仅看我负责的项目</el-checkbox>
@@ -20,10 +20,7 @@
             <span class="grade" v-show="scope.row.projectLevel==1">重要</span>
             <span class="grade" v-show="scope.row.projectLevel==2">中级</span>
             <span class="grade" v-show="scope.row.projectLevel==3">一般</span>
-            <span class="stage" v-show="scope.row.projectStage==1">初步</span>
-            <span class="stage" v-show="scope.row.projectStage==2">方案</span>
-            <span class="stage" v-show="scope.row.projectStage==3">执行</span>
-            <span class="stage" v-show="scope.row.projectStage==4">完结</span>
+            <span class="stage">{{dictMap.projectStage[scope.row.projectStage]}}</span>
             <span>{{ scope.row.projectName }}</span>
           </div>
         </template>
@@ -39,7 +36,7 @@
           <span>{{ scope.row.projectManagerList.name }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="立项时间" width="150px">
+      <el-table-column label="立项时间" width="160px">
         <template slot-scope="scope">
           <span v-if="scope.row.projectStatus=='3'">{{ scope.row.approvalTime | parseToDay }}（审核）</span>
           <span v-else>{{ scope.row.projectTime | parseToDay }}（预计）</span>
@@ -47,30 +44,18 @@
       </el-table-column>
       <el-table-column label="项目状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.projectStatus==1">待提交</span>
-          <span v-if="scope.row.projectStatus==2">待审核</span>
-          <span v-if="scope.row.projectStatus==3">已立项</span>
-          <span v-if="scope.row.projectStatus==4">审核未通过</span>
-          <span v-if="scope.row.projectStatus==5">锁定</span>
+          {{项目状态(scope.row)}}
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="250px">
+      <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleClaim(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id">移入公海库</iep-button>
-            <iep-button @click="handleAccounting(scope.row.id)" v-if="scope.row.projectStatus=='3'">项目核算</iep-button>
-            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='3'">编辑</iep-button>
-            <iep-button @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'">撤回</iep-button>
-            <el-dropdown size="medium" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">
-              <iep-button type="default">
-                <i class="el-icon-more-outline"></i>
-              </iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleWithdraw(scope.row.id,2,'立项')">立项</el-dropdown-item>
-                <el-dropdown-item @click.native="handleUpdate(scope.row)">编辑</el-dropdown-item>
-                <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+            <iep-button @click="handleAccounting(scope.row.id)" v-if="scope.row.projectStatus=='3' || scope.row.isHistory=='2'">项目核算</iep-button>
+            <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='3'&&scope.row.isHistory=='1'">编辑</iep-button>
+            <iep-button @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'&&scope.row.isHistory=='1'">撤回</iep-button>
+            <iep-button @click.native="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">立项</iep-button>
+            <iep-button @click.native="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">编辑</iep-button>
+            <iep-button @click.native="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -83,7 +68,7 @@
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData, withdrawById } from '@/api/gpms/index'
-import { statusCancel } from '@/api/gpms/fas'
+// import { statusCancel } from '@/api/gpms/fas'
 import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
 import TransferDialogForm from '../TransferDialogForm'
@@ -112,6 +97,14 @@ export default {
   },
   mixins: [mixins],
   methods: {
+    项目状态 (row) {
+      if (row.isHistory === 2) {
+        return '已完结'
+      }
+      else {
+        return dictMap.projectStatus[row.projectStatus]
+      }
+    },
     async loadPage (params = {}) {
       const data = await this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
       this.statistics = data.total
@@ -190,17 +183,17 @@ export default {
       this.onlyResponsible != this.onlyResponsible
       return false
     },
-    handleClaim (row) {
-      this.$confirm('是否确认移入公海此数据?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-      }).then(() => {
-        statusCancel([row.id]).then(() => {
-          this.$message.success('移入成功！')
-          this.loadPage()
-        })
-      })
-    },
+    // handleClaim (row) {
+    //   this.$confirm('是否确认移入公海此数据?', '提示', {
+    //     confirmButtonText: '确定',
+    //     cancelButtonText: '取消',
+    //   }).then(() => {
+    //     statusCancel([row.id]).then(() => {
+    //       this.$message.success('移入成功！')
+    //       this.loadPage()
+    //     })
+    //   })
+    // },
     handleAccounting (val) {
       this.$router.push(`/fams_spa/project_accounting/${val}`)
     },

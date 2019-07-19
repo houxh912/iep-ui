@@ -164,13 +164,14 @@
       <!-- 收款计划 -->
       <div class="contianBox">
         <el-row class="title">
-          <el-col :span="20" class="data">收款计划</el-col>
+          <el-col :span="20" class="data">项目成本预算</el-col>
         </el-row>
         <el-row class="topBot">
           <el-form label-width="150px">
             <el-row>
               <el-col :span="20" class="item">
                 <el-form-item>
+                  <p>注：外包费用、佣金、项目总预算为必填项，<span style="color: #f00;">如不填，则不发项目提成</span></p>
                   <collection-table :dataList="[formData.projectBudgetList]"></collection-table>
                 </el-form-item>
               </el-col>
@@ -181,13 +182,14 @@
       <!-- 预计回款时间 -->
       <div class="contianBox">
         <el-row class="title">
-          <el-col :span="20" class="data">预计回款时间</el-col>
+          <el-col :span="20" class="data">项目回款计划</el-col>
         </el-row>
         <el-row class="topBot">
           <el-form label-width="150px">
             <el-row>
               <el-col :span="20" class="item">
                 <el-form-item>
+                  <p>项目回款计划：单位（元），查看<span style="color: #f00;">收款奖惩措施</span></p>
                   <payback-table :dataList="formData.paymentRelations"></payback-table>
                 </el-form-item>
               </el-col>

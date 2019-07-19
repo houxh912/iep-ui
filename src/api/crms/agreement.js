@@ -40,4 +40,11 @@ export function deleteAgreementById (id) {
     data: [id],
   })
 }
-
+//合同批量删除
+export function deleteAgreement (id) {
+  return request({
+    url: `${crmUrl}/delete/batch`,
+    method: 'post',
+    data: id,
+  })
+}

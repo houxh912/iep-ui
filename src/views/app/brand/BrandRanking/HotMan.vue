@@ -32,7 +32,11 @@ export default {
   white-space: nowrap;
   margin-bottom: 8px;
   height: 30px;
+  line-height: 30px;
   cursor: pointer;
+  &:last-child {
+    margin-bottom: 0;
+  }
   .name {
     display: inline-block;
     width: 30%;
@@ -43,8 +47,8 @@ export default {
   .num {
     vertical-align: 5px;
   }
-  .fr{
-    float:right;
+  .fr {
+    float: right;
   }
   &:hover {
     color: #cb3737;

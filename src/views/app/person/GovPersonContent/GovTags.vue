@@ -41,6 +41,9 @@ export default {
 <style lang="scss" scoped>
 .piece {
   cursor: pointer;
+  &:nth-child(1) {
+    margin-top: -6px;
+  }
   .name {
     display: inline-block;
     width: 200px;
@@ -81,7 +84,6 @@ export default {
 </style>
 <style scoped>
 .tags >>> .el-card {
-  height: 362px;
+  height: 350px;
 }
 </style>
-

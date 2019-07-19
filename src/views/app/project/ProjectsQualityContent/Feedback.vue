@@ -44,12 +44,12 @@ export default {
   color: #999;
 }
 .thoughtsList {
-  margin-top: 10px;
   .piece {
     display: flex;
     justify-content: flex-start;
     margin-bottom: 20px;
     overflow: hidden;
+    transition: 0.5s;
     .img-con {
       margin-right: 15px;
       min-width: 60px;
@@ -116,6 +116,6 @@ export default {
 }
 
 .thoughts >>> .el-card {
-  height: 324px;
+  height: 318px;
 }
 </style>

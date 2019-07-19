@@ -102,7 +102,7 @@
           </el-timeline-item>
         </el-timeline>
 
-        <template v-if="form.status === 4">
+        <template v-if="form.status === 4 && isApproval">
 
           <iep-divider />
 

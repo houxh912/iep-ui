@@ -20,7 +20,7 @@
 export default {
   data () {
     return {
-      aboutGov: '长期以来，公司始终把打造国脉科技专业、诚信服务品牌位核心。长期以来，公司始终把打造国脉科技专业、诚信的服务品牌作为核心。长期以来，公司始终把打造国脉科技专业诚信的服务品牌作为核心',
+      aboutGov: '长期以来，公司始终把打造国脉科技专业、诚信服务品牌位核心。长期以来，公司始终把打造国脉科技专业、诚信的服务品牌作为核心。长期以来，公司始终把打造国脉科技专业诚信的服务品牌作为核心，公司始终把打造国脉科技专业诚信的服务品牌作为核心，公司始终把打造国脉科技专业诚信的服务品牌作为核心',
       dataList: ['国脉优势', '发展历程', '专家团队', '大事记'],
     }
   },
@@ -49,7 +49,8 @@ export default {
   }
 }
 .aboutGov p {
-  padding-top: 15px;
+  padding-top: 8px;
+  height: 160px;
   font-size: 14px;
   color: #333;
   display: -webkit-box;
@@ -88,7 +89,7 @@ export default {
   padding: 18px 0 18px;
 }
 .grid-content >>> .el-card__body {
-  padding: 0;
+  padding: 0 0 15px;
 }
 .grid-content >>> .el-card {
   padding: 0 15px;

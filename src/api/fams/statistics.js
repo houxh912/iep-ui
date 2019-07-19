@@ -222,7 +222,7 @@ export const getUnionProfits = (year, month) => {
   })
 }
 
-// 集团货币基金
+// 集团货币基金公司
 export const getCompanyCurrencyFund = (yearMonth) => {
   return request({
     url: `${prefixUrl}/company/balance`,
@@ -232,13 +232,33 @@ export const getCompanyCurrencyFund = (yearMonth) => {
     },
   })
 }
-// 集团货币基金
+// 集团货币基金公司详情
+export const getCompanyCurrencyFundDetail = (id) => {
+  return request({
+    url: `${prefixUrl}/company/detail`,
+    method: 'get',
+    params: {
+      companyId: id,
+    },
+  })
+}
+// 集团货币基金账户
 export const getBankCurrencyFund = (yearMonth) => {
   return request({
     url: `${prefixUrl}/bank/balance`,
     method: 'get',
     params: {
       month: yearMonth,
+    },
+  })
+}
+// 集团货币基金账户详情
+export const getBankCurrencyFundDetail = (id) => {
+  return request({
+    url: `${prefixUrl}/bank/detail`,
+    method: 'get',
+    params: {
+      accountId: id,
     },
   })
 }

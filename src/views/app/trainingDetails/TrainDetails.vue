@@ -9,8 +9,8 @@
           </div>
           <span>{{data.creatorName}}</span>
           <span class="time">{{data.createTime}}</span>
-          <span><i class="iconfont icon-yanjing"></i>{{data.views}}</span>
-          <span><i class="iconfont icon-download1"></i>{{downloads}}</span>
+          <span class="opt"><i class="iconfont icon-yanjing"></i>{{data.views}}</span>
+          <span class="opt"><i class="iconfont icon-download1"></i>{{downloads}}</span>
         </div>
         <div class="btn-con">
           <!-- <div class="btn" v-for="item in itemList" :key="item.id"><i class="iconfont" :class="item.icon"></i>{{item.operate}}</div> -->
@@ -67,7 +67,7 @@ export default {
   padding: 20px 0;
   border-bottom: 1px solid #ebeef5;
   .title {
-    font-size: 18px;
+    font-size: 22px;
     color: #333;
     height: 50px;
   }
@@ -81,8 +81,13 @@ export default {
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      .time {
+      .time,
+      .opt {
         color: #999;
+      }
+      .opt {
+        display: flex;
+        align-items: center;
       }
       span {
         display: flex;

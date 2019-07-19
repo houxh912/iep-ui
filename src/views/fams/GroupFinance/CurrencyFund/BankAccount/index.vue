@@ -1,42 +1,40 @@
 <template>
-  <div>
-    <operation-container>
-      <template slot="right">
-        <iep-date-picker size="small" v-model="date" align="right" type="month" placeholder="选择年" @change="loadPage()"></iep-date-picker>
-      </template>
-    </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary></iep-table>
-  </div>
+  <keep-alive include="List">
+    <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  </keep-alive>
 </template>
 
 <script>
-import { getBankCurrencyFund } from '@/api/fams/statistics'
-import { getYearMonth } from '@/util/date'
-import mixins from '@/mixins/mixins'
-import { columnsMap } from './options.js'
+// 动态切换组件
+import List from './List'
+import Detail from './Detail'
+
 export default {
-  mixins: [mixins],
+  name: 'TableListWrapper',
+  components: {
+    List,
+    Detail,
+  },
   data () {
     return {
-      columnsMap,
-      date: '',
+      currentComponet: 'List',
+      record: '',
     }
   },
-  computed: {
-    yearMonth () {
-      return getYearMonth(this.date)
+  methods: {
+    handleDetail (record) {
+      this.record = record
+      this.currentComponet = 'Detail'
+    },
+    handleGoBack () {
+      this.record = ''
+      this.currentComponet = 'List'
     },
   },
-  created () {
-    this.statistics = [this.year, this.orgName]
-    this.loadPage()
-  },
-  methods: {
-    async loadPage () {
-      this.isLoadTable = true
-      const { data } = await getBankCurrencyFund(this.yearMonth)
-      this.pagedTable = data.data
-      this.isLoadTable = false
+  watch: {
+    '$route.path' () {
+      this.record = ''
+      this.currentComponet = 'List'
     },
   },
 }

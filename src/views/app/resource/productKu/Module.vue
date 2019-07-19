@@ -170,6 +170,7 @@ export default {
       }
       .classTag {
         width: 100%;
+        height: 66px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -220,7 +221,6 @@ export default {
   padding: 0;
 }
 .module >>> .el-card.module-item {
-  height: 228px;
   border: 1px solid #dcdfe6;
   cursor: pointer;
 }

@@ -1,12 +1,16 @@
 <template>
   <div class="tag-desc">
     <div class="tag-main">
-      <p class="title">{{form.name}}</p>
-      <span class="sign" v-for="typeName in form.typeNames" :key="typeName">{{typeName}}</span>
-      <span class="explain fr">
-        <i class="icon-bangzhu"></i>
-        <span>标签规范说明</span>
-      </span>
+      <div class="title-con">
+        <div class="left">
+          <p class="title">{{form.name}}</p>
+          <span class="sign" v-for="typeName in form.typeNames" :key="typeName">{{typeName}}</span>
+        </div>
+        <span class="explain">
+          <i class="icon-wenhao"></i>
+          <span>标签规范说明</span>
+        </span>
+      </div>
       <p class="content">
         <iep-no-data v-if="!form.description.length"></iep-no-data>
         {{form.description}}
@@ -25,14 +29,26 @@ export default {
 </script>
 <style lang="scss" scoped>
 .tag-desc {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .tag-main {
   overflow: hidden;
 }
+.title-con {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  .left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
 .title {
   display: inline-block;
-  font-size: 18px;
+  margin-bottom: 0;
+  font-size: 22px;
   color: #333;
   margin-right: 10px;
 }
@@ -40,7 +56,7 @@ export default {
   padding: 0 5px;
   border: 1px solid #c73e3e;
   color: #c73e3e;
-  font-size: 14px;
+  font-size: 12px;
   border-radius: 3px;
   background-color: rgba(231, 168, 168, 0.1);
   cursor: pointer;
@@ -52,15 +68,17 @@ export default {
   float: right;
 }
 .explain {
+  display: flex;
+  align-items: center;
   color: #999;
   line-height: 30px;
   i {
-    margin-right: 8px;
+    margin-right: 5px;
+    font-size: 14px;
     vertical-align: -2px;
   }
 }
 .content {
-  margin-bottom: 5px;
   font-size: 14px;
   color: #666;
   line-height: 28px;

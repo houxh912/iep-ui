@@ -20,7 +20,7 @@ export default {
     }
   },
   created () {
-    getCredit().then(({data}) => {
+    getCredit().then(({ data }) => {
       this.tableData = data.data
     })
   },
@@ -44,6 +44,7 @@ export default {
 .statistics >>> tr td:nth-child(1) .cell {
   color: #0054a3;
   cursor: pointer;
+  transition: 0.5s;
 }
 .statistics >>> tr td:nth-child(1) .cell:hover {
   color: #1978d1;

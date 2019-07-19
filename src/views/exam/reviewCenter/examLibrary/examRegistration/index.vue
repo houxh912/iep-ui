@@ -14,9 +14,7 @@
         </operation-search>
       </template>
     </operation-container>
-    <iep-table ref="table" :isLoadTable="isLoadTable" :pagination="pagination"
-      :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
-      isMutipleSelection @selection-change="selectionChange" is-mutiple-selection is-index>
+    <iep-table ref="table" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange" is-mutiple-selection is-index>
       <el-table-column prop="examineeName" label="姓名">
         <template slot-scope="scope">
           {{scope.row.examineeName}}
@@ -57,10 +55,8 @@
       <el-table-column prop="operation" label="操作" width="190">
         <template slot-scope="scope">
           <operation-wrapper style="padding-top: 4px;">
-            <iep-button type="warning" size="small" plain @click="handlePass(scope.row)"
-              v-if="scope.row.state === 0 || scope.row.state === 2">审核通过</iep-button>
-            <iep-button type="warning" size="small" plain @click="handleCancel(scope.row)"
-              v-if="scope.row.state === 1">撤销资格</iep-button>
+            <iep-button type="warning" size="small" plain @click="handlePass(scope.row)" v-if="scope.row.state === 0 || scope.row.state === 2">审核通过</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleCancel(scope.row)" v-if="scope.row.state === 1">撤销资格</iep-button>
             <!-- <iep-button size="small" plain @click="handleDelete(scope.row)">删除</iep-button> -->
           </operation-wrapper>
         </template>
@@ -75,8 +71,7 @@
         </operation-wrapper>
       </template>
     </iep-dialog> -->
-    <iep-dialog :dialog-show="dialogShow" title="查看资质" width="500px" @close="dialogShow = false"
-      center>
+    <iep-dialog :dialog-show="dialogShow" title="查看资质" width="500px" @close="dialogShow = false" center>
       <div style="text-align:center;">
         <iep-img :src="imgUrl"></iep-img>
         <span v-if="imgUrlNo">资质证明图片未上传！</span>
@@ -113,7 +108,7 @@ export default {
     this.setPermission()
   },
   methods: {
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       // console.log('record',this.record)
       const params = {
         examinationId: this.record.row.id,

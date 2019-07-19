@@ -131,7 +131,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     padding: 0 10px;
-    width: 45%;
+    width: 46%;
     background-color: #f8f8f8;
     line-height: 35px;
     cursor: pointer;

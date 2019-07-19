@@ -295,4 +295,12 @@ export default {
   background: rgba(0, 0, 0, 0.5);
   color: #fff;
 }
+.hotest >>> .el-image__inner {
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
+}
+.hotest >>> .el-image__inner:hover {
+  transform: scale(1.1);
+}
 </style>

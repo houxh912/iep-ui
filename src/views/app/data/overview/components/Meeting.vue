@@ -24,7 +24,7 @@ export default {
     }
   },
   created () {
-    getweek().then(({data}) => {
+    getweek().then(({ data }) => {
       this.tableData = data.data
     })
   },
@@ -43,6 +43,7 @@ export default {
 <style scoped>
 .statistics >>> .cell {
   text-align: right;
+  transition: 0.5s;
 }
 .statistics >>> tr td:nth-child(1) .cell,
 .statistics >>> tr th:nth-child(1) .cell {

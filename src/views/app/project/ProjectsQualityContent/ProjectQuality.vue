@@ -52,7 +52,7 @@ export default {
     line-height: 25px;
   }
   .person {
-    padding-top: 15px;
+    padding-top: 20px;
     margin-bottom: 15px;
     overflow: hidden;
     .dn {
@@ -148,6 +148,7 @@ export default {
 }
 .red {
   display: inline-block;
+  padding: 0;
   color: #bb1a20;
   cursor: pointer;
   &:hover {
@@ -163,7 +164,7 @@ export default {
   display: none;
 }
 .person >>> .el-card {
-  height: 330px;
+  height: 320px;
 }
 .person >>> .el-carousel__arrow {
   background: none;

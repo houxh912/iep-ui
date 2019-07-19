@@ -49,7 +49,7 @@ export default {
   padding: 18px 0 10px;
 }
 .index-card >>> .el-card__body {
-  padding: 16px 0;
+  padding: 15px 0;
 }
 .el-card {
   padding: 0 20px;

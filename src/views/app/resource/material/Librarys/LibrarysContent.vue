@@ -11,7 +11,7 @@
                 <i class="iconfont icon-caifu" v-if="item.downloadCost !== '0'"></i>
                 <i class="iconfont icon-fujian" v-if="item.attachFile !== ''"></i>
               </div>
-              <p>{{item.intro}}</p>
+              <p class="con">{{item.intro}}</p>
             </div>
             <div class="box">
               <span class="uploaded">上传者：
@@ -127,20 +127,29 @@ export default {
 </script>
 <style lang="scss" scoped>
 .piece {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   border-bottom: 1px solid #eee;
   & > p {
     font-size: 14px;
     color: #666;
     line-height: 28px;
   }
+  .con {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    text-align: justify;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 }
 .title {
+  margin-bottom: 2px;
   .name {
     display: inline-block;
     margin-right: 10px;
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
     &:hover {
       color: #cb3737;
@@ -164,6 +173,7 @@ export default {
     align-items: center;
     margin-right: 15px;
     line-height: 24px;
+    font-size: 12px;
     color: #aaa;
     i {
       margin-right: 5px;

@@ -28,6 +28,9 @@ export default {
   white-space: nowrap;
   margin-bottom: 10px;
   cursor: pointer;
+  &:hover .img {
+    opacity: 0.7;
+  }
   .name {
     height: 26px;
     line-height: 26px;

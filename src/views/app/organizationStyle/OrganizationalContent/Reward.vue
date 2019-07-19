@@ -38,6 +38,10 @@ export default {
   .piece {
     cursor: pointer;
     position: relative;
+    transition: 0.5s;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     .name {
       display: inline-block;
       width: 200px;

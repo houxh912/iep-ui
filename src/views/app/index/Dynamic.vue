@@ -40,6 +40,6 @@ export default {
   margin-left: -8px;
 }
 .baner >>> .el-card {
-  height: 288px;
+  height: 280px;
 }
 </style>

@@ -20,7 +20,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .tag-content {
-  padding: 15px 20px;
+  padding: 25px 30px 25px 0;
   border-right: 1px solid #eee;
   border-top: 1px solid #eee;
 }

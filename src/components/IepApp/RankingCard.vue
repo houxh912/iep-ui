@@ -40,7 +40,11 @@ export default {
     align-items: center;
     color: #333;
     transition-duration: 0.3s;
+    transition: 0.5s;
     cursor: pointer;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     .name {
       height: 30px;
       line-height: 30px;

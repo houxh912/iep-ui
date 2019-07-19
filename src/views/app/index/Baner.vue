@@ -45,18 +45,18 @@ export default {
 </script>
 <style scoped>
 .el-carousel >>> .el-carousel__container {
-  height: 288px;
+  height: 280px;
 }
 </style>
 
 <style lang="scss" scoped>
 .index-card {
-  height: 288px;
+  height: 280px;
   .baner-box {
-    height: 288px;
+    height: 280px;
     .img {
       width: 100%;
-      height: 288px;
+      height: 280px;
     }
   }
 }

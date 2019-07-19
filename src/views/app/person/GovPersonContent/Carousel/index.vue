@@ -71,4 +71,7 @@ export default {
 .leaderBoard >>> .el-carousel__arrow--right {
   right: -10px;
 }
+.leaderBoard >>> .el-carousel__indicators--horizontal {
+  display: none;
+}
 </style>

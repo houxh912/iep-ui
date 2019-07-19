@@ -39,7 +39,7 @@ export default [
     children: [
       {
         path: 'client_detail/:id',
-        name: 'APP客户详情',
+        name: '客户库详情',
         component: () => import('@/views/app/resource/client/clientDetail/'),
       },
     ],

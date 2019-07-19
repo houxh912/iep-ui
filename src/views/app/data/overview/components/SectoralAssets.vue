@@ -4,7 +4,7 @@
     <el-table :data="tableData" stripe>
       <el-table-column prop="name" label="组织">
       </el-table-column>
-      <el-table-column prop="orgAssets" label="资产数(万) ">
+      <el-table-column prop="orgAssets" label="资产数(元) ">
       </el-table-column>
     </el-table>
   </div>

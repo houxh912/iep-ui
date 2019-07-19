@@ -69,6 +69,8 @@ export default {
     // 切换周报
     actively (item, type) {
       if (type === 'week') {
+        this.timeLineOption.active = item.month
+        this.timeLineOption.activeChild = item.$index
         let year = new Date(item.timeStamp).getFullYear()
         this.dialogState = 'detail'
         this.currentDate = {
@@ -142,8 +144,8 @@ export default {
         today = getWeekStartAndEnd(list[obj.month].children[obj.week].timeStamp)
       } else if (type === 'search') { // 具体时间搜索
         let obj = getDateObj(list, monday)
-        this.$refs['timeline'].active = obj.month
-        this.$refs['timeline'].activeChild = obj.week
+        this.$refs['timeline'].active = this.timeLineOption.active = obj.month
+        this.$refs['timeline'].activeChild = this.timeLineOption.activeChild = obj.week
         today = getWeekStartAndEnd(list[obj.month].children[obj.week].timeStamp)
       } else { // 默认加载
         let obj = getDateObj(list, new Date(getMonday(+this.today).timeStamp))

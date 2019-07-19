@@ -1,7 +1,7 @@
 <template>
   <div class="news_detail">
     <iep-page-header :title="formData.title" :backOption="backOption"></iep-page-header>
-    <iep-img :src="formData.image"></iep-img>
+    <!-- <iep-img :src="formData.image"></iep-img> -->
     <el-row class="content">
       <iep-html v-model="formData.content"></iep-html>
     </el-row>

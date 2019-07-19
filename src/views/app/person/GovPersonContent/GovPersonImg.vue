@@ -22,8 +22,8 @@ export default {
   },
   created () {
     let params = {
-      nodeId: 22,
-      siteId: 17,
+      nodeNumber: 'groupNews',
+      siteId: 1,
       current: 1,
       size: 3,
     }

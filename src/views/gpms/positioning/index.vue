@@ -330,7 +330,7 @@ export default {
           if (sum[item1] == newsum[newsum.length - 1]) {
             maxItem = item1
           }
-          if (sum[item1] == newsum[newsum.length - 2]) {
+          else if (sum[item1] == newsum[newsum.length - 2]) {
             twoItem = item1
           }
         }

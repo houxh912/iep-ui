@@ -28,7 +28,7 @@
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
-              <el-form-item label="负责部门:">
+              <el-form-item label="负责部门:" prop="iepClientRespDept">
                 <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
               </el-form-item>
             </el-col>
@@ -181,6 +181,13 @@ export default {
         }
       }
     }
+    var deptFun = (rule, value, callback) => {
+      if (value.id == '') {
+        callback(new Error('请选择负责部门'))
+      } else {
+        callback()
+      }
+    }
     return {
       tipContent,
       id: '',
@@ -205,6 +212,9 @@ export default {
       rules: {
         clientName: [
           { required: true, validator: validateFun, trigger: 'blur' },
+        ],
+        iepClientRespDept: [
+          { required: true, validator: deptFun, trigger: 'change' },
         ],
         phoneNumber: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },

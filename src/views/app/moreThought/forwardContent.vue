@@ -1,30 +1,33 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="转发说说" width="50%" @close="resetForm">
-    <forwardContent forward :contentData="contentData"></forwardContent>
-  </iep-dialog>
+  <div class="forward">
+    <div class="avatar">
+      <iep-img :src="contentData.avatar" class="img"></iep-img>
+    </div>
+    <div class="content">
+      <div class="top">
+        <div class="title">
+          <div class="name">{{contentData.userName}}</div>
+          <div class="date"><i class="icon-shijian"></i> {{contentData.createTime}}</div>
+        </div>
+      </div>
+      <contentTpl class="contentTpl" :data="contentData"></contentTpl>
+      <formTpl :transmitId="contentData.thoughtsId" v-if="forward"></formTpl>
+    </div>
+  </div>
 </template>
 
 <script>
-import forwardContent from './forwardContent'
+import formTpl from './form'
+import contentTpl from './content'
 export default {
-  components: { forwardContent },
-  data () {
-    return {
-      dialogShow: false,
-      loadState: false,
-      row: {
-        images: [],
-      },
-      contentData: {},
-    }
-  },
-  methods: {
-    open (row) {
-      this.dialogShow = true
-      this.contentData = row
+  components: { contentTpl, formTpl },
+  props: {
+    forward: {
+      type: Boolean,
+      default: false,
     },
-    resetForm () {
-      this.dialogShow = false
+    contentData: {
+      type: Object,
     },
   },
 }
@@ -36,8 +39,8 @@ export default {
   padding: 0 10px;
   .avatar {
     margin-right: 35px;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     .img{
       cursor: pointer;

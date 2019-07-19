@@ -23,9 +23,19 @@
                     <!-- <el-button size="mini" round>只看此人</el-button> -->
                   </div>
                   <!-- 说说的内容 -->
-                  <!-- <div class="item">{{item.content}}</div> -->
-                  <!-- <div class="item" v-html="transfHtml(item.content)"></div> -->
-                  <contentTpl :data="item"></contentTpl>
+                  <contentTpl :data="item">
+                    <!-- 转发原内容 -->
+                    <div class="forward-content" v-if="item.transmitId > 0">
+                      <forwardContent :contentData="item.transmittedThoughts"></forwardContent>
+                    </div>
+                  </contentTpl>
+                  <!-- 按钮组 -->
+                  <div class="footer">
+                    <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+                    <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
+                    <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
+                    <div class="button" @click="handleForward(item)" v-if="item.transmitId === 0"><i class="icon-zhuanfa1"></i> 转发</div>
+                  </div>
                   <!-- 说说评论 -->
                   <div class="comment" v-if="activeIndex == index">
                     <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
@@ -38,13 +48,6 @@
                       <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
                       <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
                     </div>
-                  </div>
-                  <!-- 按钮组 -->
-                  <div class="footer">
-                    <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
-                    <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
-                    <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
-                    <div class="button" @click="handleForward(item)"><i class="icon-zhuanfa1"></i> 转发</div>
                   </div>
                 </div>
               </div>
@@ -72,6 +75,7 @@ import { mapActions } from 'vuex'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 import contentTpl from './content'
 import forwardDialog from './forwardDialog'
+import forwardContent from './forwardContent'
 
 const initParams = () => {
   return {
@@ -88,7 +92,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { headTpl, commentTpl, PublishDialog, contentTpl, forwardDialog },
+  components: { headTpl, commentTpl, PublishDialog, contentTpl, forwardDialog, forwardContent },
   data () {
     return {
       isShow: true,
@@ -257,6 +261,11 @@ h3.title {
         .content-list {
           flex: 1;
           margin-top: 5px;
+          .forward-content {
+            background-color: #fafafa;
+            padding: 20px;
+            margin-top: 15px;
+          }
           .top {
             display: flex;
             justify-content: space-between;

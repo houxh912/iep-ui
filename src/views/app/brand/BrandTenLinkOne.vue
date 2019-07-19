@@ -21,7 +21,7 @@ export default {
         { icon: 'icon-qiyejianjie', 'title': '简介14个', des: '内涵非常广泛' },
         { icon: 'icon-shipin', 'title': '宣传片13个', des: '内涵非常广泛' },
         { icon: 'icon-dangan', 'title': '短期材料15个', des: '内涵非常广泛' },
-        { icon: 'icon-guanggaogongguan', 'title': '频台广告34个', des: '内涵非常广泛' },
+        { icon: 'icon-guanggaogongguan', 'title': '平台广告34个', des: '内涵非常广泛' },
         { icon: 'icon-shangye', 'title': '商业资料14个', des: '内涵非常广泛' },
         { icon: 'icon-shuben1', 'title': '大事记22个', des: '内涵非常广泛' },
         { icon: 'icon-peixun', 'title': '会议培训26个', des: '内涵非常广泛' },

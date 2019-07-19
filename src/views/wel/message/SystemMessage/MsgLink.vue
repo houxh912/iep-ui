@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     handleOpen () {
-      this.$openPage(this.isCommon)
+      this.$openPage(this.isCommon, 'url')
     },
   },
 }

@@ -3,7 +3,7 @@
     <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-right: 20px;">
 
       <el-form-item label="说说内容：" prop="content">
-        <el-input type="textarea" rows="5" v-model="formData.content" maxlength="200" />
+        <el-input type="textarea" rows="5" v-model="formData.content" maxlength="1000" />
       </el-form-item>
       <el-form-item label="是否开放：">
         <el-switch

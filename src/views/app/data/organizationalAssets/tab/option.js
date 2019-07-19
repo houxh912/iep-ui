@@ -33,6 +33,18 @@ export const dataAssetsData = [
       }, {
         name: '潜在客户',
         prop: 'd_customer',
+      }, {
+        name: '核心战略伙伴',
+        prop: 'a_partner',
+      }, {
+        name: '良好战略伙伴',
+        prop: 'b_partner',
+      }, {
+        name: '一般战略伙伴',
+        prop: 'c_partner',
+      }, {
+        name: '潜在战略伙伴',
+        prop: 'd_partner',
       },
     ],
   }, {
@@ -61,24 +73,6 @@ export const dataAssetsData = [
     name: '平台资产',
     prop: 'platform_assets',
     children: [],
-  }, {
-    name: '战略资产',
-    prop: 'partner_assets',
-    children: [
-      {
-        name: '核心伙伴',
-        prop: 'a_partner',
-      }, {
-        name: '良好伙伴',
-        prop: 'b_partner',
-      }, {
-        name: '一般伙伴',
-        prop: 'c_partner',
-      }, {
-        name: '潜在伙伴',
-        prop: 'd_partner',
-      },
-    ],
   }, {
     name: '品牌资产',
     prop: 'brand_assets',

@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column label="主题" min-width="400">
             <template slot-scope="scope">
-              <iep-table-link :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <iep-table-link :is-read="scope.row.isRead" is-dot @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -43,7 +43,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: '2',
+      type: this.$route.query.type || '2',
       tabList: [
         {
           label: '我接收的',
@@ -110,6 +110,12 @@ export default {
     },
     //tab切换菜单
     changeType () {
+      this.$router.push({
+        path: '/wel/message/announcement',
+        query: {
+          type: this.type,
+        },
+      })
       this.loadPage()
     },
     handleSelectionChange (val) {

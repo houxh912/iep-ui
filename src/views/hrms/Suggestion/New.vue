@@ -13,7 +13,14 @@
           <iep-dict-select v-model="form.type" dict-name="cpms_propose_type"></iep-dict-select>
         </iep-form-item>
 
-        <iep-form-item prop="attendeeId" label-name="接收对象">
+        <iep-form-item prop="objectType" label-name="对象类型">
+          <el-radio-group v-model="form.objectType">
+            <el-radio :label="1">组织</el-radio>
+            <el-radio :label="2">联盟</el-radio>
+          </el-radio-group>
+        </iep-form-item>
+
+        <iep-form-item v-if="form.objectType === 1" prop="attendeeId" label-name="接收对象">
           <iep-select v-model="form.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
         </iep-form-item>
 

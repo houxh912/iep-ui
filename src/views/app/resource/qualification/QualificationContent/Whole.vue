@@ -47,6 +47,10 @@ export default {
     .whole-item {
       border: 1px solid #ebeef5;
       height: 370px;
+      transition: 0.3s;
+      &:hover {
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      }
       img {
         width: 272px;
         height: 360px;

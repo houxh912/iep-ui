@@ -1,6 +1,6 @@
 import request from '@/router/axios'
 
-const prefixUrl = '/gov'
+const prefixUrl = '/gc'
 // @/api/gms/declare
 // 查看政策解读分页
 export function getExplainPage (params) {
@@ -43,7 +43,7 @@ export function deleteExplainBatch (ids) {
  */
 export function postExplainAndCommit (params) {
   return request({
-    url: '/gov/policy/explain/createAndCommit',
+    url: `${prefixUrl}/policy/explain/createAndCommit`,
     method: 'post',
     data: params,
     headers: {
@@ -58,7 +58,7 @@ export function postExplainAndCommit (params) {
  */
 export function putExplainAndCommit (params) {
   return request({
-    url: '/gov/policy/explain/updateAndCommit',
+    url: `${prefixUrl}/policy/explain/updateAndCommit`,
     method: 'post',
     data: params,
     headers: {
@@ -70,7 +70,7 @@ export function putExplainAndCommit (params) {
 // 暂存(添加)
 export function postExplain (params) {
   return request({
-    url: '/gov/policy/explain/create',
+    url: `${prefixUrl}/policy/explain/create`,
     method: 'post',
     data: params,
     headers: {
@@ -82,7 +82,7 @@ export function postExplain (params) {
 // 暂存(修改)
 export function putExplain (params) {
   return request({
-    url: '/gov/policy/explain/update',
+    url: `${prefixUrl}/policy/explain/update`,
     method: 'post',
     data: params,
     headers: {

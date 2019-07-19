@@ -67,6 +67,23 @@ export default {
 .team >>> .el-card__body {
   padding: 2px 0 30px;
 }
+.team >>> .el-carousel__arrow {
+  background: none;
+}
+.team >>> .el-carousel__arrow i {
+  font-size: 36px;
+  color: #666;
+}
+.team >>> .el-carousel__item {
+  left: 25px;
+  width: 96%;
+}
+.team >>> .el-carousel__arrow--left {
+  left: -10px;
+}
+.team >>> .el-carousel__arrow--right {
+  right: -10px;
+}
 </style>
 
 

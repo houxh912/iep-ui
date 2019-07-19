@@ -3,7 +3,7 @@
  */
 
 import request from '@/router/axios'
-const prefixUrl = '/gov/policy/general'
+const prefixUrl = '/gc/policy/general'
 /**
  * 获取政策列表
  * @param {Object} params 参数

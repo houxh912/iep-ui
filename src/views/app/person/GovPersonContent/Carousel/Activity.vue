@@ -1,9 +1,11 @@
 <template>
   <div class="activity">
-    <el-carousel height="200px" :interval="5000" indicator-position="none">
+    <el-carousel :interval="5000" arrow="always">
       <el-carousel-item v-for="item in 4" :key="item">
         <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
-          <div class="img"><iep-img :src="item.img" class="img"></iep-img></div>
+          <div class="img">
+            <iep-img :src="item.img" class="img"></iep-img>
+          </div>
           <span class="name">{{item.name}}</span>
         </div>
       </el-carousel-item>
@@ -29,17 +31,19 @@ export default {
 .activity {
   padding-top: 15px;
   .piece {
+    position: relative;
     text-align: center;
-    width: 272px;
+    width: 238px;
     float: left;
-    margin: 0 5px;
+    margin: 0 17px;
+    cursor: pointer;
     .img {
       width: 100%;
-      height: 165px;
+      height: 142px;
       overflow: hidden;
       img {
         width: 100%;
-        height: 165px;
+        height: 142px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;
@@ -51,11 +55,17 @@ export default {
       line-height: 40px;
     }
     &:first-child {
-      margin: 0 15px 0 10px;
+      margin: 0 27px 0 22px;
     }
     &:last-child {
-      margin: 0 10px 0 15px;
+      margin: 0 22px 0 27px;
     }
   }
+}
+</style>
+
+<style scoped>
+.activity >>> .el-carousel__container {
+  height: 180px;
 }
 </style>

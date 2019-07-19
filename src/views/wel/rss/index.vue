@@ -32,11 +32,19 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
+          <el-radio-group v-model="type" size="small" @change="loadPage">
+            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+          </el-radio-group>
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
+          <el-table-column label="政策名称">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.title}}</iep-table-link>
+            </template>
+          </el-table-column>
         </template>
         <!-- <el-table-column prop="operation" label="操作" width="160"> -->
         <!-- <template> -->
@@ -50,6 +58,7 @@
       </iep-table>
     </el-col>
     <dialog-form ref="DialogForm"></dialog-form>
+    <dialog-detail ref="DialogDetail"></dialog-detail>
   </el-row>
 </template>
 <script>
@@ -57,13 +66,37 @@ import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
 import { getPolicyPage, getThemeList } from '@/api/govdata/rss'
 import DialogForm from './DialogForm'
+import DialogDetail from './DialogDetail'
 export default {
-  components: { DialogForm },
+  components: { DialogForm, DialogDetail },
   mixins: [mixins],
   data () {
     return {
       dictsMap,
       columnsMap,
+      type: '*',
+      tabList: [
+        {
+          label: '全部',
+          value: '*',
+        },
+        {
+          label: '通用',
+          value: 'general',
+        },
+        {
+          label: '申报',
+          value: 'declare',
+        },
+        {
+          label: '分析',
+          value: 'explain',
+        },
+        {
+          label: '信息',
+          value: 'information',
+        },
+      ],
       rssType: [
         { label: '国策订阅', value: '1' },
       ],
@@ -80,11 +113,13 @@ export default {
   methods: {
     handleAdd () {
       getThemeList().then(({ data }) => {
-        this.$refs['DialogForm'].themeList = data.map(m => m.value)
+        this.$refs['DialogForm'].themeList = data.data.map(m => m.value)
         this.$refs['DialogForm'].dialogShow = true
       })
     },
-    handleDetail () {
+    handleDetail (row) {
+      this.$refs['DialogDetail'].form = {...row}
+      this.$refs['DialogDetail'].dialogShow = true
     },
     handleSelect (item) {
       this.rssTitle = item.label
@@ -92,7 +127,7 @@ export default {
       this.loadPage()
     },
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getPolicyPage)
+      this.loadTable({ ...param, beforeDays: 3, policyType: this.type }, getPolicyPage)
     },
   },
 }

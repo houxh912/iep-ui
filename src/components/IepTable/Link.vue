@@ -19,7 +19,7 @@ export default {
     },
     isDot: {
       type: Boolean,
-      default: true,
+      default: false,
     },
   },
 }

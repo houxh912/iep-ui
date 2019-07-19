@@ -40,6 +40,7 @@ const getMonth = (date) => {
  * 日期格式化
  */
 const dateFormat = (DATE, format = 'yyyy-MM-dd') => {
+  if (!DATE) return ''
   let date = new Date(DATE)
   // let format = 'yyyy-MM-dd hh:mm:ss'
   if (date !== 'Invalid Date') {

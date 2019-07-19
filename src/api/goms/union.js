@@ -137,3 +137,60 @@ export function getUserPage (query) {
     params: query,
   })
 }
+
+export function getEventPage (query) {
+  return request({
+    url: `${prefixUrl}/event/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function postEvent (obj) {
+  return request({
+    url: `${prefixUrl}/event/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function putEvent (obj) {
+  return request({
+    url: `${prefixUrl}/event/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function deleteEventById (id) {
+  return request({
+    url: `${prefixUrl}/event/delete/batch`,
+    method: 'post',
+    data: [id],
+  })
+}
+
+export function deleteEvent (ids) {
+  return request({
+    url: `${prefixUrl}/event/delete/batch`,
+    method: 'post',
+    data: ids,
+  })
+}
+
+export function getHistoryPage (query) {
+  return request({
+    url: `${prefixUrl}/history/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function postHistory (obj) {
+  return request({
+    url: `${prefixUrl}/history/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+

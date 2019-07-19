@@ -221,7 +221,7 @@ export default {
           type: 'warning',
         }).then(() => {
           fn()
-        }).catch(() => {})
+        }).catch(() => { })
       }
     },
     handleDetail (row) {
@@ -260,7 +260,7 @@ export default {
         this.$message.error('无法向自己拜师')
         return
       }
-      this.ApprenticeApply({id: this.formData.creator, name: this.formData.creatorRealName})
+      this.ApprenticeApply({ id: this.formData.creator, name: this.formData.creatorRealName })
     },
     // 收藏
     handleCollect () {
@@ -297,7 +297,7 @@ export default {
         this.$message.error('无法向自己打赏')
         return
       }
-      this.famsReward({id: this.formData.creator, name: this.formData.creatorRealName})
+      this.famsReward({ id: this.formData.creator, name: this.formData.creatorRealName })
     },
     // 收藏和分享的返回函数
     loadPage () {
@@ -406,6 +406,9 @@ export default {
     margin-bottom: 20px;
     .file {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
       i {
         font-size: 16px !important;
         margin-right: 10px;
@@ -413,6 +416,10 @@ export default {
       .tip {
         margin-left: 10px;
         color: #999;
+      }
+      &:hover i,
+      &:hover .tip {
+        color: #cb3737;
       }
     }
   }
@@ -558,6 +565,9 @@ export default {
     }
     p {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
     }
   }
 }

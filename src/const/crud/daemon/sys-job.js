@@ -58,7 +58,7 @@ export const tableOption = {
       label: '任务状态',
       prop: 'jobStatus',
       type: 'select',
-      dicUrl: '/admin/dict/type/job_status',
+      dicUrl: '/api/admin/dict/type/job_status',
       addVisdiplay: false,
       search: true,
       slot: true,
@@ -67,7 +67,7 @@ export const tableOption = {
       label: '执行状态',
       prop: 'jobExecuteStatus',
       type: 'select',
-      dicUrl: '/admin/dict/type/job_execute_status',
+      dicUrl: '/api/admin/dict/type/job_execute_status',
       addVisdiplay: false,
       search: true,
       slot: true,
@@ -152,7 +152,7 @@ export const tableOption = {
       label: '类型',
       prop: 'jobType',
       type: 'select',
-      dicUrl: '/admin/dict/type/job_type',
+      dicUrl: '/api/admin/dict/type/job_type',
       width: 100,
       rules:
         [{
@@ -200,7 +200,7 @@ export const tableOption = {
       label: '错失执行策略',
       prop: 'misfirePolicy',
       type: 'select',
-      dicUrl: '/admin/dict/type/misfire_policy',
+      dicUrl: '/api/admin/dict/type/misfire_policy',
       width: 120,
       rules:
         [{
@@ -267,7 +267,7 @@ export const tableLogOption = {
       label: '状态',
       prop: 'jobLogStatus',
       type: 'select',
-      dicUrl: '/admin/dict/type/job_execute_status',
+      dicUrl: '/api/admin/dict/type/job_execute_status',
       slot: true,
     },
     {
@@ -279,7 +279,7 @@ export const tableLogOption = {
       label: '类型',
       prop: 'jobType',
       type: 'select',
-      dicUrl: '/admin/dict/type/job_type',
+      dicUrl: '/api/admin/dict/type/job_type',
       width: 100,
     },
     {

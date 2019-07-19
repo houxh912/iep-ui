@@ -60,7 +60,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(res => {
   NProgress.done()
   const status = Number(res.status) || 200
-  const message = res.data.msg || errorCode[status] || errorCode['default']
+  const message = errorCode[status] || res.data.msg || errorCode['default']
   if (status === 401 || res.data.code === 401) {
     store.dispatch('FedLogOut').then(() => {
       router.push({ path: '/login' })
@@ -76,8 +76,8 @@ axios.interceptors.response.use(res => {
     //   router.push({ path: '/500' })
     //   return
   } else if (!(/2\d\d/.test('' + status)) || res.data.code === 1) {
-    if (res.data.code === 1 && status === 400) {
-      Message(res.data.msg)
+    if (res.data.code === 1 || status === 400) {
+      Message(message)
     }
     return Promise.reject(new Error(message))
   } else {

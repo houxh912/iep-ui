@@ -5,7 +5,7 @@ const prefixUrl = '/gov'
 // 查看主题订阅分页
 export function getPolicyPage (params) {
   return request({
-    url: `${prefixUrl}/webUserContact/getPolicy`,
+    url: `${prefixUrl}/webUserContact/getPolicyPage`,
     method: 'get',
     params: params,
   })
@@ -23,6 +23,6 @@ export function postThemeRss (obj) {
   return request({
     url: `${prefixUrl}/webUserContact/insert`,
     method: 'post',
-    params: obj,
+    data: obj,
   })
 }

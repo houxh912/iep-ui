@@ -124,6 +124,7 @@ export default {
         query: {
           router: true,
           id: row.opportunityId,
+          data: row,
         },
       })
     },

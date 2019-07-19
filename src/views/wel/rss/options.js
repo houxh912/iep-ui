@@ -9,10 +9,6 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'title',
-    label: '政策名称',
-  },
-  {
     prop: 'themeList',
     label: '主题',
     type: 'tag',

@@ -44,7 +44,7 @@ export default {
       labelList: [],
       listList1: [],
       listList2: [],
-      listList3: ['国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案','国脉数据基因政务大数据整体解决方案'],
+      listList3: ['国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案', '国脉数据基因政务大数据整体解决方案'],
       dataList: [],
       routerMatch: this.$route.matched,
     }
@@ -56,13 +56,13 @@ export default {
   methods: {
     // 本周新增
     getNewClientList () {
-      getNewClientList().then(({data}) => {
+      getNewClientList().then(({ data }) => {
         this.listList1 = data.data
       })
     },
     // 合作次数最多
     getCoopClientList () {
-      getCoopClientList().then(({data}) => {
+      getCoopClientList().then(({ data }) => {
         // 存在偶尔可能数据为null的情况
         let row = data.data
         for (let i = 0; i < row.length; ++i) {
@@ -81,7 +81,7 @@ export default {
     },
     // 优秀客户方案
     getExcellentList () {
-      getExcellentList().then(({data}) => {
+      getExcellentList().then(({ data }) => {
         this.listList2 = data.data
       })
     },
@@ -90,7 +90,7 @@ export default {
     },
     // 推荐主题
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
@@ -115,11 +115,11 @@ export default {
 .ranking {
   padding: 0;
 }
-.el-card{
-  border:0;
+.el-card {
+  border: 0;
 }
-.library{
+.library {
   padding-right: 20px;
-  border-right: 1px solid #EBEEF5;
+  border-right: 1px solid #ebeef5;
 }
 </style>

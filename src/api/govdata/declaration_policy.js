@@ -1,6 +1,6 @@
 import request from '@/router/axios'
 
-const prefixUrl = '/gov'
+const prefixUrl = '/gc'
 // @/api/gms/declare
 // 查看申报类政策分页
 export function getDeclarePage (params) {
@@ -44,7 +44,7 @@ export function deleteDeclareBatch (ids) {
  */
 export function postDeclareAndCommit (params) {
   return request({
-    url: '/gov/policy/declare/createAndCommit',
+    url: `${prefixUrl}/policy/declare/createAndCommit`,
     method: 'post',
     data: params,
     headers: {
@@ -59,7 +59,7 @@ export function postDeclareAndCommit (params) {
  */
 export function putDeclareAndCommit (params) {
   return request({
-    url: '/gov/policy/declare/updateAndCommit',
+    url: `${prefixUrl}/policy/declare/updateAndCommit`,
     method: 'post',
     data: params,
     headers: {
@@ -71,7 +71,7 @@ export function putDeclareAndCommit (params) {
 // 暂存(添加)
 export function postDeclare (params) {
   return request({
-    url: '/gov/policy/declare/create',
+    url: `${prefixUrl}/policy/declare/create`,
     method: 'post',
     data: params,
     headers: {
@@ -84,7 +84,7 @@ export function postDeclare (params) {
 // 暂存(修改)
 export function putDeclare (params) {
   return request({
-    url: '/gov/policy/declare/update',
+    url: `${prefixUrl}/policy/declare/update`,
     method: 'post',
     data: params,
     headers: {

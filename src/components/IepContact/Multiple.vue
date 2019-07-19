@@ -4,7 +4,7 @@
       <span v-if="!isClear">暂无</span>
       <el-tag type="danger" v-for="tag in unions" :key="tag.id+tag.name">{{tag.name}}</el-tag>
       <el-tag type="warning" v-for="tag in orgs" :key="tag.id+tag.name">{{tag.name}}</el-tag>
-      <span v-for="tag in users" :key="tag.id+tag.name">{{tag.name}}、</span>
+      <span>{{users.map(m => m.name).join('、')}}</span>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled">
       <!-- <el-tag v-if="!isClearUser" type="info">暂无</el-tag> -->

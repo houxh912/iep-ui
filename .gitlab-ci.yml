@@ -1,7 +1,7 @@
 stages:
   - build
   - deploy
-  - master
+  # - master
 
 cache:
   key: ${CI_COMMIT_REF_NAME}
@@ -12,7 +12,7 @@ build_admin_job:
   image: node:lts
   stage: build
   tags:
-    - gitlab-org
+    - bmc
   only:
     - deploy
     - master
@@ -31,7 +31,7 @@ deploy_job:
   only:
     - deploy
   tags:
-    - gitlab-org
+    - bmc
   script:
     - echo "http://mirrors.aliyun.com/alpine/v3.8/main/" > /etc/apk/repositories
     - apk add --no-cache rsync openssh
@@ -40,18 +40,18 @@ deploy_job:
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host $DEPLOY_SERVER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
     - rsync -rav -e 'ssh -p 10061' --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH"
-master_job:
-  image: alpine
-  stage: master
-  only:
-    - master
-  tags:
-    - gitlab-org
-  script:
-    - echo "http://mirrors.aliyun.com/alpine/v3.7/main/" > /etc/apk/repositories
-    - apk add --no-cache rsync openssh
-    - mkdir -p ~/.ssh
-    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - echo -e "Host $DEPLOY_SERVER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - rsync -rav -e 'ssh -p $DEPLOY_PORT' --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH"
+# master_job:
+#   image: alpine
+#   stage: master
+#   only:
+#     - master
+#   tags:
+#     - bmc
+#   script:
+#     - echo "http://mirrors.aliyun.com/alpine/v3.8/main/" > /etc/apk/repositories
+#     - apk add --no-cache rsync openssh
+#     - mkdir -p ~/.ssh
+#     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
+#     - chmod 600 ~/.ssh/id_rsa
+#     - echo -e "Host $DEPLOY_SERVER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+#     - rsync -rav -e 'ssh -p $DEPLOY_PORT' --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH"

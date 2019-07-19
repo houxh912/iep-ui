@@ -76,14 +76,14 @@
                   <div class="main-box">
                     <span>指导项目：</span>
                     <span class="progress">
-                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.guidanceCount==0||myData.guidanceAllCount==0?0:myData.guidanceCount/myData.guidanceAllCount*100" :show-text="false" color="#23d05c"></el-progress>
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.guidanceAllCount==0?0:myData.guidanceCount/myData.guidanceAllCount*100" :show-text="false" color="#23d05c"></el-progress>
                     </span>
                     <span>{{myData.guidanceCount}}</span>
                   </div>
                   <div class="main-box">
                     <span>审核项目：</span>
                     <span class="progress">
-                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.guidanceApprovalCount==0||myData.guidanceExternalAllCount==0?0:myData.guidanceApprovalCount/myData.guidanceExternalAllCount*100" :show-text="false" color="#23d05c"></el-progress>
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.guidanceExternalAllCount==0?0:myData.guidanceApprovalCount/myData.guidanceExternalAllCount*100" :show-text="false" color="#23d05c"></el-progress>
                     </span>
                     <span>{{myData.guidanceApprovalCount}}</span>
                   </div>
@@ -95,14 +95,14 @@
                   <div class="main-box">
                     <span>指导项目：</span>
                     <span class="progress">
-                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.guidanceExternalTypeCount==0||myData.getUnapprovedCount==0?0:myData.guidanceExternalTypeCount/myData.getUnapprovedCount*100" :show-text="false" color="#23d05c"></el-progress>
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.getUnapprovedCount==0?0:myData.guidanceExternalTypeCount/myData.getUnapprovedCount*100" :show-text="false" color="#23d05c"></el-progress>
                     </span>
                     <span>{{myData.guidanceExternalTypeCount}}</span>
                   </div>
                   <div class="main-box">
                     <span>审核项目：</span>
                     <span class="progress">
-                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.approvalExternalCount==0||myData.getUnapprovedExternalCount==0?0:myData.approvalExternalCount/myData.getUnapprovedExternalCount*100" :show-text="false" color="#23d05c"></el-progress>
+                      <el-progress :text-inside="false" :stroke-width="10" :percentage="myData.getUnapprovedExternalCount==0?0:myData.approvalExternalCount/myData.getUnapprovedExternalCount*100" :show-text="false" color="#23d05c"></el-progress>
                     </span>
                     <span>{{myData.approvalExternalCount}}</span>
                   </div>
@@ -280,7 +280,9 @@ export default {
           item['外部项目'] = data.data[item.Exter]
         }
         this.chartDataRing.rows.forEach(function (item, index) {
-          item['数量'] = data.data.contarctCountDetail[index][item.prop]
+          if (data.data.contarctCountDetail) {
+            item['数量'] = data.data.contarctCountDetail[index][item.prop]
+          }
         })
         this.$refs['projectManager'].seriesGauge1.data[0].value = data.data.importantLevelCount
         this.$refs['projectManager'].seriesGauge2.data[0].value = data.data.secondaryLevelCount

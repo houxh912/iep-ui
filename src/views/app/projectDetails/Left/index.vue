@@ -42,9 +42,6 @@ export default {
         label: '项目概况',
         value: 'Basic',
       }, {
-        label: '立项阶段',
-        value: 'Approval',
-      }, {
         label: '项目材料',
         value: 'Material',
       }],

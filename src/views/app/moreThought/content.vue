@@ -1,6 +1,7 @@
 <template>
   <div class="content-tpl">
     <div class="content" v-html="transfHtml(data.content)"></div>
+    <slot></slot>
     <div class="image-list" v-if="data.images.length > 0">
       <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img"></iep-img>
     </div>
@@ -8,7 +9,7 @@
 </template>
 
 <script>
-
+import { getSubject } from './util'
 export default {
   props: {
     data: {
@@ -30,16 +31,11 @@ export default {
     },
     // 话题转换 - 只存在一个
     transfSubject (val) {
-      let first = val.indexOf('#')
-      let second = val.indexOf('# ')
-      if (first === -1 // 不存在起始符号
-        || second === -1 // 不存在终止符号
-        || second <= first // 终止符号在起始符号前面
-        || second - first > 16 // 字符长度超过15个
-      ) {
-        return val
+      let obj = getSubject(val)
+      if (obj.type) {
+        return val.slice(0, obj.first) + '<span class="subject">#' + obj.data + '#</span>' + val.slice(obj.second)
       } else {
-        return val.slice(0, first) + '<span class="subject">' + val.slice(first, second + 1) + '</span>' + val.slice(second + 1)
+        return val
       }
     },
     // 人名转换 - 可存在多个

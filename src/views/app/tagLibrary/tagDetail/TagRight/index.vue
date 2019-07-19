@@ -39,15 +39,12 @@ export default {
   grid-column-start: 3;
   grid-column-end: 4;
 }
-.el-card {
-  border: 0;
-}
 .library {
   padding: 0 20px;
   border-right: 1px solid #ebeef5;
 }
 .piece-item {
-  padding: 0 10px;
+  padding: 0;
   color: #888;
   font-size: 14px;
   line-height: 28px;
@@ -86,7 +83,9 @@ export default {
 }
 </style>
 <style scoped>
-.el-card >>> .title {
-  font-size: 18px;
+.piece >>> .el-card {
+  margin-left: 30px;
+  padding: 0 !important;
+  border: 0;
 }
 </style>

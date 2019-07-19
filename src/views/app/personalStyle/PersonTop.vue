@@ -280,6 +280,7 @@ export default {
         margin-bottom: 5px;
         line-height: 28px;
         width: 70px;
+        color: #666;
       }
       .span {
         flex: 1;
@@ -302,6 +303,9 @@ export default {
       .el-row {
         width: 100%;
         text-align: right;
+        .el-button {
+          font-size: 14px;
+        }
       }
       .el-button--danger {
         background: #cb3737;
@@ -350,10 +354,10 @@ export default {
       }
     }
     .autograph {
-      color: #666;
       .autograph-con {
         display: inline-block;
         padding-right: 10px;
+        color: #666;
       }
     }
     .dn {
@@ -413,7 +417,7 @@ export default {
   line-height: 28px;
   font-size: 14px;
   background: none;
-  color: #606266;
+  color: #444;
 }
 .personal-top >>> .el-tag--white:before {
   position: absolute;

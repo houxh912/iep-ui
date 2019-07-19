@@ -22,7 +22,7 @@
         </el-upload>
       </div>
       <div class="button-list">
-        <div class="func" @click="handleImage" v-if="formData.images.length === 0">
+        <div class="func" @click="handleImage" v-if="formData.images.length === 0 && transmitId === -1">
           <el-upload
             action="/api/admin/file/upload/avatar"
             :show-file-list="false"
@@ -33,7 +33,7 @@
             <div class="func"><i class="icon-tupian"></i><p>图片</p></div>
           </el-upload>
         </div>
-        <div class="func" v-else>
+        <div class="func" v-if="formData.images.length > 0 && transmitId === -1">
           <i class="icon-tupian"></i><p>图片</p>
         </div>
         <div class="func">
@@ -62,8 +62,8 @@
 <script>
 import { thoughtsCreate } from '@/api/cpms/thoughts'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
-
 import store from '@/store'
+import { getSubject } from './util'
 
 const initForm = () => {
   return {
@@ -79,8 +79,10 @@ const rules = {
 
 export default {
   props: {
-    transmitId: Number,
-    default: -1,
+    transmitId: {
+      type: Number,
+      default: -1,
+    },
   },
   data () {
     return {
@@ -114,8 +116,14 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
+          // 判断是否是转发
           if (this.transmitId > -1) {
             this.formData.transmitId = this.transmitId
+          }
+          // 判断说说中是否存在话题
+          let subjectObj = getSubject(this.formData.content)
+          if (subjectObj.type) {
+            this.formData.topics = [subjectObj.data]
           }
           thoughtsCreate(this.formData).then(() => {
             this.resetForm()

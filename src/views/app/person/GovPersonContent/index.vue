@@ -81,12 +81,12 @@ export default {
 <style lang="scss" scoped>
 .gov-person-content {
   margin: 0 auto;
-  padding-top: 25px;
+  padding-top: 20px;
   width: 1200px;
   .top-content {
     display: grid;
     grid-auto-flow: row dense;
-    grid-row-gap: 25px;
+    grid-row-gap: 20px;
     grid-column-gap: 25px;
     grid-template-columns: minmax(100px, 875px) minmax(100px, 300px);
   }
@@ -95,16 +95,19 @@ export default {
     margin: 20px 0;
   }
   .block {
-    margin-top: 25px;
+    margin-top: 20px;
     width: 100%;
   }
   .copies {
     display: grid;
-    margin-top: 25px;
+    margin-top: 20px;
     grid-auto-flow: row dense;
-    grid-row-gap: 25px;
+    grid-row-gap: 20px;
     grid-column-gap: 25px;
-    grid-template-columns: minmax(100px, 2fr) minmax(100px, 2fr) minmax(100px,2fr);
+    grid-template-columns: minmax(100px, 2fr) minmax(100px, 2fr) minmax(
+        100px,
+        2fr
+      );
   }
 }
 </style>

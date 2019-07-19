@@ -5,7 +5,8 @@ const columnsMap = [
   },
   {
     prop: 'bankBalance',
-    label: '银行卡余额',
+    label: '银行余额',
+    width: '300',
   },
 ]
 

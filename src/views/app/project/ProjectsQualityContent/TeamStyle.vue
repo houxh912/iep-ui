@@ -32,7 +32,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .empolyee {
-  padding-top: 15px;
   .piece {
     text-align: center;
     width: 238px;
@@ -69,6 +68,9 @@ export default {
 }
 </style>
 <style scoped>
+.empolyee >>> .el-card {
+  height: 280px;
+}
 .empolyee >>> .el-carousel__arrow {
   background: none;
 }
@@ -85,5 +87,14 @@ export default {
 }
 .empolyee >>> .el-carousel__arrow--right {
   right: -10px;
+}
+.empolyee >>> .el-image__inner {
+  width: 100%;
+  height: 142px;
+  transition: 0.5s;
+}
+.empolyee >>> .el-image__inner:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 </style>

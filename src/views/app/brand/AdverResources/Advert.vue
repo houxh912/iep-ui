@@ -33,7 +33,11 @@ export default {
   white-space: nowrap;
   margin-bottom: 8px;
   height: 30px;
+  line-height: 30px;
   cursor: pointer;
+  &:last-child {
+    margin-bottom: 0;
+  }
   .name {
     height: 30px;
     line-height: 30px;

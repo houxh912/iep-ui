@@ -40,11 +40,16 @@ export default {
     display: inline-block;
     margin: 15px 0;
     text-align: center;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
     i {
-      font-size: 38px !important;
-      color: #aaa;
+      font-size: 40px !important;
+      color: #999;
     }
     .title {
+      margin-bottom: 5px;
       font-size: 16px;
     }
     p {
@@ -53,7 +58,7 @@ export default {
       margin-bottom: 0;
     }
     .des {
-      color: #aaa;
+      color: #999;
       margin-bottom: 15px;
     }
   }

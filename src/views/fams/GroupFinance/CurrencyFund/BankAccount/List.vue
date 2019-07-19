@@ -5,12 +5,12 @@
         <iep-date-picker size="small" v-model="date" align="right" type="month" placeholder="选择年月" @change="loadPage()"></iep-date-picker>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary></iep-table>
+    <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle" show-summary></iep-table>
   </div>
 </template>
 
 <script>
-import { getCompanyCurrencyFund } from '@/api/fams/statistics'
+import { getBankCurrencyFund } from '@/api/fams/statistics'
 import { getYearMonth } from '@/util/date'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options.js'
@@ -32,9 +32,14 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      this.$emit('onDetail', {
+        id: row.id,
+      })
+    },
     async loadPage () {
       this.isLoadTable = true
-      const { data } = await getCompanyCurrencyFund(this.yearMonth)
+      const { data } = await getBankCurrencyFund(this.yearMonth)
       this.pagedTable = data.data
       this.isLoadTable = false
     },

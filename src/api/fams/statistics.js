@@ -242,3 +242,13 @@ export const getBankCurrencyFund = (yearMonth) => {
     },
   })
 }
+// 集团货币基金账户详情
+export const getBankCurrencyFundDetail = (id) => {
+  return request({
+    url: `${prefixUrl}/bank/detail`,
+    method: 'get',
+    params: {
+      accountId: id,
+    },
+  })
+}

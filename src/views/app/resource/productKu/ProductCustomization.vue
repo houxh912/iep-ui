@@ -3,7 +3,7 @@
     <basic-container>
       <h2>定制产品</h2>
       <operation-container></operation-container>
-      <iep-table :isLoadTable="false" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <el-table-column prop="operation" label="操作" width="260">
           <template slot-scope="scope">
             <operation-wrapper>

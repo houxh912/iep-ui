@@ -98,7 +98,7 @@ export default {
     // handleSelectionChange (val) {
     //   this.multipleSelection = val.map(m => m.id)
     // },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, ...this.searchForm }, gomsNoJoinUserPage)
     },
   },

@@ -65,7 +65,7 @@ export default {
     clearSearchParam () {
       this.paramForm = initSearchForm()
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getPostTypePage)
     },
   },

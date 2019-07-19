@@ -1,19 +1,19 @@
 <template>
-    <IepAppTabCard title="财务报告">
-        <iep-table :isLoadTable="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false">
-          
-        </iep-table>
-    </IepAppTabCard>
+  <IepAppTabCard title="财务报告">
+    <iep-table :isLoadTable="isLoadTable" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false">
+
+    </iep-table>
+  </IepAppTabCard>
 </template>
 <script>
 
 // import { getInvestmentById } from '@/api/fams/investment'
 
 const dictsMap = {
-    status: {
-        '1': '现金',
-        '2': '国脉贝',
-    },
+  status: {
+    '1': '现金',
+    '2': '国脉贝',
+  },
 }
 const columnsMap = [
   {

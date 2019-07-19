@@ -102,7 +102,7 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteTechnologyById)
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, isMine: this.isMine }, getTechnologyPage)
     },
   },

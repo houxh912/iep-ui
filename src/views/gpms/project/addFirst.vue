@@ -10,7 +10,7 @@
             <span v-for="(item,index) in recommendTagList" :key="item.id" :class="item.isClick ? 'active':''" @click="changeTagList(index)">{{item.name}}</span>
           </div>
           <el-col :span="24">
-            <el-form-item label="项目标签：" prop="projectTagList" placeholder="添加自定义主题（标签）">
+            <el-form-item label="更多项目标签：" prop="projectTagList" placeholder="添加自定义主题（标签）">
               <iep-tag v-model="form.projectTagList"></iep-tag>
             </el-form-item>
           </el-col>

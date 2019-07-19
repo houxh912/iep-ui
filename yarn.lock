@@ -9983,7 +9983,7 @@ vue-hot-reload-api@^2.3.0:
   resolved "http://mirrors.cloud.tencent.com/npm/vue-hot-reload-api/-/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"
   integrity sha512-KmvZVtmM26BQOMK1rwUZsrqxEGeKiYSZGA7SNWE6uExx8UX/cj9hq2MRV/wWC3Cq6AoeDGk57rL9YMFRel/q+g==
 
-vue-json-editor@1.3.1, vue-json-editor@^1.2.3:
+vue-json-editor@^1.2.3:
   version "1.3.1"
   resolved "https://registry.npm.taobao.org/vue-json-editor/download/vue-json-editor-1.3.1.tgz#1def62fe52cce928a9211473998fd67823edeb2c"
   integrity sha1-He9i/lLM6SipIRRzmY/WeCPt6yw=

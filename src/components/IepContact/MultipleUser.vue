@@ -2,7 +2,7 @@
   <div class="multiple-box">
     <operation-wrapper v-if="disabled">
       <span v-if="!users.length">暂无</span>
-      <span v-for="item in users" :key="item.id">{{item.name}}、</span>
+      <span>{{users.map(m => m.name).join('、')}}</span>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
       <a-select ref="a-select" mode="multiple" labelInValue :value="usersValue" :placeholder="placeholder" :filterOption="false" :notFoundContent="fetching ? undefined : null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer" @search="handleSearch" @change="handleChange">

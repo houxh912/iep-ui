@@ -33,7 +33,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
-import { getMyPage, adoptCustomById, refuseCustomById } from '@/api/app/cpms/custom_product'
+import { getExaminePage, adoptCustomById, refuseCustomById } from '@/api/app/cpms/custom_product'
 export default {
   mixins: [mixins],
   data () {
@@ -62,7 +62,7 @@ export default {
       })
     },
     async loadPage () {
-      await getMyPage().then((data) => {
+      await getExaminePage().then((data) => {
         this.isLoadTable = true
         const { records, size, total, current } = data.data.data
         this.pagedTable = records

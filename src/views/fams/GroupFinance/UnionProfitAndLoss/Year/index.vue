@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="right">
-        <iep-date-picker size="small" v-model="yearDate" align="right" type="year" placeholder="选择年" @change="loadPage()"></iep-date-picker>
+        <iep-date-picker size="small" v-model="yearDate" align="right" type="year" placeholder="选择年" @change="loadPage()" :clearable="false"></iep-date-picker>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle" show-summary>
@@ -26,7 +26,11 @@ export default {
   },
   computed: {
     year () {
-      return getYear(this.yearDate)
+      if (this.yearDate) {
+        return getYear(this.yearDate)
+      } else {
+        return ''
+      }
     },
   },
   created () {

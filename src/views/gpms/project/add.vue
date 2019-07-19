@@ -416,6 +416,9 @@ export default {
         else {
           this.formData.projectTypeBefore = false
         }
+        if (this.formData.attendeeId == 0) {
+          this.formData.attendeeId = ''
+        }
       })
       this.type = 'update'
     }

@@ -2,7 +2,7 @@ import request from '@/router/axios'
 
 const visitUrl = '/crm/visitingRecord'
 const visitLog = '/crm/meeting'
-
+const prefixUrl = '/mlms/meeting'
 
 // 联系记录查询
 export function fetchVisitList (params) {
@@ -90,6 +90,14 @@ export function deleteVisitLog (id) {
     url: `${visitLog}/delete/batch`,
     method: 'post',
     data: [id],
+  })
+}
+//批量删除关联客户拜访日志
+export function deleteAllVisitLog (id) {
+  return request({
+    url: `${prefixUrl}/deleteRelation/batch`,
+    method: 'post',
+    data: id,
   })
 }
 //拜访日志发送

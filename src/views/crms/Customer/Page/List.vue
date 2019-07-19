@@ -99,10 +99,10 @@ import Transfer from './Transfer/'
 import EditDrawer from './EditDrawer'
 import { mapGetters } from 'vuex'
 import { fetchList, deleteDataById } from '@/api/crms/contact'
-import { getVisitListData, deleteVisitLog } from '@/api/mlms/material/summary'
-import { fetchVisitList, deleteVisit } from '@/api/crms/visiting_record'
+import { getVisitListData } from '@/api/mlms/material/summary'
+import { fetchVisitList, deleteVisit, deleteAllVisitLog } from '@/api/crms/visiting_record'
 import { getSchemePage, deleteSchemeById } from '@/api/crms/scheme'
-import { getAgreementPage, deleteAgreementById } from '@/api/crms/agreement'
+import { getAgreementPage, deleteAgreement } from '@/api/crms/agreement'
 export default {
   name: 'list',
   components: { AdvanceSearch, ExcellImport, Collaborator, Transfer, EditDrawer },
@@ -251,7 +251,7 @@ export default {
     },
     //删除客户
     handleDelete (row) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('删除客户需要先删除客户的商机、合同，删除同时会自动清除此客户关联的联系人，该操作成功之后，将无法恢复', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -277,7 +277,7 @@ export default {
             visitLstId.push(res.data.data.records[i].id)
           }
           if (visitLstId.length > 0) {
-            deleteVisitLog(visitLstId.join(','))
+            deleteAllVisitLog(visitLstId)
           }
         })
         // 联系记录删除
@@ -306,9 +306,8 @@ export default {
           for (let i = 0; i < res.data.data.records.length; i++) {
             agreementId.push(res.data.data.records[i].contractId)
           }
-          console.log(agreementId.join(','))
           if (agreementId.length > 0) {
-            deleteAgreementById(agreementId.join(','))
+            deleteAgreement(agreementId)
           }
         })
         this.$message({

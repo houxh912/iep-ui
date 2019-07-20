@@ -24,7 +24,7 @@ export default {
     },
   },
   created () {
-    getProjectRecProjects().then(({data}) => {
+    getProjectRecProjects().then(({ data }) => {
       this.dataList = data.data.list.slice(0, 9)
       this.data = data.data.size
     })

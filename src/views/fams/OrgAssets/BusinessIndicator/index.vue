@@ -15,7 +15,7 @@
         <template slot="before-columns">
           <el-table-column label="时间">
             <template slot-scope="scope">
-              {{scope.row.businessYear + '年' + scope.row.businessMonth + '月'}}
+              {{calculateDate(scope.row)}}
             </template>
           </el-table-column>
         </template>
@@ -47,6 +47,13 @@ export default {
     this.loadPage()
   },
   methods: {
+    calculateDate (row) {
+      if (row.businessMonth) {
+        return `${row.businessYear}年${row.businessMonth}月`
+      } else {
+        return `${row.businessYear}年`
+      }
+    },
     handleDetail (row) {
       this.$openPage(`/fams_spa/project/${row.orgId}?name=${row.orgName}`)
     },

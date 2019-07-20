@@ -98,6 +98,11 @@ import Collaborator from './Collaborator/'
 import Transfer from './Transfer/'
 import EditDrawer from './EditDrawer'
 import { mapGetters } from 'vuex'
+import { fetchList, deleteDataById } from '@/api/crms/contact'
+import { getVisitListData } from '@/api/mlms/material/summary'
+import { fetchVisitList, deleteVisit, deleteAllVisitLog } from '@/api/crms/visiting_record'
+import { getSchemePage, deleteSchemeById } from '@/api/crms/scheme'
+import { getAgreementPage, deleteAgreement } from '@/api/crms/agreement'
 export default {
   name: 'list',
   components: { AdvanceSearch, ExcellImport, Collaborator, Transfer, EditDrawer },
@@ -246,9 +251,76 @@ export default {
     },
     //删除客户
     handleDelete (row) {
-      this.ids = []
-      this.ids.push(row.clientId)
-      this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
+      this.$confirm('删除客户需要先删除客户的商机、合同，删除同时会自动清除此客户关联的联系人，该操作成功之后，将无法恢复', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        this.ids = []
+        this.ids.push(row.clientId)
+        // this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
+        deleteCustomerBatch(this.ids)
+        // 联系人删除
+        fetchList({ clientId: row.clientId }).then(res => {
+          let ConactsId = []
+          for (let i = 0; i < res.data.data.records.length; i++) {
+            ConactsId.push(res.data.data.records[i].clientContactId)
+          }
+          if (ConactsId.length > 0) {
+            deleteDataById(ConactsId)
+          }
+        })
+        // 拜访日志删除
+        getVisitListData({ id: row.clientId }).then(res => {
+          let visitLstId = []
+          for (let i = 0; i < res.data.data.records.length; i++) {
+            visitLstId.push(res.data.data.records[i].id)
+          }
+          if (visitLstId.length > 0) {
+            deleteAllVisitLog(visitLstId)
+          }
+        })
+        // 联系记录删除
+        fetchVisitList({ id: row.clientId }).then(res => {
+          let visitDataId = []
+          for (let i = 0; i < res.data.data.records.length; i++) {
+            visitDataId.push(res.data.data.records[i].contactId)
+          }
+          if (visitDataId.length > 0) {
+            deleteVisit(visitDataId)
+          }
+        })
+        // 方案删除
+        getSchemePage({ clientId: row.clientId }).then(res => {
+          let schemeId = []
+          for (let i = 0; i < res.data.data.records.length; i++) {
+            schemeId.push(res.data.data.records[i].programId)
+          }
+          if (schemeId.length > 0) {
+            deleteSchemeById(schemeId)
+          }
+        })
+        // 合同删除
+        getAgreementPage({ id: row.clientId }).then(res => {
+          let agreementId = []
+          for (let i = 0; i < res.data.data.records.length; i++) {
+            agreementId.push(res.data.data.records[i].contractId)
+          }
+          if (agreementId.length > 0) {
+            deleteAgreement(agreementId)
+          }
+        })
+        this.$message({
+          type: 'success',
+          message: '删除成功!',
+        })
+        this.$emit('onGoBack')
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除',
+        })
+      })
     },
     handleAllDelete () {
       if (this.ids.length == 0) {

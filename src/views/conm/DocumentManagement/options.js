@@ -9,29 +9,13 @@ const initForm = () => {
   return {
     id: '',
     title: '',
-    createTime: '',//发布时间
+    updateTime: '',//发布时间
     status: 1,//状态
     // infoDescribe: '',//信息描述
     tagKeyWords: [],
     content: '',
+    image: '',
   }
-  // {
-  //   "content": "string",
-  //   "createTime": "2019-07-03T08:49:48.842Z",
-  //   "creatorId": 0,
-  //   "delFlag": 0,
-  //   "id": 0,
-  //   "infoDescribe": "string",
-  //   "nodeId": 0,
-  //   "priority": 0,
-  //   "status": 0,
-  //   "tagKeyWords": [
-  //     "string"
-  //   ],
-  //   "title": "string",
-  //   "updateTime": "2019-07-03T08:49:48.842Z",
-  //   "views": 0
-  // }
 }
 const columnsMap = [
   {

@@ -38,7 +38,7 @@ export default {
       }
     },
     getMenuList () {
-      getMenuList().then(({data}) => {
+      getMenuList().then(({ data }) => {
         this.data = data.data
       })
     },
@@ -60,5 +60,10 @@ export default {
   .ant-menu-inline {
     border-right: 0;
   }
+}
+</style>
+<style scoped>
+.menus >>> .ant-menu-item:hover {
+  background-color: rgba(250, 250, 250, 1);
 }
 </style>

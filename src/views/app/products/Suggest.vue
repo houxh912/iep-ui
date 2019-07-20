@@ -96,7 +96,7 @@ export default {
 </style>
 <style scoped>
 .suggest >>> .el-card {
-  height: 300px;
+  height: 306px;
 }
 .suggest >>> .btn {
   margin-right: 5px;

@@ -4,7 +4,7 @@
     <operation-wrapper>
       <iep-button class="btn" type="primary" plain @click="handleAdd"><i class="el-icon-plus"></i> 添加资讯</iep-button>
     </operation-wrapper>
-    <iep-table :isLoadTable="false" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :show-header="false" :cell-style="{hover:'red'}">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :show-header="false" :cell-style="{hover:'red'}">
       <template slot="before-columns">
         <el-table-column>
           <template slot-scope="scope">

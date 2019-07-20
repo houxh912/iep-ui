@@ -4,7 +4,7 @@
     <el-table :data="tableData" stripe>
       <el-table-column prop="name" label="组织">
       </el-table-column>
-      <el-table-column prop="orgAssets" label="资产数(万) ">
+      <el-table-column prop="orgAssets" label="资产数(元) ">
       </el-table-column>
     </el-table>
   </div>
@@ -20,7 +20,7 @@ export default {
     }
   },
   created () {
-    getAssetsList().then(({data}) => {
+    getAssetsList().then(({ data }) => {
       this.tableData = data.data.slice(0, 8)
     })
   },
@@ -44,6 +44,7 @@ export default {
 .statistics >>> tr td:nth-child(1) .cell {
   color: #0054a3;
   cursor: pointer;
+  transition: 0.5s;
 }
 .statistics >>> tr td:nth-child(1) .cell:hover {
   color: #1978d1;

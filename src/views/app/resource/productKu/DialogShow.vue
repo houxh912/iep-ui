@@ -1,12 +1,12 @@
 <template>
   <div class="dialog-show" v-show="dialogShow">
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-    <!-- <span @click="handleAllDelete">删除</span> -->
+    <span @click="handleAllDelete">批量删除</span>
     <i class="icon-guanbi" @click="close"></i>
     <div style="margin: 15px 0;"></div>
     <el-scrollbar style="height:300px">
       <el-checkbox-group class="options" v-model="checkedCities" @change="handleCheckedCitiesChange">
-        <el-checkbox v-for="option in cities" :label="option.id" :key="option.id">
+        <el-checkbox class="options-item" v-for="option in cities" :label="option.id" :key="option.id">
           <span>{{option.moduleName}}</span>
           <span>{{option.preferentialPrice}}</span>
           <i @click.stop="handleDelete(option.id)" class="icon-shanchu"></i>
@@ -23,7 +23,7 @@
   </div>
 </template>
 <script>
-import { getCusList, deleteModuleById } from '@/api/app/cpms/custom_module'
+import { getCusList, deleteModuleById, deleteBatchDelete } from '@/api/app/cpms/custom_module'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -36,10 +36,15 @@ export default {
       isIndeterminate: true,
       size: '',
       count: '',
+      arrId: [],
     }
   },
   created () {
     this.loadPage()
+  },
+  watch: {
+    arrId () {
+    },
   },
   methods: {
     close () {
@@ -58,13 +63,35 @@ export default {
           })
           this.count = result
         })
+        if (this.size == 0) this.count = 0
       })
     },
-    // handleAllDelete () {
-    //   this._handleGlobalAll(deleteBatchDelete)
-    // },
     handleDelete (id) {
       this._handleGlobalDeleteById(id, deleteModuleById)
+    },
+    async handleAllDelete () {
+      try {
+        await deleteBatchDelete(this.arrId).then((data) => {
+          if (data.data && this.arrId.length !== 0) {
+            this.$message.success({
+              message: '操作成功',
+              type: 'success',
+            })
+            this.arrId = []
+            this.loadPage()
+          } else {
+            this.$message({
+              message: '请选择删除对象',
+              type: 'warming',
+            })
+          }
+        })
+      } catch (error) {
+        this.$message({
+          message: error.message,
+          type: 'error',
+        })
+      }
     },
     handeleCustom () {
       this.$router.push('/app/resource/product_ku/product_customization')
@@ -74,11 +101,13 @@ export default {
       let checked = this.cities.map(function (item) { return item.id })
       this.checkedCities = this.checkAll ? checked : []
       this.isIndeterminate = false
+      this.arrId = this.checkedCities
     },
     handleCheckedCitiesChange (value) {
       let checkedCount = value.length
       this.checkAll = checkedCount === this.cities.length
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
+      this.arrId = value
     },
   },
 }
@@ -93,8 +122,11 @@ export default {
     position: absolute;
     left: 94px;
     top: 30px;
-    color: #aaa;
+    color: #999;
     cursor: pointer;
+    &:hover {
+      color: #888;
+    }
   }
   & > i {
     position: absolute;
@@ -118,6 +150,11 @@ export default {
     width: 100%;
     margin-bottom: 15px;
     border-bottom: 1px solid #eee;
+    .options-item {
+      &:hover span {
+        color: #ba1b21;
+      }
+    }
     span {
       display: inline-block;
       vertical-align: -5px;

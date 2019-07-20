@@ -33,7 +33,7 @@ export default {
     },
   },
   created () {
-    getClientList(this.orgId).then(({data}) => {
+    getClientList(this.orgId).then(({ data }) => {
       this.reward = data.data
     })
   },
@@ -49,6 +49,10 @@ export default {
     cursor: pointer;
     position: relative;
     margin-left: 15px;
+    transition: 0.5s;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     .percentage {
       height: 30px;
       line-height: 30px;

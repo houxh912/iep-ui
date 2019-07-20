@@ -62,6 +62,11 @@ const rules = {
     message: '请输入栏目名称',
     trigger: 'blur',
   }],
+  nodeNumber: [{
+    required: true,
+    message: '请输入栏目名称',
+    trigger: 'blur',
+  }],
 }
 
 

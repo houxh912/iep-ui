@@ -21,7 +21,7 @@
 
         <el-form-item label="">
           <operation-wrapper>
-            <a-button type="primary" :loading="submitLoading" @click="handleSubmit">{{methodName}}</a-button>
+            <a-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">{{methodName}}</a-button>
             <!-- <iep-button @click="handlePublish">保存并发布</iep-button> -->
           </operation-wrapper>
         </el-form-item>
@@ -41,8 +41,8 @@ export default {
       backOption: {
         isBack: true,
       },
-      submitLoading: false,
       form: initForm(),
+      isPublish: false,
       rules: {
         name: [
           { required: true, message: '请输入主题', trigger: 'blur' },
@@ -91,32 +91,17 @@ export default {
   },
   methods: {
     handlePublish () {
-      this.handleSubmit(true)
+      this.isPublish = true
+      this.mixinsSubmitFormGen()
     },
-    async handleSubmit (isPublish) {
-      this.submitLoading = true
-      const publish = isPublish === true ? true : false
-      try {
-        await this.mixinsValidate()
-        try {
-          const { data } = await this.formRequestFn(formToDto(this.form), publish)
-          if (data.code === 0) {
-            this.$message({
-              message: `通知公告${this.methodName}成功`,
-              type: 'success',
-            })
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-            this.submitLoading = false
-          }
-        } catch (err) {
-          console.log(err)
-          this.submitLoading = false
-        }
-      } catch (object) {
-        this.mixinsMessage(object)
-        this.submitLoading = false
+    async submitForm () {
+      const publish = this.isPublish
+      const { data } = await this.formRequestFn(formToDto(this.form), publish)
+      if (data.code === 0) {
+        this.$message.success(`通知公告${this.methodName}成功`)
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
       }
     },
   },

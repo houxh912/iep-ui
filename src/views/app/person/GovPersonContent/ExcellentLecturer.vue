@@ -59,6 +59,10 @@ export default {
     margin-bottom: 20px;
     overflow: hidden;
     cursor: pointer;
+    transition: 0.5s;
+    &:hover {
+      color: #cb3737;
+    }
     .img-con {
       float: left;
       margin-right: 15px;
@@ -129,6 +133,6 @@ export default {
 </style>
 <style scoped>
 .thoughts >>> .el-card {
-  height: 330px;
+  height: 316px;
 }
 </style>

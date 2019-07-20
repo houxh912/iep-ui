@@ -41,6 +41,10 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    transition: 0.5s;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     &:hover {
       color: #cb3737;
     }

@@ -4,7 +4,7 @@
       <menus></menus>
     </el-col>
   <el-col :span="20">-->
-  <div>
+  <div class="column-management">
     <basic-container>
       <iep-page-header title="栏目管理" :replaceText="replaceText" :data="statistics" :backOption="backOption"></iep-page-header>
       <operation-container>
@@ -29,7 +29,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
         <template slot="before-columns">
           <el-table-column label="ID" width="90px">
             <template slot-scope="scope">
@@ -151,5 +151,9 @@ export default {
 <style scoped>
 .aside-main >>> .ant-menu-inline {
   border-right: none;
+}
+.column-management >>> .table .cell {
+  display: -moz-box;
+  display: -webkit-box;
 }
 </style> 

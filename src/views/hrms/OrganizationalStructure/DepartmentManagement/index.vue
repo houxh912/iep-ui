@@ -93,7 +93,7 @@ export default {
       console.log(row)
       this.$refs['MergeDialog'].dialogShow = true
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getDeptPage)
     },
     add () {

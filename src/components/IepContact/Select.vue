@@ -2,7 +2,7 @@
   <div>
     <operation-wrapper v-if="disabled">
       <span v-if="![user].length">暂无</span>
-      <span v-for="item in [user]" :key="item.id">{{item.name}}、</span>
+      <span>{{user.name}}</span>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
       <a-select ref="a-select" showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer">

@@ -60,11 +60,13 @@ const initForm = () => {
 		projectId: '',
 		projectName: '',
 		projectNumber: '',
+		serialNo: '', // serialNo 项目编号
 		amount: '',
 		remarks: '',
 		invoicingTax: '',
 		interestRate: '',
 		estimatedRefundTime: '',
+		relations: [],
 	}
 }
 

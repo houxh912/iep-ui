@@ -2,22 +2,22 @@
   <div class="iep-page-form">
     <basic-container>
       <iep-page-header :title="`编辑-${form.ruleName}-规则`" :backOption="backOption"></iep-page-header>
-      <el-form ref="form" :model="form" label-width="120px" size="small">
-        <iep-form-item label-name="国脉贝数量">
+      <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
+        <iep-form-item label-name="国脉贝数量" prop="score">
           <iep-input-number v-model="form.score"></iep-input-number>
         </iep-form-item>
-        <iep-form-item label-name="每日上限次数">
+        <iep-form-item label-name="每日上限次数" prop="dailyLimit">
           <iep-input-number v-model="form.dailyLimit"></iep-input-number>
         </iep-form-item>
-        <iep-form-item label-name="动作">
+        <iep-form-item label-name="动作" prop="action">
           <iep-dict-select v-model="form.action" dict-name="fams_wealth_action" disabled></iep-dict-select>
         </iep-form-item>
-        <iep-form-item label-name="描述">
+        <iep-form-item label-name="描述" prop="remarks">
           <iep-input-area v-model="form.remarks"></iep-input-area>
         </iep-form-item>
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="primary" @click="handleSubmit">保存</iep-button>
+            <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">保存</iep-button>
           </operation-wrapper>
         </el-form-item>
       </el-form>
@@ -26,8 +26,10 @@
 </template>
 <script>
 import { getBellBalanceById } from '@/api/fams/balance_rule'
-import { initForm } from '../options'
+import { initForm, rules } from '../options'
+import formMixins from '@/mixins/formMixins'
 export default {
+  mixins: [formMixins],
   props: {
     record: {
       type: Object,
@@ -37,6 +39,7 @@ export default {
   data () {
     return {
       id: false,
+      rules,
       formRequestFn: () => { },
       backOption: {
         isBack: true,
@@ -56,16 +59,14 @@ export default {
     }
   },
   methods: {
-    handleSubmit () {
-      this.formRequestFn(this.form).then(({ data }) => {
-        if (data.data) {
-          this.$message({
-            message: '操作成功',
-            type: 'success',
-          })
-          this.$emit('onGoBack')
-        }
-      })
+    async submitForm () {
+      const { data } = await this.formRequestFn(this.form)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.$emit('onGoBack')
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

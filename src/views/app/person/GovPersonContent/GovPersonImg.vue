@@ -2,37 +2,34 @@
   <div class="banner">
     <el-card class="banner-list" shadow="hover" v-for="banner in bannerList" :key="banner.id">
       <span class="title">{{banner.title}}</span>
-      <iep-img class="img" :src="banner.img" alt="" @click.native="handleDetail(banner)"></iep-img>
+      <iep-img class="img" :src="banner.image" alt="" @click.native="handleDetail(banner)"></iep-img>
     </el-card>
   </div>
 </template>
+
 <script>
+import { getIndexPage } from '@/api/conm/article_controller'
 export default {
   data () {
     return {
-      bannerList: [
-        {
-          id: 8498,
-          img: '../img/app/person/img_01.png',
-          title: '2019年江西全省互联网+智慧政务研讨会在南昌召开，共谋下步发展',
-        },
-        {
-          id: 8490,
-          img: '../img/app/person/img_02.png',
-          title: '国脉副总刘佳一行拜访中通服开展合作洽谈',
-        },
-        {
-          id: 8493,
-          img: '../img/app/person/img_03.png',
-          title: '国脉集团助力2019数博会协办，总经理郑爱军受邀发表系列演讲',
-        },
-      ],
+      bannerList: [],
     }
   },
   methods: {
     handleDetail (row) {
-      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+      this.$router.push(`/app/news/news_detail/${row.id}`)
     },
+  },
+  created () {
+    let params = {
+      nodeNumber: 'groupNews',
+      siteId: 1,
+      current: 1,
+      size: 3,
+    }
+    getIndexPage(params).then(({data}) => {
+      this.bannerList = data.data.records
+    })
   },
 }
 </script>

@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="header clearfix">
-          <span class="price">指导价：¥{{item.guidePrice}}</span>
+          <span class="price">模块指导价：¥{{item.guidePrice}}</span>
           <el-button @click.stop="handleModuleClick(item.id)" icon="el-icon-plus"></el-button>
         </div>
       </el-card>
@@ -55,7 +55,19 @@ export default {
       this.getModulePage()
     },
     handleModuleClick (moduleId) {
-      putModuleById(moduleId).then(() => {
+      putModuleById(moduleId).then((data) => {
+        const resData = data.data.data
+        if (resData) {
+          this.$message({
+            message: '操作成功',
+            type: 'success',
+          })
+        } else {
+          this.$message({
+            message: '请不要重复订购',
+            type: 'warming',
+          })
+        }
         this.$emit('click-add')
       })
     },
@@ -158,6 +170,7 @@ export default {
       }
       .classTag {
         width: 100%;
+        height: 66px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -208,7 +221,6 @@ export default {
   padding: 0;
 }
 .module >>> .el-card.module-item {
-  height: 228px;
   border: 1px solid #dcdfe6;
   cursor: pointer;
 }

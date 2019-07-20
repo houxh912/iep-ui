@@ -36,7 +36,7 @@ export default {
 </script>
 <style scoped>
 .resources >>> .el-card {
-  height: 330px;
+  height: 318px;
 }
 </style>
 

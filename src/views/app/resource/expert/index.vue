@@ -4,7 +4,7 @@
       <IepAppTabsCard :linkName="linkName">
         <iep-tabs v-model="activeTab" :tab-list="tabList">
           <template v-if="activeTab ==='Person'" v-slot:Person>
-            <person v-loading="activeTab !=='Person'" :isOut="isOut"></person>
+            <person v-loading="activeTab !=='Person'" :query="query"></person>
           </template>
           <template v-if="activeTab ==='Expert'" v-slot:Expert style="letter-spacing:18px;">
             <expert v-loading="activeTab !=='Expert'"></expert>
@@ -33,12 +33,12 @@ export default {
         value: 'Expert',
       }],
       activeTab: '',
-      isOut: '',
+      query: {},
     }
   },
   created () {
-    let query = this.$route.query
-    this.isOut = query.isOut ? query.isOut : ''
+    let query = this.query = this.$route.query
+    // this.isOut = query.isOut ? query.isOut : ''
     if (query.type == '1') {
       this.activeTab = 'Person'
     } else {

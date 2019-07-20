@@ -7,7 +7,7 @@
     <div>
       <basic-container>
         <iep-table
-          :isLoadTable="false"
+          :isLoadTable="isLoadTable"
           :pagination="pagination"
           :dictsMap="dictsMap"
           :columnsMap="columnsMap"

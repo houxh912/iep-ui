@@ -17,8 +17,10 @@
     <el-row :gutter="20" class="bg-white">
       <el-col :span="20" :offset="2">
         <div class="grid-content grid-border">
-          <span class="keyword">热搜词</span>
-          <span class="listName" v-for="(item,index) in listName" :key="index" @click="handleClick(item)">{{item}}</span>
+          <span class="keyword-con">
+            <span class="keyword">热搜词</span>
+            <span class="listName" v-for="(item,index) in listName" :key="index" @click="handleClick(item)">{{item}}</span>
+          </span>
           <span class="more">查看所有标签 ></span>
         </div>
       </el-col>
@@ -219,26 +221,37 @@ export default {
     border-right: 1px solid #eee;
   }
   .listName {
-    font-size: 14px;
     margin: 0 10px;
+    font-size: 14px;
+    line-height: 14px;
+    color: #666;
+    &:hover {
+      color: #cb3737;
+    }
   }
   .grid-border {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border: 1px solid #eee;
     border-radius: 5px;
     padding: 14px;
+    .keyword-con {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
     span {
       cursor: pointer;
       &:first-child {
         padding-left: 5px;
+        color: #333;
       }
     }
     &:hover {
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
     }
     .more {
-      float: right;
-      height: 19px;
-      line-height: 29px;
       color: #cb3737;
       &:hover {
         color: #f35f5f;

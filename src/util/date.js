@@ -36,6 +36,14 @@ const getMonth = (date) => {
   return moment(date).month() + 1
 }
 
+const getYearMonth = (date) => {
+  if (moment(date).isValid()) {
+    return moment(date).format('YYYY-MM')
+  } else {
+    return ''
+  }
+}
+
 /**
  * 日期格式化
  */
@@ -69,4 +77,4 @@ const dateFormat = (DATE, format = 'yyyy-MM-dd') => {
   }
 }
 
-export { initNow, calcDate, getYear, getMonth, dateFormat }
+export { initNow, calcDate, getYear, getMonth, dateFormat, getYearMonth }

@@ -9,6 +9,9 @@
         <!-- <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple> -->
         <el-input type="text" v-model="formData.receiverName" readonly />
       </el-form-item>
+      <el-form-item label="纠错标签：">
+        <iep-tag v-model="formData.tagKeyWords" plus></iep-tag>
+      </el-form-item>
       <el-form-item label="正文：" prop="content">
         <el-input type="textarea" rows=5 placeholder="请在此输入纠错说明" v-model="formData.content" maxlength="2000"></el-input>
       </el-form-item>

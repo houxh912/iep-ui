@@ -56,19 +56,16 @@ export default {
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__header {
-  padding: 13px 0;
-}
 .index-card >>> .el-card__body {
-  padding: 16px 0 2px;
+  padding: 15px 0 2px;
 }
 .el-card {
   padding: 0 20px;
 }
-.brand >>> .el-card__header {
-  padding: 18px 0 9px;
-}
 .brand >>> .el-card {
   height: 360px;
+}
+.brand >>> .list .piece:nth-child(1) {
+  margin-top: 0;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <iep-dialog :title="methodName" :dialog-show="dialogShow" width="520px" @close="loadPage">
-    <el-form :model="form" size="small" label-width="160px">
-      <el-form-item label="银行户头名称：">
+  <iep-dialog :title="methodName" :dialog-show="dialogShow" width="520px" @close="close">
+    <el-form ref="form" :model="form" size="small" :rules="rules" label-width="160px">
+      <el-form-item label="银行户头名称：" prop="accountName">
         <el-input v-model="form.accountName" autocomplete="off" placeholder="请输入银行户头名称"></el-input>
       </el-form-item>
       <!-- <el-form-item label="户头所属公司：">
@@ -17,34 +17,40 @@
       </el-form-item> -->
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="handleSubmit">确 定</iep-button>
-      <iep-button @click="loadPage">取 消</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">确 定</iep-button>
+      <iep-button @click="close">取 消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
 import { initForm } from './options'
+import formMixins from '@/mixins/formMixins'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       form: initForm(),
+      rules: {
+        accountName: [
+          { required: true, message: '请填写银行户头名称', trigger: 'blur' },
+        ],
+      },
       methodName: '新增',
       dialogShow: false,
       formRequestFn: () => { },
     }
   },
   methods: {
-    handleSubmit () {
-      this.formRequestFn(this.form).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('操作成功')
-          this.loadPage()
-        } else {
-          this.$message(data.msg)
-        }
-      })
+    async submitForm () {
+      const { data } = await this.formRequestFn(this.form)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.close()
+      } else {
+        this.$message(data.msg)
+      }
     },
-    loadPage () {
+    close () {
       this.dialogShow = false
       this.form = initForm()
       this.$emit('load-page')

@@ -34,6 +34,6 @@ export default {
 </script>
 <style scoped>
 .institutional >>> .el-card {
-  height: 324px;
+  height: 316px;
 }
 </style>

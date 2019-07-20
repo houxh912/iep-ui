@@ -113,6 +113,7 @@ export default {
           justify-content: flex-start;
           align-items: center;
           margin-right: 30px;
+          font-weight: 400;
           color: #999;
           i {
             margin-right: 3px;

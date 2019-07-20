@@ -8,7 +8,7 @@ export default [
       {
         path: 'customer_detail/:id',
         name: '客户详情',
-        component: () => import('@/views/crms/Customer/Page/Detail.vue'),
+        component: () => import(/* webpackChunkName: "crms" */'@/views/crms/Customer/Page/Detail.vue'),
       },
     ],
   },
@@ -20,7 +20,7 @@ export default [
       {
         path: 'business_detail/:id',
         name: '商机详情',
-        component: () => import('@/views/crms/business/Detail.vue'),
+        component: () => import(/* webpackChunkName: "crms" */'@/views/crms/business/Detail.vue'),
       },
     ],
   },

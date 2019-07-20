@@ -12,7 +12,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       </iep-table>
     </basic-container>
   </div>
@@ -46,7 +46,7 @@ export default {
     hanldeChange () {
       this.loadPage()
     },
-    loadPage (param = this.searchParam) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, type: this.type }, getExpenditurePage)
     },
   },

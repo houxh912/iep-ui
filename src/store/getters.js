@@ -47,5 +47,6 @@ const getters = {
   imGroups: state => state.im.groups,
   imGroupMember: state => key => state.im.groupMemberMap[key],
   imGroupMemberAll: state => state.im.groupMemberMap,
+  imCustomGroups: state => state.im.customGroups,
 }
 export default getters

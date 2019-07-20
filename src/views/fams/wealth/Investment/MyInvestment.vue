@@ -1,9 +1,9 @@
 <template>
   <div>
-    <iep-table class="dept-table" :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-tree>
-      <template slot="before-columns">
-      </template>
+    <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
     </iep-table>
+    <el-pagination style="text-align:center;margin-top: 20px;" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-size="pagination.size" :current-page="pagination.current" :pager-count="11" layout="prev, pager, next" :total="pagination.total">
+    </el-pagination>
   </div>
 </template>
 
@@ -41,12 +41,18 @@ const dictsMap = {
     3: '核准驳回',
   },
 }
+function pageOption () {
+  return {
+    current: 1,
+    size: 5,
+  }
+}
 export default {
-  mixins:[mixins],
+  mixins: [mixins],
   data () {
     return {
-      pagination:{},
-      pagedTable: [],
+      pagination: pageOption(),
+      pageOption: pageOption(),
       columnsMap,
       dictsMap,
     }

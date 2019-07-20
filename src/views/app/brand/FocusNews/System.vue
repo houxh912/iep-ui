@@ -13,10 +13,10 @@ export default {
   data () {
     return {
       leaderBoardList: [
-        { name: '中国互联网保险创新峰会2019', color: 'red',isShow:true,imgSrc:require('../images/banner2.jpg') },
-        { name: '中国互联网保险创新峰会2019', color: '',isShow:false },
-        { name: '中国互联网保险创新峰会2019', color: '',isShow:false },
-        { name: '中国互联网保险创新峰会2019', color: '' ,isShow:false},
+        { name: '中国互联网保险创新峰会2019', color: 'red', isShow: true, imgSrc: require('../images/banner2.jpg') },
+        { name: '中国互联网保险创新峰会2019', color: '', isShow: false },
+        { name: '中国互联网保险创新峰会2019', color: '', isShow: false },
+        { name: '中国互联网保险创新峰会2019', color: '', isShow: false },
       ],
     }
   },
@@ -29,6 +29,9 @@ export default {
   white-space: nowrap;
   margin-bottom: 10px;
   cursor: pointer;
+  &:hover .img {
+    opacity: 0.7;
+  }
   .name {
     height: 26px;
     line-height: 26px;
@@ -56,11 +59,11 @@ export default {
   &:hover {
     color: #cb3737;
   }
-  .img{
-    display:block;
+  .img {
+    display: block;
     margin-top: 10px;
-    width:100%;
-    height:120px;
+    width: 100%;
+    height: 120px;
   }
 }
 </style>

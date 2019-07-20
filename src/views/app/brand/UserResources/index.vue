@@ -38,7 +38,7 @@ export default {
 </script>
 <style scoped>
 .grid-content >>> .el-card {
-  height: 394px;
+  height: 386px;
 }
 </style>
 

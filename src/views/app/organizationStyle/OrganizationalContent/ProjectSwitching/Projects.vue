@@ -3,7 +3,7 @@
     <div class="reward" v-if="reward.length !== 0">
       <div v-for="(item,index) in reward" :key="index" class="piece" @click="handleDetail(item.id)">
         <span class="title">{{item.projectName}}</span>
-        <span class="name">{{item.authorizations[0]}}</span>
+        <span class="name">{{item.authorizations}}</span>
         <span class="percentage">{{dictList[item.projectStage]}}</span>
       </div>
     </div>
@@ -40,7 +40,7 @@ export default {
     },
   },
   created () {
-    getProjectList(this.orgId).then(({data}) => {
+    getProjectList(this.orgId).then(({ data }) => {
       this.reward = data.data
     })
   },
@@ -56,6 +56,10 @@ export default {
     cursor: pointer;
     position: relative;
     margin-left: 15px;
+    transition: 0.5s;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     .percentage {
       height: 30px;
       line-height: 30px;

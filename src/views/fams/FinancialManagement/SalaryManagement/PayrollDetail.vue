@@ -34,6 +34,8 @@
           </el-table-column>
           <el-table-column prop="urbanSubsidy" label="城市补贴">
           </el-table-column>
+          <el-table-column prop="serviceAllowance" label="工龄补贴">
+          </el-table-column>
           <el-table-column prop="basicPaySubtotal" label="小计">
           </el-table-column>
         </el-table-column>

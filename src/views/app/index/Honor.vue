@@ -22,7 +22,7 @@ export default {
       this.$router.push(`/mlms_spa/aptitude/detail/${row.id}`)
     },
     loadList () {
-      getHonorPage().then(({data}) => {
+      getHonorPage().then(({ data }) => {
         this.dataList = data.data.records
       })
     },
@@ -33,7 +33,7 @@ export default {
 }
 </script>
 <style scoped>
-.honor >>> .el-card__body {
-  height: 332px;
+.honor >>> .el-card {
+  height: 376px;
 }
 </style>

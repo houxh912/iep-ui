@@ -30,7 +30,7 @@ export default {
   methods: {
     handleChange (v) {
       const value = this.options.find(m => m.id === v)
-      this.$emit('relation-change', value.relationList, value.name)
+      this.$emit('relation-change', value.relationList, value.name, value)
     },
     async remoteMethod (query) {
       if (query !== '') {

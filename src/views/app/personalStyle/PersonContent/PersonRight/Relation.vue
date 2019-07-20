@@ -1,6 +1,6 @@
 <template>
   <div class="relation">
-    <IepAppTabCard :title="title" :data="`（${relation.masters.length}/${relation.pupils.length}）`">
+    <IepAppTabCard :title="title">
       <el-button class="btn" type="text" slot="right" @click="show" :class="isShow?'el-icon-arrow-up':'el-icon-arrow-down'"></el-button>
       <div class="item" v-for="(row, index) in titleList" :key="index" v-show="isShow">
         <span class="title">{{row.title1}}</span>
@@ -51,7 +51,7 @@ export default {
     titleList () {
       return [
         {
-          title1: 'TA的师徒',
+          title1: `TA的师徒（${this.relation.masters.length}/${this.relation.pupils.length}）`,
           list: this.MentorsList,
         },
         {

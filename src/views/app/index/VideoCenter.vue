@@ -33,7 +33,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .videoCenter-list {
-  padding: 10px 0 6px;
   .piece {
     cursor: pointer;
     text-align: center;
@@ -47,5 +46,10 @@ export default {
       display: block;
     }
   }
+}
+</style>
+<style scoped>
+.videoCenter >>> .el-card {
+  height: 290px;
 }
 </style>

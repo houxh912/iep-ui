@@ -32,7 +32,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from '../CustomManagement/options'
-import { getExaminePage, deleteCustomById } from '@/api/app/cpms/custom_product'
+import { deleteCustomById, getMyPage } from '@/api/app/cpms/custom_product'
 export default {
   mixins: [mixins],
   data () {
@@ -54,7 +54,7 @@ export default {
       this._handleGlobalDeleteById(row.customId, deleteCustomById)
     },
     async loadPage () {
-      await getExaminePage().then((data) => {
+      await getMyPage().then((data) => {
         this.isLoadTable = true
         const { records, size, total, current } = data.data.data
         this.pagedTable = records

@@ -75,9 +75,12 @@ axios.interceptors.response.use(res => {
     // } else if (status === 500 || res.data.code === 500) {
     //   router.push({ path: '/500' })
     //   return
-  } else if (!(/2\d\d/.test('' + status)) || res.data.code === 1) {
-    if (res.data.code === 1 || status === 400) {
+  } else if (!(/[2|5]\d\d/.test('' + status)) || res.data.code === 1) {
+    if (res.data.code === 1 && status === 400) {
       Message(message)
+    }
+    if (res.data.code === 1 && (/[2|5]\d\d/.test('' + status))) {
+      return res
     }
     return Promise.reject(new Error(message))
   } else {

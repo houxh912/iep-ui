@@ -72,6 +72,9 @@ export default {
   top: 12px;
   color: #999;
   z-index: 3;
+  &:hover {
+    color: #cb3737;
+  }
 }
 </style>
 <style scoped>

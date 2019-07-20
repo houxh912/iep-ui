@@ -29,7 +29,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .share {
-  padding-top: 15px;
   .piece {
     text-align: center;
     width: 238px;
@@ -65,5 +64,14 @@ export default {
 <style scoped>
 .share >>> .el-carousel__container {
   height: 180px;
+}
+.share >>> .el-image__inner {
+  width: 100%;
+  height: 142px;
+  transition: 0.5s;
+}
+.share >>> .el-image__inner:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 </style>

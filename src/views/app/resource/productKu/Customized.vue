@@ -11,7 +11,7 @@
             <h4 class="item-title">{{item.name}}</h4>
             <p class="con">{{item.synopsis}}</p>
             <div class="header clearfix">
-              <span class="price">指导价：¥{{item.valuation}}</span>
+              <span class="price">产品估值：¥{{item.valuation}}</span>
               <el-button @click.stop="handleProductClick(item.id)" icon="el-icon-plus"></el-button>
             </div>
           </div>

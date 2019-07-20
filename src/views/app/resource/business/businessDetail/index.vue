@@ -100,6 +100,9 @@ export default {
 .ranking {
   padding: 0;
   .piece {
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     .name {
       width: 100% !important;
     }

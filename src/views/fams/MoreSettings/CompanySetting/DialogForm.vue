@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :title="methodName" :dialog-show="dialogShow" width="600px" @close="close">
-    <el-form class="form-detail" :rules="rules" ref="form" :model="form" size="small" label-width="140px">
+    <el-form ref="form" class="form-detail" :rules="rules" :model="form" size="small" label-width="140px">
       <el-form-item label="父公司：" v-if="!!form.parentId">
         <iep-div-detail :value="form.parentName"></iep-div-detail>
       </el-form-item>
@@ -27,7 +27,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="handleSubmit">确 定</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">确 定</iep-button>
       <iep-button @click="close">取 消</iep-button>
     </template>
   </iep-dialog>
@@ -47,31 +47,13 @@ export default {
     }
   },
   methods: {
-    async handleSubmit () {
-      try {
-        await this.mixinsValidate()
-        try {
-          const { data } = await this.formRequestFn(this.form)
-          if (data.data) {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            this.close()
-          } else {
-            this.$message({
-              message: data.msg,
-              type: 'error',
-            })
-          }
-        } catch (error) {
-          this.$message({
-            message: error.message,
-            type: 'error',
-          })
-        }
-      } catch (object) {
-        this.mixinsMessage(object)
+    async submitForm () {
+      const { data } = await this.formRequestFn(this.form)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.close()
+      } else {
+        this.$message(data.msg)
       }
     },
     close () {

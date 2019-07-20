@@ -8,7 +8,7 @@
         <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <el-table-column prop="operation" label="操作" width="250">
         <template slot-scope="scope">
           <operation-wrapper>

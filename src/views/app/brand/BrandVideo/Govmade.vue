@@ -71,7 +71,6 @@ export default {
 
 <style scoped lang="scss">
 .govmade {
-  padding-top: 15px;
   .piece {
     text-align: center;
     width: 238px;

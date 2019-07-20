@@ -42,6 +42,6 @@ export default {
   border: 0;
 }
 .opportunity >>> .el-card {
-  height: 330px;
+  height: 316px;
 }
 </style>

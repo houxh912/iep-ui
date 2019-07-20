@@ -58,6 +58,20 @@
         <iep-div-detail :value="form.remarks"></iep-div-detail>
       </el-form-item>
 
+      <h2 style="text-align: center;">代缴</h2>
+      <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
+        <el-table-column prop="orgId" label="组织名称">
+          <template slot-scope="scope">
+            <iep-div-detail :value="scope.row.orgName"></iep-div-detail>
+          </template>
+        </el-table-column>
+        <el-table-column prop="amount" label="金额(元)">
+          <template slot-scope="scope">
+            <iep-div-detail :value="scope.row.amount"></iep-div-detail>
+          </template>
+        </el-table-column>
+      </el-table>
+
       <template v-if="form.parentType==='17'">
         <el-form-item label="">
           <operation-wrapper>

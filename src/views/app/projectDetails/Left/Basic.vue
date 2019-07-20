@@ -4,12 +4,15 @@
       <span class="sub-title">{{item.title}}</span>
       <div class="item-con">
         <span class="item-list" v-for="list in item.lists" :key="list.id">
-          <span>
+          <span class="title">
             {{list.post}}：
           </span>
-          <span :class="list.show">
+          <span class="content" :class="list.show">
             <span class="classTag" v-if="list.show=='show'">
-              <el-tag type="white" v-for="(item, index) in projectData.projectTagList" :key="index">{{item}}</el-tag>
+              <el-tag type="white" v-for="(item, index) in projectData[list.name]" :key="index">{{item}}</el-tag>
+            </span>
+            <span class="classList" v-else-if="list.list">
+              {{ projectData[list.name].map(m => m[list.list]).join('、') }}
             </span>
             <span v-else-if="list.dict">{{dictMap[list.dict][projectData[list.name]]}}</span>
             <span v-else>{{projectData[list.name]}}</span>
@@ -20,6 +23,15 @@
   </div>
 </template>
 <script>
+import { getStore } from '@/util/store'
+const dicData = getStore({ name: 'dictGroup' })
+function changeDict (list) {
+  let data = {}
+  for (let item of list) {
+    data[item.value] = item.label
+  }
+  return data
+}
 export default {
   props: {
     projectData: {
@@ -35,36 +47,51 @@ export default {
             {
               post: '项目名称',
               name: 'projectName',
-            },
-            {
+            }, {
+              post: '项目编号',
+              name: 'serialNo',
+            }, {
+              post: '项目类型',
+              name: 'projectType',
+              dict: 'prms_project_type',
+            }, {
               post: '项目标签',
               name: 'projectTagList',
               show: 'show',
-            },
-            {
-              post: '发布人',
-              name: 'publisherName',
-            },
-            {
-              post: '发布时间',
-              name: 'publishTime',
-            },
-            {
-              post: '编号',
-              name: 'serialNo',
-            },
-            {
+            }, {
               post: '客户名称',
-              name: 'groupExternalCooperatePartnerName',
-            },
-            {
+              name: 'relatedClientName',
+            }, {
+              post: '项目等级',
+              name: 'projectLevel',
+              dict: 'prms_project_level',
+            }, {
+              post: '相关产品',
+              name: 'productList',
+              list: 'name',
+            }, {
               post: '项目预算',
               name: 'projectBudget',
-            },
-            {
-              post: '是否关联产品',
-              name: 'isRelevanceProduct',
-              dict: 'is_yes',
+            }, {
+              post: '项目经理',
+              name: 'projectHandlesList',
+              list: 'name',
+            }, {
+              post: '项目督导',
+              name: 'projectMentorList',
+              list: 'name',
+            }, {
+              post: '市场经理',
+              name: 'mktManagerList',
+              list: 'name',
+            }, {
+              post: '执行项目经理',
+              name: 'projectHandlesList',
+              list: 'name',
+            }, {
+              post: '团队成员',
+              name: 'membersList',
+              list: 'name',
             },
           ],
         },
@@ -74,6 +101,8 @@ export default {
           1: '是',
           2: '否',
         },
+        prms_project_type: changeDict(dicData.prms_project_type),
+        prms_project_level: changeDict(dicData.prms_project_level),
       },
     }
   },
@@ -112,6 +141,12 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    .title {
+      min-width: 70px;
+    }
+    .content {
+      flex: 1;
+    }
   }
 }
 </style>

@@ -33,9 +33,9 @@ export function getBudgetList () {
     method: 'get',
   })
 }
-export function getBossBudgetList () {
+export function getBossBudgetList (id) {
   return request({
-    url: `${prefixUrl}/all/budget/list`,
+    url: `${prefixUrl}/all/budget/list/${id}`,
     method: 'get',
   })
 }
@@ -196,5 +196,69 @@ export const getOrgAssetsById = (id) => {
   return request({
     url: `${prefixUrl}/org/assets_ranking/${id}`,
     method: 'get',
+  })
+}
+
+// 组织资产统计排名
+export const getOrgProfits = (orgId, year) => {
+  return request({
+    url: `${prefixUrl}/org/profits/losses`,
+    method: 'get',
+    params: {
+      orgId,
+      year,
+    },
+  })
+}
+// 集团资产统计排名
+export const getUnionProfits = (year, month) => {
+  return request({
+    url: `${prefixUrl}/group/profits/losses`,
+    method: 'get',
+    params: {
+      month,
+      year,
+    },
+  })
+}
+
+// 集团货币基金公司
+export const getCompanyCurrencyFund = (yearMonth) => {
+  return request({
+    url: `${prefixUrl}/company/balance`,
+    method: 'get',
+    params: {
+      month: yearMonth,
+    },
+  })
+}
+// 集团货币基金公司详情
+export const getCompanyCurrencyFundDetail = (id) => {
+  return request({
+    url: `${prefixUrl}/company/detail`,
+    method: 'get',
+    params: {
+      companyId: id,
+    },
+  })
+}
+// 集团货币基金账户
+export const getBankCurrencyFund = (yearMonth) => {
+  return request({
+    url: `${prefixUrl}/bank/balance`,
+    method: 'get',
+    params: {
+      month: yearMonth,
+    },
+  })
+}
+// 集团货币基金账户详情
+export const getBankCurrencyFundDetail = (id) => {
+  return request({
+    url: `${prefixUrl}/bank/detail`,
+    method: 'get',
+    params: {
+      accountId: id,
+    },
   })
 }

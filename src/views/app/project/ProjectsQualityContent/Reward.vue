@@ -35,6 +35,10 @@ export default {
     cursor: pointer;
     position: relative;
     margin-left: 15px;
+    transition: 0.5s;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     .name {
       display: inline-block;
       width: 70%;
@@ -81,6 +85,6 @@ export default {
   height: 270px;
 }
 .reward-con >>> .el-card {
-  height: 324px;
+  height: 318px;
 }
 </style>

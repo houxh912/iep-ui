@@ -16,6 +16,11 @@ import { getWealthFlowListById } from '@/api/fams/wealth_flow'
 import { dateFormat } from '@/util/date'
 
 export default {
+  props: {
+    userId: {
+      type: Number,
+    },
+  },
   data () {
     return {
       title: '奖惩记录',
@@ -28,10 +33,12 @@ export default {
       this.$router.push(`/app/personal_style/${row.creatorId}`)
     },
   },
-  created () {
-    getWealthFlowListById(this.$route.params.id).then(({data}) => {
+  watch: {
+    userId (newVal) {
+      getWealthFlowListById(newVal).then(({data}) => {
       this.list = data.data
     })
+    },
   },
 }
 </script>

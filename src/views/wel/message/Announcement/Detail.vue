@@ -19,7 +19,7 @@
           </li> -->
           <li><span>时间：</span><span>{{form.time}}</span></li>
         </ul>
-        <iep-read-mark-del :enableList="[false, true, false]"></iep-read-mark-del>
+        <iep-read-mark-del :enableList="[false, true, false]" :typeList="typeList" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
       </div>
       <div class="item-con">
         <div class="paragraph">
@@ -30,9 +30,11 @@
   </basic-container>
 </template>
 <script>
-import { getAnnouncementById } from '@/api/ims/announcement'
+import { getAnnouncementById, markAnnouncementBatch } from '@/api/ims/announcement'
 import { initForm } from './options'
+import mixins from '@/mixins/mixins'
 export default {
+  mixins: [mixins],
   beforeRouteUpdate (to, from, next) {
     // console.log(to, from)
     this.$nextTick(() => {
@@ -53,10 +55,18 @@ export default {
       form: initForm(),
     }
   },
+  computed: {
+    typeList () {
+      return [false, this.form.isMark, false]
+    },
+  },
   created () {
     this.loadPage()
   },
   methods: {
+    onMarkBatch () {
+      this._handleComfirm([this.form.id], markAnnouncementBatch, '设置 / 取消标记', '', '操作成功')
+    },
     handleGoBack () {
       this.$emit('onGoBack')
     },

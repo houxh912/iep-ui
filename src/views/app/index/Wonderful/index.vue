@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     loadCount () {
-      getRecruitCount().then(({data}) => {
+      getRecruitCount().then(({ data }) => {
         this.countObj = data.data
       })
     },
@@ -64,7 +64,7 @@ export default {
   },
   watch: {
     activeTab (newVal) {
-      this.$router.push({ path: '/app/resource/expert', query: { type: newVal === 'Empolyee' ? '1' : '2'} })
+      this.$router.push({ path: '/app/resource/expert', query: { type: newVal === 'Empolyee' ? '1' : '2' } })
     },
   },
 }
@@ -77,4 +77,9 @@ export default {
 }
 </style>
 
+<style scoped>
+.wonderful >>> .el-card {
+  height: 290px;
+}
+</style>
 

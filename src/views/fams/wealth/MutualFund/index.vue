@@ -8,8 +8,7 @@
           <iep-button @click="handleFundRank">捐助排名</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
-          </operation-search>
+          <operation-search @search-page="searchPage" prop="userName"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
@@ -21,6 +20,7 @@
 </template>
 <script>
 import { getFundPage, postFund, getFundRankList, getMyFund } from '@/api/fams/fund'
+import { getTotal } from '@/api/fams/total'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
@@ -37,7 +37,6 @@ export default {
   },
   created () {
     this.loadPage()
-    this.loadMy()
   },
   methods: {
     loadMy () {
@@ -51,13 +50,16 @@ export default {
         this.$refs['RankDialogForm'].dialogShow = true
       })
     },
-    handleFund () {
+    async handleFund () {
+      const { data } = await getTotal()
+      this.$refs['DialogForm'].displayTotalAsset = data.data.govmadeBell + data.data.lockBell
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].formRequestFn = postFund
       this.$refs['DialogForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getFundPage)
+      this.loadMy()
     },
   },
 }

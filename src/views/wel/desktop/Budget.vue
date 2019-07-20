@@ -6,14 +6,7 @@
       </div>
       <el-form ref="form" class="form-detail" :model="form" size="small" label-width="80px">
         <iep-form-item label-name="组织" v-show="isAbled">
-          <iep-select
-            size="small"
-            v-model="orgIds"
-            autocomplete="off"
-            prefix-url="admin/org/all"
-            @change="listPage()"
-            placeholder="所有"
-          ></iep-select>
+          <iep-select size="small" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage()" placeholder="所有"></iep-select>
         </iep-form-item>
       </el-form>
       <el-table :data="tableData" style="width: 100%">
@@ -67,7 +60,7 @@ export default {
     },
     async loadPage () {
       if (this.isAbled) {
-        const { data } = await getBossBudgetList()
+        const { data } = await getBossBudgetList(this.orgIds)
         this.tableData = data.data
       } else {
         const { data } = await getBudgetList()

@@ -94,7 +94,7 @@ export default {
   /* cursor: pointer; */
 }
 .leader-board >>> .el-card {
-  height: 362px;
+  height: 350px;
 }
 .leader-board >>> .el-table .cell {
   overflow: hidden;

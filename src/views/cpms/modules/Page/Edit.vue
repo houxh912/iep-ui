@@ -40,16 +40,16 @@
         <div class="title">团队信息：</div>
         <el-row class="base">
           <el-form-item label="负责人：" prop="userRelationCharges" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationCharges" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+            <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="需求方：" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationDemands" :filter-user-list="filterUserList"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="技术经理：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationTechnologys" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+            <iep-contact-multiple-user v-model="form.userRelationTechnologys"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="产品经理：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationProducts" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+            <iep-contact-multiple-user v-model="form.userRelationProducts"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="团队成员：">
             <iep-contact-multiple-user v-model="form.userRelationTeams" :filter-user-list="filterUserList"></iep-contact-multiple-user>

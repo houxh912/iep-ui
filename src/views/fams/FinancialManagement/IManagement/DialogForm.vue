@@ -155,20 +155,16 @@ export default {
       this.form.relations.splice(i, 1)
     },
     handleContractChange (v, n, value) {
-      if (v) {
-        this.form.projectId = v.id
-        this.form.projectName = v.name
-        this.form.protocolName = value.name
-        this.form.serialNo = value.serialNo
-      }
+      this.form.projectId = v && v.id
+      this.form.projectName = v && v.name
+      this.form.serialNo = v && v.serialNo
+      this.form.protocolName = value && value.name
     },
     handleProjectChange (v, n, value) {
-      if (v) {
-        this.form.protocolId = v.id
-        this.form.protocolName = v.name
-        this.form.serialNo = value.serialNo
-        this.form.projectName = value.name
-      }
+      this.form.protocolId = v && v.id
+      this.form.protocolName = v && v.name
+      this.form.serialNo = value && value.serialNo
+      this.form.projectName = value && value.name
     },
     handleChange () {
       this.form.accountId = ''

@@ -1,24 +1,29 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="50%" @close="loadPage">
     <el-form :model="form" :rules="rules" ref="form" size="small" label-width="100px">
-      <el-form-item label="组织名称" prop="name">
+      <iep-form-item label-name="组织名称" prop="name">
         <el-input v-model="form.name"></el-input>
-      </el-form-item>
-      <el-form-item label="允许加入" prop="isOpen">
+      </iep-form-item>
+      <iep-form-item label-name="允许加入" prop="isOpen">
         <el-switch v-model="form.isOpen" :active-value="0" :inactive-value="1"></el-switch>
-      </el-form-item>
-      <el-form-item label="组织描述" prop="intro">
-        <el-input type="textarea" v-model="form.intro"></el-input>
-      </el-form-item>
+      </iep-form-item>
+      <iep-form-item label-name="组织排序" prop="orgSort">
+        <iep-input-number v-model="form.orgSort"></iep-input-number>
+      </iep-form-item>
+      <iep-form-item label-name="组织描述" prop="intro">
+        <iep-input-area v-model="form.intro"></iep-input-area>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">{{methodName}}</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">{{methodName}}</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
 import { initForm } from './options'
+import formMixins from '@/mixins/formMixins'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       dialogShow: false,
@@ -41,20 +46,14 @@ export default {
       this.dialogShow = false
       this.$emit('load-page')
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(this.form).then(() => {
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
-            this.loadPage()
-          })
-        } else {
-          return false
-        }
-      })
+    async submitForm () {
+      const { data } = await this.formRequestFn(this.form)
+      if (data.data) {
+        this.$message.success(`${this.methodName}成功`)
+        this.loadPage()
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

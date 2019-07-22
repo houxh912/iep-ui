@@ -39,6 +39,7 @@ const initForm = () => {
     logo: '',
     name: '',
     isOpen: 0,
+    orgSort: 0,
     abrName: '',
     establishTime: '',
     creatorName: '',

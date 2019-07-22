@@ -321,7 +321,6 @@ export default {
           data.data.materialList[k].type = '材料'
         }
         this.formData.materialList = data.data.materialList.concat(data.data.reportList, data.data.summaryList)
-        console.log(this.formData.materialList)
       })
     },
     handleSubmit () {

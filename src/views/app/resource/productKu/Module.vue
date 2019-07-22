@@ -104,8 +104,8 @@ export default {
   display: grid;
   margin: 25px 0;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
-  grid-column-gap: 25px;
+  grid-row-gap: 30px;
+  grid-column-gap: 30px;
   grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
       100px,
       3fr
@@ -154,12 +154,13 @@ export default {
       width: 80%;
       .item-title {
         max-width: 210px;
-        font-size: 15px;
+        font-size: 16px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
       .con {
+        margin-bottom: 5px;
         height: 47px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -182,6 +183,7 @@ export default {
           vertical-align: top;
           margin-right: 5px;
           margin-bottom: 5px;
+          font-size: 14px;
           cursor: pointer;
           &:last-child {
             overflow: hidden;
@@ -225,13 +227,17 @@ export default {
   cursor: pointer;
 }
 .img >>> .el-image {
-  width: 120px;
-  height: 120px;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+}
+.img >>> .el-image__inner:hover {
+  opacity: 0.7;
 }
 .img >>> .el-image__inner {
   padding: 5px;
-  width: 120px;
-  height: 120px;
-  border: 1px solid #dcdfe6;
+  width: 60px;
+  height: 60px;
+  transition: 0.5s;
 }
 </style>

@@ -13,7 +13,7 @@ export default [
     path: '/login',
     name: '登录页',
     component: () =>
-      import(/* webpackChunkName: "page" */ '@/page/login/index'),
+      import('@/page/login/index'),
     meta: {
       keepAlive: false,
       isTab: false,
@@ -24,7 +24,7 @@ export default [
     path: '/register',
     name: '注册页',
     component: () =>
-      import(/* webpackChunkName: "page" */ '@/page/register/index'),
+      import('@/page/register/index'),
     meta: {
       keepAlive: false,
       isTab: false,
@@ -34,7 +34,7 @@ export default [
   {
     path: '/lock',
     name: '锁屏页',
-    component: () => import(/* webpackChunkName: "page" */ '@/page/lock/index'),
+    component: () => import('@/page/lock/index'),
     meta: {
       keepAlive: true,
       isTab: false,
@@ -49,7 +49,7 @@ export default [
       {
         path: ':routerPath',
         name: 'iframe',
-        component: () => import(/* webpackChunkName: "page" */ '@/components/iframe/main'),
+        component: () => import('@/components/iframe/main'),
         props: true,
       },
     ],

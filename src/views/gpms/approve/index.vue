@@ -173,4 +173,21 @@ export default {
     font-size: 18px;
   }
 }
+.grade,
+.stage {
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 6px;
+  height: 18px;
+  line-height: 18px;
+  margin-right: 4px;
+  margin-top: 10px;
+}
+.grade {
+  background-color: #b91b21;
+}
+.stage {
+  background-color: #b5b5b5;
+  margin-right: 10px;
+}
 </style>

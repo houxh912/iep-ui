@@ -121,9 +121,6 @@ export default {
     handleDetail (row) {
       this.$router.push({
         path: `/gpms_spa/project/detail/${row.id}`,
-        query: {
-          isApprove: false,
-        },
       })
     },
     handleCreate () {

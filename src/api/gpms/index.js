@@ -68,6 +68,14 @@ export function getRecommendedProjectList (obj) {
     data: obj,
   })
 }
+// 推荐项目督导
+export function getRecommendedMentortList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendMentorByTag`,
+    method: 'post',
+    data: obj,
+  })
+}
 // 推荐项目经理
 export function getRecommendedHandlesList (obj) {
   return request({
@@ -80,6 +88,14 @@ export function getRecommendedHandlesList (obj) {
 export function getRecommendedMktManagerList (obj) {
   return request({
     url: `${prefixUrl}/recommendMarketByTag`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 推荐项目成员
+export function getRecommendedMemberList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendMemberByTag`,
     method: 'post',
     data: obj,
   })

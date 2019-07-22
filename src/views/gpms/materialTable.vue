@@ -36,7 +36,7 @@ export default {
       urlList: [
         {
           type: '周报',
-          url: '/wel/material/report/',
+          url: '/wel/staff_week_detail/',
         },
         {
           type: '会议纪要',

@@ -86,3 +86,20 @@ export function addReplyThumbsByRecord (id) {
     method: 'get',
   })
 }
+
+// 说说点赞用户列表
+export function getThumbMembers (id) {
+  return request({
+    url: `${prefixUrl}/thumbMembers/${id}`,
+    method: 'get',
+  })
+}
+
+//  国脉人说说点赞排行榜
+export function getRankingThumbsUp () {
+  return request({
+    url: `${prefixUrl}/rankingThumbsUp`,
+    method: 'get',
+  })
+}
+

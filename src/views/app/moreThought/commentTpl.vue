@@ -14,6 +14,14 @@
         </div>
         <!-- 评论的按钮行 -->
         <div class="button-list" v-if="item.thoughtsReplyList">
+          <!-- <el-popover
+            placement="top-start"
+            title="标题"
+            width="200"
+            trigger="hover"
+            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+            <div slot="reference" class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+          </el-popover> -->
           <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           <div class="button" @click="hadnleComComment(item)"><i class="icon-xiaoxi"></i> 回复（{{item.thoughtsReplyList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
@@ -29,7 +37,7 @@
 </template>
 
 <script>
-import { CommentReply, addcCommentThumbsByRecord } from '@/api/cpms/thoughts'
+import { CommentReply, addcCommentThumbsByRecord, getThumbMembers } from '@/api/cpms/thoughts'
 import { mapActions } from 'vuex'
 
 const initFormData = () => {
@@ -97,6 +105,10 @@ export default {
     ...mapActions(['famsReward']),
     handleReward (row) {
       this.famsReward({ id: row.commentUserId, name: row.realName })
+    },
+    // 点赞列表
+    getThumbMembers () {
+      getThumbMembers().then(() => { })
     },
   },
 }

@@ -141,22 +141,16 @@ export default {
   },
   methods: {
     handleContractChange (v) {
-      if (v) {
-        this.form.projectId = v.id
-        this.form.projectName = v.name
-        this.form.auditor.id = v.userId
-        this.form.auditor.name = v.realName
-      }
+      this.form.projectId = v.id
+      this.form.projectName = v.name
+      this.form.auditor.id = v.userId
+      this.form.auditor.name = v.realName
     },
     handleProjectChange (v, n, value) {
-      if (v) {
-        this.form.protocolId = v.id
-        this.form.protocolName = v.name
-      }
-      if (value) {
-        this.form.auditor.id = value.userId
-        this.form.auditor.name = value.realName
-      }
+      this.form.protocolId = v.id
+      this.form.protocolName = v.name
+      this.form.auditor.id = value.userId
+      this.form.auditor.name = value.realName
     },
     handlePublish () {
       this.isPublish = true

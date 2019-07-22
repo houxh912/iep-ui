@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+﻿import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   status: {
     1: '待处理',
@@ -27,10 +27,12 @@ const columnsMap = [
   {
     prop: 'applyPosition',
     label: '应聘岗位',
+    width:'100',
   },
   {
     prop: 'receptionTime',
     label: '简历接受时间',
+    width:'170',
   },
   {
     prop: 'source',

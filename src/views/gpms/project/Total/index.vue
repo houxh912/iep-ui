@@ -16,12 +16,12 @@
           </el-row> -->
           <!--表单-->
           <!-- <search-form></search-form> -->
-            <advance-search @search-page="searchPage"></advance-search>
+          <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
-      <el-table-column label="项目名称" slot="before-columns" width="300px">
+      <el-table-column label="项目名称" slot="before-columns" width="280px">
         <template slot-scope="scope">
           <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
             <span>{{ scope.row.projectName }}</span>
@@ -33,7 +33,7 @@
           <span>{{ scope.row.projectTime.slice(0, 10) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-if="tabType!=='3'">
+      <el-table-column label="操作" v-if="tabType!=='3'" width="230px">
         <template slot-scope="scope">
           <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
           <el-button size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del">编辑</el-button>
@@ -61,7 +61,7 @@ const optNameMap = {
   delete: '删除',
 }
 export default {
-  components: {AdvanceSearch},
+  components: { AdvanceSearch },
   props: {
     tabType: {
       type: String,

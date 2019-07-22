@@ -26,6 +26,9 @@
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
+      <el-form-item label="文章描述：">
+        <el-input type="textarea" v-model="form.infoDescribe"></el-input>
+      </el-form-item>
       <el-form-item label="文档内容：" prop="content">
         <iep-froala-editor v-model="form.content"></iep-froala-editor>
       </el-form-item>

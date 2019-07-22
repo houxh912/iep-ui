@@ -95,3 +95,11 @@ export function getThumbMembers (id) {
   })
 }
 
+//  国脉人说说点赞排行榜
+export function getRankingThumbsUp () {
+  return request({
+    url: `${prefixUrl}/rankingThumbsUp`,
+    method: 'get',
+  })
+}
+

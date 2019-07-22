@@ -1,5 +1,5 @@
 <template>
-  <div class="praise">
+  <div class="subject">
     <IepAppTabCard :title="labelTitle">
       <IepAppRankingCard :dataList="labelList" @click="handleDetail"></IepAppRankingCard>
     </IepAppTabCard>
@@ -19,3 +19,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.subject >>> .el-card {
+  height: 380px;
+}
+</style>

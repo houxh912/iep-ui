@@ -90,6 +90,13 @@ export default {
   },
   methods: {
     submit () {
+      let fn = () => {
+        this.loadState = false
+        this.params.current = 1
+        this.list = []
+        this.loadPage()
+        this.formData = initFormData()
+      }
       if (this.formData.content == '') {
         this.createValidate = true
         return
@@ -97,14 +104,19 @@ export default {
       this.createValidate = false
       this.loadState = true
       thoughtsCreate(this.formData).then(() => {
-        addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
-          this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
-          this.loadState = false
-          this.params.current = 1
-          this.list = []
-          this.loadPage()
-          this.formData = initFormData()
-        })
+        // 判断是否公开，不公开(1)的说说没有奖励
+        if (this.formData.status === 1) {
+          this.$message.success('恭喜您发表了一篇说说，继续努力')
+          fn()
+        } else {
+          addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+            this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
+            fn()
+          })
+        }
+      }).catch(() => {
+        this.$message.error('网络出现问题，请稍后重试！')
+        this.loadState = false
       })
     },
     // 获取更多

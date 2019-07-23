@@ -3,7 +3,7 @@
     <basic-container>
       <iep-page-header title="我的定位">
         <template>
-          <el-button class="modify" size="small" @click="handleClicks" disabled>项目PK</el-button>
+          <el-button class="modify" size="small" @click="handleClicks">项目PK</el-button>
         </template>
       </iep-page-header>
       <div class="title-box">
@@ -269,7 +269,7 @@ export default {
   },
   methods: {
     handleClicks () {
-
+      this.$router.push('/app/resource/project_list')
     },
     getMyPosition () {
       getMyPosition({ userId: this.userInfo.userId }).then(({ data }) => {

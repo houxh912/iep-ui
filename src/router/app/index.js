@@ -279,6 +279,11 @@ export default [
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/projectList/'),
       },
       {
+        path: 'project_pk/:id',
+        name: '项目PK',
+        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/projectList/projectPK/'),
+      },
+      {
         path: 'organizational_list',
         name: '组织列表',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/organizationalList/'),

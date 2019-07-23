@@ -72,3 +72,4 @@ export const getRanking = () => {
     method: 'get',
   })
 }
+

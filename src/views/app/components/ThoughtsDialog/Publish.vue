@@ -53,16 +53,25 @@ export default {
       this.$emit('load-page')
     },
     submitForm (formName) {
+      let fn = () => {
+        this.loadState = false
+        this.loadPage()
+        this.dialogShow = false
+      }
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
           thoughtsCreate(this.formData).then(() => {
-            addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
-              this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
-              this.loadState = false
-              this.loadPage()
-              this.dialogShow = false
-            })
+            // 判断是否公开，不公开(1)的说说没有奖励
+            if (this.formData.status === 1) {
+              this.$message.success('恭喜您发表了一篇说说，继续努力')
+              fn()
+            } else {
+              addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+                this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
+                fn()
+              })
+            }
           })
         } else {
           return false

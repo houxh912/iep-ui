@@ -46,7 +46,7 @@ export default {
   }
   .name {
     display: inline-block;
-    width: 200px;
+    width: 180px;
     height: 30px;
     line-height: 30px;
     overflow: hidden;

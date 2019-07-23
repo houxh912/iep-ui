@@ -2,7 +2,7 @@
   <div class="video-right">
     <span class="sub-title">{{title}}</span>
     <span class="up">上传人：<span class="img"><iep-img :src="img" alt=""></iep-img></span></span>
-    <span class="num">浏览器：<span>{{num}}</span></span>
+    <span class="num">浏览量：<span>{{num}}</span></span>
     <span class="time">上传时间：<span>{{time}}</span></span>
   </div>
 </template>

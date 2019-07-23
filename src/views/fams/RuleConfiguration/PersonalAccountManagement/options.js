@@ -1,77 +1,55 @@
-import { mergeByFirst } from '@/util/util'
 // org config options
 const dictsMap = {
-  status: {
-    0: '核准通过',
-    1: '待核准',
-    2: '核准驳回',
+  accountStatus: {
+    0: '正常',
+    1: '冻结',
   },
 }
 
 const columnsMap = [
   {
-    prop: 'ranking',
-    label: '排名',
+    prop: 'staffNo',
+    label: '工号',
   },
   {
-    prop: 'name',
+    prop: 'realName',
     label: '姓名',
   },
   {
-    prop: 'departments',
-    label: '所属部门',
-  },
-  {
-    prop: 'income',
-    label: '收入',
-  },
-  {
-    prop: 'expenditure',
-    label: '支出',
+    prop: 'orgName',
+    label: '所属组织',
+    width: '200',
+    type: 'detail',
   },
   {
     prop: 'balance',
-    label: '余额',
+    label: '国脉贝',
   },
   {
-    prop: 'status',
-    label: '账户状态',
+    prop: 'frozenAmount',
+    label: '冻结金额',
+  },
+  {
+    prop: 'availableAmount',
+    label: '发票可用额度',
+    width: '120',
+  },
+  {
+    prop: 'investmentAmount',
+    label: '投资',
+  },
+  {
+    prop: 'accountStatus',
+    label: '状态',
+    type: 'dict',
   },
 ]
 
-const initForm = () => {
-  return {
-    isOpen: false,
-    intro: '',
-  }
-}
-
-const initDtoForm = () => {
-  return {
-    isOpen: false,
-    intro: '',
-  }
-}
-
-const formToDto = (row) => {
-  const newForm = mergeByFirst(initDtoForm(), row)
-  newForm.positionId = row.position[row.position.length - 1]
-  newForm.deptId = row.dept[row.dept.length - 1]
-  return newForm
-}
-
 const initSearchForm = () => {
   return {
-    keyword: '',
-    applyTime: '',
-    sendTime: '',
-    sum1: '',
-    sum2: '',
-    type: '',
-    name: '',
-    status: '',
-    seller: '',
+    orgName: '',
+    accountStatus: '',
   }
 }
 
-export { dictsMap, columnsMap, initForm, formToDto, initSearchForm }
+export { dictsMap, columnsMap, initSearchForm }

@@ -1,47 +1,54 @@
 <template>
-  <component @onDetail="handleDetail" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <div>
+    <basic-container>
+      <iep-page-header title="个人账户" :replaceText="replaceText" :data="statistics"></iep-page-header>
+      <operation-container>
+        <template slot="right">
+          <operation-search @search-page="searchPage" prop="realName" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
+          </operation-search>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column label="操作" width="150px" fixed="right">
+          <template slot-scope="scope">
+            <el-button size="small" type="warning" plain @click="handleDetail(scope.row)">查看明细</el-button>
+          </template>
+        </el-table-column>
+      </iep-table>
+    </basic-container>
+  </div>
 </template>
 
 <script>
-// 动态切换组件
-import List from './Page/List'
-import Edit from './Page/Edit'
-import Detail from './Page/Detail'
-
+import AdvanceSearch from './AdvanceSearch'
+import { getPersonalPage } from '@/api/fams/statistics'
+import mixins from '@/mixins/mixins'
+import { columnsMap, dictsMap } from './options'
 export default {
-  name: 'TableListWrapper',
-  components: {
-    List,
-    Edit,
-    Detail,
-  },
+  components: { AdvanceSearch },
+  mixins: [mixins],
   data () {
     return {
-      currentComponet: 'List',
-      record: '',
+      dictsMap,
+      columnsMap,
+      replaceText: (data) => `（个人国脉贝统计：${data[0]} ）`,
+      statistics: [0],
     }
   },
   created () {
-
+    this.loadPage()
   },
   methods: {
-    handleEdit (record) {
-      this.record = record
-      this.currentComponet = 'Edit'
+    handleDetail (row) {
+      this.$router.push({
+        path: '/wel/wealth/wealth_flow',
+        query: { name: row.realName, id: row.id },
+      })
     },
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
-    },
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
-  },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getPersonalPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

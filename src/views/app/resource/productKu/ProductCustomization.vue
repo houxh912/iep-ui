@@ -53,6 +53,7 @@ export default {
       form: initSearchForm(),
       pagedTable: [],
       ids: '',
+      isLoadTable: false,
     }
   },
   created () {

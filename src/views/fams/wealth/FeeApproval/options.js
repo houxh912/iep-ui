@@ -8,6 +8,10 @@ const columnsMap = [
 		label: 'ID',
 	},
 	{
+		prop: 'creatorName',
+		label: '申请人',
+	},
+	{
 		prop: 'totalAmount',
 		label: '报销金额',
 	},

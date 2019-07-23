@@ -1,6 +1,6 @@
 <template>
   <div class="login-container pull-height">
-    <div class="login-weaper">
+    <div class="login-wrapper">
       <div class="login-border animated fadeInRight">
         <div class="login-main">
           <div class="title-image">
@@ -55,10 +55,10 @@ export default {
   height: 100%;
   margin: 0 auto;
 }
-.login-weaper {
+.login-wrapper {
   width: 100%;
   height: 100%;
-  background: url("/img/bg/bg.jpg") no-repeat;
+  background: url("/img/bg/bg.webp") no-repeat;
   background-size: cover;
 }
 .login-container::before {
@@ -69,7 +69,6 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
-  background: url("/img/bg/bg.jpg") no-repeat;
   background-size: cover;
 }
 .login-border {

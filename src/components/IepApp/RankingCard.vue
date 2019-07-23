@@ -4,7 +4,7 @@
       <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item)">
         <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
         <span class="name">{{item[name]}}</span>
-        <span class="grade">{{item.grade}}</span>
+        <span class="grade">{{item[grade]}}</span>
       </div>
     </div>
     <IepNoData v-else></IepNoData>
@@ -22,6 +22,10 @@ export default {
     name: {
       type: String,
       default: 'name',
+    },
+    grade: {
+      type: String,
+      default: 'grade',
     },
   },
   methods: {
@@ -71,6 +75,8 @@ export default {
     .grade {
       float: right;
       color: #bb1a20;
+      width: 68px;
+      text-align: right;
     }
     &:hover {
       color: #cb3737;

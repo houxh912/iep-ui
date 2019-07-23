@@ -261,7 +261,12 @@ export default [
       {
         path: 'more_thought',
         name: '新版说说',
-        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/moreThought/'),
+        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/'),
+      },
+      {
+        path: 'thought_detail',
+        name: '说说详情',
+        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/thoughtDetail/'),
       },
       {
         path: 'version_page',

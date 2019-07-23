@@ -262,3 +262,12 @@ export const getBankCurrencyFundDetail = (id) => {
     },
   })
 }
+
+// 个人账户详情
+export const getPersonalPage = (query) => {
+  return request({
+    url: `${prefixUrl}/personal/page`,
+    method: 'get',
+    params: query,
+  })
+}

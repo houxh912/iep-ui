@@ -57,10 +57,10 @@
         </iep-form-item>
         <h4 class="iep-sub-title">销售方</h4>
         <iep-form-item label-name="销售方组织" prop="orgId">
-          <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择销售方组织"></iep-select>
+          <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择销售方组织"></iep-select>
         </iep-form-item>
-        <iep-form-item v-if="!companyOption.disabled" label-name="销售方公司" prop="companyId">
-          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="companyOption.prefixUrl" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
+        <iep-form-item label-name="销售方公司" prop="companyId">
+          <iep-select v-model="form.companyId" filterable autocomplete="off" prefix-url="fams/company/all" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
         </iep-form-item>
         <iep-form-item label-name="纳税人识别号">
           <span>{{companyForm.taxpayerNumber}}</span>
@@ -137,18 +137,18 @@ export default {
     rules () {
       return initRule(this.invoicingType)
     },
-    companyOption () {
-      if (this.form.orgId) {
-        return {
-          disabled: false,
-          prefixUrl: `fams/company/${this.form.orgId}`,
-        }
-      } else {
-        return {
-          disabled: true,
-        }
-      }
-    },
+    // companyOption () {
+    //   if (this.form.orgId) {
+    //     return {
+    //       disabled: false,
+    //       prefixUrl: `fams/company/${this.form.orgId}`,
+    //     }
+    //   } else {
+    //     return {
+    //       disabled: true,
+    //     }
+    //   }
+    // },
   },
   created () {
     if (this.id) {

@@ -24,7 +24,7 @@
               </el-col>
               <el-col :span="12" class="item" v-show="formData.projectType==1">
                 <el-form-item label="委托组织：">
-                  {{formData.attendeeName}}
+                  {{formData.attendeeByName}}
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
@@ -54,7 +54,7 @@
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="立项时间：">
-                  <span v-if="formData.approvalTime==''">--</span>
+                  <span v-if="formData.approvalTime==''">{{formData.projectTime|parseToDay}}</span>
                   <span v-else>{{formData.approvalTime|parseToDay}}</span>
                 </el-form-item>
               </el-col>

@@ -711,19 +711,19 @@ export default {
       }
     },
     referenceMktManager (val, id) {
-      const mktManager = this.formData.membersList.map(m => {
+      const mktManager = this.formData.mktManagerList.map(m => {
         return m['id']
       })
       if (mktManager.includes(id) == false) {
-        this.formData.membersList.push({ id: id, name: val })
+        this.formData.mktManagerList.push({ id: id, name: val })
       }
     },
     referenceMembers (val, id) {
-      const members = this.formData.mktManagerList.map(m => {
+      const members = this.formData.membersList.map(m => {
         return m['id']
       })
       if (members.includes(id) == false) {
-        this.formData.mktManagerList.push({ id: id, name: val })
+        this.formData.membersList.push({ id: id, name: val })
       }
     },
     cRecommendType (val) {

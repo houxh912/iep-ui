@@ -106,7 +106,7 @@
               <span slot="label">
                 立项时间：
               </span>
-              <iep-date-picker v-if="formData.projectStatus=='3'" v-model="formData.applyTime" type="date" placeholder="立项时间" disabled></iep-date-picker>
+              <iep-date-picker v-if="formData.projectStatus=='3'" v-model="formData.approvalTime" type="date" placeholder="立项时间" disabled></iep-date-picker>
               <iep-date-picker v-else v-model="formData.projectTime" type="date" placeholder="立项时间"></iep-date-picker>
             </el-form-item>
           </el-col>
@@ -126,7 +126,7 @@
           <el-col :span="12">
             <el-form-item :label="`${formData.contractList.length > 0 ? '合同' : '项目'}金额：`" prop="projectAmount">
               <el-input v-if="formData.contractList.length > 0" v-model="formData.contractAmount" disabled />
-              <el-input v-else v-model="formData.projectAmount" type="number" placeholder="请正确输入非负金额" :disabled="formData.projectStatus=='3'" />
+              <iep-input-number v-else v-model="formData.projectAmount" placeholder="请正确输入非负金额" :disabled="formData.projectStatus=='3'"></iep-input-number>
             </el-form-item>
           </el-col>
           <!-- <el-col :span="12">
@@ -690,5 +690,11 @@ export default {
   text-align: center;
   font-size: 16px;
   color: #999;
+}
+.abs >>> .el-input-number--small {
+  width: 100%;
+}
+.abs >>> .el-input-number.is-controls-right .el-input__inner {
+  text-align: left;
 }
 </style>

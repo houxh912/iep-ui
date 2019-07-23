@@ -12,10 +12,10 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-tree>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="320px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row._level===1" @click="handleChild(scope.row)" icon="el-icon-plus">子公司</iep-button>
+              <iep-button v-if="scope.row._level===1" @click="handleChild(scope.row)" icon="el-icon-plus" type="warning" plain>子公司</iep-button>
               <iep-button @click="handleSet(scope.row)">设置账户</iep-button>
               <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button @click="handleDelete(scope.row)">删除</iep-button>

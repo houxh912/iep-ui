@@ -5,7 +5,7 @@
       <operation-container>
         <template slot="left">
           <!-- <iep-button v-if="sys_org_add" @click="handleAdd" type="primary" plain>添加组织</iep-button> -->
-          <iep-button @click="handleReviewDialog">批量审核</iep-button>
+          <iep-button @click="handleReviewDialog" type="primary" plain>批量审核</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="orgName">

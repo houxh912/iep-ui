@@ -19,12 +19,12 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @selection-change="handleSelectionChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="发件人" width="220px">
+          <el-table-column label="发件人">
             <template slot-scope="scope">
               {{scope.row.name}}
             </template>
           </el-table-column>
-          <el-table-column label="主题">
+          <el-table-column label="主题" width="350px">
             <template slot-scope="scope">
               {{scope.row.theme}}<i class="iconfont icon-fujian" v-show="scope.row.annex"></i>
             </template>

@@ -1,4 +1,4 @@
-// import { mergeByFirst } from '@/util/util'
+﻿// import { mergeByFirst } from '@/util/util'
 
 const initForm = () => {
 	return {
@@ -23,7 +23,7 @@ const columnsMap = [
 	{
 		prop: 'updateTime',
 		label: '操作时间',
-		width: '150px',
+		width: '170px',
 	},
 ]
 

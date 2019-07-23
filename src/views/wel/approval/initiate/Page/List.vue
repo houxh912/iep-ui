@@ -34,7 +34,7 @@
             {{dictsMap.approveResult[scope.row.approveResult]}}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="230px">
+        <el-table-column label="操作" width="220px">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="scope.row.isDraft===0 && scope.row.approveResult===0" type="warning" plain @click="handleCancel(scope.row)">撤销</iep-button>

@@ -19,7 +19,7 @@
             <span class="contact-tag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="250">
+        <el-table-column prop="operation" label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" plain type="warning">编辑</iep-button>

@@ -32,7 +32,7 @@
             <operation-wrapper>
               <iep-button v-if="scope.row.status===1 || scope.row.status===5" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="scope.row.status===2 || scope.row.status===5" @click="handleUp(scope.row)">上架</iep-button>
-              <iep-button v-if="scope.row.status===4" @click="handleDown(scope.row)">下架</iep-button>
+              <iep-button v-if="scope.row.status===4" type="warning" @click="handleDown(scope.row)" plain>下架</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

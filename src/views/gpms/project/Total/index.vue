@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleCreate" class="add" type="primary" v-if="gpms_project_add">新增</iep-button>
+        <iep-button @click="handleCreate" class="add" icon="el-icon-plus" type="primary" v-if="gpms_project_add" plain>新增</iep-button>
         <iep-button @click="handleDeleteAll" class="add" v-if="gpms_project_edit_del">批量删除</iep-button>
       </template>
       <template slot="right">
@@ -33,17 +33,21 @@
           <span>{{ scope.row.projectTime.slice(0, 10) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-if="tabType!=='3'" width="230px">
+      <el-table-column label="操作" prop="operation" v-if="tabType!=='3'" min-width="220">
         <template slot-scope="scope">
-          <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
-          <el-button size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del">编辑</el-button>
-          <el-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</el-button>
-          <el-button size="small" @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</el-button>
+          <operation-wrapper>
+            <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
+            <iep-button type="warning" size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del" plain>编辑</iep-button>
+            <iep-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</iep-button>
+            <iep-button size="small" @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</iep-button>
+          </operation-wrapper>
         </template>
       </el-table-column>
       <el-table-column label="操作" v-else>
         <template slot-scope="scope">
-          <el-button size="small" @click="handleDefine(scope.row)">认领</el-button>
+          <operation-wrapper>
+            <iep-button size="small" type="warning" @click="handleDefine(scope.row)" plain>认领</iep-button>
+          </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>

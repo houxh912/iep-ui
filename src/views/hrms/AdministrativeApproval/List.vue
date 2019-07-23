@@ -22,7 +22,7 @@
         </template>
         <el-table-column label="操作" width="90px">
           <template>
-            <el-button size="small" :disabled="true">分享</el-button>
+            <iep-button type="warning" plain size="small" :disabled="true">分享</iep-button>
           </template>
         </el-table-column>
       </iep-table>

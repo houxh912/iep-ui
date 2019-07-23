@@ -4,7 +4,7 @@
       <iep-page-header title="收入管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleIncome()" type="danger" icon="el-icon-plus" plain>添加收入</iep-button>
+          <iep-button @click="handleIncome()" type="primary" icon="el-icon-plus" plain>添加收入</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">

@@ -1,4 +1,4 @@
-import { getStore } from '@/util/store'
+﻿import { getStore } from '@/util/store'
 const dicData = getStore({ name: 'dictGroup' })
 let changeDictFn = (name) => {
   let obj = {}
@@ -31,25 +31,25 @@ export const tableOption = [
   {
     label: '市场经理',
     prop: 'directorRealName',
-    width: '180px',
+    width: '100px',
   }, {
     label: '合同类型',
     prop: 'contractType',
     type: 'dict',
-    width: '180px',
+    width: '100px',
   }, {
     label: '合同金额',
     prop: 'contractAmount',
-    width: '180px',
+    width: '100px',
   }, {
     label: '合同状态',
     prop: 'contractStatus',
     type: 'dict',
-    width: '180px',
+    width: '100px',
   }, {
     label: '回款率',
     prop: '',
-    minWidth: '100px',
+    width: '100px',
   },
 ]
 

@@ -33,13 +33,13 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="距离上次拜访已有" v-if="isShow(type)" min-width="100">
+        <el-table-column label="距离上次拜访已有" v-if="isShow(type)" width="150px">
           <template slot-scope="scope">
             <div v-if="scope.row.hasOwnProperty('lastTime')">{{scope.row.lastTime }} 天</div>
             <div v-else>无</div>
           </template>
         </el-table-column>
-        <el-table-column v-if="isShow(type)" prop="operation" label="操作" width="250px">
+        <el-table-column v-if="isShow(type)" prop="operation" label="操作" width="220px">
           <template slot-scope="scope">
             <operation-wrapper>
               <!-- <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button> -->

@@ -23,11 +23,11 @@ const columnsMap = [
   {
     prop: 'education',
     label: '学历',
+    width:'100',
   },
   {
     prop: 'applyPosition',
     label: '应聘岗位',
-    width:'120',
   },
   {
     prop: 'receptionTime',
@@ -37,6 +37,7 @@ const columnsMap = [
   {
     prop: 'source',
     label: '来源',
+    width:'100',
   },
 ]
 

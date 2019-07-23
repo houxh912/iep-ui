@@ -4,7 +4,7 @@
       <iep-page-header title="工资管理" :replaceText="replaceText"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button icon="el-icon-plus" @click="handleAdd()">新增工资单</iep-button>
+          <iep-button icon="el-icon-plus" type="primary" @click="handleAdd()" plain>新增工资单</iep-button>
           <iep-button icon="el-icon-download" @click="handleDownload()">下载工资单模板</iep-button>
         </template>
       </operation-container>

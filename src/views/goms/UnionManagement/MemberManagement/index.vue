@@ -20,7 +20,7 @@
           </el-table-column>
         </template>
         <el-table-column label="操作">
-          <iep-button @click="handleResetPass(scope.row)" plain>重置密码</iep-button>
+          <iep-button @click="handleResetPass(scope.row)" type="warning" plain>重置密码</iep-button>
         </el-table-column>
       </iep-table>
     </basic-container>
@@ -52,6 +52,7 @@ export default {
         {
           prop: 'assetOrg',
           label: '资产所属',
+          width: '300px',
         },
       ],
     }

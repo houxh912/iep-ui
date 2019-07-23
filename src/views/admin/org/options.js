@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 const dictsMap = {
   isOpen: {
     0: '开',
@@ -30,6 +30,7 @@ const columnsMap = [
   {
     prop: 'creator',
     label: '创建人',
+    width: 80,
   },
 ]
 

@@ -17,10 +17,10 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作" width="150px">
+        <el-table-column label="操作" width="100px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleCancel(scope.row)" v-if="scope.row.status==0">取消</iep-button>
+              <iep-button @click="handleCancel(scope.row)" v-if="scope.row.status==0" type="warning" plain>取消</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

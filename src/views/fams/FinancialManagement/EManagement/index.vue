@@ -4,7 +4,7 @@
       <iep-page-header title="支出管理" class="data-title"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleExpenditure()" type="danger" icon="el-icon-plus" plain>添加支出</iep-button>
+          <iep-button @click="handleExpenditure()" type="primary" icon="el-icon-plus" plain>添加支出</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks"></operation-search>

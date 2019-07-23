@@ -19,6 +19,7 @@
               <span><i class="iconfont icon-shijian"></i>{{dateFormat(item.publishTime)}}</span>
             </div>
           </div>
+          <iep-button class="pk-btn" type="danger" plain @click="joinPK(item)">加入pk</iep-button>
         </div>
       </div>
       <div style="text-align: center;margin: 20px 0;">
@@ -82,6 +83,11 @@ export default {
       this.params.current = val
       this.loadPage()
     },
+    joinPK (row) {
+      this.$router.push({
+        path: `/app/project_pk/${row.id}`,
+      })
+    },
   },
   created () {
     if (this.$route.query.id) {
@@ -106,6 +112,7 @@ export default {
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid #eee;
+  position: relative;
   & > p {
     font-size: 14px;
     color: #666;
@@ -152,5 +159,10 @@ export default {
       vertical-align: -2px;
     }
   }
+}
+.pk-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
 }
 </style>

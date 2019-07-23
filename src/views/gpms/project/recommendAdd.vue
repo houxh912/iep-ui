@@ -54,6 +54,7 @@
                 </span>
                 <iep-contact-multiple-user v-model="formData.projectMentorList" :is-show-contact-btn="false"></iep-contact-multiple-user>
               </el-form-item>
+              <iep-button class="recom-btn" @click="cRecommendType('projectMentor')">荐</iep-button>
             </el-col>
             <el-col :span="12">
               <el-form-item label="市场经理：" prop="mktManagerList">
@@ -74,7 +75,7 @@
               </el-form-item>
               <iep-button class="recom-btn" @click="cRecommendType('projectHandles')">荐</iep-button>
             </el-col>
-            <el-col :span="24">
+            <el-col :span="12">
               <el-form-item label="项目成员：" prop="membersList">
                 <span slot="label">
                   项目成员：
@@ -82,6 +83,7 @@
                 </span>
                 <iep-contact-multiple-user v-model="formData.membersList" :is-show-contact-btn="false"></iep-contact-multiple-user>
               </el-form-item>
+              <iep-button class="recom-btn" @click="cRecommendType('members')">荐</iep-button>
             </el-col>
             <el-col :span="24">
               <el-form-item label="项目说明：" prop="projectExplain">
@@ -317,7 +319,7 @@
         <div class="recommend-project" v-if="this.recommendType=='project'">
           <h4 class="recommend-title">同类项目推荐</h4>
           <div class="recommend-container" v-for="r in recommendProjectList" :key="r.id">
-            <span class="name">{{r.projectName}}</span>
+            <span class="name" @click="handleDetail(r.id)" style="cursor: pointer;">{{r.projectName}}</span>
             <iep-button class="recommend-container-btn" type="danger" plain @click="referenceName(r)" size="mini">参考项目</iep-button>
             <span style="display:flex;">
               <div class="grade" v-show="r.projectLevel==1">重</div>
@@ -327,14 +329,30 @@
               <div class="stage" v-show="r.projectStage==2">方</div>
               <div class="stage" v-show="r.projectStage==3">正</div>
               <div class="stage" v-show="r.projectStage==4">项</div>
-              项目经理：{{r.projectManagerList.name}}
+              项目经理：{{r.projectManagerName}}
             </span>
             <span class="sign">
               <div v-for="(s,index) in r.projectTagList" :key="index" @click="openSign(s)">{{s}}</div>
             </span>
           </div>
         </div>
-        <div class="recommend-projectHandles" v-if="this.recommendType=='projectHandles'">
+        <div class="recommend-peopel" v-if="this.recommendType=='projectMentor'">
+          <h4 class="recommend-title">优秀项目督导推荐</h4>
+          <div class="recommend-container" v-for="r in recommendMentorList" :key="r.id">
+            <div class="img">
+              <iep-img :src="r.avatar" :alt="r.name" class="img-box"></iep-img>
+            </div>
+            <div class="right">
+              <span class="name">{{r.name}}</span>
+              <iep-button class="recommend-container-btn" type="danger" plain @click="referenceMentor(r.name,r.id)" size="mini">设为项目督导</iep-button>
+              <span>负责了<span style="font-size:16px;margin:0 2px;">{{r.conscientiousCount}}</span>个项目 | 参与了<span style="font-size:16px;margin:0 2px;">{{r.participateCount}}</span>个项目</span>
+              <span class="sign">
+                <div v-for="(s,index) in r.projectTag" :key="index" @click="openSign(s)">{{s}}</div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="recommend-peopel" v-if="this.recommendType=='projectHandles'">
           <h4 class="recommend-title">优秀项目经理推荐</h4>
           <div class="recommend-container" v-for="r in recommendHandlesList" :key="r.id">
             <div class="img">
@@ -350,7 +368,7 @@
             </div>
           </div>
         </div>
-        <div class="recommend-mktManager" v-if="this.recommendType=='mktManager'">
+        <div class="recommend-peopel" v-if="this.recommendType=='mktManager'">
           <h4 class="recommend-title">优秀市场经理推荐</h4>
           <div class="recommend-container" v-for="r in recommendMktManagerList" :key="r.id">
             <div class="img">
@@ -359,6 +377,22 @@
             <div class="right">
               <span class="name">{{r.name}}</span>
               <iep-button class="recommend-container-btn" type="danger" plain @click="referenceMktManager(r.name,r.id)" size="mini">设为市场经理</iep-button>
+              <span>负责了<span style="font-size:16px;margin:0 2px;">{{r.conscientiousCount}}</span>个项目 | 参与了<span style="font-size:16px;margin:0 2px;">{{r.participateCount}}</span>个项目</span>
+              <span class="sign">
+                <div v-for="(s,index) in r.projectTag" :key="index" @click="openSign(s)">{{s}}</div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="recommend-peopel" v-if="this.recommendType=='members'">
+          <h4 class="recommend-title">项目成员推荐</h4>
+          <div class="recommend-container" v-for="r in recommendMembersList" :key="r.id">
+            <div class="img">
+              <iep-img :src="r.avatar" :alt="r.name" class="img-box"></iep-img>
+            </div>
+            <div class="right">
+              <span class="name">{{r.name}}</span>
+              <iep-button class="recommend-container-btn" type="danger" plain @click="referenceMembers(r.name,r.id)" size="mini">设为项目成员</iep-button>
               <span>负责了<span style="font-size:16px;margin:0 2px;">{{r.conscientiousCount}}</span>个项目 | 参与了<span style="font-size:16px;margin:0 2px;">{{r.participateCount}}</span>个项目</span>
               <span class="sign">
                 <div v-for="(s,index) in r.projectTag" :key="index" @click="openSign(s)">{{s}}</div>
@@ -380,7 +414,7 @@
 
 <script>
 import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
-import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList, getRecommendedMktManagerList, generationProject } from '@/api/gpms/index'
+import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList, getRecommendedMktManagerList, generationProject, getRecommendedMemberList, getRecommendedMentortList } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
@@ -448,9 +482,13 @@ export default {
       recommendProjectList: [
         // {id:1,projectName:'',projectLevel:'1',projectStage:'1',projectManagerList:{id:1,name:''},projectTagList:[]},
       ],
+      recommendMentorList: [
+
+      ],//督导推荐
       recommendHandlesList: [
-      ],
-      recommendMktManagerList: [],
+      ],//经理推荐
+      recommendMktManagerList: [],//市场经理推荐
+      recommendMembersList: [],//推荐成员
       show3: true,
       shrink: '收缩',
     }
@@ -486,6 +524,13 @@ export default {
     })
     getRecommendedProjectList({ tagList: this.tagList }).then(({ data }) => {
       this.recommendProjectList = data
+      for (let item of this.recommendProjectList) {
+        if (item.projectManagerList) {
+          item.projectManagerName = item.projectManagerList.name
+        } else {
+          item.projectManagerName = '无'
+        }
+      }
     })
   },
   methods: {
@@ -649,6 +694,14 @@ export default {
       this.formData.projectHandlesList = val.projectHandlesList
       this.formData.membersList = val.membersList
     },
+    referenceMentor (val, id) {
+      const projectMentor = this.formData.projectMentorList.map(m => {
+        return m['id']
+      })
+      if (projectMentor.includes(id) == false) {
+        this.formData.projectMentorList.push({ id: id, name: val })
+      }
+    },
     referenceHandles (val, id) {
       const projectHandles = this.formData.projectHandlesList.map(m => {
         return m['id']
@@ -665,18 +718,36 @@ export default {
         this.formData.mktManagerList.push({ id: id, name: val })
       }
     },
+    referenceMembers (val, id) {
+      const members = this.formData.membersList.map(m => {
+        return m['id']
+      })
+      if (members.includes(id) == false) {
+        this.formData.membersList.push({ id: id, name: val })
+      }
+    },
     cRecommendType (val) {
       this.recommendType = val
       if (val == 'projectHandles') {
         getRecommendedHandlesList({ tagList: this.tagList }).then(({ data }) => {
           this.recommendHandlesList = data
         })
-      }
+      }//推荐项目经理
       else if (val == 'mktManager') {
         getRecommendedMktManagerList({ tagList: this.tagList }).then(({ data }) => {
           this.recommendMktManagerList = data
         })
-      }
+      }//推荐市场经理
+      else if (val == 'projectMentor') {
+        getRecommendedMentortList({ tagList: this.tagList }).then(({ data }) => {
+          this.recommendMentorList = data
+        })
+      }//推荐项目督导
+      else if (val == 'members') {
+        getRecommendedMemberList({ tagList: this.tagList }).then(({ data }) => {
+          this.recommendMembersList = data
+        })
+      }//推荐项目成员
     },
     nowTime () {
       var nowDate = new Date()
@@ -693,6 +764,11 @@ export default {
       else {
         this.shrink = '展开'
       }
+    },
+    handleDetail (id) {
+      this.$router.push({
+        path: `/gpms_spa/project/detail/${id}`,
+      })
     },
   },
   watch: {
@@ -774,8 +850,7 @@ export default {
     margin-right: 0;
     padding-right: 12%;
   }
-  .recommend-projectHandles,
-  .recommend-mktManager,
+  .recommend-peopel,
   .recommend-project {
     padding: 20px;
     border-left: 1px solid #eee;
@@ -861,8 +936,7 @@ export default {
       }
     }
   }
-  .recommend-projectHandles,
-  .recommend-mktManager {
+  .recommend-peopel {
     .img {
       width: 80px;
       height: 80px;

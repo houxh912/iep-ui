@@ -33,12 +33,28 @@ export default {
   },
   data () {
     return {
-
+      urlList: [
+        {
+          type: '周报',
+          url: '/wel/staff_week_detail/',
+        },
+        {
+          type: '会议纪要',
+          url: '/mlms_spa/summary/detail/',
+        },
+        {
+          type: '材料',
+          url: '/app/resource/material/material_detail/',
+        },
+      ],
     }
   },
   methods: {
     handleDetail (row) {
-      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+      for (var item of this.urlList) {
+        if (item.type == row.type)
+          this.$router.push(`${item.url}${row.id}`)
+      }
     },
   },
 }

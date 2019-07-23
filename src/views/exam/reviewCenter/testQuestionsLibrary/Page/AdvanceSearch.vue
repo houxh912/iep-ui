@@ -24,8 +24,8 @@
       </el-select>
     </el-form-item> -->
     <el-form-item>
-      <iep-button type="primary" @click="searchPage" style="margin:0 10px;">搜索</iep-button>
-      <!-- <iep-button style="margin:0 10px;">取消</iep-button> -->
+      <iep-button type="primary" @click="searchPage" style="margin-right:6px;">搜索</iep-button>
+      <iep-button>清空</iep-button>
     </el-form-item>
   </el-form>
 </template>

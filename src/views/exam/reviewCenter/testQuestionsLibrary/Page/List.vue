@@ -6,10 +6,11 @@
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain
             v-if="exam_question_add">新增试题</iep-button>
+          <iep-button @click="handleBatchExamine ">批量审核</iep-button>
           <iep-button @click="handleDeleteAll" v-if="exam_question_del">批量删除</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title">
+          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title" advanceSearch>
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
@@ -155,6 +156,27 @@
       </template>
     </iep-dialog>
 
+    <iep-dialog :dialog-show="dialogExamine" title="批量审核试题" width="520px" @close="handleExamineCancel" center>
+      <div style="margin-bottom:16px">
+        <span class="explain">说明： </span>
+        <span class="explainTxt">每过审入库 1 题，奖励出题人 5 贝 !</span>
+      </div>
+      <div>
+        <el-radio-group v-model="states">
+          <el-radio :label="0">审核通过</el-radio>
+          <el-radio :label="1">审核不通过</el-radio>
+        </el-radio-group>
+        <el-input v-if="states === 1" v-model="examineContent" type="textarea" maxlength="250" rows="4" style="margin-top:25px;" placeholder="请输入理由，字数不超过 250 ！" show-word-limit>
+        </el-input>
+      </div>
+      <template slot="footer">
+        <operation-wrapper>
+          <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+          <iep-button @click="handleExamineCancel">取消</iep-button>
+        </operation-wrapper>
+      </template>
+    </iep-dialog>
+
   </div>
 </template>
 
@@ -175,6 +197,9 @@ export default {
   ],
   data () {
     return {
+      states: 0,//批量审核状态
+      examineContent: '',//批量审核原因
+      dialogExamine: false,//批量审核弹窗
       isModifyChange: true,//是否被修改
       selectValue: false,
       selectionValue: '',
@@ -396,6 +421,94 @@ export default {
             this.loadPage()
         }
       })
+    },
+    /**
+     * 批量审核
+     */
+    handleBatchExamine () {
+      if (this.selectValue == false) {
+        this.$message.error('请至少选择一项试题！')
+      }
+      if (this.selectValue == true) {
+        this.$confirm('此操作将审核选中的试题，是否继续？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          this.dialogExamine = true
+          // deleteApprovalById(this.selectionValue).then(res => {
+          //   if (res.data.data == true) {
+          //     this.$message({
+          //       message: '操作成功',
+          //       type: 'success',
+          //     })
+          //     this.loadPage()
+          //   }
+          // })
+        })
+      }
+    },
+    /**
+     * 批量审核取消
+     */
+    handleExamineCancel () {
+      this.dialogExamine = false
+      this.states = 0
+      this.examineContent = ''
+    },
+    /**
+     * 批量审核提交
+     */
+    handleSubmit () {
+      if (this.states === 0) {
+        let postExaminePassList = {
+          id: null,
+        }
+        postExaminePassList.id = this.examine
+        // postExaminePass(postExaminePassList).then(res => {
+        //   if (res.data.data == true) {
+        //     this.dialogExamine = false,
+        //       this.$message({
+        //         message: '该试题审核通过',
+        //         type: 'success',
+        //       }),
+        //       this.$emit('onGoBack', {
+        //         current: this.record.current,
+        //         size: this.record.size,
+        //         search: this.record.search,
+        //       })
+        //   }
+        // })
+      }
+      if (this.states === 1 && this.examineContent != '') {
+        let postExamineFalseList = {
+          id: null,
+          reason: '',
+        }
+        postExamineFalseList.id = this.examine
+        postExamineFalseList.reason = this.examineContent
+        postExamineFalseList = JSON.stringify(postExamineFalseList)
+        // postExamineFalse(postExamineFalseList).then(res => {
+        //   if (res.data.data == true) {
+        //     this.dialogExamine = false,
+        //       this.$message({
+        //         message: '该试题审核不通过',
+        //         type: 'success',
+        //       }),
+        //       this.$emit('onGoBack', {
+        //         current: this.record.current,
+        //         size: this.record.size,
+        //         search: this.record.search,
+        //       })
+        //   }
+        // })
+      }
+      if (this.states === 1 && this.examineContent == '') {
+        this.$message({
+          message: '请填写理由！',
+          type: 'warning',
+        })
+      }
     },
   },
 }

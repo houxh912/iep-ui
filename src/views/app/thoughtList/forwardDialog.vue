@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import forwardContent from './forwardContent'
+import forwardContent from './library/forwardContent'
 export default {
   components: { forwardContent },
   data () {

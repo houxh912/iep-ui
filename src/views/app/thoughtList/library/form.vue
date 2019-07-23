@@ -125,18 +125,23 @@ export default {
           if (subjectObj.type) {
             this.formData.topics = [subjectObj.data]
           }
-          thoughtsCreate(this.formData).then(() => {
-            this.resetForm()
-            // 判断是否公开，不公开(1)的说说没有奖励
-            if (this.formData.status === 1) {
-              this.loadState = false
-              this.$emit('load-page')
-            } else {
-              addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
-                this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
+          thoughtsCreate(this.formData).then(({ data }) => {
+            if (data.data) {
+              this.resetForm()
+              // 判断是否公开，不公开(1)的说说没有奖励
+              if (this.formData.status === 1) {
                 this.loadState = false
                 this.$emit('load-page')
-              })
+              } else {
+                addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+                  this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
+                  this.loadState = false
+                  this.$emit('load-page')
+                })
+              }
+            } else {
+              this.loadState = false
+              this.$message.error(data.msg)
             }
           })
         } else {

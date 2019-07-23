@@ -1,13 +1,13 @@
 <template>
   <div class="praise">
     <IepAppTabCard :title="labelTitle">
-      <IepAppRankingCard :dataList="labelList" @click="handleDetail" grade="number"></IepAppRankingCard>
+      <IepAppRankingCard :dataList="labelList" @click="handleDetail" grade="thumbedTimes" name="content"></IepAppRankingCard>
     </IepAppTabCard>
   </div>
 </template>
 
 <script>
-import { getRankingThumbsUp } from '@/api/cpms/thoughts'
+import { getMostThumbedThoughtsWeekly } from '@/api/cpms/thoughts'
 export default {
   data () {
     return {
@@ -17,11 +17,14 @@ export default {
   },
   methods: {
     handleDetail () {},
+    loadData () {
+      getMostThumbedThoughtsWeekly().then(({ data }) => {
+        this.labelList = data.data
+      })
+    },
   },
   created () {
-    getRankingThumbsUp().then(({ data }) => {
-      this.labelList = data
-    })
+    this.loadData()
   },
 }
 </script>

@@ -1,12 +1,13 @@
 <template>
   <div class="subject">
     <IepAppTabCard :title="labelTitle">
-      <IepAppRankingCard :dataList="labelList" @click="handleDetail"></IepAppRankingCard>
+      <IepAppRankingCard :dataList="labelList" @click="handleDetail" name="topic"></IepAppRankingCard>
     </IepAppTabCard>
   </div>
 </template>
 
 <script>
+import { getHotTopics } from '@/api/cpms/thoughts'
 export default {
   data () {
     return {
@@ -16,6 +17,14 @@ export default {
   },
   methods: {
     handleDetail () {},
+    loadData () {
+      getHotTopics().then(({ data }) => {
+        this.labelList = data.data
+      })
+    },
+  },
+  created () {
+    this.loadData()
   },
 }
 </script>

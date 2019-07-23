@@ -262,3 +262,20 @@ export const getBankCurrencyFundDetail = (id) => {
     },
   })
 }
+
+// 个人账户分页
+export const getPersonalPage = (query) => {
+  return request({
+    url: `${prefixUrl}/personal/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+// 组织账户分页
+export const getOrgAccountList = () => {
+  return request({
+    url: `${prefixUrl}/org/statistics/list`,
+    method: 'get',
+  })
+}

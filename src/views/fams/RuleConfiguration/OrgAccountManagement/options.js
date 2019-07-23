@@ -8,14 +8,6 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'staffNo',
-    label: '工号',
-  },
-  {
-    prop: 'realName',
-    label: '姓名',
-  },
-  {
     prop: 'orgName',
     label: '所属组织',
     width: '200',

@@ -7,17 +7,17 @@ export default [
       {
         path: 'column_management/:id',
         name: '栏目管理',
-        component: () => import(/* webpackChunkName: "conm" */'@/views/conm/ColumnManagement/index'),
+        component: () => import('@/views/conm/ColumnManagement/index'),
       },
       {
         path: 'document_management/:id',
         name: '文档管理',
-        component: () => import(/* webpackChunkName: "conm" */'@/views/conm/DocumentManagement/index'),
+        component: () => import('@/views/conm/DocumentManagement/index'),
       },
       {
         path: 'document_management_detail/:id',
         name: '文档管理详情',
-        component: () => import(/* webpackChunkName: "conm" */'@/views/conm/DocumentManagement/Detail'),
+        component: () => import('@/views/conm/DocumentManagement/Detail'),
       },
     ],
   },

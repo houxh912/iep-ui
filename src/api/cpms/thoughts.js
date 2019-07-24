@@ -134,3 +134,12 @@ export function getDetailById (id) {
     method: 'get',
   })
 }
+
+// 获取对应话题的说说列表
+export function getTopicThoughts (obj) {
+  return request({
+    url: `${prefixUrl}/topicThoughts`,
+    method: 'get',
+    params: obj,
+  })
+}

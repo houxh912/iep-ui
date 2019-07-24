@@ -269,6 +269,11 @@ export default [
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/thoughtDetail/'),
       },
       {
+        path: 'subject_list',
+        name: '说说话题详情页',
+        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/subjectList/'),
+      },
+      {
         path: 'version_page',
         name: '版本记录',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/versionPage/'),

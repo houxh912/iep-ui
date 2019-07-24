@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="收入管理"></iep-page-header>
+      <iep-page-header title="收入管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleIncome()" type="danger" icon="el-icon-plus" plain>添加收入</iep-button>
@@ -44,6 +44,8 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      statistics: [0, 0, 0],
+      replaceText: (data) => `（现金收入：${data[0]}元，银行存款收入${data[1]}元，总计收入${data[2]}元）`,
     }
   },
   computed: {
@@ -84,8 +86,9 @@ export default {
       this.$refs['DialogForm'].form.orgName = this.userInfo.orgName
       this.$refs['DialogForm'].dialogShow = true
     },
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getIncomePage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getIncomePage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

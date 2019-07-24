@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="集团流水"></iep-page-header>
+      <iep-page-header title="集团流水" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -23,14 +23,17 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      statistics: [0, 0, 0],
+      replaceText: (data) => `（收入：${data[0]}元，支出${data[1]}元，总计${data[2]}元）`,
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getGroupWealthFlowPage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getGroupWealthFlowPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

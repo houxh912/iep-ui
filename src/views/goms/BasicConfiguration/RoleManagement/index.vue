@@ -38,7 +38,7 @@ import {
   fetchRoleTree,
   putObj,
 } from '@/api/admin/role'
-import { fetchMenuTree } from '@/api/admin/menu'
+import { getModuleMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm, orgDsType } from '@/views/admin/role/options'
@@ -122,7 +122,7 @@ export default {
       fetchRoleTree(row.roleId)
         .then(response => {
           this.$refs['PermissionDialogForm'].checkedKeys = response.data
-          return fetchMenuTree()
+          return getModuleMenuTree()
         })
         .then(response => {
           const treeData = response.data.data

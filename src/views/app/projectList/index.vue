@@ -11,6 +11,7 @@
       </div>
       <div class="piece">
         <ranking></ranking>
+        <div class="project-pk">项目PK</div>
       </div>
     </div>
   </div>
@@ -84,5 +85,10 @@ export default {
 .library {
   padding: 0 20px;
   border-right: 1px solid #ebeef5;
+}
+.project-pk {
+  width: 100%;
+  text-align: center;
+  color: red;
 }
 </style>

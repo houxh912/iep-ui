@@ -24,6 +24,7 @@ const initForm = () => {
     logo: '',
     description: '',
     menuId: '',
+    status: 1,
   }
 }
 

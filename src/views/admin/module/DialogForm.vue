@@ -7,6 +7,11 @@
       <iep-form-item label-name="模块图标" prop="logo">
         <iep-avatar v-model="form.logo"></iep-avatar>
       </iep-form-item>
+      <iep-form-item label-name="状态" prop="status">
+        <el-radio-group v-model="form.status">
+          <el-radio v-for="(item,i) in dictsMap.status" :key="i" :label="+i">{{item}}</el-radio>
+        </el-radio-group>
+      </iep-form-item>
       <iep-form-item label-name="模块说明" prop="description">
         <iep-input-area v-model="form.description"></iep-input-area>
       </iep-form-item>
@@ -22,11 +27,12 @@
 </template>
 <script>
 import formMixins from '@/mixins/formMixins'
-import { initForm } from './options'
+import { initForm, dictsMap } from './options'
 export default {
   mixins: [formMixins],
   data () {
     return {
+      dictsMap,
       dialogShow: false,
       formRequestFn: () => { },
       form: initForm(),

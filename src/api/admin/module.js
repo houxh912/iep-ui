@@ -10,6 +10,13 @@ export function getModulePage (params) {
   })
 }
 
+export function getOrgModuleList () {
+  return request({
+    url: `${prefixUrl}/org/list`,
+    method: 'get',
+  })
+}
+
 export function postModule (obj) {
   return request({
     url: `${prefixUrl}/create`,

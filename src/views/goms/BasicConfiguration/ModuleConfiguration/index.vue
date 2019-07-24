@@ -4,104 +4,22 @@
       <iep-page-header title="模块配置"></iep-page-header>
       <el-row class="row-bg module" :gutter="20">
         <h3 class="item-title">已选模块<span class="sub-title">系统基础模块，不可移除</span></h3>
-        <el-col :span="6" class="module-item">
-          <div class="module-con">
-            <i class="icon iconfont icon-youxiang"></i>
-            <span class="text">消息管理</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con">
-            <i class="icon iconfont icon-yunweiguanli"></i>
-            <span class="text">资源管理</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con">
-            <i class="icon iconfont icon-shangpinbiaoqian"></i>
-            <span class="text">智能标签</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con">
-            <i class="icon iconfont icon-jibenziliao"></i>
-            <span class="text">人事管理</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="close el-icon-close"></i></span>
-            <i class="icon iconfont icon-shenqing"></i>
-            <span class="text">行政审批</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="close el-icon-close"></i></span>
-            <i class="icon iconfont icon-gongzuotai"></i>
-            <span class="text">项目管理</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="close el-icon-close"></i></span>
-            <i class="icon iconfont icon-lianxiren"></i>
-            <span class="text">客户管理</span>
+        <el-col :span="6" class="module-item" v-for="item in masterModuleList" :key="item.id">
+          <div class="module-con " :class="{'module-con-operable': item.enable}">
+            <!-- <span class="btn"><i class="add el-icon-plus"></i></span> -->
+            <iep-img class="img" :src="item.logo"></iep-img>
+            <span class="text">{{item.name}}</span>
           </div>
         </el-col>
       </el-row>
-      <el-row class="row-bg module" :gutter="20">
-        <h3 class="item-title">推荐模块<span class="sub-title">已授权模块，可直接选择添加供组织管理使用</span></h3>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="add el-icon-plus"></i></span>
-            <i class="icon iconfont icon-lianjiekuai"></i>
-            <span class="text">商机对接</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="add el-icon-plus"></i></span>
-            <i class="icon iconfont icon-custom"></i>
-            <span class="text">考试系统</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="add el-icon-plus"></i></span>
-            <i class="icon iconfont icon-wangluotiaocha"></i>
-            <span class="text">调研系统</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="add el-icon-plus"></i></span>
-            <i class="icon iconfont icon-weath2"></i>
-            <span class="text">财富管理</span>
-          </div>
-        </el-col>
-      </el-row>
+
       <el-row class="row-bg module test-module" :gutter="20">
         <h3 class="item-title">试用模块<span class="sub-title">测试中的模块，可选择试用，测试阶段记录的数据可能会被清空</span></h3>
-        <el-col :span="6" class="module-item">
+        <el-col :span="6" class="module-item" v-for="item in releaseModuleList" :key="item.id">
           <div class="module-con module-con-operable">
-            <span class="btn"><i class="add el-icon-plus"></i></span>
-            <i class="icon iconfont icon-shangchengxiantiao"></i>
-            <span class="text">商城系统</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="add el-icon-plus"></i></span>
-            <i class="icon iconfont icon-xuexishuben"></i>
-            <span class="text">在线学堂</span>
-          </div>
-        </el-col>
-        <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="add el-icon-plus"></i></span>
-            <i class="icon iconfont icon-touzi"></i>
-            <span class="text">投资模块</span>
+            <!-- <span class="btn"><i class="add el-icon-plus"></i></span> -->
+            <iep-img class="img" :src="item.logo"></iep-img>
+            <span class="text">{{item.name}}</span>
           </div>
         </el-col>
       </el-row>
@@ -109,17 +27,32 @@
   </div>
 </template>
 <script>
-import mixins from '@/mixins/mixins'
+import { getOrgModuleList } from '@/api/admin/module'
 export default {
-  mixins: [mixins],
   data () {
     return {
-
+      masterModuleList: [],
+      releaseModuleList: [],
     }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      const { data } = await getOrgModuleList()
+      const modules = data.data
+      this.masterModuleList = modules.filter(m => m.status === 1)
+      this.releaseModuleList = modules.filter(m => m.status === 2)
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
+.img {
+  width: 40px;
+  height: 40px;
+}
 .module {
   &:nth-child(3) {
     border-bottom: 1px solid #d7d7d7;
@@ -153,10 +86,6 @@ export default {
     color: #d7d7d7;
     -webkit-transition: 0.1s;
     transition: 0.1s;
-    .icon {
-      display: block;
-      font-size: 34px;
-    }
     .text {
       display: block;
       margin-top: 10px;
@@ -183,24 +112,6 @@ export default {
     .text {
       color: #666;
     }
-    .btn {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      width: 14px;
-      height: 14px;
-      cursor: pointer;
-      display: block;
-      border: 1px solid #d7d7d7;
-      border-radius: 50%;
-      transition: all 0.8s ease-out;
-    }
-    .close,
-    .add {
-      display: block;
-      font-size: 12px;
-      color: #888;
-    }
   }
 }
 
@@ -215,17 +126,6 @@ export default {
       color: #909399;
       .text {
         color: #333;
-      }
-      .add {
-        color: #999;
-      }
-      .btn {
-        border-color: #999;
-        background-color: #999;
-        .close,
-        .add {
-          color: #fff;
-        }
       }
     }
   }

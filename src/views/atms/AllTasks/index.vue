@@ -73,7 +73,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="100">
+        <el-table-column prop="operation" label="操作" width="100px">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
@@ -91,19 +91,19 @@ import { dictsMap, columnsMap } from './options'
 export default {
   mixins: [mixins],
   data () {
-    return{
+    return {
       dictsMap,
       columnsMap,
-      pagedTable:[
+      pagedTable: [
       ],
-      allCountList:{
+      allCountList: {
         all: 0,
         isStarted: 0,
         isNotStarted: 0,
         isFinished: 0,
         isOverDue: 0,
       },
-      selectType:'all',
+      selectType: 'all',
     }
   },
   created () {
@@ -111,7 +111,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({selectType:this.selectType,...param}, getAllAtms)
+      this.loadTable({ selectType: this.selectType, ...param }, getAllAtms)
       getAllCount().then(({ data }) => {
         this.allCountList = data.data
       })
@@ -122,7 +122,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path:`/atms/details/${row.id}`,
+        path: `/atms/details/${row.id}`,
       })
     },
     // loadPage (param = this.searchForm) {
@@ -137,7 +137,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.box{
+.box {
   margin-bottom: 20px;
 }
 .total-wrapper {

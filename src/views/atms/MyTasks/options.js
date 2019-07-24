@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 const dictsMap = {
   status: {
     1: '进行中',
@@ -11,6 +11,7 @@ const columnsMap = [
   {
     prop: 'name',
     label: '任务名称',
+    width:'250',
   },
   {
     prop: 'parentName',

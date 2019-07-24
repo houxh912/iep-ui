@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 const dictsMap = {
   taskStatus: {
     0: '接收任务',
@@ -11,6 +11,7 @@ const columnsMap = [
   {
     prop: 'taskDate',
     label: '日期',
+    width:'150',
   },
   {
     prop: 'taskName',

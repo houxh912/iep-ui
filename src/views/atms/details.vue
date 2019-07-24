@@ -2,109 +2,117 @@
   <div>
     <basic-container>
       <div class="details">
-      <div class="detail-left">
-        <page-header :title="`${form.taskName}`" :backOption="backOption">
-          <slot><iep-button @click="handleEdit()" :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal">编辑</iep-button></slot>
-        </page-header>
-        <div class="sub">
-          <span v-if='!form.parentName'>所属任务：无</span>
-          <span v-else @click="handleDetail(form.parentId)" style="cursor: pointer;">所属任务：{{form.parentName}}</span>
-          <span class="opt">
-            <!-- <span><i class="iconfont icon-xingxing"></i>关注</span> -->
-            <span>
-              <el-dropdown>
-                <span class="el-dropdown-link">
-                  <i class="iconfont icon-xitongguanli"></i>任务菜单
-                </span>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal"><div @click="handleConversion"><i class="iconfont icon-Icon-zhuanru"></i>转化为子任务</div></el-dropdown-item>
-                  <el-dropdown-item disabled><i class="iconfont icon-tixing"></i>催办</el-dropdown-item>
-                  <el-dropdown-item :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal"><div @click="handleDelete"><i class="iconfont icon-shanchu"></i>删除</div></el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+        <div class="detail-left">
+          <page-header :title="`${form.taskName}`" :backOption="backOption">
+            <slot>
+              <iep-button @click="handleEdit()" :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal">编辑</iep-button>
+            </slot>
+          </page-header>
+          <div class="sub">
+            <span v-if='!form.parentName'><span class="sub-title">所属任务：</span>无</span>
+            <span v-else @click="handleDetail(form.parentId)" style="cursor: pointer;"><span class="sub-title">所属任务：</span>{{form.parentName}}</span>
+            <span class="opt">
+              <!-- <span><i class="iconfont icon-xingxing"></i>关注</span> -->
+              <span>
+                <el-dropdown>
+                  <span class="el-dropdown-link">
+                    <i class="iconfont icon-xitongguanli"></i>任务菜单
+                  </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal">
+                      <div @click="handleConversion"><i class="iconfont icon-Icon-zhuanru"></i>转化为子任务</div>
+                    </el-dropdown-item>
+                    <el-dropdown-item disabled><i class="iconfont icon-tixing"></i>催办</el-dropdown-item>
+                    <el-dropdown-item :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal">
+                      <div @click="handleDelete"><i class="iconfont icon-shanchu"></i>删除</div>
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
+              </span>
             </span>
-          </span>
-        </div>
-        <el-form :model="form" ref="form" label-width="100px" class="form form-detail" style="padding-top:20px;">
-          <el-form-item label="状态：" class="form-half">
-            <iep-dict-detail :value="form.taskStatus" dict-name="atms_task_status"></iep-dict-detail>
-          </el-form-item>
-          <el-form-item label="优先级：" class="form-half">
-            <iep-dict-detail :value="form.priority" dict-name="atms_task_priority"></iep-dict-detail>
-          </el-form-item>
-          <el-form-item label="协同人：" class="form-half">
-            <div v-if="form.assistants.length>0">
-              <span v-for="(e,i) in form.assistants" :key="i" class="people" :value="form.assistants.length>0">
-                <iep-img class="img" :src="e.headImg" alt=""></iep-img>
-                <span>{{e.name}}</span>
-              </span>
-            </div>
-            <span v-else>无</span>
-          </el-form-item>
-          <el-form-item label="执行人：" class="form-half">
-            <div v-if="form.executors.length>0">
-              <span v-for="(a,i) in form.executors" :key="i" class="people" :value="form.executors.length>0">
-                <iep-img class="img" :src="a.headImg" alt=""></iep-img>
-                <span>{{a.name}}</span>
-              </span>
-            </div>
-            <span v-else>无</span>
-          </el-form-item>
-          <el-form-item label="起止时间：" class="form-half">
-            <span>{{form.startTime | parseToDay}}~{{form.endTime | parseToDay}}</span>
-          </el-form-item>
-          <el-form-item label="完成时间：" class="form-half">
-            <span v-if="form.completeTime">{{form.completeTime | parseToDay}}</span>
-            <span v-else>未完成</span>
-          </el-form-item>
-          <el-form-item label="标签：">
-            <div v-if="form.tagKeyWords.length>0"><span v-for="(a,i) in form.tagKeyWords" :key="i" class="sign" @click="tagDetail(a)">{{a}}</span></div>
-            <span v-else>无</span>
-          </el-form-item>
-          <el-form-item label="备注：">
-            <iep-div-detail :value="form.remarks"></iep-div-detail>
-          </el-form-item>
-          <el-form-item label="子任务：">
-            <div v-if="form.children.length>0"><span v-for="(item,index) in form.children" :key="index" style="display:block;cursor: pointer;" @click="handleDetail(item.id)">{{item.name}}</span></div>
-            <span v-else>无</span>
-          </el-form-item>
-          <el-form-item label="附件：">
-            <div v-if="form.annexList.length>0">
-              <a-tag v-for="file in form.annexList" :key="file.url" @click="handleDownload(file)">
-              <a-icon type="paper-clip" />{{file.name}}</a-tag>
-            </div>
-            <span v-else>无附件</span>
-          </el-form-item>
-          <div v-for="(item, index) in relatedFormList" :key="index">
-            <el-form-item :label="`${item.name}：`" v-if="form[item.list].length > 0">
-              <ul class="relevance-list">
-                <li class="item" v-for="t in form[item.list]" :key="t.id">{{t.name}}</li>
-              </ul>
+          </div>
+          <el-form :model="form" ref="form" label-width="100px" class="form form-detail" style="padding-top:20px;">
+            <el-form-item label="状态：" class="form-half">
+              <iep-dict-detail :value="form.taskStatus" dict-name="atms_task_status"></iep-dict-detail>
             </el-form-item>
-          </div>
-          <el-form-item label="关联项目：" v-if="form.projectList.length > 0">
-            <span v-for="project in form.projectList" :key="project.id" :value="form.projectList.length>0">{{project.name}}</span>
-          </el-form-item>
-        </el-form>
-      </div>
-      <el-card shadow="never" class="person-info">
-        <div class="person-info">
-          <span class="img"><iep-img :src="form.avatar" alt=""></iep-img></span>
-          <div class="info">
-            <span class="info-con"><span class="post">负责人</span><span class="name">{{form.principalName}}</span></span>
-            <el-button type="danger" size="mini" plain @click="handleTransfer">转移</el-button>
-          </div>
+            <el-form-item label="优先级：" class="form-half">
+              <iep-dict-detail :value="form.priority" dict-name="atms_task_priority"></iep-dict-detail>
+            </el-form-item>
+            <el-form-item label="协同人：" class="form-half">
+              <div v-if="form.assistants.length>0">
+                <span v-for="(e,i) in form.assistants" :key="i" class="people" :value="form.assistants.length>0">
+                  <iep-img class="img" :src="e.headImg" alt=""></iep-img>
+                  <span>{{e.name}}</span>
+                </span>
+              </div>
+              <span v-else>无</span>
+            </el-form-item>
+            <el-form-item label="执行人：" class="form-half">
+              <div v-if="form.executors.length>0">
+                <span v-for="(a,i) in form.executors" :key="i" class="people" :value="form.executors.length>0">
+                  <iep-img class="img" :src="a.headImg" alt=""></iep-img>
+                  <span>{{a.name}}</span>
+                </span>
+              </div>
+              <span v-else>无</span>
+            </el-form-item>
+            <el-form-item label="起止时间：" class="form-half">
+              <span>{{form.startTime | parseToDay}}~{{form.endTime | parseToDay}}</span>
+            </el-form-item>
+            <el-form-item label="完成时间：" class="form-half">
+              <span v-if="form.completeTime">{{form.completeTime | parseToDay}}</span>
+              <span v-else>未完成</span>
+            </el-form-item>
+            <el-form-item label="标签：">
+              <div v-if="form.tagKeyWords.length>0"><span v-for="(a,i) in form.tagKeyWords" :key="i" class="sign" @click="tagDetail(a)">{{a}}</span></div>
+              <span v-else>无</span>
+            </el-form-item>
+            <el-form-item label="备注：">
+              <iep-div-detail :value="form.remarks"></iep-div-detail>
+            </el-form-item>
+            <el-form-item label="子任务：">
+              <div v-if="form.children.length>0"><span v-for="(item,index) in form.children" :key="index" style="display:block;cursor: pointer;" @click="handleDetail(item.id)">{{item.name}}</span></div>
+              <span v-else>无</span>
+            </el-form-item>
+            <el-form-item label="附件：">
+              <div v-if="form.annexList.length>0">
+                <a-tag v-for="file in form.annexList" :key="file.url" @click="handleDownload(file)">
+                  <a-icon type="paper-clip" />{{file.name}}</a-tag>
+              </div>
+              <span v-else>无附件</span>
+            </el-form-item>
+            <div v-for="(item, index) in relatedFormList" :key="index">
+              <el-form-item :label="`${item.name}：`" v-if="form[item.list].length > 0">
+                <ul class="relevance-list">
+                  <li class="item" v-for="t in form[item.list]" :key="t.id">{{t.name}}</li>
+                </ul>
+              </el-form-item>
+            </div>
+            <el-form-item label="关联项目：" v-if="form.projectList.length > 0">
+              <span v-for="project in form.projectList" :key="project.id" :value="form.projectList.length>0">{{project.name}}</span>
+            </el-form-item>
+          </el-form>
         </div>
-        <similar-tasks :dataList="form.similarTasks.slice(0,4)" @click="handleDetail"></similar-tasks>
-        <circulation-log :itemList="form.records.slice(0,8)"></circulation-log>
-        <!-- <div class="bottom">
+        <el-card shadow="never" class="person-info">
+          <div class="person-info">
+            <span class="img">
+              <iep-img :src="form.avatar" alt=""></iep-img>
+            </span>
+            <div class="info">
+              <span class="info-con"><span class="post">负责人</span><span class="name">{{form.principalName}}</span></span>
+              <el-button type="danger" size="mini" plain @click="handleTransfer">转移</el-button>
+            </div>
+          </div>
+          <similar-tasks :dataList="form.similarTasks.slice(0,4)" @click="handleDetail"></similar-tasks>
+          <circulation-log :itemList="form.records.slice(0,8)"></circulation-log>
+          <!-- <div class="bottom">
           <span>{{handleTitle}}</span>
           <div class="con"></div>
           <div class="btn-con">
             <el-button type="danger" size="mini">发表</el-button>
           </div>
         </div> -->
-      </el-card>
+        </el-card>
       </div>
     </basic-container>
     <transfer-dialog-form ref="TransferDialogForm" @load-page="loadPage"></transfer-dialog-form>
@@ -153,7 +161,7 @@ export default {
       },
       form: initForm(),
       rules,
-      limit:1,
+      limit: 1,
       img: '../img/person/p09.jpg',
       post: '负责人',
       name: '潘超巧',
@@ -205,7 +213,7 @@ export default {
               type: 'success',
               message: '移除成功!',
             })
-            this.$router.push({path:'/atms/my_tasks'})
+            this.$router.push({ path: '/atms/my_tasks' })
           } else {
             this.$message({
               type: 'info',
@@ -221,7 +229,7 @@ export default {
     },
     handleDetail (row) {
       this.$router.push({
-        path:`/atms/details/${row}`,
+        path: `/atms/details/${row}`,
       })
     },
   },
@@ -230,14 +238,16 @@ export default {
 <style lang="scss" scoped>
 .details {
   display: grid;
-  margin: 20px 0;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
-  grid-column-gap: 25px;
+  grid-column-gap: 20px;
   grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
 }
+.el-dropdown-link {
+  i {
+    color: #999;
+  }
+}
 .detail-left {
-  padding: 0 15px 60px 15px;
   .button {
     padding: 8px;
     border: 1px solid #ddd;
@@ -245,9 +255,12 @@ export default {
   .sub {
     display: flex;
     justify-content: space-between;
-    padding: 0 20px 20px;
+    padding: 0 0 15px;
     border-bottom: 1px solid #eee;
     align-items: center;
+    .sub-title {
+      color: #999;
+    }
     .opt {
       > span {
         display: flex;
@@ -275,6 +288,7 @@ export default {
     justify-content: flex-start;
   }
   .form-half {
+    vertical-align: top;
     span {
       display: flex;
       justify-content: flex-start;
@@ -284,16 +298,17 @@ export default {
         margin-right: 10px;
       }
     }
-    .people{
-      margin-right: 10px;
+    .people {
+      margin-right: 15px;
+      margin-bottom: 10px;
       float: left;
       display: flex;
-      > span{
+      > span {
         margin-left: 6px;
       }
     }
   }
-  .sign{
+  .sign {
     padding: 4px 10px;
     border: 1px solid #eee;
     margin-right: 10px;
@@ -373,15 +388,18 @@ export default {
       cursor: pointer;
     }
   }
-} 
+}
 </style>
 <style scoped>
-.details >>> .el-image__inner{
+.details >>> .el-image__inner {
   border-radius: 50%;
   margin-right: 5px;
 }
-.details >>> .el-card__body{
+.details >>> .el-card__body {
   width: 100%;
+}
+.img >>> .image-slot {
+  border-radius: 50%;
 }
 </style>
 

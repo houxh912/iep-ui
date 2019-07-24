@@ -19,7 +19,7 @@
         </div>
         <div class="con-item">
           <div class="title">文档内容</div>
-          <div class="info-con" v-html="form.content"></div>
+          <iep-html v-model="form.content"></iep-html>
         </div>
       </div>
     </basic-container>
@@ -76,9 +76,6 @@ export default {
       white-space: pre-wrap;
       font-size: 14px;
       color: #999;
-    }
-    .info-con {
-      text-indent: 1em;
     }
   }
 }

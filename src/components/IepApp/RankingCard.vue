@@ -75,6 +75,8 @@ export default {
     .grade {
       float: right;
       color: #bb1a20;
+      width: 68px;
+      text-align: right;
     }
     &:hover {
       color: #cb3737;

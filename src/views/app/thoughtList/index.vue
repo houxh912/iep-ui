@@ -151,13 +151,3 @@ h3.title {
   }
 }
 </style>
-
-<style scoped>
-.content >>> .subject {
-  color: #cb3737;
-}
-.content >>> .person {
-  color: #cb3737;
-  cursor: pointer;
-}
-</style>

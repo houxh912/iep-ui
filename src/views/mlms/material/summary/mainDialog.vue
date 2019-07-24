@@ -206,7 +206,7 @@ export default {
     // 自动保存
     autosave () {
       // 首先判断下是否为未发送状态，已发送纪要不做自动保存功能
-      if (this.formData.id && this.formData.status === 0) {
+      if (this.formData.id && this.formData.isSend === 0 && this.formData.status === 2) {
         return
       }
       let data = {...this.formData}

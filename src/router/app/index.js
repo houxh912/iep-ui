@@ -264,7 +264,7 @@ export default [
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/'),
       },
       {
-        path: 'thought_detail',
+        path: 'thought_detail/:id',
         name: '说说详情',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/thoughtDetail/'),
       },

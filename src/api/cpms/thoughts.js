@@ -126,3 +126,11 @@ export function getThumbMembers (id) {
     method: 'get',
   })
 }
+
+// 说说详情
+export function getDetailById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

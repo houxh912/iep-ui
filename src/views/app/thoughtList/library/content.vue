@@ -1,6 +1,17 @@
 <template>
   <div class="content-tpl">
-    <div class="content" v-html="transfHtml(data.content)"></div>
+    <div class="content">
+      <span v-for="(item, index) in transfSubject(data.content)" :key="index">
+        <span v-if="item.type" class="subject">{{item.html}}</span>
+        <span v-else>
+          <span v-for="(t, i) in transfPerson(item.html)" :key="i">
+            <span class="person" v-if="t.type">{{t.html}}</span>
+            <span v-else>{{t.html}}</span>
+          </span>
+        </span>
+      </span>
+      <!-- <span v-for="(item, index) in transfSubject(data.content)" :key="index" :class="item.type ? 'subject' : ''" v-html="item.html"></span> -->
+    </div>
     <slot></slot>
     <div class="image-list" v-if="data.images.length > 0">
       <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img"></iep-img>
@@ -9,7 +20,7 @@
 </template>
 
 <script>
-import { getSubject } from './util'
+import { getSubject, getName } from './util'
 export default {
   props: {
     data: {
@@ -22,68 +33,58 @@ export default {
     handlePerson (val) {
       console.log('val: ', val)
     },
-    // 将说说的内容转换成为新的内容
-    transfHtml (val) {
-      if (!val) return val
-      val = this.transfSubject(val)
-      val = this.transfPerson(val)
-      return val
-    },
     // 话题转换 - 只存在一个
     transfSubject (val) {
       let obj = getSubject(val)
       if (obj.type) {
-        return val.slice(0, obj.first) + '<span class="subject">#' + obj.data + '#</span>' + val.slice(obj.second)
+        return [
+          {
+            type: false,
+            html: val.slice(0, obj.first),
+          }, {
+            type: true,
+            html: `#${obj.data}#`,
+          }, {
+            type: false,
+            html: val.slice(obj.second),
+          },
+        ]
       } else {
-        return val
+        return [{
+          type: false,
+          html: val,
+        }]
       }
     },
     // 人名转换 - 可存在多个
     transfPerson (val) {
-      let html = '' // 定义html内容
-      let reg = /[~!@#$%^&*/|,.，。！￥<>?";:_=[\]{}]/ // 人名中不允许出现符号，即提高人名判断的准确性
-      let fn = (value) => {
-        let first = value.indexOf('@')
-        let second = value.slice(first).indexOf(' ')
-        if (first === -1) { // 不存在起始符号
-          html += value
-          return [value, false]
-        } else if (second === -1 // 不存在终止符号
-          || second > 11 // 字符长度超过10个
-          || reg.test(value.slice(first + 1, first + second))
-        ) {
-          // 说明这个@不合格，需要判断是否存在下一个@是否合格
-          if (value.slice(first + 1).indexOf('@') > -1) { // 若存在下一个@，继续循环
-            html += value.slice(0, first + 1)
-            return [value, value.slice(first + 1)]
-          } else { // 若不存在，结束循环
-            html += value
-            return [value, false]
-          }
-        } else {
-          let name = value.slice(first + 1, first + second)
-          let content = value.slice(0, first) 
-            + `<a class="person" href="/app/personal_style/${name}" target="_blank">`
-            + value.slice(first, first + second + 1) 
-            + '</a>'
-          html += content
-          return [content, value.slice(first + second + 1)]
+      if (getName(val).type) {
+        let list = []
+        let code = 0
+        for (let item of getName(val).list) {
+          list.push({
+            type: false,
+            html: val.slice(code, item.first),
+          })
+          list.push({
+            type: true,
+            html: val.slice(item.first, item.second),
+          })
+          code = item.second
         }
-      }
-      // 判断是否存在多个
-      let isTransf = (value) => {
-        let arr = fn(value)
-        if (arr[1]) {
-          isTransf(arr[1])
-        }
-      }
-      // 起始函数，判断是否存在人物
-      if (val.indexOf('@') > -1) {
-        isTransf(val)
+        list.push({
+          type: false,
+          html: val.slice(code),
+        })
+        return list
       } else {
-        html = val
+        return [
+          {
+            type: false,
+            html: val,
+          },
+        ]
       }
-      return html
     },
   },
 }
@@ -91,6 +92,15 @@ export default {
 
 <style lang="scss" scoped>
 .content-tpl {
+  .content {
+    .subject {
+      color: #cb3737;
+    }
+    .person {
+      color: #cb3737;
+      cursor: pointer;
+    }
+  }
   .image-list {
     margin-top: 20px;
     display: flex;

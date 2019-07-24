@@ -16,7 +16,9 @@ export default {
     }
   },
   methods: {
-    handleDetail () {},
+    handleDetail (row) {
+      this.$router.push(`/app/thought_detail/${row.id}`)
+    },
     loadData () {
       getMostThumbedThoughtsWeekly().then(({ data }) => {
         this.labelList = data.data

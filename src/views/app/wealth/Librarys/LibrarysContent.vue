@@ -48,6 +48,7 @@ export default {
       params: {
         current: 1,
         size: 10,
+        status: 4,
       },
     }
   },

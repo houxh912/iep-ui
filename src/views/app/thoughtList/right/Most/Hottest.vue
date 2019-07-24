@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+      this.$router.push(`/app/personal_style/${row.id}`)
     },
     loadData () {
       getMostThoughts().then(({ data }) => {

@@ -5,12 +5,11 @@
     </el-col>
   <el-col :span="20">-->
   <div>
-    <basic-container>
-      <operation-container>
-        <template slot="left">
-          <iep-button type="primary" plain @click="handleAdd">新增</iep-button>
-          <!-- <iep-button>移动</iep-button> -->
-          <!-- <el-dropdown size="medium">
+    <operation-container>
+      <template slot="left">
+        <iep-button type="primary" plain @click="handleAdd">新增</iep-button>
+        <!-- <iep-button>移动</iep-button> -->
+        <!-- <el-dropdown size="medium">
             <iep-button type="default">
               更多操作
               <i class="el-icon-arrow-down el-icon--right"></i>
@@ -19,40 +18,39 @@
               <el-dropdown-item>删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>-->
-        </template>
-        <template slot="right">
-          <operation-search>
-            <!-- <advance-search @search-page="searchPage"></advance-search> -->
-          </operation-search>
-        </template>
-      </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column label="ID" width="90px">
-            <template slot-scope="scope">
-              <div>{{scope.row.id}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column label="标题" width="200px">
-            <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.title}}</iep-table-link>
-            </template>
-          </el-table-column>
-          <el-table-column label="发布时间">
-            <template slot-scope="scope">{{scope.row.updateTime|parseToDay}}</template>
-          </el-table-column>
-        </template>
-        <el-table-column prop="operation" label="操作" width="250" fixed="right">
+      </template>
+      <template slot="right">
+        <operation-search>
+          <!-- <advance-search @search-page="searchPage"></advance-search> -->
+        </operation-search>
+      </template>
+    </operation-container>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <template slot="before-columns">
+        <el-table-column label="ID" width="90px">
           <template slot-scope="scope">
-            <operation-wrapper>
-              <!-- <iep-button>查看评论</iep-button> -->
-              <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleFalseDelete(scope.row)">删除</iep-button>
-            </operation-wrapper>
+            <div>{{scope.row.id}}</div>
           </template>
         </el-table-column>
-      </iep-table>
-    </basic-container>
+        <el-table-column label="标题" width="200px">
+          <template slot-scope="scope">
+            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.title}}</iep-table-link>
+          </template>
+        </el-table-column>
+        <el-table-column label="发布时间">
+          <template slot-scope="scope">{{scope.row.updateTime|parseToDay}}</template>
+        </el-table-column>
+      </template>
+      <el-table-column prop="operation" label="操作" width="250" fixed="right">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <!-- <iep-button>查看评论</iep-button> -->
+            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button @click="handleFalseDelete(scope.row)">删除</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
+    </iep-table>
     <!-- </el-col>
     </el-row>-->
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>

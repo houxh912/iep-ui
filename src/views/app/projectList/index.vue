@@ -11,8 +11,9 @@
       </div>
       <div class="piece">
         <ranking></ranking>
-        <div class="project-pk">项目PK</div>
+        <div class="project-pk" @click="handlePKClick">项目PK</div>
       </div>
+      <dialog-show class="dialog-show" ref="DialogShow"></dialog-show>
     </div>
   </div>
 </template>
@@ -21,9 +22,10 @@ import Librarys from './Librarys/'
 import Ranking from './Ranking/'
 import { getRectagsList } from '@/api/app/tms/index'
 import { getGuessList } from '@/api/app/mlms/index'
+import DialogShow from './DialogShow'
 
 export default {
-  components: { Librarys, Ranking },
+  components: { Librarys, Ranking, DialogShow },
   data () {
     return {
       listList: [],
@@ -37,6 +39,9 @@ export default {
   methods: {
     changePage (val) {
       this.$refs['librarys'].loadPage({ projectName: val })
+    },
+    handlePKClick () {
+      this.$refs['DialogShow'].dialogShow = true
     },
     // 推荐主题
     getRectagsList () {
@@ -72,6 +77,7 @@ export default {
   }
 }
 .wealth {
+  position: relative;
   width: 1200px;
   margin: 0 auto;
   border-top: 1px solid #eee;

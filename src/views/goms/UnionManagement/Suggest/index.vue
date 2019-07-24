@@ -5,7 +5,7 @@
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
-            <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <iep-button type="primary" plain>更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
             </el-dropdown-menu>

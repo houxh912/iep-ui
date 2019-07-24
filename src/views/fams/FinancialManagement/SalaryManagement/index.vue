@@ -12,7 +12,7 @@
         <el-table-column prop="operation" label="操作" width="270" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleDetail(scope.row)">查看</iep-button>
+              <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
               <iep-button @click="handleUpload(scope.row)">上传</iep-button>
               <iep-button v-if="scope.row.status!=='A'" @click="handleSend(scope.row)">发放</iep-button>
               <iep-button v-if="scope.row.status!=='A'" @click="handleDelete(scope.row)">删除</iep-button>

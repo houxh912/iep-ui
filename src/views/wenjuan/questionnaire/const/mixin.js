@@ -1,4 +1,4 @@
-import {
+﻿import {
   getDic,
 } from '@/views/wenjuan/util/dic'
 import {getGroupDept} from '@/api/evaluate/question'
@@ -92,7 +92,7 @@ export default {
         {
           label: '开始日期',
           prop: 'startTime',
-          span: 12,
+          span: 15,
           type: 'datetime',
           valueFormat: 'yyyy-MM-dd HH:mm:ss',
           rules: [{
@@ -104,7 +104,7 @@ export default {
         {
           label: '结束日期',
           prop: 'endTime',
-          span: 12,
+          span: 15,
           type: 'datetime',
           valueFormat: 'yyyy-MM-dd HH:mm:ss',
           rules: [{
@@ -218,12 +218,12 @@ export default {
               {
                 label: '开始日期',
                 prop: 'startTime',
-                span: 12,
+                span: 15,
               },
               {
                 label: '结束日期',
                 prop: 'endTime',
-                span: 12,
+                span: 15,
               },
             ],
           },
@@ -265,8 +265,8 @@ export default {
           { label: '问卷名称', prop: 'name'},
           { label: '创建人', prop: 'createBy',type: 'dic', dicData: this.createByDic },
           { label: '问卷状态', prop: 'status', type: 'dic', dicData: getDic('QUESTION_STATUS') },
-          { label: '开始日期', prop: 'startTime', type: 'date' },
-          { label: '结束日期', prop: 'endTime', type: 'date' },
+          { label: '开始日期', prop: 'startTime', type: 'date',width:'150px' },
+          { label: '结束日期', prop: 'endTime', type: 'date',width:'150px' },
           { label: '参与人数/收到问卷人数', prop: 'proportion' },
           { label: '回收率', prop: 'recovery' },
         ],
@@ -290,8 +290,8 @@ export default {
           { label: '问卷类型', prop: 'type', type: 'dic', dicData: getDic('QUESTION_TYPE') },
           { label: '问卷状态', prop: 'status', type: 'dic', dicData: getDic('QUESTION_STATUS') },
           { label: '所属项目', prop: 'projectId',type: 'select', dicData: this.projectIdDic },
-          { label: '开始日期', prop: 'startTime', type: 'date' },
-          { label: '结束日期', prop: 'endTime', type: 'date' },
+          { label: '开始日期', prop: 'startTime', type: 'date',width:'150px' },
+          { label: '结束日期', prop: 'endTime', type: 'date',width:'150px' },
         ],
       }
     },

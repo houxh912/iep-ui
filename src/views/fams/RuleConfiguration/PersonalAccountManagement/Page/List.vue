@@ -42,7 +42,7 @@
                   </el-option>
                 </el-select>
               </el-form-item>
-             <el-form-item label="销售方">
+              <el-form-item label="销售方">
                 <el-select v-model="paramForm.seller" placeholder="请选择">
                   <el-option v-for="item in classify" :key="item.value" :label="item.label" :value="item.value">
                   </el-option>
@@ -57,17 +57,17 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column label="操作" width="300px">
+        <el-table-column label="操作" width="280px">
           <template slot-scope="scope">
             <el-button size="small" type="warning" plain @click="handleDetail(scope.row)">查看明细</el-button>
             <el-button size="small">冻结/解冻</el-button>
             <el-dropdown size="small">
-                <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
-                <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
-                  <el-dropdown-item>分享</el-dropdown-item>
-                </el-dropdown-menu>
-              </el-dropdown>
+              <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item @click.native="handleEdit(scope.row)">修改</el-dropdown-item>
+                <el-dropdown-item>分享</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </el-table-column>
       </iep-table>
@@ -79,7 +79,7 @@
 <script>
 import { getPersonalAccountManagementPage } from '@/api/fams/personal_account_management'
 import mixins from '@/mixins/mixins'
-import { columnsMap, dictsMap,initSearchForm } from '../options'
+import { columnsMap, dictsMap, initSearchForm } from '../options'
 export default {
   mixins: [mixins],
   data () {
@@ -120,7 +120,7 @@ export default {
 }
 </script>
 <style scoped>
-.el-table td div{
+.el-table td div {
   margin-left: 8px;
 }
 </style>

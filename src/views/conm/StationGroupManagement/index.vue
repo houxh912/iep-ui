@@ -4,7 +4,7 @@
       <iep-page-header title="站群管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" plain @click="handleAdd">新增</iep-button>
+          <iep-button type="primary" plain @click="handleAdd" icon="el-icon-plus">新增</iep-button>
         </template>
         <template slot="right">
           <operation-search>

@@ -12,9 +12,8 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
-        @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column prop="title" label="题目" min-width="115">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column prop="title" label="题目" width="250">
           <template slot-scope="scope">
             <span class="hiddenOverText" :title="scope.row.title">{{scope.row.title}}</span>
             <span class="overText" v-if="JSON.stringify(scope.row.title).length > 45">......</span>
@@ -55,7 +54,7 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column prop="creatTime" label="提交时间">
+        <el-table-column prop="creatTime" label="提交时间" width="150px">
           <template slot-scope="scope">
             {{scope.row.creatTime}}
           </template>

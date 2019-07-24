@@ -4,7 +4,7 @@
       <gov-search-bar :listQuery="listQuery" :formProps="searchOption" @handleFilter="handleFilter">
       </gov-search-bar>
       <gov-layout-button-group>
-        <gov-button type="add" @click="handleCreate" text="创建问卷"></gov-button>
+        <gov-button type="primary" plain @click="handleCreate" text="创建问卷"></gov-button>
       </gov-layout-button-group>
     </gov-layout-header>
     <gov-layout-body>

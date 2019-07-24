@@ -4,7 +4,7 @@
       <iep-page-header title="投资管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="danger" icon="el-icon-plus" plain @click="handleAdd">
+          <iep-button type="primary" icon="el-icon-plus" plain @click="handleAdd">
             新增
           </iep-button>
           <iep-button @click="handleDelete()" plain>

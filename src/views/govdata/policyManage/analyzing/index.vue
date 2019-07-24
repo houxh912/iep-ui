@@ -40,18 +40,18 @@
         </el-form-item> -->
 
         <el-form-item>
-          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
+          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus" plain>新增</el-button>
         </el-form-item>
       </el-form>
 
       <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
         <el-table-column prop="operation" align="left" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
-            <iep-divider type="vertical" />
-            <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit">修改</el-button>
-            <iep-divider type="vertical" />
-            <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete">删除</el-button>
+            <el-button class="btn" @click="handleView(scope.row)" size="small" icon="el-icon-view" type="warning" plain>查看</el-button>
+            <!-- <iep-divider type="vertical" /> -->
+            <el-button class="btn" @click="handleClickMotify(scope.row)" size="small" type="default" icon="el-icon-edit">修改</el-button>
+            <!-- <iep-divider type="vertical" /> -->
+            <el-button class="btn" @click="handleDelete(scope.row)" size="small" type="default" icon="el-icon-delete">删除</el-button>
           </template>
         </el-table-column>
       </crud-table>
@@ -86,24 +86,24 @@ const columnMap = [
     prop: 'publishTime',
     label: '发文时间',
     type: 'time',
-    width: 140,
+    width: 150,
     // sortable: 'custom',
   },
   {
     prop: 'creatorName',
     label: '上传者',
-    width: 140,
+    width: 100,
   },
   {
     prop: 'examineUserName',
     label: '审核人',
-    width: 140,
+    width: 100,
   },
   {
     prop: 'examineDate',
     label: '审核通过时间',
     type: 'time',
-    width: 140,
+    width: 150,
     // sortable: 'custom',
   },
 ]
@@ -247,7 +247,7 @@ export default {
     /**
      * 获取政策列表数据
      */
-    async load (pageOption = this.pageOption, params = {...this.params}) {
+    async load (pageOption = this.pageOption, params = { ...this.params }) {
       this.isLoadTable = false
       this.editDialogShow = false
       this.dialogShow = false
@@ -357,7 +357,7 @@ export default {
         this.isEdit = false
         this.btnTxt = '提交'
         this.dialogShow = true
-      } 
+      }
       else {
         this.isEdit = true
         this.btnTxt = '暂存'
@@ -394,3 +394,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.btn {
+  margin-right: -5px;
+}
+</style>

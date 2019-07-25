@@ -1,4 +1,4 @@
-import { getStore } from '@/util/store'
+﻿import { getStore } from '@/util/store'
 const dicData = getStore({ name: 'dictGroup' })
 function changeDict (list) {
   let data = {}
@@ -22,7 +22,7 @@ export const columnsMap = [
   {
     prop: 'meetingType',
     label: '会议类型',
-    width: '150px',
+    width: '100px',
     type: 'dict',
   },
 ]

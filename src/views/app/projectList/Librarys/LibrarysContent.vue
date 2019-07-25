@@ -7,6 +7,7 @@
           <a-skeleton :loading="loading" active />
           <div v-if="!loading" style="cursor: pointer;" @click="handleOpen(item)">
             <div class="title">
+              <span class="stage" v-show="isShow">{{item.stage}}</span>
               <h4 class="name">{{item.projectName}}</h4><span class="sub-title">{{item.serialNo}}</span>
             </div>
             <div class="item">
@@ -97,10 +98,22 @@ export default {
   .item {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: column;
     .label {
       margin-right: 20px;
+      margin-bottom: 5px;
     }
   }
+}
+.stage {
+  margin-right: 10px;
+  padding: 1px 6px;
+  font-size: 12px;
+  color: #cb3737;
+  background: #fef0f0;
+  border: 1px solid #cb3737;
+  border-radius: 3px;
 }
 .piece {
   padding-top: 15px;
@@ -115,10 +128,10 @@ export default {
 .title {
   .name {
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
+    height: 30px;
+    line-height: 30px;
     margin-right: 10px;
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
     &:hover {
       color: #cb3737;
@@ -138,6 +151,7 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-top: 10px;
   span {
     display: flex;
     justify-content: flex-start;

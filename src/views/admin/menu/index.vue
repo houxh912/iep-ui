@@ -3,22 +3,23 @@
     <basic-container>
       <div class="filter-container">
         <el-button-group>
-          <el-button type="primary" v-if="sys_menu_add" icon="plus" @click="handlerAdd">添加
+          <el-button style="border-right-color:#BA1B21;" type="primary" v-if="sys_menu_add" icon="plus" @click="handlerAdd" size="small" plain>添加
           </el-button>
-          <el-button type="primary" v-if="sys_menu_edit" icon="edit" @click="handlerEdit">编辑
+          <el-button v-if="sys_menu_edit" icon="edit" size="small" @click="handlerEdit">编辑
           </el-button>
-          <el-button type="primary" v-if="sys_menu_del" icon="delete" @click="handleDelete">删除
+          <el-button v-if="sys_menu_del" icon="delete" size="small" @click="handleDelete">删除
           </el-button>
         </el-button-group>
       </div>
 
-      <el-row>
-        <el-col :span="8" style="margin-top:15px;">
+      <el-row class="con">
+        <el-col :span="4" class="menu">
+          <span class="border"></span>
           <el-tree class="filter-tree" node-key="id" highlight-current :data="treeData" :default-expanded-keys="aExpandedKeys" :filter-node-method="filterNode" :props="defaultProps" @node-click="getNodeData" @node-expand="nodeExpand" @node-collapse="nodeCollapse">
           </el-tree>
         </el-col>
-        <el-col :span="16" style="margin-top:15px;">
-          <el-card class="box-card" shadow="never">
+        <el-col :span="18">
+          <el-card style="border:0;" class="box-card" shadow="never">
             <el-form :label-position="labelPosition" label-width="80px" :model="form" ref="form">
               <el-form-item label="父级节点" prop="parentId">
                 <el-input v-model="form.parentId" :disabled="true" placeholder="请输入父级节点"></el-input>
@@ -276,3 +277,31 @@ export default {
   },
 }
 </script>
+<style scoped>
+.filter-tree {
+  margin-top: 20px;
+}
+.filter-tree >>> .el-tree-node__content {
+  height: 40px;
+}
+.menu {
+  position: relative;
+  height: 100vh;
+}
+.con {
+  margin-top: 15px;
+  border-top: 1px solid #e5e5e5;
+}
+.border {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  margin-bottom: -100px;
+  width: 1px;
+  height: 10000px;
+  background-color: #e5e5e5;
+  z-index: 100;
+}
+</style>

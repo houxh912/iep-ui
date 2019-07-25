@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+﻿import { mergeByFirst } from '@/util/util'
 import { initNow } from '@/util/date'
 
 const dictsMap = {
@@ -18,19 +18,23 @@ const columnsMap = [
   {
     prop: 'recruitsCount',
     label: '招聘人数',
+    width:'100',
   },
   {
     prop: 'jobType',
     label: '工作类型',
+    width:'100',
   },
   {
     prop: 'applicationTime',
     label: '招聘发布时间',
+    width:'170',
   },
   {
     prop: 'status',
     label: '招聘状态',
     type: 'dict',
+    width:'100',
   },
 ]
 

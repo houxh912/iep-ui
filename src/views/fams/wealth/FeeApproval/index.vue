@@ -12,7 +12,7 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button type="warning" plain @click.stop="handlePass(scope.row)">通过</iep-button>
               <iep-button @click.stop="handleReject(scope.row)">驳回</iep-button>
               <iep-button @click.stop="handleTrans(scope.row)">转交</iep-button>
             </operation-wrapper>

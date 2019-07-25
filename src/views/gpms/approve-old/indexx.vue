@@ -6,13 +6,7 @@
         <el-tab-pane label="全部" name="first">
           <operation-container>
             <template slot="right">
-              <operation-search
-                @search="searchPage"
-                @closed="dialogIsShow = true"
-                advanceSearch
-                place-holder="请输入项目名称"
-                :dialogIsShow="dialogIsShow"
-              >
+              <operation-search @search="searchPage" @closed="dialogIsShow = true" advanceSearch place-holder="请输入项目名称" :dialogIsShow="dialogIsShow">
                 <!--title-->
                 <el-row class="search">
                   <el-col :span="23">
@@ -30,22 +24,12 @@
                     </el-form-item>
                     <el-form-item label="申请类别:">
                       <el-select v-model="paramForm.ApplicationCategory" filterable placeholder="请选择申请类别">
-                        <el-option
-                          v-for="item in undertakeOptions"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                        ></el-option>
+                        <el-option v-for="item in undertakeOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="审批状态:">
                       <el-select v-model="paramForm.ApprovalStatus" filterable placeholder="请选择审批状态">
-                        <el-option
-                          v-for="item in Approval"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value"
-                        ></el-option>
+                        <el-option v-for="item in Approval" :key="item.value" :label="item.label" :value="item.value"></el-option>
                       </el-select>
                     </el-form-item>
                     <el-form-item label="申请人:">
@@ -69,24 +53,24 @@
           </operation-container>
           <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
             <el-table-column label="操作">
-                <template slot-scope="scope">
-                    <el-button size="small" type="text" @click="details(scope.row)">详情</el-button>
-                    <el-button size="small" type="text" @click="Approvals(scope.row)">审批</el-button>
-                    <el-button size="small" type="text" @click="HandOver(scope.row)">转交</el-button>
-                    <el-button size="small" type="text" @click="Cancellation">取消审批</el-button>
-                </template>
+              <template slot-scope="scope">
+                <iep-button type="warning" plain @click="details(scope.row)">详情</iep-button>
+                <iep-button @click="Approvals(scope.row)">审批</iep-button>
+                <iep-button @click="HandOver(scope.row)">转交</iep-button>
+                <iep-button @click="Cancellation">取消审批</iep-button>
+              </template>
             </el-table-column>
-        </iep-table>
-        <!-- 弹窗组件 -->
-        <transfer-dialog :status="dialogStatus" :dialogVisible="dialogVisible" @listClose = "listClose" :rows = "rows"></transfer-dialog>
-        <!-- 详情组件 -->
-        <detailes :rows = "rows" v-show="detai"></detailes>
-        <!-- 审批组件 -->
-        <details-of-approver :rows = "rows" v-show="false"></details-of-approver>
-        <!-- 合同详情组件 -->
-        <contract-detaile v-show="false"></contract-detaile>
-        <!-- 审批合同组件 -->
-        <approval-contract v-show="false"></approval-contract>
+          </iep-table>
+          <!-- 弹窗组件 -->
+          <transfer-dialog :status="dialogStatus" :dialogVisible="dialogVisible" @listClose="listClose" :rows="rows"></transfer-dialog>
+          <!-- 详情组件 -->
+          <detailes :rows="rows" v-show="detai"></detailes>
+          <!-- 审批组件 -->
+          <details-of-approver :rows="rows" v-show="false"></details-of-approver>
+          <!-- 合同详情组件 -->
+          <contract-detaile v-show="false"></contract-detaile>
+          <!-- 审批合同组件 -->
+          <approval-contract v-show="false"></approval-contract>
         </el-tab-pane>
         <el-tab-pane label="待审批" name="second">
           <pending-approval></pending-approval>
@@ -104,7 +88,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { undertakeOptions, Approval,columnsMap,pagedTable } from './const.js'
+import { undertakeOptions, Approval, columnsMap, pagedTable } from './const.js'
 import ApprovalAndApproval from './ApprovalAndApproval/'
 import NotPass from './NotPass/'
 import PendingApproval from './PendingApproval/'
@@ -116,29 +100,29 @@ import ApprovalContract from './ApprovalContract'
 export default {
   mixins: [mixins],
   name: 'index',
-  components:{ApprovalAndApproval,NotPass,PendingApproval,TransferDialog,Detailes,DetailsOfApprover,contractDetaile,ApprovalContract},
+  components: { ApprovalAndApproval, NotPass, PendingApproval, TransferDialog, Detailes, DetailsOfApprover, contractDetaile, ApprovalContract },
   data () {
     return {
-      detai:false,
+      detai: false,
       undertakeOptions,
       Approval,
       activeName: 'first',
       dialogIsShow: true,
       replaceText: data => `（共${data[0]}项数据)`,
-      isLoadTable:false,
+      isLoadTable: false,
       columnsMap,
       pagedTable,
-      dialogStatus:'',
-      dialogVisible:false,
+      dialogStatus: '',
+      dialogVisible: false,
       paramForm: {
         name: '', //项目名称
         num: '', //编号
-        ApplicationCategory:'',//申请类别
-        ApprovalStatus:'',//审批状态
-        Applicant:'',//申请人
-        Approver:'',//审批人
+        ApplicationCategory: '',//申请类别
+        ApprovalStatus: '',//审批状态
+        Applicant: '',//申请人
+        Approver: '',//审批人
       },
-      rows:{},
+      rows: {},
     }
   },
   methods: {
@@ -156,33 +140,33 @@ export default {
       console.log(tab, event)
     },
     // 搜索
-    onSubmit (){
-      
+    onSubmit () {
+
     },
     // 详情
-    details (row){
+    details (row) {
       console.log(row)
       this.rows = row
     },
     // 审批
-    Approvals (row){
+    Approvals (row) {
       this.rows = row
     },
     // 转交
-    HandOver (row){
+    HandOver (row) {
       console.log(row)
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.dialogStatus = 'HandOver'
         this.dialogVisible = true
       })
       this.rows = row
     },
-    listClose (val){
+    listClose (val) {
       // console.log(val)
       this.dialogVisible = val
     },
     // 取消审批
-    Cancellation (){},
+    Cancellation () { },
   },
 }
 </script>

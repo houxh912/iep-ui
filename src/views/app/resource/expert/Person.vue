@@ -79,7 +79,7 @@ export default {
     },
   },
   created () {
-    this.params = Object.assign({}, this.params, this.query) 
+    this.params = Object.assign({}, this.params, this.query)
     this.loadPage()
   },
 }
@@ -101,8 +101,8 @@ export default {
     display: flex;
     .img {
       margin-right: 15px;
-      width: 94px;
-      height: 94px;
+      width: 90px;
+      height: 90px;
       border: 1px solid #dcdfe6;
       overflow: hidden;
       .el-image {

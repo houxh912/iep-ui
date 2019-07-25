@@ -1,4 +1,4 @@
-// import { mergeByFirst } from '@/util/util'
+﻿// import { mergeByFirst } from '@/util/util'
 
 const columnsMap = [
 	{
@@ -12,6 +12,7 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '捐助日期',
+                                width:'170',
 	},
 ]
 

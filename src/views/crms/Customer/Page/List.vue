@@ -5,11 +5,11 @@
       <operation-container>
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
-          <iep-button type="primary" @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
-          <iep-button type="primary" @click="Transfer(2)" plain>转移</iep-button>
+          <iep-button @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
+          <iep-button @click="Transfer(2)" plain>转移</iep-button>
         </template>
         <template v-if="type==='1'" slot="left">
-          <iep-button type="primary" @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
+          <iep-button @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">
@@ -22,7 +22,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
         <template slot="before-columns">
-          <el-table-column label="客户名称" width="300px">
+          <el-table-column label="客户名称" width="350px">
             <template slot-scope="scope">
               <span class="clientName">{{scope.row.clientName}}</span>
               <el-col class="custom-tags">
@@ -33,13 +33,13 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="距离上次拜访已有" v-if="isShow(type)" min-width="100">
+        <el-table-column label="距离上次拜访已有" v-if="isShow(type)" width="150px">
           <template slot-scope="scope">
             <div v-if="scope.row.hasOwnProperty('lastTime')">{{scope.row.lastTime }} 天</div>
             <div v-else>无</div>
           </template>
         </el-table-column>
-        <el-table-column v-if="isShow(type)" prop="operation" label="操作" width="250px">
+        <el-table-column v-if="isShow(type)" prop="operation" label="操作" width="220px">
           <template slot-scope="scope">
             <operation-wrapper>
               <!-- <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button> -->

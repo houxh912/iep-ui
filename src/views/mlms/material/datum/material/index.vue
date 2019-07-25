@@ -42,7 +42,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="250">
+        <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain size="small" @click="handleCollection(scope.row)" v-if="scope.row.collection===0">收藏</iep-button>
@@ -259,5 +259,4 @@ export default {
     }
   }
 }
-
 </style>

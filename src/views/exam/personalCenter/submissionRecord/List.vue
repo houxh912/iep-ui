@@ -59,7 +59,7 @@
             {{scope.row.creatTime}}
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" min-width="99">
+        <el-table-column prop="operation" label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleShow(scope.row)">查看</iep-button>

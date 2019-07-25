@@ -5,11 +5,11 @@
       <operation-container>
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
-          <iep-button type="primary" @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
-          <iep-button type="primary" @click="Transfer(2)" plain>转移</iep-button>
+          <iep-button @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
+          <iep-button @click="Transfer(2)" plain>转移</iep-button>
         </template>
         <template v-if="type==='1'" slot="left">
-          <iep-button type="primary" @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
+          <iep-button @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">
@@ -22,7 +22,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
         <template slot="before-columns">
-          <el-table-column label="客户名称" width="300px">
+          <el-table-column label="客户名称" width="350px">
             <template slot-scope="scope">
               <span class="clientName">{{scope.row.clientName}}</span>
               <el-col class="custom-tags">

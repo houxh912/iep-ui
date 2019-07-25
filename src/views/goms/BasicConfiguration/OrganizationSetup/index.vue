@@ -39,7 +39,7 @@
             <div class="text item">
               联盟即常规组织的并集，对下属组织拥有集中管理的权限（包括财务），使用场景包括集团、协会、以组织为单位的项目组织。
             </div>
-            <el-button type="warning" plain @click="handleCreateLeague">创建</el-button>
+            <el-button type="warning" size="small" plain @click="handleCreateLeague">创建</el-button>
           </div>
         </el-col>
         <el-col :span="8" class="organize-item">
@@ -50,7 +50,7 @@
             <div class="text item">
               组织创建者可将组织下属的一个部门分离为独立组织，默认子组织仍属于此创建人；转让后，该组织与母组织自动形成联盟，且通用母组织的各功能模块的标准配置。
             </div>
-            <el-button type="warning" plain>升级</el-button>
+            <el-button type="warning" size="small" plain>升级</el-button>
           </div>
         </el-col>
         <el-col :span="8" class="organize-item">
@@ -61,7 +61,7 @@
             <div class="text item">
               联盟状态下，组织创建者可定向邀请联盟的兄弟组织进行合并；合并后的组织各项模块配置和文档均以发起组织为主，被合并组织的部分内容将被吞并。
             </div>
-            <el-button type="warning" plain>合并</el-button>
+            <el-button type="warning" size="small" plain>合并</el-button>
           </div>
         </el-col>
         <el-col :span="8" class="organize-item">
@@ -72,7 +72,7 @@
             <div class="text item">
               组织创建者可将组织装让给组织现有的管理员之一；转让后，创建者自动退出组织管理。
             </div>
-            <el-button type="warning" plain>转让</el-button>
+            <el-button type="warning" size="small" plain>转让</el-button>
           </div>
         </el-col>
         <el-col :span="8" class="organize-item">
@@ -83,7 +83,7 @@
             <div class="text item">
               组织创建者可解散组织；解散后，组织内的所有消息记录和成员信息都会删除，成员将无法进入，请谨慎操作。
             </div>
-            <el-button type="warning" plain>解散</el-button>
+            <el-button type="warning" size="small" plain>解散</el-button>
           </div>
         </el-col>
       </el-row>
@@ -139,11 +139,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.change-record{
-  span{
+.change-record {
+  span {
     display: inline-block;
     margin-left: 20px;
-    color:#bf051a;
+    color: #bf051a;
     font-size: 14px;
     cursor: pointer;
   }

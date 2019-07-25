@@ -5,7 +5,7 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>
-          <iep-button type="primary" @click="excellImport" plain>导入</iep-button>
+          <iep-button @click="excellImport" plain>导入</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search :prop="'contactName'">

@@ -44,14 +44,14 @@
         </el-form-item>
       </el-form>
 
-      <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
-        <el-table-column prop="operation" align="left" label="操作" width="200">
+      <crud-table class="table-con" :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
+        <el-table-column prop="operation" align="left" label="操作" width="220">
           <template slot-scope="scope">
-            <el-button class="btn" @click="handleView(scope.row)" type="warning" plain size="small" icon="el-icon-view">查看</el-button>
+            <el-button class="btn" @click="handleView(scope.row)" type="warning" plain size="small">查看</el-button>
             <!-- <iep-divider type="vertical" /> -->
-            <el-button class="btn" @click="handleClickMotify(scope.row)" size="small" type="default" icon="el-icon-edit">修改</el-button>
+            <el-button class="btn" @click="handleClickMotify(scope.row)" size="small" type="default">修改</el-button>
             <!--  <iep-divider type="vertical" /> -->
-            <el-button class="btn" @click="handleDelete(scope.row)" size="small" type="default" icon="el-icon-delete">删除</el-button>
+            <el-button class="btn" @click="handleDelete(scope.row)" size="small" type="default">删除</el-button>
           </template>
         </el-table-column>
       </crud-table>
@@ -500,5 +500,10 @@ export default {
 <style scoped>
 .btn {
   margin-right: -5px;
+}
+.table-con >>> .cell span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

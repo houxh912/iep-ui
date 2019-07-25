@@ -20,25 +20,23 @@
         </template>
       </operation-container>
 
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
-        @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection
-        @selection-change="selectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange" is-mutiple-selection>
         <el-table-column prop="fieldName" label="考试科目">
           <template slot-scope="scope">
             {{scope.row.fieldName}}
           </template>
         </el-table-column>
-        <el-table-column prop="title" label="考试名称" min-width="150">
+        <el-table-column prop="title" label="考试名称">
           <template slot-scope="scope">
             {{scope.row.title}}
           </template>
         </el-table-column>
-        <el-table-column prop="beginTime" label="开始时间" min-width="120">
+        <el-table-column prop="beginTime" label="开始时间" min-width="150">
           <template slot-scope="scope">
             {{scope.row.beginTime}}
           </template>
         </el-table-column>
-        <el-table-column prop="endTime" label="结束时间" min-width="120">
+        <el-table-column prop="endTime" label="结束时间" min-width="150">
           <template slot-scope="scope">
             {{scope.row.endTime}}
           </template>
@@ -69,7 +67,7 @@
             {{scope.row.creatTime}}
           </template>
         </el-table-column> -->
-        <el-table-column prop="operation" label="操作" min-width="140">
+        <el-table-column prop="operation" label="操作" min-width="200">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)" v-if="isCreator(scope.row) || permissionAll">编辑</iep-button>
@@ -79,8 +77,7 @@
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && (isCreator(scope.row) || permissionAll)">启用</el-dropdown-item>
                   <el-dropdown-item @click.native="handleForbid(scope.row)" v-if="scope.row.state === 0 && (isCreator(scope.row) || permissionAll)">禁用</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamRegistration')"
-                    v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">报名管理</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamRegistration')" v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">报名管理</el-dropdown-item>
                   <el-dropdown-item @click.native="handleManage(scope.row, 'ExamPaper')" v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">考卷管理</el-dropdown-item>
                   <el-dropdown-item @click.native="handleManage(scope.row, 'ExamReading')" v-if="permissionReading(scope.row) || isCreator(scope.row) || permissionAll">阅卷管理</el-dropdown-item>
                 </el-dropdown-menu>
@@ -91,8 +88,7 @@
       </iep-table>
     </basic-container>
 
-    <iep-dialog :dialog-show="dialogEdit" :title="messageShow" width="500px" @close="handleEditCancel"
-      center>
+    <iep-dialog :dialog-show="dialogEdit" :title="messageShow" width="500px" @close="handleEditCancel" center>
       <el-form :label-position="labelPosition" label-width="100px" :model="reForm">
         <el-form-item label="科目：" prop="field">
           <el-input v-model="reForm.field" size="small" disabled></el-input>

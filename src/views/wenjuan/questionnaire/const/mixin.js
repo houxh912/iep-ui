@@ -262,13 +262,13 @@ export default {
         align: 'center',
         border: false,
         column: [
-          { label: '问卷名称', prop: 'name'},
-          { label: '创建人', prop: 'createBy',type: 'dic', dicData: this.createByDic },
-          { label: '问卷状态', prop: 'status', type: 'dic', dicData: getDic('QUESTION_STATUS') },
+          { label: '问卷名称', prop: 'name',width:'120px'},
+          { label: '创建人', prop: 'createBy',type: 'dic', dicData: this.createByDic,width:'70px' },
+          { label: '问卷状态', prop: 'status', type: 'dic', dicData: getDic('QUESTION_STATUS') ,width:'80px'},
           { label: '开始日期', prop: 'startTime', type: 'date',width:'150px' },
           { label: '结束日期', prop: 'endTime', type: 'date',width:'150px' },
-          { label: '参与人数/收到问卷人数', prop: 'proportion' },
-          { label: '回收率', prop: 'recovery' },
+          { label: '参与人数/收到问卷人数', prop: 'proportion',width:'170px' },
+          { label: '回收率', prop: 'recovery'},
         ],
       }
     },

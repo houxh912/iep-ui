@@ -28,7 +28,7 @@ export default {
 .whole {
   display: flex;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 20px;
   flex-wrap: wrap;
   .whole-box {
     margin-bottom: 20px;

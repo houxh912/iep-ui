@@ -11,11 +11,11 @@
       <avue-crud @selection-change="selectionChange" :option="tableOption" :data="tableList" :table-loading="tableLoading" @size-change="sizeChange" @current-change="currentChange" :page="pagination">
         <template slot-scope="scope" slot="menu">
           <div class="table-btn-group">
-            <gov-button v-if="scope.row.status === '2'" @click="handleRelease(scope.row)" type="text">发布</gov-button>
-            <gov-button @click="handleDetail(scope.row)" type="text">预览</gov-button>
-            <gov-button v-if="scope.row.status === '2'" @click="handleUpdate(scope.row)" type="text">编辑</gov-button>
-            <gov-button v-if="scope.row.status !== '2'" @click="handleStatistics(scope.row)" type="text">统计</gov-button>
-            <gov-button @click="handleDelete(scope.row)" type="text">删除</gov-button>
+            <iep-button v-if="scope.row.status === '2'" @click="handleRelease(scope.row)" type="warning" size="small" plain>发布</iep-button>
+            <iep-button @click="handleDetail(scope.row)" type="warning" plain>预览</iep-button>
+            <iep-button v-if="scope.row.status === '2'" @click="handleUpdate(scope.row)" type="default" size="small">编辑</iep-button>
+            <iep-button v-if="scope.row.status !== '2'" @click="handleStatistics(scope.row)" type="default" size="small">统计</iep-button>
+            <iep-button @click="handleDelete(scope.row)" size="small" type="default">删除</iep-button>
           </div>
         </template>
       </avue-crud>
@@ -145,3 +145,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.table-btn-group .el-button {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+</style>

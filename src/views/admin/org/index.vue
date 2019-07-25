@@ -25,7 +25,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="220">
+        <el-table-column prop="operation" label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="sys_org_edit" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>

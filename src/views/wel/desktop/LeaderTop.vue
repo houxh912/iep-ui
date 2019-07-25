@@ -27,7 +27,7 @@ export default {
           bgc: {
             background: '#d7ba9a',
           },
-          disabled: true,
+          disabled: false,
         },
         {
           routerPath: 'staff_report',
@@ -59,7 +59,7 @@ export default {
           bgc: {
             background: '#d7ba9a',
           },
-          disabled: true,
+          disabled: false,
         },
         {
           routerPath: 'origanaze_report',

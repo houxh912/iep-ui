@@ -254,12 +254,12 @@ export default [
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/person/GovPersonContent/TobeBole/'),
       },
       {
-        path: 'more_thoughts',
+        path: 'more_thought',
         name: '说说列表页',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/moreThoughts/'),
       },
       {
-        path: 'more_thought',
+        path: 'more_thoughts',
         name: '新版说说',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/'),
       },

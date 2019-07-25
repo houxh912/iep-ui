@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      this.$router.push(`/app/personal_style/${row.id}`)
+      this.$router.push({ path: '/app/more_thoughts', query: {id: row.id} })
     },
     loadData () {
       getMostThoughts().then(({ data }) => {

@@ -59,7 +59,7 @@ const initForm = () => {
 
 const rules = {
 	amount: [
-		{ type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur', min: 1 },
+		{ type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur', min: 0.01 },
 	],
 	orgId: [
 		{ required: true, message: '请选择组织', trigger: 'change' },

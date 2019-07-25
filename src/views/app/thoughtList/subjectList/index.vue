@@ -1,7 +1,7 @@
 <template>
   <iep-app-layout>
     <h3 class="title">#{{title}}#</h3>
-    <headTpl class="head" @load-page="loadPage"></headTpl>
+    <headTpl class="head" @load-page="submitCallBack"></headTpl>
     <div class="content">
       <div class="content-left">
         <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
@@ -9,7 +9,7 @@
           <IepNoData v-if="dataList.length == 0"></IepNoData>
           <div v-else>
             <div class="material">
-              <library ref="library" @load-page="loadPage" :dataList="dataList" :params="params"></library>
+              <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
             </div>
           </div>
         </div>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="content-right">
-        <subjectTpl></subjectTpl>
+        <subjectTpl ref="subject"></subjectTpl>
       </div>
     </div>
     
@@ -82,6 +82,10 @@ export default {
     // 我要发布
     handlePublish () {
       this.$refs['publish'].open()
+    },
+    submitCallBack () {
+      this.loadPage()
+      this.$refs['subject'].loadData()
     },
     loadPage () {
       getTopicThoughts(this.params).then(({ data }) => {

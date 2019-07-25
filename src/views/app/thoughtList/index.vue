@@ -9,7 +9,7 @@
           <IepNoData v-if="dataList.length == 0"></IepNoData>
           <div v-else>
             <div class="material">
-              <library ref="library" @load-page="loadPage" :dataList="dataList" :params="params"></library>
+              <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
             </div>
           </div>
         </div>
@@ -19,14 +19,12 @@
         </div>
       </div>
       <div class="content-right">
-        <rightTpl></rightTpl>
+        <rightTpl ref="contentRight"></rightTpl>
       </div>
     </div>
     
     <!-- 发表说说 -->
     <publish-dialog ref="publish" @load-page="searchPage"></publish-dialog>
-    <!-- 转发 -->
-    <forwardDialog ref="forward"></forwardDialog>
   </iep-app-layout>
 </template>
 
@@ -34,7 +32,6 @@
 import { geTallPage } from '@/api/cpms/thoughts'
 import headTpl from './library/form'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
-import forwardDialog from './forwardDialog'
 import rightTpl from './right'
 import library from './library'
 
@@ -46,7 +43,7 @@ const initParams = () => {
 }
 
 export default {
-  components: { headTpl, PublishDialog, forwardDialog, rightTpl, library },
+  components: { headTpl, PublishDialog, rightTpl, library },
   data () {
     return {
       isShow: true,
@@ -87,6 +84,10 @@ export default {
     handlePublish () {
       this.$refs['publish'].open()
     },
+    submitCallBack () {
+      this.loadPage()
+      this.$refs['contentRight'].loadData()
+    },
     loadPage () {
       geTallPage(this.params).then(({ data }) => {
         this.dataList = data.data.records
@@ -94,6 +95,15 @@ export default {
         this.activeIndex = -1
       })
     },
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$nextTick(() => {
+      if (this.$route.query.id) {
+        this.params.userId = this.$route.query.id
+      }
+      this.loadPage()
+    })
+    next()
   },
   created () {
     if (this.$route.query.id) {

@@ -2,10 +2,10 @@
   <div class="content-tpl">
     <div class="content">
       <span v-for="(item, index) in transfSubject(data.content)" :key="index">
-        <span v-if="item.type" class="subject">{{item.html}}</span>
+        <span v-if="item.type" class="subject" @click="handleSubject(item)">{{item.html}}</span>
         <span v-else>
           <span v-for="(t, i) in transfPerson(item.html)" :key="i">
-            <span class="person" v-if="t.type">{{t.html}}</span>
+            <span class="person" v-if="t.type" @click="handlePerson(t)">{{t.html}}</span>
             <span v-else>{{t.html}}</span>
           </span>
         </span>
@@ -31,7 +31,24 @@ export default {
   methods: {
     // 查看人物详情
     handlePerson (val) {
-      console.log('val: ', val)
+      // 首先匹配返回的数据中是否存在此人名，即此人名是否为真实人名
+      for (let item of this.data.mentionedUsers) {
+        if (`@${item.name} ` === val.html) {
+          this.$router.push(`/app/personal_style/${item.id}`)
+          return
+        }
+      }
+      this.$message.error('抱歉，没有找到此用户')
+    },
+    handleSubject (val) {
+      // 首先匹配返回的数据中是否存在此话题，即是否为历史未关联的话题
+      for (let item of this.data.topics) {
+        if (`#${item.topic}#` === val.html) {
+          this.$router.push({ path: '/app/subject_list', query: { title: item.topic, id: item.topicId } })
+          return
+        }
+      }
+      this.$message.error('抱歉，此话题未关联其他说说')
     },
     // 话题转换 - 只存在一个
     transfSubject (val) {
@@ -95,6 +112,7 @@ export default {
   .content {
     .subject {
       color: #cb3737;
+      cursor: pointer;
     }
     .person {
       color: #cb3737;

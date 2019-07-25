@@ -8,7 +8,8 @@
         <div class="top">
           <div class="title">
             <div class="name" @click="handleDetail(item.userId)">{{item.userName}}</div>
-            <div class="date">{{getNumber(index)}}</div>
+            <div class="date">F{{item.thoughtsId}}</div>
+            <!-- <div class="date">{{getNumber(index)}}</div>原来的假楼层 -->
             <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
           </div>
           <!-- <el-button size="mini" round>只看此人</el-button> -->
@@ -23,7 +24,7 @@
         <!-- 按钮组 -->
         <div class="footer">
           <el-popover
-            placement="top-start"
+            placement="right-start"
             title=""
             width="200"
             trigger="hover"

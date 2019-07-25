@@ -95,6 +95,15 @@ export default {
       })
     },
   },
+  beforeRouteUpdate (to, from, next) {
+    this.$nextTick(() => {
+      if (this.$route.query.id) {
+        this.params.userId = this.$route.query.id
+      }
+      this.loadPage()
+    })
+    next()
+  },
   created () {
     if (this.$route.query.id) {
       this.params.userId = this.$route.query.id

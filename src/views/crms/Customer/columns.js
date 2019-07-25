@@ -29,7 +29,7 @@
     {
       label: '区域类型',
       prop: 'districtTypeName',
-      width:'100',
+      // width:'100',
     },
     {
       label: '客户关系',
@@ -66,7 +66,7 @@
     {
       label: '区域类型',
       prop: 'districtTypeName',
-      width:'100',
+      // width:'100',
     },
     {
       label: '客户关系',

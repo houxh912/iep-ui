@@ -45,7 +45,7 @@
               <!-- <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button> -->
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
-              <el-dropdown size="medium">
+              <el-dropdown size="medium" v-if="showPoint(type)">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="addContact(scope.row)">添加联系人</el-dropdown-item>
@@ -416,6 +416,15 @@ export default {
           this.$emit('onGoBack')
         }
       })
+    },
+    showPoint (type) {
+      if (type == 2) {
+        return true
+      } else if (type == 1) {
+        return true
+      } else {
+        return false
+      }
     },
   },
 

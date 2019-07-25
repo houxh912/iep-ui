@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 const dictsMap = {
   approveResult: {
     0: '未审核',
@@ -15,19 +15,23 @@ const columnsMap = [
   {
     prop: 'applyStartTime',
     label: '发起时间',
+    width:'170',
   },
   {
     prop: 'applyEndTime',
     label: '审批时间',
+    width:'170',
   },
   {
     prop: 'approverName',
     label: '审核人',
+    width:'100',
   },
   {
     prop: 'approveResult',
     label: '审批结果',
     type: 'dict',
+    width:'100',
   },
 ]
 

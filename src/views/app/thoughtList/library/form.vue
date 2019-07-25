@@ -63,7 +63,7 @@
 import { thoughtsCreate } from '@/api/cpms/thoughts'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import store from '@/store'
-import { getSubject } from './util'
+import { getSubject, getName } from './util'
 
 const initForm = () => {
   return {
@@ -124,6 +124,11 @@ export default {
           let subjectObj = getSubject(this.formData.content)
           if (subjectObj.type) {
             this.formData.topics = [subjectObj.data]
+          }
+          // 判断说说中是否存在人名
+          let nameObj = getName(this.formData.content)
+          if (nameObj.type) {
+            this.formData.nameList = nameObj.list.map(m => m.name)
           }
           thoughtsCreate(this.formData).then(({ data }) => {
             if (data.data) {

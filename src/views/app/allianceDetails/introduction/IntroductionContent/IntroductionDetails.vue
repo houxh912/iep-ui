@@ -30,7 +30,9 @@
       <span class="details-title">{{subTitle4}}</span>
       <div class="con">
         <div class="opex-item" v-for="opex in opexList" :key="opex.id">
-          <div class="img"><span class="bgb">{{opex.name1}}</span><iep-img class="img" :src="opex.img" alt=""></iep-img></div>
+          <div class="img"><span class="bgb">{{opex.name1}}</span>
+            <iep-img class="img" :src="opex.img" alt=""></iep-img>
+          </div>
           <span class="name">{{opex.name}}</span>
         </div>
       </div>
@@ -39,7 +41,9 @@
       <span class="details-title">{{subTitle5}}</span>
       <div class="con">
         <div class="opex-item" v-for="opex2 in opexList2" :key="opex2.id">
-          <div class="img"><span class="bgb">{{opex2.name1}}</span><iep-img class="img" :src="opex2.img" alt=""></iep-img></div>
+          <div class="img"><span class="bgb">{{opex2.name1}}</span>
+            <iep-img class="img" :src="opex2.img" alt=""></iep-img>
+          </div>
           <span class="name">{{opex2.name}}</span>
         </div>
       </div>
@@ -260,7 +264,8 @@ export default {
 <style scoped>
 .introduction-details >>> .details-title {
   display: block;
-  margin-bottom: 10px;
+  margin-top: 35px;
+  margin-bottom: 20px;
   font-size: 16px;
 }
 </style>

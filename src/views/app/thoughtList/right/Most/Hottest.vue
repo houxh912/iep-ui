@@ -14,11 +14,11 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+      this.$router.push({ path: '/app/more_thoughts', query: {id: row.id} })
     },
     loadData () {
       getMostThoughts().then(({ data }) => {
-        this.list = data.data
+        this.list = data.data.slice(0, 10)
       })
     },
   },

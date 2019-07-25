@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+﻿import { mergeByFirst } from '@/util/util'
 import { initNow } from '@/util/date'
 const dictsMap = {
 }
@@ -10,15 +10,18 @@ const columnsMap = [
   },
   {
     prop: 'userName',
-    label: '负责人',
+    label: '负责人', 
+    width:'100', 
   },
   {
     prop: 'people',
     label: '部门人数',
+    width:'100', 
   },
   {
     prop: 'establishedTime',
     label: '成立时间',
+    width:'170', 
   },
 ]
 

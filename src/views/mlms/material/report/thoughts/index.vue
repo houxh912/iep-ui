@@ -1,7 +1,7 @@
 <template>
   <div class="thoughts">
 
-    <div class="fillin">
+    <div class="fillin" v-if="false">
       <el-input type="textarea" rows=5 v-model="formData.content" placeholder="工作之余，分享一下今天的感想吧" maxlength="1000"></el-input>
       <div class="footer">
         <div class="state">

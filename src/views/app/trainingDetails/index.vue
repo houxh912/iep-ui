@@ -103,6 +103,7 @@ export default {
   margin: 0 auto 20px;
   border-top: 1px solid #eee;
   display: grid;
+  grid-column-gap: 30px;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
 }
@@ -174,9 +175,10 @@ export default {
 }
 .el-card {
   border: 0;
+  padding: 0 !important;
 }
 .library {
-  padding-right: 20px;
+  padding-right: 30px;
   border-right: 1px solid #ebeef5;
   .down-load {
     background-color: #fff;

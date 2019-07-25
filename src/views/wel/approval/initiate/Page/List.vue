@@ -13,7 +13,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="申请人">
+          <el-table-column label="申请人" width="100px">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}
                 <a-tag v-if="scope.row.isDraft" color="orange">草稿</a-tag>
@@ -21,7 +21,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="审核人">
+        <el-table-column label="审核人" width="100px">
           <template slot-scope="scope">
             <div>
               <span v-if="!scope.row.approveResult">{{scope.row.approverNameList.join('、')}}</span>
@@ -29,12 +29,12 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column label="审批结果">
+        <el-table-column label="审批结果" width="100px">
           <template slot-scope="scope">
             {{dictsMap.approveResult[scope.row.approveResult]}}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="230px">
+        <el-table-column label="操作" width="220px">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="scope.row.isDraft===0 && scope.row.approveResult===0" type="warning" plain @click="handleCancel(scope.row)">撤销</iep-button>

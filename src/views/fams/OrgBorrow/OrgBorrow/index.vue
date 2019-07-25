@@ -5,7 +5,7 @@
       <operation-container>
         <template slot="left">
           <el-dropdown>
-            <iep-button type="danger" icon="el-icon-plus" plain>
+            <iep-button type="primary" icon="el-icon-plus" plain>
               新增拆借<i class="el-icon-arrow-down el-icon--right"></i>
             </iep-button>
             <el-dropdown-menu slot="dropdown">

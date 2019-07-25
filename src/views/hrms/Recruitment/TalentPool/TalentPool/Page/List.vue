@@ -20,13 +20,13 @@
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="姓名" width="90px">
+        <el-table-column label="姓名" width="100px">
           <template slot-scope="scope">
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="250">
+      <el-table-column prop="operation" label="操作" width="180">
         <template slot-scope="scope">
           <operation-wrapper>
             <el-dropdown size="medium">
@@ -46,7 +46,7 @@
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
                 <!-- <el-dropdown-item @click.native="handleToResume([scope.row.id])">放入简历库</el-dropdown-item> -->
-                <el-dropdown-item @click.native="handleToBlacklist([scope.row.id])">拉黑</el-dropdown-item>
+                <el-dropdown-item @click.native="handleToBlacklist([scope.row.id])" type="warning" plain>拉黑</el-dropdown-item>
                 <!-- <el-dropdown-item divided>分享</el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>

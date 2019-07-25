@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+﻿import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   type: {
     'L': '支出',
@@ -27,7 +27,7 @@ const columnsMap = [
   {
     prop: 'createTime',
     label: '日期',
-    width: '160',
+    width: '170',
   },
   {
     prop: 'remarks',

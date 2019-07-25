@@ -55,7 +55,6 @@ export default {
   display: flex;
   align-items: center;
   align-content: center;
-  height: 180px;
   text-align: center;
   background-size: 100% 100%;
   .introduction-top-con {

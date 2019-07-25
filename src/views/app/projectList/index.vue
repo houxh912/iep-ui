@@ -7,7 +7,7 @@
     </div> -->
     <div class="wealth">
       <div class="library">
-        <librarys ref="librarys" class="librarys"></librarys>
+        <librarys ref="librarys" class="librarys" @joinUpTwo="joinUpEnd($event)"></librarys>
       </div>
       <div class="piece">
         <ranking></ranking>
@@ -54,6 +54,10 @@ export default {
       getGuessList().then(({ data }) => {
         this.listList = data.data
       })
+    },
+    joinUpEnd (val, ids) {
+      this.$refs['DialogShow'].cities = val
+      this.$refs['DialogShow'].arrId = ids
     },
   },
   created () {

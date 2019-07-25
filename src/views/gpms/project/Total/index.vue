@@ -28,7 +28,7 @@
       <el-table-column label="项目金额">
         <template slot-scope="scope">
           <span v-if="scope.row.contractAmount">{{ scope.row.contractAmount }}（合同）</span>
-          <span v-else>{{ scope.row.projectBudget }}（预算）</span>
+          <span v-else>{{ scope.row.projectAmount }}（预算）</span>
         </template>
       </el-table-column>
       <el-table-column label="项目经理">

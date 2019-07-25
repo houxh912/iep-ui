@@ -83,7 +83,7 @@
               </el-col>
               <el-col :span="12" class="item" v-else>
                 <el-form-item label="项目预算：">
-                  {{formData.projectBudget}}
+                  {{formData.projectAmount}}
                 </el-form-item>
               </el-col>
               <el-col :span="24" class="item">

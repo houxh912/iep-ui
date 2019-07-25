@@ -1,7 +1,7 @@
 <template>
   <div class="most">
     <librarys-header @search_page="loadPage"></librarys-header>
-    <librarys-content ref="content"></librarys-content>
+    <librarys-content ref="content" @joinUpOne="joinUpTwo($event)"></librarys-content>
   </div>
 </template>
 <script>
@@ -16,6 +16,9 @@ export default {
   methods: {
     loadPage (val) {
       this.$refs['content'].searchData(val)
+    },
+    joinUpTwo (val, ids) {
+      this.$emit('joinUpTwo', val, ids)
     },
   },
 }

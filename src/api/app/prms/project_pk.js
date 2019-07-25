@@ -8,3 +8,12 @@ export function getProjectPKList (obj) {
     data: obj,
   })
 }
+//加入
+
+export function getProjectJoinList (obj) {
+  return request({
+    url: 'prms/iepProjectInformation/projectCartAdd',
+    method: 'post',
+    data: obj,
+  })
+}

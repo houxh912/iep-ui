@@ -6,7 +6,7 @@
     <el-scrollbar style="height:180px">
       <el-checkbox-group class="options" v-model="checkedCities" @change="handleCheckedCitiesChange">
         <el-checkbox class="options-item" v-for="option in cities" :label="option.id" :key="option.id">
-          <span>{{option.moduleName}}</span>
+          <span>{{option.projectName}}</span>
           <i @click.stop="handleDelete(option.id)" class="icon-shanchu"></i>
         </el-checkbox>
       </el-checkbox-group>
@@ -16,7 +16,7 @@
         <!-- <span>{{size}}个模块</span>
         <span>共计：￥{{count}}</span> -->
       </div>
-      <el-button type="primary" @click="handeleCustom">PK详情</el-button>
+      <el-button type="primary" @click="handeleCustom" size="small">开始PK</el-button>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
   data () {
     return {
       dialogShow: false,
-      checkAll: false,
+      checkAll: true,
       checkedCities: [],
       cities: [],
       isIndeterminate: true,
@@ -50,6 +50,14 @@ export default {
       this.checkAll = checkedCount === this.cities.length
       this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length
       this.arrId = value
+    },
+    handeleCustom () {
+      this.$router.push({
+        path: '/app/project_pk',
+        query: {
+          ids: this.arrId,
+        },
+      })
     },
   },
 }

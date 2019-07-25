@@ -19,7 +19,7 @@
               <span><i class="iconfont icon-shijian"></i>{{dateFormat(item.publishTime)}}</span>
             </div>
           </div>
-          <iep-button class="pk-btn" type="danger" plain @click="joinPK(item)">加入pk</iep-button>
+          <iep-button class="pk-btn" type="danger" plain @click="joinPK(item)" :disabled="item.isClick==true">加入pk</iep-button>
         </div>
       </div>
       <div style="text-align: center;margin: 20px 0;">
@@ -31,6 +31,7 @@
 
 <script>
 import { getProjectPage } from '@/api/app/prms/'
+import { getProjectJoinList } from '@/api/app/prms/project_pk'
 import { mapGetters } from 'vuex'
 import { dateFormat } from '@/util/date'
 
@@ -49,6 +50,7 @@ export default {
         size: 10,
       },
       dateFormat,
+      idList: [],
     }
   },
   methods: {
@@ -74,7 +76,12 @@ export default {
     loadPage () {
       this.loading = true
       getProjectPage(Object.assign({}, this.paramForm, this.params)).then(({ data }) => {
-        this.dataList = data.data.records
+        this.dataList = data.data.records.map(m => {
+          return {
+            ...m,
+            isClick: false,
+          }
+        })
         this.total = data.data.total
         this.loading = false
       })
@@ -83,10 +90,12 @@ export default {
       this.params.current = val
       this.loadPage()
     },
-    joinPK (row) {
-      this.$router.push({
-        path: `/app/project_pk/${row.id}`,
+    joinPK (val) {
+      this.idList.push(val.id)
+      getProjectJoinList(this.idList).then(({ data }) => {
+        this.$emit('joinUpOne', data, this.idList)
       })
+      val.isClick = true
     },
   },
   created () {

@@ -153,7 +153,6 @@ export default {
   border-right: none;
 }
 .column-management >>> .table .cell {
-  display: -moz-box;
-  display: -webkit-box;
+  flex-wrap: inherit;
 }
 </style> 

@@ -25,8 +25,6 @@
     
     <!-- 发表说说 -->
     <publish-dialog ref="publish" @load-page="searchPage"></publish-dialog>
-    <!-- 转发 -->
-    <forwardDialog ref="forward"></forwardDialog>
   </iep-app-layout>
 </template>
 
@@ -34,7 +32,6 @@
 import { geTallPage } from '@/api/cpms/thoughts'
 import headTpl from './library/form'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
-import forwardDialog from './forwardDialog'
 import rightTpl from './right'
 import library from './library'
 
@@ -46,7 +43,7 @@ const initParams = () => {
 }
 
 export default {
-  components: { headTpl, PublishDialog, forwardDialog, rightTpl, library },
+  components: { headTpl, PublishDialog, rightTpl, library },
   data () {
     return {
       isShow: true,

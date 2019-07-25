@@ -50,6 +50,8 @@
         </div>
       </div>
     </div>
+    <!-- 转发 -->
+    <forwardDialog ref="forward" @load-page="loadPage"></forwardDialog>
   </div>
 </template>
 
@@ -59,6 +61,7 @@ import { mapActions } from 'vuex'
 import forwardContent from './forwardContent'
 import commentTpl from './commentTpl'
 import contentTpl from './content'
+import forwardDialog from '../forwardDialog'
 
 const initFormData = () => {
   return {
@@ -68,7 +71,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { forwardContent, commentTpl, contentTpl },
+  components: { forwardContent, commentTpl, contentTpl, forwardDialog },
   props: {
     dataList: {
       type: Array,

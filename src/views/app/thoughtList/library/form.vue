@@ -1,8 +1,18 @@
 <template>
   <div class="head">
     <el-form :model="formData" :rules="rules" ref="form" label-width="0px" class="input">
-      <el-form-item prop="content">
-        <el-input id="keyupStart" type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea" maxlength="1000" @keyup.native="handleKeyup"></el-input>
+      <el-form-item class="item-content" prop="content">
+        <el-input @click.native="handleCancal" id="keyupStart" ref="content" type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea" maxlength="1000" @keyup.native="handleKeyup"></el-input>
+        <div class="yincang">
+          {{formData.content}}
+          <el-autocomplete
+            ref="autocomplete"
+            v-model="state"
+            :fetch-suggestions="querySearchAsync"
+            placeholder="请输入内容"
+            @select="handleSelect"
+          ></el-autocomplete>
+        </div>
       </el-form-item>
       <div class="img-list" v-if="formData.images.length > 0">
         <div v-for="(item, index) in formData.images" :key="index" class="avatar">
@@ -64,6 +74,7 @@ import { thoughtsCreate } from '@/api/cpms/thoughts'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import store from '@/store'
 import { getSubject, getName } from './util'
+import keyup from './keyup'
 
 const initForm = () => {
   return {
@@ -78,6 +89,7 @@ const rules = {
 }
 
 export default {
+  mixins: [ keyup ],
   props: {
     transmitId: {
       type: Number,
@@ -96,17 +108,6 @@ export default {
     }
   },
   methods: {
-    handleKeyup (val) {
-      console.log('val: ', val)
-      if (val.key === '@') {
-        console.log('@')
-        var elInput = document.getElementById('keyupStart') //根据id选择器选中对象
-        var startPos = elInput.selectionStart // input 第0个字符到选中的字符
-        console.log('startPos: ', startPos)
-      } else if (val.key === ' ') {
-        console.log('空格')
-      }
-    },
     handleAvatarSuccess (row) {
       this.formData.images.push(row.data.url)
     },
@@ -252,5 +253,21 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style lang="scss" scoped>
+.item-content {
+  position: relative;
+}
+.yincang {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: left;
+  opacity: 0;
+}
+.el-autocomplete-suggestion {
+  width: 150px !important;
 }
 </style>

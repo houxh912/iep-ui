@@ -18,7 +18,7 @@ export default {
     },
     loadData () {
       getMostThoughtsWeekly().then(({ data }) => {
-        this.list = data.data
+        this.list = data.data.slice(0, 10)
       })
     },
   },

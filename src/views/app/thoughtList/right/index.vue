@@ -1,8 +1,8 @@
 <template>
   <div class="right">
+    <subjectTpl class="subject" ref="subject"></subjectTpl>
     <mostTpl class="most" ref="most"></mostTpl>
     <praiseTpl class="praise" ref="praise"></praiseTpl>
-    <subjectTpl class="subject" ref="subject"></subjectTpl>
   </div>
 </template>
 

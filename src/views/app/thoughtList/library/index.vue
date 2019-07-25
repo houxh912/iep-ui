@@ -142,6 +142,7 @@ export default {
     commentSubmit () {
       if (this.form.replyMsg == '') return
       CommentThoughts(this.form).then(() => {
+        this.activeIndex = -1
         this.loadPage()
       })
     },

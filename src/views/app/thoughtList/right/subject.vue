@@ -21,7 +21,7 @@ export default {
     },
     loadData () {
       getHotTopics().then(({ data }) => {
-        this.labelList = data.data
+        this.labelList = data.data.slice(0, 10)
       })
     },
   },

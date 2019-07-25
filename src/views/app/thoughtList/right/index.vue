@@ -1,8 +1,8 @@
 <template>
   <div class="right">
-    <mostTpl class="most"></mostTpl>
-    <praiseTpl class="praise"></praiseTpl>
-    <subjectTpl class="subject"></subjectTpl>
+    <subjectTpl class="subject" ref="subject"></subjectTpl>
+    <mostTpl class="most" ref="most"></mostTpl>
+    <praiseTpl class="praise" ref="praise"></praiseTpl>
   </div>
 </template>
 
@@ -12,6 +12,13 @@ import praiseTpl from './praise'
 import subjectTpl from './subject'
 export default {
   components: { mostTpl, praiseTpl, subjectTpl },
+  methods: {
+    loadData () {
+      this.$refs['most'].loadData()
+      this.$refs['praise'].loadData()
+      this.$refs['subject'].loadData()
+    },
+  },
 }
 </script>
 

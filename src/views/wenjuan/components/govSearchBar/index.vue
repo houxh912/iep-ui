@@ -40,8 +40,8 @@
     </div>
     <div :class="isSearch ? 'search-button-block' : 'search-button-inline'">
       <el-form-item>
-        <gov-button type="search" @click="handleFilter"></gov-button>
-        <gov-button type="reset" @click="handleReset" v-if="reset"></gov-button>
+        <gov-button class="search" type="search" @click="handleFilter"></gov-button>
+        <gov-button style="margin-left:5px" type="reset" @click="handleReset" v-if="reset"></gov-button>
         <slot name="button-groups"></slot>
       </el-form-item>
       <el-form-item>
@@ -214,5 +214,17 @@ export default {
 }
 .search-button-block {
   text-align: right;
+}
+.search {
+  margin-left: -13px;
+  border-radius: 0 3px 3px 0;
+  color: #909399;
+  background: #f4f4f5;
+  border-color: #d3d4d6;
+  &:hover {
+    background: #909399;
+    border-color: #909399;
+    color: #fff;
+  }
 }
 </style>

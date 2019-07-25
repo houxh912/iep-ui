@@ -31,7 +31,7 @@
         <div class="mail-name" @click="handleDetail(scope.row)">{{dealReceiverList(scope.row.receivers)}}</div>
       </template>
     </el-table-column>
-    <el-table-column prop="name" label="主题" min-width="160">
+    <el-table-column prop="name" label="主题" min-width="250">
       <template slot-scope="scope">
         <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.subject}}</div>
       </template>

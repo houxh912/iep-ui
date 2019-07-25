@@ -1,7 +1,7 @@
 <template>
   <iep-app-layout>
-    <h3 class="title">早晚五分钟，为<span class="akey">智慧</span>加油</h3>
-    <headTpl class="head" @load-page="loadPage"></headTpl>
+    <h3 class="title">#{{title}}#</h3>
+    <headTpl class="head" @load-page="submitCallBack"></headTpl>
     <div class="content">
       <div class="content-left">
         <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
@@ -19,48 +19,47 @@
         </div>
       </div>
       <div class="content-right">
-        <rightTpl ref="contentRight"></rightTpl>
+        <subjectTpl ref="subject"></subjectTpl>
       </div>
     </div>
     
     <!-- 发表说说 -->
     <publish-dialog ref="publish" @load-page="searchPage"></publish-dialog>
+    <!-- 转发 -->
+    <forwardDialog ref="forward"></forwardDialog>
   </iep-app-layout>
 </template>
 
 <script>
-import { geTallPage } from '@/api/cpms/thoughts'
-import headTpl from './library/form'
+import { getTopicThoughts } from '@/api/cpms/thoughts'
+import headTpl from '../library/form'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
-import rightTpl from './right'
-import library from './library'
+import forwardDialog from '../forwardDialog'
+import subjectTpl from '../right/subject'
+import library from '../library'
 
 const initParams = () => {
   return {
     current: 1,
     size: 10,
+    topicId: 0,
   }
 }
 
 export default {
-  components: { headTpl, PublishDialog, rightTpl, library },
+  components: { headTpl, PublishDialog, forwardDialog, subjectTpl, library },
+  beforeRouteUpdate (to, from, next) {
+    this.$nextTick(() => {
+      this.title = this.$route.query.title
+      this.params.topicId = this.$route.query.id
+      this.loadPage()
+    })
+    next()
+  },
   data () {
     return {
       isShow: true,
-      routerMatch: [
-        {
-          path: '/app/index',
-          name: '首页',
-        },
-        {
-          path: '/app/person',
-          name: '国脉人',
-        },
-        {
-          path: '/app/more_thoughts',
-          name: '说说列表',
-        },
-      ],
+      title: '',
       commontActiveIndex: -1,
       paramData: {},
       total: 0,
@@ -86,29 +85,19 @@ export default {
     },
     submitCallBack () {
       this.loadPage()
-      this.$refs['contentRight'].loadData()
+      this.$refs['subject'].loadData()
     },
     loadPage () {
-      geTallPage(this.params).then(({ data }) => {
+      getTopicThoughts(this.params).then(({ data }) => {
         this.dataList = data.data.records
         this.total = data.data.total
         this.activeIndex = -1
       })
     },
   },
-  beforeRouteUpdate (to, from, next) {
-    this.$nextTick(() => {
-      if (this.$route.query.id) {
-        this.params.userId = this.$route.query.id
-      }
-      this.loadPage()
-    })
-    next()
-  },
   created () {
-    if (this.$route.query.id) {
-      this.params.userId = this.$route.query.id
-    }
+    this.title = this.$route.query.title
+    this.params.topicId = this.$route.query.id
     this.loadPage()
   },
 }
@@ -116,7 +105,8 @@ export default {
 
 <style lang="scss" scoped>
 h3.title {
-  text-align: center;
+  width: 1200px;
+  margin: auto;
   font-size: 24px;
   padding: 30px 0 20px;
   .akey {

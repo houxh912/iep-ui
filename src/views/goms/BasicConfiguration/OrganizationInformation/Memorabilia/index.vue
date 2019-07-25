@@ -2,18 +2,18 @@
   <div>
     <operation-container>
       <template slot="right">
-          <operation-search @search-page="searchPage" prop="title"></operation-search>
-        </template>
+        <operation-search @search-page="searchPage" prop="title"></operation-search>
+      </template>
       <template slot="left">
         <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-      <el-table-column prop="operation" label="操作" width="250">
+      <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
             <!-- <iep-button type="warning" @click="handleReview(scope.row)" plain>审核</iep-button> -->
-            <iep-button @click="handleEdit(scope.row)" size="small">编辑</iep-button>
+            <iep-button type="warning" @click="handleEdit(scope.row)" size="small" plain>编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -39,7 +39,7 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable:[],
+      pagedTable: [],
     }
   },
   created () {
@@ -62,7 +62,7 @@ export default {
       this.$refs['iepReviewForm'].dialogShow = true
     },
     handleEdit (row) {
-      getOrgEventsById(row.id).then(({data}) => {
+      getOrgEventsById(row.id).then(({ data }) => {
         this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), data.data)
         this.$refs['DialogForm'].methodName = '修改'
         this.$refs['DialogForm'].formRequestFn = orgEventsUpdate

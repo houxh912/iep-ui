@@ -4,7 +4,7 @@
       <div class="main-top">
         <el-card class="left" shadow="never">
           <h4 class="title">总资产</h4>
-          <div class="total-wrapper">
+          <div v-if="accountType === 0" class="total-wrapper">
             <div class="total-item" v-for="(item, index) in financialData" :key="index">
               <el-tooltip v-if="index=='现金'" class="item" effect="dark" content="现金=提现现金+工资银行卡部分" placement="bottom">
                 <div class="value">{{item}}</div>
@@ -12,6 +12,12 @@
               <div v-else class="value">{{item}}</div>
               <div class="label"><a href="#" @click="$openPage(typeUrlMap[index])">{{index}}</a></div>
             </div>
+          </div>
+          <div v-if="accountType === 1" class="no-treasure-data">
+            <el-button @click="handleGoOpenAccount()" round>去工作台开通账户并提取1000国脉贝</el-button>
+          </div>
+          <div v-if="accountType === 2" class="no-treasure-data">
+            <el-button @click="handleGoOpenAccount()" round>去工作台提取1000国脉贝</el-button>
           </div>
         </el-card>
         <el-card class="right" shadow="never">
@@ -83,14 +89,14 @@ export default {
     }
     return {
       replaceText: (data) => `${data[0]}`,
-      dateValue: '',
+      accountType: 0,
       financialData: {
         '现金': 0,
         '国脉贝': 0,
         '冻结金额': 0,
         '发票额度': 0,
         '投资': 0,
-        '其他': '',
+        '其他': 0,
       },
       chartData: {
         columns: ['dept', '收入', '支出'],
@@ -111,6 +117,9 @@ export default {
   },
   methods: {
     ...mapActions(['famsReward']),
+    handleGoOpenAccount () {
+      this.$openPage('/')
+    },
     handleReward () {
       this.famsReward()
     },
@@ -119,12 +128,17 @@ export default {
     },
     async loadPage () {
       const { data } = await getTotal()
-      this.financialData['国脉贝'] = data.data.govmadeBell
-      this.financialData['冻结金额'] = data.data.lockBell
-      this.financialData['发票额度'] = data.data.withInvoice
-      this.financialData['现金'] = data.data.cash
-      this.financialData['投资'] = data.data.stockRight
-      this.financialData['其他'] = data.data.other
+      if (data.data) {
+        this.financialData['国脉贝'] = data.data.govmadeBell
+        this.financialData['冻结金额'] = data.data.lockBell
+        this.financialData['发票额度'] = data.data.withInvoice
+        this.financialData['现金'] = data.data.cash
+        this.financialData['投资'] = data.data.stockRight
+        this.financialData['其他'] = data.data.other
+        this.accountType = 0
+      } else {
+        this.accountType = +data.msg
+      }
     },
   },
 }
@@ -241,5 +255,16 @@ ul {
   .block {
     width: 40%;
   }
+}
+.no-treasure-data {
+  display: flex;
+  height: 82px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  background: #f3f3f3;
+  padding: 15px 0;
 }
 </style>

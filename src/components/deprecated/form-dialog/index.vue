@@ -94,6 +94,29 @@ export default {
 .dialog-content {
   max-height: 54vh;
   overflow-y: scroll;
+  &::-webkit-scrollbar {
+    border-radius: 10px;
+    width: 6px;
+    background-color: #fff;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #fff;
+    -webkit-transition: 0.3s background-color;
+    transition: 0.3s background-color;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #ddd;
+    -webkit-transition: 0.3s background-color;
+    transition: 0.3s background-color;
+    display: none;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+  }
+  &:hover ::-webkit-scrollbar-thumb {
+    display: block;
+  }
 }
 .text-icon {
   color: #333;

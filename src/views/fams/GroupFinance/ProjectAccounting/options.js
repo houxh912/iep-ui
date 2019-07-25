@@ -1,4 +1,4 @@
-import { getYear } from '@/util/date'
+﻿import { getYear } from '@/util/date'
 
 const rules = {
 	orgId: [
@@ -16,6 +16,7 @@ const columnsMap = [
 	{
 		prop: 'orgName',
 		label: '组织名称',
+                                width:'150',
 	},
 	{
 		prop: 'amount',

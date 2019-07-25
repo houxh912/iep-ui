@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="hover" :body-style="{padding:'20px 20px 0 20px'}">
     <el-row class="survey">
-      <el-col class="head">本周跟进情况<span class="sub">（新增）</span></el-col>
+      <el-col class="head">本周新增情况<span class="sub"></span></el-col>
       <el-col :span='6' class="tab">
         <span class="num">{{data.increasedClient}}</span> 客户
       </el-col>

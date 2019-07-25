@@ -1,4 +1,4 @@
-const dictsMap = {
+﻿const dictsMap = {
   type: {
     'A': '收入',
     'L': '支出',
@@ -30,6 +30,7 @@ const columnsMap = [
   {
     prop: 'createTime',
     label: '日期',
+    width: 150,
   },
   {
     prop: 'remarks',

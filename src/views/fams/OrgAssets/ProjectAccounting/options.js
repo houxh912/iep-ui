@@ -1,4 +1,4 @@
-import { getYear, getMonth } from '@/util/date'
+﻿import { getYear, getMonth } from '@/util/date'
 const columnsMap = [
 	{
 		prop: 'createTime',
@@ -9,6 +9,7 @@ const columnsMap = [
 	{
 		prop: 'projectStage',
 		label: '项目阶段',
+                                width:100,
 		type: 'dictGroup',
 		dictName: 'prms_project_stage',
 	},

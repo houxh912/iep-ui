@@ -14,7 +14,7 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
-      <el-table-column label="项目名称" slot="before-columns" width="300px">
+      <el-table-column label="项目名称" slot="before-columns" width="280px">
         <template slot-scope="scope">
           <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
             <span class="grade" v-show="scope.row.projectLevel==1">重要</span>

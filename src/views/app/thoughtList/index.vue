@@ -9,7 +9,7 @@
           <IepNoData v-if="dataList.length == 0"></IepNoData>
           <div v-else>
             <div class="material">
-              <library ref="library" @load-page="loadPage" :dataList="dataList" :params="params"></library>
+              <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
             </div>
           </div>
         </div>
@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="content-right">
-        <rightTpl></rightTpl>
+        <rightTpl ref="contentRight"></rightTpl>
       </div>
     </div>
     
@@ -86,6 +86,10 @@ export default {
     // 我要发布
     handlePublish () {
       this.$refs['publish'].open()
+    },
+    submitCallBack () {
+      this.loadPage()
+      this.$refs['contentRight'].loadData()
     },
     loadPage () {
       geTallPage(this.params).then(({ data }) => {

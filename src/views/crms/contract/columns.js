@@ -1,5 +1,5 @@
-const columnsMapByTypeId = [
-  { label: '合同名称', prop: 'contractName' },
+﻿const columnsMapByTypeId = [
+  { label: '合同名称', prop: 'contractName',width:'300' },
   { label: '合同类型', prop: 'contractType', type: 'dict' },
   { label: '合同金额', prop: 'contractAmount' },
   { label: '合同状态', prop: 'contractStatusValue' },

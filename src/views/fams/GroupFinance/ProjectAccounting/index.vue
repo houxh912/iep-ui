@@ -26,7 +26,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
         <template slot="before-columns">
-          <el-table-column label="时间">
+          <el-table-column label="时间" width="70px">
             <template slot-scope="scope">
               {{scope.row.businessYear + '年'}}
             </template>
@@ -49,7 +49,7 @@
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <iep-button @click.stop="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button @click.stop="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>
           </template>
         </el-table-column>
       </iep-table>

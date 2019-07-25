@@ -97,7 +97,7 @@ export default {
     display: inline-block;
     margin-right: 10px;
     color: #333;
-    font-size: 16px;
+    font-size: 18px;
     &:hover {
       color: #cb3737;
     }

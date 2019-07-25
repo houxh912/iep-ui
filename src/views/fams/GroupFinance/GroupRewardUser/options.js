@@ -38,7 +38,7 @@ const initForm = () => {
 }
 
 const dtoForm = (row) => {
-  const newForm = {...row}
+  const newForm = { ...row }
   newForm.targetUserIds = newForm.targetUsers.map(m => m.id)
   return newForm
 }
@@ -48,7 +48,7 @@ const rules = {
     { required: true, message: '请选择打赏方式', trigger: 'blur' },
   ],
   amount: [
-    { type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur', min: 1 },
+    { type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur', min: 0.01 },
   ],
   type: [
     { required: true, message: '请选择打赏类型', trigger: 'blur' },

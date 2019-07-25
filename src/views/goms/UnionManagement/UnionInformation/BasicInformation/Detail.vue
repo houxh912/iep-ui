@@ -36,9 +36,11 @@
         <div class="introduction-details">
           <div class="tags-detail">
             <span class="details-title">联盟标签</span>
-            <iep-goms-tags title="卓越" :tags="form.abilityTag"></iep-goms-tags>
-            <iep-goms-tags title="专业" :tags="form.projectTag"></iep-goms-tags>
-            <iep-goms-tags title="进步" :tags="form.learningTag"></iep-goms-tags>
+            <div class="tag-wrapper">
+              <iep-goms-tags title="卓越" :tags="form.abilityTag"></iep-goms-tags>
+              <iep-goms-tags title="专业" :tags="form.projectTag"></iep-goms-tags>
+              <iep-goms-tags title="进步" :tags="form.learningTag"></iep-goms-tags>
+            </div>
           </div>
           <div class="brief">
             <span class="details-title">联盟简介</span>
@@ -51,11 +53,15 @@
           </div>
           <div class="framework">
             <span class="details-title">联盟架构</span>
-            <iep-html v-model="form.structure"></iep-html>
+            <div class="con">
+              <iep-html v-model="form.structure"></iep-html>
+            </div>
           </div>
           <div class="culture">
             <span class="details-title">联盟文化</span>
-            <iep-html v-model="form.unionCulture"></iep-html>
+            <div class="con">
+              <iep-html v-model="form.unionCulture"></iep-html>
+            </div>
           </div>
           <business-layout></business-layout>
           <div class="opex">
@@ -172,13 +178,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .tag-wrapper {
-  margin-left: 20px;
+  margin-left: 30px;
   .tag-item {
     margin-bottom: 10px;
   }
 }
 .org-detail-wrapper {
-  margin: 0 20px;
   .labs-con {
     display: flex;
     margin-top: 15px;
@@ -206,7 +211,7 @@ export default {
     .top {
       display: flex;
       .img-wrapper {
-        width: 250px;
+        width: 220px;
         height: 150px;
         border: 1px solid #eee;
         padding: 5px;
@@ -217,17 +222,19 @@ export default {
       }
       .info-wrapper {
         margin-left: 20px;
-        padding: 10px;
+        padding: 5px;
         .title {
+          margin-bottom: 10px;
           font-size: 18px;
         }
         .col {
           display: flex;
           font-size: 16px;
           .form-item-wrapper {
-            padding: 10px 0;
+            padding: 5px 0;
             margin-right: 10px;
             font-size: 14px;
+            color: #666;
           }
         }
       }
@@ -253,6 +260,7 @@ export default {
 .contact {
   .con {
     display: flex;
+    margin-left: 30px;
     width: 50%;
     justify-content: space-between;
     align-items: center;
@@ -263,6 +271,7 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    margin-left: 30px;
     .name {
       display: block;
       margin-top: 10px;
@@ -319,11 +328,20 @@ export default {
     }
   }
 }
+.labTitle {
+  span {
+    color: #666;
+  }
+}
+.con {
+  margin-left: 30px;
+}
 </style>
 <style scoped>
 .introduction-details >>> .details-title {
   display: block;
-  margin-bottom: 10px;
+  margin-top: 35px;
+  margin-bottom: 20px;
   font-size: 16px;
 }
 </style>

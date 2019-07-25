@@ -5,7 +5,7 @@
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
-            <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+            <iep-button type="primary" plain>更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
             </el-dropdown-menu>
@@ -19,12 +19,12 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @selection-change="handleSelectionChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="发件人" width="220px">
+          <el-table-column label="发件人">
             <template slot-scope="scope">
               {{scope.row.name}}
             </template>
           </el-table-column>
-          <el-table-column label="主题">
+          <el-table-column label="主题" width="350px">
             <template slot-scope="scope">
               {{scope.row.theme}}<i class="iconfont icon-fujian" v-show="scope.row.annex"></i>
             </template>

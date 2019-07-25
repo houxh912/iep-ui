@@ -20,13 +20,13 @@
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="姓名" width="90px">
+        <el-table-column label="姓名" width="100px">
           <template slot-scope="scope">
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="220">
+      <el-table-column prop="operation" label="操作" width="180">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>

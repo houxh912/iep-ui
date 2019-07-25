@@ -5,11 +5,11 @@
       <operation-container>
         <template v-if="type==='2'" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增客户</iep-button>
-          <iep-button type="primary" @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
-          <iep-button type="primary" @click="Transfer(2)" plain>转移</iep-button>
+          <iep-button @click="excellImport" plain v-show="isDrPermissions()">导入</iep-button>
+          <iep-button @click="Transfer(2)" plain>转移</iep-button>
         </template>
         <template v-if="type==='1'" slot="left">
-          <iep-button type="primary" @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
+          <iep-button @click="Transfer(1)" plain v-show="isZyPermissions()">转移</iep-button>
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="changeType">
@@ -22,7 +22,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
         <template slot="before-columns">
-          <el-table-column label="客户名称" width="300px">
+          <el-table-column label="客户名称" width="350px">
             <template slot-scope="scope">
               <span class="clientName">{{scope.row.clientName}}</span>
               <el-col class="custom-tags">
@@ -33,13 +33,13 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="距离上次拜访已有" v-if="isShow(type)" min-width="100">
+        <el-table-column label="距离上次拜访已有" v-if="isShow(type)" width="150px">
           <template slot-scope="scope">
             <div v-if="scope.row.hasOwnProperty('lastTime')">{{scope.row.lastTime }} 天</div>
             <div v-else>无</div>
           </template>
         </el-table-column>
-        <el-table-column v-if="isShow(type)" prop="operation" label="操作" width="250px">
+        <el-table-column v-if="isShow(type)" prop="operation" label="操作" width="220px">
           <template slot-scope="scope">
             <operation-wrapper>
               <!-- <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button> -->
@@ -251,75 +251,84 @@ export default {
     },
     //删除客户
     handleDelete (row) {
-      this.$confirm('删除客户需要先删除客户的商机、合同，删除同时会自动清除此客户关联的联系人，该操作成功之后，将无法恢复', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        this.ids = []
-        this.ids.push(row.clientId)
-        // this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
-        deleteCustomerBatch(this.ids)
-        // 联系人删除
-        fetchList({ clientId: row.clientId }).then(res => {
-          let ConactsId = []
-          for (let i = 0; i < res.data.data.records.length; i++) {
-            ConactsId.push(res.data.data.records[i].clientContactId)
-          }
-          if (ConactsId.length > 0) {
-            deleteDataById(ConactsId)
-          }
-        })
-        // 拜访日志删除
-        getVisitListData({ id: row.clientId }).then(res => {
-          let visitLstId = []
-          for (let i = 0; i < res.data.data.records.length; i++) {
-            visitLstId.push(res.data.data.records[i].id)
-          }
-          if (visitLstId.length > 0) {
-            deleteAllVisitLog(visitLstId)
-          }
-        })
-        // 联系记录删除
-        fetchVisitList({ id: row.clientId }).then(res => {
-          let visitDataId = []
-          for (let i = 0; i < res.data.data.records.length; i++) {
-            visitDataId.push(res.data.data.records[i].contactId)
-          }
-          if (visitDataId.length > 0) {
-            deleteVisit(visitDataId)
-          }
-        })
-        // 方案删除
-        getSchemePage({ clientId: row.clientId }).then(res => {
-          let schemeId = []
-          for (let i = 0; i < res.data.data.records.length; i++) {
-            schemeId.push(res.data.data.records[i].programId)
-          }
-          if (schemeId.length > 0) {
-            deleteSchemeById(schemeId)
-          }
-        })
-        // 合同删除
-        getAgreementPage({ id: row.clientId }).then(res => {
-          let agreementId = []
-          for (let i = 0; i < res.data.data.records.length; i++) {
-            agreementId.push(res.data.data.records[i].contractId)
-          }
-          if (agreementId.length > 0) {
-            deleteAgreement(agreementId)
-          }
-        })
-        this.$message({
-          type: 'success',
-          message: '删除成功!',
-        })
-        this.$emit('onGoBack')
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除',
-        })
+      getAgreementPage({ id: row.clientId }).then(res => {
+        if (res.data.data.records.length > 0) {
+          this.$message({
+            message: '该客户已存在合同，要删除客户需先删除该客户的合同',
+            type: 'warning',
+          })
+        } else {
+          this.$confirm('此操作将删除该数据，是否继续？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+          }).then(() => {
+            this.ids = []
+            this.ids.push(row.clientId)
+            // this._handleGlobalDeleteById(this.ids, deleteCustomerBatch)
+            deleteCustomerBatch(this.ids)
+            // 联系人删除
+            fetchList({ clientId: row.clientId }).then(res => {
+              let ConactsId = []
+              for (let i = 0; i < res.data.data.records.length; i++) {
+                ConactsId.push(res.data.data.records[i].clientContactId)
+              }
+              if (ConactsId.length > 0) {
+                deleteDataById(ConactsId)
+              }
+            })
+            // 拜访日志删除
+            getVisitListData({ id: row.clientId }).then(res => {
+              let visitLstId = []
+              for (let i = 0; i < res.data.data.records.length; i++) {
+                visitLstId.push(res.data.data.records[i].id)
+              }
+              if (visitLstId.length > 0) {
+                deleteAllVisitLog(visitLstId)
+              }
+            })
+            // 联系记录删除
+            fetchVisitList({ id: row.clientId }).then(res => {
+              let visitDataId = []
+              for (let i = 0; i < res.data.data.records.length; i++) {
+                visitDataId.push(res.data.data.records[i].contactId)
+              }
+              if (visitDataId.length > 0) {
+                deleteVisit(visitDataId)
+              }
+            })
+            // 方案删除
+            getSchemePage({ clientId: row.clientId }).then(res => {
+              let schemeId = []
+              for (let i = 0; i < res.data.data.records.length; i++) {
+                schemeId.push(res.data.data.records[i].programId)
+              }
+              if (schemeId.length > 0) {
+                deleteSchemeById(schemeId)
+              }
+            })
+            // 合同删除
+            getAgreementPage({ id: row.clientId }).then(res => {
+              let agreementId = []
+              for (let i = 0; i < res.data.data.records.length; i++) {
+                agreementId.push(res.data.data.records[i].contractId)
+              }
+              if (agreementId.length > 0) {
+                deleteAgreement(agreementId)
+              }
+            })
+            this.$message({
+              type: 'success',
+              message: '删除成功!',
+            })
+            this.$emit('onGoBack')
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除',
+            })
+          })
+        }
       })
     },
     handleAllDelete () {

@@ -1,4 +1,4 @@
-const dictsMap = {
+﻿const dictsMap = {
   status: {
     0: '待确认',
     1: '已确认',
@@ -14,6 +14,7 @@ const columnsMap = [
     prop: 'status',
     label: '状态',
     type: 'dict',
+    width:'100',
   },
 ]
 const initForm = () => {

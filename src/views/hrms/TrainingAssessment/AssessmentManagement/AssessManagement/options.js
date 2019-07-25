@@ -1,4 +1,4 @@
-const dictsMap = {
+﻿const dictsMap = {
   status: {
     0: '考核中',
     1: '考核完成',
@@ -22,6 +22,7 @@ const columnsMap = [
   {
     prop: 'startTime',
     label: '考核时间',
+    width:'150',
   },
   {
     prop: 'status',

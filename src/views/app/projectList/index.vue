@@ -86,6 +86,7 @@ export default {
   margin: 0 auto;
   border-top: 1px solid #eee;
   display: grid;
+  grid-column-gap: 30px;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 900px) minmax(100px, 300px);
 }
@@ -93,7 +94,7 @@ export default {
   border: 0;
 }
 .library {
-  padding: 0 20px;
+  padding-right: 30px;
   border-right: 1px solid #ebeef5;
 }
 .project-pk {

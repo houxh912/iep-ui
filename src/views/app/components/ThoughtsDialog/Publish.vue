@@ -1,29 +1,10 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="发布说说" width="50%" @close="resetForm">
-    <el-form :model="formData" :rules="rules" ref="form" label-width="100px" style="margin-right: 20px;">
-
-      <el-form-item label="说说内容：" prop="content">
-        <el-input type="textarea" rows="5" v-model="formData.content" maxlength="1000" />
-      </el-form-item>
-      <el-form-item label="是否开放：">
-        <el-switch
-          v-model="formData.status"
-          active-color="#13ce66"
-          inactive-color="#bbb"
-          :active-value="0"
-          :inactive-value="1">
-        </el-switch>
-      </el-form-item>
-    </el-form>
-    <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')" :loading="loadState">发表</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
-    </template>
+    <formTpl @load-page="resetForm"></formTpl>
   </iep-dialog>
 </template>
 <script>
-import { thoughtsCreate } from '@/api/cpms/thoughts'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
+import formTpl from '@/views/app/thoughtList/library/form'
 
 function initFormData () {
   return {
@@ -37,6 +18,7 @@ const rules = {
 }
 
 export default {
+  components: { formTpl },
   data () {
     return {
       rules,
@@ -51,32 +33,6 @@ export default {
     },
     loadPage () {
       this.$emit('load-page')
-    },
-    submitForm (formName) {
-      let fn = () => {
-        this.loadState = false
-        this.loadPage()
-        this.dialogShow = false
-      }
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.loadState = true
-          thoughtsCreate(this.formData).then(() => {
-            // 判断是否公开，不公开(1)的说说没有奖励
-            if (this.formData.status === 1) {
-              this.$message.success('恭喜您发表了一篇说说，继续努力')
-              fn()
-            } else {
-              addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
-                this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
-                fn()
-              })
-            }
-          })
-        } else {
-          return false
-        }
-      })
     },
     resetForm () {
       this.formData = initFormData()

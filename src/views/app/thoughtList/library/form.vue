@@ -2,7 +2,7 @@
   <div class="head">
     <el-form :model="formData" :rules="rules" ref="form" label-width="0px" class="input">
       <el-form-item prop="content">
-        <el-input type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea" maxlength="1000"></el-input>
+        <el-input id="keyupStart" type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea" maxlength="1000" @keyup.native="handleKeyup"></el-input>
       </el-form-item>
       <div class="img-list" v-if="formData.images.length > 0">
         <div v-for="(item, index) in formData.images" :key="index" class="avatar">
@@ -96,6 +96,17 @@ export default {
     }
   },
   methods: {
+    handleKeyup (val) {
+      console.log('val: ', val)
+      if (val.key === '@') {
+        console.log('@')
+        var elInput = document.getElementById('keyupStart') //根据id选择器选中对象
+        var startPos = elInput.selectionStart // input 第0个字符到选中的字符
+        console.log('startPos: ', startPos)
+      } else if (val.key === ' ') {
+        console.log('空格')
+      }
+    },
     handleAvatarSuccess (row) {
       this.formData.images.push(row.data.url)
     },

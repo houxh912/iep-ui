@@ -4,8 +4,8 @@ const env = process.env
 
 const baseUrl = ''
 
-const iconfontVersion = ['1036949_hkqd1wblcjo']
-const multicolorIconfontUrl = '//at.alicdn.com/t/font_1184303_t5v0uj66ok.js'
+const iconfontVersion = ['1036949_aza0i8923yp']
+const multicolorIconfontUrl = '//at.alicdn.com/t/font_1184303_mhqvids4u2k.js'
 const iconfontUrl = '//at.alicdn.com/t/font_$key.css'
 
 const codeUrl = '/api/code'

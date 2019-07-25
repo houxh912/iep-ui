@@ -1,4 +1,4 @@
-// import { mergeByFirst } from '@/util/util'
+﻿// import { mergeByFirst } from '@/util/util'
 const dictsMap = {
 	expenditureMode: {
 		'0': '库存现金',
@@ -16,6 +16,7 @@ const columnsMap = [
 	{
 		prop: 'amount',
 		label: '金额',
+                                width:'80',
 	},
 	{
 		prop: 'typeValue',
@@ -24,19 +25,23 @@ const columnsMap = [
 	{
 		prop: 'orgName',
 		label: '组织',
+                                width:'150',
 	},
 	{
 		prop: 'companyName',
 		label: '线下公司',
+                                width:'220',
 	},
 	{
 		prop: 'expenditureMode',
 		label: '支出方式',
 		type: 'dict',
+                                width:'100',
 	},
 	{
 		prop: 'bankAccount',
 		label: '银行账户',
+                                width:'250',
 	},
 	{
 		prop: 'remarks',

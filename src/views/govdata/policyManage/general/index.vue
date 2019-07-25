@@ -27,7 +27,7 @@
 
       <el-form :inline="true" size="small">
         <el-form-item>
-          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
+          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus" plain>新增</el-button>
         </el-form-item>
         <!-- <el-form-item>
           <el-dropdown @command="handleMove">
@@ -43,19 +43,19 @@
         </el-form-item> -->
       </el-form>
 
-      <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
+      <crud-table class="table-con" :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
         <!-- <el-table-column prop="title" label="政策名称" align="left" width="300"></el-table-column>
         <el-table-column prop="publishTime" label="发文时间" align="center"></el-table-column>
         <el-table-column prop="creatorName" label="上传者" align="center"></el-table-column>
         <el-table-column prop="examineUserName" label="审核人" align="center"></el-table-column>
         <el-table-column prop="examineDate" label="审核通过时间" align="center"></el-table-column> -->
-        <el-table-column prop="operation" align="center" label="操作" width="200">
+        <el-table-column prop="operation" align="center" label="操作" width="220">
           <template slot-scope="scope">
-            <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
-            <iep-divider type="vertical" />
-            <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit">修改</el-button>
-            <iep-divider type="vertical" />
-            <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete">删除</el-button>
+            <el-button class="btn" @click="handleView(scope.row)" type="warning" plain size="small">查看</el-button>
+            <!-- <iep-divider type="vertical" /> -->
+            <el-button class="btn" @click="handleClickMotify(scope.row)" size="small" type="default">修改</el-button>
+            <!-- <iep-divider type="vertical" /> -->
+            <el-button class="btn" @click="handleDelete(scope.row)" size="small" type="default" i>删除</el-button>
           </template>
         </el-table-column>
       </crud-table>
@@ -91,24 +91,24 @@ const columnMap = [
     prop: 'publishTime',
     label: '发文时间',
     type: 'time',
-    width: 140,
+    width: 150,
     // sortable: 'custom',
   },
   {
     prop: 'creatorName',
     label: '上传者',
-    width: 140,
+    width: 100,
   },
   {
     prop: 'examineUserName',
     label: '审核人',
-    width: 140,
+    width: 100,
   },
   {
     prop: 'examineDate',
     label: '审核通过时间',
     type: 'time',
-    width: 140,
+    width: 150,
     // sortable: 'custom',
   },
 ]
@@ -409,3 +409,14 @@ export default {
 }
 </style>
 
+
+<style scoped>
+.btn {
+  margin-right: -5px;
+}
+.table-con >>> .cell span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>

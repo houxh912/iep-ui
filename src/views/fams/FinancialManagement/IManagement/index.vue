@@ -4,7 +4,7 @@
       <iep-page-header title="收入管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleIncome()" type="danger" icon="el-icon-plus" plain>添加收入</iep-button>
+          <iep-button @click="handleIncome()" type="primary" icon="el-icon-plus" plain>添加收入</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -15,7 +15,7 @@
         <el-table-column prop="operation" label="操作" width="200" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleProcess(scope.row)">待处理</iep-button>
+              <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleProcess(scope.row)" type="warning" plain>待处理</iep-button>
               <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleIssued(scope.row)">提成发放</iep-button>
             </operation-wrapper>
           </template>

@@ -10,7 +10,7 @@
 
     <el-form :inline="true" size="small">
       <el-form-item v-if="gov_tagType_add">
-        <el-button @click="handleClick()" type="primary" icon="el-icon-plus">新增父分类</el-button>
+        <el-button @click="handleClick()" type="primary" icon="el-icon-plus" plain>新增父分类</el-button>
       </el-form-item>
     </el-form>
     <crud-tree-table :is-load-table="isLoadTable" :paged-table="pagedTable" :column-map="columnMap" border>
@@ -21,11 +21,11 @@
       </el-table-column>
       <el-table-column label="操作" width="250">
         <template slot-scope="scope">
-          <el-button :disabled="scope.row.parentId===-1 || scope.row._level >= 4" @click="handleAddChild(scope.row)" type="text" size="small">添加子分类</el-button>
-          <iep-divider type="vertical" />
-          <el-button :disabled="!gov_tagType_edit || scope.row.parentId===-1" @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
-          <iep-divider type="vertical" />
-          <el-button :disabled="!gov_tagType_del || scope.row.parentId===-1" @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button class="btn" :disabled="scope.row.parentId===-1 || scope.row._level >= 4" @click="handleAddChild(scope.row)" type="warning" size="small" plain>添加子分类</el-button>
+          <!-- <iep-divider type="vertical" /> -->
+          <el-button class="btn" :disabled="!gov_tagType_edit || scope.row.parentId===-1" @click="handleClick(scope.row)" size="small" type="default">修改</el-button>
+          <!-- <iep-divider type="vertical" /> -->
+          <el-button class="btn" :disabled="!gov_tagType_del || scope.row.parentId===-1" @click="handleDelete(scope.row)" size="small" type="default">删除</el-button>
         </template>
       </el-table-column>
     </crud-tree-table>
@@ -166,3 +166,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.btn {
+  margin-right: -5px;
+}
+</style>

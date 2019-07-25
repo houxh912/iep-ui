@@ -8,8 +8,8 @@
       <avue-crud @selection-change="selectionChange" :option="myTableOption" :data="tableList" :table-loading="tableLoading" @size-change="sizeChange" @current-change="currentChange" :page="pagination">
         <template slot-scope="scope" slot="menu">
           <div class="table-btn-group">
-            <gov-button v-if="answeredList.indexOf(scope.row.id) > -1 ? false : true" @click="handleAnswer(scope.row)" type="text">开始答卷</gov-button>
-            <gov-button @click="handleDetail(scope.row)" type="text">预览</gov-button>
+            <iep-button v-if="answeredList.indexOf(scope.row.id) > -1 ? false : true" @click="handleAnswer(scope.row)" type="warning" size="small" plain>开始答卷</iep-button>
+            <iep-button @click="handleDetail(scope.row)" type="default" size="small">预览</iep-button>
           </div>
         </template>
       </avue-crud>
@@ -104,3 +104,10 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.table-btn-group .el-button {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+</style>

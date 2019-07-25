@@ -6,7 +6,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" :dictsMap="dictsMap" :columnsMap="columnsMap" @current-change="handleCurrentChange">
         <template slot="before-columns">
-          <el-table-column label="定制产品名称" width="280px">
+          <el-table-column label="定制产品名称" width="350px">
             <template slot-scope="scope">
               <iep-table-link @click="handleDetail(scope.row)">{{scope.row.customName}}</iep-table-link>
             </template>
@@ -17,7 +17,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="220px">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="scope.row.status==0" type="warning" @click="handlePass(scope.row)" plain>通过</iep-button>

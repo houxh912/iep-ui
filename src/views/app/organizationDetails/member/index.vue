@@ -4,7 +4,9 @@
       <span class="details-title">{{subTitle1}}（{{datailList.length}}）</span>
       <div class="con">
         <div class="item" v-for="detail in datailList" :key="detail.id" @click="handleDetail(detail)">
-          <div class="img"><iep-img :src="detail.avatar" alt=""></iep-img></div>
+          <div class="img">
+            <iep-img :src="detail.avatar" alt=""></iep-img>
+          </div>
           <span class="name">{{detail.name}}</span>
           <!-- <span class="post">{{detail.post}}</span> -->
         </div>
@@ -14,7 +16,9 @@
       <span class="details-title">{{subTitle2}}（{{datailList2.length}}）</span>
       <div class="con">
         <div class="item" v-for="detail2 in datailList2" :key="detail2.id" @click="handleDetail(detail2)">
-          <div class="img"><iep-img :src="detail2.avatar" alt=""></iep-img></div>
+          <div class="img">
+            <iep-img :src="detail2.avatar" alt=""></iep-img>
+          </div>
           <span class="name">{{detail2.name}}</span>
         </div>
       </div>
@@ -35,7 +39,7 @@ export default {
   },
   methods: {
     loadData () {
-      getOrgDetail(this.$route.query.id).then(({data}) => {
+      getOrgDetail(this.$route.query.id).then(({ data }) => {
         this.datailList = data.data.members
         this.datailList2 = data.data.cooperations
       })
@@ -96,5 +100,10 @@ export default {
       }
     }
   }
+}
+</style>
+<style scoped>
+.organizationDetails >>> .con {
+  margin-top: 0;
 }
 </style>

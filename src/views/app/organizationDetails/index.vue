@@ -8,7 +8,7 @@
     <div class="organizationDetails">
       <menus></menus>
       <div class="con">
-        <iep-page-header :title="title" :backOption="backOption"></iep-page-header>
+        <iep-page-header :title="title"></iep-page-header>
         <router-view></router-view>
       </div>
     </div>
@@ -55,7 +55,7 @@ export default {
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 220px) minmax(100px, 980px);
   .con {
-    margin-top: 20px;
+    margin-top: 10px;
   }
 }
 </style>

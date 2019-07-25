@@ -1,7 +1,7 @@
 <template>
   <iep-app-layout>
     <basic-container class="basic-container">
-      <iep-page-header is-advance :backOption="backOption">
+      <iep-page-header is-advance class="top-box">
         <template slot="custom">
           <el-row>
             <el-col :span="4" class="img">
@@ -9,18 +9,22 @@
             </el-col>
             <el-col :span="14" class="title">
               <div>
-                <div class="tags"><span class="weight">{{form.name}}</span><span class="time">创建时间：{{form.onlineTime | parseToDay}}</span>
-                  <el-button size="small" class="join" @click.stop="handleProductClick">加入定制</el-button>
+                <div class="tags"><span class="weight">{{form.name}}</span>
                 </div>
                 <div class="tags">
                   <iep-tag-detail :value="form.tagKeywords"></iep-tag-detail>
                 </div>
+                <div class="tags"><span class="time">创建时间：{{form.onlineTime | parseToDay}}</span>
+                </div>
               </div>
+            </el-col>
+            <el-col :span="4">
+              <el-button size="small" class="join" @click.stop="handleProductClick">加入定制</el-button>
             </el-col>
           </el-row>
         </template>
       </iep-page-header>
-      <iep-tab-scroll :tab-list="tabList" :height="270">
+      <iep-tab-scroll :tab-list="tabList">
         <div>
           <div class="base" :id="item.value" v-for="item in tabList" :key="item.value">
             <div class="title">{{item.label}}</div>
@@ -104,8 +108,8 @@ export default {
   margin: auto;
 }
 .img {
-  width: 80px;
-  height: 80px;
+  width: 240px;
+  height: 150px;
   padding: 5px;
   border: 1px solid #eee;
   margin: 5px;
@@ -127,9 +131,8 @@ export default {
   }
 }
 .title {
-  margin-left: 10px;
+  margin-left: 20px;
   display: flex;
-  height: 80px;
   align-items: center;
   .time {
     margin-right: 15px;
@@ -160,5 +163,15 @@ export default {
 }
 .el-form-item {
   margin-bottom: 10px;
+}
+.top-box {
+  padding: 20px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  border: 1px solid #ebeef5;
+  background-color: #fff;
+  overflow: hidden;
+  color: #303133;
+  transition: 0.3s;
 }
 </style>

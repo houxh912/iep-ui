@@ -27,6 +27,7 @@ export default {
         {
           prop: 'orgName',
           label: '组织名称',
+          width: '300',
         },
         {
           prop: 'oneQuarter',

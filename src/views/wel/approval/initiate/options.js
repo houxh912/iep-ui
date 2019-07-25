@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+﻿import { mergeByFirst } from '@/util/util'
 // org config options
 const dictsMap = {
   approveResult: {
@@ -16,10 +16,12 @@ const columnsMap = [
   {
     prop: 'applyStartTime',
     label: '发起时间',
+    width:'170',
   },
   {
     prop: 'applyEndTime',
     label: '审批时间',
+    width:'170',
   },
 ]
 

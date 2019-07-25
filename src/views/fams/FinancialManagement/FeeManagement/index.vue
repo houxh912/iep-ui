@@ -14,7 +14,7 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===2" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.status===2" type="warning" @click.stop="handlePass(scope.row)" plain>通过</iep-button>
               <iep-button v-if="scope.row.status===2" @click.stop="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>

@@ -88,8 +88,8 @@ export default {
   display: grid;
   margin: 25px 0;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
-  grid-column-gap: 25px;
+  grid-row-gap: 30px;
+  grid-column-gap: 30px;
   grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
       100px,
       3fr
@@ -131,7 +131,7 @@ export default {
       width: 55%;
       .item-title {
         max-width: 210px;
-        font-size: 15px;
+        font-size: 16px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

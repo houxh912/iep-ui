@@ -39,6 +39,7 @@ export default {
 
 <style scoped>
 .album {
+  margin-top: 30px;
   padding-bottom: 40px;
 }
 .title {
@@ -48,7 +49,9 @@ export default {
   margin-bottom: 20px;
 }
 .content {
-  padding: 0 20px;
+  margin: 0 auto;
+  width: 600px;
+  text-align: center;
 }
 .el-carousel__item {
   border: 1px solid #ddd;
@@ -70,8 +73,11 @@ export default {
 }
 .album >>> .el-carousel__container {
   position: relative;
-  width: 900px;
-  height: 540px;
+  width: 600px;
+  height: 340px;
   margin: auto;
+}
+.album >>> .el-carousel__arrow {
+  top: 50%;
 }
 </style>

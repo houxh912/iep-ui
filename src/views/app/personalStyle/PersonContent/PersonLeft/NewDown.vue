@@ -5,15 +5,15 @@
         <span class="title">{{effect}}</span>
       </div>
       <div class="classTags">
-        <div class="classTag" v-for="tag in tagList" :key="tag.id">
-          <el-tag type="white">{{tag.tag}}</el-tag>
+        <div class="classTag" v-for="(tag, index) in tagList" :key="index">
+          <el-tag type="white">{{tag}}</el-tag>
         </div>
       </div>
       <div class="append" style="margin-top: 15px;">
-        <el-input class="append-input" placeholder="添加新标记" v-model="input3" size="small">
-          <el-button slot="append" icon="el-icon-plus">添加</el-button>
+        <el-input class="append-input" placeholder="添加新标记" v-model="input3" size="small" maxlength="10">
+          <el-button slot="append" icon="el-icon-plus" @click="handleImpression">添加</el-button>
         </el-input>
-        <el-select class="prepend" v-model="select" slot="prepend" placeholder="常用印象" size="small">
+        <el-select class="prepend" v-model="select" slot="prepend" placeholder="常用印象" size="small" v-if="false">
           <el-option label="技术达人" value="1"></el-option>
           <el-option label="优秀" value="2"></el-option>
           <el-option label="任劳任怨" value="3"></el-option>
@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import { getImpressionById, impressionCreate } from '@/api/cpms/commonpeopleimpression'
 export default {
   props: {
     userInfo: {
@@ -50,21 +51,43 @@ export default {
       effect: '人物印象',
       input3: '',
       select: '',
-      tagList: [
-        {
-          tag: '任劳任怨 2',
-        },
-        {
-          tag: '技术达人 2',
-        },
-      ],
+      tagList: [],
       itemList: [],
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$nextTick(() => {
+      this.getImpressionById()
+    })
+    next()
   },
   methods: {
     handleDetail (row) {
       this.$router.push(`/app/personal_style/${row.visitorId}`)
     },
+    getImpressionById () {
+      getImpressionById(this.$route.params.id).then(({ data }) => {
+        this.tagList = data.data.data ? data.data.data : []
+      })
+    },
+    // 提交印记
+    handleImpression () {
+      if (this.input3 === '') {
+        return
+      }
+      impressionCreate({
+        peopleImpression: this.input3,
+        peopleImpressionId: this.$route.params.id,
+      }).then(( data ) => {
+        if (data.data) {
+          this.getImpressionById()
+          this.input3 = ''
+        }
+      })
+    },
+  },
+  created () {
+    this.getImpressionById()
   },
 }
 </script>

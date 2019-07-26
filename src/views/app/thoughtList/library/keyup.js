@@ -1,3 +1,6 @@
+
+import { loadContactsPyList } from '@/api/admin/contacts'
+
 export default {
   data () {
     return {
@@ -5,7 +8,6 @@ export default {
       state: '',
       keyupType: false,
       startPos: -1,
-      timeout: null,
       content: '',
     }
   },
@@ -37,30 +39,15 @@ export default {
     handleCancal () {
       this.handleEnd()
     },
-    loadAll () {
-      return [{
-          'value': '三全鲜食（北新泾店）',
-          'address': '长宁区新渔路144号',
-        },
-        {
-          'value': 'Hot honey 首尔炸鸡（仙霞路）',
-          'address': '上海市长宁区淞虹路661号',
-        },
-      ]
-    },
     querySearchAsync (queryString, cb) {
-      var restaurants = this.restaurants
-      var results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants
-
-      clearTimeout(this.timeout)
-      this.timeout = setTimeout(() => {
-        cb(results)
-      }, 500 * Math.random())
-    },
-    createStateFilter (queryString) {
-      return (state) => {
-        return (state.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
-      }
+      loadContactsPyList({ name: this.state }).then(({ data }) => {
+        cb(data.data.map(m => {
+          return {
+            value: m.name,
+            id: m.id,
+          }
+        }))
+      })
     },
     handleSelect (item) {
       console.log('value: ', item.value)
@@ -74,8 +61,5 @@ export default {
       this.keyupType = false
       this.content = ''
     },
-  },
-  mounted () {
-    this.restaurants = this.loadAll()
   },
 }

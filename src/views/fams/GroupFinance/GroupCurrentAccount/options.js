@@ -10,10 +10,12 @@ const columnsMap = [
     prop: 'serialNo',
     label: '流水号',
     minWidth: 120,
+    type: 'detail',
   },
   {
     prop: 'orgName',
     label: '组织名称',
+    type: 'detail',
   },
   {
     prop: 'category',
@@ -34,11 +36,13 @@ const columnsMap = [
   {
     prop: 'createTime',
     label: '日期',
+    type: 'detail',
   },
   {
     prop: 'remarks',
     label: '备注',
     minWidth: 200,
+    type: 'detail',
   },
 ]
 

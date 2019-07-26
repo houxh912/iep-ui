@@ -12,22 +12,22 @@ const columnsMap = [
   {
     prop: 'applyName',
     label: '申请人',
-    width:'70',
+    width: '70',
   },
   {
     prop: 'amount',
     label: '提现金额',
-    width:'70',
+    width: '70',
   },
   {
     prop: 'deductionInvoice',
     label: '发票抵扣金额',
-    width:'110',
+    width: '110',
   },
   {
     prop: 'taxation',
     label: '税费',
-    width:'70',
+    width: '70',
   },
   {
     prop: 'status',
@@ -53,6 +53,7 @@ const columnsMap = [
   {
     prop: 'remarks',
     label: '备注',
+    type: 'detail',
   },
 ]
 
@@ -74,12 +75,12 @@ const initGrantForm = () => {
 }
 
 const rules = {
-	offlineCompany: [
-	{ required: true, message: '请选择公司', trigger: 'blur' },
-	],
-	bankAmount: [
+  offlineCompany: [
+    { required: true, message: '请选择公司', trigger: 'blur' },
+  ],
+  bankAmount: [
     { required: true, message: '请选择银行账户', trigger: 'blur' },
-	],
+  ],
 }
 
 export { columnsMap, dictsMap, initForm, initGrantForm, rules }

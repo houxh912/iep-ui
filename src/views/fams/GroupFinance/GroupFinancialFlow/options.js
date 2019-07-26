@@ -36,6 +36,7 @@ const columnsMap = [
 		prop: 'remarks',
 		label: '操作说明',
 		minWidth: '200',
+		type: 'detail',
 	},
 ]
 

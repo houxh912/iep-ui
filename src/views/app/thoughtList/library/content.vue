@@ -14,7 +14,7 @@
     </div>
     <slot></slot>
     <div class="image-list" v-if="data.images.length > 0">
-      <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img"></iep-img>
+      <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img" :preview-src-list="[item]"></iep-img>
     </div>
   </div>
 </template>

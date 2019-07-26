@@ -30,7 +30,7 @@
         </iep-tabs>
       </IepAppTabsCard>
     </div>
-    <new-down :visitVOs="visitVOs"></new-down>
+    <new-down :visitVOs="visitVOs" :userInfo="userInfo"></new-down>
   </div>
 </template>
 <script>
@@ -57,6 +57,9 @@ export default {
     moreTemplate,
   },
   props: {
+    userInfo: {
+      type: Object,
+    },
     counts: {
       type: Object,
       default: () => {

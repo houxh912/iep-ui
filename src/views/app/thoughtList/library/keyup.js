@@ -1,254 +1,57 @@
+
+import { loadContactsPyList } from '@/api/admin/contacts'
+
 export default {
   data () {
     return {
       restaurants: [],
       state: '',
       keyupType: false,
+      keyupTypes: false,
       startPos: -1,
-      timeout: null,
       content: '',
     }
   },
   methods: {
     handleKeyup (val) {
-      if (this.keyupType) { // 根据输入搜索
-        let elInput = document.getElementById('keyupStart') //根据id选择器选中对象
-        var startPos = elInput.selectionStart // input 第0个字符到选中的字符
-        this.state = this.formData.content.slice(this.startPos, startPos)
-        console.log('state: ', this.state)
-        if (this.formData.content !== this.content) {
-          this.content = this.formData.content
-          this.$refs['autocomplete'].focus()
-          this.$nextTick(() => {
-            this.$refs['content'].focus()
-          })
+      let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
+      let startPos = elInput.selectionStart // input 第0个字符到选中的字符
+      if (val.key === ' ') { // 输入空格  --  关闭搜索
+        this.keyupTypes = false
+      } else if (val.key === 'Backspace' && this.startPos === startPos + 1) { // 输入删除  --  关闭搜索
+        this.keyupTypes = false
+      }
+      if (this.keyupType) { // 输入普通的内容  --  根据输入搜索
+        this.gettingFocus()
+      } else if (val.code === 'Digit2') { // 输入@ -- 打开搜索
+        // 中文输入发状态下监听不到 @ 输入，所以要监听 2 然后判断是否输入了 @ 
+        if (this.formData.content.slice(startPos - 1, startPos) === '@') {
+          this.startPos = startPos
+          this.keyupType = true
+          this.keyupTypes = true
         }
-      } else if (val.key === '@') { // 打开搜索
-        console.log('@')
-        let elInput = document.getElementById('keyupStart') //根据id选择器选中对象
-        this.startPos = elInput.selectionStart // input 第0个字符到选中的字符
-        this.keyupType = true
-        console.log('startPos: ', this.startPos)
-      } else if (val.key === ' ') { // 关闭搜索
-        console.log('空格')
-        this.handleEnd()
       }
     },
     handleCancal () {
       this.handleEnd()
     },
-    loadAll () {
-      return [{
-          'value': '三全鲜食（北新泾店）',
-          'address': '长宁区新渔路144号',
-        },
-        {
-          'value': 'Hot honey 首尔炸鸡（仙霞路）',
-          'address': '上海市长宁区淞虹路661号',
-        },
-        {
-          'value': '新旺角茶餐厅',
-          'address': '上海市普陀区真北路988号创邑金沙谷6号楼113',
-        },
-        {
-          'value': '泷千家(天山西路店)',
-          'address': '天山西路438号',
-        },
-        {
-          'value': '胖仙女纸杯蛋糕（上海凌空店）',
-          'address': '上海市长宁区金钟路968号1幢18号楼一层商铺18-101',
-        },
-        {
-          'value': '贡茶',
-          'address': '上海市长宁区金钟路633号',
-        },
-        {
-          'value': '豪大大香鸡排超级奶爸',
-          'address': '上海市嘉定区曹安公路曹安路1685号',
-        },
-        {
-          'value': '茶芝兰（奶茶，手抓饼）',
-          'address': '上海市普陀区同普路1435号',
-        },
-        {
-          'value': '十二泷町',
-          'address': '上海市北翟路1444弄81号B幢-107',
-        },
-        {
-          'value': '星移浓缩咖啡',
-          'address': '上海市嘉定区新郁路817号',
-        },
-        {
-          'value': '阿姨奶茶/豪大大',
-          'address': '嘉定区曹安路1611号',
-        },
-        {
-          'value': '新麦甜四季甜品炸鸡',
-          'address': '嘉定区曹安公路2383弄55号',
-        },
-        {
-          'value': 'Monica摩托主题咖啡店',
-          'address': '嘉定区江桥镇曹安公路2409号1F，2383弄62号1F',
-        },
-        {
-          'value': '浮生若茶（凌空soho店）',
-          'address': '上海长宁区金钟路968号9号楼地下一层',
-        },
-        {
-          'value': 'NONO JUICE  鲜榨果汁',
-          'address': '上海市长宁区天山西路119号',
-        },
-        {
-          'value': 'CoCo都可(北新泾店）',
-          'address': '上海市长宁区仙霞西路',
-        },
-        {
-          'value': '快乐柠檬（神州智慧店）',
-          'address': '上海市长宁区天山西路567号1层R117号店铺',
-        },
-        {
-          'value': 'Merci Paul cafe',
-          'address': '上海市普陀区光复西路丹巴路28弄6号楼819',
-        },
-        {
-          'value': '猫山王（西郊百联店）',
-          'address': '上海市长宁区仙霞西路88号第一层G05-F01-1-306',
-        },
-        {
-          'value': '枪会山',
-          'address': '上海市普陀区棕榈路',
-        },
-        {
-          'value': '纵食',
-          'address': '元丰天山花园(东门) 双流路267号',
-        },
-        {
-          'value': '钱记',
-          'address': '上海市长宁区天山西路',
-        },
-        {
-          'value': '壹杯加',
-          'address': '上海市长宁区通协路',
-        },
-        {
-          'value': '唦哇嘀咖',
-          'address': '上海市长宁区新泾镇金钟路999号2幢（B幢）第01层第1-02A单元',
-        },
-        {
-          'value': '爱茜茜里(西郊百联)',
-          'address': '长宁区仙霞西路88号1305室',
-        },
-        {
-          'value': '爱茜茜里(近铁广场)',
-          'address': '上海市普陀区真北路818号近铁城市广场北区地下二楼N-B2-O2-C商铺',
-        },
-        {
-          'value': '鲜果榨汁（金沙江路和美广店）',
-          'address': '普陀区金沙江路2239号金沙和美广场B1-10-6',
-        },
-        {
-          'value': '开心丽果（缤谷店）',
-          'address': '上海市长宁区威宁路天山路341号',
-        },
-        {
-          'value': '超级鸡车（丰庄路店）',
-          'address': '上海市嘉定区丰庄路240号',
-        },
-        {
-          'value': '妙生活果园（北新泾店）',
-          'address': '长宁区新渔路144号',
-        },
-        {
-          'value': '香宜度麻辣香锅',
-          'address': '长宁区淞虹路148号',
-        },
-        {
-          'value': '凡仔汉堡（老真北路店）',
-          'address': '上海市普陀区老真北路160号',
-        },
-        {
-          'value': '港式小铺',
-          'address': '上海市长宁区金钟路968号15楼15-105室',
-        },
-        {
-          'value': '蜀香源麻辣香锅（剑河路店）',
-          'address': '剑河路443-1',
-        },
-        {
-          'value': '北京饺子馆',
-          'address': '长宁区北新泾街道天山西路490-1号',
-        },
-        {
-          'value': '饭典*新简餐（凌空SOHO店）',
-          'address': '上海市长宁区金钟路968号9号楼地下一层9-83室',
-        },
-        {
-          'value': '焦耳·川式快餐（金钟路店）',
-          'address': '上海市金钟路633号地下一层甲部',
-        },
-        {
-          'value': '动力鸡车',
-          'address': '长宁区仙霞西路299弄3号101B',
-        },
-        {
-          'value': '浏阳蒸菜',
-          'address': '天山西路430号',
-        },
-        {
-          'value': '四海游龙（天山西路店）',
-          'address': '上海市长宁区天山西路',
-        },
-        {
-          'value': '樱花食堂（凌空店）',
-          'address': '上海市长宁区金钟路968号15楼15-105室',
-        },
-        {
-          'value': '壹分米客家传统调制米粉(天山店)',
-          'address': '天山西路428号',
-        },
-        {
-          'value': '福荣祥烧腊（平溪路店）',
-          'address': '上海市长宁区协和路福泉路255弄57-73号',
-        },
-        {
-          'value': '速记黄焖鸡米饭',
-          'address': '上海市长宁区北新泾街道金钟路180号1层01号摊位',
-        },
-        {
-          'value': '红辣椒麻辣烫',
-          'address': '上海市长宁区天山西路492号',
-        },
-        {
-          'value': '(小杨生煎)西郊百联餐厅',
-          'address': '长宁区仙霞西路88号百联2楼',
-        },
-        {
-          'value': '阳阳麻辣烫',
-          'address': '天山西路389号',
-        },
-        {
-          'value': '南拳妈妈龙虾盖浇饭',
-          'address': '普陀区金沙江路1699号鑫乐惠美食广场A13',
-        },
-      ]
-    },
     querySearchAsync (queryString, cb) {
-      var restaurants = this.restaurants
-      var results = queryString ? restaurants.filter(this.createStateFilter(queryString)) : restaurants
-
-      clearTimeout(this.timeout)
-      this.timeout = setTimeout(() => {
-        cb(results)
-      }, 500 * Math.random())
-    },
-    createStateFilter (queryString) {
-      return (state) => {
-        return (state.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0)
+      if (!this.keyupTypes) {
+        cb([])
+        this.handleEnd()
+      } else {
+        loadContactsPyList({ name: this.state }).then(({ data }) => {
+          cb(data.data.map(m => {
+            return {
+              value: m.name,
+              id: m.id,
+            }
+          }))
+        })
       }
     },
     handleSelect (item) {
-      console.log('value: ', item.value)
-      let elInput = document.getElementById('keyupStart') //根据id选择器选中对象
+      let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
       var startPos = elInput.selectionStart // input 第0个字符到选中的字符
       this.formData.content = this.formData.content.slice(0, this.startPos) + item.value + ' ' + this.formData.content.slice(startPos)
       this.handleEnd()
@@ -257,9 +60,34 @@ export default {
     handleEnd () {
       this.keyupType = false
       this.content = ''
+      this.state = ''
     },
-  },
-  mounted () {
-    this.restaurants = this.loadAll()
+    // @人
+    handleAnt () {
+      let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
+      let startPos = elInput.selectionStart // input 第0个字符到选中的字符
+      this.formData.content = this.formData.content.slice(0, startPos) + '@' + this.formData.content.slice(startPos)
+      this.startPos = startPos
+      this.keyupType = true
+      this.keyupTypes = true
+      this.gettingFocus()
+    },
+    gettingFocus () {
+      let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
+      let startPos = elInput.selectionStart // input 第0个字符到选中的字符
+      this.state = this.formData.content.slice(this.startPos, startPos)
+      if (this.formData.content !== this.content) {
+        this.content = this.formData.content
+        this.$refs['autocomplete'].focus()
+        this.$nextTick(() => {
+          this.$refs['content'].focus()
+        })
+      }
+    },
+    handleSubject () {
+      let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
+      let startPos = elInput.selectionStart // input 第0个字符到选中的字符
+      this.formData.content = this.formData.content.slice(0, startPos) + '## ' + this.formData.content.slice(startPos)
+    },
   },
 }

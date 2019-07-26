@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column label="收款单位、账号及开户行">
             <template slot-scope="scope">
-              <iep-div-detail :value="scope.row.bank"></iep-div-detail>
+              <iep-div-detail-switch :value="scope.row.bank"></iep-div-detail-switch>
             </template>
           </el-table-column>
           <el-table-column prop="amount" label="报销金额(元)">
@@ -74,7 +74,7 @@
         </iep-form-item>
 
         <iep-form-item label-name="备注">
-          <iep-div-detail :value="form.remarks"></iep-div-detail>
+          <iep-div-detail-switch :value="form.remarks"></iep-div-detail-switch>
         </iep-form-item>
 
         <iep-divider />

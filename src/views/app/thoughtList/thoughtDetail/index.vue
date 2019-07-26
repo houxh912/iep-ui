@@ -5,7 +5,7 @@
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <list ref="list" class="list" :dataList="dataList"></list>
+    <list ref="list" class="list" :dataList="dataList" @load-page="loadPage"></list>
   </iep-app-layout>
 </template>
 
@@ -29,6 +29,9 @@ export default {
       getDetailById(id).then(({ data }) => {
         this.dataList = [data.data]
       })
+    },
+    loadPage () {
+      this.loadData(this.$route.params.id)
     },
   },
   created () {

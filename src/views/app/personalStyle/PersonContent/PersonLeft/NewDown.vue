@@ -20,7 +20,7 @@
         </el-select>
       </div>
     </el-card>
-    <IepAppTabCard :title="title">
+    <IepAppTabCard :title="title" :data="`累计访客${userInfo.visitPersonCount}人，访问人次${userInfo.visitTimes}次`">
       <div v-if="visitVOs.length !== 0" class="list">
         <div class="item" v-for="(item, index) in visitVOs" :key="index" @click="handleDetail(item)">
           <div class="img">
@@ -37,6 +37,9 @@
 <script>
 export default {
   props: {
+    userInfo: {
+      type: Object,
+    },
     visitVOs: {
       type: Array,
     },
@@ -180,5 +183,8 @@ export default {
 }
 .new-down >>> .title-con .title {
   font-size: 16px;
+}
+.new-down >>> .datas {
+  font-size: 12px;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="new-down">
-    <IepAppTabCard :title="title">
+    <IepAppTabCard :title="title" :data="`累计访客${data.visitorCount}人，访问人次${data.visitTimes}次`">
       <div v-if="visitVOs.length !== 0" class="list">
         <div class="item" v-for="(item, index) in visitVOs" :key="index" @click="handleDetail(item)">
           <div class="img">
@@ -17,6 +17,9 @@
 <script>
 export default {
   props: {
+    data: {
+      type: Object,
+    },
     visitVOs: {
       type: Array,
       default: () => [],
@@ -150,5 +153,8 @@ export default {
 }
 .new-down >>> .el-card {
   height: 336px;
+}
+.new-down >>> .datas {
+  font-size: 12px;
 }
 </style>

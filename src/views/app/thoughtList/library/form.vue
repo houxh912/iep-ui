@@ -63,7 +63,7 @@
             :inactive-value="1">
           </el-switch>
         </div>
-        <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">保存</iep-button>
+        <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">发布</iep-button>
       </div>
     </el-form>
   </div>

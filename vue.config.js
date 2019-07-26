@@ -16,21 +16,28 @@ const commonCss = [
   '/cdn/iconfont/index.css',
   '/cdn/iep/index.css',
   '/cdn/avue.index.css',
+  '/cdn/element-ui.css',
   '/cdn/froala-editor/css/froala_editor.pkgd.min.css',
   '/cdn/froala-editor/css/froala_style.min.css',
   '/cdn/froala-editor/css/themes/gray.min.css',
+]
+const commonJs = [
+  '/cdn/jquery.min.js',
+  '/cdn/froala-editor/froala_editor.pkgd.min.js',
+  '/cdn/froala-editor/zh_cn.js',
 ]
 // CDN外链，会插入到index.html中
 const cdn = {
   // 开发环境
   dev: {
     css: [...commonCss],
-    js: []
+    js: [...commonJs]
   },
   // 生产环境
   build: {
     css: [...commonCss],
     js: [
+      ...commonJs,
       '/cdn/vue.runtime.min.js',
       '/cdn/vue-router.min.js',
       '/cdn/vuex.min.js',

@@ -53,6 +53,7 @@
     "commitizen": "^4.0.3",
     "conventional-changelog-cli": "^2.0.22",
     "cz-conventional-changelog": "^3.0.2",
+    "element-theme-chalk": "^2.11.0",
     "eslint": "^6.1.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-vue": "^5.0.0",

@@ -205,9 +205,8 @@ export default {
     },
     // 自动保存
     autosave () {
-      console.log('autosave')
       // 首先判断下是否为未发送状态，已发送纪要不做自动保存功能
-      if (this.formData.id && this.formData.status === 0) {
+      if (this.formData.id && this.formData.isSend === 0 && this.formData.status === 2) {
         return
       }
       let data = {...this.formData}
@@ -224,6 +223,8 @@ export default {
             this.formData.id = data.data
           }
           this.formRequestFn = updateData
+        } else {
+          this.$message.error(data.msg)
         }
       })
     },
@@ -251,39 +252,45 @@ export default {
       // 发送链接
       this.formRequestFn(this.formData).then(({ data }) => {
         // 新建纪要及修改草稿，自动发送
-        let id = this.formData.id ? this.formData.id : data.data
-        if (this.formData.status == 0 && this.formData.isSend == 1) {
-          meetingSend(id).then(({ data }) => { // 保存后之后发送
-            this.loadState = false
-            if (data.data) {
-              // 发送成功之后，判断是否是今天的纪要，若是访问财务接口
-              if (new Date(this.formData.meetingTime).toDateString() === new Date().toDateString()) {
-                if (this.formData.meetingType == 6) {
-                  addBellBalanceRuleByNumber('VISIT_LOG').then(({data}) => {
-                    this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
-                    this.goBack(true)
-                  })
+        if (data.data) {
+          let id = this.formData.id ? this.formData.id : data.data
+          if (this.formData.status == 0 && this.formData.isSend == 1) {
+            meetingSend(id).then(({ data }) => { // 保存后之后发送
+              if (data.data) {
+                this.loadState = false
+                // 发送成功之后，判断是否是今天的纪要，若是访问财务接口
+                if (new Date(this.formData.meetingTime).toDateString() === new Date().toDateString()) {
+                  if (this.formData.meetingType == 6) {
+                    addBellBalanceRuleByNumber('VISIT_LOG').then(({data}) => {
+                      this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
+                      this.goBack(true)
+                    })
+                  } else {
+                    addBellBalanceRuleByNumber('MEETING_SUMMARY').then(({data}) => {
+                      this.$message.success(`您成功发送一篇会议纪要，${data.msg}，继续加油！`)
+                      this.goBack(true)
+                    })
+                  }
                 } else {
-                  addBellBalanceRuleByNumber('MEETING_SUMMARY').then(({data}) => {
-                    this.$message.success(`您成功发送一篇会议纪要，${data.msg}，继续加油！`)
-                    this.goBack(true)
-                  })
+                  this.$message.success('您成功发送一篇会议纪要，继续加油！')
+                  this.goBack(true)
                 }
               } else {
-                this.$message.success('您成功发送一篇会议纪要，继续加油！')
-                this.goBack(true)
+                this.loadState = false
+                this.$message.error('当前网络异常，请稍后再试！')
               }
-            } else {
-              this.$message.error('当前网络异常，请稍后再试！')
-            }
-          })
+            })
+          } else {
+            this.$message({
+              message: `${this.methodName}成功`,
+              type: 'success',
+            })
+            this.loadState = false
+            this.goBack(true)
+          }
         } else {
-          this.$message({
-            message: `${this.methodName}成功`,
-            type: 'success',
-          })
           this.loadState = false
-          this.goBack(true)
+          this.$message.error(data.msg)
         }
       })
     },

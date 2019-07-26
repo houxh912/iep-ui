@@ -48,13 +48,13 @@ export default {
       activeTab: 'Basic',
       linkName: '',
       projectData: {
-        projectManagerList: {id: '', name: ''},
+        projectManagerList: { id: '', name: '' },
       },
     }
   },
   methods: {
     getDataDetail (id) {
-      getDataDetail(id).then(({data}) => {
+      getDataDetail(id).then(({ data }) => {
         let obj = data.data
         obj.publisherName = obj.publisherList ? obj.publisherList.name : ''
         obj.relatedClientName = obj.relatedClientList ? obj.relatedClientList.name : ''
@@ -75,15 +75,19 @@ export default {
   border-right: 1px solid #eee;
   .title {
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 22px;
   }
   .post-con {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     .post {
       margin-right: 20px;
+      color: #666;
+      .name {
+        color: #333;
+      }
     }
   }
 }

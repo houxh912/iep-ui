@@ -253,6 +253,7 @@ export default {
     padding: 20px;
     margin-bottom: 20px;
     .file {
+      margin-top: 10px;
       cursor: pointer;
       &:hover {
         color: #cb3737;

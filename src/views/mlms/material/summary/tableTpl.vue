@@ -7,14 +7,14 @@
             <!-- <div @click="handleDetail(scope.row)" class="detail">{{scope.row.title}}</div> -->
             <div class="row-tpl" @click="handleDetail(scope.row)">
               <div class="custom-name">{{scope.row.title}}</div>
-              <el-col class="custom-tags">
+              <el-col class="custom-tags" v-show="isShow">
                 <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
               </el-col>
             </div>
           </template>
         </el-table-column>
       </template>
-      <el-table-column prop="operation" label="操作" width="280" align="center">
+      <el-table-column prop="operation" label="操作" width="220" align="center">
         <template slot-scope="scope">
           <operation-wrapper v-if="scope.row.status===1">
             <iep-button type="warning" plain @click="handleEdit(scope.row)">修改草稿</iep-button>
@@ -147,11 +147,10 @@ export default {
   width: 100%;
   cursor: pointer;
   .custom-name {
-    margin-bottom: 10px;
     width: 100%;
   }
   .custom-tags {
-    margin: 0;
+    margin-top: 10px;
     .el-tag {
       margin: 0 5px 5px 0;
       height: 26px;

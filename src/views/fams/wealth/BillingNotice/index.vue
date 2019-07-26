@@ -18,7 +18,7 @@
         <el-table-column label="操作" width="200px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="[0,3,5].includes(scope.row.status)" @click.stop="handleSend(scope.row)">发送</iep-button>
+              <iep-button v-if="[0,3,5].includes(scope.row.status)" @click.stop="handleSend(scope.row)" type="warning" plain>发送</iep-button>
               <iep-button v-if="[0,3,5].includes(scope.row.status)" @click.stop="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="scope.row.status===1" @click.stop="handleCancel(scope.row)">撤回</iep-button>
               <iep-button v-if="[0,3,5].includes(scope.row.status)" @click.stop="handleDelete(scope.row)">删除</iep-button>

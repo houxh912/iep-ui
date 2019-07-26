@@ -15,11 +15,11 @@
         </div>
         <div class="con-item">
           <div class="title">图片</div>
-          <iep-img :src="form.cover" class="avatar"></iep-img>
+          <iep-img :src="form.image" class="avatar"></iep-img>
         </div>
         <div class="con-item">
           <div class="title">文档内容</div>
-          <iep-froala-editor v-model="form.content"></iep-froala-editor>
+          <iep-html v-model="form.content"></iep-html>
         </div>
       </div>
     </basic-container>
@@ -30,7 +30,7 @@ import { getPageById } from '@/api/conm/article_controller'
 function initForm () {
   return {
     title: '',
-    cover: '',
+    image: '',
     createTime: '',
     views: '',
     content: '',
@@ -64,8 +64,9 @@ export default {
 .container {
   padding: 0 10px;
   .con-item {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     .title {
+      margin-bottom: 10px;
       font-size: 15px;
       color: #333;
     }
@@ -73,7 +74,6 @@ export default {
       word-break: break-all;
       word-wrap: break-word;
       white-space: pre-wrap;
-      padding: 15px;
       font-size: 14px;
       color: #999;
     }

@@ -28,7 +28,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.el-card{
-  border:0;
+.el-card {
+  border: 0;
+  padding: 0 !important;
 }
 </style>

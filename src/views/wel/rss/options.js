@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 const dictsMap = {
   status: {
     0: '技术文档',

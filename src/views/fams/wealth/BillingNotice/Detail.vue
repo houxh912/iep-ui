@@ -17,11 +17,11 @@
         <iep-form-item label-name="电话号码" class="form-half">
           <iep-div-detail :value="form.buyerPhone"></iep-div-detail>
         </iep-form-item>
-        <iep-form-item label-name="开户行及账户" class="form-half">
-          <iep-div-detail :value="form.buyerAccount"></iep-div-detail>
+        <iep-form-item label-name="开户行及账户">
+          <iep-div-detail-switch :value="form.buyerAccount"></iep-div-detail-switch>
         </iep-form-item>
         <iep-form-item label-name="发票邮寄地址、联系人、电话">
-          <iep-div-detail :value="form.buyerMail"></iep-div-detail>
+          <iep-div-detail-switch :value="form.buyerMail"></iep-div-detail-switch>
         </iep-form-item>
         <h4 class="iep-sub-title">货物或应税劳务、服务名称</h4>
         <iep-form-item label-name="一级科目" class="form-half">

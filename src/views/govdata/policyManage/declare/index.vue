@@ -44,8 +44,8 @@
         </el-form-item> -->
       </el-form>
 
-      <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
-        <el-table-column prop="operation" align="left" label="操作" width="200">
+      <crud-table class="table-con" :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
+        <el-table-column prop="operation" align="left" label="操作" width="220">
           <template slot-scope="scope">
             <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
             <iep-divider type="vertical" />
@@ -87,24 +87,24 @@ const columnMap = [
     prop: 'publishTime',
     label: '发文时间',
     type: 'time',
-    width: 140,
+    width: 150,
     // sortable: 'custom',
   },
   {
     prop: 'creatorName',
     label: '上传者',
-    width: 140,
+    width: 100,
   },
   {
     prop: 'examineUserName',
     label: '审核人',
-    width: 140,
+    width: 100,
   },
   {
     prop: 'examineDate',
     label: '审核通过时间',
     type: 'time',
-    width: 140,
+    width: 150,
     // sortable: 'custom',
   },
 ]
@@ -501,3 +501,14 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.btn {
+  margin-right: -5px;
+}
+.table-con >>> .cell span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>

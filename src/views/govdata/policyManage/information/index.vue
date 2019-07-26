@@ -85,24 +85,24 @@ const columnMap = [
     prop: 'publishTime',
     label: '发文时间',
     type: 'time',
-    width: 140,
+    width: 150,
     // sortable: 'custom',
   },
   {
     prop: 'creatorName',
     label: '上传者',
-    width: 140,
+    width: 100,
   },
   {
     prop: 'examineUserName',
     label: '审核人',
-    width: 140,
+    width: 100,
   },
   {
     prop: 'examineDate',
     label: '审核通过时间',
     type: 'time',
-    width: 140,
+    width: 150,
     // sortable: 'custom',
   },
 ]
@@ -284,3 +284,14 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.btn {
+  margin-right: -5px;
+}
+.table-con >>> .cell span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>

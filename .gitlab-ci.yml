@@ -1,7 +1,7 @@
 stages:
   - build
   - deploy-release
-  # - deploy-master
+  - deploy-master
 
 cache:
   key: ${CI_COMMIT_REF_NAME}
@@ -14,8 +14,9 @@ build_job:
   tags:
     - bmc
   only:
-    - /^build-.*$/i
-    - /^deploy-.*$/i
+    refs:
+      - /^build-.*$/ # 使用正则匹配要部署分支
+      - /^deploy-.*/
   script:
     - yarn
     # - yarn test:unit
@@ -26,10 +27,6 @@ build_job:
     expire_in: 1 week
     paths:
       - dist
-  retry:
-    max: 5
-    when:
-      - always
 
 deploy_release_job:
   image: alpine

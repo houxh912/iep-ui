@@ -1,6 +1,7 @@
 import Vue from 'vue'
 // 全局重置变量
 import '@/styles/reset.css'
+import '@/styles/element-ui.scss'
 
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import {

@@ -181,13 +181,13 @@ export default {
         }
       }
     }
-    var deptFun = (rule, value, callback) => {
-      if (value.id == '') {
-        callback(new Error('请选择负责部门'))
-      } else {
-        callback()
-      }
-    }
+    // var deptFun = (rule, value, callback) => {
+    //   if (value.id == '') {
+    //     callback(new Error('请选择负责部门'))
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       tipContent,
       id: '',
@@ -213,9 +213,9 @@ export default {
         clientName: [
           { required: true, validator: validateFun, trigger: 'blur' },
         ],
-        iepClientRespDept: [
-          { required: true, validator: deptFun, trigger: 'change' },
-        ],
+        // iepClientRespDept: [
+        //   { required: true, validator: deptFun, trigger: 'change' },
+        // ],
         phoneNumber: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
           { min: 11, max: 11, message: '手机位数为11位', trigger: 'blur' },

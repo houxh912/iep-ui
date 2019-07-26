@@ -24,7 +24,7 @@ const columnsMap = [
 		prop: 'referType',
 		label: '发票类型',
 		type: 'dict',
-                                width:'80',
+                                width:'100',
 	},
 	{
 		prop: 'companyName',
@@ -50,6 +50,7 @@ const columnsMap = [
 	{
 		prop: 'auditorName',
 		label: '部门核准人',
+                                width:'100',
 	},
 	{
 		prop: 'auditingTime',

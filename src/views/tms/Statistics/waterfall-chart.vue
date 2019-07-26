@@ -65,4 +65,7 @@ export default {
     line-height: 40px;
   }
 }
+h1 {
+  font-size: 18px;
+}
 </style>

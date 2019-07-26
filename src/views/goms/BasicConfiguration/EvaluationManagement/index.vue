@@ -5,11 +5,14 @@
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item v-for="(item, index) in list" :key="index" :title="item.time" :name="index">
             <div v-for="(t, i) in item.list" :key="i" class="item">
-              <div class="avatar"><iep-img :src="t.avatar" class="img"></iep-img></div>
+              <div class="avatar">
+                <iep-img :src="t.avatar" class="img"></iep-img>
+              </div>
               <div class="content">
                 <div class="head">
                   <div class="left">
-                    <div class="name">{{t.creatorName}}</div><div class="time">{{t.updateTime}}</div>
+                    <div class="name">{{t.creatorName}}</div>
+                    <div class="time">{{t.updateTime}}</div>
                   </div>
                   <div class="right">
                     <i class="icon-bianji" @click="handleUpdate(t)"></i>
@@ -106,7 +109,7 @@ export default {
             this.$mesage.error('操作出现问题，请重试！')
           }
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
     handleUpdate (row) {
       this.$refs['form'].open(row)
@@ -129,37 +132,46 @@ export default {
   padding: 0 70px 10px 30px;
   .item {
     display: flex;
+    align-items: center;
     margin-bottom: 15px;
     padding-bottom: 15px;
     border-bottom: 1px solid #ddd;
     .avatar {
-      width: 100px;
+      margin-right: 20px;
+      width: 60px;
+      height: 60px;
       .img {
-        height: 80px;
-        width: 80px;
+        height: 60px;
+        width: 60px;
         border-radius: 50%;
         overflow: hidden;
       }
     }
     .content {
       flex: 1;
-      padding: 5px 0 0 0;
+      padding: 0;
       .head {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 10px;
+        align-items: center;
+        margin-bottom: 0;
         .left {
           display: flex;
           .name {
             margin-right: 30px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
           }
         }
         .right {
           i {
             margin-left: 10px;
             cursor: pointer;
+            transition: all 0.5s;
+            color: #999;
+            &:hover {
+              color: crimson;
+            }
           }
         }
       }

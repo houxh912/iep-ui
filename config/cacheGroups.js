@@ -1,5 +1,4 @@
 exports.cacheGroups = {
-  // test: path.resolve(__dirname, '../node_modules'),
   echarts: {
     name: 'echarts',
     test: /[\\/]node_modules[\\/]echarts[\\/]/,

@@ -1,7 +1,7 @@
 const utils = require('./config/utils')
 const cacheGroups = require('./config/cacheGroups')
 const devServer = require('./config/devServer')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production'
 const externals = {
@@ -88,7 +88,20 @@ module.exports = {
     if (isProduction) {
       // 用cdn方式引入
       config.optimization = {
-        // minimizer: true,
+        minimizer: [
+          new TerserPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: false, // Must be set to true if using source-maps in production
+            terserOptions: {
+              compress: {
+                drop_console: true,
+                warnings: false,
+              }
+              // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+            }
+          }),
+        ],
         providedExports: true,
         usedExports: true,
         //识别package.json中的sideEffects以剔除无用的模块，用来做tree-shake
@@ -105,19 +118,6 @@ module.exports = {
         }
       }
       config.externals = externals
-      // 为生产环境修改配置...
-      config.plugins.push(
-        //生产环境自动删除console
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            warnings: false,
-            drop_debugger: true,
-            // drop_console: true,
-          },
-          sourceMap: false,
-          parallel: true,
-        })
-      )
     } else {
       // 为开发环境修改配置...
     }

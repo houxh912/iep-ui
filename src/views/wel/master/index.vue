@@ -108,6 +108,7 @@ export default {
     );
   .name {
     display: flex;
+    margin-bottom: 10px;
     justify-content: flex-start;
     align-items: center;
     .text {
@@ -153,12 +154,12 @@ export default {
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
+    margin-top: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     height: 30px;
     .name {
-      margin-bottom: 8px;
       color: #999;
     }
     .el-tag {

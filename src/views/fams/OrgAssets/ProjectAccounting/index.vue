@@ -13,7 +13,7 @@
         <template slot="right">
           <operation-wrapper>
             <iep-button type="primary" @click="$openPage(`/fams_spa/org_payment_plan/0`)" plain>查看回款计划</iep-button>
-            <iep-button @click="$openPage(`/fams_spa/business_indicator`)">本组织业务指标</iep-button>
+            <iep-button @click="$openPage(`/fams_spa/business_indicator`)">本组织业务指标</iep-button plain>
           </operation-wrapper>
         </template>
       </iep-statistics-header>

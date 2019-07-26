@@ -1,9 +1,10 @@
-import { initNow, getYear, getMonth } from '@/util/date'
+﻿import { initNow, getYear, getMonth } from '@/util/date'
 
 const columnsMap = [
   {
     prop: 'id',
     label: '序号',
+    width:'50',
   },
   {
     prop: 'inputTime',

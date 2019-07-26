@@ -13,7 +13,7 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" :checkbox-init="checkboxInit" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-index>
         <template slot="before-columns">
-          <el-table-column label="联盟名称" width="150px">
+          <el-table-column label="联盟名称" width="200px">
             <template slot-scope="scope">
               <span>{{scope.row.name}}</span>
             </template>

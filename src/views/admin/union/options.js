@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 const dictsMap = {
   isOpen: {
     0: '开',
@@ -15,6 +15,7 @@ const columnsMap = [
   {
     prop: 'intro',
     label: '联盟描述',
+    width:'400px',
   },
   // {
   //   prop: 'isOpen',
@@ -25,11 +26,12 @@ const columnsMap = [
     prop: 'status',
     label: '状态',
     type: 'dict',
+    width:'80px',
   },
   {
     prop: 'createTime',
     label: '创建时间',
-    minWidth: 120,
+    width: '150px',
   },
 ]
 

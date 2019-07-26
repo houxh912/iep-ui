@@ -67,7 +67,6 @@
             </el-row>
           </div>
         </div>
-        <moreTemplate v-if="userInfoShow" :userInfo='user_info' @handleClose="()=> {userInfoShow=false}"></moreTemplate>
       </div>
     </el-card>
 
@@ -78,11 +77,10 @@
 
 <script>
 import EmailDialog from '@/views/app/components/email/'
-import moreTemplate from './moreTemplate/'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  components: { EmailDialog, moreTemplate },
+  components: { EmailDialog },
   props: {
     user_info: {
       type: Object,
@@ -98,6 +96,7 @@ export default {
       show1: 'show',
       show2: 'show',
       show3: 'show',
+      userInfoShow: true,
       labList: [
         {
           prop: 'xyz',
@@ -116,7 +115,6 @@ export default {
           labTitle: '数据资产',
         },
       ],
-      userInfoShow: true,
       integrityColors: '#66cb68',
     }
   },
@@ -401,6 +399,9 @@ export default {
       background-color: #fec751;
       color: #fff;
     }
+  }
+  .more {
+    cursor: pointer;
   }
 }
 </style>

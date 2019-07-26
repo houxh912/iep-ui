@@ -17,3 +17,10 @@ export function getProjectJoinList (obj) {
     data: obj,
   })
 }
+// //删除
+// export function clearCartOne (id) {
+//   return request({
+//     url: `prms/iepProjectInformation/clearCartOne/${id}`,
+//     method: 'post',
+//   })
+// }

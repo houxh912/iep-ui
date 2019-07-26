@@ -1,113 +1,102 @@
 <template>
-  <div class="project-pk">
-    <iep-page-header title="项目PK" :backOption="backOption"></iep-page-header>
-    <div class="contianBox">
-      <div class="header">
-        <span v-for="(item,index) in formData" :key="index">
-          <div v-if="item.projectName!=''">{{item.projectName}}</div>
-          <iep-button v-else style="font-size:18px;color:#999;vertical-align: text-top;" @click="add()">+</iep-button>
-        </span>
-      </div>
-      <div class="title">
-        <div class="data">基本信息资源</div>
-      </div>
-      <div class="counter">
-        <div class="left">
-          <span>项目标签</span>
-          <span>项目阶段</span>
-          <span>项目等级</span>
-          <span>客户名称</span>
-          <span>项目经理</span>
-          <span>项目督导</span>
-          <span>市场经理</span>
-          <span>执行项目经理</span>
-          <span>项目成员</span>
-          <!-- <span>相关资源</span>
+  <iep-app-layout>
+    <div class="project-pk">
+      <iep-page-header title="项目PK" :backOption="backOption"></iep-page-header>
+      <div class="contianBox">
+        <div class="header">
+          <span v-for="(item,index) in formData" :key="index">
+            <div v-if="item.projectName!=''">{{item.projectName}}</div>
+            <iep-button v-else style="font-size:18px;color:#999;vertical-align: text-top;" @click="add()">+</iep-button>
+          </span>
+        </div>
+        <div class="title">
+          <div class="data">基本信息资源</div>
+        </div>
+        <div class="counter">
+          <div class="left">
+            <span>项目标签</span>
+            <span>项目阶段</span>
+            <span>项目等级</span>
+            <span>客户名称</span>
+            <span>项目经理</span>
+            <span>项目督导</span>
+            <span>市场经理</span>
+            <span>执行项目经理</span>
+            <span>项目成员</span>
+            <!-- <span>相关资源</span>
           <span>相关产品</span> -->
+          </div>
+          <div class="right" v-for="(item,index) in formData" :key="index">
+            <span>
+              <span type='info' v-for="(tag, index) in item.projectTagList" :key="index" class="tag">{{tag}}</span>
+              <span v-if="item.projectTagList.length==0">-</span>
+            </span>
+            <span>
+              <span v-if="item.projectStage==0">-</span>
+              <span v-else-if="item.projectStage==1">初步意向</span>
+              <span v-else-if="item.projectStage==2">方案提交</span>
+              <span v-else-if="item.projectStage==3">正在执行</span>
+              <span v-else>项目完结</span>
+            </span>
+            <span>
+              <span v-if="item.projectLevel==0">-</span>
+              <span v-else-if="item.projectLevel==1" class="red">重要项目</span>
+              <span v-else-if="item.projectLevel==2">中级项目</span>
+              <span v-else>一般项目</span>
+            </span>
+            <span>{{item.relatedClientName?item.relatedClientName:'-'}}</span>
+            <span>{{item.projectManagerName?item.projectManagerName:'-'}}</span>
+            <span>
+              <span v-if="item.projectMentorList.length==0">-</span>
+              <span v-for="a in item.projectMentorList" :key="a.id" class="people">{{a.name}}</span>
+            </span>
+            <span>
+              <span v-if="item.mktManagerList.length==0">-</span>
+              <span v-for="a in item.mktManagerList" :key="a.id" class="people">{{a.name}}</span>
+            </span>
+            <span>
+              <span v-if="item.projectHandlesList.length==0">-</span>
+              <span v-for="a in item.projectHandlesList" :key="a.id" class="people">{{a.name}}</span>
+            </span>
+            <span>
+              <span v-if="item.membersList.length==0">-</span>
+              <span v-for="a in item.membersList.slice(0,5)" :key="a.id" class="people">{{a.name}}</span>
+              <span :class="item.membersList.length==maxList.membersListMax?'red':''">{{item.membersList.length>5?`等${item.membersList.length}人`:''}}</span>
+            </span>
+          </div>
         </div>
-        <div class="right" v-for="(item,index) in formData" :key="index">
-          <span>
-            <span type='info' v-for="(tag, index) in item.projectTagList" :key="index">{{tag}}</span>
-          </span>
-          <span>
-            <span v-if="item.projectStage==0"> </span>
-            <span v-else-if="item.projectStage==1">初步意向</span>
-            <span v-else-if="item.projectStage==2">方案提交</span>
-            <span v-else-if="item.projectStage==3">正在执行</span>
-            <span v-else>项目完结</span>
-          </span>
-          <span>
-            <span v-if="item.projectLevel==0"> </span>
-            <span v-else-if="item.projectLevel==1">重要项目</span>
-            <span v-else-if="item.projectLevel==2">中级项目</span>
-            <span v-else>一般项目</span>
-          </span>
-          <span>{{item.relatedClientName}}</span>
-          <span>{{item.projectManagerName}}</span>
-          <span>
-            <span v-if="item.projectMentorList.length==0"> </span>
-            <span v-for="a in item.projectMentorList" :key="a.id" class="people">{{a.name}}</span>
-          </span>
-          <span>
-            <span v-if="item.mktManagerList.length==0"> </span>
-            <span v-for="a in item.mktManagerList" :key="a.id" class="people">{{a.name}}</span>
-          </span>
-          <span>
-            <span v-if="item.projectHandlesList.length==0"> </span>
-            <span v-for="a in item.projectHandlesList" :key="a.id" class="people">{{a.name}}</span>
-          </span>
-          <span>
-            <span v-if="item.membersList.length==0"> </span>
-            <span v-for="a in item.membersList" :key="a.id" class="people">{{a.name}}</span>
-          </span>
+        <div class="title">
+          <div class="data">基本信息资源</div>
         </div>
-      </div>
-      <div class="title">
-        <div class="data">基本信息资源</div>
-      </div>
-      <div class="counter">
-        <div class="left">
-          <span>项目签约周期</span>
-          <span>项目总周期</span>
-          <span>项目成本（元）</span>
-          <span>项目金额（元）</span>
-          <span>项目利润率</span>
-          <span>项目收款率</span>
-          <span>收款时间</span>
-        </div>
-        <div class="right">
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-        </div>
-        <div class="right">
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-        </div>
-        <div class="right">
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
-          <span>收拾收拾收拾收拾</span>
+        <div class="counter">
+          <div class="left">
+            <span>项目签约周期</span>
+            <span>项目总周期</span>
+            <span>项目成本（元）</span>
+            <span>项目金额（元）</span>
+            <span>项目利润率</span>
+            <span>项目收款率</span>
+            <span>收款时间</span>
+          </div>
+          <div class="right" v-for="(item,index) in formData" :key="index">
+            <span :class="item.contractCycle==maxList.contractCycleMax?'red':''">{{item.contractCycle}}天</span>
+            <span :class="item.totalCycle==maxList.totalCycleMax?'red':''">{{item.totalCycle}}天</span>
+            <span :class="item.projectBudget==maxList.projectBudgetMax?'red':''">{{item.projectBudget}}</span>
+            <span :class="item.projectAmount==maxList.projectAmountMax?'red':''">{{item.projectAmount}}</span>
+            <span :class="item.profitMargin==maxList.profitMarginMax?'red':''">{{item.profitMargin}}</span>
+            <span :class="item.receiptRate==maxList.receiptRateMax?'red':''">{{item.receiptRate}}</span>
+            <span>{{item.paymentTime}}</span>
+          </div>
         </div>
       </div>
+      <add-dialog ref="addDialog" @load-page="loadPage"></add-dialog>
     </div>
-    <add-dialog ref="addDialog" @load-page="loadPage"></add-dialog>
-  </div>
+  </iep-app-layout>
 </template>
 
 <script>
 import { getProjectPKList } from '@/api/app/prms/project_pk'
-import { initForm } from './option'
+import { initForm, maxList } from './option'
 import addDialog from './addDialog'
 
 export default {
@@ -122,6 +111,15 @@ export default {
         },
       },
       formData: [initForm(), initForm(), initForm()],
+      comparison: [
+        { before: 'projectBudget', maxValue: '', after: 'projectBudgetMax' },
+        { before: 'projectAmount', maxValue: '', after: 'projectAmountMax' },
+        { before: 'profitMargin', maxValue: '', after: 'profitMarginMax' },
+        { before: 'totalCycle', maxValue: '', after: 'totalCycleMax' },
+        { before: 'contractCycle', maxValue: '', after: 'contractCycleMax' },
+        { before: 'receiptRate', maxValue: '', after: 'receiptRateMax' },
+      ],
+      maxList: maxList(),
     }
   },
   created () {
@@ -136,6 +134,18 @@ export default {
     loadPage () {
       getProjectPKList({ ids: this.idList }).then(({ data }) => {
         this.formData = [data.data[0], data.data.length > 1 ? data.data[1] : initForm(), data.data.length == 3 ? data.data[2] : initForm()]
+        this.formData.profit = (data.data.projectAmount - data.data.projectBudget) / data.data.projectAmount * 100
+        for (let i of this.comparison) {
+          let beforeObject = i.before
+          i.maxValue = Math.max(this.formData[0][beforeObject], this.formData[1][beforeObject], this.formData[2][beforeObject])
+          console.log(i.maxValue)
+        }
+        for (let i of this.comparison) {
+          let maxName = i.after
+          this.maxList[maxName] = i.maxValue
+        }
+        this.maxList.membersListMax = Math.max(this.formData[0].membersList.length, this.formData[1].membersList.length, this.formData[2].membersList.length)
+        console.log(this.maxList.totalCycleMax)
       })
     },
     add () {
@@ -165,9 +175,11 @@ export default {
       }
     }
     .title {
-      width: 160%;
+      width: 100%;
       background-color: #f5f5f5;
       border-radius: 5px;
+      position: sticky;
+      left: 0;
       .data {
         font-size: 16px;
         padding: 10px 20px;
@@ -178,6 +190,8 @@ export default {
         width: 150px;
         display: inline-block;
         vertical-align: top;
+        position: sticky;
+        left: 0;
         > span {
           width: 100%;
           display: block;
@@ -186,6 +200,7 @@ export default {
           height: 46px;
           line-height: 46px;
           border-bottom: 1px solid #eee;
+          background-color: #fff;
         }
       }
       .right {
@@ -201,6 +216,48 @@ export default {
           line-height: 46px;
           border-bottom: 1px solid #eee;
         }
+        .red {
+          color: red;
+        }
+        .tag {
+          position: relative;
+          margin-right: 15px;
+          &:after {
+            content: "/";
+            position: absolute;
+            right: -10px;
+            top: -14px;
+          }
+          &:last-child:after {
+            content: "";
+            position: absolute;
+            right: -10px;
+            top: -14px;
+          }
+        }
+        .people {
+          margin-right: 10px;
+          padding-right: 5px;
+          position: relative;
+          &:after {
+            content: "、";
+            position: absolute;
+            right: -12px;
+            top: -12px;
+          }
+          &:last-child:after {
+            content: "";
+            position: absolute;
+            right: -12px;
+            top: -12px;
+          }
+          &:nth-last-child(2):after {
+            content: "";
+            position: absolute;
+            right: -12px;
+            top: -12px;
+          }
+        }
       }
     }
   }
@@ -210,5 +267,8 @@ export default {
 /* .project-pk >>> .el-form-item__content {
   display: flex;
 } */
+.project-pk >>> .title-wrapper {
+  margin-bottom: 0;
+}
 </style>
 

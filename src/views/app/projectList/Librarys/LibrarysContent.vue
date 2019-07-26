@@ -7,15 +7,22 @@
           <a-skeleton :loading="loading" active />
           <div v-if="!loading" style="cursor: pointer;" @click="handleOpen(item)">
             <div class="title">
-              <span class="stage" v-show="isShow">{{item.stage}}</span>
+              <span class="stage" v-if="item.projectStage==1">初步意向</span>
+              <span class="stage" v-else-if="item.projectStage==2">方案提交</span>
+              <span class="stage" v-else-if="item.projectStage==3">正在执行</span>
+              <span class="stage" v-else>项目完结</span>
               <h4 class="name">{{item.projectName}}</h4><span class="sub-title">{{item.serialNo}}</span>
             </div>
             <div class="item">
               <span class="label">项目等级：{{transform(item.projectLevel, 'prms_project_level')}}</span>
+            </div>
+            <div class="item">
               <span class="label">项目经理：{{item.manager}}</span>
+              <!-- <span class="label">市场经理：{{item.manager}}</span>
+              <span class="label">项目成员：{{item.manager}}</span> -->
             </div>
             <div class="box">
-              <span>项目类型：{{transform(item.projectType, 'prms_project_type')}}</span>
+              <span class="label">项目类型：{{transform(item.projectType, 'prms_project_type')}}</span>
               <span>发布人：{{item.publisherName}}</span>
               <span><i class="iconfont icon-shijian"></i>{{dateFormat(item.publishTime)}}</span>
             </div>
@@ -32,7 +39,7 @@
 
 <script>
 import { getProjectPage } from '@/api/app/prms/'
-import { getProjectJoinList } from '@/api/app/prms/project_pk'
+// import { getProjectJoinList } from '@/api/app/prms/project_pk'
 import { mapGetters } from 'vuex'
 import { dateFormat } from '@/util/date'
 
@@ -93,9 +100,10 @@ export default {
     },
     joinPK (val) {
       this.idList.push(val.id)
-      getProjectJoinList(this.idList).then(({ data }) => {
-        this.$emit('joinUpOne', data, this.idList)
-      })
+      // getProjectJoinList(this.idList).then(({ data }) => {
+      //   this.$emit('joinUpOne', data, this.idList, true)
+      // })
+      this.$emit('joinUpOne', this.idList)
       val.isClick = true
     },
   },
@@ -114,7 +122,6 @@ export default {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    flex-direction: column;
     .label {
       margin-right: 20px;
       margin-bottom: 5px;
@@ -167,7 +174,6 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 10px;
   span {
     display: flex;
     justify-content: flex-start;

@@ -775,10 +775,10 @@ export default {
     'formData.projectAmount': {
       deep: true,
       handler: function (val) {
-        if (val > 999999) {
+        if (val > 999999.99) {
           this.formData.projectLevel = '1'
         }
-        else if (499999 < val && val < 1000000) {
+        else if (499999.99 < val && val < 1000000) {
           this.formData.projectLevel = '2'
         }
         else {

@@ -16,7 +16,6 @@
 <script>
 import formMixins from '@/mixins/formMixins'
 import { rules } from './option'
-// import { getProjectPKList } from '@/api/app/prms/project_pk'
 export default {
   mixins: [formMixins],
   data () {
@@ -48,15 +47,6 @@ export default {
           ids: this.idList,
         },
       })
-      // getProjectPKList({ ids: this.idList }).then(({ data }) => {
-      //   if (data.data) {
-      //     this.formData = [data.data[0], data.data.length == 2 ? data.data[1] : initForm(), data.data.length == 3 ? data.data[2] : initForm()]
-      //     this.$message.success('添加成功')
-      //     this.dialogShow = false
-      //   } else {
-      //     this.$message(data.msg)
-      //   }
-      // })
     },
   },
 }

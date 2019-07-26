@@ -1,8 +1,10 @@
 <template>
-  <div class="project-details">
-    <left></left>
-    <right></right>
-  </div>
+  <iep-app-layout>
+    <div class="project-details">
+      <left></left>
+      <right></right>
+    </div>
+  </iep-app-layout>
 </template>
 <script>
 import Left from './Left'
@@ -14,7 +16,7 @@ export default {
     }
   },
   created () {
-    
+
   },
 }
 </script>

@@ -7,11 +7,11 @@
     </div> -->
     <div class="wealth">
       <div class="library">
-        <librarys ref="librarys" class="librarys" @joinUpTwo="joinUpEnd($event)"></librarys>
+        <librarys ref="librarys" class="librarys" @joinUpTwo="joinUpEnd"></librarys>
       </div>
       <div class="piece">
         <ranking></ranking>
-        <div class="project-pk" @click="handlePKClick">项目PK</div>
+        <!-- <div class="project-pk" @click="handlePKClick">项目PK</div> -->
       </div>
       <dialog-show class="dialog-show" ref="DialogShow"></dialog-show>
     </div>
@@ -40,9 +40,9 @@ export default {
     changePage (val) {
       this.$refs['librarys'].loadPage({ projectName: val })
     },
-    handlePKClick () {
-      this.$refs['DialogShow'].dialogShow = true
-    },
+    // handlePKClick () {
+    //   this.$refs['DialogShow'].dialogShow = true
+    // },
     // 推荐主题
     getRectagsList () {
       getRectagsList().then(({ data }) => {
@@ -55,9 +55,10 @@ export default {
         this.listList = data.data
       })
     },
-    joinUpEnd (val, ids) {
-      this.$refs['DialogShow'].cities = val
+    joinUpEnd (ids) {
       this.$refs['DialogShow'].arrId = ids
+      this.$refs['DialogShow'].dialogShow = true
+      this.$refs['DialogShow'].loadPage()
     },
   },
   created () {
@@ -81,7 +82,6 @@ export default {
   }
 }
 .wealth {
-  position: relative;
   width: 1200px;
   margin: 0 auto;
   border-top: 1px solid #eee;

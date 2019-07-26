@@ -59,6 +59,22 @@ const initForm = () => {
     projectStage: 0,
     orgId:'',
     isClaim: 1,
+    totalCycle:0,//总周期
+    contractCycle:0,//签约周期
+    profitMargin:0,//利润率
+    receiptRate:0,//收款率
+  }
+}
+const maxList = () => {
+  return {
+    projectBudgetMax: 0,//预算
+    projectAmountMax: 0,//项目金额
+    membersListMax:0,//成员
+    projectLevel:1,//项目等级
+    profitMargin:0,//利润率
+    totalCycle:0,//总周期
+    contractCycle:0,//签约周期
+    receiptRate:0,//收款率
   }
 }
 export const rules = {
@@ -66,4 +82,4 @@ export const rules = {
     { required: true, message: '请选择项目名称', trigger: 'blur' },
   ],
 }
-export { initForm }
+export { initForm,maxList }

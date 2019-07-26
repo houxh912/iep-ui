@@ -81,6 +81,11 @@ export default {
         })
       })
     },
+    handleDetail (row) {
+      this.$router.push({
+        path: `/gpms_spa/project/detail/${row.id}`,
+      })
+    },
   },
   mounted () {
     this.searchForm.listType = 3

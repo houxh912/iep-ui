@@ -46,10 +46,10 @@
         <div class="func" v-if="formData.images.length > 0 && transmitId === -1">
           <i class="icon-tupian"></i><p>图片</p>
         </div>
-        <div class="func">
+        <div class="func" @click="handleAnt">
           <i class="symbol">@</i><p>提醒</p>
         </div>
-        <div class="func">
+        <div class="func" @click="handleSubject" v-if="false">
           <i class="symbol">#</i><p>话题</p>
         </div>
         <div class="switch">
@@ -259,6 +259,14 @@ export default {
 <style lang="scss" scoped>
 .item-content {
   position: relative;
+  height: 120px;
+}
+.item-content .textarea {
+  position: absolute;
+  height: 120px;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 .yincang {
   position: absolute;
@@ -266,6 +274,7 @@ export default {
   left: 0;
   text-align: left;
   opacity: 0;
+  z-index: 0;
 }
 .el-autocomplete-suggestion {
   width: 150px !important;

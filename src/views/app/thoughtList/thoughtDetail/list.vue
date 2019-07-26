@@ -24,7 +24,9 @@ export default {
     next()
   },
   methods: {
-    loadPage () {},
+    loadPage () {
+      this.$emit('load-page')
+    },
   },
   created () {
     

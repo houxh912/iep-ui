@@ -18,7 +18,7 @@
         <contentTpl :data="item">
           <!-- 转发原内容 -->
           <div class="forward-content" v-if="item.transmitId > 0">
-            <forwardContent :contentData="item.transmittedThoughts"></forwardContent>
+            <forwardContent :contentData="item.transmittedThoughts" @click.native="handleForwardDetail(item.transmittedThoughts.thoughtsId)"></forwardContent>
           </div>
         </contentTpl>
         <!-- 按钮组 -->
@@ -125,6 +125,10 @@ export default {
       } else {
         this.reference = '暂无人点赞'
       }
+    },
+    // 说说详情
+    handleForwardDetail (id) {
+      this.$router.push(`/app/thought_detail/${id}`)
     },
     mouseleaveUp () {
       setTimeout(() => {
@@ -259,5 +263,6 @@ export default {
   background-color: #fafafa;
   padding: 20px;
   margin-top: 15px;
+  cursor: pointer;
 }
 </style>

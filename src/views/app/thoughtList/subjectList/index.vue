@@ -1,7 +1,7 @@
 <template>
   <iep-app-layout>
     <h3 class="title">#{{title}}#</h3>
-    <headTpl class="head" @load-page="submitCallBack"></headTpl>
+    <headTpl class="head" @load-page="submitCallBack" :subject="subjectTitle"></headTpl>
     <div class="content">
       <div class="content-left">
         <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
@@ -51,6 +51,7 @@ export default {
   beforeRouteUpdate (to, from, next) {
     this.$nextTick(() => {
       this.title = this.$route.query.title
+      this.subjectTitle = `#${this.title}#`
       this.params.topicId = this.$route.query.id
       this.loadPage()
     })
@@ -66,6 +67,7 @@ export default {
       activeIndex: -1,
       params: initParams(),
       dataList: [],
+      subjectTitle: '',
     }
   },
   methods: {
@@ -97,6 +99,7 @@ export default {
   },
   created () {
     this.title = this.$route.query.title
+    this.subjectTitle = `#${this.title}#`
     this.params.topicId = this.$route.query.id
     this.loadPage()
   },

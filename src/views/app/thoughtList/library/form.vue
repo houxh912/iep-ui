@@ -2,7 +2,7 @@
   <div class="head">
     <el-form :model="formData" :rules="rules" ref="form" label-width="0px" class="input">
       <el-form-item class="item-content" prop="content">
-        <el-input @click.native="handleCancal" id="keyupStart" ref="content" type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea" maxlength="1000" @keyup.native="handleKeyup"></el-input>
+        <el-input @click.native="handleCancal" id="keyupStart" ref="content" type="textarea" rows="5" :placeholder="subjectPlaceholder" v-model="formData.content" class="textarea" maxlength="1000" @keyup.native="handleKeyup"></el-input>
         <div class="yincang">
           {{formData.content}}
           <el-autocomplete
@@ -76,7 +76,7 @@ import store from '@/store'
 import { getSubject, getName } from './util'
 import keyup from './keyup'
 
-const initForm = () => {
+var initForm = () => {
   return {
     content: '',
     status: 0,
@@ -91,6 +91,10 @@ const rules = {
 export default {
   mixins: [ keyup ],
   props: {
+    subject: {
+      type: String,
+      default: '',
+    },
     transmitId: {
       type: Number,
       default: -1,
@@ -98,6 +102,7 @@ export default {
   },
   data () {
     return {
+      subjectPlaceholder: '工作之余，分享下今天的感受吧~',
       formData: initForm(),
       rules,
       limit: 3,
@@ -165,6 +170,31 @@ export default {
           return false
         }
       })
+    },
+    isSubject () {
+      let subject = ''
+      if (this.subject) {
+        subject = this.subject
+      } else {
+        subject = '工作之余，分享下今天的感受吧~'
+      }
+      this.subjectPlaceholder = subject
+      initForm = () => {
+        return {
+          content: this.subject,
+          status: 0,
+          images: [],
+        }
+      }
+      this.formData = initForm()
+    },
+  },
+  created () {
+    this.isSubject()
+  },
+  watch: {
+    subject () {
+      this.isSubject()
     },
   },
 }

@@ -50,6 +50,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .mark {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 </style>

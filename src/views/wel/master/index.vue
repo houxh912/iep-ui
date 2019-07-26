@@ -2,16 +2,16 @@
   <div class="master">
     <iep-page-header title="推荐师父">
     </iep-page-header>
-     <operation-container>
-        <template slot="left">
-          <iep-button @click="handleClick2">我的师徒</iep-button>
-        </template>
-        <template slot="right">
-          <operation-search @search-page="searchPage">
-          </operation-search>
-          <iep-button @click="handleClick">国脉人</iep-button>
-        </template>
-      </operation-container>
+    <operation-container>
+      <template slot="left">
+        <iep-button @click="handleClick2">我的师徒</iep-button>
+      </template>
+      <template slot="right">
+        <operation-search @search-page="searchPage">
+        </operation-search>
+        <iep-button @click="handleClick">国脉人</iep-button>
+      </template>
+    </operation-container>
     <div v-loading="loadState" v-if="loadState"></div>
     <div v-else>
       <div class="master-con" v-if="masterList.length !== 0">
@@ -54,13 +54,13 @@ export default {
       params: {
         name: '',
       },
-      mark:'master',
+      mark: 'master',
     }
   },
   methods: {
     ...mapActions(['ApprenticeApply']),
     handleApprentice (row) {
-      this.ApprenticeApply({id: row.userId, name: row.realName})
+      this.ApprenticeApply({ id: row.userId, name: row.realName })
     },
     getPerson (row) {
       this.$router.push({
@@ -68,7 +68,7 @@ export default {
       })
     },
     getPageRecommend () {
-      getPageRecommend(this.params).then(({data}) => {
+      getPageRecommend(this.params).then(({ data }) => {
         this.loadState = false
         this.masterList = data.records
       })
@@ -78,8 +78,8 @@ export default {
     },
     handleClick2 () {
       this.$router.push({
-        path:'/wel/relationship_manage',
-        query:{mark:this.mark},
+        path: '/wel/relationship_manage',
+        query: { mark: this.mark },
       })
     },
     searchPage (val) {
@@ -108,7 +108,6 @@ export default {
     );
   .name {
     display: flex;
-    margin-bottom: 10px;
     justify-content: flex-start;
     align-items: center;
     .text {

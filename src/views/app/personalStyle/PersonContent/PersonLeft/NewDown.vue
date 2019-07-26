@@ -6,7 +6,7 @@
       </div>
       <div class="classTags">
         <div class="classTag" v-for="(tag, index) in tagList" :key="index">
-          <el-tag type="white">{{tag}}</el-tag>
+          <el-tag type="white">{{tag.peopleImpression}}</el-tag>
         </div>
       </div>
       <div class="append" style="margin-top: 15px;">
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { getImpressionById, impressionCreate } from '@/api/cpms/commonpeopleimpression'
+import { getImpressionByUserId, impressionCreate } from '@/api/cpms/commonpeopleimpression'
 export default {
   props: {
     userInfo: {
@@ -66,8 +66,8 @@ export default {
       this.$router.push(`/app/personal_style/${row.visitorId}`)
     },
     getImpressionById () {
-      getImpressionById(this.$route.params.id).then(({ data }) => {
-        this.tagList = data.data.data ? data.data.data : []
+      getImpressionByUserId({userId: this.$route.params.id}).then(({ data }) => {
+        this.tagList = data.records
       })
     },
     // 提交印记
@@ -76,12 +76,14 @@ export default {
         return
       }
       impressionCreate({
-        peopleImpression: this.input3,
-        peopleImpressionId: this.$route.params.id,
-      }).then(( data ) => {
-        if (data.data) {
+        people: [this.input3],
+        creatorId: this.$route.params.id,
+      }).then(({ data }) => {
+        if (data.data.data) {
           this.getImpressionById()
           this.input3 = ''
+        } else {
+          this.$message.error(data.data.msg)
         }
       })
     },

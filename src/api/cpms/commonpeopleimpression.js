@@ -1,10 +1,11 @@
 import request from '@/router/axios'
 export const prefixUrl = '/cpms/iepcommonpeopleimpression'
 
-export function getImpressionById (id) {
+export function getImpressionByUserId (params) {
   return request({
-    url: `${prefixUrl}/${id}`,
+    url: `${prefixUrl}/userId`,
     method: 'get',
+    params: params,
   })
 }
 

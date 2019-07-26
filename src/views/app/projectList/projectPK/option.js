@@ -63,6 +63,7 @@ const initForm = () => {
     contractCycle:0,//签约周期
     profitMargin:0,//利润率
     receiptRate:0,//收款率
+    paymentTimeChange:0,//收款时间戳
   }
 }
 const maxList = () => {
@@ -75,6 +76,7 @@ const maxList = () => {
     totalCycle:0,//总周期
     contractCycle:0,//签约周期
     receiptRate:0,//收款率
+    paymentTimeChange:0,//收款时间戳
   }
 }
 export const rules = {

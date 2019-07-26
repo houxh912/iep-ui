@@ -71,8 +71,6 @@
         <el-form-item label="froala展示:">
           <iep-html v-model="form.content"></iep-html>
         </el-form-item>
-
-        <div class="fack-div"></div>
       </el-form>
     </basic-container>
   </div>
@@ -124,8 +122,3 @@ export default {
   width: 100%;
   border: 1px solid #eee;
 }
-.fack-div {
-  height: 500px;
-  width: 500px;
-}
-</style>

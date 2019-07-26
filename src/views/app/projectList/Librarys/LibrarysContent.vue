@@ -27,7 +27,7 @@
               <span><i class="iconfont icon-shijian"></i>{{dateFormat(item.publishTime)}}</span>
             </div>
           </div>
-          <iep-button class="pk-btn" type="danger" plain @click="joinPK(item)" :disabled="item.isClick==true">加入pk</iep-button>
+          <!-- <iep-button class="pk-btn" type="danger" plain @click="joinPK(item)" :disabled="item.isClick==true">加入pk</iep-button> -->
         </div>
       </div>
       <div style="text-align: center;margin: 20px 0;">

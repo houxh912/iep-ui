@@ -47,6 +47,7 @@ const columnsMap = [
   {
     prop: 'remarks',
     label: '备注',
+    type: 'detail',
   },
 ]
 

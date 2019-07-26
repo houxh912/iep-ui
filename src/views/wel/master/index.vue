@@ -108,7 +108,6 @@ export default {
     );
   .name {
     display: flex;
-    margin-bottom: 10px;
     justify-content: flex-start;
     align-items: center;
     .text {
@@ -164,7 +163,6 @@ export default {
     }
     .el-tag {
       margin-right: 5px;
-      margin-bottom: 5px;
       cursor: pointer;
       &:hover {
         color: #cb3737;

@@ -95,8 +95,8 @@ export default {
       top: 32%;
     }
     .item {
-      position: absolute;
-      right: -80px;
+      position: fixed;
+      right: 16px;
       top: 40%;
     }
   }
@@ -119,6 +119,14 @@ export default {
 }
 .gird-product >>> .el-card {
   border: 0;
+}
+.gird-product >>> .el-button--medium {
+  padding: 0;
+  width: 60px;
+  height: 60px;
+}
+.gird-product >>> .el-button--medium.el-badge__content.is-fixed {
+  right: 20px;
 }
 </style>
 

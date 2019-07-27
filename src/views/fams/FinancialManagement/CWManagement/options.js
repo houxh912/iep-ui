@@ -17,7 +17,7 @@ const columnsMap = [
   {
     prop: 'amount',
     label: '提现金额',
-    width: '70',
+    width: '80',
   },
   {
     prop: 'deductionInvoice',

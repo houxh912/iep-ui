@@ -1,4 +1,4 @@
-// import { mergeByFirst } from '@/util/util'
+﻿// import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
   status: { // （待核准—通过—上架—下架—结束）
@@ -11,6 +11,7 @@ const columnsMap = [
   {
     prop:'investmentNumber',
     label:'已投人数',
+    width:'100',
   },
   {
     prop:'targetAmount',
@@ -24,6 +25,7 @@ const columnsMap = [
     prop:'status',
     label:'状态',
     type:'dict',
+    width:'80',
   },
 ]
 const initForm = () => {

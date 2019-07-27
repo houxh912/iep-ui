@@ -13,7 +13,7 @@
           'amount', {
           initialValue: 100,
           rules: [{ required: true, message: '请输入提现金额' }]
-        }]" placeholder="请输入提现金额" />
+        }]" placeholder="请输入提现金额" @change="handleChange" />
         </a-tooltip>
       </a-form-item>
       <a-form-item label="发票抵税：" :label-col="labelCol" :wrapper-col="wrapperCol">
@@ -60,16 +60,25 @@ export default {
     return {
       labelCol: { span: 6 },
       wrapperCol: { span: 18 },
+      amount: 100,
       maxAmount: 0,
-      maxDeductionInvoice: 0,
+      withInvoice: 0,
       formLayout: 'horizontal',
       form: this.$form.createForm(this),
     }
+  },
+  computed: {
+    maxDeductionInvoice () {
+      return Math.min(this.withInvoice, this.amount)
+    },
   },
   created () {
     this.loadTotal()
   },
   methods: {
+    handleChange (value) {
+      this.amount = value
+    },
     async loadTotal () {
       const { data } = await getTotal()
       if (!data.data) {
@@ -78,7 +87,7 @@ export default {
         return
       }
       this.maxAmount = data.data.withdrawableCash >= 0 ? data.data.withdrawableCash : 0
-      this.maxDeductionInvoice = data.data.withInvoice
+      this.withInvoice = data.data.withInvoice
     },
     formatNumber,
     handleSubmit () {

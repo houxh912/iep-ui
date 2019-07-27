@@ -12,7 +12,7 @@ export default {
 <style lang="scss" scoped>
 .no-data {
   color: #333;
-  font-size: 30px;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;

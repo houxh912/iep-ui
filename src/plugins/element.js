@@ -1,8 +1,9 @@
 import Vue from 'vue'
 // 全局重置变量
 import '@/styles/reset.css'
-// 全局变量
-import '@/styles/theme/index.scss'
+// TODO:等 element-ui 2.11.0 修复
+import '@/styles/element-variables.scss'
+
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import {
   Pagination,

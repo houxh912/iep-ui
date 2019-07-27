@@ -41,9 +41,9 @@ import {
 import { getModuleMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap, initForm, orgDsType } from '@/views/admin/role/options'
-import DialogForm from '@/views/admin/role/DialogForm'
-import PermissionDialogForm from '@/views/admin/role/PermissionDialogForm'
+import { dictsMap, columnsMap, initForm, orgDsType } from './options'
+import DialogForm from './DialogForm'
+import PermissionDialogForm from './PermissionDialogForm'
 function filterTree (arr, selectedKey) {
   return arr.filter(item => !selectedKey.includes(item.id)).map(item => {
     item = Object.assign({}, item)

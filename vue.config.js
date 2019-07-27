@@ -1,7 +1,7 @@
 const utils = require('./config/utils')
 const cacheGroups = require('./config/cacheGroups')
 const devServer = require('./config/devServer')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production'
 const externals = {
@@ -16,21 +16,28 @@ const commonCss = [
   '/cdn/iconfont/index.css',
   '/cdn/iep/index.css',
   '/cdn/avue.index.css',
+  '/cdn/element-ui.css',
   '/cdn/froala-editor/css/froala_editor.pkgd.min.css',
   '/cdn/froala-editor/css/froala_style.min.css',
   '/cdn/froala-editor/css/themes/gray.min.css',
+]
+const commonJs = [
+  '/cdn/jquery.min.js',
+  '/cdn/froala-editor/froala_editor.pkgd.min.js',
+  '/cdn/froala-editor/zh_cn.js',
 ]
 // CDN外链，会插入到index.html中
 const cdn = {
   // 开发环境
   dev: {
     css: [...commonCss],
-    js: []
+    js: [...commonJs]
   },
   // 生产环境
   build: {
     css: [...commonCss],
     js: [
+      ...commonJs,
       '/cdn/vue.runtime.min.js',
       '/cdn/vue-router.min.js',
       '/cdn/vuex.min.js',
@@ -81,7 +88,21 @@ module.exports = {
     if (isProduction) {
       // 用cdn方式引入
       config.optimization = {
-        // minimizer: true,
+        minimizer: [
+          new TerserPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: false, // Must be set to true if using source-maps in production
+            terserOptions: {
+              compress: {
+                warnings: false,
+                drop_debugger: true,
+                // drop_console: true,
+              }
+              // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+            }
+          }),
+        ],
         providedExports: true,
         usedExports: true,
         //识别package.json中的sideEffects以剔除无用的模块，用来做tree-shake
@@ -98,19 +119,6 @@ module.exports = {
         }
       }
       config.externals = externals
-      // 为生产环境修改配置...
-      config.plugins.push(
-        //生产环境自动删除console
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            warnings: false,
-            drop_debugger: true,
-            // drop_console: true,
-          },
-          sourceMap: false,
-          parallel: true,
-        })
-      )
     } else {
       // 为开发环境修改配置...
     }

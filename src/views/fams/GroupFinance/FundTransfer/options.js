@@ -1,4 +1,4 @@
-// import { mergeByFirst } from '@/util/util'
+﻿// import { mergeByFirst } from '@/util/util'
 import { initNow } from '@/util/date'
 import { checkContactUser } from '@/util/rules'
 import moment from 'moment'
@@ -29,6 +29,7 @@ const columnsMap = [
 	{
 		prop: 'amount',
 		label: '调拨金额',
+                                width:'100',
 	},
 	{
 		prop: 'allocationWay',

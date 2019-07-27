@@ -24,6 +24,7 @@ module.exports = {
     'space-before-function-paren': 'error',
     'no-console': 'off',
     'no-debugger': 'off',
+    'no-prototype-builtins': 'off',
   },
   parserOptions: {
     parser: "babel-eslint"

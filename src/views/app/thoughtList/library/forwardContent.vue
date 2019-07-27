@@ -11,7 +11,7 @@
         </div>
       </div>
       <contentTpl class="contentTpl" :data="contentData"></contentTpl>
-      <formTpl :transmitId="contentData.thoughtsId" v-if="forward"></formTpl>
+      <formTpl @load-page="loadPage" :transmitId="contentData.thoughtsId" v-if="forward"></formTpl>
     </div>
   </div>
 </template>
@@ -28,6 +28,11 @@ export default {
     },
     contentData: {
       type: Object,
+    },
+  },
+  methods: {
+    loadPage () {
+      this.$emit('load-page', true)
     },
   },
 }

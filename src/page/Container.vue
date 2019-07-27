@@ -6,7 +6,7 @@
           <div class="title-image">
             <img src="/img/logo.png" class="top-image">
             <div class="login-title">{{title}}
-              <a-dropdown>
+              <!-- <a-dropdown>
                 <a style="font-size: 14px;">
                   备用网址
                   <a-icon type="down" />
@@ -16,7 +16,7 @@
                     {{v.name}}
                   </a-menu-item>
                 </a-menu>
-              </a-dropdown>
+              </a-dropdown> -->
             </div>
           </div>
           <slot name="tab-panel"></slot>
@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import website from '@/const/website'
+// import website from '@/const/website'
 export default {
   props: {
     title: {
@@ -42,7 +42,7 @@ export default {
   },
   data () {
     return {
-      backupUrl: website.backupUrl,
+      // backupUrl: website.backupUrl,
     }
   },
 }

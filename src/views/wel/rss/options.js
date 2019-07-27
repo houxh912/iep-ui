@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 const dictsMap = {
   status: {
     0: '技术文档',
@@ -16,10 +16,12 @@ const columnsMap = [
     prop: 'status',
     label: '类型',
     type: 'dict',
+    width:'100',
   },
   {
     prop: 'time',
     label: '更新时间',
+    width:'120',
   },
   
 ]

@@ -5,7 +5,7 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增</iep-button>
-          <iep-button type="primary" @click="excellImport" plain>导入</iep-button>
+          <iep-button @click="excellImport" plain>导入</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search :prop="'contactName'">
@@ -19,7 +19,7 @@
             <span class="contact-tag" v-for="(item,index) in scope.row.clientInfos" :key="index">{{item.clientName}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="250">
+        <el-table-column prop="operation" label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" plain type="warning">编辑</iep-button>

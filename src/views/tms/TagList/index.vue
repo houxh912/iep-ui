@@ -29,9 +29,9 @@
         </template>
       </collapse-form>
 
-      <el-form :inline="true" size="small">
+      <el-form class="list-btn" :inline="true" size="small">
         <el-form-item v-if="gov_tag_add">
-          <el-button type="primary" icon="el-icon-plus" @click="handleAdd()">新增</el-button>
+          <el-button type="primary" icon="el-icon-plus" @click="handleAdd()" plain>新增</el-button>
         </el-form-item>
         <el-form-item>
           <el-button icon="el-icon-menu" @click="handleMerge()">合并</el-button>
@@ -46,10 +46,10 @@
           <el-button icon="el-icon-delete" @click="handleDelete()">删除</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" icon="el-icon-upload" @click="handleImport()">Excel导入</el-button>
+          <el-button icon="el-icon-upload" @click="handleImport()">Excel导入</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="success" icon="el-icon-download" @click="handleExport()">导出</el-button>
+          <el-button icon="el-icon-download" @click="handleExport()">导出</el-button>
         </el-form-item>
       </el-form>
 
@@ -61,13 +61,11 @@
       </div>
 
       <crud-table :is-load-table="isLoadTable" align="center" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
-        <el-table-column prop="operation" align="center" label="操作" width="200">
+        <el-table-column prop="operation" align="center" label="操作" width="230">
           <template slot-scope="scope">
-            <el-button @click="handleAddToMerge(scope.row)" type="text" size="small">合并</el-button>
-            <iep-divider type="vertical" />
-            <el-button :disabled="!gov_tag_edit" @click="handleEdit(scope.row)" type="text" size="small">修改</el-button>
-            <iep-divider type="vertical" />
-            <el-button :disabled="!gov_tag_del" @click="handleDeleteTag(scope.row)" type="text" size="small">删除</el-button>
+            <el-button class="btn" @click="handleAddToMerge(scope.row)" type="warning" size="small" plain>合并</el-button>
+            <el-button class="btn" :disabled="!gov_tag_edit" @click="handleEdit(scope.row)" size="small" type="default">修改</el-button>
+            <el-button class="btn" :disabled="!gov_tag_del" @click="handleDeleteTag(scope.row)" size="small" type="default">删除</el-button>
           </template>
         </el-table-column>
       </crud-table>
@@ -180,6 +178,7 @@ const columnMap = [
     prop: 'typeNames',
     label: '所属分类',
     type: '所属分类',
+    width: '150px',
   },
   {
     prop: 'refers',
@@ -189,6 +188,7 @@ const columnMap = [
     prop: 'updateTime',
     label: '更新时间',
     type: 'date',
+    width: '150px',
   },
   {
     prop: 'status',
@@ -397,5 +397,16 @@ export default {
   > .el-tag {
     margin-right: 5px;
   }
+}
+.btn {
+  margin-right: -5px;
+}
+</style>
+<style scoped>
+.list-btn >>> .el-button {
+  height: 32px;
+}
+.list-btn >>> .el-form-item + .el-form-item {
+  margin-left: -5px;
 }
 </style>

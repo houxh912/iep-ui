@@ -12,8 +12,8 @@
         </template>
         <template slot="right">
           <operation-wrapper>
-            <iep-button type="primary" @click="$openPage(`/fams_spa/org_payment_plan/0`)">查看回款计划</iep-button>
-            <iep-button type="primary" @click="$openPage(`/fams_spa/business_indicator`)">本组织业务指标</iep-button>
+            <iep-button type="primary" @click="$openPage(`/fams_spa/org_payment_plan/0`)" plain>查看回款计划</iep-button>
+            <iep-button @click="$openPage(`/fams_spa/business_indicator`)">本组织业务指标</iep-button>
           </operation-wrapper>
         </template>
       </iep-statistics-header>
@@ -29,12 +29,12 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
         <template slot="before-columns">
-          <el-table-column label="项目编号">
+          <el-table-column label="项目编号" width="120px">
             <template slot-scope="scope">
               <iep-div-detail :value="scope.row.projectNum"></iep-div-detail>
             </template>
           </el-table-column>
-          <el-table-column label="项目名称">
+          <el-table-column label="项目名称" width="250px">
             <template slot-scope="scope">
               <iep-div-detail :value="scope.row.projectName">
               </iep-div-detail>
@@ -44,7 +44,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="项目金额(预)">
+        <el-table-column label="项目金额(预)" width="120px">
           <template slot-scope="scope">
             <iep-div-detail :value="项目金额(scope.row)"></iep-div-detail>
           </template>
@@ -64,7 +64,7 @@
             <iep-div-detail :value="到账金额(scope.row)"></iep-div-detail>
           </template>
         </el-table-column>
-        <el-table-column label="开票应收账款金额">
+        <el-table-column label="开票应收账款金额" width="150px">
           <template slot-scope="scope">
             <iep-div-detail :value="应收账款金额(scope.row)"></iep-div-detail>
           </template>
@@ -161,4 +161,10 @@ export default {
 }
 </script>
 <style scoped>
+.ant-tag {
+  margin-left: 5px;
+  color: #ba1b21;
+  background: #f8e8e9;
+  border-color: #e3a4a6;
+}
 </style>

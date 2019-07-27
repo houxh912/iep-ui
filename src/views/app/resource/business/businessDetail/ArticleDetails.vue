@@ -69,7 +69,7 @@ export default {
 .business-details {
   padding: 20px 0;
   .title {
-    font-size: 18px;
+    font-size: 22px;
     color: #333;
     height: 50px;
     line-height: 50px;

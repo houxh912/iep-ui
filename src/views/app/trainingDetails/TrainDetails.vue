@@ -161,8 +161,9 @@ export default {
       span {
         margin-bottom: 10px;
         padding-right: 20px;
-        width: 50%;
-        &:last-child {
+        width: 33.333333%;
+        &:last-child,
+        &:nth-child(4) {
           width: 100%;
         }
       }

@@ -1,4 +1,4 @@
-import { checkContactUser } from '@/util/rules'
+﻿import { checkContactUser } from '@/util/rules'
 const columnsMap = [
   {
     prop: 'id',
@@ -14,10 +14,12 @@ const columnsMap = [
   {
     prop: 'sender',
     label: '发送者',
+    width: '100',
   },
   {
     prop: 'receiver',
     label: '接收者',
+    width: '100',
   },
   {
     prop: 'amount',

@@ -5,17 +5,19 @@
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <list ref="list" class="list"></list>
+    <list ref="list" class="list" :dataList="dataList" @load-page="loadPage"></list>
   </iep-app-layout>
 </template>
 
 <script>
 import list from './list'
+import { getDetailById } from '@/api/cpms/thoughts'
 export default {
   components: { list },
   data () {
     return {
       routerMatch: this.$route.matched,
+      dataList: [],
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -23,10 +25,17 @@ export default {
     next()
   },
   methods: {
-    loadData () {},
+    loadData (id) {
+      getDetailById(id).then(({ data }) => {
+        this.dataList = [data.data]
+      })
+    },
+    loadPage () {
+      this.loadData(this.$route.params.id)
+    },
   },
   created () {
-    this.loadData()
+    this.loadData(this.$route.params.id)
   },
 }
 </script>
@@ -36,7 +45,7 @@ export default {
   .breadcrumb-item {
     margin: 20px auto 0;
     width: 1200px;
-    padding: 0 0 20px 20px;
+    padding: 0 0 20px 0;
   }
 }
 .list {

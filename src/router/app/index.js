@@ -254,19 +254,24 @@ export default [
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/person/GovPersonContent/TobeBole/'),
       },
       {
-        path: 'more_thoughts',
+        path: 'more_thought',
         name: '说说列表页',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/moreThoughts/'),
       },
       {
-        path: 'more_thought',
+        path: 'more_thoughts',
         name: '新版说说',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/'),
       },
       {
-        path: 'thought_detail',
+        path: 'thought_detail/:id',
         name: '说说详情',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/thoughtDetail/'),
+      },
+      {
+        path: 'subject_list',
+        name: '说说话题详情页',
+        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/thoughtList/subjectList/'),
       },
       {
         path: 'version_page',
@@ -315,7 +320,7 @@ export default [
       },
       {
         path: 'news/news_detail/:id',
-        name: '岗位详情',
+        name: '新闻详情',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newsDetail/'),
       },
     ],

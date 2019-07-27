@@ -40,11 +40,11 @@ export default {
       listList2: [],
       dataList: [
         { name: '厦门市信息中心标准规划部' },
-        { name: '深圳市经济贸易和信息化委员会'},
-        { name: '象山政府部门'},
-        { name: '珠海市营商环境评估'},
-        { name: '珠海市营商环境评估'},
-        { name: '珠海市营商环境评估'},
+        { name: '深圳市经济贸易和信息化委员会' },
+        { name: '象山政府部门' },
+        { name: '珠海市营商环境评估' },
+        { name: '珠海市营商环境评估' },
+        { name: '珠海市营商环境评估' },
       ],
       routerMatch: this.$route.matched,
     }
@@ -52,19 +52,19 @@ export default {
   methods: {
     // 推荐主题
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
     // 猜你想找
     getGuessList () {
-      getGuessList().then(({data}) => {
+      getGuessList().then(({ data }) => {
         this.listList1 = data.data
       })
     },
     // 优秀材料
     getExcellentList () {
-      getExcellentList().then(({data}) => {
+      getExcellentList().then(({ data }) => {
         this.listList2 = data.data
       })
     },
@@ -93,22 +93,24 @@ export default {
   margin: 0 auto 20px;
   border-top: 1px solid #eee;
   display: grid;
+  grid-column-gap: 30px;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
 }
 .ranking {
   padding: 0;
 }
-.el-card{
-  border:0;
+.el-card {
+  border: 0;
+  padding: 0 !important;
 }
-.library{
-  padding-right: 20px;
-  border-right: 1px solid #EBEEF5;
+.library {
+  padding-right: 30px;
+  border-right: 1px solid #ebeef5;
 }
 </style>
 <style scoped>
-.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link{
+.breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link {
   font-weight: normal;
 }
 </style>

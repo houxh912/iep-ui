@@ -1,8 +1,18 @@
 <template>
   <div class="head">
     <el-form :model="formData" :rules="rules" ref="form" label-width="0px" class="input">
-      <el-form-item prop="content">
-        <el-input type="textarea" rows="5" placeholder="工作之余，分享下今天的感受吧~" v-model="formData.content" class="textarea" maxlength="1000"></el-input>
+      <el-form-item class="item-content" prop="content">
+        <el-input @click.native="handleCancal" id="keyupStart" ref="content" type="textarea" rows="5" :placeholder="subjectPlaceholder" v-model="formData.content" class="textarea" maxlength="1000" @keyup.native="handleKeyup"></el-input>
+        <div class="yincang">
+          {{formData.content}}
+          <el-autocomplete
+            ref="autocomplete"
+            v-model="state"
+            :fetch-suggestions="querySearchAsync"
+            placeholder="请输入内容"
+            @select="handleSelect"
+          ></el-autocomplete>
+        </div>
       </el-form-item>
       <div class="img-list" v-if="formData.images.length > 0">
         <div v-for="(item, index) in formData.images" :key="index" class="avatar">
@@ -36,10 +46,10 @@
         <div class="func" v-if="formData.images.length > 0 && transmitId === -1">
           <i class="icon-tupian"></i><p>图片</p>
         </div>
-        <div class="func">
+        <div class="func" @click="handleAnt">
           <i class="symbol">@</i><p>提醒</p>
         </div>
-        <div class="func">
+        <div class="func" @click="handleSubject" v-if="false">
           <i class="symbol">#</i><p>话题</p>
         </div>
         <div class="switch">
@@ -53,7 +63,7 @@
             :inactive-value="1">
           </el-switch>
         </div>
-        <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">保存</iep-button>
+        <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">发布</iep-button>
       </div>
     </el-form>
   </div>
@@ -63,9 +73,10 @@
 import { thoughtsCreate } from '@/api/cpms/thoughts'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import store from '@/store'
-import { getSubject } from './util'
+import { getSubject, getName } from './util'
+import keyup from './keyup'
 
-const initForm = () => {
+var initForm = () => {
   return {
     content: '',
     status: 0,
@@ -78,7 +89,12 @@ const rules = {
 }
 
 export default {
+  mixins: [ keyup ],
   props: {
+    subject: {
+      type: String,
+      default: '',
+    },
     transmitId: {
       type: Number,
       default: -1,
@@ -86,6 +102,7 @@ export default {
   },
   data () {
     return {
+      subjectPlaceholder: '工作之余，分享下今天的感受吧~',
       formData: initForm(),
       rules,
       limit: 3,
@@ -125,6 +142,11 @@ export default {
           if (subjectObj.type) {
             this.formData.topics = [subjectObj.data]
           }
+          // 判断说说中是否存在人名
+          let nameObj = getName(this.formData.content)
+          if (nameObj.type) {
+            this.formData.nameList = nameObj.list.map(m => m.name)
+          }
           thoughtsCreate(this.formData).then(({ data }) => {
             if (data.data) {
               this.resetForm()
@@ -148,6 +170,31 @@ export default {
           return false
         }
       })
+    },
+    isSubject () {
+      let subject = ''
+      if (this.subject) {
+        subject = this.subject
+      } else {
+        subject = '工作之余，分享下今天的感受吧~'
+      }
+      this.subjectPlaceholder = subject
+      initForm = () => {
+        return {
+          content: this.subject,
+          status: 0,
+          images: [],
+        }
+      }
+      this.formData = initForm()
+    },
+  },
+  created () {
+    this.isSubject()
+  },
+  watch: {
+    subject () {
+      this.isSubject()
     },
   },
 }
@@ -236,5 +283,30 @@ export default {
       }
     }
   }
+}
+</style>
+
+<style lang="scss" scoped>
+.item-content {
+  position: relative;
+  height: 120px;
+}
+.item-content .textarea {
+  position: absolute;
+  height: 120px;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.yincang {
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: left;
+  opacity: 0;
+  z-index: 0;
+}
+.el-autocomplete-suggestion {
+  width: 150px !important;
 }
 </style>

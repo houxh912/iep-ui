@@ -1,4 +1,4 @@
-// import { mergeByFirst } from '@/util/util'
+﻿// import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
   status: {
@@ -25,6 +25,7 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '申请日期',
+                                width:'150',
 	},
 	{
 		prop: 'status',
@@ -38,6 +39,7 @@ const columnsMap = [
 	{
 		prop: 'auditingTime',
 		label: '核准日期',
+                                width:'150',
 	},
 ]
 

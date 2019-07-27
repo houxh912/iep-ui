@@ -4,7 +4,7 @@
       <iep-page-header title="审批记录" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleDownload" icon="el-icon-download">导出全部</iep-button>
+          <iep-button @click="handleDownload" icon="el-icon-download" type="primary" plain>导出全部</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" advance-search>
@@ -22,7 +22,7 @@
         </template>
         <el-table-column label="操作" width="90px">
           <template>
-            <el-button size="small" :disabled="true">分享</el-button>
+            <iep-button type="warning" plain size="small" :disabled="true">分享</iep-button>
           </template>
         </el-table-column>
       </iep-table>

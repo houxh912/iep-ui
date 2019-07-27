@@ -8,7 +8,8 @@
         <div class="top">
           <div class="title">
             <div class="name" @click="handleDetail(item.userId)">{{item.userName}}</div>
-            <div class="date">{{getNumber(index)}}</div>
+            <div class="date">F{{item.thoughtsId}}</div>
+            <!-- <div class="date">{{getNumber(index)}}</div>原来的假楼层 -->
             <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
           </div>
           <!-- <el-button size="mini" round>只看此人</el-button> -->
@@ -17,13 +18,13 @@
         <contentTpl :data="item">
           <!-- 转发原内容 -->
           <div class="forward-content" v-if="item.transmitId > 0">
-            <forwardContent :contentData="item.transmittedThoughts"></forwardContent>
+            <forwardContent :contentData="item.transmittedThoughts" @click.native="handleForwardDetail(item.transmittedThoughts.thoughtsId)"></forwardContent>
           </div>
         </contentTpl>
         <!-- 按钮组 -->
         <div class="footer">
           <el-popover
-            placement="top-start"
+            placement="right-start"
             title=""
             width="200"
             trigger="hover"
@@ -49,6 +50,8 @@
         </div>
       </div>
     </div>
+    <!-- 转发 -->
+    <forwardDialog ref="forward" @load-page="loadPage"></forwardDialog>
   </div>
 </template>
 
@@ -58,6 +61,7 @@ import { mapActions } from 'vuex'
 import forwardContent from './forwardContent'
 import commentTpl from './commentTpl'
 import contentTpl from './content'
+import forwardDialog from '../forwardDialog'
 
 const initFormData = () => {
   return {
@@ -67,7 +71,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { forwardContent, commentTpl, contentTpl },
+  components: { forwardContent, commentTpl, contentTpl, forwardDialog },
   props: {
     dataList: {
       type: Array,
@@ -122,6 +126,10 @@ export default {
         this.reference = '暂无人点赞'
       }
     },
+    // 说说详情
+    handleForwardDetail (id) {
+      this.$router.push(`/app/thought_detail/${id}`)
+    },
     mouseleaveUp () {
       setTimeout(() => {
         this.reference = '加载中...'
@@ -138,6 +146,7 @@ export default {
     commentSubmit () {
       if (this.form.replyMsg == '') return
       CommentThoughts(this.form).then(() => {
+        this.activeIndex = -1
         this.loadPage()
       })
     },
@@ -254,5 +263,6 @@ export default {
   background-color: #fafafa;
   padding: 20px;
   margin-top: 15px;
+  cursor: pointer;
 }
 </style>

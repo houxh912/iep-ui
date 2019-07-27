@@ -1,4 +1,4 @@
-const columnsMapByTypeId = [
+﻿const columnsMapByTypeId = [
   [
     // {
     //   label: '业务类型',
@@ -29,6 +29,7 @@ const columnsMapByTypeId = [
     {
       label: '区域类型',
       prop: 'districtTypeName',
+      // width:'100',
     },
     {
       label: '客户关系',
@@ -65,6 +66,7 @@ const columnsMapByTypeId = [
     {
       label: '区域类型',
       prop: 'districtTypeName',
+      // width:'100',
     },
     {
       label: '客户关系',

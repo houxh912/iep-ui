@@ -38,7 +38,7 @@ export default {
 <style lang="scss" scoped>
 .line-chart-wrapper {
   h1 {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 </style>

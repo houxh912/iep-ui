@@ -68,16 +68,26 @@ export default {
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;
-  grid-template-columns: minmax(100px, 220px) minmax(100px, 680px) minmax(
+  grid-column-gap: 30px;
+  grid-template-columns: minmax(100px, 220px) minmax(100px, 650px) minmax(
       100px,
-      300px
+      270px
     );
 }
 .el-card {
   border: 0;
 }
 .library {
-  padding: 0 20px;
+  padding-right: 30px;
   border-right: 1px solid #ebeef5;
 }
+</style>
+<style scoped>
+.material >>> .piece .el-card {
+  padding: 0 !important;
+} /* 
+.material >>> .ranking .piece:nth-child(1),
+.material >>> .list .piece:nth-child(1) {
+  margin-top: 0;
+} */
 </style>

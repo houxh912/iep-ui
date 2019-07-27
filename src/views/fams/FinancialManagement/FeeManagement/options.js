@@ -1,4 +1,4 @@
-import { feeStatus } from '@/const/invoiceConfig.js'
+﻿import { feeStatus } from '@/const/invoiceConfig.js'
 const dictsMap = {
 	status: feeStatus,
 }
@@ -15,6 +15,7 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '申请日期',
+                                width:'150',
 	},
 	{
 		prop: 'status',

@@ -28,7 +28,7 @@ export default {
 <style scoped>
 .item >>> .is-dot {
   top: 13px;
-  right: -3px;
+  right: -3px !important;
   background: #cb3737;
 }
 </style>

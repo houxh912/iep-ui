@@ -2,7 +2,7 @@
   <div>
     <div class="person-list">
       <el-card class="box-card" shadow="hover">
-        <moreTemplate v-if="userInfoShow" :userInfo='user_info' @handleClose="()=> {userInfoShow=false}"></moreTemplate>
+        <moreTemplate v-if="userInfoShow" :userInfo='userInfo' @handleClose="()=> {userInfoShow=false}"></moreTemplate>
       </el-card>
       <IepAppTabsCard>
         <iep-tabs v-model="activeTab" :tab-list="tabList">

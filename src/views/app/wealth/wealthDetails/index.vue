@@ -79,16 +79,16 @@
           <investment-record></investment-record>
         </div>
         <div class="last-grid">
-          <IepAppTabCard title="股东信息" tip="当前持股90%  还有10%股份未认购">
-            <div class="shareholder-inform" v-for="(item, index) in shareholderData" :key="index">
+          <IepAppTabCard title="股东信息" :tip="`当前持股${form.currentShareholding}  还有${form.residualShareholding}股份未认购`">
+            <div class="shareholder-inform" v-for="(item, index) in form.shareholderInformation" :key="index">
               <div class="img">
-                <iep-img :src="item.img" alt=""></iep-img>
-                <span v-show="item.type" class="type">{{item.type}}</span>
+                <iep-img class="avatar" :src="item.avatar" alt=""></iep-img>
+                <!-- <span v-show="item.type" class="type">{{item.type}}</span> -->
               </div>
               <div class="row"><span class="name">股东：</span>{{item.name}}</div>
               <div class="row">
                 <span><span class="name">持股：</span>{{item.proportion}}</span>
-                <span style="float:right;font-size:12px;color:#999;">{{item.time}}</span>
+                <!-- <span style="float:right;font-size:12px;color:#999;">{{item.time}}</span> -->
               </div>
             </div>
           </IepAppTabCard>
@@ -111,8 +111,8 @@ export default {
   data () {
     this.colors = ['#d66368', '#eebc7d']
     this.chartSettings = {
-      metrics: ['本组织', '组织业绩平均值对比'],
-      dimension: ['日期'],
+      metrics: ['本组织'],
+      dimension: ['time'],
     }
     return {
       bodyStyle: {
@@ -141,27 +141,16 @@ export default {
         record: [
           { id: '', userName: '', totalAmount: '', status: '', updateTime: '' },
         ],//投资记录
+        currentShareholding: '0%',
+        residualShareholding: '0%',
+        shareholderInformation: [],
       },
       chartData: {
-        columns: ['日期', '本组织', '组织业绩平均值对比'],
-        rows: [
-          { '日期': '2019-05-21', '本组织': 1393, '组织业绩平均值对比': 1093 },
-          { '日期': '2019-05-22', '本组织': 2030, '组织业绩平均值对比': 1830 },
-          { '日期': '2019-05-23', '本组织': 2223, '组织业绩平均值对比': 2123 },
-          { '日期': '2019-05-24', '本组织': 2723, '组织业绩平均值对比': 2403 },
-          { '日期': '2019-05-25', '本组织': 3592, '组织业绩平均值对比': 3492 },
-          { '日期': '2019-05-26', '本组织': 4593, '组织业绩平均值对比': 4293 },
-        ],
+        columns: ['time', '本组织'],
+        rows: [],
       },
       reportData: [
         { type: '类型' },
-      ],
-      shareholderData: [
-        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
-        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
-        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
-        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
-        { img: '//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg', type: '企业', name: '国脉集团研发中心', proportion: '18%', time: '2019-05-21' },
       ],
     }
   },
@@ -178,6 +167,8 @@ export default {
       getInvestmentById(this.id).then(({ data }) => {
         this.form = data.data
         this.form.percentage = this.form.hadMoney / this.form.targetAmount * 100
+        let list = data.data.performanceTrend.map(m => { return { time: m.name, '本组织': m.amount } })
+        this.$set(this.chartData, 'rows', list)
       })
     },
     handleAdd () {
@@ -350,7 +341,14 @@ export default {
       position: relative;
       margin-bottom: 10px;
       overflow: hidden;
-      border: 1px solid #ebeef5;
+      text-align: center;
+      .avatar {
+        height: 100px !important;
+        width: 100px !important;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: auto;
+      }
       .el-image {
         width: 100%;
         height: 100%;
@@ -381,6 +379,7 @@ export default {
       color: #666;
       height: 30px;
       line-height: 30px;
+      text-align: center;
     }
   }
   .last-grid {

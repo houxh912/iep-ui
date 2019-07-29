@@ -63,7 +63,12 @@ export default {
       },
       backOption: {
         isBack: true,
-        backPath: this.$route.query.redirect,
+        // backPath: this.$route.query.redirect,
+        backFunction: () => {
+          this.$router.push({
+            path: '/crms/customer',
+          })
+        },
       },
       count: [],
       formData: {},

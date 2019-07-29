@@ -253,6 +253,7 @@ export default {
   }
   .relation {
     .item {
+      padding: 15px;
       border: 1px dashed #ddd;
       border-radius: 5px;
       .list {
@@ -269,6 +270,7 @@ export default {
           }
         }
       }
+      .el-form-item{margin-bottom: 0;}
     }
   }
 }

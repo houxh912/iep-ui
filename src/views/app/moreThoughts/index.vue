@@ -187,7 +187,7 @@ export default {
   .breadcrumb-item {
     margin: 20px auto 0;
     width: 1200px;
-    padding: 0 0 20px 20px;
+    padding: 0 0 20px 0;
   }
 }
 .material {

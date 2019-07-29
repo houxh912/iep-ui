@@ -1,4 +1,4 @@
-const columnsMap = [
+﻿const columnsMap = [
   {
     prop: 'id',
     label: 'ID',
@@ -13,10 +13,12 @@ const columnsMap = [
   {
     prop: 'sender',
     label: '发送者',
+    width: '100',
   },
   {
     prop: 'receiver',
     label: '接收者',
+    width: '100',
   },
   {
     prop: 'amount',

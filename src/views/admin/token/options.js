@@ -1,10 +1,11 @@
-// org config options
+﻿// org config options
 
 const columnsMap = [
   {
     label: '用户ID',
     prop: 'user_id',
     align: 'center',
+    width:'100px',
   },
   {
     label: '用户名',
@@ -16,6 +17,7 @@ const columnsMap = [
     prop: 'access_token',
     align: 'center',
     overHidden: true,
+    width:'350px',
   },
   {
     label: '类型',

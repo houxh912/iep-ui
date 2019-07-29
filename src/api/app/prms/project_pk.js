@@ -8,19 +8,3 @@ export function getProjectPKList (obj) {
     data: obj,
   })
 }
-//加入
-
-export function getProjectJoinList (obj) {
-  return request({
-    url: 'prms/iepProjectInformation/projectCartAdd',
-    method: 'post',
-    data: obj,
-  })
-}
-// //删除
-// export function clearCartOne (id) {
-//   return request({
-//     url: `prms/iepProjectInformation/clearCartOne/${id}`,
-//     method: 'post',
-//   })
-// }

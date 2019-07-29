@@ -66,6 +66,12 @@ export default {
           type: 'warning',
         })
       }
+      else if (this.checkedCities.length == 0) {
+        this.$message({
+          message: '请勾选要pk的项目！',
+          type: 'warning',
+        })
+      }
       else {
         this.$router.push({
           path: '/app/project_pk',

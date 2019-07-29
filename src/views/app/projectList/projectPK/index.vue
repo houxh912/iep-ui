@@ -84,8 +84,8 @@
             <span :class="item.projectBudget==maxList.projectBudgetMax?'red':''">{{item.projectBudget}}</span>
             <span :class="item.projectAmount==maxList.projectAmountMax?'red':''">{{item.projectAmount}}</span>
             <span :class="item.profitMargin==maxList.profitMarginMax?'red':''">{{item.profitMargin}}</span>
-            <span :class="item.receiptRate==maxList.receiptRateMax?'red':''">{{item.receiptRate}}</span>
-            <span :class="item.receiptRate==maxList.paymentTimeChangeMax?'red':''">
+            <span :class="item.receiptRate==maxList.receiptRateMax?'red':''">{{item.receiptRate}}%</span>
+            <span :class="item.paymentTime==maxList.paymentTimeChangeMax?'red':''">
               <div v-if="item.paymentTime!=0">{{item.paymentTime}}</div>
               <div v-else>-</div>
             </span>
@@ -140,6 +140,7 @@ export default {
         this.formData = [data.data[0], data.data.length > 1 ? data.data[1] : initForm(), data.data.length == 3 ? data.data[2] : initForm()]
         this.formData.profit = (data.data.projectAmount - data.data.projectBudget) / data.data.projectAmount * 100
         this.formData.paymentTimeChange = Number(this.formData.paymentTime)
+        this.formData.paymentTime = data.data.paymentTime * 100
         for (let i of this.comparison) {
           let beforeObject = i.before
           i.maxValue = Math.max(this.formData[0][beforeObject], this.formData[1][beforeObject], this.formData[2][beforeObject])

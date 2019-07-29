@@ -39,7 +39,6 @@
 
 <script>
 import { getProjectPage } from '@/api/app/prms/'
-// import { getProjectJoinList } from '@/api/app/prms/project_pk'
 import { mapGetters, mapMutations, mapState } from 'vuex'
 import { dateFormat } from '@/util/date'
 

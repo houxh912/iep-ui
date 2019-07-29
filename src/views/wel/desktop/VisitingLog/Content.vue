@@ -5,7 +5,7 @@
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
           <span style="margin-right:15px;">组织：{{form.orgName}}</span>
-          <span>发布人：{{form.realName}}</span>
+          <span style="margin-right:15px;">发布人：{{form.realName}}</span>
           <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
       </operation-container>

@@ -12,9 +12,9 @@
     <h3 class="title">主持人</h3>
     <p class="content" v-for="item in formData.host" :key="item.id">{{item.name}}</p>
     <h3 class="title">参会人</h3>
-    <span style="margin-right:8px;" class="content" v-for="item in formData.attendee.users?formData.attendee.users:[]" :key="item.id">{{item.name}}</span>
+    <span style="margin-right:8px;" class="content" v-for="item in formData.attendee.users" :key="item.id">{{item.name}}</span>
     <h3 class="title">抄送人</h3>
-    <span style="margin-right:8px;" class="content" v-for="item in formData.attendee.receiver?formData.attendee.receiver:[]" :key="item.id">{{item.name}}</span>
+    <span style="margin-right:8px;" class="content" v-for="item in formData.receiver.users?formData.receiver.users:[]" :key="item.id">{{item.name}}</span>
   </el-col>
 </template>
 <script>
@@ -36,6 +36,7 @@ export default {
   },
   created () {
     this.$watch('meetingMsg', (newVal) => {
+      console.log(newVal)
       this.formData = { ...newVal }
     })
   },
@@ -65,7 +66,6 @@ export default {
     margin: 20px 0 10px;
   }
   .content {
-    display: inline-block;
     line-height: 28px;
   }
 }

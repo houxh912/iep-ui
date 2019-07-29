@@ -51,3 +51,9 @@ export function getModuleMenuTree () {
     method: 'get',
   })
 }
+export function getUnionModuleMenuTree () {
+  return request({
+    url: '/admin/menu/module/union/menu/tree',
+    method: 'get',
+  })
+}

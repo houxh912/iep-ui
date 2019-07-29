@@ -66,7 +66,7 @@ export default {
   }
   .content {
     display: inline-block;
-    margin-bottom: 25px;
+    line-height: 28px;
   }
 }
 </style>

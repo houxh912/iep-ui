@@ -8,10 +8,10 @@
           <span style="margin-right:15px;">发布人：{{form.realName}}</span>
           <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
-        <template slot="right">
+        <!-- <template slot="right">
           <iep-button class="el-icon-arrow-left" @click="handlePreClick"></iep-button>
           <iep-button class="el-icon-arrow-right" @click="handleNextClick"></iep-button>
-        </template>
+        </template> -->
       </operation-container>
       <div class="container">
         <div class="con-item">
@@ -47,8 +47,8 @@ function initForm () {
     remark: '',
   }
 }
-function add0 (m) { return m < 10 ? '0' + m : m }
-import { putProjectReport, getProjectReportById } from '@/api/mlms/leader_report/'
+// function add0 (m) { return m < 10 ? '0' + m : m }
+import { getProjectReportById } from '@/api/mlms/leader_report/'
 export default {
   data () {
     return {
@@ -81,35 +81,35 @@ export default {
         this.reportInfo.userId = data.data.userId
       })
     },
-    dataReduce () {
-      let data = new Date(this.reportInfo.time)
-      let time = data.getTime()
-      return time
-    },
-    resultData (timeStamp) {
-      const time = new Date(timeStamp)
-      const year = time.getFullYear()
-      const month = time.getMonth() + 1
-      const date = time.getDate()
-      const resultTime = year + '-' + add0(month) + '-' + add0(date)
-      this.reportInfo.time = resultTime
-    },
-    putProjectReport () {
-      putProjectReport(this.reportInfo).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-      })
-    },
-    handlePreClick () {
-      this.resultData(this.dataReduce() - 7 * 24 * 60 * 60 * 1000)
-      let flag = this.dataReduce() <= new Date().getTime()
-      if (flag) this.isdisabled = false
-      this.putProjectReport()
-    },
-    handleNextClick () {
-      this.resultData(this.dataReduce() + 7 * 24 * 60 * 60 * 1000)
-      let flag = this.dataReduce() > new Date().getTime()
-      flag ? this.isdisabled = true : this.putProjectReport()
-    },
+    // dataReduce () {
+    //   let data = new Date(this.reportInfo.time)
+    //   let time = data.getTime()
+    //   return time
+    // },
+    // resultData (timeStamp) {
+    //   const time = new Date(timeStamp)
+    //   const year = time.getFullYear()
+    //   const month = time.getMonth() + 1
+    //   const date = time.getDate()
+    //   const resultTime = year + '-' + add0(month) + '-' + add0(date)
+    //   this.reportInfo.time = resultTime
+    // },
+    // putProjectReport () {
+    //   putProjectReport(this.reportInfo).then(({ data }) => {
+    //     this.form = this.$mergeByFirst(initForm(), data.data)
+    //   })
+    // },
+    // handlePreClick () {
+    //   this.resultData(this.dataReduce() - 7 * 24 * 60 * 60 * 1000)
+    //   let flag = this.dataReduce() <= new Date().getTime()
+    //   if (flag) this.isdisabled = false
+    //   this.putProjectReport()
+    // },
+    // handleNextClick () {
+    //   this.resultData(this.dataReduce() + 7 * 24 * 60 * 60 * 1000)
+    //   let flag = this.dataReduce() > new Date().getTime()
+    //   flag ? this.isdisabled = true : this.putProjectReport()
+    // },
   },
 }
 </script>

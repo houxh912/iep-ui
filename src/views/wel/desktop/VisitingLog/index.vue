@@ -38,6 +38,7 @@
   </div>
 </template>
 <script>
+import { getVisitPage } from '@/api/mlms/leader_report/'
 import LeaderTop from '../LeaderTop'
 import mixins from '@/mixins/mixins'
 import { mapGetters, mapState } from 'vuex'
@@ -53,16 +54,11 @@ export default {
       orgIds: '',
       realName: '',
       isLoadTable: false,
-      pagedTable: [
-        {},
-        {},
-      ],
     }
   },
-  //   created () {
-  //     this.loadPage()
-
-  //   },
+  created () {
+    this.loadPage()
+  },
   props: {
     record: {
       type: Object,
@@ -82,6 +78,22 @@ export default {
     },
   },
   methods: {
+    loadPage (param = this.searchForm) {
+      this.loadTable({ realName: this.realName, orgId: this.orgIds, ...param }, getVisitPage)
+    },
+    listPage () {
+      this.realName = ''
+      this.loadPage()
+    },
+    searchPage (val) {
+      if (val.realName == '') {
+        // this.$message.error('请输入搜索内容')
+        // return
+        this.loadPage()
+      }
+      this.realName = val.realName
+      this.loadPage()
+    },
     handleClick (row) {
       this.$router.push({
         path: `/wel/visiting_log_detail/${row.reportId}`,

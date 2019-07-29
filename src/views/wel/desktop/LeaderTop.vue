@@ -97,8 +97,6 @@ export default {
   created () {
     getCount().then(({ data }) => {
       this.countObj = data.data
-      this.countObj.visitNumber = data.data.visitNumber ? data.data.visitNumber : '--'
-      this.countObj.projectWeeklyReport = data.data.projectWeeklyReport ? data.data.projectWeeklyReport : '--'
     })
   },
   methods: {

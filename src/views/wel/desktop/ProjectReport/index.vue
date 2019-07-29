@@ -4,7 +4,7 @@
     <basic-container>
       <operation-container>
         <template slot="left">
-          <iep-select v-show="isAbled" size="small" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage()" placeholder="所有"></iep-select>
+          <iep-select v-show="isAbled" size="small" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage" placeholder="所有"></iep-select>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="realName" placeholder="根据姓名进行搜索"></operation-search>
@@ -33,6 +33,7 @@
   </div>
 </template>
 <script>
+import { getProjectPage } from '@/api/mlms/leader_report/'
 import LeaderTop from '../LeaderTop'
 import mixins from '@/mixins/mixins'
 import { mapGetters, mapState } from 'vuex'
@@ -48,16 +49,12 @@ export default {
       orgIds: '',
       realName: '',
       isLoadTable: false,
-      pagedTable: [
-        {},
-        {},
-      ],
+      orgName: '',
     }
   },
-  // created () {
-  //   this.loadPage()
-
-  // },
+  created () {
+    this.loadPage()
+  },
   props: {
     record: {
       type: Object,
@@ -77,9 +74,26 @@ export default {
     },
   },
   methods: {
+    loadPage (param = this.searchForm) {
+      this.loadTable({ realName: this.realName, orgId: this.orgIds, ...param }, getProjectPage)
+    },
+    listPage () {
+      this.realName = ''
+      this.loadPage()
+    },
+    searchPage (val) {
+      if (val.realName == '') {
+        // this.$message.error('请输入搜索内容')
+        // return
+        this.loadPage()
+      }
+      this.realName = val.realName
+      this.loadPage()
+    },
     handleClick (row) {
       this.$router.push({
         path: `/wel/project_report_detail/${row.reportId}`,
+        // query: { createTime: row.createTime },
       })
     },
   },

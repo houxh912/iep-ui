@@ -12,19 +12,19 @@
       <div class="container">
         <div class="con-item">
           <div class="title">拜访对象</div>
-          <iep-div-detail class="content" :value="form.leaderIndication"></iep-div-detail>
+          <div class="content" v-for="item in form.visitingUser" :key="item.id">{{item.name}}</div>
         </div>
         <div class="con-item">
           <div class="title">会议内容</div>
-          <iep-div-detail class="content" :value="form.workSummary"></iep-div-detail>
+          <div class="content" v-html="form.meetingContent"></div>
         </div>
         <div class="con-item">
           <div class="title">会议总结</div>
-          <iep-div-detail class="content" :value="form.workPlan"></iep-div-detail>
+          <iep-div-detail class="content" :value="form.meetingCon"></iep-div-detail>
         </div>
         <div class="con-item">
           <div class="title">感想与困惑</div>
-          <iep-div-detail class="content" :value="form.summarySentiment"></iep-div-detail>
+          <iep-div-detail class="content" :value="form.thoughtsProblem"></iep-div-detail>
         </div>
       </div>
     </basic-container>
@@ -33,17 +33,6 @@
 <script>
 function initForm () {
   return {
-    title: '2qwsadaasasaasa',
-    orgName: '',
-    createTime: '',
-    realName: '',
-    leaderIndication: '这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求这是需求',
-    workSummary: '',
-    workPlan: '',
-    summarySentiment: '',
-    meetingSummary: [],
-    productList: [],
-    projectList: [],
   }
 }
 export default {
@@ -53,13 +42,13 @@ export default {
         isBack: true,
       },
       form: initForm(),
-      useId: '',
-      reportInfo: {
-        reportType: 1,
-        startTime: '',
-        userId: '',
-      },
     }
+  },
+  props: {
+    message: {
+      type: Object,
+      required: true,
+    },
   },
   computed: {
     id () {
@@ -67,14 +56,11 @@ export default {
     },
   },
   created () {
+    this.$watch('message', (newVal) => {
+      this.form = { ...newVal }
+    })
   },
   methods: {
-    handlePreClick () {
-
-    },
-    handleNextClick () {
-
-    },
   },
 }
 </script>

@@ -58,7 +58,6 @@ export default {
     joinUpEnd (ids) {
       this.$refs['DialogShow'].arrId = ids
       this.$refs['DialogShow'].dialogShow = true
-      this.$refs['DialogShow'].loadPage()
     },
   },
   created () {

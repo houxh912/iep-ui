@@ -27,7 +27,7 @@
               <span><i class="iconfont icon-shijian"></i>{{dateFormat(item.publishTime)}}</span>
             </div>
           </div>
-          <!-- <iep-button class="pk-btn" type="danger" plain @click="joinPK(item)" :disabled="item.isClick==true">加入pk</iep-button> -->
+          <iep-button class="pk-btn" type="danger" plain @click="joinPK(item)" :disabled="item.isClick==true">加入pk</iep-button>
         </div>
       </div>
       <div style="text-align: center;margin: 20px 0;">
@@ -40,13 +40,10 @@
 <script>
 import { getProjectPage } from '@/api/app/prms/'
 // import { getProjectJoinList } from '@/api/app/prms/project_pk'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 import { dateFormat } from '@/util/date'
 
 export default {
-  computed: {
-    ...mapGetters(['dictGroup']),
-  },
   data () {
     return {
       loading: true,
@@ -61,7 +58,16 @@ export default {
       idList: [],
     }
   },
+  computed: {
+    ...mapGetters(['dictGroup']),
+    ...mapState({
+      alreadyList: state => state.gpms.dataList,
+    }),
+  },
   methods: {
+    ...mapMutations({
+      setProjectJoinPk: 'SET_PROJECT_JOIN_PK',
+    }),
     transform (value, dict) {
       if (value == '') return '暂无'
       for (let item of this.dictGroup[dict]) {
@@ -84,12 +90,13 @@ export default {
     loadPage () {
       this.loading = true
       getProjectPage(Object.assign({}, this.paramForm, this.params)).then(({ data }) => {
-        this.dataList = data.data.records.map(m => {
-          return {
-            ...m,
-            isClick: false,
-          }
-        })
+        // this.dataList = data.data.records.map(m => {
+        //   return {
+        //     ...m,
+        //     isClick: false,
+        //   }
+        // })
+        this.dataList = data.data.records
         this.total = data.data.total
         this.loading = false
       })
@@ -99,12 +106,24 @@ export default {
       this.loadPage()
     },
     joinPK (val) {
-      this.idList.push(val.id)
+      let already = false
+      for (var i = this.alreadyList.length - 1; i > -1; i--)
+        if (this.alreadyList[i].id == val.id) {
+          already = true
+        }
+      if (already) {
+        this.$message.error('您已添加此项目，请勿重复添加！')
+      }
+      else {
+        const joinObject = { id: val.id, projectName: val.projectName, isClick: true }
+        this.setProjectJoinPk(joinObject)
+      }
+      // this.idList.push(val.id)
       // getProjectJoinList(this.idList).then(({ data }) => {
       //   this.$emit('joinUpOne', data, this.idList, true)
       // })
       this.$emit('joinUpOne', this.idList)
-      val.isClick = true
+      // val.isClick = true
     },
   },
   created () {

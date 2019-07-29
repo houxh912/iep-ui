@@ -1,13 +1,14 @@
 <template>
   <div class="dialog-show" v-show="dialogShow">
     <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+    <el-button @click="handleDeleteAll" class="deleteAll">清空全部</el-button>
     <i class="icon-guanbi" @click="close"></i>
     <div style="margin: 15px 0;"></div>
     <el-scrollbar style="height:220px">
       <el-checkbox-group class="options" v-model="checkedCities" @change="handleCheckedCitiesChange">
         <el-checkbox class="options-item" v-for="option in cities" :label="option.id" :key="option.id">
           <span>{{option.projectName}}</span>
-          <!-- <i @click.stop="handleDelete(option.id)" class="icon-shanchu"></i> -->
+          <i @click.stop="handleDelete(option)" class="icon-shanchu"></i>
         </el-checkbox>
       </el-checkbox-group>
     </el-scrollbar>
@@ -22,7 +23,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getProjectJoinList } from '@/api/app/prms/project_pk'
+import { mapState, mapMutations } from 'vuex'
 export default {
   mixins: [mixins],
   data () {
@@ -30,20 +31,18 @@ export default {
       dialogShow: false,
       checkAll: true,
       checkedCities: [],
-      cities: [],
       isIndeterminate: true,
       arrId: [],
     }
   },
   created () {
-    this.loadPage()
+  },
+  computed: {
+    ...mapState({
+      cities: state => state.gpms.dataList,
+    }),
   },
   methods: {
-    async loadPage () {
-      await getProjectJoinList(this.arrId).then(({ data }) => {
-        this.cities = data
-      })
-    },
     close () {
       this.dialogShow = false
     },
@@ -76,10 +75,15 @@ export default {
         })
       }
     },
-    //删除
-    handleDelete (id) {
-      this.arrId.indexOf(id)
-      this.loadPage()
+    ...mapMutations({
+      setProjectRemovePk: 'SET_PROJECT_REMOVE_PK',
+    }),
+    handleDelete (val) {
+      // const removeObject = { id: val.id, projectName: val.projectName }
+      this.setProjectRemovePk(val.id)
+    },
+    handleDeleteAll () {
+      this.setProjectRemovePk(-1)
     },
   },
 }
@@ -93,6 +97,15 @@ export default {
   width: 300px;
   border: 1px solid #eee;
   background-color: #fff;
+  .deleteAll {
+    position: absolute;
+    left: 85px;
+    top: 13px;
+    padding: 6px 10px;
+    font-size: 16px;
+    border: 0;
+    cursor: pointer;
+  }
   & > span {
     position: absolute;
     left: 94px;

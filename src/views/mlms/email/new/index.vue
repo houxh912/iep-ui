@@ -253,6 +253,7 @@ export default {
   }
   .relation {
     .item {
+      padding: 15px;
       border: 1px dashed #ddd;
       border-radius: 5px;
       .list {
@@ -278,6 +279,11 @@ export default {
   content: "*";
   color: #f56c6c;
   margin-right: 4px;
+}
+</style>
+<style scoped>
+.item >>> .el-form-item {
+  margin-bottom: 0;
 }
 </style>
 

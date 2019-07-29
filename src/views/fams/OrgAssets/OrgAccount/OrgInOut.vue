@@ -80,7 +80,7 @@ export default {
     cursor: pointer;
     padding: 10px;
     text-align: center;
-    border: 1px solid #aaa;
+    border: 1px solid #eee;
     color: #666;
     &:hover {
       border: 1px solid #ba1b21;

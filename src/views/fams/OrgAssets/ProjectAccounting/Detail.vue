@@ -119,8 +119,8 @@ export default {
     margin-top: 20px;
   }
   .content {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 24px;
+    color: #ba1b21;
   }
 }
 .info {

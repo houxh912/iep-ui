@@ -68,8 +68,9 @@ export default {
 .container {
   padding: 0 10px;
   .con-item {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     .title {
+      margin-bottom: 10px;
       font-size: 15px;
       color: #333;
     }
@@ -77,8 +78,9 @@ export default {
       word-break: break-all;
       word-wrap: break-word;
       white-space: pre-wrap;
-      padding: 15px;
+      padding: 0 15px;
       font-size: 14px;
+      line-height: 28px;
       color: #999;
     }
   }

@@ -1,9 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="模块配置"></iep-page-header>
-      <el-row class="row-bg module" :gutter="20">
-        <h3 class="item-title">已选模块<span class="sub-title">系统基础模块，不可移除</span></h3>
+      <iep-page-header title="联盟配置"></iep-page-header>
+      <el-row class="row-bg module" :gutter="22">
+        <h3 class="item-title">已选模块<i class="el-icon-question" tip="系统基础模块，不可移除">
+          </i></h3>
         <el-col :span="6" class="module-item">
           <div class="module-con">
             <i class="icon iconfont icon-youxiang"></i>
@@ -30,28 +31,30 @@
         </el-col>
         <el-col :span="6" class="module-item">
           <div class="module-con module-con-operable">
-            <span class="btn"><i class="close el-icon-close"></i></span>
+            <span class="btn basics">基础</span>
+            <!-- <span class="btn"><i class="close el-icon-close"></i></span> -->
             <i class="icon iconfont icon-shenqing"></i>
             <span class="text">行政审批</span>
           </div>
         </el-col>
         <el-col :span="6" class="module-item">
           <div class="module-con module-con-operable">
-            <span class="btn"><i class="close el-icon-close"></i></span>
+            <!-- <span class="btn"><i class="close el-icon-close"></i></span> -->
+            <span class="btn"><i class="right el-icon-check"></i></span>
             <i class="icon iconfont icon-gongzuotai"></i>
             <span class="text">项目管理</span>
           </div>
         </el-col>
         <el-col :span="6" class="module-item">
-          <div class="module-con module-con-operable">
-            <span class="btn"><i class="close el-icon-close"></i></span>
+          <div class="module-con module-con-test">
+            <!-- <span class="btn"><i class="close el-icon-close"></i></span> -->
             <i class="icon iconfont icon-lianxiren"></i>
             <span class="text">客户管理</span>
           </div>
         </el-col>
       </el-row>
-      <el-row class="row-bg module" :gutter="20">
-        <h3 class="item-title">推荐模块<span class="sub-title">已授权模块，可直接选择添加供组织管理使用</span></h3>
+      <el-row class="row-bg module" :gutter="22">
+        <h3 class="item-title">推荐模块<i class="el-icon-question" tip="已授权模块，可直接选择添加供组织管理使用"></i></h3>
         <el-col :span="6" class="module-item">
           <div class="module-con module-con-operable">
             <span class="btn"><i class="add el-icon-plus"></i></span>
@@ -81,8 +84,9 @@
           </div>
         </el-col>
       </el-row>
-      <el-row class="row-bg module test-module" :gutter="20">
-        <h3 class="item-title">试用模块<span class="sub-title">测试中的模块，可选择试用，测试阶段记录的数据可能会被清空</span></h3>
+      <el-row class="row-bg module test-module" :gutter="22">
+        <h3 class="item-title">试用模块<i class="el-icon-question" tip="测试中的模块，可选择试用，测试阶段记录的数据可能会被清空">
+          </i></h3>
         <el-col :span="6" class="module-item">
           <div class="module-con module-con-operable">
             <span class="btn"><i class="add el-icon-plus"></i></span>
@@ -125,18 +129,17 @@ export default {
     border-bottom: 1px solid #d7d7d7;
     padding-bottom: 20px;
   }
-  margin: 0 auto !important;
-  width: 85%;
+  width: 80%;
   text-align: center;
   .item-title {
     margin: 0 30px;
     font-size: 16px;
     font-weight: 400;
     text-align: left;
-    .sub-title {
-      margin-left: 20px;
+    i {
+      margin-left: 5px;
       font-size: 14px;
-      color: #888;
+      color: #999;
     }
   }
 }
@@ -144,8 +147,8 @@ export default {
   display: inline-block;
   .module-con {
     position: relative;
-    margin: 20px;
-    padding: 15px;
+    margin: 15px 5px;
+    padding: 10px;
     text-align: center;
     border: 1px solid #d7d7d7;
     border-radius: 3px;
@@ -157,46 +160,70 @@ export default {
       display: block;
       font-size: 34px;
     }
+    .btn.basics {
+      top: 15px;
+      left: 0;
+      width: 38px;
+      height: 22px;
+      font-size: 12px;
+      line-height: 20px;
+      text-align: center;
+      border-radius: 0 20px 20px 0;
+      background-color: #bf051a;
+      border-color: #bf051a;
+      color: #fff;
+    }
     .text {
       display: block;
       margin-top: 10px;
       font-size: 14px;
     }
   }
-  .module-con-operable {
+  .module-con-test {
+    color: #666;
+    border-color: #999;
+    i,
+    span {
+      color: #666;
+    }
     &:hover {
-      border-color: #bf051a;
-      background-color: #fff2f4;
+      box-shadow: 0 0 3px 5px #eee;
+    }
+  }
+  .module-con-operable {
+    border-color: #bf051a;
+    //background-color: #fff2f4;
+    color: #bf051a;
+    .text {
       color: #bf051a;
-      .btn {
-        border-color: #bf051a;
-        background-color: #bf051a;
-        .close,
-        .add {
-          color: #fff;
-        }
-      }
-      .text {
+    }
+    .btn {
+      border: #bf051a;
+      // background-color: #bf051a;
+      .close,
+      .add,
+      .right {
         color: #bf051a;
       }
     }
-    .text {
-      color: #666;
+    &:hover {
+      box-shadow: 0 0 3px 5px #eee;
     }
     .btn {
       position: absolute;
       top: 5px;
       right: 5px;
-      width: 14px;
-      height: 14px;
+      width: 16px;
+      height: 16px;
       cursor: pointer;
       display: block;
-      border: 1px solid #d7d7d7;
+      border: 1px solid #bf051a;
       border-radius: 50%;
       transition: all 0.8s ease-out;
     }
     .close,
-    .add {
+    .add,
+    .right {
       display: block;
       padding: 1px;
       font-size: 12px;
@@ -204,7 +231,6 @@ export default {
     }
   }
 }
-
 .test-module {
   margin-top: 40px !important;
   .module-con {

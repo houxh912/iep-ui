@@ -121,7 +121,6 @@ export default {
     margin: 0 auto;
     width: 1200px;
     justify-content: space-between;
-    align-items: center;
     align-content: center;
     .text {
       display: flex;
@@ -150,7 +149,7 @@ export default {
         }
       }
       .classTag {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         display: flex;
         .label {
           width: 80px;
@@ -289,9 +288,9 @@ export default {
   background: #cb3737;
   border-color: #ba1b21;
   padding: 7px 15px;
-  min-width: 62px
+  min-width: 62px;
 }
-.organizational-top .el-row{
-  text-align: right
+.organizational-top .el-row {
+  text-align: right;
 }
 </style>

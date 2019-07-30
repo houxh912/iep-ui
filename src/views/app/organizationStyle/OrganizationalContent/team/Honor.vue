@@ -33,17 +33,11 @@ export default {
     overflow: hidden;
     height: 100%;
     .imgs {
-      width: 100%;
-      height: 142px;
-      overflow: hidden;
-      img {
+      .img {
         width: 100%;
         height: 142px;
-        transition: 0.5s;
-        &:hover {
-          cursor: pointer;
-          transform: scale(1.1);
-        }
+        overflow: hidden;
+        cursor: pointer;
       }
     }
     .name {
@@ -61,5 +55,14 @@ export default {
 <style scoped>
 .empolyee >>> .el-carousel__container {
   height: 180px;
+}
+.empolyee >>> .el-image__inner {
+  width: 100%;
+  height: 142px;
+  transition: 0.5s;
+}
+.empolyee >>> .el-image__inner:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 </style>

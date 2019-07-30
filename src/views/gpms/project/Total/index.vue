@@ -3,18 +3,18 @@
     <operation-container>
       <template slot="left">
         <iep-button type="primary" icon="el-icon-plus" @click="handleCreate" plain>新增</iep-button>
-        <iep-button v-if="onlyResponsible==true" @click="handleDeleteAll">批量删除</iep-button>
-        <iep-button v-if="onlyResponsible==true" @click="transferMentor">项目移交</iep-button>
+        <iep-button v-if="onlyResponsible==false" @click="handleDeleteAll">批量删除</iep-button>
+        <iep-button v-if="onlyResponsible==false" @click="transferMentor">项目移交</iep-button>
       </template>
       <template slot="right">
-        <el-checkbox v-model="onlyResponsible" @change="changeResponsible()">仅看我负责的项目</el-checkbox>
+        <el-checkbox v-model="onlyResponsible" @change="changeResponsible()">查看我参与的项目</el-checkbox>
         <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称" prop="projectName">
           <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
-      <el-table-column label="项目名称" slot="before-columns" width="280px">
+      <el-table-column label="项目名称" slot="before-columns">
         <template slot-scope="scope">
           <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
             <span class="grade" v-show="scope.row.projectLevel==1">重要</span>
@@ -25,13 +25,13 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="项目金额">
+      <el-table-column label="项目金额" width="180px">
         <template slot-scope="scope">
           <span v-if="scope.row.contractAmount">{{ scope.row.contractAmount }}（合同）</span>
           <span v-else>{{ scope.row.projectAmount }}（预算）</span>
         </template>
       </el-table-column>
-      <el-table-column label="项目经理">
+      <el-table-column label="项目经理" width="120px">
         <template slot-scope="scope">
           <span>{{ scope.row.projectManagerList.name }}</span>
         </template>
@@ -42,7 +42,7 @@
           <span v-else>{{ scope.row.projectTime | parseToDay }}（预计）</span>
         </template>
       </el-table-column>
-      <el-table-column label="项目状态">
+      <el-table-column label="项目状态" width="80px">
         <template slot-scope="scope">
           {{项目状态(scope.row)}}
         </template>
@@ -170,27 +170,16 @@ export default {
     },
     changeResponsible () {
       if (this.onlyResponsible) {
-        this.searchForm.listType = 1
+        this.searchForm.listType = 2
         this.loadPage()
       }
       else {
-        this.searchForm.listType = 2
+        this.searchForm.listType = 1
         this.loadPage()
       }
       this.onlyResponsible != this.onlyResponsible
       return false
     },
-    // handleClaim (row) {
-    //   this.$confirm('是否确认移入公海此数据?', '提示', {
-    //     confirmButtonText: '确定',
-    //     cancelButtonText: '取消',
-    //   }).then(() => {
-    //     statusCancel([row.id]).then(() => {
-    //       this.$message.success('移入成功！')
-    //       this.loadPage()
-    //     })
-    //   })
-    // },
     handleAccounting (val) {
       this.$router.push(`/fams_spa/project_accounting/${val}`)
     },

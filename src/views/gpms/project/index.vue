@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <iep-page-header title="我的项目" :replaceText="replaceText" :data="[sum]"></iep-page-header>
-    <total ref="table" :tabType="'2'" @statistics="statistics($event)"></total>
+    <total ref="table" :tabType="'1'" @statistics="statistics($event)"></total>
   </basic-container>
 </template>
 <script>

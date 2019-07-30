@@ -53,6 +53,7 @@ export default {
         })
       }
     },
+    // 联想搜索
     handleSelect (item) {
       let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
       var startPos = elInput.selectionStart // input 第0个字符到选中的字符
@@ -70,7 +71,7 @@ export default {
       let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
       let startPos = elInput.selectionStart // input 第0个字符到选中的字符
       this.formData.content = this.formData.content.slice(0, startPos) + '@' + this.formData.content.slice(startPos)
-      this.startPos = startPos
+      this.startPos = startPos + 1
       this.keyupType = true
       this.keyupTypes = true
       this.gettingFocus()

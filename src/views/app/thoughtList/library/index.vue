@@ -45,7 +45,7 @@
         <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
           <div v-for="(t, i) in item.thoughtsCommentList" :key="i">
             <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
-            <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
+            <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" type="reply"></commentTpl>
           </div>
         </div>
       </div>

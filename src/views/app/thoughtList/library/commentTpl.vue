@@ -5,7 +5,7 @@
         <div class="comment-avatar"><iep-img :src="item.avatar" alt="" class="img" /></div>
         <div class="comment-name">{{item.realName}}</div>
         <div class="huuifu">{{type == 'comment' ? '评论' : '回复'}}</div>
-        <div class="comment-name">{{userInfo.name}}</div>
+        <div class="comment-name">{{type === 'comment' ? userInfo.name : item.replyTo}}</div>
       </div>
       <div class="comment-content">{{item.replyMsg}}</div>
       <div class="comment-date">
@@ -14,17 +14,14 @@
         </div>
         <!-- 评论的按钮行 -->
         <div class="button-list" v-if="item.thoughtsReplyList">
-          <!-- <el-popover
-            placement="top-start"
-            title="标题"
-            width="200"
-            trigger="hover"
-            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
-            <div slot="reference" class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
-          </el-popover> -->
           <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           <div class="button" @click="hadnleComComment(item)"><i class="icon-xiaoxi"></i> 回复（{{item.thoughtsReplyList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
+        </div>
+        <div class="button-list" v-else>
+          <div class="button" @click="hadnleAddUp(item, 'reply')"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+          <div class="button" @click="hadnleComComment(item, 'reply')"><i class="icon-xiaoxi"></i> 回复</div>
+          <div class="button" @click="handleReward(item, 'reply')"><i class="icon-yuanbao"></i> 打赏</div>
         </div>
       </div>
       <div class="comment-comment" v-if="commontActiveIndex == 1">
@@ -37,7 +34,7 @@
 </template>
 
 <script>
-import { CommentReply, addcCommentThumbsByRecord, getThumbMembers } from '@/api/cpms/thoughts'
+import { CommentReply, addcCommentThumbsByRecord, addReplyThumbsByRecord, getThumbMembers } from '@/api/cpms/thoughts'
 import { mapActions } from 'vuex'
 
 const initFormData = () => {
@@ -69,13 +66,20 @@ export default {
   },
   methods: {
     // 回复评论
-    hadnleComComment (row) {
+    hadnleComComment (row, isReply) {
+      console.log('row: ', row)
       this.commontActiveIndex = 1
       this.form = {
         replyMsg: '',
-        thoughtsId: row.thoughtsId,
         commentId: row.commentId,
       }
+      if (isReply) {
+        this.form = Object.assign(this.form, {
+          reReplyId: row.replyId,
+          replyUserId: row.userId,
+        })
+      } else {
+        this.form.thoughtsId = row.thoughtsId      }
     },
     // 回复评论提交
     comCommentSubmit () {
@@ -92,8 +96,17 @@ export default {
       })
     },
     // 点赞
-    hadnleAddUp () {
-      addcCommentThumbsByRecord(this.item.commentId).then(({ data }) => {
+    hadnleAddUp (row, isReply) {
+      let fn = () => {}
+      let id = -1
+      if (isReply) {
+        fn = addReplyThumbsByRecord
+        id = row.replyId
+      } else {
+        fn = addcCommentThumbsByRecord
+        id = row.commentId
+      }
+      fn(id).then(({ data }) => {
         if (data.data) {
           this.$emit('load-page', true)
         } else {
@@ -103,8 +116,12 @@ export default {
     },
     // 打赏
     ...mapActions(['famsReward']),
-    handleReward (row) {
-      this.famsReward({ id: row.commentUserId, name: row.realName })
+    handleReward (row, isReply) {
+      if (isReply) {
+        this.famsReward({ id: row.repliedUserId, name: row.realName })
+      } else {
+        this.famsReward({ id: row.commentUserId, name: row.realName })
+      }
     },
     // 点赞列表
     getThumbMembers () {

@@ -136,3 +136,8 @@ export default {
   }
 }
 </style>
+<style scoped>
+.image-list >>> img {
+  min-height: 175px;
+}
+</style>

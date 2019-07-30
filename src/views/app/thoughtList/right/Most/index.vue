@@ -30,7 +30,7 @@ export default {
         label: '说说总数榜',
         value: 'Hottest',
       }],
-      activeTab: 'Hottest',
+      activeTab: 'Download',
       hotList: [],
       downloadList: [],
     }

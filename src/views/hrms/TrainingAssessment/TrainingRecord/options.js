@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+﻿import { mergeByFirst } from '@/util/util'
 import { checkContactUser } from '@/util/rules'
 const columnsMap = [
   {
@@ -8,22 +8,27 @@ const columnsMap = [
   {
     prop: 'trainerName',
     label: '培训老师',
+    width:'100',
   },
   {
     prop: 'startTime',
     label: '开始时间',
+    width:'150',
   },
   {
     prop: 'endTime',
     label: '结束时间',
+    width:'150',
   },
   {
     prop: 'type',
     label: '培训类型',
+    width:'100',
   },
   {
     prop: 'method',
     label: '培训方式',
+    width:'100',
   },
 ]
 

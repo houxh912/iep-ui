@@ -1,11 +1,13 @@
-const columnsMap = [
+﻿const columnsMap = [
   {
     prop: 'month',
     label: '月度',
+    width:'80',
   },
   {
     prop: 'orgName',
     label: '组织名称',
+    width:'300',
   },
   {
     prop: 'contractAmount',

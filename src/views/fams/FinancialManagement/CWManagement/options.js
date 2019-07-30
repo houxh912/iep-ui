@@ -1,4 +1,4 @@
-const dictsMap = {
+﻿const dictsMap = {
   status: {
     '0': '待审',
     '1': '待发放',
@@ -12,18 +12,22 @@ const columnsMap = [
   {
     prop: 'applyName',
     label: '申请人',
+    width:'70',
   },
   {
     prop: 'amount',
     label: '提现金额',
+    width:'70',
   },
   {
     prop: 'deductionInvoice',
     label: '发票抵扣金额',
+    width:'110',
   },
   {
     prop: 'taxation',
     label: '税费',
+    width:'70',
   },
   {
     prop: 'status',

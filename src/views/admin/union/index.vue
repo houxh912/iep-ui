@@ -4,7 +4,7 @@
       <iep-page-header title="联盟管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleReviewDialog">批量审核</iep-button>
+          <iep-button @click="handleReviewDialog" type="primary" plain>批量审核</iep-button>
         </template>
         <template slot="right">
           <!-- <operation-search @search-page="searchPage">
@@ -25,7 +25,7 @@
               <!-- <iep-button type="warning" @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
               <iep-button @click="handlePerson(scope.row, scope.index)">人员</iep-button> -->
-              <iep-button :disabled="!scope.row.status" type="default" @click="handleReviewDialog(scope.row, scope.index)">审核</iep-button>
+              <iep-button :disabled="!scope.row.status" @click="handleReviewDialog(scope.row, scope.index)" type="warning" plain>审核</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

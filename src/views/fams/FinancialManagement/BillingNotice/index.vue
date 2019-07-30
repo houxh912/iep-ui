@@ -9,10 +9,10 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.status===1" type="warning" @click.stop="handlePass(scope.row)" plain>通过</iep-button>
               <iep-button v-if="scope.row.status===1" @click.stop="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>

@@ -156,7 +156,7 @@ export default {
   }
   .info-block {
     .title {
-      font-size: 16px;
+      font-size: 20px;
       margin: 10px 0;
     }
     .base {

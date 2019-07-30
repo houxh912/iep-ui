@@ -1,4 +1,4 @@
-const columnsMap = [
+﻿const columnsMap = [
 	{
 		prop: 'name',
 		label: '岗位名称',
@@ -6,10 +6,12 @@ const columnsMap = [
 	{
 		prop: 'typeName',
 		label: '岗位分类',
+                                width:'100', 
 	},
 	{
 		prop: 'count',
 		label: '在职人数',
+                                width:'100', 
 	},
 ]
 

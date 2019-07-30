@@ -16,10 +16,12 @@ export default {
     }
   },
   methods: {
-    handleDetail () {},
+    handleDetail (row) {
+      this.$router.push({ path: '/app/subject_list', query: {title: row.topic, id: row.topicId} })
+    },
     loadData () {
       getHotTopics().then(({ data }) => {
-        this.labelList = data.data
+        this.labelList = data.data.slice(0, 10)
       })
     },
   },

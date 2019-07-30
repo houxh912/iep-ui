@@ -287,9 +287,10 @@ export default {
     margin-bottom: 30px;
     .content {
       margin-bottom: 30px;
+      color: #666;
       .title {
         font-size: 18px;
-        color: #000;
+        color: #333;
       }
       pre {
         line-height: 25px;

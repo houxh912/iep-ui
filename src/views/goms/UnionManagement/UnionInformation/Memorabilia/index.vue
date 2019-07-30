@@ -16,10 +16,10 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-      <el-table-column prop="operation" label="操作" width="200">
+      <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>

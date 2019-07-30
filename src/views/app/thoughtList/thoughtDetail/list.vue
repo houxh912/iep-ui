@@ -8,13 +8,16 @@
 import library from '../library/'
 export default {
   components: { library },
+  props: {
+    dataList: {
+      type: Array,
+    },
+  },
   data () {
     return {
-      listList: [],
       params: {
         current: 1,
       },
-      dataList: [],
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -28,9 +31,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.library {
-  padding: 0 20px;
-  border-right: 1px solid #ebeef5;
-}
-</style>

@@ -1,11 +1,13 @@
-export const columnsMap = [
+﻿export const columnsMap = [
   {
     label: '分类',
     prop: 'fieldName',
+    width:'120px',
   },
   {
     label: '名称',
     prop: 'title',
+    width:'100px',
   },
   // {
   //   label: '难度',
@@ -21,7 +23,6 @@ export const columnsMap = [
   {
     label: '总分',
     prop: 'score',
-    width: '150px',
   },
   // {
   //   label: '状态',
@@ -30,12 +31,12 @@ export const columnsMap = [
   {
     label: '创建者',
     prop: 'createName',
-    width: '180px',
+    width: '100px',
   },
   {
     label: '创建时间',
     prop: 'creatTime',
-    width: '200px',
+    width: '150px',
   },
 ]
 

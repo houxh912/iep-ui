@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="转发说说" width="50%" @close="resetForm">
-    <forwardContent forward :contentData="contentData"></forwardContent>
+    <forwardContent forward :contentData="contentData" @load-page="loadPage"></forwardContent>
   </iep-dialog>
 </template>
 
@@ -25,6 +25,10 @@ export default {
     },
     resetForm () {
       this.dialogShow = false
+    },
+    loadPage () {
+      this.dialogShow = false
+      this.$emit('load-page', true)
     },
   },
 }

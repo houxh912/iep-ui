@@ -126,3 +126,20 @@ export function getThumbMembers (id) {
     method: 'get',
   })
 }
+
+// 说说详情
+export function getDetailById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
+// 获取对应话题的说说列表
+export function getTopicThoughts (obj) {
+  return request({
+    url: `${prefixUrl}/topicThoughts`,
+    method: 'get',
+    params: obj,
+  })
+}

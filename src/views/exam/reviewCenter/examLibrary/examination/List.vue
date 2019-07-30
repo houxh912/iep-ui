@@ -4,7 +4,8 @@
       <iep-page-header title="考试库管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permissionAdd || permissionAll">新增</iep-button>
+          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd"
+            v-if="permissionAdd || permissionAll">新增</iep-button>
           <iep-button size="small" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
@@ -14,8 +15,9 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title">
-            <!-- <advance-search @search-page="searchPage"></advance-search> -->
+          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title"
+            advanceSearch>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -72,17 +74,28 @@
         <el-table-column prop="operation" label="操作" min-width="140">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)" v-if="isCreator(scope.row) || permissionAll">编辑</iep-button>
+              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)"
+                v-if="isCreator(scope.row) || permissionAll">编辑</iep-button>
               <iep-button size="small" @click="handleDetail(scope.row)">查看</iep-button>
-              <el-dropdown size="medium" v-if="permissionReading(scope.row) || permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">
+              <el-dropdown size="medium"
+                v-if="permissionReading(scope.row) || permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && (isCreator(scope.row) || permissionAll)">启用</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleForbid(scope.row)" v-if="scope.row.state === 0 && (isCreator(scope.row) || permissionAll)">禁用</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleOpen(scope.row)"
+                    v-if="scope.row.state === 1 && (isCreator(scope.row) || permissionAll)">启用
+                  </el-dropdown-item>
+                  <el-dropdown-item @click.native="handleForbid(scope.row)"
+                    v-if="scope.row.state === 0 && (isCreator(scope.row) || permissionAll)">禁用
+                  </el-dropdown-item>
                   <el-dropdown-item @click.native="handleManage(scope.row, 'ExamRegistration')"
-                    v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">报名管理</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamPaper')" v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">考卷管理</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamReading')" v-if="permissionReading(scope.row) || isCreator(scope.row) || permissionAll">阅卷管理</el-dropdown-item>
+                    v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">报名管理
+                  </el-dropdown-item>
+                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamPaper')"
+                    v-if="permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">考卷管理
+                  </el-dropdown-item>
+                  <el-dropdown-item @click.native="handleManage(scope.row, 'ExamReading')"
+                    v-if="permissionReading(scope.row) || isCreator(scope.row) || permissionAll">
+                    阅卷管理</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -91,8 +104,8 @@
       </iep-table>
     </basic-container>
 
-    <iep-dialog :dialog-show="dialogEdit" :title="messageShow" width="500px" @close="handleEditCancel"
-      center>
+    <iep-dialog :dialog-show="dialogEdit" :title="messageShow" width="500px"
+      @close="handleEditCancel" center>
       <el-form :label-position="labelPosition" label-width="100px" :model="reForm">
         <el-form-item label="科目：" prop="field">
           <el-input v-model="reForm.field" size="small" disabled></el-input>
@@ -110,15 +123,18 @@
           <el-input v-model="reForm.creatTime" size="small" disabled></el-input>
         </el-form-item>
         <el-form-item label="开始时间： " prop="beginTime">
-          <el-date-picker v-model="reForm.beginTime" type="datetime" @change="handleChangeTime"></el-date-picker>
+          <el-date-picker v-model="reForm.beginTime" type="datetime" @change="handleChangeTime">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="结束时间： " prop="endTime">
-          <el-date-picker v-model="reForm.endTime" type="datetime" @change="handleChangeTime"></el-date-picker>
+          <el-date-picker v-model="reForm.endTime" type="datetime" @change="handleChangeTime">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <template slot="footer">
         <operation-wrapper>
-          <iep-button type="primary" :disabled="isChangeTime" @click="handleEditSave">保存</iep-button>
+          <iep-button type="primary" :disabled="isChangeTime" @click="handleEditSave">保存
+          </iep-button>
           <iep-button @click="handleEditCancel">取消</iep-button>
         </operation-wrapper>
       </template>
@@ -130,10 +146,11 @@
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import { getExamInationList, postExamForbidById, postExamPassById, deleteById } from '@/api/exam/examLibrary/examInation/examInation'
-
+import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins],
   props: ['record'],
+  components: { AdvanceSearch },
   data () {
     return {
       isChangeTime: true,

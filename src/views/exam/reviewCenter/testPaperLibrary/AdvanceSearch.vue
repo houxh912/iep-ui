@@ -1,7 +1,7 @@
 <template>
   <el-form :form="searchForm" label-width="80px" size="mini">
-    <el-form-item label="试卷科目">
-      <el-select v-model="searchForm.field" placeholder="请选择试卷科目" clearable>
+    <el-form-item label="试卷分类">
+      <el-select v-model="searchForm.field" placeholder="请选择试卷分类" clearable style="width:100%">
         <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
           :value="item.id"></el-option>
       </el-select>
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     searchPage () {
-      this.$emit('search-page', this.form)
+      this.$emit('search-page', this.searchForm)
     },
     /**
      * 获取试题数据

@@ -3,28 +3,34 @@
     <iep-page-header title="试卷库管理"></iep-page-header>
     <operation-container>
       <template slot="left">
-        <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permission_exam_testPaper_ex_del">新增试卷</iep-button>
+        <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd"
+          v-if="permission_exam_testPaper_ex_del">新增试卷</iep-button>
         <iep-button @click="handleDeleteAll" v-if="permission_exam_testPaper_del">批量删除</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage" :params="searchForm.title" prop="title">
+        <operation-search @search-page="searchPage" :params="searchForm.title" prop="title"
+          advanceSearch>
           <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap"
-      :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"
-      @selection-change="selectionChange" is-index is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap"
+      :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange"
+      @current-change="handleCurrentChange" @selection-change="selectionChange" is-index
+      is-mutiple-selection>
 
       <el-table-column prop="operation" label="操作" width="220">
-        <template slot-scope="scope" v-if="permission_exam_testPaper_ex_del ||permission_exam_testPaper_del">
+        <template slot-scope="scope"
+          v-if="permission_exam_testPaper_ex_del ||permission_exam_testPaper_del">
           <operation-wrapper>
-            <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)">编辑
+            </iep-button>
             <iep-button @click="handleSelect(scope.row)">查看</iep-button>
             <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="handleDelete([scope.row.id],'删除')">删除</el-dropdown-item>
+                <el-dropdown-item @click.native="handleDelete([scope.row.id],'删除')">删除
+                </el-dropdown-item>
                 <!-- <el-dropdown-item @click.native="share(scope.row)">分享</el-dropdown-item> -->
               </el-dropdown-menu>
             </el-dropdown>
@@ -75,14 +81,14 @@ export default {
       this.pageOption.current = this.record.current
       this.pageOption.size = this.record.size
       this.searchForm.title = param.title
-      this.loadTable({ ...param,...this.pageOption }, getExamPagerList)
+      this.loadTable({ ...param, ...this.pageOption }, getExamPagerList)
     }
     this.loadPage()
     this.permission_exam_testPaper_del = this.permissions['exam_testPaper_del']
     this.permission_exam_testPaper_ex_del = this.permissions['exam_testPaper_ex_del']
   },
   methods: {
-    
+
     /**
       * 获取试卷列表数据
       */

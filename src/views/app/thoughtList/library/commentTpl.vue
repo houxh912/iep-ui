@@ -5,7 +5,7 @@
         <div class="comment-avatar"><iep-img :src="item.avatar" alt="" class="img" /></div>
         <div class="comment-name">{{item.realName}}</div>
         <div class="huuifu">{{type == 'comment' ? '评论' : '回复'}}</div>
-        <div class="comment-name">{{type === 'comment' ? userInfo.name : item.replyTo}}</div>
+        <div class="comment-name">{{type === 'comment' ? userInfo.name : item.replyToz}}</div>
       </div>
       <div class="comment-content">{{item.replyMsg}}</div>
       <div class="comment-date">
@@ -118,7 +118,7 @@ export default {
     ...mapActions(['famsReward']),
     handleReward (row, isReply) {
       if (isReply) {
-        this.famsReward({ id: row.repliedUserId, name: row.realName })
+        this.famsReward({ id: row.userId, name: row.realName })
       } else {
         this.famsReward({ id: row.commentUserId, name: row.realName })
       }

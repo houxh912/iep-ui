@@ -55,6 +55,7 @@ const initSearchForm = () => {
     followUpStatus: '',
     businessTypeKeyString: '',
     timeSerach: '',
+    isContract: '',
   }
 }
 const formToDto = form => {

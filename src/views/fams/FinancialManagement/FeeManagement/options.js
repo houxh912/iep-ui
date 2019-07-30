@@ -9,22 +9,26 @@ const columnsMap = [
 		label: 'ID',
 	},
 	{
+		prop: 'creatorName',
+		label: '申请人',
+	},
+	{
 		prop: 'totalAmount',
 		label: '报销金额',
 	},
 	{
 		prop: 'createTime',
 		label: '申请日期',
-                                width:'150',
+		width: '150',
 	},
 	{
 		prop: 'status',
-    label: '状态',
-    type: 'dict',
+		label: '状态',
+		type: 'dict',
 	},
 	{
 		prop: 'auditorName',
-    label: '部门核准人',
+		label: '部门核准人',
 	},
 ]
 

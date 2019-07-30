@@ -1286,8 +1286,8 @@
 
 JSONStream@^1.0.4:
   version "1.3.5"
-  resolved "https://registry.npm.taobao.org/JSONStream/download/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
-  integrity sha1-MgjB8I06TZkmGrZPkjArwV4RHKA=
+  resolved "http://mirrors.cloud.tencent.com/npm/JSONStream/-/JSONStream-1.3.5.tgz#3208c1f08d3a4d99261ab64f92302bc15e111ca0"
+  integrity sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ==
   dependencies:
     jsonparse "^1.2.0"
     through ">=2.2.7 <3"
@@ -1358,7 +1358,7 @@ add-dom-event-listener@^1.0.2:
 
 add-stream@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/add-stream/download/add-stream-1.0.0.tgz#6a7990437ca736d5e1288db92bd3266d5f5cb2aa"
+  resolved "http://mirrors.cloud.tencent.com/npm/add-stream/-/add-stream-1.0.0.tgz#6a7990437ca736d5e1288db92bd3266d5f5cb2aa"
   integrity sha1-anmQQ3ynNtXhKI25K9MmbV9csqo=
 
 address@^1.0.3:
@@ -1567,7 +1567,7 @@ array-filter@~0.0.0:
 
 array-find-index@^1.0.1:
   version "1.0.2"
-  resolved "https://registry.npm.taobao.org/array-find-index/download/array-find-index-1.0.2.tgz#df010aa1287e164bbda6f9723b0a96a1ec4187a1"
+  resolved "http://mirrors.cloud.tencent.com/npm/array-find-index/-/array-find-index-1.0.2.tgz#df010aa1287e164bbda6f9723b0a96a1ec4187a1"
   integrity sha1-3wEKoSh+Fku9pvlyOwqWoexBh6E=
 
 array-flatten@1.1.1:
@@ -1582,7 +1582,7 @@ array-flatten@^2.1.0:
 
 array-ify@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/array-ify/download/array-ify-1.0.0.tgz#9e528762b4a9066ad163a6962a364418e9626ece"
+  resolved "http://mirrors.cloud.tencent.com/npm/array-ify/-/array-ify-1.0.0.tgz#9e528762b4a9066ad163a6962a364418e9626ece"
   integrity sha1-nlKHYrSpBmrRY6aWKjZEGOlibs4=
 
 array-map@~0.0.0:
@@ -1619,7 +1619,7 @@ array-unique@^0.3.2:
 
 arrify@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.npm.taobao.org/arrify/download/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
+  resolved "http://mirrors.cloud.tencent.com/npm/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
   integrity sha1-iYUI2iIm84DfkEcoRWhJwVAaSw0=
 
 asap@~2.0.3:
@@ -2295,7 +2295,7 @@ camel-case@3.0.x:
 
 camelcase-keys@^2.0.0:
   version "2.1.0"
-  resolved "https://registry.npm.taobao.org/camelcase-keys/download/camelcase-keys-2.1.0.tgz#308beeaffdf28119051efa1d932213c91b8f92e7"
+  resolved "http://mirrors.cloud.tencent.com/npm/camelcase-keys/-/camelcase-keys-2.1.0.tgz#308beeaffdf28119051efa1d932213c91b8f92e7"
   integrity sha1-MIvur/3ygRkFHvodkyITyRuPkuc=
   dependencies:
     camelcase "^2.0.0"
@@ -2303,7 +2303,7 @@ camelcase-keys@^2.0.0:
 
 camelcase-keys@^4.0.0:
   version "4.2.0"
-  resolved "https://registry.npm.taobao.org/camelcase-keys/download/camelcase-keys-4.2.0.tgz#a2aa5fb1af688758259c32c141426d78923b9b77"
+  resolved "http://mirrors.cloud.tencent.com/npm/camelcase-keys/-/camelcase-keys-4.2.0.tgz#a2aa5fb1af688758259c32c141426d78923b9b77"
   integrity sha1-oqpfsa9oh1glnDLBQUJteJI7m3c=
   dependencies:
     camelcase "^4.1.0"
@@ -2312,12 +2312,12 @@ camelcase-keys@^4.0.0:
 
 camelcase@^2.0.0:
   version "2.1.1"
-  resolved "https://registry.npm.taobao.org/camelcase/download/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
+  resolved "http://mirrors.cloud.tencent.com/npm/camelcase/-/camelcase-2.1.1.tgz#7c1d16d679a1bbe59ca02cacecfb011e201f5a1f"
   integrity sha1-fB0W1nmhu+WcoCys7PsBHiAfWh8=
 
 camelcase@^4.1.0:
   version "4.1.0"
-  resolved "https://registry.npm.taobao.org/camelcase/download/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
+  resolved "http://mirrors.cloud.tencent.com/npm/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
   integrity sha1-1UVjW+HjPFQmScaRc+Xeas+uNN0=
 
 camelcase@^5.0.0:
@@ -2647,8 +2647,8 @@ commander@2.17.x, commander@~2.17.1:
 
 commander@^2.16.0, commander@^2.18.0, commander@^2.20.0, commander@~2.20.0:
   version "2.20.0"
-  resolved "https://registry.npm.taobao.org/commander/download/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
-  integrity sha1-1YuytcHuj4ew00ACfp6U4iLFpCI=
+  resolved "http://mirrors.cloud.tencent.com/npm/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
+  integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
 
 commander@~2.1.0:
   version "2.1.0"
@@ -2698,7 +2698,7 @@ commondir@^1.0.1:
 
 compare-func@^1.3.1:
   version "1.3.2"
-  resolved "https://registry.npm.taobao.org/compare-func/download/compare-func-1.3.2.tgz#99dd0ba457e1f9bc722b12c08ec33eeab31fa648"
+  resolved "http://mirrors.cloud.tencent.com/npm/compare-func/-/compare-func-1.3.2.tgz#99dd0ba457e1f9bc722b12c08ec33eeab31fa648"
   integrity sha1-md0LpFfh+bxyKxLAjsM+6rMfpkg=
   dependencies:
     array-ify "^1.0.0"
@@ -2799,57 +2799,57 @@ content-type@~1.0.4:
 
 conventional-changelog-angular@^5.0.3:
   version "5.0.3"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-angular/download/conventional-changelog-angular-5.0.3.tgz#299fdd43df5a1f095283ac16aeedfb0a682ecab0"
-  integrity sha1-KZ/dQ99aHwlSg6wWru37CmguyrA=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-angular/-/conventional-changelog-angular-5.0.3.tgz#299fdd43df5a1f095283ac16aeedfb0a682ecab0"
+  integrity sha512-YD1xzH7r9yXQte/HF9JBuEDfvjxxwDGGwZU1+ndanbY0oFgA+Po1T9JDSpPLdP0pZT6MhCAsdvFKC4TJ4MTJTA==
   dependencies:
     compare-func "^1.3.1"
     q "^1.5.1"
 
 conventional-changelog-atom@^2.0.1:
   version "2.0.1"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-atom/download/conventional-changelog-atom-2.0.1.tgz#dc88ce650ffa9ceace805cbe70f88bfd0cb2c13a"
-  integrity sha1-3IjOZQ/6nOrOgFy+cPiL/QyywTo=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-atom/-/conventional-changelog-atom-2.0.1.tgz#dc88ce650ffa9ceace805cbe70f88bfd0cb2c13a"
+  integrity sha512-9BniJa4gLwL20Sm7HWSNXd0gd9c5qo49gCi8nylLFpqAHhkFTj7NQfROq3f1VpffRtzfTQp4VKU5nxbe2v+eZQ==
   dependencies:
     q "^1.5.1"
 
 conventional-changelog-cli@^2.0.22:
-  version "2.0.22"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-cli/download/conventional-changelog-cli-2.0.22.tgz#73d0507a4d100c7975418b8ca4db2d489fa0d35e"
-  integrity sha1-c9BQek0QDHl1QYuMpNstSJ+g014=
+  version "2.0.23"
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-cli/-/conventional-changelog-cli-2.0.23.tgz#3f6b2bb3e1e6a6f520f7fa514fe8fba2d92faab0"
+  integrity sha512-a/jDZHEUpSHQMAqeDrmrFhz9CKHBKhBGpJyc38BCfNjFA1RKchpq/Qqbo1BZwRLWrW/PX7IGsUicTyhniqUH9g==
   dependencies:
     add-stream "^1.0.0"
-    conventional-changelog "^3.1.9"
-    lodash "^4.2.1"
+    conventional-changelog "^3.1.10"
+    lodash "^4.14.14"
     meow "^4.0.0"
     tempfile "^1.1.1"
 
 conventional-changelog-codemirror@^2.0.1:
   version "2.0.1"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-codemirror/download/conventional-changelog-codemirror-2.0.1.tgz#acc046bc0971460939a0cc2d390e5eafc5eb30da"
-  integrity sha1-rMBGvAlxRgk5oMwtOQ5er8XrMNo=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-codemirror/-/conventional-changelog-codemirror-2.0.1.tgz#acc046bc0971460939a0cc2d390e5eafc5eb30da"
+  integrity sha512-23kT5IZWa+oNoUaDUzVXMYn60MCdOygTA2I+UjnOMiYVhZgmVwNd6ri/yDlmQGXHqbKhNR5NoXdBzSOSGxsgIQ==
   dependencies:
     q "^1.5.1"
 
-conventional-changelog-conventionalcommits@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-conventionalcommits/download/conventional-changelog-conventionalcommits-4.0.0.tgz#d76460a16b28dd60f5b285e126b0faff66f5ad3f"
-  integrity sha1-12RgoWso3WD1soXhJrD6/2b1rT8=
+conventional-changelog-conventionalcommits@^4.1.0:
+  version "4.1.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-conventionalcommits/-/conventional-changelog-conventionalcommits-4.1.0.tgz#eb7d47a9c5f1a6f9846a649482294e4ac50d7683"
+  integrity sha512-J3xolGrH8PTxpCqueHOuZtv3Cp73SQOWiBQzlsaugZAZ+hZgcJBonmC+1bQbfGs2neC2S18p2L1Gx+nTEglJTQ==
   dependencies:
     compare-func "^1.3.1"
     q "^1.5.1"
 
-conventional-changelog-core@^3.2.3:
-  version "3.2.3"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-core/download/conventional-changelog-core-3.2.3.tgz#b31410856f431c847086a7dcb4d2ca184a7d88fb"
-  integrity sha1-sxQQhW9DHIRwhqfctNLKGEp9iPs=
+conventional-changelog-core@^4.0.0:
+  version "4.0.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-core/-/conventional-changelog-core-4.0.0.tgz#a9e83889e43a21b05fa098a507cad475905a0439"
+  integrity sha512-+bZMeBUdjKxfyX2w6EST9U7zb85wxrGS3IV4H7SqPya44osNQbm3P+vyqfLs6s57FkoEamC93ioDEiguVLWmSQ==
   dependencies:
-    conventional-changelog-writer "^4.0.6"
+    conventional-changelog-writer "^4.0.7"
     conventional-commits-parser "^3.0.3"
     dateformat "^3.0.0"
     get-pkg-repo "^1.0.0"
     git-raw-commits "2.0.0"
     git-remote-origin-url "^2.0.0"
-    git-semver-tags "^2.0.3"
+    git-semver-tags "^3.0.0"
     lodash "^4.2.1"
     normalize-package-data "^2.3.5"
     q "^1.5.1"
@@ -2859,54 +2859,54 @@ conventional-changelog-core@^3.2.3:
 
 conventional-changelog-ember@^2.0.2:
   version "2.0.2"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-ember/download/conventional-changelog-ember-2.0.2.tgz#284ffdea8c83ea8c210b65c5b4eb3e5cc0f4f51a"
-  integrity sha1-KE/96oyD6owhC2XFtOs+XMD09Ro=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-ember/-/conventional-changelog-ember-2.0.2.tgz#284ffdea8c83ea8c210b65c5b4eb3e5cc0f4f51a"
+  integrity sha512-qtZbA3XefO/n6DDmkYywDYi6wDKNNc98MMl2F9PKSaheJ25Trpi3336W8fDlBhq0X+EJRuseceAdKLEMmuX2tg==
   dependencies:
     q "^1.5.1"
 
 conventional-changelog-eslint@^3.0.2:
   version "3.0.2"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-eslint/download/conventional-changelog-eslint-3.0.2.tgz#e9eb088cda6be3e58b2de6a5aac63df0277f3cbe"
-  integrity sha1-6esIjNpr4+WLLealqsY98Cd/PL4=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-eslint/-/conventional-changelog-eslint-3.0.2.tgz#e9eb088cda6be3e58b2de6a5aac63df0277f3cbe"
+  integrity sha512-Yi7tOnxjZLXlCYBHArbIAm8vZ68QUSygFS7PgumPRiEk+9NPUeucy5Wg9AAyKoBprSV3o6P7Oghh4IZSLtKCvQ==
   dependencies:
     q "^1.5.1"
 
 conventional-changelog-express@^2.0.1:
   version "2.0.1"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-express/download/conventional-changelog-express-2.0.1.tgz#fea2231d99a5381b4e6badb0c1c40a41fcacb755"
-  integrity sha1-/qIjHZmlOBtOa62wwcQKQfyst1U=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-express/-/conventional-changelog-express-2.0.1.tgz#fea2231d99a5381b4e6badb0c1c40a41fcacb755"
+  integrity sha512-G6uCuCaQhLxdb4eEfAIHpcfcJ2+ao3hJkbLrw/jSK/eROeNfnxCJasaWdDAfFkxsbpzvQT4W01iSynU3OoPLIw==
   dependencies:
     q "^1.5.1"
 
 conventional-changelog-jquery@^3.0.4:
   version "3.0.4"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-jquery/download/conventional-changelog-jquery-3.0.4.tgz#7eb598467b83db96742178e1e8d68598bffcd7ae"
-  integrity sha1-frWYRnuD25Z0IXjh6NaFmL/8164=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-jquery/-/conventional-changelog-jquery-3.0.4.tgz#7eb598467b83db96742178e1e8d68598bffcd7ae"
+  integrity sha512-IVJGI3MseYoY6eybknnTf9WzeQIKZv7aNTm2KQsiFVJH21bfP2q7XVjfoMibdCg95GmgeFlaygMdeoDDa+ZbEQ==
   dependencies:
     q "^1.5.1"
 
 conventional-changelog-jshint@^2.0.1:
   version "2.0.1"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-jshint/download/conventional-changelog-jshint-2.0.1.tgz#11c0e8283abf156a4ff78e89be6fdedf9bd72202"
-  integrity sha1-EcDoKDq/FWpP946Jvm/e35vXIgI=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-jshint/-/conventional-changelog-jshint-2.0.1.tgz#11c0e8283abf156a4ff78e89be6fdedf9bd72202"
+  integrity sha512-kRFJsCOZzPFm2tzRHULWP4tauGMvccOlXYf3zGeuSW4U0mZhk5NsjnRZ7xFWrTFPlCLV+PNmHMuXp5atdoZmEg==
   dependencies:
     compare-func "^1.3.1"
     q "^1.5.1"
 
-conventional-changelog-preset-loader@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-preset-loader/download/conventional-changelog-preset-loader-2.1.1.tgz#65bb600547c56d5627d23135154bcd9a907668c4"
-  integrity sha1-ZbtgBUfFbVYn0jE1FUvNmpB2aMQ=
+conventional-changelog-preset-loader@^2.2.0:
+  version "2.2.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-preset-loader/-/conventional-changelog-preset-loader-2.2.0.tgz#571e2b3d7b53d65587bea9eedf6e37faa5db4fcc"
+  integrity sha512-zXB+5vF7D5Y3Cb/rJfSyCCvFphCVmF8mFqOdncX3BmjZwAtGAPfYrBcT225udilCKvBbHgyzgxqz2GWDB5xShQ==
 
-conventional-changelog-writer@^4.0.6:
-  version "4.0.6"
-  resolved "https://registry.npm.taobao.org/conventional-changelog-writer/download/conventional-changelog-writer-4.0.6.tgz#24db578ac8e7c89a409ef9bba12cf3c095990148"
-  integrity sha1-JNtXisjnyJpAnvm7oSzzwJWZAUg=
+conventional-changelog-writer@^4.0.7:
+  version "4.0.7"
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog-writer/-/conventional-changelog-writer-4.0.7.tgz#e4b7d9cbea902394ad671f67108a71fa90c7095f"
+  integrity sha512-p/wzs9eYaxhFbrmX/mCJNwJuvvHR+j4Fd0SQa2xyAhYed6KBiZ780LvoqUUvsayP4R1DtC27czalGUhKV2oabw==
   dependencies:
     compare-func "^1.3.1"
     conventional-commits-filter "^2.0.2"
     dateformat "^3.0.0"
-    handlebars "^4.1.0"
+    handlebars "^4.1.2"
     json-stringify-safe "^5.0.1"
     lodash "^4.2.1"
     meow "^4.0.0"
@@ -2914,22 +2914,22 @@ conventional-changelog-writer@^4.0.6:
     split "^1.0.0"
     through2 "^3.0.0"
 
-conventional-changelog@^3.1.9:
-  version "3.1.9"
-  resolved "https://registry.npm.taobao.org/conventional-changelog/download/conventional-changelog-3.1.9.tgz#5a6a19dadc1e4080c2db8dcddd00a6c0077c55a4"
-  integrity sha1-WmoZ2tweQIDC243N3QCmwAd8VaQ=
+conventional-changelog@^3.1.10:
+  version "3.1.10"
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-changelog/-/conventional-changelog-3.1.10.tgz#889a8daa4b7673a1dc1605746f9ae66546b373c1"
+  integrity sha512-6RDj31hL39HUkpqvPjRlOxAwJRwur8O2qu9m6R0FBNDGwCJyy4SYH9NfyshozxYSeklrauKRf3oSbyoEZVzu9Q==
   dependencies:
     conventional-changelog-angular "^5.0.3"
     conventional-changelog-atom "^2.0.1"
     conventional-changelog-codemirror "^2.0.1"
-    conventional-changelog-conventionalcommits "^4.0.0"
-    conventional-changelog-core "^3.2.3"
+    conventional-changelog-conventionalcommits "^4.1.0"
+    conventional-changelog-core "^4.0.0"
     conventional-changelog-ember "^2.0.2"
     conventional-changelog-eslint "^3.0.2"
     conventional-changelog-express "^2.0.1"
     conventional-changelog-jquery "^3.0.4"
     conventional-changelog-jshint "^2.0.1"
-    conventional-changelog-preset-loader "^2.1.1"
+    conventional-changelog-preset-loader "^2.2.0"
 
 conventional-commit-types@^2.0.0:
   version "2.1.1"
@@ -2938,16 +2938,16 @@ conventional-commit-types@^2.0.0:
 
 conventional-commits-filter@^2.0.2:
   version "2.0.2"
-  resolved "https://registry.npm.taobao.org/conventional-commits-filter/download/conventional-commits-filter-2.0.2.tgz#f122f89fbcd5bb81e2af2fcac0254d062d1039c1"
-  integrity sha1-8SL4n7zVu4Hiry/KwCVNBi0QOcE=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-commits-filter/-/conventional-commits-filter-2.0.2.tgz#f122f89fbcd5bb81e2af2fcac0254d062d1039c1"
+  integrity sha512-WpGKsMeXfs21m1zIw4s9H5sys2+9JccTzpN6toXtxhpw2VNF2JUXwIakthKBy+LN4DvJm+TzWhxOMWOs1OFCFQ==
   dependencies:
     lodash.ismatch "^4.4.0"
     modify-values "^1.0.0"
 
 conventional-commits-parser@^3.0.3:
   version "3.0.3"
-  resolved "https://registry.npm.taobao.org/conventional-commits-parser/download/conventional-commits-parser-3.0.3.tgz#c3f972fd4e056aa8b9b4f5f3d0e540da18bf396d"
-  integrity sha1-w/ly/U4Faqi5tPXz0OVA2hi/OW0=
+  resolved "http://mirrors.cloud.tencent.com/npm/conventional-commits-parser/-/conventional-commits-parser-3.0.3.tgz#c3f972fd4e056aa8b9b4f5f3d0e540da18bf396d"
+  integrity sha512-KaA/2EeUkO4bKjinNfGUyqPTX/6w9JGshuQRik4r/wJz7rUw3+D3fDG6sZSEqJvKILzKXFQuFkpPLclcsAuZcg==
   dependencies:
     JSONStream "^1.0.4"
     is-text-path "^2.0.0"
@@ -3301,7 +3301,7 @@ current-script-polyfill@^1.0.0:
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
-  resolved "https://registry.npm.taobao.org/currently-unhandled/download/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
+  resolved "http://mirrors.cloud.tencent.com/npm/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
   integrity sha1-mI3zP+qxke95mmE2nddsF635V+o=
   dependencies:
     array-find-index "^1.0.1"
@@ -3342,7 +3342,7 @@ cz-conventional-changelog@^3.0.2:
 
 dargs@^4.0.1:
   version "4.1.0"
-  resolved "https://registry.npm.taobao.org/dargs/download/dargs-4.1.0.tgz#03a9dbb4b5c2f139bf14ae53f0b8a2a6a86f4e17"
+  resolved "http://mirrors.cloud.tencent.com/npm/dargs/-/dargs-4.1.0.tgz#03a9dbb4b5c2f139bf14ae53f0b8a2a6a86f4e17"
   integrity sha1-A6nbtLXC8Tm/FK5T8LiipqhvThc=
   dependencies:
     number-is-nan "^1.0.0"
@@ -3361,8 +3361,8 @@ date-now@^0.1.4:
 
 dateformat@^3.0.0:
   version "3.0.3"
-  resolved "https://registry.npm.taobao.org/dateformat/download/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
-  integrity sha1-puN0maTZqc+F71hyBE1ikByYia4=
+  resolved "http://mirrors.cloud.tencent.com/npm/dateformat/-/dateformat-3.0.3.tgz#a6e37499a4d9a9cf85ef5872044d62901c9889ae"
+  integrity sha512-jyCETtSl3VMZMWeRo7iY1FL19ges1t55hMo5yaam4Jrsm5EPL89UQkoQRyiI+Yf4k8r2ZpdngkV8hr1lIdjb3Q==
 
 dayjs@^1.7.5, dayjs@^1.7.7:
   version "1.8.14"
@@ -3404,7 +3404,7 @@ debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
 
 decamelize-keys@^1.0.0:
   version "1.1.0"
-  resolved "https://registry.npm.taobao.org/decamelize-keys/download/decamelize-keys-1.1.0.tgz#d171a87933252807eb3cb61dc1c1445d078df2d9"
+  resolved "http://mirrors.cloud.tencent.com/npm/decamelize-keys/-/decamelize-keys-1.1.0.tgz#d171a87933252807eb3cb61dc1c1445d078df2d9"
   integrity sha1-0XGoeTMlKAfrPLYdwcFEXQeN8tk=
   dependencies:
     decamelize "^1.1.0"
@@ -3680,7 +3680,7 @@ domutils@^1.5.1, domutils@^1.7.0:
 
 dot-prop@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npm.taobao.org/dot-prop/download/dot-prop-3.0.0.tgz#1b708af094a49c9a0e7dbcad790aba539dac1177"
+  resolved "http://mirrors.cloud.tencent.com/npm/dot-prop/-/dot-prop-3.0.0.tgz#1b708af094a49c9a0e7dbcad790aba539dac1177"
   integrity sha1-G3CK8JSknJoOfbyteQq6U52sEXc=
   dependencies:
     is-obj "^1.0.0"
@@ -4524,7 +4524,7 @@ find-root@1.1.0:
 
 find-up@^1.0.0:
   version "1.1.2"
-  resolved "https://registry.npm.taobao.org/find-up/download/find-up-1.1.2.tgz#6b2e9822b1a2ce0a60ab64d610eccad53cb24d0f"
+  resolved "http://mirrors.cloud.tencent.com/npm/find-up/-/find-up-1.1.2.tgz#6b2e9822b1a2ce0a60ab64d610eccad53cb24d0f"
   integrity sha1-ay6YIrGizgpgq2TWEOzK1TyyTQ8=
   dependencies:
     path-exists "^2.0.0"
@@ -4793,7 +4793,7 @@ get-own-enumerable-property-symbols@^3.0.0:
 
 get-pkg-repo@^1.0.0:
   version "1.4.0"
-  resolved "https://registry.npm.taobao.org/get-pkg-repo/download/get-pkg-repo-1.4.0.tgz#c73b489c06d80cc5536c2c853f9e05232056972d"
+  resolved "http://mirrors.cloud.tencent.com/npm/get-pkg-repo/-/get-pkg-repo-1.4.0.tgz#c73b489c06d80cc5536c2c853f9e05232056972d"
   integrity sha1-xztInAbYDMVTbCyFP54FIyBWly0=
   dependencies:
     hosted-git-info "^2.1.4"
@@ -4804,7 +4804,7 @@ get-pkg-repo@^1.0.0:
 
 get-stdin@^4.0.1:
   version "4.0.1"
-  resolved "https://registry.npm.taobao.org/get-stdin/download/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
+  resolved "http://mirrors.cloud.tencent.com/npm/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
   integrity sha1-uWjGsKBDhDJJAui/Gl3zJXmkUP4=
 
 get-stdin@^6.0.0:
@@ -4843,8 +4843,8 @@ getpass@^0.1.1:
 
 git-raw-commits@2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/git-raw-commits/download/git-raw-commits-2.0.0.tgz#d92addf74440c14bcc5c83ecce3fb7f8a79118b5"
-  integrity sha1-2Srd90RAwUvMXIPszj+3+KeRGLU=
+  resolved "http://mirrors.cloud.tencent.com/npm/git-raw-commits/-/git-raw-commits-2.0.0.tgz#d92addf74440c14bcc5c83ecce3fb7f8a79118b5"
+  integrity sha512-w4jFEJFgKXMQJ0H0ikBk2S+4KP2VEjhCvLCNqbNRQC8BgGWgLKNCO7a9K9LI+TVT7Gfoloje502sEnctibffgg==
   dependencies:
     dargs "^4.0.1"
     lodash.template "^4.0.2"
@@ -4854,23 +4854,23 @@ git-raw-commits@2.0.0:
 
 git-remote-origin-url@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/git-remote-origin-url/download/git-remote-origin-url-2.0.0.tgz#5282659dae2107145a11126112ad3216ec5fa65f"
+  resolved "http://mirrors.cloud.tencent.com/npm/git-remote-origin-url/-/git-remote-origin-url-2.0.0.tgz#5282659dae2107145a11126112ad3216ec5fa65f"
   integrity sha1-UoJlna4hBxRaERJhEq0yFuxfpl8=
   dependencies:
     gitconfiglocal "^1.0.0"
     pify "^2.3.0"
 
-git-semver-tags@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.npm.taobao.org/git-semver-tags/download/git-semver-tags-2.0.3.tgz#48988a718acf593800f99622a952a77c405bfa34"
-  integrity sha1-SJiKcYrPWTgA+ZYiqVKnfEBb+jQ=
+git-semver-tags@^3.0.0:
+  version "3.0.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/git-semver-tags/-/git-semver-tags-3.0.0.tgz#fe10147824657662c82efd9341f0fa59f74ddcba"
+  integrity sha512-T4C/gJ9k2Bnxz+PubtcyiMtUUKrC+Nh9Q4zaECcnmVMwJgPhrNyP/Rf+YpdRqsJbCV/+kYrCH24Xg+IeAmbOPg==
   dependencies:
     meow "^4.0.0"
     semver "^6.0.0"
 
 gitconfiglocal@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/gitconfiglocal/download/gitconfiglocal-1.0.0.tgz#41d045f3851a5ea88f03f24ca1c6178114464b9b"
+  resolved "http://mirrors.cloud.tencent.com/npm/gitconfiglocal/-/gitconfiglocal-1.0.0.tgz#41d045f3851a5ea88f03f24ca1c6178114464b9b"
   integrity sha1-QdBF84UaXqiPA/JMocYXgRRGS5s=
   dependencies:
     ini "^1.3.2"
@@ -4999,10 +4999,10 @@ handle-thing@^2.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/handle-thing/-/handle-thing-2.0.0.tgz#0e039695ff50c93fc288557d696f3c1dc6776754"
   integrity sha512-d4sze1JNC454Wdo2fkuyzCr6aHcbL6PGGuFAz0Li/NcOm1tCHGnWDRmJP85dh9IhQErTc2svWFEX5xHIOo//kQ==
 
-handlebars@^4.1.0:
+handlebars@^4.1.2:
   version "4.1.2"
-  resolved "https://registry.npm.taobao.org/handlebars/download/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
-  integrity sha1-trN8HO0DBrIh4JT8eso+wjsTG2c=
+  resolved "http://mirrors.cloud.tencent.com/npm/handlebars/-/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
+  integrity sha512-nvfrjqvt9xQ8Z/w0ijewdD/vvWDTOweBUm96NTr66Wfvo1mJenBLwcYmPs3TIBP5ruzYGD7Hx/DaM9RmhroGPw==
   dependencies:
     neo-async "^2.6.0"
     optimist "^0.6.1"
@@ -5418,14 +5418,14 @@ imurmurhash@^0.1.4:
 
 indent-string@^2.1.0:
   version "2.1.0"
-  resolved "https://registry.npm.taobao.org/indent-string/download/indent-string-2.1.0.tgz#8e2d48348742121b4a8218b7a137e9a52049dc80"
+  resolved "http://mirrors.cloud.tencent.com/npm/indent-string/-/indent-string-2.1.0.tgz#8e2d48348742121b4a8218b7a137e9a52049dc80"
   integrity sha1-ji1INIdCEhtKghi3oTfppSBJ3IA=
   dependencies:
     repeating "^2.0.0"
 
 indent-string@^3.0.0:
   version "3.2.0"
-  resolved "https://registry.npm.taobao.org/indent-string/download/indent-string-3.2.0.tgz#4a5fd6d27cc332f37e5419a504dbb837105c9289"
+  resolved "http://mirrors.cloud.tencent.com/npm/indent-string/-/indent-string-3.2.0.tgz#4a5fd6d27cc332f37e5419a504dbb837105c9289"
   integrity sha1-Sl/W0nzDMvN+VBmlBNu4NxBckok=
 
 indexes-of@^1.0.1:
@@ -5695,7 +5695,7 @@ is-extglob@^2.1.0, is-extglob@^2.1.1:
 
 is-finite@^1.0.0:
   version "1.0.2"
-  resolved "https://registry.npm.taobao.org/is-finite/download/is-finite-1.0.2.tgz#cc6677695602be550ef11e8b4aa6305342b6d0aa"
+  resolved "http://mirrors.cloud.tencent.com/npm/is-finite/-/is-finite-1.0.2.tgz#cc6677695602be550ef11e8b4aa6305342b6d0aa"
   integrity sha1-zGZ3aVYCvlUO8R6LSqYwU0K20Ko=
   dependencies:
     number-is-nan "^1.0.0"
@@ -5822,8 +5822,8 @@ is-symbol@^1.0.2:
 
 is-text-path@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/is-text-path/download/is-text-path-2.0.0.tgz#b2484e2b720a633feb2e85b67dc193ff72c75636"
-  integrity sha1-skhOK3IKYz/rLoW2fcGT/3LHVjY=
+  resolved "http://mirrors.cloud.tencent.com/npm/is-text-path/-/is-text-path-2.0.0.tgz#b2484e2b720a633feb2e85b67dc193ff72c75636"
+  integrity sha512-+oDTluR6WEjdXEJMnC2z6A4FRwFoYuvShVVEGsS7ewc0UTi2QtAKMDJuL4BDEVt+5T7MjFo12RP8ghOM75oKJw==
   dependencies:
     text-extensions "^2.0.0"
 
@@ -6042,7 +6042,7 @@ jsonify@~0.0.0:
 
 jsonparse@^1.2.0:
   version "1.3.1"
-  resolved "https://registry.npm.taobao.org/jsonparse/download/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
+  resolved "http://mirrors.cloud.tencent.com/npm/jsonparse/-/jsonparse-1.3.1.tgz#3f4dae4a91fac315f71062f8521cc239f1366280"
   integrity sha1-P02uSpH6wxX3EGL4UhzCOfE2YoA=
 
 jsprim@^1.2.2:
@@ -6146,7 +6146,7 @@ lines-and-columns@^1.1.6:
 
 load-json-file@^1.0.0:
   version "1.1.0"
-  resolved "https://registry.npm.taobao.org/load-json-file/download/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
+  resolved "http://mirrors.cloud.tencent.com/npm/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
   integrity sha1-lWkFcI1YtLq0wiYbBPWfMcmTdMA=
   dependencies:
     graceful-fs "^4.1.2"
@@ -6157,7 +6157,7 @@ load-json-file@^1.0.0:
 
 load-json-file@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.npm.taobao.org/load-json-file/download/load-json-file-4.0.0.tgz#2f5f45ab91e33216234fd53adab668eb4ec0993b"
+  resolved "http://mirrors.cloud.tencent.com/npm/load-json-file/-/load-json-file-4.0.0.tgz#2f5f45ab91e33216234fd53adab668eb4ec0993b"
   integrity sha1-L19Fq5HjMhYjT9U62rZo607AmTs=
   dependencies:
     graceful-fs "^4.1.2"
@@ -6220,9 +6220,9 @@ locate-path@^5.0.0:
   dependencies:
     p-locate "^4.1.0"
 
-lodash._reinterpolate@~3.0.0:
+lodash._reinterpolate@^3.0.0, lodash._reinterpolate@~3.0.0:
   version "3.0.0"
-  resolved "https://registry.npm.taobao.org/lodash._reinterpolate/download/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
+  resolved "http://mirrors.cloud.tencent.com/npm/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz#0ccf2d89166af03b3663c796538b75ac6e114d9d"
   integrity sha1-DM8tiRZq8Ds2Y8eWU4t1rG4RTZ0=
 
 lodash.defaultsdeep@^4.6.1:
@@ -6232,7 +6232,7 @@ lodash.defaultsdeep@^4.6.1:
 
 lodash.ismatch@^4.4.0:
   version "4.4.0"
-  resolved "https://registry.npm.taobao.org/lodash.ismatch/download/lodash.ismatch-4.4.0.tgz#756cb5150ca3ba6f11085a78849645f188f85f37"
+  resolved "http://mirrors.cloud.tencent.com/npm/lodash.ismatch/-/lodash.ismatch-4.4.0.tgz#756cb5150ca3ba6f11085a78849645f188f85f37"
   integrity sha1-dWy1FQyjum8RCFp4hJZF8Yj4Xzc=
 
 lodash.kebabcase@^4.1.1:
@@ -6260,7 +6260,15 @@ lodash.tail@^4.1.1:
   resolved "https://registry.npm.taobao.org/lodash.tail/download/lodash.tail-4.1.1.tgz#d2333a36d9e7717c8ad2f7cacafec7c32b444664"
   integrity sha1-0jM6NtnncXyK0vfKyv7HwytERmQ=
 
-lodash.template@^4.0.2, lodash.template@^4.4.0:
+lodash.template@^4.0.2:
+  version "4.5.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/lodash.template/-/lodash.template-4.5.0.tgz#f976195cf3f347d0d5f52483569fe8031ccce8ab"
+  integrity sha512-84vYFxIkmidUiFxidA/KjjH9pAycqW+h980j7Fuz5qxRtO9pgB7MDFTdys1N7A5mcucRiDyEq4fusljItR1T/A==
+  dependencies:
+    lodash._reinterpolate "^3.0.0"
+    lodash.templatesettings "^4.0.0"
+
+lodash.template@^4.4.0:
   version "4.4.0"
   resolved "https://registry.npm.taobao.org/lodash.template/download/lodash.template-4.4.0.tgz#e73a0385c8355591746e020b99679c690e68fba0"
   integrity sha1-5zoDhcg1VZF0bgILmWecaQ5o+6A=
@@ -6269,11 +6277,11 @@ lodash.template@^4.0.2, lodash.template@^4.4.0:
     lodash.templatesettings "^4.0.0"
 
 lodash.templatesettings@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.npm.taobao.org/lodash.templatesettings/download/lodash.templatesettings-4.1.0.tgz#2b4d4e95ba440d915ff08bc899e4553666713316"
-  integrity sha1-K01OlbpEDZFf8IvImeRVNmZxMxY=
+  version "4.2.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/lodash.templatesettings/-/lodash.templatesettings-4.2.0.tgz#e481310f049d3cf6d47e912ad09313b154f0fb33"
+  integrity sha512-stgLz+i3Aa9mZgnjr/O+v9ruKZsPsndy7qPZOchbqk2cnTU1ZaldKK+v7m54WoKIyxiuMZTKT2H81F8BeAc3ZQ==
   dependencies:
-    lodash._reinterpolate "~3.0.0"
+    lodash._reinterpolate "^3.0.0"
 
 lodash.transform@^4.6.0:
   version "4.6.0"
@@ -6290,12 +6298,12 @@ lodash@4.17.14, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3:
   resolved "http://mirrors.cloud.tencent.com/npm/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
   integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
 
-lodash@4.17.15, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.5:
+lodash@4.17.15, lodash@^4.14.14, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.5, lodash@^4.2.1:
   version "4.17.15"
   resolved "http://mirrors.cloud.tencent.com/npm/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
-lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0:
+lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.11"
   resolved "https://registry.npm.taobao.org/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha1-s56mIp72B+zYniyN8SU2iRysm40=
@@ -6326,7 +6334,7 @@ loose-envify@^1.0.0:
 
 loud-rejection@^1.0.0:
   version "1.6.0"
-  resolved "https://registry.npm.taobao.org/loud-rejection/download/loud-rejection-1.6.0.tgz#5b46f80147edee578870f086d04821cf998e551f"
+  resolved "http://mirrors.cloud.tencent.com/npm/loud-rejection/-/loud-rejection-1.6.0.tgz#5b46f80147edee578870f086d04821cf998e551f"
   integrity sha1-W0b4AUft7leIcPCG0Eghz5mOVR8=
   dependencies:
     currently-unhandled "^0.4.1"
@@ -6381,12 +6389,12 @@ map-cache@^0.2.2:
 
 map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.npm.taobao.org/map-obj/download/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
+  resolved "http://mirrors.cloud.tencent.com/npm/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
   integrity sha1-2TPOuSBdgr3PSIb2dCvcK03qFG0=
 
 map-obj@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/map-obj/download/map-obj-2.0.0.tgz#a65cd29087a92598b8791257a523e021222ac1f9"
+  resolved "http://mirrors.cloud.tencent.com/npm/map-obj/-/map-obj-2.0.0.tgz#a65cd29087a92598b8791257a523e021222ac1f9"
   integrity sha1-plzSkIepJZi4eRJXpSPgISIqwfk=
 
 map-visit@^1.0.0:
@@ -6439,7 +6447,7 @@ memory-fs@^0.4.0, memory-fs@^0.4.1, memory-fs@~0.4.1:
 
 meow@^3.3.0:
   version "3.7.0"
-  resolved "https://registry.npm.taobao.org/meow/download/meow-3.7.0.tgz#72cb668b425228290abbfa856892587308a801fb"
+  resolved "http://mirrors.cloud.tencent.com/npm/meow/-/meow-3.7.0.tgz#72cb668b425228290abbfa856892587308a801fb"
   integrity sha1-cstmi0JSKCkKu/qFaJJYcwioAfs=
   dependencies:
     camelcase-keys "^2.0.0"
@@ -6455,8 +6463,8 @@ meow@^3.3.0:
 
 meow@^4.0.0:
   version "4.0.1"
-  resolved "https://registry.npm.taobao.org/meow/download/meow-4.0.1.tgz#d48598f6f4b1472f35bf6317a95945ace347f975"
-  integrity sha1-1IWY9vSxRy81v2MXqVlFrONH+XU=
+  resolved "http://mirrors.cloud.tencent.com/npm/meow/-/meow-4.0.1.tgz#d48598f6f4b1472f35bf6317a95945ace347f975"
+  integrity sha512-xcSBHD5Z86zaOc+781KrupuHAzeGXSLtiAOmBsiLDiPSaYSB6hdew2ng9EBAnZ62jagG9MHAOdxpDi/lWBFJ/A==
   dependencies:
     camelcase-keys "^4.0.0"
     decamelize-keys "^1.0.0"
@@ -6583,8 +6591,8 @@ minimatch@^3.0.2, minimatch@^3.0.4:
 
 minimist-options@^3.0.1:
   version "3.0.2"
-  resolved "https://registry.npm.taobao.org/minimist-options/download/minimist-options-3.0.2.tgz#fba4c8191339e13ecf4d61beb03f070103f3d954"
-  integrity sha1-+6TIGRM54T7PTWG+sD8HAQPz2VQ=
+  resolved "http://mirrors.cloud.tencent.com/npm/minimist-options/-/minimist-options-3.0.2.tgz#fba4c8191339e13ecf4d61beb03f070103f3d954"
+  integrity sha512-FyBrT/d0d4+uiZRbqznPXqw3IpZZG3gl3wKWiX784FycUKVwBt0uLBFkQrtE4tZOrgo78nZp2jnKz3L65T5LdQ==
   dependencies:
     arrify "^1.0.1"
     is-plain-obj "^1.1.0"
@@ -6601,7 +6609,7 @@ minimist@1.2.0, minimist@^1.1.3, minimist@^1.2.0:
 
 minimist@~0.0.1:
   version "0.0.10"
-  resolved "https://registry.npm.taobao.org/minimist/download/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
+  resolved "http://mirrors.cloud.tencent.com/npm/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
   integrity sha1-3j+YVD2/lggr5IrRoMfNqDYwHc8=
 
 minipass@^2.2.1, minipass@^2.3.5:
@@ -6676,8 +6684,8 @@ mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkdirp@
 
 modify-values@^1.0.0:
   version "1.0.1"
-  resolved "https://registry.npm.taobao.org/modify-values/download/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
-  integrity sha1-s5OfpgVUZHTj4+PGPWS9Q7TuYCI=
+  resolved "http://mirrors.cloud.tencent.com/npm/modify-values/-/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
+  integrity sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==
 
 moment@^2.21.0, moment@^2.24.0:
   version "2.24.0"
@@ -7128,7 +7136,7 @@ opn@^5.5.0:
 
 optimist@^0.6.1:
   version "0.6.1"
-  resolved "https://registry.npm.taobao.org/optimist/download/optimist-0.6.1.tgz#da3ea74686fa21a19a111c326e90eb15a0196686"
+  resolved "http://mirrors.cloud.tencent.com/npm/optimist/-/optimist-0.6.1.tgz#da3ea74686fa21a19a111c326e90eb15a0196686"
   integrity sha1-2j6nRob6IaGaERwybpDrFaAZZoY=
   dependencies:
     minimist "~0.0.1"
@@ -7316,12 +7324,12 @@ parse-asn1@^5.0.0:
 
 parse-github-repo-url@^1.3.0:
   version "1.4.1"
-  resolved "https://registry.npm.taobao.org/parse-github-repo-url/download/parse-github-repo-url-1.4.1.tgz#9e7d8bb252a6cb6ba42595060b7bf6df3dbc1f50"
+  resolved "http://mirrors.cloud.tencent.com/npm/parse-github-repo-url/-/parse-github-repo-url-1.4.1.tgz#9e7d8bb252a6cb6ba42595060b7bf6df3dbc1f50"
   integrity sha1-nn2LslKmy2ukJZUGC3v23z28H1A=
 
 parse-json@^2.2.0:
   version "2.2.0"
-  resolved "https://registry.npm.taobao.org/parse-json/download/parse-json-2.2.0.tgz#f480f40434ef80741f8469099f8dea18f55a4dc9"
+  resolved "http://mirrors.cloud.tencent.com/npm/parse-json/-/parse-json-2.2.0.tgz#f480f40434ef80741f8469099f8dea18f55a4dc9"
   integrity sha1-9ID0BDTvgHQfhGkJn43qGPVaTck=
   dependencies:
     error-ex "^1.2.0"
@@ -7376,7 +7384,7 @@ path-dirname@^1.0.0:
 
 path-exists@^2.0.0:
   version "2.1.0"
-  resolved "https://registry.npm.taobao.org/path-exists/download/path-exists-2.1.0.tgz#0feb6c64f0fc518d9a754dd5efb62c7022761f4b"
+  resolved "http://mirrors.cloud.tencent.com/npm/path-exists/-/path-exists-2.1.0.tgz#0feb6c64f0fc518d9a754dd5efb62c7022761f4b"
   integrity sha1-D+tsZPD8UY2adU3V77YscCJ2H0s=
   dependencies:
     pinkie-promise "^2.0.0"
@@ -7418,7 +7426,7 @@ path-to-regexp@0.1.7:
 
 path-type@^1.0.0:
   version "1.1.0"
-  resolved "https://registry.npm.taobao.org/path-type/download/path-type-1.1.0.tgz#59c44f7ee491da704da415da5a4070ba4f8fe441"
+  resolved "http://mirrors.cloud.tencent.com/npm/path-type/-/path-type-1.1.0.tgz#59c44f7ee491da704da415da5a4070ba4f8fe441"
   integrity sha1-WcRPfuSR2nBNpBXaWkBwuk+P5EE=
   dependencies:
     graceful-fs "^4.1.2"
@@ -7455,7 +7463,7 @@ picomatch@^2.0.4:
 
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
-  resolved "https://registry.npm.taobao.org/pify/download/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
+  resolved "http://mirrors.cloud.tencent.com/npm/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   integrity sha1-7RQaasBDqEnqWISY59yosVMw6Qw=
 
 pify@^3.0.0:
@@ -8077,7 +8085,7 @@ querystringify@^2.1.1:
 
 quick-lru@^1.0.0:
   version "1.1.0"
-  resolved "https://registry.npm.taobao.org/quick-lru/download/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
+  resolved "http://mirrors.cloud.tencent.com/npm/quick-lru/-/quick-lru-1.1.0.tgz#4360b17c61136ad38078397ff11416e186dcfbb8"
   integrity sha1-Q2CxfGETatOAeDl/8RQW4Ybc+7g=
 
 quill-delta@^3.6.2:
@@ -8150,7 +8158,7 @@ rc@^1.2.7:
 
 read-pkg-up@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.npm.taobao.org/read-pkg-up/download/read-pkg-up-1.0.1.tgz#9d63c13276c065918d57f002a57f40a1b643fb02"
+  resolved "http://mirrors.cloud.tencent.com/npm/read-pkg-up/-/read-pkg-up-1.0.1.tgz#9d63c13276c065918d57f002a57f40a1b643fb02"
   integrity sha1-nWPBMnbAZZGNV/ACpX9AobZD+wI=
   dependencies:
     find-up "^1.0.0"
@@ -8158,7 +8166,7 @@ read-pkg-up@^1.0.1:
 
 read-pkg-up@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npm.taobao.org/read-pkg-up/download/read-pkg-up-3.0.0.tgz#3ed496685dba0f8fe118d0691dc51f4a1ff96f07"
+  resolved "http://mirrors.cloud.tencent.com/npm/read-pkg-up/-/read-pkg-up-3.0.0.tgz#3ed496685dba0f8fe118d0691dc51f4a1ff96f07"
   integrity sha1-PtSWaF26D4/hGNBpHcUfSh/5bwc=
   dependencies:
     find-up "^2.0.0"
@@ -8166,7 +8174,7 @@ read-pkg-up@^3.0.0:
 
 read-pkg@^1.0.0:
   version "1.1.0"
-  resolved "https://registry.npm.taobao.org/read-pkg/download/read-pkg-1.1.0.tgz#f5ffaa5ecd29cb31c0474bca7d756b6bb29e3f28"
+  resolved "http://mirrors.cloud.tencent.com/npm/read-pkg/-/read-pkg-1.1.0.tgz#f5ffaa5ecd29cb31c0474bca7d756b6bb29e3f28"
   integrity sha1-9f+qXs0pyzHAR0vKfXVra7KePyg=
   dependencies:
     load-json-file "^1.0.0"
@@ -8175,7 +8183,7 @@ read-pkg@^1.0.0:
 
 read-pkg@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npm.taobao.org/read-pkg/download/read-pkg-3.0.0.tgz#9cbc686978fee65d16c00e2b19c237fcf6e38389"
+  resolved "http://mirrors.cloud.tencent.com/npm/read-pkg/-/read-pkg-3.0.0.tgz#9cbc686978fee65d16c00e2b19c237fcf6e38389"
   integrity sha1-nLxoaXj+5l0WwA4rGcI3/Pbjg4k=
   dependencies:
     load-json-file "^4.0.0"
@@ -8205,16 +8213,7 @@ read-pkg@^5.0.0, read-pkg@^5.1.1:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-"readable-stream@2 || 3":
-  version "3.3.0"
-  resolved "https://registry.npm.taobao.org/readable-stream/download/readable-stream-3.3.0.tgz#cb8011aad002eb717bf040291feba8569c986fb9"
-  integrity sha1-y4ARqtAC63F78EApH+uoVpyYb7k=
-  dependencies:
-    inherits "^2.0.3"
-    string_decoder "^1.1.1"
-    util-deprecate "^1.0.1"
-
-readable-stream@^3.0.6, readable-stream@^3.1.1:
+"readable-stream@2 || 3", readable-stream@^3.0.6, readable-stream@^3.1.1:
   version "3.4.0"
   resolved "http://mirrors.cloud.tencent.com/npm/readable-stream/-/readable-stream-3.4.0.tgz#a51c26754658e0a3c21dbf59163bd45ba6f447fc"
   integrity sha512-jItXPLmrSR8jmTRmRWJXCnGJsfy85mB3Wd/uINMXA65yrnFo0cPClFIUWzo2najVNSl+mx7/4W8ttlLWJe99pQ==
@@ -8248,7 +8247,7 @@ rechoir@^0.6.2:
 
 redent@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/redent/download/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"
+  resolved "http://mirrors.cloud.tencent.com/npm/redent/-/redent-1.0.0.tgz#cf916ab1fd5f1f16dfb20822dd6ec7f730c2afde"
   integrity sha1-z5Fqsf1fHxbfsggi3W7H9zDCr94=
   dependencies:
     indent-string "^2.1.0"
@@ -8256,7 +8255,7 @@ redent@^1.0.0:
 
 redent@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/redent/download/redent-2.0.0.tgz#c1b2007b42d57eb1389079b3c8333639d5e1ccaa"
+  resolved "http://mirrors.cloud.tencent.com/npm/redent/-/redent-2.0.0.tgz#c1b2007b42d57eb1389079b3c8333639d5e1ccaa"
   integrity sha1-wbIAe0LVfrE4kHmzyDM2OdXhzKo=
   dependencies:
     indent-string "^3.0.0"
@@ -8402,7 +8401,7 @@ repeat-string@^1.6.1:
 
 repeating@^2.0.0:
   version "2.0.1"
-  resolved "https://registry.npm.taobao.org/repeating/download/repeating-2.0.1.tgz#5214c53a926d3552707527fbab415dbc08d06dda"
+  resolved "http://mirrors.cloud.tencent.com/npm/repeating/-/repeating-2.0.1.tgz#5214c53a926d3552707527fbab415dbc08d06dda"
   integrity sha1-UhTFOpJtNVJwdSf7q0FdvAjQbdo=
   dependencies:
     is-finite "^1.0.0"
@@ -8717,15 +8716,15 @@ semver-regex@1.0.0:
   resolved "http://mirrors.cloud.tencent.com/npm/semver/-/semver-5.7.0.tgz#790a7cf6fea5459bac96110b29b60412dc8ff96b"
   integrity sha512-Ya52jSX2u7QKghxeoFGpLwCtGlt7j0oY9DYb5apt9nPlJ42ID+ulTXESnt/qAQcoSERyZ5sl3LDIOw0nAn/5DA==
 
-semver@^6.0.0, semver@^6.1.1:
+semver@^6.0.0, semver@^6.1.2:
+  version "6.3.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
+  integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
+
+semver@^6.1.1:
   version "6.2.0"
   resolved "http://mirrors.cloud.tencent.com/npm/semver/-/semver-6.2.0.tgz#4d813d9590aaf8a9192693d6c85b9344de5901db"
   integrity sha512-jdFC1VdUGT/2Scgbimf7FSx9iJLXoqfglSF+gJeuNWVpiE37OIbc1jywR/GJyFdz3mnkz2/id0L0J/cr0izR5A==
-
-semver@^6.1.2:
-  version "6.3.0"
-  resolved "https://registry.npm.taobao.org/semver/download/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
-  integrity sha1-7gpkyK9ejO6mdoexM3YeG+y9HT0=
 
 send@0.17.1:
   version "0.17.1"
@@ -9064,15 +9063,15 @@ split-string@^3.0.1, split-string@^3.0.2:
 
 split2@^2.0.0:
   version "2.2.0"
-  resolved "https://registry.npm.taobao.org/split2/download/split2-2.2.0.tgz#186b2575bcf83e85b7d18465756238ee4ee42493"
-  integrity sha1-GGsldbz4PoW30YRldWI47k7kJJM=
+  resolved "http://mirrors.cloud.tencent.com/npm/split2/-/split2-2.2.0.tgz#186b2575bcf83e85b7d18465756238ee4ee42493"
+  integrity sha512-RAb22TG39LhI31MbreBgIuKiIKhVsawfTgEGqKHTK87aG+ul/PB8Sqoi3I7kVdRWiCfrKxK3uo4/YUkpNvhPbw==
   dependencies:
     through2 "^2.0.2"
 
 split@^1.0.0:
   version "1.0.1"
-  resolved "https://registry.npm.taobao.org/split/download/split-1.0.1.tgz#605bd9be303aa59fb35f9229fbea0ddec9ea07d9"
-  integrity sha1-YFvZvjA6pZ+zX5Ip++oN3snqB9k=
+  resolved "http://mirrors.cloud.tencent.com/npm/split/-/split-1.0.1.tgz#605bd9be303aa59fb35f9229fbea0ddec9ea07d9"
+  integrity sha512-mTyOoPbrivtXnwnIxZRFYRrPNtEFKlpB2fvjSnCQUiAA6qAZzqwna5envK4uk6OIeP17CsdF3rSBGYVBsU0Tkg==
   dependencies:
     through "2"
 
@@ -9289,14 +9288,14 @@ strip-bom@4.0.0:
 
 strip-bom@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/strip-bom/download/strip-bom-2.0.0.tgz#6219a85616520491f35788bdbf1447a99c7e6b0e"
+  resolved "http://mirrors.cloud.tencent.com/npm/strip-bom/-/strip-bom-2.0.0.tgz#6219a85616520491f35788bdbf1447a99c7e6b0e"
   integrity sha1-YhmoVhZSBJHzV4i9vxRHqZx+aw4=
   dependencies:
     is-utf8 "^0.2.0"
 
 strip-bom@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npm.taobao.org/strip-bom/download/strip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
+  resolved "http://mirrors.cloud.tencent.com/npm/strip-bom/-/strip-bom-3.0.0.tgz#2334c18e9c759f7bdd56fdef7e9ae3d588e68ed3"
   integrity sha1-IzTBjpx1n3vdVv3vfprj1YjmjtM=
 
 strip-comments@^1.0.2:
@@ -9314,14 +9313,14 @@ strip-eof@^1.0.0:
 
 strip-indent@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.npm.taobao.org/strip-indent/download/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
+  resolved "http://mirrors.cloud.tencent.com/npm/strip-indent/-/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
   integrity sha1-DHlipq3vp7vUrDZkYKY4VSrhoKI=
   dependencies:
     get-stdin "^4.0.1"
 
 strip-indent@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/strip-indent/download/strip-indent-2.0.0.tgz#5ef8db295d01e6ed6cbf7aab96998d7822527b68"
+  resolved "http://mirrors.cloud.tencent.com/npm/strip-indent/-/strip-indent-2.0.0.tgz#5ef8db295d01e6ed6cbf7aab96998d7822527b68"
   integrity sha1-XvjbKV0B5u1sv3qrlpmNeCJSe2g=
 
 strip-json-comments@3.0.1, strip-json-comments@^3.0.1:
@@ -9428,7 +9427,7 @@ tar@^4:
 
 tempfile@^1.1.1:
   version "1.1.1"
-  resolved "https://registry.npm.taobao.org/tempfile/download/tempfile-1.1.1.tgz#5bcc4eaecc4ab2c707d8bc11d99ccc9a2cb287f2"
+  resolved "http://mirrors.cloud.tencent.com/npm/tempfile/-/tempfile-1.1.1.tgz#5bcc4eaecc4ab2c707d8bc11d99ccc9a2cb287f2"
   integrity sha1-W8xOrsxKsscH2LwR2ZzMmiyyh/I=
   dependencies:
     os-tmpdir "^1.0.0"
@@ -9461,8 +9460,8 @@ terser@^4.0.0:
 
 text-extensions@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/text-extensions/download/text-extensions-2.0.0.tgz#43eabd1b495482fae4a2bf65e5f56c29f69220f6"
-  integrity sha1-Q+q9G0lUgvrkor9l5fVsKfaSIPY=
+  resolved "http://mirrors.cloud.tencent.com/npm/text-extensions/-/text-extensions-2.0.0.tgz#43eabd1b495482fae4a2bf65e5f56c29f69220f6"
+  integrity sha512-F91ZqLgvi1E0PdvmxMgp+gcf6q8fMH7mhdwWfzXnl1k+GbpQDmi8l7DzLC5JTASKbwpY3TfxajAUzAXcv2NmsQ==
 
 text-table@^0.2.0, text-table@~0.2.0:
   version "0.2.0"
@@ -9507,8 +9506,8 @@ through2@^2.0.0, through2@^2.0.2:
 
 through2@^3.0.0:
   version "3.0.1"
-  resolved "https://registry.npm.taobao.org/through2/download/through2-3.0.1.tgz#39276e713c3302edf9e388dd9c812dd3b825bd5a"
-  integrity sha1-OSducTwzAu3544jdnIEt07glvVo=
+  resolved "http://mirrors.cloud.tencent.com/npm/through2/-/through2-3.0.1.tgz#39276e713c3302edf9e388dd9c812dd3b825bd5a"
+  integrity sha512-M96dvTalPT3YbYLaKaCuwu+j06D/8Jfib0o/PxbVt6Amhv3dUAtW6rTV1jPgJSBG83I/e04Y6xkVdVhSRhi0ww==
   dependencies:
     readable-stream "2 || 3"
 
@@ -9623,17 +9622,17 @@ tough-cookie@~2.4.3:
 
 trim-newlines@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.npm.taobao.org/trim-newlines/download/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
+  resolved "http://mirrors.cloud.tencent.com/npm/trim-newlines/-/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
   integrity sha1-WIeWa7WCpFA6QetST301ARgVphM=
 
 trim-newlines@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npm.taobao.org/trim-newlines/download/trim-newlines-2.0.0.tgz#b403d0b91be50c331dfc4b82eeceb22c3de16d20"
+  resolved "http://mirrors.cloud.tencent.com/npm/trim-newlines/-/trim-newlines-2.0.0.tgz#b403d0b91be50c331dfc4b82eeceb22c3de16d20"
   integrity sha1-tAPQuRvlDDMd/EuC7s6yLD3hbSA=
 
 trim-off-newlines@^1.0.0:
   version "1.0.1"
-  resolved "https://registry.npm.taobao.org/trim-off-newlines/download/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
+  resolved "http://mirrors.cloud.tencent.com/npm/trim-off-newlines/-/trim-off-newlines-1.0.1.tgz#9f9ba9d9efa8764c387698bcbfeb2c848f11adb3"
   integrity sha1-n5up2e+odkw4dpi8v+sshI8RrbM=
 
 trim-right@^1.0.1:
@@ -9709,9 +9708,9 @@ uglify-js@3.4.x:
     source-map "~0.6.1"
 
 uglify-js@^3.1.4:
-  version "3.5.10"
-  resolved "https://registry.npm.taobao.org/uglify-js/download/uglify-js-3.5.10.tgz#652bef39f86d9dbfd6674407ee05a5e2d372cf2d"
-  integrity sha1-ZSvvOfhtnb/WZ0QH7gWl4tNyzy0=
+  version "3.6.0"
+  resolved "http://mirrors.cloud.tencent.com/npm/uglify-js/-/uglify-js-3.6.0.tgz#704681345c53a8b2079fb6cec294b05ead242ff5"
+  integrity sha512-W+jrUHJr3DXKhrsS7NUVxn3zqMOFn0hL/Ei6v0anCIMoKC93TjcflTagwIHLW7SfMFfiQuktQyFVCFHGUE0+yg==
   dependencies:
     commander "~2.20.0"
     source-map "~0.6.1"
@@ -9915,7 +9914,7 @@ utils-merge@1.0.1:
 
 uuid@^2.0.1:
   version "2.0.3"
-  resolved "https://registry.npm.taobao.org/uuid/download/uuid-2.0.3.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fuuid%2Fdownload%2Fuuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
+  resolved "http://mirrors.cloud.tencent.com/npm/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
   integrity sha1-Z+LoY3lyFVMN/zGOW/nc6/1Hsho=
 
 uuid@^3.0.1, uuid@^3.3.2:
@@ -10320,7 +10319,7 @@ word-wrap@^1.0.3:
 
 wordwrap@~0.0.2:
   version "0.0.3"
-  resolved "https://registry.npm.taobao.org/wordwrap/download/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
+  resolved "http://mirrors.cloud.tencent.com/npm/wordwrap/-/wordwrap-0.0.3.tgz#a3d5da6cd5c0bc0008d37234bbaf1bed63059107"
   integrity sha1-o9XabNXAvAAI03I0u68b7WMFkQc=
 
 wordwrap@~1.0.0:

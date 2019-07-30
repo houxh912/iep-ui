@@ -3,7 +3,7 @@
     <operation-container>
       <template slot="left">
         <operation-wrapper>
-          <span>{{budgetTime}}年度预算</span>
+          <span>{{budgetTime}}年度预算(预算总计：{{budgetTotal}}元，实际支出总计：{{actualTotal}}元)</span>
           <!-- <iep-button @click="handleAddBudget()">新增本年度预算</iep-button> -->
         </operation-wrapper>
       </template>
@@ -42,6 +42,8 @@ export default {
       budgetTime: '',
       yearList: [],
       budgetTable: [],
+      actualTotal: 0,
+      budgetTotal: 0,
       tableHeight: 'calc(100vh - 260px)',
     }
   },
@@ -69,6 +71,8 @@ export default {
     loadPage () {
       getBudgetYearById(this.budgetId).then(({ data }) => {
         this.budgetTable = data.data.relation
+        this.actualTotal = data.data.actualTotal
+        this.budgetTotal = data.data.budgetTotal
       })
     },
   },

@@ -145,7 +145,7 @@ export default {
       characterIsDetermine({ characterStatus: type }, { characterId: this.params.id, refuseContent: this.form.reason }).then(() => {
         this.confirmState = false
         this.$message.success('操作成功')
-        this.$router.push('/wel/index')
+        this.$router.push('/wel/relationship_manage')
       })
     },
   },

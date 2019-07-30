@@ -1,9 +1,9 @@
 
 <template>
   <iep-dialog :dialog-show="dialogShow" title="修改角色" width="520px" @close="close">
-    <el-form :model="form" ref="form" size="small" label-width="100px">
-      <el-form-item label="组织角色：" prop="roleName">
-        <el-input v-model="form.roleName" placeholder="请填入组织角色"></el-input>
+    <el-form class="form-detail" :model="form" ref="form" size="small" label-width="100px">
+      <el-form-item label="组织角色：" prop="roleOrg">
+        <iep-cascader v-model="form.roleOrg" placeholder="请填入组织角色" :props="{ multiple: true }" :prefixUrl="`admin/role/union/${form.userId}`"></iep-cascader>
       </el-form-item>
       <el-form-item label="联盟角色：" prop="role">
         <iep-select v-model="form.role" placeholder="请填入联盟角色" prefixUrl="admin/role/union" multiple></iep-select>

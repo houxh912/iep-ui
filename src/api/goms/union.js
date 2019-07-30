@@ -194,3 +194,17 @@ export function postHistory (obj) {
   })
 }
 
+export function putUnionRoleUpdate (obj) {
+  return request({
+    url: `${prefixUrl}/update/user/role`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function getUnionRoleByUserId (id) {
+  return request({
+    url: `${prefixUrl}/user/role/${id}`,
+    method: 'get',
+  })
+}

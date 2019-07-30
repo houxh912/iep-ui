@@ -87,7 +87,7 @@
               </div>
               <div class="row"><span class="name">股东：</span>{{item.name}}</div>
               <div class="row">
-                <span><span class="name">持股：</span>{{item.proportion}}</span>
+                <span><span class="name">持股数量：</span>{{item.proportion}}</span>
                 <!-- <span style="float:right;font-size:12px;color:#999;">{{item.time}}</span> -->
               </div>
             </div>

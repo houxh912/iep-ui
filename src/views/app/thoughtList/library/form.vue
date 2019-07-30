@@ -11,6 +11,7 @@
             :fetch-suggestions="querySearchAsync"
             placeholder="请输入内容"
             @select="handleSelect"
+            placement="top-end"
           ></el-autocomplete>
         </div>
       </el-form-item>
@@ -308,7 +309,11 @@ export default {
   opacity: 0;
   z-index: 0;
 }
-.el-autocomplete-suggestion {
-  width: 150px !important;
+</style>
+<style scoped>
+.yincang >>> .el-input__inner {
+  /* width: 10px; */
+  padding: 0;
 }
 </style>
+

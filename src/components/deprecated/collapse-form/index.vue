@@ -3,8 +3,8 @@
     <el-form :inline="true" size="small">
       <slot name="search-header"></slot>
       <el-form-item>
-        <el-button style="height: 32px;" class="search" type="info" icon="el-icon-search" @click="handleSearch" plain>搜索</el-button>
-        <el-button style="margin-left:5px;height: 32px;" icon="el-icon-delete" @click="handleClear">清空</el-button>
+        <el-button style="height: 32px;" class="search" type="info" @click="handleSearch" plain>搜索</el-button>
+        <el-button style="margin-left:5px;height: 32px;" @click="handleClear">清空</el-button>
         <el-button style="margin-left:5px;height: 32px;" v-if="showCollapse" type="default" :icon="collapseIcon" @click="showFormInline = !showFormInline">{{collapseName}}</el-button>
       </el-form-item>
       <br />

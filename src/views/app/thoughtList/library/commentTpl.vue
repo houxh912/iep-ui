@@ -5,7 +5,7 @@
         <div class="comment-avatar"><iep-img :src="item.avatar" alt="" class="img" /></div>
         <div class="comment-name">{{item.realName}}</div>
         <div class="huuifu">{{type == 'comment' ? '评论' : '回复'}}</div>
-        <div class="comment-name">{{type === 'comment' ? userInfo.name : item.replyToz}}</div>
+        <div class="comment-name">{{type === 'comment' ? userData.name : item.replyToz}}</div>
       </div>
       <div class="comment-content">{{item.replyMsg}}</div>
       <div class="comment-date">
@@ -14,11 +14,13 @@
         </div>
         <!-- 评论的按钮行 -->
         <div class="button-list" v-if="item.thoughtsReplyList">
+          <div class="button" @click="handleDelete(item)" v-if="userInfo.userId === item.commentUserId"><i class="icon-shanchu"></i> 删除</div>
           <div class="button" @click="hadnleAddUp(item)"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           <div class="button" @click="hadnleComComment(item)"><i class="icon-xiaoxi"></i> 回复（{{item.thoughtsReplyList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
         </div>
         <div class="button-list" v-else>
+          <div class="button" @click="handleDelete(item, 'reply')" v-if="userInfo.userId === item.userId"><i class="icon-shanchu"></i> 删除</div>
           <div class="button" @click="hadnleAddUp(item, 'reply')"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           <div class="button" @click="hadnleComComment(item, 'reply')"><i class="icon-xiaoxi"></i> 回复</div>
           <div class="button" @click="handleReward(item, 'reply')"><i class="icon-yuanbao"></i> 打赏</div>
@@ -34,8 +36,8 @@
 </template>
 
 <script>
-import { CommentReply, addcCommentThumbsByRecord, addReplyThumbsByRecord, getThumbMembers } from '@/api/cpms/thoughts'
-import { mapActions } from 'vuex'
+import { CommentReply, addcCommentThumbsByRecord, addReplyThumbsByRecord, getThumbMembers, deleteCommentThumbsById, deleteCommentById } from '@/api/cpms/thoughts'
+import { mapActions, mapGetters } from 'vuex'
 
 const initFormData = () => {
   return {
@@ -50,7 +52,7 @@ export default {
     item: {
       type: Object,
     },
-    userInfo: {
+    userData: {
       type: Object,
     },
     type: {
@@ -63,6 +65,9 @@ export default {
       commontActiveIndex: -1,
       form: initFormData(),
     }
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
   },
   methods: {
     // 回复评论
@@ -126,6 +131,18 @@ export default {
     // 点赞列表
     getThumbMembers () {
       getThumbMembers().then(() => { })
+    },
+    // 评论删除
+    handleDelete (row, isReply) {
+      if (isReply) {
+        deleteCommentById(row.replyId).then(() => {
+          this.$emit('load-page', true)
+        })
+      } else {
+        deleteCommentThumbsById(row.commentId).then(() => {
+          this.$emit('load-page', true)
+        })
+      }
     },
   },
 }

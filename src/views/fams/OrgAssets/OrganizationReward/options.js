@@ -27,6 +27,7 @@ const columnsMap = [
   {
     prop: 'message',
     label: '备注',
+    type: 'detail',
   },
 ]
 
@@ -40,6 +41,12 @@ const initForm = () => {
     projectName: '', // 项目
     isReward: '1', // 打赏/扣减
     targetUsers: [], // 打赏对象
+  }
+}
+
+const initSearchForm = () => {
+  return {
+    orgId: '', // ID
   }
 }
 
@@ -64,4 +71,4 @@ const rules = {
   ],
 }
 
-export { dictsMap, columnsMap, initForm, dtoForm, rules }
+export { dictsMap, columnsMap, initForm, dtoForm, rules, initSearchForm }

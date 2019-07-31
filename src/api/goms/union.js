@@ -34,6 +34,13 @@ export function getUnionOrgList () {
   })
 }
 
+export function getUnionOrgPage () {
+  return request({
+    url: `${prefixUrl}/org/page`,
+    method: 'get',
+  })
+}
+
 export function getUnionNoOrgList () {
   return request({
     url: `${prefixUrl}/no_union_org/list`,

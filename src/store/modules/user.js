@@ -16,11 +16,11 @@ const user = {
     },
     expires_in: getStore({ name: 'expires_in' }) || '',
     access_token: getStore({ name: 'access_token' }) || '',
-    refresh_token: getStore({ name: 'refresh_token'  }) || '',
+    refresh_token: getStore({ name: 'refresh_token' }) || '',
   },
   actions: {
     // 根据之前保持登陆记录
-    LoginByLocalStorage ({commit, state}) {
+    LoginByLocalStorage ({ commit, state }) {
       const { keep_login_token } = state
       if (keep_login_token.is_keep_login) {
         commit('SET_ACCESS_TOKEN', keep_login_token.access_token)
@@ -44,9 +44,8 @@ const user = {
         key: 'gdscloudprisbest',
         param: ['password'],
       })
-      return new Promise(async (resolve, reject) => {
-        try {
-          const {data} = await loginByUsername(user.username, user.password, user.code, user.randomStr)
+      return new Promise((resolve, reject) => {
+        loginByUsername(user.username, user.password, user.code, user.randomStr).then(({ data }) => {
           if (user.isKeepLogin) {
             commit('SET_KEEP_LOGIN_TOKEN', {
               is_keep_login: true,
@@ -65,9 +64,9 @@ const user = {
           commit('SET_MENUPATHLIST', [])
           commit('CLEAR_LOCK')
           resolve(data)
-        } catch (error) {
+        }).catch(error => {
           reject(error)
-        }
+        })
       })
     },
     // 根据手机号登录

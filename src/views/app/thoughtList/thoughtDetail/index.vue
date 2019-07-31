@@ -16,12 +16,20 @@ export default {
   components: { list },
   data () {
     return {
-      routerMatch: this.$route.matched,
+      routerMatch: [
+        {
+          name: '说说首页',
+          path: '/app/more_thoughts',
+        }, {
+          name: '说说详情',
+          path: '/app/thought_detail/:id',
+        },
+      ],
       dataList: [],
     }
   },
   beforeRouteUpdate (to, from, next) {
-    this.routerMatch = to.matched
+    // this.routerMatch = to.matched
     next()
   },
   methods: {
@@ -36,6 +44,7 @@ export default {
   },
   created () {
     this.loadData(this.$route.params.id)
+    console.log('routerMatch: ', this.routerMatch)
   },
 }
 </script>

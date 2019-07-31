@@ -11,6 +11,7 @@
             :fetch-suggestions="querySearchAsync"
             placeholder="请输入内容"
             @select="handleSelect"
+            placement="top-end"
           ></el-autocomplete>
         </div>
       </el-form-item>
@@ -20,7 +21,7 @@
           <iep-img :src="item"></iep-img>
         </div>
         <el-upload
-          v-if="formData.images.length < 3"
+          v-if="formData.images.length < 9"
           class="avatar-uploader"
           action="/api/admin/file/upload/avatar"
           :show-file-list="false"
@@ -208,6 +209,7 @@ export default {
     margin: auto;
     .img-list {
       display: flex;
+      flex-wrap: wrap;
       .avatar-uploader {
         display: inline-block;
         border: 1px dashed #d9d9d9;
@@ -235,6 +237,7 @@ export default {
         margin-right: 20px;
         .close {
           position: absolute;
+          z-index: 100;
           right: -10px;
           top: -10px;
           width: 20px;
@@ -306,7 +309,11 @@ export default {
   opacity: 0;
   z-index: 0;
 }
-.el-autocomplete-suggestion {
-  width: 150px !important;
+</style>
+<style scoped>
+.yincang >>> .el-input__inner {
+  /* width: 10px; */
+  padding: 0;
 }
 </style>
+

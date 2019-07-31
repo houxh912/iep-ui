@@ -20,9 +20,9 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" @row-click="handleDetail" :dictsMap="dictsMap">
         <template slot="before-columns">
-          <el-table-column label="客户名称" width="350px">
+          <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
               <span class="clientName">{{scope.row.clientName}}</span>
               <el-col class="custom-tags">
@@ -89,7 +89,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMapByTypeId, tabList } from '../columns'
+import { columnsMapByTypeId, tabList,dictsMap } from '../columns'
 import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch, getToclaimHighseas, getUnToclaimHighseas } from '@/api/crms/customer'
 import { getWeekincrease } from '@/api/crms/count'
 import AdvanceSearch from './AdvanceSearch'
@@ -109,6 +109,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       type: '2',
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,

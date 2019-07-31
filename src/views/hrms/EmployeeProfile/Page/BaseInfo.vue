@@ -84,7 +84,7 @@
     </iep-form-item>
 
     <iep-form-item class="form-half" prop="language" label-name="外语水平" tip="单选项：英语、韩语、日语、法语、德语等">
-      <iep-dict-select v-model="form.language" dict-name="hrms_birth_status"></iep-dict-select>
+      <el-input v-model="form.language"></el-input>
     </iep-form-item>
 
     <iep-form-item class="form-half" prop="education" label-name="最高学历" tip="高中及以下、专科、本科、硕士、博士及以上">

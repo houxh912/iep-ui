@@ -28,9 +28,6 @@ const navList = [
     //   id: '/app/policyCenter',
     //   name: '政策中心',
     //   show: 'show',
-    // }, {
-    id: '/app/wealth',
-    name: '财富',
   }, {
     id: '/app/project',
     name: '项目',

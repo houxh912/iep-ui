@@ -22,13 +22,13 @@ const columnsMap = [
 	{
 		prop: 'creatorName',
 		label: '申请人',
-                                width:'70',
+		width: '70',
 	},
 	{
 		prop: 'referType',
 		label: '发票类型',
 		type: 'dict',
-                                width:'110',
+		width: '110',
 	},
 	{
 		prop: 'companyName',
@@ -41,24 +41,24 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '申请日期',
-                                width:'150',
+		width: '150',
 	},
 	{
 		prop: null,
 		label: '状态',
 		type: 'custom',
 		customFunction: genStatus,
-                                width:'70',
+		width: '70',
 	},
 	{
 		prop: 'auditorName',
 		label: '部门核准人',
-                                width:'110',
+		width: '110',
 	},
 	{
 		prop: 'auditingTime',
 		label: '核准日期',
-                                width:'150',
+		width: '150',
 	},
 	{
 		prop: 'remarks',

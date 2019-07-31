@@ -13,8 +13,4 @@ export const dictMap = {
 }
 
 export const columnsMap = [
-  {
-    prop: 'contractAmount',
-    label: '合同金额',
-  },
 ]

@@ -102,6 +102,7 @@ export function initFormData (obj) {
   const name = obj ? obj.realName : ''
   const id = obj ? obj.userId : ''
   return {
+    projectTime:'',//立项时间
     projectStatus:'',//项目状态
     projectName: '', // 项目名称
     projectExplain: '',//项目说明

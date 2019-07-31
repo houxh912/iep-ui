@@ -46,5 +46,11 @@ const columnsMap = [
   },
 ]
 
+const initSearchForm = () => {
+  return {
+    category: '', // category
+    type: '', // type
+  }
+}
 
-export { columnsMap, dictsMap }
+export { columnsMap, dictsMap, initSearchForm }

@@ -6,19 +6,9 @@
       <span class="post">项目经理：<span class="name">{{projectData.projectManagerList.name}}</span></span>
     </div>
     <div class="leaderBoard">
-      <IepAppTabsCard :linkName="linkName">
-        <iep-tabs v-model="activeTab" :tab-list="tabList">
-          <template v-if="activeTab ==='Basic'" v-slot:Basic>
-            <basic v-loading="activeTab !=='Basic'" :projectData="projectData"></basic>
-          </template>
-          <template v-if="activeTab ==='Approval'" v-slot:Approval>
-            <approval v-loading="activeTab !=='Approval'" :projectData="projectData"></approval>
-          </template>
-          <template v-if="activeTab ==='Material'" v-slot:Material>
-            <material v-loading="activeTab !=='Material'" :projectData="projectData"></material>
-          </template>
-        </iep-tabs>
-      </IepAppTabsCard>
+      <basic :projectData="projectData"></basic>
+      <approval :projectData="projectData"></approval>
+      <material :projectData="projectData"></material>
     </div>
   </div>
 </template>
@@ -38,15 +28,6 @@ export default {
       post2: '项目经理',
       name1: '李凯',
       name2: '胡浩',
-      tabList: [{
-        label: '项目概况',
-        value: 'Basic',
-      }, {
-        label: '项目材料',
-        value: 'Material',
-      }],
-      activeTab: 'Basic',
-      linkName: '',
       projectData: {
         projectManagerList: { id: '', name: '' },
       },
@@ -82,6 +63,8 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
     .post {
       margin-right: 20px;
       color: #666;

@@ -127,7 +127,7 @@
               <el-col :span="12" class="item">
                 <el-form-item label="团队成员：">
                   <span v-if="formData.membersList.length==0">无</span>
-                  <span v-for="a in formData.membersList" :key="a.id" class="people">{{a.name}}</span>
+                  <span v-for="{a,index} in formData.membersList" :key="index" class="people">{{a.name}}</span>
                 </el-form-item>
               </el-col>
               <!-- <el-col :span="12" class="item">
@@ -385,17 +385,18 @@ export default {
       margin-right: 10px;
       padding-right: 5px;
       position: relative;
+      display: inline-block;
       &:after {
         content: "、";
         position: absolute;
         right: -12px;
-        top: -12px;
+        top: -2px;
       }
       &:last-child:after {
         content: "";
         position: absolute;
         right: -12px;
-        top: -12px;
+        top: -2px;
       }
     }
   }

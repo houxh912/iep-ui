@@ -83,7 +83,7 @@ export default {
     },
     handleOpen (row) {
       this.$router.push({
-        path: `/app/project_details/${row.id}`,
+        path: `/app/resource/project_list/project_details/${row.id}`,
       })
     },
     loadPage () {

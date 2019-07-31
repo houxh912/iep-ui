@@ -1,10 +1,8 @@
 <template>
-  <iep-app-layout>
-    <div class="project-details">
-      <left></left>
-      <right></right>
-    </div>
-  </iep-app-layout>
+  <div class="project-details">
+    <left></left>
+    <right></right>
+  </div>
 </template>
 <script>
 import Left from './Left'
@@ -26,6 +24,7 @@ export default {
   margin: 0 auto 20px;
   border-top: 1px solid #eee;
   display: grid;
+  grid-column-gap: 30px;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
 }

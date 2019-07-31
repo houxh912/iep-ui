@@ -84,11 +84,6 @@ export const setUpOption = [
         name: 'projectBudget',
       },
       {
-        post: '项目标签',
-        name: 'projectTagList',
-        show: 'show',
-      },
-      {
         post: '是否关联产品',
         name: 'isRelevanceProduct',
         dict: true,

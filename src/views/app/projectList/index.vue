@@ -1,20 +1,18 @@
 <template>
   <div>
-    <!-- <div class="breadcrumb-wrapper">
-      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div> -->
-    <div class="wealth">
-      <div class="library">
-        <librarys ref="librarys" class="librarys" @joinUpTwo="joinUpEnd"></librarys>
+    <div class="material" v-if="'/app/resource/project_list'==routerMatch[routerMatch.length-1].path">
+      <div class="wealth">
+        <div class="library">
+          <librarys ref="librarys" class="librarys" @joinUpTwo="joinUpEnd"></librarys>
+        </div>
+        <div class="piece">
+          <ranking></ranking>
+          <!-- <div class="project-pk" @click="handlePKClick">项目PK</div> -->
+        </div>
+        <dialog-show class="dialog-show" ref="DialogShow"></dialog-show>
       </div>
-      <div class="piece">
-        <ranking></ranking>
-        <!-- <div class="project-pk" @click="handlePKClick">项目PK</div> -->
-      </div>
-      <dialog-show class="dialog-show" ref="DialogShow"></dialog-show>
     </div>
+    <router-view v-else></router-view>
   </div>
 </template>
 <script>

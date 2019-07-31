@@ -65,11 +65,11 @@ export default {
       contracts: [
         {
           value: 1,
-          label: '签订合同',
+          label: '是',
         },
         {
           value: 2,
-          label: '未签订合同',
+          label: '否',
         },
       ],
     }

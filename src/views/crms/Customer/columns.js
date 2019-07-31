@@ -1,7 +1,7 @@
 ﻿const dictsMap = {
   isContract: {
-    1: '签订合同',
-    2: '未签订合同',
+    1: '是',
+    2: '否',
   },
 }
 const columnsMapByTypeId = [

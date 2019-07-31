@@ -40,6 +40,9 @@ export default {
 }
 </script>
 <style lang="css" scoped>
+.statistics >>> .gutter {
+  background: rgb(242, 244, 245);
+}
 .statistics >>> ::-webkit-scrollbar {
   border-radius: 10px;
   width: 6px;

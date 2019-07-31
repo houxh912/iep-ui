@@ -48,33 +48,26 @@ export default {
   //   })
   //   next()
   // },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
   name: 'detail',
   mixins: [mixins],
   components: { CustomerPanorama, Contacts, VisitingRecord, Scheme, Agreement, Information },
   data () {
     return {
-      id: this.record.id,
-      // record: {
-      //   id: this.$route.params.id,
-      //   type: this.$route.query.type,
-      //   flag: this.$route.query.flag,
-      //   collaborations: '',
-      //   marketManager: '',
-      // },
+      id: this.$route.params.id,
+      record: {
+        id: this.$route.params.id,
+        type: this.$route.query.type,
+        flag: this.$route.query.flag,
+        collaborations: '',
+        marketManager: '',
+      },
       backOption: {
         isBack: true,
         backPath: null,
         backFunction: () => {
-          // this.$router.push({
-          //   path: '/crms/customer',
-          // })
-          this.$emit('onGoBack')
+          this.$router.push({
+            path: '/crms/customer',
+          })
         },
 
       },

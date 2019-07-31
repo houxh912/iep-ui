@@ -89,7 +89,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMapByTypeId, tabList,dictsMap } from '../columns'
+import { columnsMapByTypeId, tabList, dictsMap } from '../columns'
 import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch, getToclaimHighseas, getUnToclaimHighseas } from '@/api/crms/customer'
 import { getWeekincrease } from '@/api/crms/count'
 import AdvanceSearch from './AdvanceSearch'
@@ -231,20 +231,28 @@ export default {
         return false
       }
       if (this.isShow(this.type)) {
-        this.$router.push({
-          path: `/crms_spa/customer_detail/${row.clientId}`,
-          query: {
-            type: this.type,
-          },
+        // this.$router.push({
+        //   path: `/crms_spa/customer_detail/${row.clientId}`,
+        //   query: {
+        //     type: this.type,
+        //   },
+        // })
+        this.$emit('onDetail', {
+          formRequestFn: null,
+          methodName: '详情',
+          id: row.clientId,
+          type: this.type,
+          collaborations: '',
+          marketManager: '',
         })
       } else {
         if (this.crms_customer_view) {
-          this.$router.push({
-            path: `/crms_spa/customer_detail/${row.clientId}`,
-            query: {
-              type: this.type,
-            },
-          })
+          // this.$router.push({
+          //   path: `/crms_spa/customer_detail/${row.clientId}`,
+          //   query: {
+          //     type: this.type,
+          //   },
+          // })
         } else {
           return false
         }

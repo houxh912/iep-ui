@@ -4,9 +4,6 @@
       <iep-form-item label-name="模块名称" prop="name">
         <el-input v-model="form.name"></el-input>
       </iep-form-item>
-      <iep-form-item label-name="模块图标" prop="logo">
-        <iep-avatar v-model="form.logo"></iep-avatar>
-      </iep-form-item>
       <iep-form-item label-name="状态" prop="status">
         <el-radio-group v-model="form.status">
           <el-radio v-for="(item,i) in dictsMap.status" :key="i" :label="+i">{{item}}</el-radio>

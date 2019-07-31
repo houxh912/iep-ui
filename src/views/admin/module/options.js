@@ -21,7 +21,6 @@ const initForm = () => {
   return {
     id: '',
     name: '',
-    logo: '',
     description: '',
     menuId: '',
     status: 1,

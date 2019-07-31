@@ -1,54 +1,36 @@
 <template>
-  <div class="news_detail">
-    <iep-page-header :title="formData.title" :backOption="backOption"></iep-page-header>
-    <!-- <iep-img :src="formData.image"></iep-img> -->
-    <el-row class="content">
-      <iep-html v-model="formData.content"></iep-html>
-    </el-row>
-    <el-row class="footer">
-      <iep-tag-detail v-model="formData.tagKeyWords"></iep-tag-detail>
-    </el-row>
-  </div>
+  <iep-app-layout>
+    <div class="breadcrumb-wrapper">
+      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+    <detail></detail>
+  </iep-app-layout>
 </template>
 
 <script>
-import { getPageById } from '@/api/conm/article_controller'
+import detail from './detail'
 export default {
+  components: { detail },
   data () {
     return {
-      backOption: {
-        isBack: true,
-        backPath: null,
-        backFunction: () => {
-          this.$router.history.go(-1)
-        },
-      },
-      formData: {
-        tagKeyWords: [],
-      },
+      routerMatch: this.$route.matched,
     }
   },
-  created () {
-    this.id = this.$route.params.id
-    this.loadPage()
-  },
-  methods: {
-    loadPage () {
-      getPageById(this.id).then(({ data }) => {
-        this.formData = data.data
-      })
-    },
+  beforeRouteUpdate (to, from, next) {
+    this.routerMatch = to.matched
+    next()
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.news_detail {
-  width: 1200px;
-  padding: 20px 0;
-  margin: auto;
-  .content {
-    margin-bottom: 20px;
+.breadcrumb-wrapper {
+  .breadcrumb-item {
+    margin: 20px auto 0;
+    width: 1200px;
+    padding: 0 0 20px 0;
   }
 }
 </style>

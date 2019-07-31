@@ -119,15 +119,10 @@
                   <!-- <iep-button type="danger" plain size="mini" @click="transferHandles(formData.projectHandlesList)">变更</iep-button> -->
                 </el-form-item>
               </el-col>
-              <!-- <el-col :span="12" class="item">
-                <el-form-item label="外部合作伙伴：">
-                  {{formData.groupExternalCooperatePartnerName}}
-                </el-form-item>
-              </el-col> -->
               <el-col :span="12" class="item">
                 <el-form-item label="团队成员：">
                   <span v-if="formData.membersList.length==0">无</span>
-                  <span v-for="{a,index} in formData.membersList" :key="index" class="people">{{a.name}}</span>
+                  <span v-for="a in formData.membersList" :key="a.id" class="people">{{a.name}}</span>
                 </el-form-item>
               </el-col>
               <!-- <el-col :span="12" class="item">
@@ -252,6 +247,7 @@ import { getDataDetail, approvalById } from '@/api/gpms/index'
 import collectionTable from './collectionTable'
 import materialTable from './materialTable'
 import paybackTable from './paybackTable'
+// import { initFormData } from './project/Total/const'
 export default {
   components: {
     collectionTable,
@@ -260,8 +256,7 @@ export default {
   },
   data () {
     return {
-      formData: {
-      },
+      formData: {},
       backOption: {
         isBack: true,
         backPath: null,
@@ -289,17 +284,10 @@ export default {
       this.$router.history.go(-1)
     },
     getDetailData () {
+
       getDataDetail(this.$route.params.id).then(({ data }) => {
         let list = [
-          // { name: 'projectMentorName', list: 'projectMentorList' },
-          { name: 'approverName', list: 'approverList' },
-          { name: 'inChargeDeptName', list: 'inChargeDeptList' },
-          { name: 'coopDeptName', list: 'coopDeptList' },
-          { name: 'publisherName', list: 'publisherList' },
           { name: 'relatedClientName', list: 'relatedClientList' },
-          { name: 'groupExternalCooperatePartnerName', list: 'groupExternalCooperatePartnerList' },//外部伙伴
-          { name: 'marketManagerName', list: 'marketManagerList' },
-          // { name: 'projectHandlesName', list: 'projectHandlesList' },
           { name: 'projectManagerName', list: 'projectManagerList' },//负责人
         ]
         for (let item of list) {

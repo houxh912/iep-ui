@@ -18,6 +18,15 @@ export function getThemeList () {
     method: 'get',
   })
 }
+
+// 查看行业订阅列表
+export function getIndustryList () {
+  return request({
+    url: `${prefixUrl}/webUserContact/industryList`,
+    method: 'get',
+  })
+}
+
 // 订阅主题订阅列表
 export function postThemeRss (obj) {
   return request({

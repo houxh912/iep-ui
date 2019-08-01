@@ -273,6 +273,12 @@ export default {
     paybackTable,
     contractTable,
   },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   data () {
     return {
       formData: {},
@@ -285,26 +291,31 @@ export default {
       },
       projectStatus: '3',
       content: '',
+      id: this.$route.params.id,
     }
   },
   created () {
     this.getDetailData()
   },
   computed: {
-    id () {
-      return this.$route.params.id ? +this.$route.params.id : null
-    },
     isApprove () {
       return this.$route.query
     },
   },
   methods: {
     close () {
-      this.$router.history.go(-1)
+      if (this.$route.params.id) {
+        this.$router.history.go(-1)
+      }
+      else {
+        this.$emit('onGoBack')
+      }
     },
     getDetailData () {
-
-      getDataDetail(this.$route.params.id).then(({ data }) => {
+      if (!this.id) {
+        this.id = this.record.id
+      }
+      getDataDetail(this.id).then(({ data }) => {
         let list = [
           { name: 'relatedClientName', list: 'relatedClientList' },
           { name: 'projectManagerName', list: 'projectManagerList' },//负责人

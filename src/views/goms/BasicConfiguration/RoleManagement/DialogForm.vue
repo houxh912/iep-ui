@@ -1,6 +1,6 @@
 
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}信息`" width="520px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}角色`" width="520px" @close="close">
     <el-form :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
       <el-form-item label="角色名称：" prop="roleName">
         <el-input v-model="form.roleName" placeholder="请填入角色名称"></el-input>
@@ -20,7 +20,7 @@
     <template slot="footer">
       <operation-wrapper>
         <iep-button type="primary" @click="updateForm()">保存</iep-button>
-        <iep-button @click="loadPage">取消</iep-button>
+        <iep-button @click="close">取消</iep-button>
       </operation-wrapper>
     </template>
   </iep-dialog>
@@ -41,7 +41,7 @@ export default {
     }
   },
   methods: {
-    loadPage () {
+    close () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
@@ -50,7 +50,7 @@ export default {
       this.formRequestFn(this.form).then(({ data }) => {
         if (data.data) {
           this.$message.success('修改成功')
-          this.loadPage()
+          this.close()
         } else {
           this.$message(data.msg)
         }

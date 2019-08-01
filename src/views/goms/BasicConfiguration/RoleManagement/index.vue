@@ -31,7 +31,7 @@
 
 <script>
 import {
-  addObj,
+  postOrgObj,
   delObj,
   getObj,
   fetchList,
@@ -94,7 +94,8 @@ export default {
     },
     handleAdd () {
       this.$refs['DialogForm'].methodName = '创建'
-      this.$refs['DialogForm'].formRequestFn = addObj
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = postOrgObj
       this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = false

@@ -53,6 +53,14 @@ export function addObj (obj) {
   })
 }
 
+export function postOrgObj (obj) {
+  return request({
+    url: '/admin/role/create/org',
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function putObj (obj) {
   return request({
     url: '/admin/role/update',

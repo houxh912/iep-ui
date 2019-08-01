@@ -56,7 +56,7 @@ const columnsMap = [
   {
     prop: 'roleDesc',
     label: '角色描述',
-    width:'280px',
+    width: '280px',
   },
   {
     prop: 'dsType',
@@ -66,17 +66,18 @@ const columnsMap = [
   {
     prop: 'createTime',
     label: '创建时间',
-    width:'150px',
+    width: '150px',
   },
 ]
 
-const initForm = () => {
+const initForm = (orgId) => {
   return {
     roleId: '',
     dsType: 3,
     roleCode: '',
     roleDesc: '',
     roleName: '',
+    orgId,
   }
 }
 

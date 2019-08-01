@@ -66,6 +66,7 @@ const initForm = () => {
     roleDesc: '',
     roleName: '',
     isCommon: 1,
+    orgId: '',
   }
 }
 

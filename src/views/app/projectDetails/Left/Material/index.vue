@@ -32,6 +32,12 @@ export default {
           href: 'http://www.datadnas.com/',
         },
         {
+          title: '关联合同',
+          icon: 'icon-guanlian',
+          listName: 'contractList',
+          path: '/mlms_spa/contract/detail/',
+        },
+        {
           title: '会议纪要',
           icon: 'icon-guanlian',
           listName: 'summaryList',
@@ -89,7 +95,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 10px;
-    i { 
+    i {
       margin-right: 3px;
     }
     &:last-child {

@@ -15,11 +15,12 @@ export const dictMap = {
     { value: 1, label: '是' },
     { value: 2, label: '否' },
   ],
-  approvalStatus: [
-    { value: 1, label: '未提交' },
+  projectStatus: [
+    { value: 1, label: '待提交' },
     { value: 2, label: '待审核' },
-    { value: 3, label: '审核通过' },
-    { value: 4, label: '审核不通过' },
+    { value: 3, label: '已立项' },
+    { value: 4, label: '审核未通过' },
+    { value: 5, label: '锁定' },
   ],
   projectStage: changeDict(dicData.prms_project_stage),
 }
@@ -68,7 +69,7 @@ export const setUpOption = [
     lists: [
       {
         post: '审批状态',
-        name: 'approvalStatus',
+        name: 'projectStatus',
         dict: true,
       },
       {
@@ -85,7 +86,7 @@ export const setUpOption = [
       },
       {
         post: '审批不通过理由',
-        name: 'approvalFailReason',
+        name: 'content',
       },
     ],
   },

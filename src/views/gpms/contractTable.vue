@@ -1,14 +1,9 @@
 <template>
   <div>
     <iep-table :isLoadTable="false" border :pagedTable="dataList" :isPagination="false">
-      <el-table-column label="材料名称">
+      <el-table-column label="合同名称">
         <template slot-scope="scope">
           {{ scope.row.name }}
-        </template>
-      </el-table-column>
-      <el-table-column label="类型" width="200px">
-        <template slot-scope="scope">
-          {{ scope.row.type }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="120px">

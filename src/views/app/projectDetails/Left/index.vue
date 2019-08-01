@@ -39,7 +39,9 @@ export default {
         let obj = data.data
         obj.publisherName = obj.publisherList ? obj.publisherList.name : ''
         obj.relatedClientName = obj.relatedClientList ? obj.relatedClientList.name : ''
-        console.log('projectData: ', obj)
+        obj.approverName = obj.approverList ? obj.approverList.name : ''
+        obj.projectManagerName = obj.projectManagerList ? obj.projectManagerList.name : ''
+        obj.applicantName = obj.applicantList ? obj.applicantList.name : ''
         this.projectData = obj
       })
     },

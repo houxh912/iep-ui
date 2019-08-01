@@ -62,6 +62,9 @@ export default {
               post: '客户名称',
               name: 'relatedClientName',
             }, {
+              post: '委托组织',
+              name: 'attendeeByName',
+            }, {
               post: '项目等级',
               name: 'projectLevel',
               dict: 'prms_project_level',
@@ -74,8 +77,7 @@ export default {
               name: 'projectBudget',
             }, {
               post: '项目经理',
-              name: 'projectHandlesList',
-              list: 'name',
+              name: 'projectManagerName',
             }, {
               post: '项目督导',
               name: 'projectMentorList',

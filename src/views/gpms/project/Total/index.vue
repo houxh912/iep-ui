@@ -25,7 +25,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="项目金额" width="180px">
+      <el-table-column label="项目金额" width="160px">
         <template slot-scope="scope">
           <span v-if="scope.row.contractAmount">{{ scope.row.contractAmount }}（合同）</span>
           <span v-else>{{ scope.row.projectAmount }}（预算）</span>
@@ -42,7 +42,7 @@
           <span v-else>{{ scope.row.projectTime | parseToDay }}（预计）</span>
         </template>
       </el-table-column>
-      <el-table-column label="项目状态" width="80px">
+      <el-table-column label="项目状态" width="120px">
         <template slot-scope="scope">
           {{项目状态(scope.row)}}
         </template>

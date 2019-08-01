@@ -67,6 +67,7 @@ const initForm = () => {
 		amount: 0,
 		// invoiceAmount: 0,
 		remarks: '',
+		realName: '',
 		typeValue: '',
 		invoicingTax: '',
 		interestRate: '',

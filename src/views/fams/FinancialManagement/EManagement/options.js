@@ -68,6 +68,7 @@ const initForm = () => {
 		serialNo: '', // serialNo 项目编号
 		amount: '',
 		remarks: '',
+		realName: '',
 		invoicingTax: '',
 		interestRate: '',
 		estimatedRefundTime: '',

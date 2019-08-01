@@ -53,7 +53,7 @@
             <iep-button type="primary" @click="handleRemoveBatch" plain v-show="mark=='group'">批量移除</iep-button>
           </template>
           <template slot="right">
-            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" size="small"></iep-select>
+            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" size="small" clearable></iep-select>
             <el-radio-group size="small">
               <!-- <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button> -->
             </el-radio-group>
@@ -91,7 +91,7 @@ import master from './MentorTable/master'
 import apprentice from './MentorTable/apprentice'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
-  mixins: [mixins,formMixins],
+  mixins: [mixins, formMixins],
   // components: { AdvanceSearch },
   components: { DialogForm, AddDialogForm, master, apprentice },
   data () {
@@ -101,29 +101,29 @@ export default {
       bodyStyle: {
         padding: 0,
       },
-      mark:'',
+      mark: '',
       typeCountMap: {},
-      selectType: ['1','2'],
-      allPeople:[
-        {value:1001,label:'按岗位信息'},
-        {value:1002,label:'按职务信息'},
-        {value:1003,label:'按职称信息'},
+      selectType: ['1', '2'],
+      allPeople: [
+        { value: 1001, label: '按岗位信息' },
+        { value: 1002, label: '按职务信息' },
+        { value: 1003, label: '按职称信息' },
       ],
-      sort:{positionId:'',jobId:'',professionalTitleId:''},
-      relationship:[
+      sort: { positionId: '', jobId: '', professionalTitleId: '' },
+      relationship: [
       ],
-      tabList:[
-        {value:0,label:'含离职'},
-        {value:1,label:'仅管理员'},
-        {value:2,label:'资产所属为本组织'},
+      tabList: [
+        { value: 0, label: '含离职' },
+        { value: 1, label: '仅管理员' },
+        { value: 2, label: '资产所属为本组织' },
       ],
-      orgId:'',
+      orgId: '',
     }
   },
   computed: {
   },
   created () {
-    this.mark = this.$route.query.mark? this.$route.query.mark:''
+    this.mark = this.$route.query.mark ? this.$route.query.mark : ''
     this.loadPage()
   },
   methods: {
@@ -134,7 +134,7 @@ export default {
       this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAddBatch () {
-      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+      if (this.multipleSelection === undefined || this.multipleSelection.length === 0) {
         this.$message('请先选择需要添加的选项')
         return
       }
@@ -148,22 +148,22 @@ export default {
     },
     handleAllPeople (val) {
       this.mark = ''
-      if(val==1001){
-        this.sort.positionId='1'
-        this.sort.jobId=''
-        this.sort.professionalTitleId=''
+      if (val == 1001) {
+        this.sort.positionId = '1'
+        this.sort.jobId = ''
+        this.sort.professionalTitleId = ''
       }
-      else if(val==1002){
-        this.sort.positionId=''
-        this.sort.jobId='1'
-        this.sort.professionalTitleId=''
+      else if (val == 1002) {
+        this.sort.positionId = ''
+        this.sort.jobId = '1'
+        this.sort.professionalTitleId = ''
       }
-      else if(val==1003){
-        this.sort.positionId=''
-        this.sort.jobId=''
-        this.sort.professionalTitleId='1'
+      else if (val == 1003) {
+        this.sort.positionId = ''
+        this.sort.jobId = ''
+        this.sort.professionalTitleId = '1'
       }
-      if (typeof this.$refs['OperationSearch']!='undefined'){
+      if (typeof this.$refs['OperationSearch'] != 'undefined') {
         this.$refs['OperationSearch'].input = ''
       }
       this.searchPage()
@@ -174,7 +174,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        removeRelationshipById(row.groupId,[row.userId]).then(res => {
+        removeRelationshipById(row.groupId, [row.userId]).then(res => {
           if (res.data.data) {
             this.$message({
               type: 'success',
@@ -191,7 +191,7 @@ export default {
       })
     },
     handleRemoveBatch () {
-      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+      if (this.multipleSelection === undefined || this.multipleSelection.length === 0) {
         this.$message('请先选择需要移除的选项')
         return
       }
@@ -200,7 +200,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        removeRelationshipBatch(this.groupType,this.multipleSelection).then(res => {
+        removeRelationshipBatch(this.groupType, this.multipleSelection).then(res => {
           if (res.data.data) {
             this.$message({
               type: 'success',
@@ -221,7 +221,7 @@ export default {
       this.$refs['DialogForm'].formRequestFn = joinRelationship
       this.$refs['DialogForm'].dialogShow = true
     },
-    changeGroup (name,id) {
+    changeGroup (name, id) {
       this.$refs['DialogForm'].form.name = name
       this.$refs['DialogForm'].form.id = id
       this.$refs['DialogForm'].methodName = '编辑'
@@ -240,9 +240,10 @@ export default {
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
-      if (typeof this.$refs['OperationSearch']!='undefined'){
+      if (typeof this.$refs['OperationSearch'] != 'undefined') {
         this.$refs['OperationSearch'].input = ''
       }
+      this.orgId = ''
       this.searchPage()
     },
     loadTypeList () {
@@ -259,12 +260,12 @@ export default {
     // },
     loadPage (param = this.searchForm) {
       this.loadTypeList()
-      this.$nextTick(() => {this.$refs['AddDialogForm'].loadTypeList()})
-      if(this.mark=='group'){
-        this.loadTable({ orgId:this.orgId, groupId: this.groupType, ...param }, getTypeCountMap)
+      this.$nextTick(() => { this.$refs['AddDialogForm'].loadTypeList() })
+      if (this.mark == 'group') {
+        this.loadTable({ orgId: this.orgId, groupId: this.groupType, ...param }, getTypeCountMap)
       }
       else {
-        this.loadTable({ orgId:this.orgId, positionId: this.sort.positionId,jobId: this.sort.jobId,professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
+        this.loadTable({ orgId: this.orgId, positionId: this.sort.positionId, jobId: this.sort.jobId, professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
       }
     },
   },

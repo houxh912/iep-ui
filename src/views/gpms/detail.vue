@@ -156,6 +156,23 @@
           </el-form>
         </el-row>
       </div>
+      <!-- 关联合同 -->
+      <div class="contianBox">
+        <el-row class="title">
+          <el-col :span="20" class="data">关联合同</el-col>
+        </el-row>
+        <el-row class="topBot">
+          <el-form label-width="150px">
+            <el-row>
+              <el-col :span="20" class="item">
+                <el-form-item>
+                  <contract-table :dataList="formData.contractList"></contract-table>
+                </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+        </el-row>
+      </div>
       <!-- 收款计划 -->
       <div class="contianBox">
         <el-row class="title">
@@ -247,12 +264,14 @@ import { getDataDetail, approvalById } from '@/api/gpms/index'
 import collectionTable from './collectionTable'
 import materialTable from './materialTable'
 import paybackTable from './paybackTable'
+import contractTable from './contractTable'
 // import { initFormData } from './project/Total/const'
 export default {
   components: {
     collectionTable,
     materialTable,
     paybackTable,
+    contractTable,
   },
   data () {
     return {

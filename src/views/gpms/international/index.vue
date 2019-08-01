@@ -6,6 +6,7 @@
       </template>
       <template slot="right">
         <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称" prop="projectName">
+          <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
@@ -53,8 +54,10 @@
 import mixins from '@/mixins/mixins'
 import { getProjectPage, statusDefine } from '@/api/gpms/fas'
 import { columnsMap, dictMap } from './option'
+import AdvanceSearch from './AdvanceSearch'
 
 export default {
+  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {

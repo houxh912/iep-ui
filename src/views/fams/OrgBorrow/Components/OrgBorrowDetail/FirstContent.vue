@@ -1,6 +1,6 @@
 <template>
   <steps-content>
-    <el-form class="content-wrapper" ref="form" size="small" :rules="rules" :model="form" label-width="150px">
+    <el-form class="form-detail" ref="form" size="small" :rules="rules" :model="form" label-width="150px">
       <iep-form-item label-name="借出组织" prop="borrowOutOrgId">
         <iep-select v-model="form.borrowOutOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织借款"></iep-select>
       </iep-form-item>
@@ -25,7 +25,7 @@
         <iep-div-detail :value="`${form.orgInterest}%`"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="借款金额" prop="borrowAmount">
-        <iep-input-number v-model="form.borrowAmount"></iep-input-number>
+        <iep-input-amount v-model="form.borrowAmount"></iep-input-amount>
       </iep-form-item>
     </el-form>
     <template v-slot:action>

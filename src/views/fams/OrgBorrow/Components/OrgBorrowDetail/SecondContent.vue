@@ -1,6 +1,6 @@
 <template>
   <steps-content>
-    <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
+    <el-form class="form-detail" ref="form" size="small" :model="data" label-width="150px" disabled>
       <el-alert style="margin-bottom: 24px;" title="确认借款申请后，将向借出方组织发出借款申请。" type="warning" show-icon></el-alert>
       <iep-form-item label-name="借出组织">
         <iep-select v-model="data.borrowOutOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织借款"></iep-select>

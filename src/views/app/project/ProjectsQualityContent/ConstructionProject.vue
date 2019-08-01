@@ -8,6 +8,9 @@
         <template v-if="activeTab ==='Built'" v-slot:Built>
           <built v-loading="activeTab !=='Built'"></built>
         </template>
+        <template v-if="activeTab ==='finish'" v-slot:Built>
+          <built v-loading="activeTab !=='finish'"></built>
+        </template>
       </iep-tabs>
     </IepAppTabsCard>
   </div>
@@ -23,11 +26,14 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '在建项目（4个)',
+        label: '执行项目（4个)',
         value: 'Construction',
       }, {
-        label: '已建项目（23个）',
+        label: '待建项目（23个）',
         value: 'Built',
+      }, {
+        label: '完结项目（23个）',
+        value: 'finish',
       }],
       activeTab: 'Construction',
     }

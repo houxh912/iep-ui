@@ -103,6 +103,7 @@ export default {
 }
 .leader-board >>> .el-table__body-wrapper {
   overflow-y: scroll;
+  height: 210px !important;
 }
 .leader-board >>> .el-table__body-wrapper::-webkit-scrollbar {
   border-radius: 10px;

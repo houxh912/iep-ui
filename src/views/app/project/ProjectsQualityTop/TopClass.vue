@@ -1,15 +1,15 @@
 <template>
   <el-card class="top-class" shadow="never">
-    <!-- <div class="top-class-list" v-for="item in items" :key="item.id">
+    <div class="top-class-list" v-for="item in items" :key="item.id">
       <span class="numTotal">{{item.numTotal}}<span class="num">{{counts[item.numCount]}}</span>个</span>
       <span class="numProjects">{{item.numProjects}} {{counts[item.projectsCount]}} 个</span>
       <span class="numNow" v-if="item.numNow">{{item.numNow}} {{counts[item.nowCount]}} 个</span>
-    </div> -->
-    <div class="top-class-list" v-for="(item, index) in countList" :key="index">
+    </div>
+    <!-- <div class="top-class-list" v-for="(item, index) in countList" :key="index">
       <span :class="i === 0 ? 'numTotal' : 'numProjects'" v-for="(t, i) in item" :key="i">
         {{t.name}}<span class="num">{{counts[t.props]}}</span>{{t.util}}
       </span>
-    </div>
+    </div> -->
   </el-card>
 </template>
 

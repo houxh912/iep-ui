@@ -17,8 +17,16 @@ export const getProjectPage = (params) => {
   })
 }
 
-// 项目频道页统计
+// 项目统计
 export const getProjectCount = () => {
+  return request({
+    url: `${prefixUrl}/count`,
+    method: 'get',
+  })
+}
+
+// 项目频道页统计
+export const getProjectChannelCount = () => {
   return request({
     url: `${prefixUrl}/channel_count`,
     method: 'get',

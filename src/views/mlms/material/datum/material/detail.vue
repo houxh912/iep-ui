@@ -81,8 +81,8 @@
           <div class="name">{{formData.creatorRealName}}</div>
           <div class="num">共{{materialTotal}}篇材料</div>
           <div class="foot">
-            <iep-button type="primary" @click="subscribe">订阅</iep-button>
-            <iep-button type="primary" @click="apprentice">向他拜师</iep-button>
+            <iep-button type="primary" @click="subscribe" plain>订阅</iep-button>
+            <iep-button @click="apprentice">向他拜师</iep-button>
           </div>
         </div>
         <div class="material">

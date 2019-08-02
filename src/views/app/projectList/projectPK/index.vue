@@ -6,7 +6,7 @@
         <div class="header">
           <span v-for="(item,index) in formData" :key="index">
             <div v-if="item.projectName!=''">{{item.projectName}}</div>
-            <iep-button v-else style="font-size:18px;color:#999;vertical-align: text-top;" @click="add()">+</iep-button>
+            <iep-button v-else style="font-size:18px;color:#999;vertical-align: text-top;margin-left: 30%;display: block;" @click="add()">+</iep-button>
           </span>
         </div>
         <div class="title">
@@ -44,22 +44,28 @@
               <span v-else-if="item.projectLevel==2">中级项目</span>
               <span v-else>一般项目</span>
             </span>
-            <span>{{item.relatedClientList?item.relatedClientList.name:'-'}}</span>
-            <span>{{item.projectManagerList?item.projectManagerList.name:'-'}}</span>
             <span>
-              <span v-if="item.projectMentorList.length==0">-</span>
+              <span v-if="item.relatedClientList">{{item.relatedClientList.name}}</span>
+              <span v-else>-</span>
+            </span>
+            <span>
+              <span v-if="item.projectManagerList">{{item.projectManagerList.name}}</span>
+              <span v-else>-</span>
+            </span>
+            <span>
+              <span v-if="item.projectMentorList.length==0||!item.projectMentorList">-</span>
               <span v-for="a in item.projectMentorList" :key="a.id" class="people">{{a.name}}</span>
             </span>
             <span>
-              <span v-if="item.mktManagerList.length==0">-</span>
+              <span v-if="item.mktManagerList.length==0||!item.mktManagerList">-</span>
               <span v-for="a in item.mktManagerList" :key="a.id" class="people">{{a.name}}</span>
             </span>
             <span>
-              <span v-if="item.projectHandlesList.length==0">-</span>
+              <span v-if="item.projectHandlesList.length==0||!item.projectHandlesList">-</span>
               <span v-for="a in item.projectHandlesList" :key="a.id" class="people">{{a.name}}</span>
             </span>
             <span>
-              <span v-if="item.membersList.length==0">-</span>
+              <span v-if="item.membersList.length==0||!item.membersList">-</span>
               <span v-for="a in item.membersList.slice(0,5)" :key="a.id" class="people">{{a.name}}</span>
               <span :class="item.membersList.length==maxList.membersListMax?'red':''" v-if="item.membersList.length>5">{{`等${item.membersList.length}人`}}</span>
             </span>
@@ -83,8 +89,8 @@
             <span :class="item.totalCycle==maxList.totalCycleMax?'red':''">{{item.totalCycle}}天</span>
             <span :class="item.projectBudget==maxList.projectBudgetMax?'red':''">{{item.projectBudget}}</span>
             <span :class="item.projectAmount==maxList.projectAmountMax?'red':''">{{item.projectAmount}}</span>
-            <span :class="item.profitMargin==maxList.profitMarginMax?'red':''">{{item.profitMargin}}</span>
-            <span :class="item.receiptRate==maxList.receiptRateMax?'red':''">{{item.receiptRate}}%</span>
+            <span :class="item.profitMargin==maxList.profitMarginMax?'red':''">{{item.profitMargin*100}}%</span>
+            <span :class="item.receiptRate==maxList.receiptRateMax?'red':''">{{item.receiptRate*100}}%</span>
             <span :class="item.paymentTime==maxList.paymentTimeChangeMax?'red':''">
               <div v-if="item.paymentTime!=0">{{item.paymentTime}}</div>
               <div v-else>-</div>
@@ -121,7 +127,7 @@ export default {
         { before: 'totalCycle', maxValue: '', after: 'totalCycleMax' },
         { before: 'contractCycle', maxValue: '', after: 'contractCycleMax' },
         { before: 'receiptRate', maxValue: '', after: 'receiptRateMax' },
-        { before: 'paymentTimeChange', maxValue: '', after: 'paymentTimeChangeMax' },
+        // { before: 'paymentTimeChange', maxValue: '', after: 'paymentTimeChangeMax' },
       ],
       maxList: maxList(),
     }
@@ -139,19 +145,17 @@ export default {
       getProjectPKList({ ids: this.idList }).then(({ data }) => {
         this.formData = [data.data[0], data.data.length > 1 ? data.data[1] : initForm(), data.data.length == 3 ? data.data[2] : initForm()]
         this.formData.profit = (data.data.projectAmount - data.data.projectBudget) / data.data.projectAmount * 100
-        this.formData.paymentTimeChange = Number(this.formData.paymentTime)
-        this.formData.paymentTime = data.data.paymentTime * 100
+        // this.formData.paymentTimeChange = Number(this.formData.paymentTime)
+        // this.formData.paymentTime = data.data.paymentTime * 100
         for (let i of this.comparison) {
           let beforeObject = i.before
           i.maxValue = Math.max(this.formData[0][beforeObject], this.formData[1][beforeObject], this.formData[2][beforeObject])
-          console.log(i.maxValue)
         }
         for (let i of this.comparison) {
           let maxName = i.after
           this.maxList[maxName] = i.maxValue
         }
         this.maxList.membersListMax = Math.max(this.formData[0].membersList.length, this.formData[1].membersList.length, this.formData[2].membersList.length)
-        console.log(this.maxList.totalCycleMax)
       })
     },
     add () {

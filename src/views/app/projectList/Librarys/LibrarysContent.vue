@@ -18,13 +18,11 @@
             </div>
             <div class="item">
               <span class="label">项目经理：{{item.manager}}</span>
-              <!-- <span class="label">市场经理：{{item.manager}}</span>
-              <span class="label">项目成员：{{item.manager}}</span> -->
             </div>
             <div class="box">
               <span class="label">项目类型：{{transform(item.projectType, 'prms_project_type')}}</span>
-              <span>发布人：{{item.publisherName}}</span>
               <span><i class="iconfont icon-shijian"></i>{{dateFormat(item.publishTime)}}</span>
+              <el-tag type='info' v-for="(tag, index) in item.projectTagList.slice(0,5)" :key="index">{{tag}}</el-tag>
             </div>
           </div>
           <iep-button class="pk-btn" type="danger" plain @click="joinPK(item)" :disabled="item.isClick==true">加入pk</iep-button>
@@ -213,3 +211,13 @@ export default {
   bottom: 20px;
 }
 </style>
+<style scoped>
+.librarys-content >>> .el-tag--info {
+  background-color: #fff;
+}
+.librarys-content >>> .el-tag {
+  height: 28px;
+  margin-right: 10px;
+}
+</style>
+

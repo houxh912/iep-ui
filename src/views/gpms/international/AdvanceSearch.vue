@@ -26,6 +26,7 @@ export default {
     return {
       form: initSearchForm(),
       projectStatusList: [
+        { id: '1', label: '待提交' },
         { id: '2', label: '待审核' },
         { id: '3', label: '已立项' },
         { id: '4', label: '审核未通过' },

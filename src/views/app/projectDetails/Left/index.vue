@@ -2,8 +2,12 @@
   <div class="project-details-con">
     <h3 class="title">{{projectData.projectName}}</h3>
     <div class="post-con">
-      <span class="post">市场经理：<span class="name">{{projectData.mktManagerName}}</span></span>
-      <span class="post">项目经理：<span class="name">{{projectData.projectManagerList.name}}</span></span>
+      <span class="post">市场经理：
+        <span v-if="projectData.mktManagerList.length==0">无</span>
+        <span v-for="(a,index) in projectData.mktManagerList" :key="a.id" class="people">{{a.name}}<span v-show="index!=projectData.mktManagerList.length-1">、</span></span>
+      </span>
+      <span class="post">项目经理：<span class="name">{{projectData.projectManagerName}}</span></span>
+      <span class="post">所属组织：<span class="name">{{projectData.orgName}}</span></span>
     </div>
     <div class="leaderBoard">
       <basic :projectData="projectData"></basic>

@@ -54,7 +54,7 @@
             <iep-button @click="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='3'&&scope.row.isHistory=='1'">编辑</iep-button>
             <iep-button @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'&&scope.row.isHistory=='1'">撤回</iep-button>
             <iep-button @click.native="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">立项</iep-button>
-            <iep-button @click.native="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">编辑</iep-button>
+            <iep-button @click.native="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'">编辑</iep-button>
             <iep-button @click.native="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">删除</iep-button>
           </operation-wrapper>
         </template>

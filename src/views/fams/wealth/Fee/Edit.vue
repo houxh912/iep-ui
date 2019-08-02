@@ -18,7 +18,7 @@
         </el-table-column>
         <el-table-column prop="amount" label="报销金额(元)">
           <template slot-scope="scope">
-            <iep-input-number size="small" v-model="scope.row.amount"></iep-input-number>
+            <iep-input-amount size="small" v-model="scope.row.amount"></iep-input-amount>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="100">
@@ -35,8 +35,8 @@
           <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择报销组织"></iep-select>
         </iep-form-item>
 
-        <iep-form-item class="form-half" prop="companyId" label-name="报销公司">
-          <iep-select v-model="form.companyId" filterable autocomplete="off" prefix-url="fams/company/all" placeholder="请选择报销公司"></iep-select>
+        <iep-form-item v-if="!companyOption.disabled" class="form-half" prop="companyId" label-name="报销公司">
+          <iep-select v-model="form.companyId" filterable autocomplete="off" :prefix-url="companyOption.prefixUrl" placeholder="请选择报销公司"></iep-select>
         </iep-form-item>
 
         <el-form-item label="关联合同：" class="form-half">
@@ -109,18 +109,18 @@ export default {
     formRequestFn () {
       return this.id ? putFee : postFee
     },
-    // companyOption () {
-    //   if (this.form.orgId) {
-    //     return {
-    //       disabled: false,
-    //       prefixUrl: `fams/company/${this.form.orgId}`,
-    //     }
-    //   } else {
-    //     return {
-    //       disabled: true,
-    //     }
-    //   }
-    // },
+    companyOption () {
+      if (this.form.orgId) {
+        return {
+          disabled: false,
+          prefixUrl: `fams/company/${this.form.orgId}`,
+        }
+      } else {
+        return {
+          disabled: true,
+        }
+      }
+    },
     // ccCompanyOption () {
     //   if (this.form.ccOrgId) {
     //     return {

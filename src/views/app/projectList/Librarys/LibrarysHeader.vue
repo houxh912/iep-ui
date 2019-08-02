@@ -10,7 +10,7 @@
             <el-input v-model="form.projectName" placeHolder="请输入项目名称"></el-input>
           </el-form-item>
           <el-form-item label="所属组织：">
-            <iep-select v-model="form.orgId" prefix-url="admin/org/all" style="width: 100%"></iep-select>
+            <iep-select v-model="form.orgId" prefix-url="admin/org/all" style="width: 100%" clearable></iep-select>
           </el-form-item>
           <el-form-item label="">
             <el-button type="primary" @click="searchPage1" size="mini">搜索</el-button>

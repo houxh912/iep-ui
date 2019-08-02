@@ -1,11 +1,10 @@
-const initOrgForm = () => {
+const initForm = () => {
   return {
     id: '',
     name: '',
     logo: '',
-    orgIds: [],
     intro: '',
   }
 }
 
-export { initOrgForm }
+export { initForm }

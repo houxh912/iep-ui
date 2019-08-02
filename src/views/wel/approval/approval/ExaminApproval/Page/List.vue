@@ -38,10 +38,10 @@
           {{dictsMap.status[scope.row.status]}}
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180px">
+      <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" @click="handleDetail(scope.row)">查看</iep-button>
+            <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
             <iep-button v-if="scope.row.status === 0" @click="handleReview(scope.row)" plain>审核</iep-button>
             <iep-button :disabled="scope.row.status===3" @click="handleDeliver(scope.row)">转交</iep-button>
           </operation-wrapper>

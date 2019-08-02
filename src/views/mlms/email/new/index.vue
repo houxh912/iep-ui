@@ -282,4 +282,9 @@ export default {
   margin-right: 4px;
 }
 </style>
+<style scoped>
+.item >>> .el-form-item {
+  margin-bottom: 0;
+}
+</style>
 

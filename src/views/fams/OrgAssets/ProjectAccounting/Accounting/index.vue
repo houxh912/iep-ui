@@ -24,6 +24,7 @@ export default {
           label: '合同完结时间',
           type: 'date',
           formatString: 'YYYY-MM-DD',
+          width: '120px',
         },
         {
           prop: 'contractAmount',

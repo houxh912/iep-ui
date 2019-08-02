@@ -27,7 +27,7 @@
         </template>
         <el-table-column v-if="type==='1'" label="操作">
           <template slot-scope="scope">
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
           </template>
         </el-table-column>
       </iep-table>

@@ -166,6 +166,7 @@ export default {
       if (typeof this.$refs['OperationSearch'] != 'undefined') {
         this.$refs['OperationSearch'].input = ''
       }
+      this.orgId = ''
       this.searchPage()
     },
     handleRemove (row) {

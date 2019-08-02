@@ -41,8 +41,7 @@
                   <iep-html v-model="userByAnswer"></iep-html>
                 </el-form-item>
                 <el-form-item label="打分 :" prop="single">
-                  <el-input-number v-model="ruleForm.single" controls-position="right" :min="0"
-                    :max="resdata.single"></el-input-number>
+                  <el-input-number v-model="ruleForm.single" controls-position="right" :min="0" :max="resdata.single"></el-input-number>
                 </el-form-item>
               </el-form>
             </div>
@@ -55,10 +54,8 @@
             </div> -->
 
           <div class="center" align="center">
-            <iep-button style="margin:0 10px;" @click="prv"
-              :disabled="resdata.firstOrLastQuestion === 0">上一题</iep-button>
-            <iep-button style="margin:0 10px;" @click="next"
-              :disabled="resdata.firstOrLastQuestion === 1">下一题</iep-button>
+            <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.firstOrLastQuestion === 0">上一题</iep-button>
+            <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.firstOrLastQuestion === 1">下一题</iep-button>
             <iep-button style="margin:0 10px;" @click="saveAndGoBack">保存并退出</iep-button>
           </div>
         </div>
@@ -90,9 +87,7 @@
             <div v-if="resdata.operationMap.length > 0">
               <span class="answerSheet">{{resdata.operationMap[0].questionType}}</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.operationMap"
-                  :key="index" @click="handleCard(item)"
-                  :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                <iep-button class="choices" v-for="(item,index) in resdata.operationMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
                   {{item.questionNum}}</iep-button>
               </div><br>
             </div>
@@ -100,9 +95,7 @@
             <div v-if="resdata.textMap.length > 0">
               <span class="answerSheet">{{resdata.textMap[0].questionType}}</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index"
-                  @click="handleCard(item)"
-                  :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
                   {{item.questionNum}}</iep-button>
               </div><br>
             </div>

@@ -36,7 +36,7 @@ export const getProjectChannelCount = () => {
 // 重点推荐项目
 export const getProjectRecProjects = () => {
   return request({
-    url: `${prefixUrl}/rec_projects`,
+    url: `${prefixUrl}/project/importance`,
     method: 'get',
   })
 }
@@ -89,3 +89,26 @@ export const getUndertakeranking = () => {
   })
 }
 
+// 项目频道页执行项目
+export const getPerform = () => {
+  return request({
+    url: `${prefixUrl}/perform`,
+    method: 'get',
+  })
+}
+
+// 项目频道页待建项目
+export const getIntention = () => {
+  return request({
+    url: `${prefixUrl}/intention`,
+    method: 'get',
+  })
+}
+
+// 项目频道页完结项目
+export const getProjectend = () => {
+  return request({
+    url: `${prefixUrl}/projectend`,
+    method: 'get',
+  })
+}

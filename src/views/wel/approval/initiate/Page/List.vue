@@ -34,10 +34,10 @@
             {{dictsMap.approveResult[scope.row.approveResult]}}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220px">
+        <el-table-column label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleDetail(scope.row)">查看</iep-button>
+              <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
               <iep-button v-if="scope.row.isDraft===0 && scope.row.approveResult===0" plain @click="handleCancel(scope.row)">撤销</iep-button>
               <iep-button v-if="scope.row.isDraft===1" plain @click="handleEdit(scope.row)">修改</iep-button>
               <iep-button v-if="scope.row.isDraft===1" plain @click="handleDelete(scope.row)">删除</iep-button>

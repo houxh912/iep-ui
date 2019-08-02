@@ -15,7 +15,7 @@
         <template slot="before-columns">
           <el-table-column label="申请人" width="100px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}
+              <iep-table-link>{{scope.row.name}}
                 <a-tag v-if="scope.row.isDraft" color="orange">草稿</a-tag>
               </iep-table-link>
             </template>
@@ -34,11 +34,12 @@
             {{dictsMap.approveResult[scope.row.approveResult]}}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220px">
+        <el-table-column label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.isDraft===0 && scope.row.approveResult===0" type="warning" plain @click="handleCancel(scope.row)">撤销</iep-button>
-              <iep-button v-if="scope.row.isDraft===1" type="warning" plain @click="handleEdit(scope.row)">修改</iep-button>
+              <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
+              <iep-button v-if="scope.row.isDraft===0 && scope.row.approveResult===0" plain @click="handleCancel(scope.row)">撤销</iep-button>
+              <iep-button v-if="scope.row.isDraft===1" plain @click="handleEdit(scope.row)">修改</iep-button>
               <iep-button v-if="scope.row.isDraft===1" plain @click="handleDelete(scope.row)">删除</iep-button>
               <iep-button v-if="scope.row.isDraft===1" plain @click="handleSubmit(scope.row)">提交</iep-button>
             </operation-wrapper>

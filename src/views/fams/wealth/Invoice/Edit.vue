@@ -21,7 +21,7 @@
         </el-table-column>
         <el-table-column prop="amount" label="报销金额(元)">
           <template slot-scope="scope">
-            <iep-input-number size="small" v-model="scope.row.amount"></iep-input-number>
+            <iep-input-amount size="small" v-model="scope.row.amount"></iep-input-amount>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="100">

@@ -44,8 +44,8 @@
               <span v-else-if="item.projectLevel==2">中级项目</span>
               <span v-else>一般项目</span>
             </span>
-            <span>{{item.relatedClientName?item.relatedClientName:'-'}}</span>
-            <span>{{item.projectManagerName?item.projectManagerName:'-'}}</span>
+            <span>{{item.relatedClientList?item.relatedClientList.name:'-'}}</span>
+            <span>{{item.projectManagerList?item.projectManagerList.name:'-'}}</span>
             <span>
               <span v-if="item.projectMentorList.length==0">-</span>
               <span v-for="a in item.projectMentorList" :key="a.id" class="people">{{a.name}}</span>
@@ -61,7 +61,7 @@
             <span>
               <span v-if="item.membersList.length==0">-</span>
               <span v-for="a in item.membersList.slice(0,5)" :key="a.id" class="people">{{a.name}}</span>
-              <span :class="item.membersList.length==maxList.membersListMax?'red':''">{{item.membersList.length>5?`等${item.membersList.length}人`:''}}</span>
+              <span :class="item.membersList.length==maxList.membersListMax?'red':''" v-if="item.membersList.length>5">{{`等${item.membersList.length}人`}}</span>
             </span>
           </div>
         </div>
@@ -245,23 +245,18 @@ export default {
           margin-right: 10px;
           padding-right: 5px;
           position: relative;
+          display: inline-block;
           &:after {
             content: "、";
             position: absolute;
             right: -12px;
-            top: -12px;
+            top: -2px;
           }
           &:last-child:after {
             content: "";
             position: absolute;
             right: -12px;
-            top: -12px;
-          }
-          &:nth-last-child(2):after {
-            content: "";
-            position: absolute;
-            right: -12px;
-            top: -12px;
+            top: -2px;
           }
         }
       }

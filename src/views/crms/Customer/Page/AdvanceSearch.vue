@@ -27,6 +27,12 @@
         </el-option>
       </el-select>
     </el-form-item>
+    <el-form-item label="签订合同" v-if="isShow(type)">
+      <el-select v-model="form.isContract" placeholder="请选择">
+        <el-option v-for="item in contracts" :key="item.value" :label="item.label" :value="item.value">
+        </el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item label="">
       <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>
       <el-button @click="clearSearchParam" size="mini">清空</el-button>
@@ -56,6 +62,16 @@ export default {
         value: '4',
         label: '两个月以上',
       }],
+      contracts: [
+        {
+          value: 1,
+          label: '是',
+        },
+        {
+          value: 2,
+          label: '否',
+        },
+      ],
     }
   },
   computed: {

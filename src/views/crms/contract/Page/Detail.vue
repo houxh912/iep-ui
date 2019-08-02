@@ -144,8 +144,8 @@ export default {
         //   underTakeDeptNames += item.name + '、'
         // }
         // data.underTakeDeptNames = underTakeDeptNames.slice(0, underTakeDeptNames.length - 1)
-        data.companyRealName = data.companyName ? `${data.companyName.name} - ${data.companyName.orgName}` : ''
-        data.signCompanyName = data.signCompanyRealName ? `${data.signCompanyRealName.name} - ${data.signCompanyRealName.orgName}` : ''
+        data.companyRealName = data.companyName ? data.companyName.name : ''
+        data.signCompanyName = data.signCompanyRealName ? data.signCompanyRealName.name : ''
         data.underTakeDeptNames = ''
         if (data.underTakeDeptName) data.underTakeDeptNames = data.underTakeDeptName.map(m => m.name).join('、')
         data.projectName = data.projectRelation ? data.projectRelation.name : '无'

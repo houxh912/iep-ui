@@ -1,5 +1,5 @@
 <template>
-  <el-image :src="src">
+  <el-image :src="src" :preview-src-list="previewSrcList">
     <div slot="placeholder" class="image-slot">
       加载中<span class="dot">...</span>
     </div>
@@ -14,6 +14,10 @@ export default {
   name: 'IepImg',
   inheritAttrs: false,
   props: {
+    previewSrcList: {
+      type: Array,
+      default: () => [],
+    },
     src: {
       required: true,
       validator: prop => typeof prop === 'string' || prop === null || prop === undefined,

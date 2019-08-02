@@ -69,6 +69,14 @@ export function addcCommentThumbsByRecord (id) {
   })
 }
 
+// 评论删除
+export function deleteCommentThumbsById (id) {
+  return request({
+    url: `${commentUrl}/${id}`,
+    method: 'post',
+  })
+}
+
 
 // 回复评论
 export function CommentReply (obj) {
@@ -76,6 +84,14 @@ export function CommentReply (obj) {
     url: `${replyUrl}/create`,
     method: 'post',
     data: obj,
+  })
+}
+
+// 回复评论
+export function deleteCommentById (id) {
+  return request({
+    url: `${replyUrl}/${id}`,
+    method: 'post',
   })
 }
 

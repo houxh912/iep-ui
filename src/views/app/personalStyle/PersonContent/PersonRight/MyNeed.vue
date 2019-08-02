@@ -33,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .feelings {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   .btn {
     padding: 0;
     color: #cb3737;

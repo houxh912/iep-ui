@@ -24,13 +24,13 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '说说总数榜',
-        value: 'Hottest',
-      }, {
         label: '本周排行榜',
         value: 'Download',
+      }, {
+        label: '说说总数榜',
+        value: 'Hottest',
       }],
-      activeTab: 'Hottest',
+      activeTab: 'Download',
       hotList: [],
       downloadList: [],
     }

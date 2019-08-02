@@ -1,9 +1,11 @@
-﻿const columnsMapByTypeId = [
+﻿const dictsMap = {
+  isContract: {
+    1: '是',
+    2: '否',
+  },
+}
+const columnsMapByTypeId = [
   [
-    // {
-    //   label: '业务类型',
-    //   prop: 'businessType',
-    // },
     {
       label: '区域类型',
       prop: 'districtTypeName',
@@ -12,51 +14,6 @@
       label: '客户关系',
       prop: 'clientRelaName',
     },
-    // {
-    //   label: '跟进状态',
-    //   prop: 'followUpStatusName',
-    // },
-    {
-      label: '市场经理',
-      prop: 'marketManagerName',
-    },
-  ],
-  [
-    // {
-    //   label: '业务类型',
-    //   prop: 'businessType',
-    // },
-    {
-      label: '区域类型',
-      prop: 'districtTypeName',
-      width:'100',
-    },
-    {
-      label: '客户关系',
-      prop: 'clientRelaName',
-    },
-    // {
-    //   label: '跟进状态',
-    //   prop: 'followUpStatusName',
-    // },
-  ],
-  [
-    // {
-    //   label: '业务类型',
-    //   prop: 'businessType',
-    // },
-    {
-      label: '区域类型',
-      prop: 'districtTypeName',
-    },
-    {
-      label: '客户关系',
-      prop: 'clientRelaName',
-    },
-    // {
-    //   label: '跟进状态',
-    //   prop: 'followUpStatusName',
-    // },
     {
       label: '市场经理',
       prop: 'marketManagerName',
@@ -66,7 +23,40 @@
     {
       label: '区域类型',
       prop: 'districtTypeName',
-      width:'100',
+    },
+    {
+      label: '客户关系',
+      prop: 'clientRelaName',
+    },
+    {
+      label: '签订合同',
+      prop: 'isContract',
+      type: 'dict',
+    },
+  ],
+  [
+    {
+      label: '区域类型',
+      prop: 'districtTypeName',
+    },
+    {
+      label: '客户关系',
+      prop: 'clientRelaName',
+    },
+    {
+      label: '市场经理',
+      prop: 'marketManagerName',
+    },
+    {
+      label: '签订合同',
+      prop: 'isContract',
+      type: 'dict',
+    },
+  ],
+  [
+    {
+      label: '区域类型',
+      prop: 'districtTypeName',
     },
     {
       label: '客户关系',
@@ -92,4 +82,5 @@ const tabList = [
     value: '4',
   },
 ]
-export { columnsMapByTypeId, tabList }
+
+export { columnsMapByTypeId, tabList, dictsMap }

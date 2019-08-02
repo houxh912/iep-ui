@@ -5,7 +5,7 @@
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
-    <list ref="list" class="list" :dataList="dataList"></list>
+    <list ref="list" class="list" :dataList="dataList" @load-page="loadPage"></list>
   </iep-app-layout>
 </template>
 
@@ -16,12 +16,20 @@ export default {
   components: { list },
   data () {
     return {
-      routerMatch: this.$route.matched,
+      routerMatch: [
+        {
+          name: '说说首页',
+          path: '/app/more_thoughts',
+        }, {
+          name: '说说详情',
+          path: '/app/thought_detail/:id',
+        },
+      ],
       dataList: [],
     }
   },
   beforeRouteUpdate (to, from, next) {
-    this.routerMatch = to.matched
+    // this.routerMatch = to.matched
     next()
   },
   methods: {
@@ -30,9 +38,13 @@ export default {
         this.dataList = [data.data]
       })
     },
+    loadPage () {
+      this.loadData(this.$route.params.id)
+    },
   },
   created () {
     this.loadData(this.$route.params.id)
+    console.log('routerMatch: ', this.routerMatch)
   },
 }
 </script>
@@ -42,7 +54,7 @@ export default {
   .breadcrumb-item {
     margin: 20px auto 0;
     width: 1200px;
-    padding: 0 0 20px 20px;
+    padding: 0 0 20px 0;
   }
 }
 .list {

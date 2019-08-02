@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 const dictsMap = {
   accountStatus: {
     0: '正常',
@@ -10,7 +10,7 @@ const columnsMap = [
   {
     prop: 'orgName',
     label: '所属组织',
-    width: '200',
+    width: '300',
     type: 'detail',
   },
   {
@@ -34,6 +34,7 @@ const columnsMap = [
     prop: 'accountStatus',
     label: '状态',
     type: 'dict',
+    width: '80',
   },
 ]
 

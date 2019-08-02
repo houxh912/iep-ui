@@ -35,16 +35,16 @@ export default {
   },
   watch: {
     userId (newVal) {
-      getWealthFlowListById(newVal).then(({data}) => {
-      this.list = data.data
-    })
+      getWealthFlowListById(newVal).then(({ data }) => {
+        this.list = data.data
+      })
     },
   },
 }
 </script>
 <style lang="scss" scoped>
 .mark {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .dynamicList {
   .piece {

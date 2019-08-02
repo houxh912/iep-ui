@@ -14,19 +14,24 @@
     </div>
     <slot></slot>
     <div class="image-list" v-if="data.images.length > 0">
-      <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img"></iep-img>
+      <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img" :preview-src-list="dealImage(data.images, index)"></iep-img>
     </div>
   </div>
 </template>
 
 <script>
-import { getSubject, getName } from './util'
+import { getSubject, getName, dealImage } from './util'
 export default {
   props: {
     data: {
       type: Object,
       default: () => {},
     },
+  },
+  data () {
+    return {
+      dealImage,
+    }
   },
   methods: {
     // 查看人物详情
@@ -122,11 +127,17 @@ export default {
   .image-list {
     margin-top: 20px;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
     .img {
       width: 30%;
-      height: 175px;
+      margin: 10px;
+      max-height: 175px;
     }
   }
+}
+</style>
+<style scoped>
+.image-list >>> img {
+  min-height: 175px;
 }
 </style>

@@ -3,7 +3,7 @@
     <basic-container>
       <iep-page-header :title="`${methodName}客户`" :backOption="backOption"></iep-page-header>
       <div class="edit-wrapper">
-        <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap">
+        <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap" @validate='validate'>
           <el-row>
             <el-col :span='10'>
               <el-form-item prop="clientName">
@@ -12,7 +12,7 @@
                   <iep-tip :content="tipContent.clientName"></iep-tip>
                   :
                 </span>
-                <el-input v-model="formData.clientName" placeholder="客户名称至少6个字"></el-input>
+                <el-input v-model="formData.clientName" placeholder="客户名称至少6个字" ref="clientName"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
@@ -181,13 +181,13 @@ export default {
         }
       }
     }
-    var deptFun = (rule, value, callback) => {
-      if (value.id == '') {
-        callback(new Error('请选择负责部门'))
-      } else {
-        callback()
-      }
-    }
+    // var deptFun = (rule, value, callback) => {
+    //   if (value.id == '') {
+    //     callback(new Error('请选择负责部门'))
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       tipContent,
       id: '',
@@ -213,9 +213,9 @@ export default {
         clientName: [
           { required: true, validator: validateFun, trigger: 'blur' },
         ],
-        iepClientRespDept: [
-          { required: true, validator: deptFun, trigger: 'change' },
-        ],
+        // iepClientRespDept: [
+        //   { required: true, validator: deptFun, trigger: 'change' },
+        // ],
         phoneNumber: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
           { min: 11, max: 11, message: '手机位数为11位', trigger: 'blur' },
@@ -486,6 +486,13 @@ export default {
     close () {
       this.formData = initForm()
       this.$emit('onGoBack')
+    },
+    validate (a, b) {
+      // console.log(a, b, this.$refs[a])
+      if (!b) {
+        this.$refs[a].focus()
+
+      }
     },
   },
 }

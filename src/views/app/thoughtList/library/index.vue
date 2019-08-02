@@ -18,7 +18,7 @@
         <contentTpl :data="item">
           <!-- 转发原内容 -->
           <div class="forward-content" v-if="item.transmitId > 0">
-            <forwardContent :contentData="item.transmittedThoughts"></forwardContent>
+            <forwardContent :contentData="item.transmittedThoughts" @click.native="handleForwardDetail(item.transmittedThoughts.thoughtsId)"></forwardContent>
           </div>
         </contentTpl>
         <!-- 按钮组 -->
@@ -29,7 +29,7 @@
             width="200"
             trigger="hover"
             :content="reference">
-            <div slot="reference" class="button" @click="hadnleAddUp(item)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+            <div slot="reference" class="button" @click="hadnleAddUp(item)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp" :class="item.thumbsUpCount > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           </el-popover>
           <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
@@ -44,8 +44,8 @@
         <!-- 评论列表 -->
         <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
           <div v-for="(t, i) in item.thoughtsCommentList" :key="i">
-            <commentTpl :item="t" :userInfo="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
-            <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userInfo="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" :type="'reply'"></commentTpl>
+            <commentTpl :item="t" :userData="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
+            <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userData="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" type="reply"></commentTpl>
           </div>
         </div>
       </div>
@@ -126,10 +126,14 @@ export default {
         this.reference = '暂无人点赞'
       }
     },
+    // 说说详情
+    handleForwardDetail (id) {
+      this.$router.push(`/app/thought_detail/${id}`)
+    },
     mouseleaveUp () {
       setTimeout(() => {
         this.reference = '加载中...'
-      }, 500)
+      }, 300)
     },
     hadnleComment (item, index) {
       this.activeIndex = index
@@ -252,6 +256,9 @@ export default {
     }
   }
 }
+.red {
+  color: #cb3737;
+}
 </style>
 
 <style scoped>
@@ -259,5 +266,6 @@ export default {
   background-color: #fafafa;
   padding: 20px;
   margin-top: 15px;
+  cursor: pointer;
 }
 </style>

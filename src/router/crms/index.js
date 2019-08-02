@@ -8,7 +8,7 @@ export default [
       {
         path: 'customer_detail/:id',
         name: '客户详情',
-        component: () => import('@/views/crms/Customer/Page/Detail.vue'),
+        component: () => import('@/views/crms/Customer/Page/DetailNews.vue'),
       },
     ],
   },

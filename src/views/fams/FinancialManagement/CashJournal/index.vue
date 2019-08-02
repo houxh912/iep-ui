@@ -19,7 +19,10 @@
           <el-table-column prop="currentBalance" label="本期余额">
           </el-table-column>
         </el-table-column>
-        <el-table-column prop="remark" label="备注">
+        <el-table-column label="备注">
+          <template slot-scope="scope">
+            <iep-div-detail-switch :value="scope.row.remark"></iep-div-detail-switch>
+          </template>
         </el-table-column>
       </iep-table>
     </basic-container>

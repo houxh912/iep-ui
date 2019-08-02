@@ -109,8 +109,15 @@ export default {
   }
 }
 .star-list {
+  padding: 0 0 15px;
   height: 100%;
   overflow-y: scroll;
+  .piece {
+     .piece-title{
+      margin-bottom: 7px;
+      line-height: 14px;
+    }
+  }
 }
 .thoughts-list,
 .star-list {
@@ -118,7 +125,7 @@ export default {
   .piece {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     overflow: hidden;
     .img-con {
       float: left;
@@ -165,6 +172,7 @@ export default {
       }
       .job {
         margin-bottom: 3px;
+        line-height: 18px;
       }
     }
     &:last-child {
@@ -188,7 +196,7 @@ export default {
 }
 .thoughts {
   .mutual-card {
-    margin-top: -1px;
+    margin-top: -15px;
     border-top-color: #fff;
   }
 }
@@ -246,7 +254,8 @@ export default {
 .mutual-card >>> .el-card__body {
   display: flex;
   align-items: center;
-  height: 128px;
+  padding: 0;
+  height: 104px;
   overflow: hidden;
 }
 .thoughts >>> .title {

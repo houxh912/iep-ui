@@ -207,12 +207,12 @@ export default {
     this.chartSettingsRing = {
       radius: [70, 100],
       level: [
-        ['20万以下项目', '20-50万项目', '50-100万项目', '百万级项目'],
+        ['20万以下', '20万-50万', '50万以上'],
       ],
     }
     this.colorsRing = [
       (paramsA) => {
-        var colorList1 = ['#90c0dc', '#b6cbc2', '#b4bbd7', '#efbf8f']
+        var colorList1 = ['#90c0dc', '#b6cbc2', '#b4bbd7']
         return colorList1[paramsA.dataIndex]
       },
     ]
@@ -237,10 +237,9 @@ export default {
       chartDataRing: {
         columns: ['类型', '数量'],
         rows: [
-          { '类型': '20万以下项目', '数量': 0, 'prop': '百万级项目' },
-          { '类型': '20-50万项目', '数量': 0, 'prop': '五十万以上项目' },
-          { '类型': '50-100万项目', '数量': 0, 'prop': '二十万及以上项目' },
-          { '类型': '百万级项目', '数量': 0, 'prop': '二十万以下项目' },
+          { '类型': '50万以上', '数量': 0, 'prop': '50万以上' },
+          { '类型': '20万-50万', '数量': 0, 'prop': '20万-50万' },
+          { '类型': '20万以下', '数量': 0, 'prop': '20万以下' },
         ],
       },
       contractAmount: 'my',
@@ -279,9 +278,9 @@ export default {
           item['总数'] = data.data[item.prop]
           item['外部项目'] = data.data[item.Exter]
         }
-        this.chartDataRing.rows.forEach(function (item, index) {
+        this.chartDataRing.rows.forEach(function (item) {
           if (data.data.contarctCountDetail) {
-            item['数量'] = data.data.contarctCountDetail[index][item.prop]
+            item['数量'] = data.data.contarctCountDetail[item.prop]
           }
         })
         this.$refs['projectManager'].seriesGauge1.data[0].value = data.data.importantLevelCount

@@ -58,6 +58,10 @@
         <iep-div-detail :value="form.remarks"></iep-div-detail>
       </el-form-item>
 
+      <el-form-item label="操作人：">
+        <iep-div-detail :value="form.realName"></iep-div-detail>
+      </el-form-item>
+
       <h2 style="text-align: center;">代缴</h2>
       <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="orgId" label="组织名称">

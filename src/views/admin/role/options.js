@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 //import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   dsType: {
@@ -56,6 +56,7 @@ const columnsMap = [
   {
     prop: 'roleDesc',
     label: '角色描述',
+    width:'280px',
   },
   {
     prop: 'dsType',
@@ -65,6 +66,7 @@ const columnsMap = [
   {
     prop: 'createTime',
     label: '创建时间',
+    width:'150px',
   },
 ]
 

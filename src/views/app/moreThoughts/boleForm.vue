@@ -79,12 +79,12 @@
           </el-form-item>
         </el-col>
         <el-col>
-          <el-col :span=12>
+          <el-col :span=9>
             <el-form-item label="现住地址：">
-              <iep-cascader style="flex:1;" v-model="formData.cities" prefix-url="admin/city"></iep-cascader>
+              <iep-cascader v-model="formData.cities" prefix-url="admin/city"></iep-cascader>
             </el-form-item>
           </el-col>
-          <el-col :span=12>
+          <el-col :span=15>
             <el-form-item label="" label-width="15px">
               <el-input style="flex:3;" v-model="formData.address"></el-input>
             </el-form-item>

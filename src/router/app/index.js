@@ -325,7 +325,7 @@ export default [
       },
       {
         path: 'news/news_detail/:id',
-        name: '岗位详情',
+        name: '新闻详情',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newsDetail/'),
       },
     ],

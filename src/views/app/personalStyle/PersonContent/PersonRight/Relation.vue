@@ -99,7 +99,7 @@ export default {
   color: #999;
 }
 .relation {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   .item {
     .title {
       display: block;
@@ -130,7 +130,7 @@ export default {
           height: 100%;
           transition: 0.5s;
           &:hover {
-            opacity: .7;
+            opacity: 0.7;
           }
         }
         .shifu {

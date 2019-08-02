@@ -20,6 +20,7 @@
         </div>
       </div>
     </div>
+    <headTpl class="fillin" @load-page="search"></headTpl>
 
     <div class="timeline">
       <el-col class="search">
@@ -53,6 +54,7 @@ import TimeLine from './timeline'
 import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
+import headTpl from '@/views/app/thoughtList/library/form'
 
 function initFormData () {
   return {
@@ -63,7 +65,7 @@ function initFormData () {
 
 export default {
   name: 'thoughts',
-  components: { TimeLine },
+  components: { TimeLine, headTpl },
   computed: {
     ...mapGetters(['userInfo']),
   },

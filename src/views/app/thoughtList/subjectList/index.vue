@@ -1,7 +1,9 @@
 <template>
   <iep-app-layout>
-    <h3 class="title">#{{title}}#</h3>
-    <headTpl class="head" @load-page="submitCallBack"></headTpl>
+    <h3 class="title">
+      <iep-page-header :title="`#${title}#`" :backOption="backOption"></iep-page-header>
+    </h3>
+    <headTpl class="head" @load-page="submitCallBack" :subject="subjectTitle"></headTpl>
     <div class="content">
       <div class="content-left">
         <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
@@ -51,6 +53,7 @@ export default {
   beforeRouteUpdate (to, from, next) {
     this.$nextTick(() => {
       this.title = this.$route.query.title
+      this.subjectTitle = `#${this.title}#`
       this.params.topicId = this.$route.query.id
       this.loadPage()
     })
@@ -58,6 +61,13 @@ export default {
   },
   data () {
     return {
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$router.push('/app/more_thoughts')
+        },
+      },
       isShow: true,
       title: '',
       commontActiveIndex: -1,
@@ -66,6 +76,7 @@ export default {
       activeIndex: -1,
       params: initParams(),
       dataList: [],
+      subjectTitle: '',
     }
   },
   methods: {
@@ -97,6 +108,7 @@ export default {
   },
   created () {
     this.title = this.$route.query.title
+    this.subjectTitle = `#${this.title}#`
     this.params.topicId = this.$route.query.id
     this.loadPage()
   },
@@ -108,7 +120,7 @@ h3.title {
   width: 1200px;
   margin: auto;
   font-size: 24px;
-  padding: 30px 0 20px;
+  padding: 30px 0 0;
   .akey {
     color: #c74c50;
   }
@@ -149,5 +161,10 @@ h3.title {
     width: 300px;
     margin-left: 30px;
   }
+}
+</style>
+<style scoped>
+.title >>> .page-title {
+  font-size: 24px !important;
 }
 </style>

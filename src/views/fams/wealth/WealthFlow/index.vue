@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header :title="`${applyName}的财富流水`" :replaceText="replaceText" :data="statistics" :backOption="backOption">
+      <iep-page-header :title="`${applyName}财富流水`" :replaceText="replaceText" :data="statistics" :backOption="backOption">
       </iep-page-header>
       <operation-container>
         <template slot="right">
@@ -45,7 +45,7 @@ export default {
   created () {
     this.applyName = this.$route.query.name ? this.$route.query.name : ''
     this.backOption.isBack = this.$route.query.name ? true : false
-    this.paramsId = this.$route.query.id
+    this.paramsId = this.$route.query.id || this.$route.params.id
     this.loadPage()
   },
   methods: {

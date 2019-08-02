@@ -12,7 +12,7 @@
       <texture-score :data="data"></texture-score>
       <products-services :orgId="data.orgId" :data="data"></products-services>
       <collaborative-record :data="data" v-if="false"></collaborative-record>
-      <new-down :visitVOs="data.visitVOs"></new-down>
+      <new-down :visitVOs="data.visitVOs" :data="data"></new-down>
     </div>
   </div>
 </template>

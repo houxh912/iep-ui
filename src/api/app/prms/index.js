@@ -17,10 +17,18 @@ export const getProjectPage = (params) => {
   })
 }
 
-// 项目库统计
+// 项目统计
 export const getProjectCount = () => {
   return request({
     url: `${prefixUrl}/count`,
+    method: 'get',
+  })
+}
+
+// 项目频道页统计
+export const getProjectChannelCount = () => {
+  return request({
+    url: `${prefixUrl}/channel_count`,
     method: 'get',
   })
 }
@@ -69,6 +77,14 @@ export const getSales = () => {
 export const getRanking = () => {
   return request({
     url: `${prefixUrl}/performance/ranking`,
+    method: 'get',
+  })
+}
+
+// 项目承接能力排行
+export const getUndertakeranking = () => {
+  return request({
+    url: `${prefixUrl}/project/undertakeranking`,
     method: 'get',
   })
 }

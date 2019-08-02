@@ -20,9 +20,9 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" @row-click="handleDetail">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" @selection-change="handleSelectionChange" :isMutipleSelection="showSelect?true:false" @row-click="handleDetail" :dictsMap="dictsMap">
         <template slot="before-columns">
-          <el-table-column label="客户名称" width="350px">
+          <el-table-column label="客户名称" width="300px">
             <template slot-scope="scope">
               <span class="clientName">{{scope.row.clientName}}</span>
               <el-col class="custom-tags">
@@ -45,7 +45,7 @@
               <!-- <iep-button type="warning" plain @click="addContact(scope.row)">添加联系人</iep-button> -->
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="type === '2'" @click="handleDelete(scope.row)">删除</iep-button>
-              <el-dropdown size="medium">
+              <el-dropdown size="medium" v-if="showPoint(type)">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="addContact(scope.row)">添加联系人</el-dropdown-item>
@@ -89,7 +89,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { columnsMapByTypeId, tabList } from '../columns'
+import { columnsMapByTypeId, tabList, dictsMap } from '../columns'
 import { getCustomerPage, postCustomer, putCustomer, deleteCustomerBatch, getToclaimHighseas, getUnToclaimHighseas } from '@/api/crms/customer'
 import { getWeekincrease } from '@/api/crms/count'
 import AdvanceSearch from './AdvanceSearch'
@@ -109,6 +109,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      dictsMap,
       type: '2',
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
@@ -230,20 +231,28 @@ export default {
         return false
       }
       if (this.isShow(this.type)) {
-        this.$router.push({
-          path: `/crms_spa/customer_detail/${row.clientId}`,
-          query: {
-            type: this.type,
-          },
+        // this.$router.push({
+        //   path: `/crms_spa/customer_detail/${row.clientId}`,
+        //   query: {
+        //     type: this.type,
+        //   },
+        // })
+        this.$emit('onDetail', {
+          formRequestFn: null,
+          methodName: '详情',
+          id: row.clientId,
+          type: this.type,
+          collaborations: '',
+          marketManager: '',
         })
       } else {
         if (this.crms_customer_view) {
-          this.$router.push({
-            path: `/crms_spa/customer_detail/${row.clientId}`,
-            query: {
-              type: this.type,
-            },
-          })
+          // this.$router.push({
+          //   path: `/crms_spa/customer_detail/${row.clientId}`,
+          //   query: {
+          //     type: this.type,
+          //   },
+          // })
         } else {
           return false
         }
@@ -416,6 +425,15 @@ export default {
           this.$emit('onGoBack')
         }
       })
+    },
+    showPoint (type) {
+      if (type == 2) {
+        return true
+      } else if (type == 1) {
+        return true
+      } else {
+        return false
+      }
     },
   },
 

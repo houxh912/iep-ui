@@ -1,6 +1,6 @@
 <template>
   <keep-alive include="list">
-    <component ref="component" @onEdit="handleEdit" @onGoBack="handleGoBack" @showDrawer="showDarwer" :record="record" :is="currentComponet"></component>
+    <component ref="component" @onEdit="handleEdit" @onGoBack="handleGoBack" @onDetail="handelDetail" @showDrawer="showDarwer" :record="record" :is="currentComponet"></component>
   </keep-alive>
 </template>
 
@@ -8,12 +8,14 @@
 // 动态切换组件
 import List from './Page/List'
 import Edit from './Page/Edit'
+import Detail from './Page/Detail'
 import { postCustomer } from '@/api/crms/customer'
 export default {
   name: 'CustomerComponents',
   components: {
     List,
     Edit,
+    Detail,
   },
   data () {
     return {
@@ -39,6 +41,10 @@ export default {
     handleEdit (record) {
       this.record = record
       this.currentComponet = 'Edit'
+    },
+    handelDetail (record) {
+      this.record = record
+      this.currentComponet = 'Detail'
     },
     handleGoBack () {
       this.record = ''

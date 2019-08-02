@@ -8,12 +8,13 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <el-table-column label="操作" width="150">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column label="操作" width="200" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.financialAudit===0" type="warning" @click.stop="handlePass(scope.row)" plain>通过</iep-button>
-              <iep-button v-if="scope.row.financialAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
+              <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
+              <iep-button v-if="scope.row.financialAudit===0" @click="handlePass(scope.row)" plain>通过</iep-button>
+              <iep-button v-if="scope.row.financialAudit===0" @click="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

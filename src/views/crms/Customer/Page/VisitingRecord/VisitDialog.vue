@@ -1,7 +1,7 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="拜访日志" width="80%" @close="close">
     <iep-page-header :title="`${methodName}纪要`"></iep-page-header>
-    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;">
+    <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;" @validate='validate'>
       <!-- <el-form-item label="会议类型：" prop="meetingType">
           <el-radio-group v-model="formData.meetingType">
             <el-radio v-for="(item, index) in dictGroup.mlms_meeting_type" :key="index" :label="item.value" @change="typeChange">
@@ -17,19 +17,19 @@
         <IepCrmsSelectMultiple v-model="formData.visitingUserId" :option="formData.visitingUser" prefixUrl="crm/customer/all/list"></IepCrmsSelectMultiple>
       </el-form-item> -->
       <el-form-item :label="`${formData.type == 0 ? '会议主题 ':'会议标题'}：`" prop="title">
-        <el-input v-model="formData.title" maxlength="50" :placeholder="tipContent.title"></el-input>
+        <el-input v-model="formData.title" maxlength="50" :placeholder="tipContent.title" ref="title"></el-input>
       </el-form-item>
       <el-form-item label="会议内容：" prop="meetingContent">
         <iep-froala-editor v-model="formData.meetingContent" :placeholder="tipContent.meetingContent"></iep-froala-editor>
       </el-form-item>
       <el-form-item label="会议总结：" prop="meetingCon">
         <!-- <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000" :placeholder="tipContent.meetingCon"></el-input> -->
-        <el-input type="textarea" v-model="formData.meetingCon" rows=8 maxlength="1000" placeholder="一、简明扼要说明会议精神，如1、2、3......
+        <el-input type="textarea" v-model="formData.meetingCon" ref="meetingCon" rows=8 maxlength="1000" placeholder="一、简明扼要说明会议精神，如1、2、3......
 二、清晰罗列下一步工作计划，如1、2、3......（关联人员需要着重说明）"></el-input>
       </el-form-item>
       <el-form-item label="感想与困惑：" prop="thoughtsProblem">
         <!-- <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000" :placeholder="tipContent.thoughtsProblem"></el-input> -->
-        <el-input type="textarea" v-model="formData.thoughtsProblem" rows=5 maxlength="1000" placeholder="1、分段发表感想和说明困惑之处，如1、2、3......
+        <el-input type="textarea" v-model="formData.thoughtsProblem" ref="thoughtsProblem" rows=5 maxlength="1000" placeholder="1、分段发表感想和说明困惑之处，如1、2、3......
 2、感想主要围绕会议中所汇报内容和指导意见如何应用到之后工作中；
 3、困惑主要围绕目前工作中疑惑不解，需要寻求帮助的事情。"></el-input>
       </el-form-item>
@@ -41,7 +41,7 @@
               会议时间
               <iep-tip :content="tipContent.meetingTime"></iep-tip>：
             </span>
-            <el-date-picker v-model="formData.meetingTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间"></el-date-picker>
+            <el-date-picker v-model="formData.meetingTime" value-format="yyyy-MM-dd HH:mm:ss" type="datetime" placeholder="选择日期时间" ref='meetingTime'></el-date-picker>
           </el-form-item>
         </el-col>
         <el-col :span="12" v-if="formData.type == 0">
@@ -299,6 +299,13 @@ export default {
     // 预览
     handlePreview () {
       this.$refs['preview'].open(this.formData)
+    },
+    validate (a, b) {
+      // console.log(a, b, this.$refs[a])
+      if (!b) {
+        this.$refs[a].focus()
+
+      }
     },
   },
   created () {

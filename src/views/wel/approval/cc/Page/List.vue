@@ -15,13 +15,13 @@
         <template slot="before-columns">
           <el-table-column label="申请人" width="100px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              {{scope.row.name}}
             </template>
           </el-table-column>
         </template>
         <el-table-column label="操作" width="100px">
           <template slot-scope="scope">
-            <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">查看</el-button>
+            <iep-button type="warning" plain @click="handleDetail(scope.row)">查看</iep-button>
           </template>
         </el-table-column>
       </iep-table>

@@ -8,6 +8,39 @@ export function getTableData (query) {
     params: query,
   })
 }
+export function getProjectPage (query) {
+  return request({
+    url: `${prefixUrl}/project/page`,
+    method: 'get',
+    params: query,
+  })
+}
+export function getVisitPage (query) {
+  return request({
+    url: `${prefixUrl}/visit/page`,
+    method: 'get',
+    params: query,
+  })
+}
+export function getProjectReportById (projectWeekReportId) {
+  return request({
+    url: `/mlms/projectreport/${projectWeekReportId}`,
+    method: 'get',
+  })
+}
+export function putProjectReport (obj) {
+  return request({
+    url: '/mlms/projectreport/report/time',
+    method: 'post',
+    data: obj,
+  })
+}
+export function getMeeting (id) {
+  return request({
+    url: `/mlms//meeting/${id}`,
+    method: 'get',
+  })
+}
 export function getOrgTableData (query) {
   return request({
     url: `${prefixUrl}/org/report`,

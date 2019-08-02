@@ -344,4 +344,11 @@ export default {
   margin-bottom: 20px;
   font-size: 16px;
 }
+.img-wrapper >>> .el-image {
+  display: flex;
+  align-items: center;
+}
+.img-wrapper >>> .el-image__inner {
+  height: auto;
+}
 </style>

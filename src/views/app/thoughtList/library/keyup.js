@@ -62,8 +62,11 @@ export default {
     handleSelect (item) {
       let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
       var startPos = elInput.selectionStart // input 第0个字符到选中的字符
-      let row = item.id === 0 ? ' ' : item.value
-      this.formData.content = this.formData.content.slice(0, this.startPos) + row + ' ' + this.formData.content.slice(startPos)
+      if (item.id === 0) {
+        this.formData.content = this.formData.content.slice(0, startPos) + ' ' + this.formData.content.slice(startPos)
+      } else {
+        this.formData.content = this.formData.content.slice(0, this.startPos) + item.value + ' ' + this.formData.content.slice(startPos)
+      }
       this.handleEnd()
       this.$nextTick(() => {
         this.$refs['content'].focus()

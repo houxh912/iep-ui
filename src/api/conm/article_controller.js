@@ -11,6 +11,13 @@ export function getPageById (id) {
   })
 }
 
+export function getPageByIndexId (id) {
+  return request({
+    url: `${prefixUrl}/index/${id}`,
+    method: 'get',
+  })
+}
+
 //添加文章
 export function addObj (obj) {
   return request({

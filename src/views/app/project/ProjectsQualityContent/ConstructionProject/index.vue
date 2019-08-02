@@ -8,8 +8,8 @@
         <template v-if="activeTab ==='Built'" v-slot:Built>
           <built v-loading="activeTab !=='Built'"></built>
         </template>
-        <template v-if="activeTab ==='finish'" v-slot:Built>
-          <built v-loading="activeTab !=='finish'"></built>
+        <template v-if="activeTab ==='Finish'" v-slot:Finish>
+          <finish v-loading="activeTab !=='Finish'"></finish>
         </template>
       </iep-tabs>
     </IepAppTabsCard>
@@ -18,10 +18,12 @@
 <script>
 import Construction from './Construction'
 import Built from './Built'
+import Finish from './finish'
 export default {
   components: {
     Built,
     Construction,
+    Finish,
   },
   data () {
     return {
@@ -33,7 +35,7 @@ export default {
         value: 'Built',
       }, {
         label: '完结项目（23个）',
-        value: 'finish',
+        value: 'Finish',
       }],
       activeTab: 'Construction',
     }

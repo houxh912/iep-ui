@@ -192,6 +192,7 @@ ul {
   .left {
     flex: 1;
     margin-right: 20px;
+    height:152px;
     li {
       padding: 12px 40px;
       border-right: 1px solid #ebeef5;
@@ -202,6 +203,7 @@ ul {
   }
   .right {
     flex: 0 0 300px;
+    height:152px;
     ul {
       display: flex;
       justify-content: flex-start;

@@ -29,7 +29,7 @@
             width="200"
             trigger="hover"
             :content="reference">
-            <div slot="reference" class="button" @click="hadnleAddUp(item)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp" :class="item.thumbsUpCount > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+            <div slot="reference" class="button" @click="hadnleAddUp(item)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp" :class="item.praiseStatus > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           </el-popover>
           <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>

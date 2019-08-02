@@ -5,7 +5,7 @@
         <div class="comment-avatar"><iep-img :src="item.avatar" alt="" class="img" /></div>
         <div class="comment-name">{{item.realName}}</div>
         <div class="huuifu">{{type == 'comment' ? '评论' : '回复'}}</div>
-        <div class="comment-name">{{type === 'comment' ? userData.name : item.replyToz}}</div>
+        <div class="comment-name">{{type === 'comment' ? userData.name : item.replyTo}}</div>
       </div>
       <div class="comment-content">{{item.replyMsg}}</div>
       <div class="comment-date">
@@ -15,13 +15,14 @@
         <!-- 评论的按钮行 -->
         <div class="button-list" v-if="item.thoughtsReplyList">
           <div class="button" @click="handleDelete(item)" v-if="userInfo.userId === item.commentUserId"><i class="icon-shanchu"></i> 删除</div>
-          <div class="button" @click="hadnleAddUp(item)" :class="item.thumbsUpCount > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+          <div class="button" @click="hadnleAddUp(item)" :class="item.praiseStatus > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           <div class="button" @click="hadnleComComment(item)"><i class="icon-xiaoxi"></i> 回复（{{item.thoughtsReplyList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
         </div>
         <div class="button-list" v-else>
           <div class="button" @click="handleDelete(item, 'reply')" v-if="userInfo.userId === item.userId"><i class="icon-shanchu"></i> 删除</div>
-          <div class="button" @click="hadnleAddUp(item, 'reply')" :class="item.thumbsUpCount > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+          <!-- <div class="button" @click="hadnleAddUp(item, 'reply')" :class="item.thumbsUpCount > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div> -->
+          <div class="button" @click="hadnleAddUp(item, 'reply')"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           <div class="button" @click="hadnleComComment(item, 'reply')"><i class="icon-xiaoxi"></i> 回复</div>
           <div class="button" @click="handleReward(item, 'reply')"><i class="icon-yuanbao"></i> 打赏</div>
         </div>

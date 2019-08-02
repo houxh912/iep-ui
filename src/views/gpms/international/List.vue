@@ -85,7 +85,7 @@ export default {
         cancelButtonText: '取消',
       }).then(() => {
         statusDefine([row.id]).then(() => {
-          this.$message.success('取消成功！')
+          this.$message.success('认领成功！')
           this.loadPage()
         })
       })

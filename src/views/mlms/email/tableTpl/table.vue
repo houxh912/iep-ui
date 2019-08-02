@@ -139,6 +139,9 @@ export default {
 .mail-name {
   width: 100%;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .mail-tags {
   margin: 0;

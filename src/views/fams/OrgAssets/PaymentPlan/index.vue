@@ -13,7 +13,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
         <el-table-column label="未到账金额">
           <template slot-scope="scope">
             {{!scope.row.contractAmount ? '暂无' : (scope.row.contractAmount||0 - scope.row.incomeAmount||0) }}
@@ -65,7 +65,7 @@ export default {
     this.loadPage()
   },
   methods: {
-    async loadPage (param = this.searchParam) {
+    async loadPage (param = this.searchForm) {
       const pageFunction = this.id ? getOrgPaymentPlanPageByOrgId(this.id) : getOrgPaymentPlanPage
       const data = await this.loadTable(param, pageFunction)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)

@@ -9,6 +9,13 @@ export function getPostLibraryPage (query) {
     params: query,
   })
 }
+export function getLibraryPage (query) {
+  return request({
+    url: 'hrms/channel_recruit/job/bank',
+    method: 'get',
+    params: query,
+  })
+}
 export function postPostLibrary (obj) {
   return request({
     url: `${prefixUrl}/create`,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="发票核准"></page-header>
+      <iep-page-header title="发票核准"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks">
@@ -12,7 +12,7 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
+              <iep-button type="warning" plain v-if="scope.row.primaryAudit===0" @click.stop="handlePass(scope.row)">通过</iep-button>
               <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleReject(scope.row)">驳回</iep-button>
               <iep-button v-if="scope.row.primaryAudit===0" @click.stop="handleTrans(scope.row)">转交</iep-button>
             </operation-wrapper>

@@ -3,7 +3,9 @@
     <search @load-page="searchPage"></search>
     <div class="person" v-loading="loading">
       <div class="person-item" v-for="(item,index) in personList" :key="index" @click="handleDetail(item.id)">
-        <div class="img"><iep-img :src="item.avatar" alt=""></iep-img></div>
+        <div class="img">
+          <iep-img :src="item.avatar" alt=""></iep-img>
+        </div>
         <div class="text">
           <span class="name">{{item.name}}
             <!-- <span class="dn show1 show" v-if="item.isExpert == 1">V</span> -->
@@ -33,6 +35,9 @@ export default {
     isOut: {
       default: '',
     },
+    query: {
+      type: Object,
+    },
   },
   data () {
     return {
@@ -52,13 +57,14 @@ export default {
   },
   methods: {
     searchPage (params) {
+      this.params.current = 1
       this.paramData = params
       this.loadPage()
     },
     loadPage () {
       this.loading = true
       let obj = Object.assign({}, this.params, this.paramData)
-      getRecruitDetailPage(obj).then(({data}) => {
+      getRecruitDetailPage(obj).then(({ data }) => {
         this.loading = false
         this.personList = data.data.records
         this.total = data.data.total
@@ -73,6 +79,7 @@ export default {
     },
   },
   created () {
+    this.params = Object.assign({}, this.params, this.query)
     this.loadPage()
   },
 }
@@ -84,7 +91,7 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 25px;
-  grid-column-gap: 25px;
+  grid-column-gap: 34px;
   grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
       100px,
       3fr
@@ -94,12 +101,11 @@ export default {
     display: flex;
     .img {
       margin-right: 15px;
-      margin-bottom: 25px;
       width: 90px;
       height: 90px;
       border: 1px solid #dcdfe6;
       overflow: hidden;
-      img {
+      .el-image {
         width: 100%;
         height: 100%;
         transition: 0.5s;
@@ -109,9 +115,9 @@ export default {
       }
     }
     .text {
-      width: 60%;
+      width: 70%;
       .job {
-        color: #888;
+        color: #666;
       }
       .deptQm {
         color: #aaa;
@@ -125,7 +131,7 @@ export default {
           padding: 0 10px;
           cursor: pointer;
           &:hover {
-            color: #ba1b21;
+            color: #cb3737;
           }
           &:nth-child(1) {
             padding-left: 0;
@@ -152,9 +158,8 @@ export default {
       .job,
       .sign,
       .deptQm {
-        min-height: 26px;
+        min-height: 20px;
         display: block;
-        width: 200px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -199,6 +204,7 @@ export default {
   }
 }
 .page {
+  margin-top: 40px;
   text-align: center;
 }
 </style>

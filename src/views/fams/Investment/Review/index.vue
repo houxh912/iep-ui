@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="投资核准"></page-header>
+      <iep-page-header title="投资核准"></iep-page-header>
       <operation-container>
         <template slot="right">
           <el-radio-group v-model="status" size="small" @change="handleChange">
@@ -12,7 +12,7 @@
       </operation-container>
       <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
-          <el-table-column prop="company" label="组织名" width="250">
+          <el-table-column prop="company" label="组织名" width="300">
             <template slot-scope="scope">
               <iep-table-link-img-desc :img="scope.row.orgLogo" :name="scope.row.orgName" v-on:m-click="handleDetail(scope.row)"></iep-table-link-img-desc>
             </template>

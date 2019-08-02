@@ -7,16 +7,17 @@
           <a-skeleton :loading="loading" active />
           <div v-if="!loading" style="cursor: pointer;" @click="handleOpen(item)">
             <div class="title">
-              <h4 class="name">{{item.projectName}}</h4>
+              <span class="stage" v-show="isShow">{{item.stage}}</span>
+              <h4 class="name">{{item.projectName}}</h4><span class="sub-title">{{item.serialNo}}</span>
             </div>
             <div class="item">
               <span class="label">项目等级：{{transform(item.projectLevel, 'prms_project_level')}}</span>
-              <span class="label">市场经理：{{item.mktManager}}</span>
+              <span class="label">项目经理：{{item.manager}}</span>
             </div>
             <div class="box">
               <span>项目类型：{{transform(item.projectType, 'prms_project_type')}}</span>
               <span>发布人：{{item.publisherName}}</span>
-              <span><i class="iconfont icon-shijian"></i>{{item.projectTime}}</span>
+              <span><i class="iconfont icon-shijian"></i>{{dateFormat(item.publishTime)}}</span>
             </div>
           </div>
         </div>
@@ -31,6 +32,7 @@
 <script>
 import { getProjectPage } from '@/api/app/prms/'
 import { mapGetters } from 'vuex'
+import { dateFormat } from '@/util/date'
 
 export default {
   computed: {
@@ -46,6 +48,7 @@ export default {
         current: 1,
         size: 10,
       },
+      dateFormat,
     }
   },
   methods: {
@@ -82,6 +85,9 @@ export default {
     },
   },
   created () {
+    if (this.$route.query.id) {
+      this.params.orgId = this.$route.query.id
+    }
     this.loadPage()
   },
 }
@@ -92,10 +98,22 @@ export default {
   .item {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: column;
     .label {
       margin-right: 20px;
+      margin-bottom: 5px;
     }
   }
+}
+.stage {
+  margin-right: 10px;
+  padding: 1px 6px;
+  font-size: 12px;
+  color: #cb3737;
+  background: #fef0f0;
+  border: 1px solid #cb3737;
+  border-radius: 3px;
 }
 .piece {
   padding-top: 15px;
@@ -110,11 +128,14 @@ export default {
 .title {
   .name {
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
+    height: 30px;
+    line-height: 30px;
     margin-right: 10px;
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
+    &:hover {
+      color: #cb3737;
+    }
   }
   i {
     margin-right: 10px;
@@ -122,11 +143,15 @@ export default {
     color: #aaa;
     vertical-align: -2px;
   }
+  .sub-title {
+    font-size: 12px;
+  }
 }
 .box {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-top: 10px;
   span {
     display: flex;
     justify-content: flex-start;

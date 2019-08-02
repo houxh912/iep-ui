@@ -1,4 +1,4 @@
-// import { mergeByFirst } from '@/util/util'
+﻿// import { mergeByFirst } from '@/util/util'
 const dictsMap = {
 	expenditureMode: {
 		'0': '库存现金',
@@ -16,6 +16,7 @@ const columnsMap = [
 	{
 		prop: 'amount',
 		label: '金额',
+		width: '80',
 	},
 	{
 		prop: 'typeValue',
@@ -24,19 +25,23 @@ const columnsMap = [
 	{
 		prop: 'orgName',
 		label: '组织',
+		width: '150',
 	},
 	{
 		prop: 'companyName',
 		label: '线下公司',
+		width: '220',
 	},
 	{
 		prop: 'expenditureMode',
 		label: '支出方式',
 		type: 'dict',
+		width: '100',
 	},
 	{
 		prop: 'bankAccount',
 		label: '银行账户',
+		width: '250',
 	},
 	{
 		prop: 'remarks',
@@ -59,11 +64,15 @@ const initForm = () => {
 		protocolName: '',
 		projectId: '',
 		projectName: '',
+		projectNumber: '',
+		serialNo: '', // serialNo 项目编号
 		amount: '',
 		remarks: '',
+		realName: '',
 		invoicingTax: '',
 		interestRate: '',
 		estimatedRefundTime: '',
+		relations: [],
 	}
 }
 
@@ -75,7 +84,7 @@ const toDtoForm = (row) => {
 
 const rules = {
 	type: [
-		{ required: true, message: '请输入支出类型', trigger: 'blur' },
+		{ required: true, type: 'array', message: '请输入支出类型', trigger: 'change' },
 	],
 	createTime: [
 		{ required: true, message: '请输入支出时间', trigger: 'blur' },
@@ -87,10 +96,10 @@ const rules = {
 		{ required: true, message: '请输入支出方式', trigger: 'blur' },
 	],
 	companyId: [
-		{ required: true, message: '请输入支出公司', trigger: 'blur' },
+		{ required: true, message: '请输入支出公司', trigger: 'change' },
 	],
 	accountId: [
-		{ required: true, message: '请输入银行户头', trigger: 'blur' },
+		{ required: true, message: '请输入银行户头', trigger: 'change' },
 	],
 	amount: [
 		{ required: true, message: '请输入支出金额', trigger: 'blur', type: 'number' },

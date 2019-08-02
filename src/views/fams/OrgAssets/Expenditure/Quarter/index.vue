@@ -25,7 +25,6 @@
   </div>
 </template>
 <script>
-import { parseToMoney } from '@/filters/'
 import { getExpenditureList } from '@/api/fams/statistics'
 import { columnsMap, initNow, getYear } from './options'
 export default {
@@ -83,7 +82,7 @@ export default {
         const idx = index - 1
         const values = data.map(item => Number(item[column.property]))
         if (!values.every(value => isNaN(value))) {
-          sums[index] = parseToMoney(this.statistics[idx])
+          sums[index] = (this.statistics[idx])
         } else {
           sums[index] = ''
         }

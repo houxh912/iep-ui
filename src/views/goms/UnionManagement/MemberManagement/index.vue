@@ -1,8 +1,11 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="联盟成员"></page-header>
+      <iep-page-header title="联盟成员"></iep-page-header>
       <operation-container>
+        <template slot="left">
+          <iep-select v-model="assetOrgId" size="small" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" clearable @change="loadPage"></iep-select>
+        </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="realName">
           </operation-search>
@@ -16,8 +19,8 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作">
-          <iep-button @click="handleResetPass(scope.row)" plain>重置密码</iep-button>
+        <el-table-column label="操作" width="150px">
+          <iep-button @click="handleResetPass(scope.row)" type="warning" plain>重置密码</iep-button>
         </el-table-column>
       </iep-table>
     </basic-container>
@@ -36,6 +39,7 @@ export default {
   data () {
     return {
       dictsMap,
+      assetOrgId: null,
       columnsMap: [
         {
           prop: 'staffNo',
@@ -48,6 +52,7 @@ export default {
         {
           prop: 'assetOrg',
           label: '资产所属',
+          width: '300px',
         },
       ],
     }
@@ -65,7 +70,7 @@ export default {
       this.$refs['DetailDrawer'].drawerShow = true
     },
     async loadPage (param = this.searchForm) {
-      await this.loadTable(param, getUserPage)
+      await this.loadTable({ ...param, assetOrgId: this.assetOrgId }, getUserPage)
     },
   },
 }

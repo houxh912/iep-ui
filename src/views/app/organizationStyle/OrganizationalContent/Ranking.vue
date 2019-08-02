@@ -2,8 +2,8 @@
   <div class="ranking">
     <el-card shadow="never">
       <div class="labs-con">
-        <div class="data-lab" v-for="lab in labList" :key="lab.id">
-          <div class="count">{{lab.data}}</div>
+        <div class="data-lab" v-for="(lab, index) in labList" :key="index">
+          <div class="count">{{OrgAssets[lab.prop]}}</div>
           <div class="labTitle"><span>{{lab.labTitle}}</span></div>
         </div>
       </div>
@@ -11,28 +11,45 @@
   </div>
 </template>
 <script>
+import { getOrgAssetsById } from '@/api/fams/statistics'
 export default {
   data () {
     return {
+      OrgAssets: {
+        hyd: '--',
+        sjzc: '--',
+        xyz: '--',
+        zcpm: '--',
+      },
       labList: [
         {
-          data: '--',
+          prop: 'xyz',
           labTitle: '信用值',
         },
         {
-          data: '--',
+          prop: 'hyd',
           labTitle: '活跃度',
         },
         {
-          data: '--',
+          prop: 'zcpm',
           labTitle: '资产排名',
         },
         {
-          data: '--',
+          prop: 'sjzc',
           labTitle: '数据资产',
         },
       ],
     }
+  },
+  methods: {
+    getOrgAssetsById (id) {
+      getOrgAssetsById(id).then(({data}) => {
+        this.OrgAssets = data.data
+      })
+    },
+  },
+  created () {
+    this.getOrgAssetsById(this.$route.params.id)
   },
 }
 </script>
@@ -66,6 +83,6 @@ export default {
 </style>
 <style scoped>
 .ranking >>> .el-card__body {
-  padding: 15px;
+  padding: 15px 0;
 }
 </style>

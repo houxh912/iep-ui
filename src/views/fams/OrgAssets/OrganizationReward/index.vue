@@ -10,7 +10,8 @@
           </el-checkbox-group>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -26,9 +27,11 @@ import { dictsMap, columnsMap } from './options'
 import { getOrgRewardPage, postOrgReward } from '@/api/fams/org_reward'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
+import AdvanceSearch from './AdvanceSearch'
 export default {
   components: {
     DialogForm,
+    AdvanceSearch,
   },
   mixins: [mixins],
   data () {
@@ -61,7 +64,7 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id)
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, isReward: this.isReward }, getOrgRewardPage)
     },
   },

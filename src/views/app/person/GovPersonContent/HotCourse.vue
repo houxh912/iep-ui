@@ -58,6 +58,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     margin-left: 15px;
+    transition: 0.5s;
     .name {
       display: inline-block;
       width: 200px;
@@ -92,11 +93,12 @@ export default {
   }
   .con-course {
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     justify-content: space-between;
     .con {
       width: 48%;
       cursor: pointer;
+      transition: 0.5s;
       &:hover {
         opacity: 0.7;
       }
@@ -129,6 +131,6 @@ export default {
 </style>
 <style scoped>
 .course-con >>> .el-card {
-  height: 330px;
+  height: 316px;
 }
 </style>

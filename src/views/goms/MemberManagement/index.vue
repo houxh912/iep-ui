@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="userInfo.orgName" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header :title="userInfo.orgName" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>批量添加成员</iep-button>
@@ -21,13 +21,6 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="状态" width="150px">
-          <template slot-scope="scope">
-            <iep-div-detail :value="dictsMap.status[scope.row.status]">
-              <iep-tip v-if="scope.row.status===1 " message="( TA 没有填写申请理由)" :content="scope.row.message"></iep-tip>
-            </iep-div-detail>
-          </template>
-        </el-table-column>
         <el-table-column prop="operation" label="操作" width="300">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -53,7 +46,7 @@ import { mapState } from 'vuex'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import AddUserDialogForm from './AddUserDialogForm'
-import { dictsMap, columnsMap, initSearchForm, initMemberForm } from './options'
+import { dictsMap, columnsMap, initSearchForm, initForm } from './options'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, updateGomsUser, gomsPass, gomsReject } from '@/api/admin/org'
 import { passJoins } from '@/api/goms/org'
 import { resetPassByUserId } from '@/api/admin/user'
@@ -108,13 +101,13 @@ export default {
       this._handleGlobalDeleteAll(delAllGomsUser)
     },
     handleDetail (row) {
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '查看'
       this.$refs['DialogForm'].disabled = true
       this.$refs['DialogForm'].dialogShow = true
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initMemberForm(), row)
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = updateGomsUser
       this.$refs['DialogForm'].disabled = false

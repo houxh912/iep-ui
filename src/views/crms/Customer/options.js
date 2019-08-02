@@ -25,7 +25,7 @@ const initForm = () => {
     assertionsSave: 1,
     orgNameForOld: '',//原机构名
     clientAbrName: '',//客户简称
-    toClaim: 1,
+    toClaim: 0,
     unionId: '',
   }
 }
@@ -55,6 +55,7 @@ const initSearchForm = () => {
     followUpStatus: '',
     businessTypeKeyString: '',
     timeSerach: '',
+    isContract: '',
   }
 }
 const formToDto = form => {

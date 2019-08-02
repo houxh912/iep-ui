@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container v-show="pageState==='list'">
-      <page-header title="纪要" :replaceText="replaceText" :data="data"></page-header>
+      <iep-page-header title="纪要" :replaceText="replaceText" :data="data"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -31,6 +31,9 @@
               </el-form-item>
               <el-form-item label="会议结束时间">
                 <el-date-picker v-model="paramForm.endTime" value-format="yyyy-MM-dd 23:59:59" type="date" placeholder="选择日期时间"></el-date-picker>
+              </el-form-item>
+              <el-form-item label="发布人">
+                <el-input v-model="paramForm.realName"></el-input>
               </el-form-item>
               <!-- <el-form-item label="会议标签">
                 <el-input v-model="paramForm.tagKeyWords"></el-input>

@@ -22,7 +22,7 @@ export default {
   },
   data () {
     return {
-      isMore:true,
+      isMore: true,
       linkName: '',
       tabList: [{
         label: '用户资料',
@@ -37,5 +37,8 @@ export default {
 }
 </script>
 <style scoped>
+.grid-content >>> .el-card {
+  height: 386px;
+}
 </style>
 

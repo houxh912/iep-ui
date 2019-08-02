@@ -25,9 +25,9 @@ export default {
       tabList: [{
         label: '学习资源',
         value: 'Learning',
-      // }, {
-      //   label: '工具箱',
-      //   value: 'Tool',
+        // }, {
+        //   label: '工具箱',
+        //   value: 'Tool',
       }],
       activeTab: 'Learning',
     }
@@ -35,8 +35,8 @@ export default {
 }
 </script>
 <style scoped>
-.resources >>> .el-card{
-  height: 324px;
+.resources >>> .el-card {
+  height: 318px;
 }
 </style>
 

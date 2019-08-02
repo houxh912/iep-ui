@@ -23,22 +23,19 @@ export default {
   padding: 0;
   height: 22px;
   line-height: 22px;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 </style>
 <style scoped>
-.index-card >>> .el-card__header {
-  padding: 13px 0;
-}
 .index-card >>> .el-card__body {
-  padding: 16px 0 2px;
+  padding: 15px 0;
 }
 .el-card {
   padding: 0 20px;
 }
-.research >>> .el-card__header {
-  padding: 18px 0 9px;
-}
 .research >>> .el-card {
-  height: 312px;
+  height: 316px;
 }
 </style>

@@ -5,6 +5,11 @@
       <span class="numProjects">{{item.numProjects}} {{counts[item.projectsCount]}} 个</span>
       <span class="numNow" v-if="item.numNow">{{item.numNow}} {{counts[item.nowCount]}} 个</span>
     </div>
+    <!-- <div class="top-class-list" v-for="(item, index) in countList" :key="index">
+      <span :class="i === 0 ? 'numTotal' : 'numProjects'" v-for="(t, i) in item" :key="i">
+        {{t.name}}<span class="num">{{counts[t.props]}}</span>{{t.util}}
+      </span>
+    </div> -->
   </el-card>
 </template>
 
@@ -59,6 +64,87 @@ export default {
           nowCount: 'consultManager',
         },
       ],
+      countList: [
+        [
+          {
+            name: '项目总数',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '执行项目',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '待建项目',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '完结项目',
+            props: 'count',
+            unit: '个',
+          },
+        ], [
+          {
+            name: '项目合同',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '待签项目',
+            props: 'count',
+            unit: '个',
+          },
+        ], [
+          {
+            name: '软件项目',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '咨询项目',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '其他项目',
+            props: 'count',
+            unit: '个',
+          },
+        ], [
+          {
+            name: '国家级项目',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '省级项目',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '市区级项目',
+            props: 'count',
+            unit: '个',
+          },
+        ], [
+          {
+            name: '项目经理',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '产品技术类',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '咨询类',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '品牌市场类',
+            props: 'count',
+            unit: '个',
+          }, {
+            name: '平台类',
+            props: 'count',
+            unit: '个',
+          },
+        ],
+      ],
       counts: {},
     }
   },
@@ -85,11 +171,17 @@ export default {
       line-height: 28px;
     }
     .numTotal {
-      font-size: 18px;
+      font-size: 16px;
     }
     .num {
       margin: 0 5px;
-      font-size: 24px;
+      font-size: 20px;
+    }
+    .numProjects{
+      font-size: 14px;
+    }
+    .numNow{
+      font-size: 14px; 
     }
     &:last-child {
       border-right: 0;

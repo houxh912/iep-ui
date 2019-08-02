@@ -12,7 +12,7 @@ export default {
     return {
       showClass: 2,
       title: '品牌活动',
-      selectList: ['培训', '评估', '会议'],
+      selectList: ['会议', '评估', '培训'],
       linkName: '',
       dataList: [
         '2019首届长三角地区营商环境论坛',
@@ -57,9 +57,10 @@ export default {
 </style>
 <style scoped>
 .index-card >>> .el-card__body {
-  padding: 16px 0 2px;
+  padding-top: 15px;
 }
 .el-card {
-  padding: 0 20px;
+  padding: 0 15px;
+  height: 320px;
 }
 </style>

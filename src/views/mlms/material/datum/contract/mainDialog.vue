@@ -1,6 +1,6 @@
 <template>
   <div class="iep-page-form project-relation">
-    <page-header :title="`${methodName}合同`" :backOption="backOption"></page-header>
+    <iep-page-header :title="`${methodName}合同`" :backOption="backOption"></iep-page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="合同名称：" prop="contractName">
         <el-input v-model="formData.contractName" placeholder="当天日期（八位数字）+客户名称+项目内容名称+“合同”，如“20180306农业部政务资源目录梳理合同”。" maxlength="50"></el-input>
@@ -11,7 +11,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="关联项目：">
-        <IepProjectSelect v-model="formData.projectId" :projectName="formData.projectName" @change="projectChange"></IepProjectSelect>
+        <IepProjectSelect v-model="formData.projectId" :projectName="formData.projectName" @change="projectChange" serialNo></IepProjectSelect>
       </el-form-item>
       <el-form-item label="合同说明 / 收款方式：">
         <el-input type="textarea" v-model="formData.contractExpl" placeholder="合同说明/收款方式" rows=5 maxlength="200"></el-input>
@@ -32,7 +32,7 @@
           </el-form-item>
         </el-col>
         <el-col :span='12'>
-          <el-form-item label="完结日期：" prop="finishTime">
+          <el-form-item label="完结日期：">
             <IepDatePicker v-model="formData.finishTime" :picker-options="finishTimeOption"></IepDatePicker>
           </el-form-item>
         </el-col>
@@ -210,6 +210,8 @@ export default {
       // this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
       this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       this.formData.directorId = this.formData.directorList.id
+      // 完结时间非必填
+      // this.formData.finishTime = this.formData.finishTime ? this.formData.finishTime : '0000-01-01 00:00:00'
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true

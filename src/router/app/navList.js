@@ -21,10 +21,14 @@ const navList = [
   }, {
     id: '/app/wealth',
     name: '财富',
-  },{
-  //   id: '/app/policyCenter',
-  //   name: '政策中心',
-  // }, {
+  }, {
+    id: '/app/more_thoughts',
+    name: '说说',
+  }, {
+    //   id: '/app/policyCenter',
+    //   name: '政策中心',
+    //   show: 'show',
+    // }, {
     id: '/app/project',
     name: '项目',
   }, {
@@ -33,7 +37,7 @@ const navList = [
   }, {
     id: '/app/brand',
     name: '品牌',
-  }, 
+  },
 ]
 const navPathList = navList.map(m => m.id)
 export { navList, navPathList }

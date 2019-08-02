@@ -24,21 +24,23 @@
         <div class="classTag">
           <div class="label">专业标签：</div>
           <div class="span">
-            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
         <div class="classTag">
           <div class="label">进步标签：</div>
           <div class="span">
-            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.projectTag" :key="index">{{item}}</el-tag>
+            <el-tag type="white" @click="handleDetail(item)" v-for="(item, index) in data.learningTag" :key="index">{{item}}</el-tag>
           </div>
         </div>
       </div>
       <el-row class="operation">
         <ranking></ranking>
-        <el-button type="danger" plain size="small" @click="handleProposal">建议</el-button>
-        <el-button type="danger" size="small" @click="handleInvestment">投资</el-button>
-        <el-button type="info" plain size="small" disabled>pk</el-button>
+        <div class="el-row">
+          <el-button type="danger" plain size="small" @click="handleProposal">建议</el-button>
+          <el-button type="danger" plain size="small" @click="handlePk">PK</el-button>
+          <el-button type="danger" size="small" @click="handleInvestment">投资</el-button>
+        </div>
       </el-row>
     </div>
   </div>
@@ -97,6 +99,9 @@ export default {
     handleDetail (row) {
       this.$openTagDetail(row)
     },
+    handlePk () {
+      this.$router.push('/app/organizational_list')
+    },
   },
 }
 </script>
@@ -106,7 +111,7 @@ export default {
   display: flex;
   align-items: center;
   align-content: center;
-  height: 220px;
+  min-height: 220px;
   text-align: center;
   background: #fafafa url(./img/zzbg.png) no-repeat;
   background-size: 100% 100%;
@@ -156,6 +161,7 @@ export default {
           text-align: left;
         }
         .el-tag {
+          cursor: pointer;
           position: relative;
           margin-right: 5px;
           margin-bottom: 5px;
@@ -282,5 +288,10 @@ export default {
 .organizational-top >>> .el-button--danger {
   background: #cb3737;
   border-color: #ba1b21;
+  padding: 7px 15px;
+  min-width: 62px
+}
+.organizational-top .el-row{
+  text-align: right
 }
 </style>

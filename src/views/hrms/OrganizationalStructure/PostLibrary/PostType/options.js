@@ -1,8 +1,8 @@
-const columnsMap = [
+﻿const columnsMap = [
   {
     prop: 'name',
     label: '岗位分类名称',
-    width: 300,
+    width: '300',
   },
   {
     prop: 'description',

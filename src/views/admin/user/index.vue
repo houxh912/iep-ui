@@ -1,13 +1,13 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="用户管理"></page-header>
+      <iep-page-header title="用户管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="sys_user_add" type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>添加用户</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="username">
+          <operation-search @search-page="searchPage" prop="realName">
           </operation-search>
         </template>
       </operation-container>
@@ -17,7 +17,7 @@
             <iep-tag-detail iep-type="role" :value="scope.row.roleList.map(m => m.name)"></iep-tag-detail>
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="220">
+        <el-table-column prop="operation" label="操作" width="180">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="sys_user_edit" type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>

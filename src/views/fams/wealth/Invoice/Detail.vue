@@ -1,17 +1,17 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="查看报销" :back-option="backOption">
+      <iep-page-header title="查看报销" :back-option="backOption">
         <template v-if="form.primaryAudit===0 && isApproval">
           <iep-button @click="handlePass(form, false)">通过</iep-button>
           <iep-button @click="handleReject(form, false)">驳回</iep-button>
           <iep-button @click="handleTrans(form)">转交</iep-button>
         </template>
-        <template v-if="form.primaryAudit!==0&&form.financialAudit===0 && isApproval">
+        <template v-if="form.primaryAudit===1&&form.financialAudit===0 && isApproval">
           <iep-button @click="handlePass(form, true)">通过</iep-button>
           <iep-button @click="handleReject(form, true)">驳回</iep-button>
         </template>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" class="form-detail" :model="form" label-width="140px" size="small">
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
           <el-table-column prop="expenditureType" label="支出类型">
@@ -62,7 +62,7 @@
         </iep-form-item>
 
         <iep-form-item label-name="备注">
-          <iep-div-detail :value="form.remarks"></iep-div-detail>
+          <iep-div-detail-switch :value="form.remarks"></iep-div-detail-switch>
         </iep-form-item>
 
         <iep-divider />

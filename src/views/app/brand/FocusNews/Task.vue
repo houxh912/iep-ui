@@ -13,10 +13,10 @@ export default {
   data () {
     return {
       leaderBoardList: [
-        { name: '第九届现代都市农业高层论坛', color: 'red',isShow:true,imgSrc:require('../images/banner3.jpg') },
-        { name: '第九届现代都市农业高层论坛', color: '',isShow:false },
-        { name: '第九届现代都市农业高层论坛', color: '',isShow:false },
-        { name: '第九届现代都市农业高层论坛', color: '' ,isShow:false},
+        { name: '第九届现代都市农业高层论坛', color: 'red', isShow: true, imgSrc: require('../images/banner3.jpg') },
+        { name: '第九届现代都市农业高层论坛', color: '', isShow: false },
+        { name: '第九届现代都市农业高层论坛', color: '', isShow: false },
+        { name: '第九届现代都市农业高层论坛', color: '', isShow: false },
       ],
     }
   },
@@ -28,6 +28,9 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   margin-bottom: 10px;
+  &:hover .img {
+    opacity: 0.7;
+  }
   cursor: pointer;
   .name {
     height: 26px;
@@ -56,11 +59,11 @@ export default {
   &:hover {
     color: #cb3737;
   }
-  .img{
-    display:block;
+  .img {
+    display: block;
     margin-top: 10px;
-    width:100%;
-    height:120px;
+    width: 100%;
+    height: 120px;
   }
 }
 </style>

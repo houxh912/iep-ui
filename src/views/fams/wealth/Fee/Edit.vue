@@ -1,17 +1,17 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}财务费用申请`" :back-option="backOption">
-        <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
-        <iep-button type="primary" @click="handleSubmit(true)">保存并发送</iep-button>
-      </page-header>
+      <iep-page-header :title="`${methodName}财务费用申请`" :back-option="backOption">
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">存为草稿</iep-button>
+        <iep-button :loading="submitFormLoading" @click="handlePublish()">保存并发送</iep-button>
+      </iep-page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="type" label="付款事项">
           <template slot-scope="scope">
             <iep-dict-cascader size="small" dictName="fams_expenditure_type" v-model="scope.row.type"></iep-dict-cascader>
           </template>
         </el-table-column>
-        <el-table-column label="收款单位账号及开户行">
+        <el-table-column label="收款单位、账号及开户行">
           <template slot-scope="scope">
             <el-input size="small" v-model="scope.row.bank"></el-input>
           </template>
@@ -32,11 +32,11 @@
       <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="140px" size="small">
 
         <iep-form-item label-name="报销组织" prop="orgId" class="form-half">
-          <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择报销组织"></iep-select>
+          <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择报销组织"></iep-select>
         </iep-form-item>
 
-        <iep-form-item v-if="!companyOption.disabled" class="form-half" prop="companyId" label-name="报销公司">
-          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="companyOption.prefixUrl" placeholder="请选择报销公司"></iep-select>
+        <iep-form-item class="form-half" prop="companyId" label-name="报销公司">
+          <iep-select v-model="form.companyId" filterable autocomplete="off" prefix-url="fams/company/all" placeholder="请选择报销公司"></iep-select>
         </iep-form-item>
 
         <el-form-item label="关联合同：" class="form-half">
@@ -48,7 +48,7 @@
         </el-form-item>
 
         <iep-form-item class="form-half" prop="auditor" label-name="部门核准">
-          <iep-contact-select v-model="form.auditor"></iep-contact-select>
+          <iep-contact-select v-model="form.auditor" placeholder="如只需财务核准，无需填写部门核准，直接发送即可"></iep-contact-select>
         </iep-form-item>
 
         <iep-form-item class="form-half" label-name="是否代缴">
@@ -59,11 +59,11 @@
         </iep-form-item>
 
         <iep-form-item v-if="form.isSubstitute" label-name="代缴组织" prop="ccOrgId" class="form-half">
-          <iep-select v-model="form.ccOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择代缴组织"></iep-select>
+          <iep-select v-model="form.ccOrgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择代缴组织"></iep-select>
         </iep-form-item>
 
-        <iep-form-item v-if="!ccCompanyOption.disabled" class="form-half" prop="ccCompanyId" label-name="代缴公司">
-          <iep-select v-model="form.ccCompanyId" autocomplete="off" :prefix-url="ccCompanyOption.prefixUrl" placeholder="请选择代缴公司"></iep-select>
+        <iep-form-item v-if="form.isSubstitute" class="form-half" prop="ccCompanyId" label-name="代缴公司">
+          <iep-select v-model="form.ccCompanyId" filterable autocomplete="off" prefix-url="fams/company/all" placeholder="请选择代缴公司"></iep-select>
         </iep-form-item>
 
         <iep-form-item label-name="备注">
@@ -96,6 +96,7 @@ export default {
       backOption: {
         isBack: true,
       },
+      isPublish: false,
     }
   },
   computed: {
@@ -108,30 +109,30 @@ export default {
     formRequestFn () {
       return this.id ? putFee : postFee
     },
-    companyOption () {
-      if (this.form.orgId) {
-        return {
-          disabled: false,
-          prefixUrl: `fams/company/${this.form.orgId}`,
-        }
-      } else {
-        return {
-          disabled: true,
-        }
-      }
-    },
-    ccCompanyOption () {
-      if (this.form.ccOrgId) {
-        return {
-          disabled: false,
-          prefixUrl: `fams/company/${this.form.ccOrgId}`,
-        }
-      } else {
-        return {
-          disabled: true,
-        }
-      }
-    },
+    // companyOption () {
+    //   if (this.form.orgId) {
+    //     return {
+    //       disabled: false,
+    //       prefixUrl: `fams/company/${this.form.orgId}`,
+    //     }
+    //   } else {
+    //     return {
+    //       disabled: true,
+    //     }
+    //   }
+    // },
+    // ccCompanyOption () {
+    //   if (this.form.ccOrgId) {
+    //     return {
+    //       disabled: false,
+    //       prefixUrl: `fams/company/${this.form.ccOrgId}`,
+    //     }
+    //   } else {
+    //     return {
+    //       disabled: true,
+    //     }
+    //   }
+    // },
   },
   created () {
     if (this.id) {
@@ -140,36 +141,35 @@ export default {
   },
   methods: {
     handleContractChange (v) {
-      if (v) {
-        this.form.projectId = v.id
-        this.form.projectName = v.name
-      }
+      this.form.projectId = v.id
+      this.form.projectName = v.name
+      this.form.auditor.id = v.userId
+      this.form.auditor.name = v.realName
     },
-    handleProjectChange (v) {
-      if (v) {
-        this.form.protocolId = v.id
-        this.form.protocolName = v.name
-      }
+    handleProjectChange (v, n, value) {
+      this.form.protocolId = v.id
+      this.form.protocolName = v.name
+      this.form.auditor.id = value.userId
+      this.form.auditor.name = value.realName
     },
-    async handleSubmit (isPublish = false) {
-      try {
-        await this.mixinsValidate()
-        if (this.tableData.length === 0) {
-          this.$message('报销数目至少存在一条')
-          return
-        }
-        this.form.relations = this.tableData
-        this.form.auditorId = this.form.auditor.id
-        this.formRequestFn(this.form, isPublish).then(({ data }) => {
-          if (data.data) {
-            this.$message.success('操作成功')
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-          }
-        })
-      } catch (object) {
-        this.mixinsMessage(object)
+    handlePublish () {
+      this.isPublish = true
+      this.mixinsSubmitFormGen()
+    },
+    async submitForm () {
+      const publish = this.isPublish
+      if (this.tableData.length === 0) {
+        this.$message('费用数目至少存在一条')
+        return
+      }
+      this.form.relations = this.tableData
+      this.form.auditorId = this.form.auditor.id
+      const { data } = await this.formRequestFn(this.form, publish)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
       }
     },
     loadPage () {

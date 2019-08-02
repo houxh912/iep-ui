@@ -53,3 +53,25 @@ export default {
   },
 }
 </script>
+<style scoped>
+.leaderBoard >>> .el-carousel__arrow {
+  background: none;
+}
+.leaderBoard >>> .el-carousel__arrow i {
+  font-size: 36px;
+  color: #666;
+}
+.leaderBoard >>> .el-carousel__item {
+  left: 25px;
+  width: 96%;
+}
+.leaderBoard >>> .el-carousel__arrow--left {
+  left: -10px;
+}
+.leaderBoard >>> .el-carousel__arrow--right {
+  right: -10px;
+}
+.leaderBoard >>> .el-carousel__indicators--horizontal {
+  display: none;
+}
+</style>

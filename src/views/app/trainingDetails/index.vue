@@ -19,7 +19,9 @@
         <IepAppTabCard :title="listTitle1">
           <div class="recommended-list">
             <div v-for="(item,index) in recommendedList" :key="index" class="piece" @click="handleDetail(item)">
-              <div class="img-con"><iep-img :src="item.themePictures" class="img"></iep-img></div>
+              <div class="img-con">
+                <iep-img :src="item.themePictures" class="img"></iep-img>
+              </div>
               <div class="box">
                 <div class="piece-title">
                   <span class="sub-title">{{item.trainingTheme}}</span>
@@ -49,7 +51,7 @@ export default {
       recommendedList: [],
       routerMatch: this.$route.matched,
       attachFileList: [
-        {name:'内网2.0改造项目'},
+        { name: '内网2.0改造项目' },
       ],
     }
   },
@@ -67,19 +69,19 @@ export default {
   },
   methods: {
     getTrainingDetail (id) {
-      getRecruitDetail(id).then(({data}) => {
+      getRecruitDetail(id).then(({ data }) => {
         this.detailData = data.data
       })
     },
     // 推荐主题
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
     // 培训预告
     getNoticeList () {
-      getNoticeList().then(({data}) => {
+      getNoticeList().then(({ data }) => {
         this.recommendedList = data.data
       })
     },
@@ -101,6 +103,7 @@ export default {
   margin: 0 auto 20px;
   border-top: 1px solid #eee;
   display: grid;
+  grid-column-gap: 30px;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
 }
@@ -153,6 +156,9 @@ export default {
         font-size: 12px;
         line-height: 28px;
         color: #999;
+        i {
+          margin-right: 5px;
+        }
       }
     }
     &:last-child {
@@ -169,9 +175,10 @@ export default {
 }
 .el-card {
   border: 0;
+  padding: 0 !important;
 }
 .library {
-  padding-right: 20px;
+  padding-right: 30px;
   border-right: 1px solid #ebeef5;
   .down-load {
     background-color: #fff;

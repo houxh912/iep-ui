@@ -1,11 +1,11 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织拆借"></page-header>
+      <iep-page-header title="组织拆借"></iep-page-header>
       <operation-container>
         <template slot="left">
           <el-dropdown>
-            <iep-button type="danger" icon="el-icon-plus" plain>
+            <iep-button type="primary" icon="el-icon-plus" plain>
               新增拆借<i class="el-icon-arrow-down el-icon--right"></i>
             </iep-button>
             <el-dropdown-menu slot="dropdown">

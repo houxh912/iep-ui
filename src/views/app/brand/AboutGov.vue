@@ -20,7 +20,7 @@
 export default {
   data () {
     return {
-      aboutGov: '长期以来，公司始终把打造国脉科技专业、诚信服务品牌位核心。长期以来，公司始终把打造国脉科技专业、诚信的服务品牌作为核心。长期以来，公司始终把打造国脉科技专业诚信的服务品牌作为核心',
+      aboutGov: '长期以来，公司始终把打造国脉科技专业、诚信服务品牌位核心。长期以来，公司始终把打造国脉科技专业、诚信的服务品牌作为核心。长期以来，公司始终把打造国脉科技专业诚信的服务品牌作为核心，公司始终把打造国脉科技专业诚信的服务品牌作为核心，公司始终把打造国脉科技专业诚信的服务品牌作为核心',
       dataList: ['国脉优势', '发展历程', '专家团队', '大事记'],
     }
   },
@@ -34,7 +34,7 @@ export default {
 }
 .title {
   flex: 2;
-  font-size: 16px;
+  font-size: 18px;
   height: 22px;
   line-height: 22px;
   color: #333;
@@ -44,14 +44,20 @@ export default {
   padding: 0;
   height: 22px;
   line-height: 22px;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 .aboutGov p {
+  padding-top: 8px;
+  height: 160px;
   font-size: 14px;
   color: #333;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 6;
   overflow: hidden;
+  text-align: justify;
 }
 .el-tag--info {
   padding: 0 20px;
@@ -62,8 +68,8 @@ export default {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-flow: row dense;
-  grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
   .piece {
     cursor: pointer;
     height: 30px;
@@ -80,14 +86,14 @@ export default {
 </style>
 <style scoped>
 .grid-content >>> .el-card__header {
-  padding: 18px 0 9px;
+  padding: 18px 0 18px;
 }
 .grid-content >>> .el-card__body {
-  padding: 0;
+  padding: 0 0 15px;
 }
 .grid-content >>> .el-card {
-  padding: 0 20px;
-  height: 310px;
+  padding: 0 15px;
+  height: 320px;
 }
 </style>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="input-wrapper">
-    <el-input :placeholder="placeholder" prefix-icon="el-icon-search" size="small" @keyup.enter.native="handleSearch" v-model="input" :maxlength="120">
+    <el-input :placeholder="placeholder" prefix-icon="el-icon-search" size="small" @keyup.enter.native="handleSearch" v-model="input" :maxlength="120" clearable>
       <iep-button class="search-btn" slot="append" @click="handleSearch">搜索</iep-button>
     </el-input>
     <el-popover v-if="advanceSearch" placement="bottom-end" width="350" trigger="click">
@@ -51,7 +51,7 @@ export default {
 .input-wrapper {
   display: flex;
   max-width: 350px;
-  margin:0 auto;
+  margin: 0 auto;
 }
 .input-wrapper > * {
   margin-right: 5px;

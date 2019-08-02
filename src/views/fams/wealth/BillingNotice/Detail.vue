@@ -1,9 +1,9 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header title="开票通知详情" :back-option="backOption">
-      </page-header>
-      <el-form ref="form" class="form-detail" :model="form" label-width="150px" size="small">
+      <iep-page-header title="开票通知详情" :back-option="backOption">
+      </iep-page-header>
+      <el-form ref="form" class="form-detail" :model="form" label-width="220px" size="small">
         <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" class="form-half">
           <iep-div-detail :value="form.buyerName"></iep-div-detail>
@@ -17,11 +17,11 @@
         <iep-form-item label-name="电话号码" class="form-half">
           <iep-div-detail :value="form.buyerPhone"></iep-div-detail>
         </iep-form-item>
-        <iep-form-item label-name="开户行及账户" class="form-half">
-          <iep-div-detail :value="form.buyerAccount"></iep-div-detail>
+        <iep-form-item label-name="开户行及账户">
+          <iep-div-detail-switch :value="form.buyerAccount"></iep-div-detail-switch>
         </iep-form-item>
-        <iep-form-item label-name="发票邮寄地址">
-          <iep-div-detail :value="form.buyerMail"></iep-div-detail>
+        <iep-form-item label-name="发票邮寄地址、联系人、电话">
+          <iep-div-detail-switch :value="form.buyerMail"></iep-div-detail-switch>
         </iep-form-item>
         <h4 class="iep-sub-title">货物或应税劳务、服务名称</h4>
         <iep-form-item label-name="一级科目" class="form-half">
@@ -41,6 +41,9 @@
         </iep-form-item>
         <iep-form-item label-name="金额" class="form-half">
           <iep-div-detail :value="form.amount"></iep-div-detail>
+        </iep-form-item>
+        <iep-form-item label-name="金额大写" class="form-half">
+          {{form.amount | parseToHanZiMoney}}
         </iep-form-item>
         <iep-form-item label-name="发票种类">
           <iep-div-detail :value="dictsMap.invoicingType[form.invoicingType]"></iep-div-detail>
@@ -75,7 +78,7 @@
           <iep-form-item label-name="状态">
             <iep-div-detail :value="dictsMap.status[form.status]"></iep-div-detail>
           </iep-form-item>
-          <iep-form-item label-name="理由">
+          <iep-form-item label-name="备注">
             <iep-div-detail :value="form.content"></iep-div-detail>
           </iep-form-item>
         </template>

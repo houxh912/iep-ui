@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="支出管理" class="data-title"></page-header>
+      <iep-page-header title="支出管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleExpenditure()" type="danger" icon="el-icon-plus" plain>添加支出</iep-button>
+          <iep-button @click="handleExpenditure()" type="primary" icon="el-icon-plus" plain>添加支出</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks"></operation-search>
@@ -31,6 +31,8 @@ export default {
     return {
       dictsMap,
       columnsMap,
+      statistics: [0, 0, 0],
+      replaceText: (data) => `（现金支出：${data[0]}元，银行存款支出${data[1]}元，总计支出${data[2]}元）`,
     }
   },
   computed: {
@@ -55,8 +57,9 @@ export default {
       this.$refs['DialogForm'].form.orgName = this.userInfo.orgName
       this.$refs['DialogForm'].dialogShow = true
     },
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getExpenditurePage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getExpenditurePage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

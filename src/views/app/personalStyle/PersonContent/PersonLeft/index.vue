@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="person-list">
+      <el-card class="box-card" shadow="hover">
+        <moreTemplate v-if="userInfoShow" :userInfo='userInfo' @handleClose="()=> {userInfoShow=false}"></moreTemplate>
+      </el-card>
       <IepAppTabsCard>
         <iep-tabs v-model="activeTab" :tab-list="tabList">
           <template v-if="activeTab ==='Project'" v-slot:Project>
@@ -27,7 +30,7 @@
         </iep-tabs>
       </IepAppTabsCard>
     </div>
-    <new-down :visitVOs="visitVOs"></new-down>
+    <new-down :visitVOs="visitVOs" :userInfo="userInfo"></new-down>
   </div>
 </template>
 <script>
@@ -39,6 +42,7 @@ import Customer from './Customer'
 import Business from './Business'
 import NewDown from './NewDown'
 import paper from './paper'
+import moreTemplate from './moreTemplate/'
 
 export default {
   components: {
@@ -50,8 +54,12 @@ export default {
     Business,
     NewDown,
     paper,
+    moreTemplate,
   },
   props: {
+    userInfo: {
+      type: Object,
+    },
     counts: {
       type: Object,
       default: () => {
@@ -59,6 +67,10 @@ export default {
           projectCount: 0,
         }
       },
+    },
+    user_info: {
+      type: Object,
+      default: () => { },
     },
     userId: {
       type: Number,
@@ -106,6 +118,7 @@ export default {
   data () {
     return {
       activeTab: '',
+      userInfoShow: true,
     }
   },
   watch: {
@@ -121,7 +134,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.box-card,
 .person-list {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 </style>

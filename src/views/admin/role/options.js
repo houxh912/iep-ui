@@ -1,4 +1,4 @@
-// org config options
+﻿// org config options
 //import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   dsType: {
@@ -8,6 +8,41 @@ const dictsMap = {
     3: '本级',
   },
 }
+
+const dsType = [
+  {
+    label: '全部',
+    value: 0,
+    disabled: false,
+  },
+  {
+    label: '本级及子级',
+    value: 2,
+    disabled: false,
+  },
+  {
+    label: '本级',
+    value: 3,
+    disabled: false,
+  },
+]
+const orgDsType = [
+  {
+    label: '全部',
+    value: 0,
+    disabled: true,
+  },
+  {
+    label: '本级及子级',
+    value: 2,
+    disabled: true,
+  },
+  {
+    label: '本级',
+    value: 3,
+    disabled: false,
+  },
+]
 
 const columnsMap = [
   {
@@ -21,6 +56,7 @@ const columnsMap = [
   {
     prop: 'roleDesc',
     label: '角色描述',
+    width:'280px',
   },
   {
     prop: 'dsType',
@@ -30,17 +66,18 @@ const columnsMap = [
   {
     prop: 'createTime',
     label: '创建时间',
+    width:'150px',
   },
 ]
 
 const initForm = () => {
   return {
-    roleId:'',
-    dsType: '',
+    roleId: '',
+    dsType: 3,
     roleCode: '',
     roleDesc: '',
     roleName: '',
   }
 }
 
-export { dictsMap, columnsMap, initForm }
+export { dictsMap, columnsMap, initForm, dsType, orgDsType }

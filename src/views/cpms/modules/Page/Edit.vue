@@ -2,7 +2,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}模块`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}模块`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
@@ -39,26 +39,20 @@
         </el-row>
         <div class="title">团队信息：</div>
         <el-row class="base">
-          <el-row>
-            <el-col :span="12">
-              <el-form-item label="负责人：" prop="userRelationCharges">
-                <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="需求方：">
-                <iep-contact-multiple-user v-model="form.userRelationDemands"></iep-contact-multiple-user>
-              </el-form-item>
-            </el-col>
-          </el-row>
+          <el-form-item label="负责人：" prop="userRelationCharges" class="form-half">
+            <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
+          </el-form-item>
+          <el-form-item label="需求方：" class="form-half">
+            <iep-contact-multiple-user v-model="form.userRelationDemands" :filter-user-list="filterUserList"></iep-contact-multiple-user>
+          </el-form-item>
           <el-form-item label="技术经理：" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationTechnologys"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="产品经理：" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationProducts"></iep-contact-multiple-user>
           </el-form-item>
-          <el-form-item label="团队成员：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationTeams"></iep-contact-multiple-user>
+          <el-form-item label="团队成员：">
+            <iep-contact-multiple-user v-model="form.userRelationTeams" :filter-user-list="filterUserList"></iep-contact-multiple-user>
           </el-form-item>
         </el-row>
         <div class="title">研发进度：</div>
@@ -90,7 +84,7 @@
         </el-row>
       </el-form>
       <FooterToolBar>
-        <iep-button type="primary" @click="submitForm">提交</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
       </FooterToolBar>
     </basic-container>
   </div>
@@ -99,6 +93,7 @@
 <script>
 import { getModuleById, postModule, putModule } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
+import formMixins from '@/mixins/formMixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import IepCpmsProductTable from '@/views/cpms/Components/ProductTable'
 import IepCpmsTechnologyTable from '@/views/cpms/Components/TechnologyTable'
@@ -106,7 +101,7 @@ import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
 import { dictsMap, initForm, toDtoForm, rules } from '../options'
 export default {
   name: 'edit',
-  mixins: [mixins],
+  mixins: [mixins, formMixins],
   components: {
     IepCpmsVersionTable,
     IepCpmsProductTable,
@@ -142,6 +137,17 @@ export default {
     methodName () {
       return this.isEdit ? '修改' : '新增'
     },
+    filterUserList () {
+      const filterUsers = []
+      filterUsers.push(...this.form.userRelationCharges)
+      filterUsers.push(...this.form.userRelationDemands)
+      filterUsers.push(...this.form.userRelationTechnologys)
+      filterUsers.push(...this.form.userRelationProducts)
+      filterUsers.push(...this.form.userRelationTeams)
+      let dupeArray = filterUsers.map(m => m.id)
+      let uniqueArray = Array.from(new Set(dupeArray))
+      return uniqueArray
+    },
   },
   created () {
     this.loadPage()
@@ -157,35 +163,13 @@ export default {
         })
       }
     },
-    handleEdit () {
-      this.$message.success('功能开发中')
-    },
-    handleDelete () {
-      this.$message.success('功能开发中')
-    },
-    handleAdd () {
-      this.$message.success('功能开发中')
-    },
-    resetForm () {
-      this.$message.success('功能开发中')
-    },
     async submitForm () {
-      try {
-        const valid = await this.$refs['form'].validate()
-        if (valid) {
-          const { data } = await this.formRequestFn(toDtoForm(this.form))
-          if (data.data) {
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-          }
-        }
-      } catch (error) {
-        console.log(error)
+      const { data } = await this.formRequestFn(toDtoForm(this.form))
+      if (data.data) {
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
       }
-    },
-    clear () {
-      this.$message.success('功能开发中')
     },
   },
 }

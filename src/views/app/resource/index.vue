@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <iep-app-layout>
     <div class="breadcrumb-wrapper">
       <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <router-view></router-view>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 export default {
@@ -33,7 +32,7 @@ export default {
   .breadcrumb-item {
     margin: 20px auto 0;
     width: 1200px;
-    padding: 0 0 20px 20px;
+    padding: 0 0 20px 0;
   }
 }
 </style>

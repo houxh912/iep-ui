@@ -55,19 +55,19 @@ export default {
   text-align: center;
   line-height: 1.7;
   color: #cb3737;
-  font-size: 24px;
+  font-size: 22px;
 }
 </style>
 <style scoped>
-.search-con >>> .el-button{
+.search-con >>> .el-button {
   background-color: #ba1b21;
-  color:#fff;
+  color: #fff;
   border-radius: 0 3px 3px 0;
-  width:80px;
-  height:39px;
+  width: 80px;
+  height: 39px;
 }
-.search >>> .el-card{
-  border:none;
+.search >>> .el-card {
+  border: none;
 }
 .search >>> .el-input--small input {
   height: 40px !important;

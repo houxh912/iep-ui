@@ -4,7 +4,7 @@
       <IepAppTabsCard :linkName="linkName">
         <iep-tabs v-model="activeTab" :tab-list="tabList">
           <template v-if="activeTab ==='Person'" v-slot:Person>
-            <person v-loading="activeTab !=='Person'" :isOut="isOut"></person>
+            <person v-loading="activeTab !=='Person'" :query="query"></person>
           </template>
           <template v-if="activeTab ==='Expert'" v-slot:Expert style="letter-spacing:18px;">
             <expert v-loading="activeTab !=='Expert'"></expert>
@@ -33,12 +33,12 @@ export default {
         value: 'Expert',
       }],
       activeTab: '',
-      isOut: '',
+      query: {},
     }
   },
   created () {
-    let query = this.$route.query
-    this.isOut = query.isOut ? query.isOut : ''
+    let query = this.query = this.$route.query
+    // this.isOut = query.isOut ? query.isOut : ''
     if (query.type == '1') {
       this.activeTab = 'Person'
     } else {
@@ -52,9 +52,10 @@ export default {
   padding: 0 20px 20px 20px;
 }
 .gird-expert {
-  width: 1200px;
-  padding: 0 0 25px 0;
   margin: 0 auto;
+  padding: 0 0 25px 0;
+  width: 1200px;
+  height: 100%;
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 25px;
@@ -78,7 +79,7 @@ export default {
   justify-content: center;
 }
 .gird-expert >>> .el-tabs__item {
-  font-size: 18px;
+  font-size: 22px;
 }
 .gird-expert >>> .el-tabs__header {
   margin-bottom: 30px;

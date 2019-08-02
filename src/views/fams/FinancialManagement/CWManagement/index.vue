@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="提现管理" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="提现管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleGrantBatch">批量发放</iep-button>
+          <iep-button @click="handleGrantBatch" type="primary" plain>批量发放</iep-button>
           <iep-button @click="handlePassBatch">批量通过</iep-button>
           <iep-button @click="handleRejectBatch">批量拒绝</iep-button>
         </template>
@@ -14,11 +14,11 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-        <el-table-column prop="operation" label="操作" width="240" fixed="right">
+        <el-table-column prop="operation" label="操作" width="230" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1" @click="handleGrant(scope.row)">发放</iep-button>
-              <iep-button v-if="scope.row.status===0" @click="handlePass(scope.row)">通过</iep-button>
+              <iep-button v-if="scope.row.status===1" @click="handleGrant(scope.row)" type="warning" plain>发放</iep-button>
+              <iep-button v-if="scope.row.status===0" @click="handlePass(scope.row)" type="warning" plain>通过</iep-button>
               <iep-button v-if="[0,1].includes(scope.row.status)" @click="handleReject(scope.row)">驳回</iep-button>
               <iep-button @click="handleRewards(scope.row)">财富流水</iep-button>
             </operation-wrapper>

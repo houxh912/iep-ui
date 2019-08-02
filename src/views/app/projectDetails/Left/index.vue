@@ -42,25 +42,23 @@ export default {
         label: '项目概况',
         value: 'Basic',
       }, {
-        label: '立项阶段',
-        value: 'Approval',
-      }, {
         label: '项目材料',
         value: 'Material',
       }],
       activeTab: 'Basic',
       linkName: '',
       projectData: {
-        projectManagerList: {id: '', name: ''},
+        projectManagerList: { id: '', name: '' },
       },
     }
   },
   methods: {
     getDataDetail (id) {
-      getDataDetail(id).then(({data}) => {
+      getDataDetail(id).then(({ data }) => {
         let obj = data.data
         obj.publisherName = obj.publisherList ? obj.publisherList.name : ''
-        obj.groupExternalCooperatePartnerName = obj.groupExternalCooperatePartnerList ? obj.groupExternalCooperatePartnerList.name : ''
+        obj.relatedClientName = obj.relatedClientList ? obj.relatedClientList.name : ''
+        console.log('projectData: ', obj)
         this.projectData = obj
       })
     },
@@ -77,15 +75,19 @@ export default {
   border-right: 1px solid #eee;
   .title {
     margin-top: 20px;
-    font-size: 20px;
+    font-size: 22px;
   }
   .post-con {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     .post {
       margin-right: 20px;
+      color: #666;
+      .name {
+        color: #333;
+      }
     }
   }
 }

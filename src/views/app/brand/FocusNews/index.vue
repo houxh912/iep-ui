@@ -1,5 +1,5 @@
 <template>
-  <div class="leaderBoard">
+  <div class="leaderBoard focus-news">
     <IepAppTabsCard>
       <iep-tabs v-model="activeTab" :tab-list="tabList" class="up">
         <template v-if="activeTab ==='News'" v-slot:News>
@@ -13,7 +13,7 @@
         </template>
       </iep-tabs>
       <div class="todyInfo">
-        <span>今日公告：</span>
+        <span style="font-weight:700;">今日公告：</span>
         <span>2019第十三届湖南连锁加盟</span>
       </div>
     </IepAppTabsCard>
@@ -48,17 +48,20 @@ export default {
 </script>
 <style scoped>
 .iep-tabs >>> .el-tabs__content {
-  padding-bottom:20px;
+  padding-bottom: 20px;
+}
+.focus-news >>> .el-card {
+  height: 384px;
 }
 </style>
 
 <style lang="scss" scoped>
-.up{
+.up {
   position: relative;
 }
 .todyInfo {
-  position:absolute;
-  width:312px;
+  position: absolute;
+  width: 312px;
   height: 32px;
   line-height: 32px;
   left: -20px;
@@ -68,7 +71,7 @@ export default {
   white-space: nowrap;
   background-color: #eee;
   text-align: center;
-  &:span:nth-child(1){
+  &:span:nth-child(1) {
     font-size: 16px;
     color: #333;
     font-weight: bold;

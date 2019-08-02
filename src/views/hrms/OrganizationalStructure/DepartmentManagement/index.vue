@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="部门管理"></page-header>
+      <iep-page-header title="部门管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -17,7 +17,7 @@
         </template>
       </operation-container>
       <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-tree>
-        <el-table-column prop="operation" label="操作">
+        <el-table-column prop="operation" label="操作" width="250">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button v-if="scope.row._level===1" icon="el-icon-plus" @click="handleAdd(scope.row)" type="warning" plain>子部门</iep-button>
@@ -93,7 +93,7 @@ export default {
       console.log(row)
       this.$refs['MergeDialog'].dialogShow = true
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getDeptPage)
     },
     add () {

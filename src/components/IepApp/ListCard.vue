@@ -36,15 +36,19 @@ export default {
     cursor: pointer;
     height: 30px;
     line-height: 30px;
-    color:#333;
+    color: #333;
     position: relative;
     padding-left: 15px;
-    overflow : hidden;
+    overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     transition-duration: 0.3s;
+    transition: 0.5s;
+    &:nth-child(1) {
+      margin-top: -7px;
+    }
     &:hover {
       color: #cb3737;
       &:before {

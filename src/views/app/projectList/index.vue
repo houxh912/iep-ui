@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="breadcrumb-wrapper">
+    <!-- <div class="breadcrumb-wrapper">
       <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
       </el-breadcrumb>
-    </div>
+    </div> -->
     <div class="wealth">
       <div class="library">
         <librarys ref="librarys" class="librarys"></librarys>
@@ -13,7 +13,6 @@
         <ranking></ranking>
       </div>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
   </div>
 </template>
 <script>
@@ -68,7 +67,7 @@ export default {
   .breadcrumb-item {
     margin: 20px auto 0;
     width: 1200px;
-    padding: 0 0 20px 20px;
+    padding: 0 0 20px 0;
   }
 }
 .wealth {
@@ -76,6 +75,7 @@ export default {
   margin: 0 auto;
   border-top: 1px solid #eee;
   display: grid;
+  grid-column-gap: 30px;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 900px) minmax(100px, 300px);
 }
@@ -83,7 +83,7 @@ export default {
   border: 0;
 }
 .library {
-  padding: 0 20px;
+  padding-right: 30px;
   border-right: 1px solid #ebeef5;
 }
 </style>

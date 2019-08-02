@@ -1,10 +1,10 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}开票通知-${dictsMap.invoicingType[this.form.invoicingType]}`" :back-option="backOption">
-        <iep-button type="primary" @click="handleSubmit()">保存</iep-button>
-      </page-header>
-      <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="200px" size="small">
+      <iep-page-header :title="`${methodName}开票通知-${dictsMap.invoicingType[this.form.invoicingType]}`" :back-option="backOption">
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">保存</iep-button>
+      </iep-page-header>
+      <el-form ref="form" class="form-detail" :model="form" :rules="rules" label-width="220px" size="small">
         <h4 class="iep-sub-title">购买方信息</h4>
         <iep-form-item label-name="名称" prop="buyerName" class="form-half">
           <el-input v-model="form.buyerName"></el-input>
@@ -21,12 +21,12 @@
         <iep-form-item label-name="开户行及账户" prop="buyerAccount" class="form-half">
           <el-input v-model="form.buyerAccount"></el-input>
         </iep-form-item>
-        <iep-form-item label-name="发票邮寄地址" prop="buyerMail">
+        <iep-form-item label-name="发票邮寄地址、联系人、电话" prop="buyerMail">
           <el-input v-model="form.buyerMail"></el-input>
         </iep-form-item>
         <h4 class="iep-sub-title">货物或应税劳务、服务名称</h4>
         <iep-form-item label-name="一级科目" prop="firstSubject" class="form-half">
-          <iep-dict-select v-model="form.firstSubject" dict-name="fams_tax_subject"></iep-dict-select>
+          <iep-dict-select v-model="form.firstSubject" dict-name="fams_tax_subject" placeholder="鉴证咨询服务和软件科目，北京公司不开"></iep-dict-select>
         </iep-form-item>
         <iep-form-item label-name="二级科目" prop="secondSubject" class="form-half">
           <el-input v-model="form.secondSubject"></el-input>
@@ -38,10 +38,13 @@
           </el-select>
         </iep-form-item>
         <iep-form-item label-name="单位" prop="unit" class="form-half">
-          <el-input v-model="form.unit"></el-input>
+          <el-input v-model="form.unit" placeholder="单位诠释：项、个"></el-input>
         </iep-form-item>
         <iep-form-item label-name="金额" prop="amount" class="form-half">
           <iep-input-number v-model="form.amount"></iep-input-number>
+        </iep-form-item>
+        <iep-form-item label-name="金额大写" class="form-half">
+          {{form.amount | parseToHanZiMoney}}
         </iep-form-item>
         <iep-form-item label-name="发票种类" prop="invoicingType">
           <el-select v-model="form.invoicingType" disabled>
@@ -54,10 +57,10 @@
         </iep-form-item>
         <h4 class="iep-sub-title">销售方</h4>
         <iep-form-item label-name="销售方组织" prop="orgId">
-          <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择销售方组织"></iep-select>
+          <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择销售方组织"></iep-select>
         </iep-form-item>
-        <iep-form-item v-if="!companyOption.disabled" label-name="销售方公司" prop="companyId">
-          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="companyOption.prefixUrl" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
+        <iep-form-item label-name="销售方公司" prop="companyId">
+          <iep-select v-model="form.companyId" filterable autocomplete="off" prefix-url="fams/company/all" @change="handleChangeCompanyId" placeholder="请选择销售方公司"></iep-select>
         </iep-form-item>
         <iep-form-item label-name="纳税人识别号">
           <span>{{companyForm.taxpayerNumber}}</span>
@@ -123,7 +126,7 @@ export default {
       return +this.$route.params.id
     },
     invoicingType () {
-      return +this.$route.query.invoicingType
+      return this.$route.query.invoicingType ? +this.$route.query.invoicingType : this.form.invoicingType
     },
     methodName () {
       return this.id ? '编辑' : '新增'
@@ -134,18 +137,18 @@ export default {
     rules () {
       return initRule(this.invoicingType)
     },
-    companyOption () {
-      if (this.form.orgId) {
-        return {
-          disabled: false,
-          prefixUrl: `fams/company/${this.form.orgId}`,
-        }
-      } else {
-        return {
-          disabled: true,
-        }
-      }
-    },
+    // companyOption () {
+    //   if (this.form.orgId) {
+    //     return {
+    //       disabled: false,
+    //       prefixUrl: `fams/company/${this.form.orgId}`,
+    //     }
+    //   } else {
+    //     return {
+    //       disabled: true,
+    //     }
+    //   }
+    // },
   },
   created () {
     if (this.id) {
@@ -163,24 +166,17 @@ export default {
       })
     },
     handleChangeCompanyId (value) {
-      console.log(value)
       getCompanyById(value).then(({ data }) => {
         this.companyForm = data.data
       })
     },
-    async handleSubmit () {
-      try {
-        await this.mixinsValidate()
-        this.formRequestFn(this.form).then(({ data }) => {
-          if (data.data) {
-            this.$message.success('操作成功')
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-          }
-        })
-      } catch (object) {
-        this.mixinsMessage(object)
+    async submitForm () {
+      const { data } = await this.formRequestFn(this.form)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
       }
     },
   },

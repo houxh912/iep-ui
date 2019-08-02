@@ -94,16 +94,17 @@
       </el-form>
     </el-card>
     <footer-tool-bar>
-      <iep-button @click="handleGoBack">返回</iep-button>
-      <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+      <iep-button :loading="submitFormLoading" @click="handleGoBack">返回</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
     </footer-tool-bar>
   </div>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import { getTalentPoolById } from '@/api/hrms/talent_pool'
 import { initForm, formToDto, workExpColumns, studyColumns, trainingColumns, certificateColumns, rules } from '../options'
-
 export default {
+  mixins: [formMixins],
   props: {
     record: {
       type: Object,
@@ -141,20 +142,14 @@ export default {
     handleGoBack () {
       this.$emit('onGoBack')
     },
-    handleSubmit () {
-      this.$refs['form'].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(formToDto(this.form)).then(({ data }) => {
-            if (data.data) {
-              this.$message({
-                message: `黑名单${this.methodName}成功`,
-                type: 'success',
-              })
-              this.$emit('onGoBack')
-            }
-          })
-        }
-      })
+    async submitForm () {
+      const { data } = await this.formRequestFn(formToDto(this.form))
+      if (data.data) {
+        this.$message.success(`黑名单${this.methodName}成功`)
+        this.$emit('onGoBack')
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

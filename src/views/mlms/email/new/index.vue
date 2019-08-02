@@ -1,7 +1,7 @@
 <template>
   <div class="new iep-page-form">
     <basic-container>
-      <page-header title="新建邮件" :backOption="backOption"></page-header>
+      <iep-page-header title="新建邮件" :backOption="backOption"></iep-page-header>
       <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" class="form">
         <el-form-item label="邮件类型：">
           <el-radio-group v-model="formData.type">
@@ -253,6 +253,7 @@ export default {
   }
   .relation {
     .item {
+      padding: 15px;
       border: 1px dashed #ddd;
       border-radius: 5px;
       .list {
@@ -269,6 +270,7 @@ export default {
           }
         }
       }
+      .el-form-item{margin-bottom: 0;}
     }
   }
 }

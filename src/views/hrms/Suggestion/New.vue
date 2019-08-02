@@ -1,26 +1,37 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}建议`">
+      <iep-page-header :title="`${methodName}建议`">
         <iep-button @click="back">返回建议列表</iep-button>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="140px" size="small">
         <iep-form-item class="form-half" label-name="建议主题" prop="theme">
           <el-input v-model="form.theme"></el-input>
+        </iep-form-item>
+
+        <iep-form-item class="form-half" label-name="反馈类型" prop="type">
+          <iep-dict-select v-model="form.type" dict-name="cpms_propose_type"></iep-dict-select>
+        </iep-form-item>
+
+        <iep-form-item prop="objectType" label-name="对象类型">
+          <el-radio-group v-model="form.objectType">
+            <el-radio :label="1">组织</el-radio>
+            <el-radio :label="2">联盟</el-radio>
+          </el-radio-group>
+        </iep-form-item>
+
+        <iep-form-item v-if="form.objectType === 1" prop="attendeeId" label-name="接收对象">
+          <iep-select v-model="form.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
         </iep-form-item>
 
         <iep-form-item class="form-half" prop="proposeContent" label-name="建议内容">
           <iep-input-area v-model="form.proposeContent"></iep-input-area>
         </iep-form-item>
 
-        <iep-form-item prop="attendeeId" label-name="接收对象">
-          <iep-select v-model="form.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
-        </iep-form-item>
-
         <iep-form-item class="form-half" prop="annexList" label-name="附件">
           <iep-upload v-model="form.annexList" :limit="limit"></iep-upload>
         </iep-form-item>
-        
+
         <el-form-item label="">
           <operation-wrapper>
             <iep-button type="primary" @click="handleSubmit">保存</iep-button>
@@ -69,7 +80,7 @@ export default {
       this.$router.history.go(-1)
     },
     handlePublish () {
-      this.form.status='1'
+      this.form.status = '1'
       this.handleSubmit(true)
     },
     handleSubmit (isPublish) {

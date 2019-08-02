@@ -1,42 +1,77 @@
 <template>
-  <component @onDetail="handleDetail" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <div>
+    <operation-container>
+      <template slot="right">
+        <operation-search @search-page="searchPage" prop="title">
+        </operation-search>
+      </template>
+      <template slot="left">
+        <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>新增</iep-button>
+        <el-dropdown size="medium">
+          <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item @click.native="handleDeleteBatch">删除</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </template>
+    </operation-container>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <el-table-column prop="operation" label="操作" width="220">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
+            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
+    </iep-table>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
+    <iep-review-confirm ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
+  </div>
 </template>
 <script>
-import List from './Page/List'
-// import Edit from './Page/Edit'
-// import Detail from './Page/Detail'
-
+import DialogForm from './DialogForm'
+import { getEventPage, postEvent, putEvent, deleteEventById, deleteEvent } from '@/api/goms/union'
+import mixins from '@/mixins/mixins'
+import { columnsMap, initForm, dictsMap } from './options'
 export default {
-  name: 'TableListWrapper',
-  components: { List },
+  components: { DialogForm },
+  mixins: [mixins],
   data () {
     return {
-      currentComponet: 'List',
-      record: '',
+      dictsMap,
+      columnsMap,
     }
   },
   created () {
-
+    this.loadPage()
   },
   methods: {
-    handleEdit () {
-      // this.record = record
-      // this.currentComponet = 'Edit'
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
     },
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
+    handleDeleteBatch () {
+      this._handleGlobalDeleteAll(deleteEvent)
     },
-    handleDetail () {
-      // this.record = record
-      // this.currentComponet = 'Detail'
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteEventById)
     },
-  },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
+    handleEdit (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].methodName = '修改'
+      this.$refs['DialogForm'].formRequestFn = putEvent
+      this.$refs['DialogForm'].dialogShow = true
+    },
+    handleAdd () {
+      this.$refs['DialogForm'].methodName = '创建'
+      this.$refs['DialogForm'].formRequestFn = postEvent
+      this.$refs['DialogForm'].dialogShow = true
+    },
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getEventPage)
     },
   },
 }
 </script>
+
+

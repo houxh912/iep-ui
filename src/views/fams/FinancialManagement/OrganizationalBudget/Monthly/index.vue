@@ -20,7 +20,7 @@
             <div @dblclick="handleDetail(item, scope)">{{getValue(item, scope, 'budget') | parseToMoney}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="actual" label="实际(元)">
+        <el-table-column prop="actual" label="实际支出(元)">
           <template slot-scope="scope">
             <div @dblclick="handleDetail(item, scope)">{{getValue(item, scope, 'actual') | parseToMoney}}</div>
           </template>

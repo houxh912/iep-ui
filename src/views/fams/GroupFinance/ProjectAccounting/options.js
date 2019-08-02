@@ -1,4 +1,4 @@
-import { getYear } from '@/util/date'
+﻿import { getYear } from '@/util/date'
 
 const rules = {
 	orgId: [
@@ -16,6 +16,7 @@ const columnsMap = [
 	{
 		prop: 'orgName',
 		label: '组织名称',
+                                width:'150',
 	},
 	{
 		prop: 'amount',
@@ -30,12 +31,12 @@ const columnsMap = [
 		label: '合同金额',
 	},
 	{
-		prop: 'projectIncome',
-		label: '到账金额',
+		prop: 'projectAmount',
+		label: '待签金额',
 	},
 	{
-		prop: 'signedAmount',
-		label: '待签金额',
+		prop: 'projectIncome',
+		label: '到账金额',
 	},
 	{
 		prop: 'invoicingAmount',
@@ -66,7 +67,7 @@ const toDtoSearchForm = (row) => {
 const toDtoForm = (row) => {
 	const newForm = { ...row }
 	newForm.year = getYear(row.year) || null
-	return newForm.year
+	return newForm
 }
 
 export { columnsMap, initForm, toDtoForm, initSearchForm, toDtoSearchForm, rules }

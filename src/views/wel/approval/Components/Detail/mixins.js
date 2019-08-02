@@ -14,7 +14,7 @@ export default {
     },
     form: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
@@ -50,7 +50,7 @@ export default {
       return this.form.approverList.map(m => m.id)
     },
     needApproval () {
-      return this.approvalUserIds.includes(this.userInfo.userId) && this.form.status === 0
+      return this.approvalUserIds.includes(this.userInfo.userId) && this.form.status === 0 && this.form.isDraft !== 1
     },
   },
   methods: {

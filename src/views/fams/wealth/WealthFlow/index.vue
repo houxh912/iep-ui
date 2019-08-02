@@ -1,8 +1,8 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${applyName}财富流水`" :replaceText="replaceText" :data="statistics"  :backOption="backOption">
-      </page-header>
+      <iep-page-header :title="`${applyName}财富流水`" :replaceText="replaceText" :data="statistics" :backOption="backOption">
+      </iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="remarks" advance-search>
@@ -28,7 +28,7 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      applyName:'',
+      applyName: '',
       backOption: {
         isBack: false,
       },
@@ -43,14 +43,14 @@ export default {
     ]),
   },
   created () {
-    this.applyName = this.$route.query.name? this.$route.query.name:''
-    this.backOption.isBack = this.$route.query.name? true:false
-    this.paramsId = this.$route.params.id
+    this.applyName = this.$route.query.name ? this.$route.query.name : ''
+    this.backOption.isBack = this.$route.query.name ? true : false
+    this.paramsId = this.$route.query.id || this.$route.params.id
     this.loadPage()
   },
   methods: {
     async loadPage (param = this.searchForm) {
-      const data = await this.loadTable({ ...param, userId: this.paramsId? this.paramsId:this.userInfo.userId }, getWealthFlowPage)
+      const data = await this.loadTable({ ...param, userId: this.paramsId ? this.paramsId : this.userInfo.userId }, getWealthFlowPage)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },

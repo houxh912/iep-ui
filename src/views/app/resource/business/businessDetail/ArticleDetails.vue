@@ -69,7 +69,7 @@ export default {
 .business-details {
   padding: 20px 0;
   .title {
-    font-size: 18px;
+    font-size: 22px;
     color: #333;
     height: 50px;
     line-height: 50px;
@@ -103,6 +103,10 @@ export default {
       top: 8px;
       font-size: 16px;
       color: #999;
+      cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
       > i {
         margin: 4px;
       }
@@ -137,6 +141,12 @@ export default {
         flex: 1;
         .el-tag {
           margin-right: 5px;
+          cursor: pointer;
+          &:hover {
+            background-color: #fef6f4;
+            border: 1px solid #dc8687;
+            color: #dc8687;
+          }
         }
       }
     }

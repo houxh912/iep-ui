@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <el-button style="float:right" class="modify" size="small" @click="handleEdit">修改</el-button>
+      <el-button style="float:right" class="modify" size="small" @click="handleEdit">编辑</el-button>
       <div class="org-detail-wrapper">
         <div class="content">
           <div class="top">
@@ -34,46 +34,50 @@
               </div>
             </div>
           </div>
-          <iep-divider dashed />
+          <!-- <iep-divider dashed /> -->
           <div class="bottom">
             <div class="title">
               组织标签
             </div>
             <div class="tag-wrapper">
               <div class="tag-item">
-                卓越标签：<iep-tag-detail :value="form.abilityTag"></iep-tag-detail>
+                卓越：<iep-tag-detail class="tag" :value="form.abilityTag"></iep-tag-detail>
               </div>
               <div class="tag-item">
-                专业标签：<iep-tag-detail :value="form.projectTag"></iep-tag-detail>
+                专业：<iep-tag-detail class="tag" :value="form.projectTag"></iep-tag-detail>
               </div>
               <div>
-                进步标签：<iep-tag-detail :value="form.learningTag"></iep-tag-detail>
+                进步：<iep-tag-detail class="tag" :value="form.learningTag"></iep-tag-detail>
               </div>
             </div>
           </div>
-          <iep-divider dashed />
+          <!-- <iep-divider dashed /> -->
           <div class="bottom">
             <div class="title">
               组织简介
             </div>
-            <pre>{{form.intro}}</pre>
+            <pre class="con-wrapper">{{form.intro}}</pre>
           </div>
-          <iep-divider dashed />
+          <!-- <iep-divider dashed /> -->
           <div class="bottom">
             <div class="title">
               组织架构
             </div>
-            <iep-html v-model="form.structure"></iep-html>
+            <div class="con-wrapper">
+              <iep-html v-model="form.structure"></iep-html>
+            </div>
           </div>
-          <iep-divider dashed />
+          <!--  <iep-divider dashed /> -->
           <div class="bottom">
             <div class="title">
               核心优势
             </div>
-            <pre>{{form.coreAdvantage}}</pre>
+            <div class="con-wrapper">
+              <pre>{{form.coreAdvantage}}</pre>
+            </div>
           </div>
         </div>
-        <iep-divider />
+        <!-- <iep-divider /> -->
         <div class="content"></div>
         <div class="content"></div>
       </div>
@@ -114,20 +118,19 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.tag-wrapper {
-  margin-left: 20px;
-  .tag-item {
-    margin-bottom: 10px;
-  }
+.tag-wrapper,
+.con-wrapper {
+  margin-left: 30px;
 }
 .org-detail-wrapper {
-  margin: 0 20px;
   .content {
     margin-bottom: 20px;
     .top {
       display: flex;
+      align-items: center;
       .img-wrapper {
-        width: 250px;
+        margin-right: 15px;
+        width: 220px;
         height: 150px;
         border: 1px solid #eee;
         padding: 5px;
@@ -137,29 +140,56 @@ export default {
         }
       }
       .info-wrapper {
-        margin-left: 20px;
-        padding: 10px;
+        padding: 5px;
         .title {
-          font-size: 20px;
           margin-bottom: 10px;
+          font-size: 18px;
         }
         .col {
           display: flex;
-          font-size: 16px;
+          font-size: 14px;
           .form-item-wrapper {
-            padding: 10px 0;
+            padding: 5px 0;
             margin-right: 10px;
           }
         }
       }
     }
     .bottom {
-      padding: 20px;
+      margin-top: 35px;
       .title {
-        font-size: 20px;
-        margin-bottom: 10px;
+        font-size: 16px;
+        margin-bottom: 20px;
       }
     }
   }
+}
+</style>
+<style scoped>
+.tag >>> span {
+  position: relative;
+  padding: 0 10px;
+}
+.tag >>> .ant-tag {
+  border: 0;
+  margin: 0;
+  margin-bottom: 5px;
+  background: none;
+}
+.tag >>> span:before {
+  position: absolute;
+  content: "";
+  top: 10px;
+  right: -7px;
+  width: 15px;
+  height: 1px;
+  background-color: #aaa;
+  transform: rotate(125deg);
+  -o-transform: rotate(125deg);
+  -moz-transform: rotate(125deg);
+  -webkit-transform: rotate(125deg);
+}
+.tag >>> span:last-child::before {
+  background-color: #fff;
 }
 </style>

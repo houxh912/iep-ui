@@ -16,3 +16,10 @@ export function reward (obj) {
     data: obj,
   })
 }
+
+export function openAccount () {
+  return request({
+    url: `${prefixUrl}/open/send`,
+    method: 'get',
+  })
+}

@@ -2,7 +2,7 @@
   <div :oncontextmenu="`return ${formData.secrecyLevel == 1 ? false : true}`" :onselectstart="`return ${formData.secrecyLevel == 1 ? false : true}`">
     <basic-container>
       <el-col class="left">
-        <page-header :title="formData.materialName" :backOption="backOption"></page-header>
+        <iep-page-header :title="formData.materialName" :backOption="backOption"></iep-page-header>
 
         <el-row class="info">
           <div class="person">
@@ -203,11 +203,7 @@ export default {
       //   this.$message.error('对不起，您的余额不足！')
       //   return
       // }
-      this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
+      let fn = () => {
         downloadCount(this.formData.id).then(({ data }) => {
           if (data.data) {
             downloadFile(obj)
@@ -215,7 +211,18 @@ export default {
             this.$message.error(data.msg)
           }
         })
-      }).catch(() => {})
+      }
+      if (this.getMoney(this.formData.downloadCost) == 0) {
+        fn()
+      } else {
+        this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          fn()
+        }).catch(() => { })
+      }
     },
     handleDetail (row) {
       this.$router.push(`/mlms_spa/material/detail/${row.id}`)
@@ -253,7 +260,7 @@ export default {
         this.$message.error('无法向自己拜师')
         return
       }
-      this.ApprenticeApply({id: this.formData.creator, name: this.formData.creatorRealName})
+      this.ApprenticeApply({ id: this.formData.creator, name: this.formData.creatorRealName })
     },
     // 收藏
     handleCollect () {
@@ -290,7 +297,7 @@ export default {
         this.$message.error('无法向自己打赏')
         return
       }
-      this.famsReward({id: this.formData.creator, name: this.formData.creatorRealName})
+      this.famsReward({ id: this.formData.creator, name: this.formData.creatorRealName })
     },
     // 收藏和分享的返回函数
     loadPage () {
@@ -399,6 +406,9 @@ export default {
     margin-bottom: 20px;
     .file {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
       i {
         font-size: 16px !important;
         margin-right: 10px;
@@ -406,6 +416,10 @@ export default {
       .tip {
         margin-left: 10px;
         color: #999;
+      }
+      &:hover i,
+      &:hover .tip {
+        color: #cb3737;
       }
     }
   }
@@ -551,6 +565,9 @@ export default {
     }
     p {
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
     }
   }
 }

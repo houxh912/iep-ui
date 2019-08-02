@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header title="员工信息管理"></page-header>
+      <iep-page-header title="员工信息管理"></iep-page-header>
       <el-form v-loading="formLoading" ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
         <iep-tab-scroll :tab-list="tabList" :height="270">
           <div>
@@ -17,7 +17,7 @@
       <!-- fixed footer toolbar -->
       <footer-tool-bar>
         <iep-button @click="handleGoBack">返回</iep-button>
-        <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="handleSubmit">提交</iep-button>
       </footer-tool-bar>
     </basic-container>
   </div>
@@ -84,40 +84,23 @@ export default {
     this.loadPage()
   },
   methods: {
-    async handleSave () {
-      try {
-        await this.mixinsValidate()
-        try {
-          const { data } = await this.formRequestFn(formToDto(this.form))
-          if (data.data) {
-            return true
-          } else {
-            this.$message({
-              message: data.msg,
-              type: 'error',
-            })
-            return false
-          }
-        } catch (error) {
-          this.$message({
-            message: error.message,
-            type: 'error',
-          })
-          return false
-        }
-      } catch (object) {
-        this.mixinsMessage(object)
+    async submitForm () {
+      const { data } = await this.formRequestFn(formToDto(this.form))
+      if (data.data) {
+        return true
+      } else {
+        this.$message.error(data.msg)
         return false
       }
     },
     async handleAutoSubmit () {
-      const res = await this.handleSave()
+      const res = await this.mixinsSubmitFormGen()
       if (res) {
         this.loadPage()
       }
     },
     async handleSubmit () {
-      const res = await this.handleSave()
+      const res = await this.mixinsSubmitFormGen()
       if (res) {
         this.$message({
           message: '修改成功',

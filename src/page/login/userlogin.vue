@@ -149,7 +149,6 @@ export default {
             const data = await this.GetMenu()
             await this.LoadAllDictMap()
             this.$router.$avueRouter.formatRoutes(data, true)
-            console.log(this.$route)
             if (this.$route.query.redirect) {
               this.$router.push({ path: this.$route.query.redirect })
             } else {

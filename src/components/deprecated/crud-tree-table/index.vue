@@ -166,6 +166,7 @@ export default {
   }
   & > .cell {
     display: flex;
+    align-items: center;
     span.ms-tree-space {
       display: block;
     }

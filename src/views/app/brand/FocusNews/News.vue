@@ -13,10 +13,10 @@ export default {
   data () {
     return {
       leaderBoardList: [
-        { name: '首届长三角营商环境论坛在沪召开的', color: 'red',isShow:true,imgSrc:require('../images/banner1.png') },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '',isShow:false },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '',isShow:false },
-        { name: '首届长三角营商环境论坛在沪召开的', color: '' ,isShow:false},
+        { name: '首届长三角营商环境论坛在沪召开的', color: 'red', isShow: true, imgSrc: require('../images/banner1.png') },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '', isShow: false },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '', isShow: false },
+        { name: '首届长三角营商环境论坛在沪召开的', color: '', isShow: false },
       ],
     }
   },
@@ -28,6 +28,9 @@ export default {
   white-space: nowrap;
   margin-bottom: 10px;
   cursor: pointer;
+  &:hover .img {
+    opacity: 0.7;
+  }
   .name {
     height: 26px;
     line-height: 26px;
@@ -55,11 +58,11 @@ export default {
   &:hover {
     color: #cb3737;
   }
-  .img{
-    display:block;
+  .img {
+    display: block;
     margin-top: 10px;
-    width:100%;
-    height:120px;
+    width: 100%;
+    height: 120px;
   }
 }
 </style>

@@ -105,6 +105,7 @@ export default {
     .list-item-description {
       display: flex;
       justify-content: flex-start;
+      align-items: center;
       font-size: 12px;
       .time,
       .see {

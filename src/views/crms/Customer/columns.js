@@ -1,9 +1,11 @@
+﻿const dictsMap = {
+  isContract: {
+    1: '是',
+    2: '否',
+  },
+}
 const columnsMapByTypeId = [
   [
-    // {
-    //   label: '业务类型',
-    //   prop: 'businessType',
-    // },
     {
       label: '区域类型',
       prop: 'districtTypeName',
@@ -12,20 +14,12 @@ const columnsMapByTypeId = [
       label: '客户关系',
       prop: 'clientRelaName',
     },
-    // {
-    //   label: '跟进状态',
-    //   prop: 'followUpStatusName',
-    // },
     {
       label: '市场经理',
       prop: 'marketManagerName',
     },
   ],
   [
-    // {
-    //   label: '业务类型',
-    //   prop: 'businessType',
-    // },
     {
       label: '区域类型',
       prop: 'districtTypeName',
@@ -34,16 +28,13 @@ const columnsMapByTypeId = [
       label: '客户关系',
       prop: 'clientRelaName',
     },
-    // {
-    //   label: '跟进状态',
-    //   prop: 'followUpStatusName',
-    // },
+    {
+      label: '签订合同',
+      prop: 'isContract',
+      type: 'dict',
+    },
   ],
   [
-    // {
-    //   label: '业务类型',
-    //   prop: 'businessType',
-    // },
     {
       label: '区域类型',
       prop: 'districtTypeName',
@@ -52,13 +43,14 @@ const columnsMapByTypeId = [
       label: '客户关系',
       prop: 'clientRelaName',
     },
-    // {
-    //   label: '跟进状态',
-    //   prop: 'followUpStatusName',
-    // },
     {
       label: '市场经理',
       prop: 'marketManagerName',
+    },
+    {
+      label: '签订合同',
+      prop: 'isContract',
+      type: 'dict',
     },
   ],
   [
@@ -86,8 +78,9 @@ const tabList = [
     value: '1',
   },
   {
-    label: '公海客户',
+    label: '公海库',
     value: '4',
   },
 ]
-export { columnsMapByTypeId, tabList }
+
+export { columnsMapByTypeId, tabList, dictsMap }

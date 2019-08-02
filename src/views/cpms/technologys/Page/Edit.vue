@@ -2,7 +2,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}技术`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}技术`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
@@ -54,7 +54,7 @@
         </el-row>
       </el-form>
       <FooterToolBar>
-        <iep-button type="primary" @click="submitForm">提交</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
       </FooterToolBar>
     </basic-container>
   </div>
@@ -63,6 +63,7 @@
 <script>
 import { getTechnologyById, postTechnology, putTechnology } from '@/api/cpms/technology'
 import mixins from '@/mixins/mixins'
+import formMixins from '@/mixins/formMixins'
 import { dictsMap, initForm, toDtoForm, rules } from '../options'
 import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
@@ -73,7 +74,7 @@ export default {
     IepCpmsMaterialTable,
     IepCpmsTechnologyTable,
   },
-  mixins: [mixins],
+  mixins: [mixins, formMixins],
   props: {
     record: {
       type: Object,
@@ -115,35 +116,13 @@ export default {
         })
       }
     },
-    handleEdit () {
-      this.$message.success('功能开发中')
-    },
-    handleDelete () {
-      this.$message.success('功能开发中')
-    },
-    handleAdd () {
-      this.$message.success('功能开发中')
-    },
-    resetForm () {
-      this.$message.success('功能开发中')
-    },
     async submitForm () {
-      try {
-        const valid = await this.$refs['form'].validate()
-        if (valid) {
-          const { data } = await this.formRequestFn(toDtoForm(this.form))
-          if (data.data) {
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-          }
-        }
-      } catch (error) {
-        console.log(error)
+      const { data } = await this.formRequestFn(toDtoForm(this.form))
+      if (data.data) {
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
       }
-    },
-    clear () {
-      this.$message.success('功能开发中')
     },
   },
 }
@@ -159,43 +138,6 @@ export default {
   padding-left: 20px;
   padding-right: 20%;
   margin-bottom: 30px;
-  .module {
-    width: 150px;
-    height: 150px;
-    margin-right: 40px;
-    display: inline-block;
-    padding: 10px 25px;
-    border: 1px solid #ccc;
-    position: relative;
-    .clear {
-      position: absolute;
-      right: 10px;
-      .icon-shanchu1 {
-        font-size: 12px !important;
-        padding: 4px;
-        border: 1px solid #ccc;
-        border-radius: 50%;
-      }
-    }
-    .img {
-      padding: 5px;
-      img {
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        display: block;
-        box-sizing: border-box;
-      }
-    }
-    .module-title {
-      width: 100%;
-      padding-top: 10px;
-      text-align: center;
-    }
-  }
-}
-.el-form {
-  margin: 0;
 }
 .last {
   padding-bottom: 20px;

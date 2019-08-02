@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="开票申请"></page-header>
+      <iep-page-header title="开票申请"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -18,10 +18,10 @@
         <el-table-column label="操作" width="200px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===0" @click.stop="handleSend(scope.row)">发送</iep-button>
-              <iep-button v-if="scope.row.status===0" @click.stop="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="[0,3,5].includes(scope.row.status)" @click.stop="handleSend(scope.row)" type="warning" plain>发送</iep-button>
+              <iep-button v-if="[0,3,5].includes(scope.row.status)" @click.stop="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="scope.row.status===1" @click.stop="handleCancel(scope.row)">撤回</iep-button>
-              <iep-button v-if="scope.row.status===0" @click.stop="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="[0,3,5].includes(scope.row.status)" @click.stop="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

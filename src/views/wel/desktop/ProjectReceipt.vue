@@ -7,23 +7,12 @@
             <span class="sub-title">项目核算</span>
           </template>
           <template slot="right">
-            <operation-search
-              @search-page="searchPage"
-              prop="projectName"
-              placeholder="请输入项目名称进行搜索"
-            ></operation-search>
+            <operation-search @search-page="searchPage" prop="projectName" placeholder="请输入项目名称进行搜索"></operation-search>
           </template>
         </operation-container>
-        <iep-divider/>
+        <iep-divider />
         <div class="chart">
-          <iep-table
-            :isLoadTable="isLoadTable"
-            :pagination="pagination"
-            :columnsMap="columnsMap"
-            :pagedTable="pagedTable"
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-          ></iep-table>
+          <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"></iep-table>
         </div>
       </el-card>
     </div>
@@ -79,7 +68,7 @@ export default {
     },
   },
   methods: {
-    async loadPage (param = this.searchParam) {
+    async loadPage (param = this.searchForm) {
       const pageFunction = this.isAbled ? getProjectPageByOrgId(this.orgId) : getProjectPage
       await this.loadTable(param, pageFunction)
     },

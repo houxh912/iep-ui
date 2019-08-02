@@ -1,4 +1,4 @@
-const dictsMap = {
+﻿const dictsMap = {
   type: {
     'A': '收入',
     'L': '支出',
@@ -30,13 +30,22 @@ const columnsMap = [
   {
     prop: 'createTime',
     label: '日期',
+    width: 150,
   },
   {
     prop: 'remarks',
     label: '备注',
     minWidth: 200,
+    type: 'detail',
   },
 ]
 
+const initSearchForm = () => {
+  return {
+    category: '', // category
+    type: '', // type
+  }
+}
 
-export { columnsMap, dictsMap }
+
+export { columnsMap, dictsMap, initSearchForm }

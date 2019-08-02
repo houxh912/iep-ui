@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="资金调拨"></page-header>
+      <iep-page-header title="资金调拨"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增</iep-button>
@@ -15,7 +15,7 @@
         <el-table-column label="操作" width="100">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===0" @click.stop="handleRevoke(scope.row)">撤回</iep-button>
+              <iep-button v-if="scope.row.status===0" @click.stop="handleRevoke(scope.row)" type="warning" plain>撤回</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

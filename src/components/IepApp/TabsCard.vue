@@ -43,6 +43,10 @@ export default {
   padding: 0;
   color: #999;
   z-index: 3;
+  transition: all 0.5s;
+}
+.btn:hover {
+  color: #cb3737;
 }
 .index-card >>> .el-tabs__nav {
   line-height: 59px;

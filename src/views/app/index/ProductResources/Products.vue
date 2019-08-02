@@ -50,7 +50,7 @@ export default {
     }
   }
   .img {
-    width: 130px;
+    width: 80px;
     height: 80px;
     float: left;
     margin: 0 15px 0 0;
@@ -63,7 +63,7 @@ export default {
     }
   }
   .box {
-    width: 355px;
+    width: 418px;
     height: 80px;
     float: left;
     .name {
@@ -89,8 +89,7 @@ export default {
 </style>
 <style scoped>
 .products >>> .el-image__inner {
-  width: 140px;
-  height: 80px;
+  max-width: 80px;
   transition: 0.5s;
 }
 </style>

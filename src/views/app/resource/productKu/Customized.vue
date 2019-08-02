@@ -1,26 +1,25 @@
 <template>
-  <div>
+  <div class="product-ku">
     <search @search-page="searchData"></search>
     <div class="module">
-      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
+      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover" @click.native="handleleDetail(item)">
         <div class="content">
           <div class="img">
-            <iep-img :src="item.imageUrl" alt=""></iep-img>
+            <iep-img :src="item.imageUrl" alt></iep-img>
           </div>
           <div class="text">
             <h4 class="item-title">{{item.name}}</h4>
             <p class="con">{{item.synopsis}}</p>
             <div class="header clearfix">
-              <span class="price">指导价：¥{{item.valuation}}</span>
-              <!-- <el-button icon="el-icon-plus"></el-button> -->
+              <span class="price">产品估值：¥{{item.valuation}}</span>
+              <el-button @click.stop="handleProductClick(item.id)" icon="el-icon-plus"></el-button>
             </div>
           </div>
         </div>
       </el-card>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
-      </el-pagination>
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
   </div>
 </template>
@@ -28,6 +27,7 @@
 <script>
 import Search from './Search'
 import { getDetailsPage } from '@/api/app/cpms/channel'
+import { putProductById } from '@/api/app/cpms/custom_module'
 
 export default {
   data () {
@@ -56,9 +56,17 @@ export default {
         this.total = data.data.total
       })
     },
+    handleProductClick (productId) {
+      putProductById(productId).then(() => {
+        this.$emit('click-add')
+      })
+    },
     currentChange (val) {
       this.params.current = val
       this.getDetailsPage()
+    },
+    handleleDetail (row) {
+      this.$router.push(`/app/product_detail/${row.id}`)
     },
   },
   created () {
@@ -80,13 +88,14 @@ export default {
   display: grid;
   margin: 25px 0;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
-  grid-column-gap: 25px;
+  grid-row-gap: 30px;
+  grid-column-gap: 30px;
   grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
       100px,
       3fr
     );
   .module-item {
+    cursor: pointer;
     .img {
       margin-right: 15px;
       width: 120px;
@@ -122,7 +131,7 @@ export default {
       width: 55%;
       .item-title {
         max-width: 210px;
-        font-size: 15px;
+        font-size: 16px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;

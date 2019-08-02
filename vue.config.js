@@ -1,37 +1,68 @@
 const utils = require('./config/utils')
+const cacheGroups = require('./config/cacheGroups')
 const devServer = require('./config/devServer')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production'
+const externals = {
+  'vue': 'Vue',
+  'vue-router': 'VueRouter',
+  'vuex': 'Vuex',
+  'axios': 'axios',
+  'element-ui': 'ELEMENT'
+}
+const commonCss = [
+  '/cdn/animate/animate.css',
+  '/cdn/iconfont/index.css',
+  '/cdn/iep/index.css',
+  '/cdn/avue.index.css',
+  '/cdn/element-ui.css',
+  '/cdn/froala-editor/css/froala_editor.pkgd.min.css',
+  '/cdn/froala-editor/css/froala_style.min.css',
+  '/cdn/froala-editor/css/themes/gray.min.css',
+]
+const commonJs = [
+  '/cdn/jquery.min.js',
+  '/cdn/froala-editor/froala_editor.pkgd.min.js',
+  '/cdn/froala-editor/zh_cn.js',
+]
+// CDN外链，会插入到index.html中
 const cdn = {
-  css: [],
-  js: [
-    '//unpkg.com/vue@2.6.10/dist/vue.runtime.min.js',
-    '//unpkg.com/vue-router@3.0.4/dist/vue-router.min.js',
-    '//unpkg.com/vuex@3.0.1/dist/vuex.min.js',
-    '//unpkg.com/axios@0.19.0/dist/axios.min.js',
-  ],
+  // 开发环境
+  dev: {
+    css: [...commonCss],
+    js: [...commonJs]
+  },
+  // 生产环境
+  build: {
+    css: [...commonCss],
+    js: [
+      ...commonJs,
+      '/cdn/vue.runtime.min.js',
+      '/cdn/vue-router.min.js',
+      '/cdn/vuex.min.js',
+      '/cdn/axios.min.js',
+      '/cdn/element-ui.js'
+    ]
+  }
 }
 
 module.exports = {
   lintOnSave: true,
   chainWebpack: config => {
-    config.entry('index').add('babel-polyfill').end()
+    // config.entry('index').add('babel-polyfill').end()
+    config.plugin('html').tap(args => {
+      if (isProduction) {
+        args[0].cdn = cdn.build
+      } else {
+        args[0].cdn = cdn.dev
+      }
+      return args
+    })
     if (isProduction) {
       // 删除预加载
-      config.plugins.delete('preload')
-      config.plugins.delete('prefetch')
-      // 压缩代码
-      config.optimization.minimize(true)
-      // 分割代码
-      config.optimization.splitChunks({
-        chunks: 'all',
-      })
-      // 生产环境注入cdn
-      config.plugin('html').tap(args => {
-        args[0].cdn = cdn
-        return args
-      })
+      // config.plugins.delete('preload')
+      // config.plugins.delete('prefetch')
     }
     config
       .plugin('webpack-context-replacement')
@@ -56,25 +87,38 @@ module.exports = {
   configureWebpack: config => {
     if (isProduction) {
       // 用cdn方式引入
-      config.externals = {
-        'vue': 'Vue',
-        'vuex': 'Vuex',
-        'vue-router': 'VueRouter',
-        'axios': 'axios',
+      config.optimization = {
+        minimizer: [
+          new TerserPlugin({
+            cache: true,
+            parallel: true,
+            sourceMap: false, // Must be set to true if using source-maps in production
+            terserOptions: {
+              compress: {
+                warnings: false,
+                drop_debugger: true,
+                // drop_console: true,
+              }
+              // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
+            }
+          }),
+        ],
+        providedExports: true,
+        usedExports: true,
+        //识别package.json中的sideEffects以剔除无用的模块，用来做tree-shake
+        //依赖于optimization.providedExports和optimization.usedExports
+        sideEffects: true,
+        //取代 new webpack.optimize.ModuleConcatenationPlugin()
+        concatenateModules: true,
+        //取代 new webpack.NoEmitOnErrorsPlugin()，编译错误时不打印输出资源。
+        noEmitOnErrors: true,
+        splitChunks: {
+          // maxAsyncRequests: 1,                     // 最大异步请求数， 默认1
+          // maxInitialRequests: 1,                   // 最大初始化请求书，默认1
+          cacheGroups: cacheGroups.cacheGroups
+        }
       }
-      // 为生产环境修改配置...
-      config.plugins.push(
-        //生产环境自动删除console
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            warnings: false,
-            drop_debugger: true,
-            // drop_console: true,
-          },
-          sourceMap: false,
-          parallel: true,
-        })
-      )
+      config.externals = externals
     } else {
       // 为开发环境修改配置...
     }

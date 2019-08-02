@@ -10,7 +10,7 @@
               <el-dropdown-item @click.native="handleDeleteByIds" v-if="!lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <el-checkbox v-model="lookByMeOnly" @change="changeGetWay">查看全部</el-checkbox>
+          <el-checkbox class="see-more" v-model="lookByMeOnly" @change="changeGetWay">查看全部</el-checkbox>
         </template>
         <template slot="right">
           <searchForm @searchPage="searchPage"></searchForm>
@@ -21,7 +21,11 @@
           <el-table-column label="合同名称" min-width="200px">
             <template slot-scope="scope">
               <div class="row-tpl" @click="handleDetail(scope.row)">
-                <div class="custom-name">{{scope.row.contractName}}</div>
+                <div class="custom-name">
+                  {{scope.row.contractName}}
+                  <el-tag type="warning" size="mini" v-if="scope.row.isHistory === 2">历</el-tag>
+                  <el-tag type="success" size="mini" v-if="scope.row.contractType === '0'">内</el-tag>
+                </div>
                 <el-col class="custom-tags">
                   <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
                 </el-col>
@@ -29,7 +33,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="180" v-if="!lookByMeOnly || permission_edit_del">
+        <el-table-column prop="operation" label="操作" width="150" v-if="!lookByMeOnly || permission_edit_del">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
@@ -121,6 +125,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.see-more {
+  margin-left: 5px;
+}
 .info {
   color: #666;
   padding: 8px 18px;
@@ -135,16 +142,20 @@ export default {
   width: 100%;
   cursor: pointer;
   .custom-name {
-    margin-bottom: 10px;
     width: 100%;
   }
   .custom-tags {
-    margin: 0;
+    margin-top: 10px;
     .el-tag {
       margin: 0 5px 5px 0;
       height: 26px;
       line-height: 26px;
     }
   }
+}
+</style>
+<style scoped>
+.see-more >>> .el-checkbox__label {
+  padding-left: 5px;
 }
 </style>

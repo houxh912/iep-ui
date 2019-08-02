@@ -14,6 +14,7 @@ const statusMap = {
   '3': 3,
   '10': 3,
   '7': 3,
+  '9': 3,
 }
 
 const initForm = (config) => {
@@ -40,19 +41,19 @@ const calculaterDate = (day) => {
 
 const rules = {
   borrowOutOrgId: [
-    { required: true, message: '请选择借出组织', trigger: 'blur' },
+    { required: true, message: '请选择借出组织', trigger: 'change' },
   ],
   borrowMoneyType: [
     { required: true, message: '请选择支付方式', trigger: 'blur' },
   ],
   borrowDays: [
-    { type:'number', required: true, message: '输入的天数 7 天或 7 天以上', trigger: 'blur', min: 7  },
+    { type: 'number', required: true, message: '输入的天数 7 天或 7 天以上', trigger: 'blur', min: 7 },
   ],
   borrowInCompanyId: [
-    { required: true, message: '请选择收款公司', trigger: 'blur' },
+    { required: true, message: '请选择收款公司', trigger: 'change' },
   ],
   borrowAmount: [
-    { type:'number', required: true, message: '输入的金额至少大于0元', trigger: 'blur', min:1 },
+    { type: 'number', required: true, message: '输入的金额至少大于0元', trigger: 'blur', min: 1 },
   ],
 }
 

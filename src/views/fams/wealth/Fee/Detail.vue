@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="查看财务费用申请" :back-option="backOption">
+      <iep-page-header title="查看财务费用申请" :back-option="backOption">
         <template v-if="form.status===1 && isApproval">
           <iep-button @click="handlePass(form, false)">通过</iep-button>
           <iep-button @click="handleReject(form, false)">驳回</iep-button>
@@ -11,7 +11,7 @@
           <iep-button @click="handlePass(form, true)">通过</iep-button>
           <iep-button @click="handleReject(form, true)">驳回</iep-button>
         </template>
-      </page-header>
+      </iep-page-header>
       <el-form ref="form" class="form-detail" :model="flowForm" :rules="rules" label-width="140px" size="small">
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
           <el-table-column prop="expenditureType" label="付款事项">
@@ -19,9 +19,9 @@
               <iep-dict-cascader-detail dictName="fams_expenditure_type" :value="scope.row.type"></iep-dict-cascader-detail>
             </template>
           </el-table-column>
-          <el-table-column label="收款单位账号及开户行">
+          <el-table-column label="收款单位、账号及开户行">
             <template slot-scope="scope">
-              <iep-div-detail :value="scope.row.bank"></iep-div-detail>
+              <iep-div-detail-switch :value="scope.row.bank"></iep-div-detail-switch>
             </template>
           </el-table-column>
           <el-table-column prop="amount" label="报销金额(元)">
@@ -74,7 +74,7 @@
         </iep-form-item>
 
         <iep-form-item label-name="备注">
-          <iep-div-detail :value="form.remarks"></iep-div-detail>
+          <iep-div-detail-switch :value="form.remarks"></iep-div-detail-switch>
         </iep-form-item>
 
         <iep-divider />
@@ -102,7 +102,7 @@
           </el-timeline-item>
         </el-timeline>
 
-        <template v-if="form.status === 4">
+        <template v-if="form.status === 4 && isApproval">
 
           <iep-divider />
 

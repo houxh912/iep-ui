@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}纪要`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}纪要`" :backOption="backOption"></iep-page-header>
       <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="130px" style="margin-bottom: 50px;" class="form-detail">
         <el-form-item label="会议类型：" prop="meetingType">
           <el-radio-group v-model="formData.meetingType">
@@ -123,6 +123,9 @@ import { createData, updateData, getDataById, meetingSend } from '@/api/mlms/mat
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import projectDialog from './projectDialog'
 import previewDialog from './previewDialog'
+import { dateFormat } from '@/util/date'
+
+let autosave = () => {}
 
 export default {
   components: { projectDialog, previewDialog },
@@ -200,59 +203,94 @@ export default {
       this.formData.status = 1 // 草稿状态为 1
       this.submitForm()
     },
+    // 自动保存
+    autosave () {
+      // 首先判断下是否为未发送状态，已发送纪要不做自动保存功能
+      if (this.formData.id && this.formData.isSend === 0 && this.formData.status === 2) {
+        return
+      }
+      let data = {...this.formData}
+      console.log('开始自动保存草稿')
+      if (data.title == '') {
+        data.title = dateFormat(new Date(), 'yyyy-MM-dd hh:mm:ss') + '自动保存'
+      }
+      data.status = 1 // 草稿状态为 1
+      data = this.dealwithForm(data)
+      let requestFn = data.id ? updateData : createData
+      requestFn(data).then(({data}) => {
+        if (data.data) {
+          if (typeof data.data === 'number') {
+            this.formData.id = data.data
+          }
+          this.formRequestFn = updateData
+        } else {
+          this.$message.error(data.msg)
+        }
+      })
+    },
+    dealwithForm (data) {
+      data.hostId = data.hostList.id
+      data.attendee = {
+        orgIds: data.attendeeList.orgs.map(m => m.id),
+        userIds: data.attendeeList.users.map(m => m.id),
+      }
+      data.receiver = {
+        orgIds: data.receiverList.orgs.map(m => m.id),
+        userIds: data.receiverList.users.map(m => m.id),
+      }
+      if (data.projectList.length > 0) {
+        data.projectIds = data.projectList.map(m => m.id)
+      } else {
+        data.projectIds = []
+      }
+      return data
+    },
     // 提交数据
     submitForm () {
       this.loadState = true
-      this.formData.hostId = this.formData.hostList.id
-      this.formData.attendee = {
-        orgIds: this.formData.attendeeList.orgs.map(m => m.id),
-        userIds: this.formData.attendeeList.users.map(m => m.id),
-      }
-      this.formData.receiver = {
-        orgIds: this.formData.receiverList.orgs.map(m => m.id),
-        userIds: this.formData.receiverList.users.map(m => m.id),
-      }
-      if (this.formData.projectList.length > 0) {
-        this.formData.projectIds = this.formData.projectList.map(m => m.id)
-      } else {
-        this.formData.projectIds = []
-      }
+      this.formData = this.dealwithForm(this.formData)
       // 发送链接
       this.formRequestFn(this.formData).then(({ data }) => {
         // 新建纪要及修改草稿，自动发送
-        let id = this.methodType == 'create' ? data.data : this.formData.id
-        if (this.formData.status == 0 && this.formData.isSend == 1) {
-          meetingSend(id).then(({ data }) => {
-            this.loadState = false
-            if (data.data) {
-              // 发送成功之后，判断是否是今天的纪要，若是访问财务接口
-              if (new Date(this.formData.meetingTime).toDateString() === new Date().toDateString()) {
-                if (this.formData.meetingType == 6) {
-                  addBellBalanceRuleByNumber('VISIT_LOG').then(({data}) => {
-                    this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
-                    this.goBack(true)
-                  })
+        if (data.data) {
+          let id = this.formData.id ? this.formData.id : data.data
+          if (this.formData.status == 0 && this.formData.isSend == 1) {
+            meetingSend(id).then(({ data }) => { // 保存后之后发送
+              if (data.data) {
+                this.loadState = false
+                // 发送成功之后，判断是否是今天的纪要，若是访问财务接口
+                if (new Date(this.formData.meetingTime).toDateString() === new Date().toDateString()) {
+                  if (this.formData.meetingType == 6) {
+                    addBellBalanceRuleByNumber('VISIT_LOG').then(({data}) => {
+                      this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
+                      this.goBack(true)
+                    })
+                  } else {
+                    addBellBalanceRuleByNumber('MEETING_SUMMARY').then(({data}) => {
+                      this.$message.success(`您成功发送一篇会议纪要，${data.msg}，继续加油！`)
+                      this.goBack(true)
+                    })
+                  }
                 } else {
-                  addBellBalanceRuleByNumber('MEETING_SUMMARY').then(({data}) => {
-                    this.$message.success(`您成功发送一篇会议纪要，${data.msg}，继续加油！`)
-                    this.goBack(true)
-                  })
+                  this.$message.success('您成功发送一篇会议纪要，继续加油！')
+                  this.goBack(true)
                 }
               } else {
-                this.$message.success('您成功发送一篇会议纪要，继续加油！')
-                this.goBack(true)
+                this.loadState = false
+                this.$message.error('当前网络异常，请稍后再试！')
               }
-            } else {
-              this.$message.error('当前网络异常，请稍后再试！')
-            }
-          })
+            })
+          } else {
+            this.$message({
+              message: `${this.methodName}成功`,
+              type: 'success',
+            })
+            this.loadState = false
+            this.goBack(true)
+          }
         } else {
-          this.$message({
-            message: `${this.methodName}成功`,
-            type: 'success',
-          })
           this.loadState = false
-          this.goBack(true)
+          this.$message.error(data.msg)
         }
       })
     },
@@ -324,6 +362,11 @@ export default {
     getCustomerPage({ type: 1 }).then(({ data }) => {
       this.clientList = data.data.records
     })
+    // 自动保存功能
+    autosave = setInterval(this.autosave, 0.5*60*1000)
+  },
+  destroyed () {
+    autosave = window.clearInterval(autosave)
   },
 }
 </script>

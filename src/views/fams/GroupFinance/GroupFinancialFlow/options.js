@@ -1,4 +1,4 @@
-const dictsMap = {
+﻿const dictsMap = {
 	isIncome: {
 		1: '收入',
 		2: '支出',
@@ -30,11 +30,13 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '操作时间',
+		width: '170',
 	},
 	{
 		prop: 'remarks',
 		label: '操作说明',
 		minWidth: '200',
+		type: 'detail',
 	},
 ]
 

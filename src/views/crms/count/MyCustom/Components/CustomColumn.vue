@@ -19,8 +19,8 @@
           <div class="line"></div>
           <div class="msg">您的客户中：</div>
           <div class="msg" v-if="isShow">{{region}}，{{proposal}}等居多</div>
-          <div class="msg">平均拜访次数：<span class="color">{{visits}}</span></div>
-          <div class="msg">平均方案上传：<span class="color">{{upload}}</span></div>
+          <div class="msg">平均拜访次数约：<span class="color">{{visits}}</span></div>
+          <div class="msg">平均方案上传约：<span class="color">{{upload}}</span></div>
           <div class="suggest">建议多寻找{{info}}。</div>
         </div>
       </el-col>
@@ -57,7 +57,7 @@ export default {
       type: '',
       businessMax: [],
       businessMin: [],
-      ClientRelaMax:[],
+      ClientRelaMax: [],
       aaa: [],
       proposal: '',
       isShow: true,
@@ -96,7 +96,7 @@ export default {
           }
         }
         this.region = this.businessMax.join('，')
-        
+
       })
       // 平均拜访次数、下载方案
       getMyClientAverage().then(res => {

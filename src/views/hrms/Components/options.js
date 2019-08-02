@@ -90,7 +90,7 @@ const laborContractColumns = [
     prop: 'company',
     label: '归属公司',
     type: 'list',
-    prefixUrl: 'fams/company/all',
+    prefixUrl: 'hrms/iephrcompany/all',
   },
   {
     prop: 'startTime',
@@ -119,7 +119,7 @@ const welfareColumns = [
     prop: 'company',
     label: '归属公司',
     type: 'list',
-    prefixUrl: 'fams/company/all',
+    prefixUrl: 'hrms/iephrcompany/all',
   },
   {
     prop: 'startTime',

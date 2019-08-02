@@ -21,7 +21,7 @@ export default {
         { icon: 'icon-qiyejianjie', 'title': '简介14个', des: '内涵非常广泛' },
         { icon: 'icon-shipin', 'title': '宣传片13个', des: '内涵非常广泛' },
         { icon: 'icon-dangan', 'title': '短期材料15个', des: '内涵非常广泛' },
-        { icon: 'icon-guanggaogongguan', 'title': '频台广告34个', des: '内涵非常广泛' },
+        { icon: 'icon-guanggaogongguan', 'title': '平台广告34个', des: '内涵非常广泛' },
         { icon: 'icon-shangye', 'title': '商业资料14个', des: '内涵非常广泛' },
         { icon: 'icon-shuben1', 'title': '大事记22个', des: '内涵非常广泛' },
         { icon: 'icon-peixun', 'title': '会议培训26个', des: '内涵非常广泛' },
@@ -40,11 +40,16 @@ export default {
     display: inline-block;
     margin: 15px 0;
     text-align: center;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.7;
+    }
     i {
-      font-size: 38px !important;
-      color: #aaa;
+      font-size: 40px !important;
+      color: #999;
     }
     .title {
+      margin-bottom: 5px;
       font-size: 16px;
     }
     p {
@@ -53,7 +58,7 @@ export default {
       margin-bottom: 0;
     }
     .des {
-      color: #aaa;
+      color: #999;
       margin-bottom: 15px;
     }
   }
@@ -68,6 +73,6 @@ export default {
 
 <style scoped>
 .grid-content >>> .el-card {
-  height: 375px;
+  height: 384px;
 }
 </style>

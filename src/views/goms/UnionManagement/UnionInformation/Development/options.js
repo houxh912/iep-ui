@@ -1,9 +1,12 @@
 const dictsMap = {
   status: {
-    0: '正常',
-    1: '待审核',
-    2: '锁定',
-    3: '待配置',
+    0: '待审核',
+    1: '正常',
+  },
+  node: {
+    0: '栏目一',
+    1: '栏目二',
+    2: '栏目三',
   },
 }
 
@@ -14,16 +17,17 @@ const columnsMap = [
     width: 400,
   },
   {
-    prop: 'publisher',
+    prop: 'node',
+    label: '栏目',
+    type: 'dict',
+  },
+  {
+    prop: 'creatorName',
     label: '发布人',
   },
   {
-    prop: 'releaseTime',
+    prop: 'happenTime',
     label: '发布时间',
-  },
-  {
-    prop: 'priority',
-    label: '优先级',
   },
   {
     prop: 'status',
@@ -35,14 +39,20 @@ const columnsMap = [
 const initForm = () => {
   return {
     id: '',
+    node: '',
     title: '',
-    publisher: '',
-    releaseTime: '',
-    priority: '',
-    stage:'',
+    creatorName: '',
+    happenTime: '',
     status: '',
+    content: '',
   }
 }
 
+const toDtoForm = (row) => {
+  const newForm = { ...row }
+  delete newForm.creatorName
+  return newForm
+}
 
-export { dictsMap, columnsMap, initForm }
+
+export { dictsMap, columnsMap, initForm, toDtoForm }

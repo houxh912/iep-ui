@@ -1,6 +1,6 @@
 <template>
   <iep-result type="success" :description="description" :title="title">
-    <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px">
+    <el-form class="form-detail" ref="form" size="small" :model="data" label-width="150px">
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>

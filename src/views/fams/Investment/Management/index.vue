@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="投资管理"></page-header>
+      <iep-page-header title="投资管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="danger" icon="el-icon-plus" plain @click="handleAdd">
+          <iep-button type="primary" icon="el-icon-plus" plain @click="handleAdd">
             新增
           </iep-button>
           <iep-button @click="handleDelete()" plain>
@@ -32,7 +32,7 @@
             <operation-wrapper>
               <iep-button v-if="scope.row.status===1 || scope.row.status===5" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="scope.row.status===2 || scope.row.status===5" @click="handleUp(scope.row)">上架</iep-button>
-              <iep-button v-if="scope.row.status===4" @click="handleDown(scope.row)">下架</iep-button>
+              <iep-button v-if="scope.row.status===4" type="warning" @click="handleDown(scope.row)" plain>下架</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

@@ -1,9 +1,9 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}客户`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}客户`" :backOption="backOption"></iep-page-header>
       <div class="edit-wrapper">
-        <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap">
+        <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap" @validate='validate'>
           <el-row>
             <el-col :span='10'>
               <el-form-item prop="clientName">
@@ -12,7 +12,7 @@
                   <iep-tip :content="tipContent.clientName"></iep-tip>
                   :
                 </span>
-                <el-input v-model="formData.clientName" placeholder="客户名称至少6个字"></el-input>
+                <el-input v-model="formData.clientName" placeholder="客户名称至少6个字" ref="clientName"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
@@ -28,8 +28,7 @@
               </el-form-item>
             </el-col>
             <el-col :span='10' :offset="4">
-              <el-form-item label="负责部门:">
-                <!-- <el-input v-model="formData.respDept" placeholder="负责部门"></el-input> -->
+              <el-form-item label="负责部门:" prop="iepClientRespDept">
                 <iep-dept-select v-model="formData.iepClientRespDept"></iep-dept-select>
               </el-form-item>
             </el-col>
@@ -47,8 +46,7 @@
             </el-col>
             <el-col :span='10' :offset="4">
               <el-form-item label="市场经理:" prop="Manager">
-                <!-- <el-input v-model="formData.Manager" :disabled="true"></el-input> -->
-                {{this.Claim == true?formData.Manager:''}}
+                {{this.Claim == true?'':formData.Manager}}
               </el-form-item>
             </el-col>
           </el-row>
@@ -100,8 +98,8 @@
               {{tag.commonName}}
             </a-tag>
           </el-form-item>
-          <el-form-item label="是否认领">
-            <el-switch v-model="Claim" active-color="#13ce66" inactive-color="#ff4949" active-text="是" inactive-text="否">
+          <el-form-item label="放入公海：">
+            <el-switch v-model="Claim" active-color="#13ce66" active-text="是" inactive-text="否">
             </el-switch>
           </el-form-item>
           <!-- <el-form-item label="跟进状态:" prop="followUpStatus">
@@ -183,6 +181,13 @@ export default {
         }
       }
     }
+    // var deptFun = (rule, value, callback) => {
+    //   if (value.id == '') {
+    //     callback(new Error('请选择负责部门'))
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       tipContent,
       id: '',
@@ -208,6 +213,9 @@ export default {
         clientName: [
           { required: true, validator: validateFun, trigger: 'blur' },
         ],
+        // iepClientRespDept: [
+        //   { required: true, validator: deptFun, trigger: 'change' },
+        // ],
         phoneNumber: [
           { required: true, message: '请输入手机号码', trigger: 'blur' },
           { min: 11, max: 11, message: '手机位数为11位', trigger: 'blur' },
@@ -300,9 +308,9 @@ export default {
           this.formData.Manager = res.data.data.realName
         })
         if (this.formData.marketManager == 0) {
-          this.Claim = false
-        } else {
           this.Claim = true
+        } else {
+          this.Claim = false
         }
       })
     } else if (this.flag) {
@@ -387,7 +395,7 @@ export default {
       })
     },
     submitForm (formName) {
-      if (!this.Claim) {
+      if (this.Claim) {
         this.formData.toClaim = 1
       } else {
         this.formData.toClaim = 0
@@ -478,6 +486,13 @@ export default {
     close () {
       this.formData = initForm()
       this.$emit('onGoBack')
+    },
+    validate (a, b) {
+      // console.log(a, b, this.$refs[a])
+      if (!b) {
+        this.$refs[a].focus()
+
+      }
     },
   },
 }

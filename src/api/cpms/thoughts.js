@@ -69,6 +69,14 @@ export function addcCommentThumbsByRecord (id) {
   })
 }
 
+// 评论删除
+export function deleteCommentThumbsById (id) {
+  return request({
+    url: `${commentUrl}/${id}`,
+    method: 'post',
+  })
+}
+
 
 // 回复评论
 export function CommentReply (obj) {
@@ -79,10 +87,75 @@ export function CommentReply (obj) {
   })
 }
 
+// 回复评论
+export function deleteCommentById (id) {
+  return request({
+    url: `${replyUrl}/${id}`,
+    method: 'post',
+  })
+}
+
 // 回复点赞
 export function addReplyThumbsByRecord (id) {
   return request({
     url: `${replyUrl}/replyThumbsByRecord/${id}`,
     method: 'get',
+  })
+}
+
+// 说说总数榜
+export function getMostThoughts () {
+  return request({
+    url: `${prefixUrl}/mostThoughts`,
+    method: 'get',
+  })
+}
+
+// 本周排行榜
+export function getMostThoughtsWeekly () {
+  return request({
+    url: `${prefixUrl}/mostThoughtsWeekly`,
+    method: 'get',
+  })
+}
+
+//  本周点赞榜
+export function getMostThumbedThoughtsWeekly () {
+  return request({
+    url: `${prefixUrl}/mostThumbedThoughtsWeekly`,
+    method: 'get',
+  })
+}
+
+// 热门话题榜
+export function getHotTopics () {
+  return request({
+    url: `${prefixUrl}/hotTopics`,
+    method: 'get',
+  })
+}
+
+// 说说点赞用户列表
+export function getThumbMembers (id) {
+  return request({
+    url: `${prefixUrl}/thumbMembers/${id}`,
+    method: 'get',
+  })
+}
+
+// 说说详情
+export function getDetailById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}
+
+// 获取对应话题的说说列表
+export function getTopicThoughts (obj) {
+  return request({
+    url: `${prefixUrl}/topicThoughts`,
+    method: 'get',
+    params: obj,
   })
 }

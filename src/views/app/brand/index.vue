@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <brand-header></brand-header>
     <brand-info></brand-info>
     <div class="gird-brand">
@@ -21,8 +21,7 @@
       <hold-all></hold-all>
       <data-base></data-base>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import BrandHeader from './BrandHeader'
@@ -71,7 +70,7 @@ export default {
     }
   },
   created () {
-    
+
   },
 }
 </script>
@@ -83,11 +82,8 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-row-gap: 20px;
-  grid-column-gap: 20px;
-  grid-template-columns: minmax(100px, 32fr) minmax(100px, 55fr) minmax(
-      100px,
-      32fr
-    );
+  grid-column-gap: 25px;
+  grid-template-columns: minmax(100px, 300px) minmax(100px, 550px) minmax(100px,300px);
 }
 .el-tabs__item {
   padding: 0 15px;

@@ -2,11 +2,11 @@
   <div>
     <search @search-page="searchData"></search>
     <div class="module">
-      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover">
+      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover" @click.native="handleDetail(item)">
         <div class="content">
           <!-- <i class="iconfont icon-tongyongleiziyuanpeizhi"></i> -->
           <div class="img">
-            <iep-img :src="item.imageUrl" alt=""></iep-img>
+            <iep-img :src="item.imageUrl" alt></iep-img>
           </div>
           <div class="text">
             <h4 class="item-title">{{item.name}}</h4>
@@ -17,14 +17,13 @@
           </div>
         </div>
         <div class="header clearfix">
-          <span class="price">指导价：¥{{item.guidePrice}}</span>
-          <!-- <el-button icon="el-icon-plus"></el-button> -->
+          <span class="price">模块指导价：¥{{item.guidePrice}}</span>
+          <el-button @click.stop="handleModuleClick(item.id)" icon="el-icon-plus"></el-button>
         </div>
       </el-card>
     </div>
     <div class="page">
-      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange">
-      </el-pagination>
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
   </div>
 </template>
@@ -32,6 +31,7 @@
 <script>
 import Search from './Search'
 import { getModulePage } from '@/api/app/cpms/channel'
+import { putModuleById } from '@/api/app/cpms/custom_module'
 
 export default {
   data () {
@@ -54,6 +54,23 @@ export default {
       this.params.current = 1
       this.getModulePage()
     },
+    handleModuleClick (moduleId) {
+      putModuleById(moduleId).then((data) => {
+        const resData = data.data.data
+        if (resData) {
+          this.$message({
+            message: '操作成功',
+            type: 'success',
+          })
+        } else {
+          this.$message({
+            message: '请不要重复订购',
+            type: 'warming',
+          })
+        }
+        this.$emit('click-add')
+      })
+    },
     getModulePage () {
       getModulePage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {
         this.moduleList = data.data.records
@@ -63,6 +80,9 @@ export default {
     currentChange (val) {
       this.params.current = val
       this.getModulePage()
+    },
+    handleDetail (row) {
+      this.$router.push(`/app/module_details/${row.id}`)
     },
   },
   created () {
@@ -84,8 +104,8 @@ export default {
   display: grid;
   margin: 25px 0;
   grid-auto-flow: row dense;
-  grid-row-gap: 25px;
-  grid-column-gap: 25px;
+  grid-row-gap: 30px;
+  grid-column-gap: 30px;
   grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
       100px,
       3fr
@@ -107,7 +127,6 @@ export default {
     justify-content: space-between;
     align-items: flex-start;
     padding: 15px;
-    height: 186px;
     overflow: hidden;
     i {
       display: inline-block;
@@ -135,12 +154,13 @@ export default {
       width: 80%;
       .item-title {
         max-width: 210px;
-        font-size: 15px;
+        font-size: 16px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
       }
       .con {
+        margin-bottom: 5px;
         height: 47px;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -151,6 +171,7 @@ export default {
       }
       .classTag {
         width: 100%;
+        height: 66px;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -158,8 +179,11 @@ export default {
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         .el-tag {
+          display: inline-block;
+          vertical-align: top;
           margin-right: 5px;
           margin-bottom: 5px;
+          font-size: 14px;
           cursor: pointer;
           &:last-child {
             overflow: hidden;
@@ -199,17 +223,21 @@ export default {
   padding: 0;
 }
 .module >>> .el-card.module-item {
-  height: 228px;
   border: 1px solid #dcdfe6;
+  cursor: pointer;
 }
 .img >>> .el-image {
-  width: 120px;
-  height: 120px;
+  width: 60px;
+  height: 60px;
+  overflow: hidden;
+}
+.img >>> .el-image__inner:hover {
+  opacity: 0.7;
 }
 .img >>> .el-image__inner {
   padding: 5px;
-  width: 120px;
-  height: 120px;
-  border: 1px solid #dcdfe6;
+  width: 60px;
+  height: 60px;
+  transition: 0.5s;
 }
 </style>

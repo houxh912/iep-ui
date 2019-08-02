@@ -3,7 +3,7 @@
     <IepAppTabsCard :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='TeamDemeanor'" v-slot:TeamDemeanor>
-          <team-demeanor v-loading="activeTab !=='TeamDemeanor'"></team-demeanor>
+          <team-demeanor v-loading="activeTab !=='TeamDemeanor'" :orgId="orgId"></team-demeanor>
         </template>
         <template v-if="activeTab ==='Honor'" v-slot:Honor>
           <honor v-loading="activeTab !=='Honor'" :list="honorList"></honor>
@@ -66,6 +66,23 @@ export default {
 <style scoped>
 .team >>> .el-card__body {
   padding: 2px 0 30px;
+}
+.team >>> .el-carousel__arrow {
+  background: none;
+}
+.team >>> .el-carousel__arrow i {
+  font-size: 36px;
+  color: #666;
+}
+.team >>> .el-carousel__item {
+  left: 25px;
+  width: 96%;
+}
+.team >>> .el-carousel__arrow--left {
+  left: -10px;
+}
+.team >>> .el-carousel__arrow--right {
+  right: -10px;
 }
 </style>
 

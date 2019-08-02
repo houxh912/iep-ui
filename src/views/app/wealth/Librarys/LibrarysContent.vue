@@ -48,6 +48,8 @@ export default {
       params: {
         current: 1,
         size: 10,
+        status: 4,
+        type: 1,
       },
     }
   },
@@ -102,6 +104,10 @@ export default {
     margin-right: 10px;
     font-size: 16px;
     color: #333;
+    transition: 0.5s;
+    &:hover {
+      color: #cb3737;
+    }
   }
   i {
     margin-right: 10px;

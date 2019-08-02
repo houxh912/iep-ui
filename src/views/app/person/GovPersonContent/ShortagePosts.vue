@@ -4,7 +4,7 @@
       <div class="important" slot="right">
         <el-button type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
       </div>
-      <el-table :data="tableData" style="padding-bottom:20px;width: 100%" height="300px">
+      <el-table :data="tableData" style="padding-bottom:20px;width: 100%" height="300px" @cell-click="handleDetail">
         <el-table-column prop="positionName" label="岗位名称" width="180">
         </el-table-column>
         <el-table-column prop="recruitsCount" label="需求数" width="180">
@@ -62,6 +62,9 @@ export default {
         }
       }
     },
+    handleDetail (row) {
+      this.$router.push(`/app/recruitDetail/${row.id}`)
+    },
   },
   created () {
     this.loadList()
@@ -91,7 +94,7 @@ export default {
   /* cursor: pointer; */
 }
 .leader-board >>> .el-card {
-  height: 362px;
+  height: 350px;
 }
 .leader-board >>> .el-table .cell {
   overflow: hidden;

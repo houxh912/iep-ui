@@ -6,12 +6,22 @@
     <el-form-item label="只选当年：">
       <el-checkbox v-model="form.onlyYear">只选年</el-checkbox>
     </el-form-item>
+    <el-form-item label="项目类型：">
+      <el-select v-model="form.projectType">
+        <el-option label="全部" :value="null"></el-option>
+        <el-option label="内部" value="1"></el-option>
+        <el-option label="外部" value="2"></el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item label="签订状态：">
       <el-select v-model="form.signatureStatus">
-        <el-option label="全部" value=""></el-option>
+        <el-option label="全部" :value="null"></el-option>
         <el-option label="待签" value="2"></el-option>
         <el-option label="已签" value="1"></el-option>
       </el-select>
+    </el-form-item>
+    <el-form-item label="项目阶段：">
+      <iep-dict-select v-model="form.projectStage" dict-name="prms_project_stage"></iep-dict-select>
     </el-form-item>
     <el-form-item>
       <operation-wrapper>

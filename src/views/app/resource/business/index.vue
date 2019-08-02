@@ -43,17 +43,17 @@ export default {
   },
   methods: {
     getLatestList () {
-      getLatestList().then(({data}) => {
+      getLatestList().then(({ data }) => {
         this.listList = data.data
       })
     },
     getPopularList () {
-      getPopularList().then(({data}) => {
+      getPopularList().then(({ data }) => {
         this.dataList = data.data
       })
     },
     getRectagsList () {
-      getRectagsList().then(({data}) => {
+      getRectagsList().then(({ data }) => {
         this.labelList = data.data
       })
     },
@@ -74,9 +74,10 @@ export default {
   margin: 0 auto;
   border-top: 1px solid #eee;
   display: grid;
+  grid-column-gap: 30px;
   grid-auto-flow: row dense;
   grid-template-columns: minmax(100px, 9000px) minmax(100px, 300px);
-  .ranking .piece .name{
+  .ranking .piece .name {
     width: 80%;
     display: inline-block;
     vertical-align: middle;
@@ -87,9 +88,10 @@ export default {
 }
 .el-card {
   border: 0;
+  padding: 0 !important;
 }
 .library {
-  padding-right: 20px;
+  padding-right: 30px;
   border-right: 1px solid #ebeef5;
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="员工" :replaceText="replaceText" :data="statistics"></page-header>
+      <iep-page-header title="员工" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleHeaderSetting">表头设置</iep-button>
+          <iep-button @click="handleHeaderSetting" type="primary" plain>表头设置</iep-button>
           <el-dropdown size="medium">
             <iep-button type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
             <el-dropdown-menu slot="dropdown">

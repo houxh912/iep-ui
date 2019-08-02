@@ -1,63 +1,65 @@
 <template>
-  <div class="profit-loss">
+  <div>
     <basic-container>
-      <page-header title="组织盈亏">
-        <div class="right">
-          <el-form :inline="true" :model="form" class="demo-form-inline">
-            <el-form-item label="日期：">
-              <el-select v-model="form.region" placeholder="请选择年份">
-              </el-select>
-            </el-form-item>
-          </el-form>
-        </div>
-      </page-header>
-      <p class="title">2018年度本部门财务财务核算情况</p>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable">
+      <iep-page-header title="组织盈亏" :replaceText="replaceText" :data="statistics">
+      </iep-page-header>
+      <operation-container>
+        <template slot="right">
+          <iep-date-picker size="small" v-model="yearDate" align="right" type="year" placeholder="选择年" @change="loadPage()"></iep-date-picker>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary>
       </iep-table>
     </basic-container>
   </div>
 </template>
 <script>
-import { columnsMap, dictsMap, initForm } from './options.js'
+import { getOrgProfits } from '@/api/fams/statistics'
+import { getYear } from '@/util/date'
+import { mapGetters } from 'vuex'
+import mixins from '@/mixins/mixins'
+import { columnsMap } from './options.js'
 export default {
+  mixins: [mixins],
   data () {
     return {
-      dictsMap,
       columnsMap,
-      form: initForm(),
-      pagination: {},
-      pagedTable: [
-        { month: '1', contractSigning: '', departmentalIncome: '', departmentalApply: '', operatingProfit: '', netProfit: '' },
-        { month: '2', contractSigning: '', departmentalIncome: '', departmentalApply: '', operatingProfit: '', netProfit: '' },
-        { month: '3', contractSigning: '', departmentalIncome: '', departmentalApply: '', operatingProfit: '', netProfit: '' },
-        { month: '4', contractSigning: '', departmentalIncome: '', departmentalApply: '', operatingProfit: '', netProfit: '' },
-        { month: '5', contractSigning: '', departmentalIncome: '', departmentalApply: '', operatingProfit: '', netProfit: '' },
-        { month: '总计', contractSigning: '', departmentalIncome: '', departmentalApply: '', operatingProfit: '', netProfit: '' },
-      ],
+      yearDate: new Date(),
+      statistics: [0, 0],
+      replaceText: (data) => `（${data[0]}年度${data[1]}组织盈亏）`,
     }
   },
+  computed: {
+    year () {
+      return getYear(this.yearDate)
+    },
+    orgId () {
+      if (this.$route.query.orgId) {
+        return +this.$route.query.orgId
+      } else {
+        return this.userInfo.orgId
+      }
+    },
+    orgName () {
+      if (this.$route.query.orgName) {
+        return this.$route.query.orgName
+      } else {
+        return this.userInfo.orgName
+      }
+    },
+    ...mapGetters(['userInfo']),
+  },
   created () {
+    this.statistics = [this.year, this.orgName]
+    this.loadPage()
   },
   methods: {
+    async loadPage () {
+      this.isLoadTable = true
+      const { data } = await getOrgProfits(this.orgId, this.year)
+      this.pagedTable = data.data
+      this.isLoadTable = false
+    },
   },
 }
 </script>
-<style scoped lang='scss'>
-.right {
-  margin: 0 8px 0 auto;
-}
-.title {
-  font-size: 18px;
-  text-align: center;
-  color: #666;
-}
-</style>
-<style scoped>
-.profit-loss >>> .title-wrapper {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eee;
-}
-.profit-loss >>> .el-form-item {
-  margin-bottom: 0;
-}
-</style>

@@ -39,5 +39,8 @@ export default {
   grid-column-start: 1;
   grid-column-end: 3;
 }
+.grid-content >>> .el-card {
+  height: 360px;
+}
 </style>
 

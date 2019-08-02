@@ -1,10 +1,10 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="工资管理" :replaceText="replaceText"></page-header>
+      <iep-page-header title="工资管理" :replaceText="replaceText"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button icon="el-icon-plus" @click="handleAdd()">新增工资单</iep-button>
+          <iep-button icon="el-icon-plus" type="primary" @click="handleAdd()" plain>新增工资单</iep-button>
           <iep-button icon="el-icon-download" @click="handleDownload()">下载工资单模板</iep-button>
         </template>
       </operation-container>
@@ -12,7 +12,7 @@
         <el-table-column prop="operation" label="操作" width="270" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleDetail(scope.row)">查看</iep-button>
+              <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
               <iep-button @click="handleUpload(scope.row)">上传</iep-button>
               <iep-button v-if="scope.row.status!=='A'" @click="handleSend(scope.row)">发放</iep-button>
               <iep-button v-if="scope.row.status!=='A'" @click="handleDelete(scope.row)">删除</iep-button>
@@ -59,6 +59,7 @@ export default {
     },
     handleUpload (row) {
       this.actionId = row.id
+      this.$refs['uploadDialog'].fileList = []
       this.$refs['uploadDialog'].dialogShow = true
     },
     handleFinish () {

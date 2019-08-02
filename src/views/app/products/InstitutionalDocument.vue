@@ -39,7 +39,7 @@ export default {
 }
 </script>
 <style scoped>
-.InstitutionalDocument >>> .el-card__body {
-  height: 272px;
+.InstitutionalDocument >>> .el-card {
+  height: 318px;
 }
 </style>

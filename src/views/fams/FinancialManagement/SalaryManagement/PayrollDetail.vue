@@ -1,6 +1,6 @@
 <template>
   <basic-container class="wages-details">
-    <page-header title="我的工资条" :backOption="backOption"></page-header>
+    <iep-page-header title="我的工资条" :backOption="backOption"></iep-page-header>
     <el-table class="first-table" :data="tableData" border style="width: 100%">
       <el-table-column prop="staffId" label="工号">
       </el-table-column>
@@ -18,6 +18,8 @@
       </el-table-column>
       <el-table-column prop="innerPay" label="内网发放">
       </el-table-column>
+      <el-table-column prop="cashPay" label="其他形式发放">
+      </el-table-column>
     </el-table>
     <el-table :data="tableData" style="width: 100%">
       <el-table-column label="应发工资">
@@ -31,6 +33,8 @@
           <el-table-column prop="manageAllowance" label="管理津贴">
           </el-table-column>
           <el-table-column prop="urbanSubsidy" label="城市补贴">
+          </el-table-column>
+          <el-table-column prop="serviceAllowance" label="工龄补贴">
           </el-table-column>
           <el-table-column prop="basicPaySubtotal" label="小计">
           </el-table-column>

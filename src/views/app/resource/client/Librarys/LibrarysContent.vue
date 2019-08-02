@@ -67,6 +67,9 @@ export default {
     },
   },
   created () {
+    if (this.$route.query.id) {
+      this.params.orgId = this.$route.query.id
+    }
     this.getCustomList()
   },
 }
@@ -79,16 +82,19 @@ export default {
 .title {
   .title-name {
     display: inline-block;
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
     margin-right: 10px;
+    &:hover {
+      color: #cb3737;
+    }
   }
   .type {
     margin-right: 10px;
     padding: 0 5px;
     font-size: 14px;
-    color: #ba1b21;
-    border: 1px solid #ba1b21;
+    color: #cb3737;
+    border: 1px solid #cb3737;
     border-radius: 3px;
   }
   i {

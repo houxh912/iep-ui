@@ -74,7 +74,11 @@ export default {
     grid-column-gap: 10px;
     grid-template-columns: 1fr 1fr;
     .piece {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
       cursor: pointer;
+      transition: 0.5s;
       &:hover {
         color: #cb3737;
       }
@@ -82,14 +86,16 @@ export default {
         float: left;
         width: 50px;
         height: 50px;
+        border: 1px solid #ebeef5;
       }
       .text {
         float: left;
         width: 300px;
         height: 50px;
-        margin-left: 19px;
+        margin-left: 15px;
         span {
           display: block;
+          transition: 0.5s;
         }
         .introduction {
           color: #999;
@@ -102,5 +108,17 @@ export default {
       }
     }
   }
+}
+</style>
+<style scoped>
+.new-tehnology >>> .piece .el-image__inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: 0.5s;
+  border-radius: 50%;
+}
+.new-tehnology >>> .piece .el-image__inner:hover {
+  transform: scale(1.1);
 }
 </style>

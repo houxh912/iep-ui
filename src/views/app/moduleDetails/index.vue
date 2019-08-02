@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <iep-app-layout>
     <div class="module-details">
       <introduction :form="form"></introduction>
       <r-d-progress :form="form"></r-d-progress>
@@ -10,8 +10,7 @@
       <technical-application :form="form"></technical-application>
       <related-materials :form="form"></related-materials>
     </div>
-    <IepAppFooterBar></IepAppFooterBar>
-  </div>
+  </iep-app-layout>
 </template>
 <script>
 import Introduction from './Introduction'

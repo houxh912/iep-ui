@@ -1,11 +1,11 @@
 <template>
   <div>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="200px" prop="operation">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button size="small" type="danger" @click="handleApprove(scope.row)" v-if="scope.row.approvalStatus==2">审批</iep-button>
-            <iep-button size="small" @click="hanleNotApp(scope.row)" v-if="scope.row.approvalStatus==3">取消审批</iep-button>
+            <iep-button size="small" type="warning" @click="handleApprove(scope.row)" v-if="scope.row.approvalStatus==2" plain>审批</iep-button>
+            <iep-button size="small" type="warning" @click="hanleNotApp(scope.row)" v-if="scope.row.approvalStatus==3" plain>取消审批</iep-button>
             <iep-button size="small" @click="handleMore(scope.row)" v-if="scope.row.approvalStatus==2">转交</iep-button>
           </operation-wrapper>
         </template>

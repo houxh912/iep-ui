@@ -37,11 +37,11 @@ export default {
     cursor: pointer;
     .img {
       width: 100%;
-      height: 165px;
+      height: 160px;
       overflow: hidden;
       img {
         width: 100%;
-        height: 165px;
+        height: 160px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;
@@ -59,5 +59,16 @@ export default {
       margin: 0 10px 0 15px;
     }
   }
+}
+</style>
+<style scoped>
+.specialist >>> .el-image__inner {
+  width: 100%;
+  height: 160px;
+  transition: 0.5s;
+}
+.specialist >>> .el-image__inner:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="gird-item">
     <el-card shadow="never" class="box-card" :body-style="bodyStyle">
       <div slot="header" class="clearfix">
-        <page-header title="岗位统计"></page-header>
+        <iep-page-header title="岗位统计"></iep-page-header>
       </div>
       <!-- <el-table style="width: 100%"> -->
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">    </iep-table>
@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { getPostLibraryPage } from '@/api/hrms/post_library'
+import { getLibraryPage } from '@/api/hrms/post_library'
 import mixins from '@/mixins/mixins'
 const columnsMap = [
 	{
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable(param, getPostLibraryPage)
+      this.loadTable(param, getLibraryPage)
     },
   },
 }

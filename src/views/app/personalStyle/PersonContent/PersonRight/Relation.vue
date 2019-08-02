@@ -1,6 +1,6 @@
 <template>
   <div class="relation">
-    <IepAppTabCard :title="title" :data="`（${relation.masters.length}/${relation.pupils.length}）`">
+    <IepAppTabCard :title="title">
       <el-button class="btn" type="text" slot="right" @click="show" :class="isShow?'el-icon-arrow-up':'el-icon-arrow-down'"></el-button>
       <div class="item" v-for="(row, index) in titleList" :key="index" v-show="isShow">
         <span class="title">{{row.title1}}</span>
@@ -23,6 +23,7 @@
 
 <script>
 import { getproductMentors } from '@/api/app/cpms/channel'
+import { getCommunication } from '@/api/app/hrms/'
 
 export default {
   props: {
@@ -50,7 +51,7 @@ export default {
     titleList () {
       return [
         {
-          title1: 'TA的师徒',
+          title1: `TA的师徒（${this.relation.masters.length}/${this.relation.pupils.length}）`,
           list: this.MentorsList,
         },
         {
@@ -67,6 +68,7 @@ export default {
   watch: {
     userId (newVal) {
       this.loadRelation(newVal)
+      this.getCommunication(newVal)
     },
   },
   methods: {
@@ -83,6 +85,11 @@ export default {
         this.MentorsList = data.data.masters.concat(data.data.pupils)
       })
     },
+    getCommunication (id) {
+      getCommunication(id).then(({ data }) => {
+        this.cooperationList = data.data
+      })
+    },
   },
 }
 </script>
@@ -92,7 +99,7 @@ export default {
   color: #999;
 }
 .relation {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   .item {
     .title {
       display: block;
@@ -112,18 +119,18 @@ export default {
       align-items: center;
       cursor: pointer;
       .img {
-        width: 60px;
-        height: 60px;
+        width: 54px;
+        height: 54px;
         border: 1px solid #ebeef5;
-        // overflow: hidden;
+        //overflow: hidden;
         position: relative;
-        img {
+        .el-image {
           display: block;
           width: 100%;
           height: 100%;
           transition: 0.5s;
           &:hover {
-            transform: scale(1.1);
+            opacity: 0.7;
           }
         }
         .shifu {

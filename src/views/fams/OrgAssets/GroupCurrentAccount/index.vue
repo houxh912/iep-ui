@@ -1,10 +1,11 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="集团往来账"></page-header>
+      <iep-page-header title="集团往来账" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="remarks">
+          <operation-search @search-page="searchPage" prop="remarks" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -17,20 +18,25 @@
 import { getCurrentBillFlowPage } from '@/api/fams/current_bill_flow'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
+import AdvanceSearch from './AdvanceSearch'
 export default {
+  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {
       dictsMap,
       columnsMap,
+      statistics: [0, 0, 0],
+      replaceText: (data) => `（收入：${data[0]}元，支出${data[1]}元，总计${data[2]}元）`,
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getCurrentBillFlowPage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getCurrentBillFlowPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

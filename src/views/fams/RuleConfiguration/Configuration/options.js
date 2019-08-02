@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+// import { mergeByFirst } from '@/util/util'
 
 const columnsMap = [
   {
@@ -35,6 +35,11 @@ const columnsMap = [
 
 const initForm = () => {
   return {
+    ruleId: '',
+    orgId: '',
+    creatorId: '',
+    createTime: '',
+    type: '',
     ruleName: '',
     number: '',
     score: '',
@@ -45,32 +50,19 @@ const initForm = () => {
   }
 }
 
-const initDtoForm = () => {
-  return {
-    isOpen: false,
-    intro: '',
-  }
+const rules = {
+  score: [
+    { required: true, message: '请填写国脉贝数量', trigger: 'blur', type: 'number' },
+  ],
+  dailyLimit: [
+    { required: true, message: '请填写每日上限次数', trigger: 'blur', type: 'number' },
+  ],
+  action: [
+    { required: true, message: '请填写动作', trigger: 'blur' },
+  ],
+  remarks: [
+    { required: true, message: '请填写描述', trigger: 'blur' },
+  ],
 }
 
-const formToDto = (row) => {
-  const newForm = mergeByFirst(initDtoForm(), row)
-  newForm.positionId = row.position[row.position.length - 1]
-  newForm.deptId = row.dept[row.dept.length - 1]
-  return newForm
-}
-
-const initSearchForm = () => {
-  return {
-    keyword: '',
-    applyTime: '',
-    sendTime: '',
-    sum1: '',
-    sum2: '',
-    type: '',
-    name: '',
-    status: '',
-    seller: '',
-  }
-}
-
-export { columnsMap, initForm, formToDto, initSearchForm }
+export { columnsMap, initForm, rules }

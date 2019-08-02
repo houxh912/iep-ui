@@ -12,9 +12,9 @@
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
       <template slot="before-columns">
-        <el-table-column label="申请人" width="120px">
+        <el-table-column label="申请人" width="100px">
           <template slot-scope="scope">
-            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+            {{scope.row.name}}
           </template>
         </el-table-column>
       </template>
@@ -25,7 +25,7 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="审核人">
+      <el-table-column label="审核人" width="100px">
         <template slot-scope="scope">
           <div>
             <span v-if="!scope.row.approveResult">{{scope.row.approverNameList.join('、')}}</span>
@@ -33,15 +33,16 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="审批结果">
+      <el-table-column label="审批结果" width="100px">
         <template slot-scope="scope">
           {{dictsMap.status[scope.row.status]}}
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="220px">
+      <el-table-column label="操作" width="180px">
         <template slot-scope="scope">
-          <operation-wrapper v-if="scope.row.status === 0">
-            <iep-button type="warning" @click="handleReview(scope.row)" plain>审核</iep-button>
+          <operation-wrapper>
+            <iep-button type="warning" @click="handleDetail(scope.row)">查看</iep-button>
+            <iep-button v-if="scope.row.status === 0" @click="handleReview(scope.row)" plain>审核</iep-button>
             <iep-button :disabled="scope.row.status===3" @click="handleDeliver(scope.row)">转交</iep-button>
           </operation-wrapper>
         </template>

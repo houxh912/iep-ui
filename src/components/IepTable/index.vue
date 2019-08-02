@@ -7,7 +7,7 @@
       </el-table-column>
       <!-- 为了实行点击查看的规定 -->
       <slot name="before-columns"></slot>
-      <el-table-column :label="item.label" :width="item.width" :min-width="item.minWidth" v-for="(item, idx) in columnsMap" :key="idx" :align="align">
+      <el-table-column :label="item.label" :width="item.width" :min-width="item.minWidth" v-for="(item, idx) in columnsMap" :key="idx" :align="align" :prop="item.prop">
         <template slot-scope="scope">
           <template v-if="isTree && idx === 0">
             <span v-for="space in scope.row._level" class="ms-tree-space" :key="space"></span>
@@ -33,6 +33,9 @@
           <template v-else-if="item.type==='tag'">
             <iep-tag-detail :value="scope.row[item.prop]" :iep-type="item.iepType"></iep-tag-detail>
           </template>
+          <template v-else-if="item.type==='detail'">
+            <detail :row="scope.row" :item="item"></detail>
+          </template>
           <template v-else>
             <iep-div-detail :value="scope.row[item.prop]" :nullmsg="item.nullmsg"></iep-div-detail>
           </template>
@@ -50,9 +53,11 @@ import { parseDate } from '@/filters/index'
 import treeToArray from './eval'
 import keyBy from 'lodash/keyBy'
 import { mapGetters } from 'vuex'
+import Detail from './Detail'
 export default {
   name: 'IepTable',
   inheritAttrs: false,
+  components: { Detail },
   props: {
     isLoadTable: {
       type: Boolean,
@@ -177,7 +182,11 @@ export default {
       return parseDate(scope.row[item.prop], item.formatString)
     },
     calculateDict (item, scope) {
-      return keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]].label
+      if (scope.row[item.prop]) {
+        return keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]].label
+      } else {
+        return '暂无'
+      }
     },
     handleSizeChange (val) {
       this.$emit('size-change', val)

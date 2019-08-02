@@ -1,7 +1,7 @@
 <template>
   <div class="log">
     <basic-container>
-      <page-header title="令牌管理"></page-header>
+      <iep-page-header title="令牌管理"></iep-page-header>
       <operation-container>
         <template slot="right">
           <!-- <iep-button icon="el-icon-refresh" circle @refresh-change="refreshChange"></iep-button>
@@ -9,7 +9,7 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column prop="operation" label="操作" min-width="100">
+        <el-table-column prop="operation" label="操作" min-width="80">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>

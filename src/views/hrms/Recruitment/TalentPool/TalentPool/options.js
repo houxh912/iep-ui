@@ -1,4 +1,4 @@
-import { mergeByFirst } from '@/util/util'
+﻿import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   status: {
     1: '待处理',
@@ -23,6 +23,7 @@ const columnsMap = [
   {
     prop: 'education',
     label: '学历',
+    width:'100',
   },
   {
     prop: 'applyPosition',
@@ -31,10 +32,12 @@ const columnsMap = [
   {
     prop: 'receptionTime',
     label: '简历接受时间',
+    width:'170',
   },
   {
     prop: 'source',
     label: '来源',
+    width:'100',
   },
 ]
 
@@ -132,7 +135,6 @@ const initDtoForm = () => {
 
 const formToDto = (form) => {
   const newForm = mergeByFirst(initForm(), form)
-  console.log(form)
   newForm.positionId = form.position[form.position.length - 1]
   newForm.attach = form.attach[0] || ''
   return newForm

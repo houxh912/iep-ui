@@ -1,7 +1,7 @@
 <template>
   <div class="edit-wrapper">
     <basic-container>
-      <page-header :title="formData.clientName" :backOption="backOption"></page-header>
+      <iep-page-header :title="formData.clientName" :backOption="backOption"></iep-page-header>
       <!-- <div class="head-button">
         <iep-button class="tabs" type="primary" size="small">暂无需求</iep-button>
         <iep-button class="tabs" type="primary" size="small" @click="transfer">转移给他人</iep-button>
@@ -48,22 +48,35 @@ export default {
   //   })
   //   next()
   // },
+  props: {
+    record: {
+      type: Object,
+      default: () => { },
+    },
+  },
   name: 'detail',
   mixins: [mixins],
   components: { CustomerPanorama, Contacts, VisitingRecord, Scheme, Agreement, Information },
   data () {
     return {
-      id: this.$route.params.id,
-      record: {
-        id: this.$route.params.id,
-        type: this.$route.query.type,
-        flag: this.$route.query.flag,
-        collaborations: '',
-        marketManager: '',
-      },
+      id: this.record.id,
+      // record: {
+      //   id: this.$route.params.id,
+      //   type: this.$route.query.type,
+      //   flag: this.$route.query.flag,
+      //   collaborations: '',
+      //   marketManager: '',
+      // },
       backOption: {
         isBack: true,
-        backPath: this.$route.query.redirect,
+        backPath: null,
+        backFunction: () => {
+          // this.$router.push({
+          //   path: '/crms/customer',
+          // })
+          this.$emit('onGoBack')
+        },
+
       },
       count: [],
       formData: {},
@@ -92,6 +105,7 @@ export default {
     }
   },
   created () {
+    console.log(this.record)
     this.loadPage()
     this.dealNum()
     this.getRouter()

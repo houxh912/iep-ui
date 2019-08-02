@@ -71,20 +71,18 @@ export default {
 
 <style scoped lang="scss">
 .shadow {
-  padding-top: 15px;
   .piece {
     text-align: center;
-    width: 270px;
+    width: 238px;
     float: left;
-    margin: 0 5px;
-    cursor: pointer;
+    margin: 0 17px;
     .img {
       width: 100%;
-      height: 165px;
+      height: 142px;
       overflow: hidden;
-      img {
+      .img {
         width: 100%;
-        height: 165px;
+        height: 142px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;
@@ -96,16 +94,16 @@ export default {
       line-height: 40px;
     }
     &:first-child {
-      margin: 0 15px 0 10px;
+      margin: 0 27px 0 22px;
     }
     &:last-child {
-      margin: 0 10px 0 15px;
+      margin: 0 22px 0 27px;
     }
   }
 }
 </style>
 <style scoped>
 .shadow >>> .el-carousel__container {
-  height: 200px;
+  height: 180px;
 }
 </style>

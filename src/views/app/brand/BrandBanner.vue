@@ -2,7 +2,7 @@
   <div class="brand-banner">
     <div class="banner-item" v-for="(item,index) in banner" :key="index">
       <div class="grid-content">
-        <iep-img style="width:100%;height:150px;" :src="item.imgSrc" alt=""></iep-img>
+        <iep-img style="width:100%;height:170px;" :src="item.imgSrc" alt=""></iep-img>
         <div class="masking-layer" v-for="(item,index) in layer" :key="index">
           <p class="title">{{item.title}}</p>
           <p class="time">时间：{{item.time}}</p>
@@ -40,21 +40,22 @@ export default {
     width: 33.333%;
     margin-right: 30px;
     .grid-content:hover .masking-layer {
-      display: block;
+      opacity: 1;
     }
     .grid-content {
       width: 100%;
       position: relative;
       cursor: pointer;
       .masking-layer {
-        display: none;
+        opacity: 0;
         position: absolute;
-        padding: 33px 20px;
+        padding: 45px 20px;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
         background-color: rgba(255, 255, 255, 0.9);
+        transition: all 0.5s;
         p {
           margin-bottom: 0;
           font-size: 14px;
@@ -62,6 +63,7 @@ export default {
         }
         .title {
           font-size: 16px;
+          font-weight: 700;
           color: #333;
         }
       }

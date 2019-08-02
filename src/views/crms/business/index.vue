@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="合作机会" :replaceText="replaceText" :data="[increasedOpportunity]"></page-header>
+      <iep-page-header title="合作机会" :replaceText="replaceText" :data="[increasedOpportunity]"></iep-page-header>
       <operation-container>
         <template v-if="+type !=3" slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
@@ -124,6 +124,7 @@ export default {
         query: {
           router: true,
           id: row.opportunityId,
+          data: row,
         },
       })
     },

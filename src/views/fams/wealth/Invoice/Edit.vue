@@ -1,10 +1,10 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}报销-${dictsMap.referType[this.form.referType]}`" :back-option="backOption">
-        <iep-button type="primary" @click="handleSubmit()">存为草稿</iep-button>
-        <iep-button type="primary" @click="handleSubmit(true)">保存并发送</iep-button>
-      </page-header>
+      <iep-page-header :title="`${methodName}报销-${dictsMap.referType[this.form.referType]}`" :back-option="backOption">
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">存为草稿</iep-button>
+        <iep-button :loading="submitFormLoading" @click="handlePublish()">保存并发送</iep-button>
+      </iep-page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>
         <el-table-column prop="type" label="支出类型">
           <template slot-scope="scope">
@@ -42,19 +42,19 @@
         </iep-form-item>
 
         <iep-form-item label-name="报销组织" prop="orgId" class="form-half">
-          <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择报销组织"></iep-select>
+          <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择报销组织"></iep-select>
         </iep-form-item>
 
-        <iep-form-item v-if="!companyOption.disabled" class="form-half" prop="companyId" label-name="报销抬头">
-          <iep-select v-model="form.companyId" autocomplete="off" :prefix-url="companyOption.prefixUrl" placeholder="请选择报销抬头"></iep-select>
+        <iep-form-item class="form-half" prop="companyId" label-name="报销抬头">
+          <iep-select v-model="form.companyId" filterable autocomplete="off" prefix-url="fams/company/all" placeholder="请选择报销抬头"></iep-select>
         </iep-form-item>
 
         <iep-form-item v-if="projectOption" class="form-half" prop="projectId" label-name="项目">
-          <iep-project-select v-model="form.projectId" :project-name="form.projectName"></iep-project-select>
+          <iep-project-select v-model="form.projectId" :project-name="form.projectName" @relation-change="handleProjectChange"></iep-project-select>
         </iep-form-item>
 
         <iep-form-item v-if="auditorOption" class="form-half" prop="auditor" label-name="部门核准" tip="报销金额超过 1 万，请添加部门班长为核准人">
-          <iep-contact-select v-model="form.auditor"></iep-contact-select>
+          <iep-contact-select v-model="form.auditor" placeholder="如只需财务核准，无需填写部门核准，直接发送即可"></iep-contact-select>
         </iep-form-item>
 
         <iep-form-item prop="remarks" label-name="备注">
@@ -81,6 +81,7 @@ export default {
       backOption: {
         isBack: true,
       },
+      isPublish: false,
     }
   },
   computed: {
@@ -123,25 +124,30 @@ export default {
     }
   },
   methods: {
-    async handleSubmit (isPublish = false) {
-      try {
-        await this.mixinsValidate()
-        if (this.tableData.length === 0) {
-          this.$message('报销数目至少存在一条')
-          return
-        }
-        this.form.relations = this.tableData
-        this.form.auditorId = this.form.auditor.id
-        this.formRequestFn(this.form, isPublish).then(({ data }) => {
-          if (data.data) {
-            this.$message.success('操作成功')
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-          }
-        })
-      } catch (object) {
-        this.mixinsMessage(object)
+    handleProjectChange (v, n, value) {
+      if (value) {
+        this.form.auditor.id = value.userId
+        this.form.auditor.name = value.realName
+      }
+    },
+    handlePublish () {
+      this.isPublish = true
+      this.mixinsSubmitFormGen()
+    },
+    async submitForm () {
+      const publish = this.isPublish
+      if (this.tableData.length === 0) {
+        this.$message('报销数目至少存在一条')
+        return
+      }
+      this.form.relations = this.tableData
+      this.form.auditorId = this.form.auditor.id
+      const { data } = await this.formRequestFn(this.form, publish)
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
       }
     },
     loadPage () {

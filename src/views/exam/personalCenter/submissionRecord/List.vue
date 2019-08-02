@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="出题记录"></page-header>
+      <iep-page-header title="出题记录"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增试题</iep-button>
@@ -12,9 +12,8 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
-        @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column prop="title" label="题目" min-width="115">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column prop="title" label="题目" width="250">
           <template slot-scope="scope">
             <span class="hiddenOverText" :title="scope.row.title">{{scope.row.title}}</span>
             <span class="overText" v-if="JSON.stringify(scope.row.title).length > 45">......</span>
@@ -55,12 +54,12 @@
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column prop="creatTime" label="提交时间">
+        <el-table-column prop="creatTime" label="提交时间" width="150px">
           <template slot-scope="scope">
             {{scope.row.creatTime}}
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" min-width="99">
+        <el-table-column prop="operation" label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleShow(scope.row)">查看</iep-button>

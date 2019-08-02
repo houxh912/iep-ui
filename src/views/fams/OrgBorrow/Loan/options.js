@@ -1,16 +1,16 @@
-// import { mergeByFirst } from '@/util/util'
+﻿// import { mergeByFirst } from '@/util/util'
 
 import { dictsMap } from '../options'
 
 const tabList = [
-  {
-    label: '借出',
-    value: 'outOrgId',
-  },
-  {
-    label: '借入',
-    value: 'inOrgId',
-  },
+	{
+		label: '借出',
+		value: 'outOrgId',
+	},
+	{
+		label: '借入',
+		value: 'inOrgId',
+	},
 ]
 
 const colMap = {
@@ -27,15 +27,18 @@ const colMap = {
 			prop: 'borrowMoneyType',
 			label: '支付类型',
 			type: 'dict',
+                                                width:'100',
 		},
 		{
 			prop: 'status',
 			label: '拆借状态',
 			type: 'dict',
+                                                width:'100',
 		},
 		{
 			prop: 'repaymentTime',
 			label: '还款时间',
+                                                width:'170',
 		},
 	],
 	'outOrgId': [
@@ -51,15 +54,18 @@ const colMap = {
 			prop: 'borrowMoneyType',
 			label: '支付类型',
 			type: 'dict',
+                                                width:'100',
 		},
 		{
 			prop: 'status',
 			label: '拆借状态',
 			type: 'dict',
+                                                width:'100',
 		},
 		{
 			prop: 'repaymentTime',
 			label: '还款时间',
+                                                width:'170',
 		},
 	],
 }

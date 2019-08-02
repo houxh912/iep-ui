@@ -4,11 +4,11 @@
     <div class="inform">
       <iep-img :src="formData.avatar" :alt="formData.creatorRealName" class="img"></iep-img>
       <span>{{formData.creatorRealName}}</span>
-      <span>{{formData.createTime}}</span>
-      <span><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>
-      <span><i class="iconfont icon-download1"></i>{{formData.downloadTimes}}</span>
-      <div class="btn sc" v-if="formData.collection == 0" @click="handleCollect(formData)"><i class="iconfont icon-heart"></i>收藏</div>
-      <div class="btn sc" v-else><i class="iconfont icon-aixin"></i>已收藏</div>
+      <span class="time">{{formData.createTime}}</span>
+      <span class="opt"><i class="iconfont icon-yanjing"></i>{{formData.views}}</span>
+      <span class="opt"><i class="iconfont icon-download1"></i>{{formData.downloadTimes}}</span>
+      <div class="btn sc" v-if="formData.collection == 0" @click="handleCollect(formData)"><i class="iconfont icon-iconfontxingxing"></i>收藏</div>
+      <div class="btn sc" v-else><i class="iconfont icon-iconfontxingxing"></i>已收藏</div>
       <div class="btn fx" @click="handleShare"><i class="iconfont icon-youxiangshixin"></i>分享</div>
       <div class="btn jc" @click="handleWrong"><i class="iconfont icon-zhuyi"></i>纠错</div>
     </div>
@@ -65,7 +65,7 @@ export default {
       firstClass: [],
       route: this.$route.params,
       createCollect,
-      beRewardedPerson: {id: '', name: ''},
+      beRewardedPerson: { id: '', name: '' },
     }
   },
   computed: {
@@ -80,11 +80,7 @@ export default {
       // }
       // downloadFile(obj)
       // downloadCount(this.formData.id)
-      this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
+      let fn = () => {
         downloadCount(this.formData.id).then(({ data }) => {
           if (data.data) {
             downloadFile(obj)
@@ -92,7 +88,18 @@ export default {
             this.$message.error(data.msg)
           }
         })
-      }).catch(() => {})
+      }
+      if (this.getMoney(this.formData.downloadCost) == 0) {
+        fn()
+      } else {
+        this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          fn()
+        }).catch(() => { })
+      }
     },
     loadData (id) {
       getDataById(id).then(({ data }) => {
@@ -112,9 +119,9 @@ export default {
     },
     getClass (first, second) {
       if (!first || !second) {
-        return {first: '', second: ''}
+        return { first: '', second: '' }
       }
-      let obj = {first: '', second: ''}
+      let obj = { first: '', second: '' }
       for (let item of this.firstClass) {
         if (item.id == first) {
           obj.first = item.levelName
@@ -163,16 +170,27 @@ export default {
 .article-details {
   padding: 20px 0;
   .title {
-    font-size: 18px;
+    font-size: 22px;
     color: #333;
     height: 50px;
     line-height: 50px;
   }
+  .time,
+  .opt {
+    color: #999;
+  }
+  .opt {
+    display: flex;
+    align-items: center;
+  }
   .inform {
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
     width: 100%;
     height: 40px;
     line-height: 40px;
-    position: relative;
     > span {
       margin-left: 10px;
       display: inline-block;
@@ -199,18 +217,27 @@ export default {
     .sc {
       right: 150px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
     .fx {
       right: 80px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
     .jc {
       right: 10px;
       font-size: 14px;
+      &:hover {
+        color: #cb3737;
+      }
     }
   }
   .classes {
-    margin: 0 0 10px 50px;
+    margin: 30px 0 20px 0;
   }
   .introduction {
     margin: 20px 0;
@@ -226,7 +253,15 @@ export default {
     padding: 20px;
     margin-bottom: 20px;
     .file {
+      margin-top: 10px;
       cursor: pointer;
+      &:hover {
+        color: #cb3737;
+      }
+      &:hover i,
+      &:hover .tip {
+        color: #cb3737;
+      }
       i {
         font-size: 16px !important;
         margin-right: 10px;
@@ -243,8 +278,8 @@ export default {
 .app-material-detail {
   .inform {
     img {
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
       border-radius: 50%;
       display: inline-block;
     }
@@ -254,10 +289,11 @@ export default {
 
 <style scoped>
 .inform >>> .el-image {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   cursor: pointer;
+  border: 1px solid #f0f0f0;
 }
 .inform >>> .el-image__inner {
   border-radius: 50%;

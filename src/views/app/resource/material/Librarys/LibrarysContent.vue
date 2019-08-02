@@ -11,7 +11,7 @@
                 <i class="iconfont icon-caifu" v-if="item.downloadCost !== '0'"></i>
                 <i class="iconfont icon-fujian" v-if="item.attachFile !== ''"></i>
               </div>
-              <p>{{item.intro}}</p>
+              <p class="con">{{item.intro}}</p>
             </div>
             <div class="box">
               <span class="uploaded">上传者：
@@ -21,8 +21,8 @@
               <span><i class="iconfont icon-yanjing"></i>{{item.views}}人浏览</span>
               <span><i class="iconfont icon-download1"></i>{{item.downloadTimes}}人下载</span>
               <span style="cursor: pointer;" v-if="item.collection == 0" @click="handleCollect(item)"><i class="icon-heart"></i>收藏</span>
-              <span style="cursor: pointer;" v-else><i class="icon-aixin"></i>已收藏</span>
-              <span style="cursor: pointer;" @click="handleShare(item)"><i class="icon-share"></i>分享</span>
+              <span class="collect" style="cursor: pointer;" v-else><i class="icon-aixin"></i>已收藏</span>
+              <span class="collect" style="cursor: pointer;" @click="handleShare(item)"><i class="icon-share"></i>分享</span>
             </div>
           </div>
           <iep-tag-detail :value="item.tagKeyWords"></iep-tag-detail>
@@ -115,27 +115,45 @@ export default {
     },
   },
   created () {
+    if (this.$route.query.id) {
+      this.params.orgId = this.$route.query.id
+    }
+    if (this.$route.query.materialType) {
+      this.params.materialType = this.$route.query.materialType
+    }
     this.loadPage()
   },
 }
 </script>
 <style lang="scss" scoped>
 .piece {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 16px;
+  padding-bottom: 16px;
   border-bottom: 1px solid #eee;
   & > p {
     font-size: 14px;
     color: #666;
     line-height: 28px;
   }
+  .con {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    text-align: justify;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 }
 .title {
+  margin-bottom: 2px;
   .name {
     display: inline-block;
     margin-right: 10px;
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
+    &:hover {
+      color: #cb3737;
+    }
   }
   i {
     margin-right: 10px;
@@ -155,12 +173,18 @@ export default {
     align-items: center;
     margin-right: 15px;
     line-height: 24px;
+    font-size: 12px;
     color: #aaa;
     i {
       margin-right: 5px;
       font-size: 16px;
       color: #aaa;
       vertical-align: -2px;
+    }
+  }
+  .collect {
+    &:hover {
+      color: #cb3737;
     }
   }
 }

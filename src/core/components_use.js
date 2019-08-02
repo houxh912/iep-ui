@@ -6,7 +6,6 @@ import BasicAsideContainer from '@/components/BasicAsideContainer/index'
 import OperationWrapper from '@/components/Operation/Wrapper'
 import OperationSearch from '@/components/Operation/Search'
 import OperationContainer from '@/components/Operation/Container'
-import PageHeader from '@/components/Page/Header'
 import IepPageHeader from '@/components/IepCommon/PageHeader'
 import FooterToolBar from '@/components/FooterToolbar'
 import IepResult from '@/components/IepResult/index'
@@ -27,6 +26,7 @@ import IepIdentityMark from '@/components/IepCommon/IdentityMark'
 import IepReadMarkDel from '@/components/IepCommon/ReadMarkDel'
 import IepFiveKay from '@/components/IepCommon/FiveKey'
 import IepKeyItem from '@/components/IepCommon/KeyItem'
+import IepUserCard from '@/components/IepCommon/UserCard'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -42,12 +42,14 @@ import IepDictCascaderDetail from '@/components/IepForm/DictCascaderDetail'
 import IepDescriptionItem from '@/components/IepForm/DescriptionItem'
 import IepTagDetail from '@/components/IepForm/TagDetail'
 import IepDivDetail from '@/components/IepForm/DivDetail'
+import IepDivDetailSwitch from '@/components/IepForm/DivDetailSwitch'
 import IepDateRangeSelect from '@/components/IepForm/DateRangeSelect'
 import IepFormItem from '@/components/IepForm/FormItem'
 import IepCrmsSelect from '@/components/IepForm/CrmsSelect'
 import IepCrmsSelectMultiple from '@/components/IepForm/CrmsSelectMultiple'
 
 // input
+import IepInputAmount from '@/components/IepInput/InputAmount'
 import IepInputNumber from '@/components/IepInput/InputNumber'
 import IepInputArea from '@/components/IepInput/InputArea'
 
@@ -109,7 +111,6 @@ Vue.component(BasicAsideContainer.name, BasicAsideContainer)
 Vue.component(OperationWrapper.name, OperationWrapper)
 Vue.component(OperationContainer.name, OperationContainer)
 Vue.component(OperationSearch.name, OperationSearch)
-Vue.component(PageHeader.name, PageHeader)
 Vue.component(IepPageHeader.name, IepPageHeader)
 Vue.component(FooterToolBar.name, FooterToolBar)
 Vue.component(IepResult.name, IepResult)
@@ -130,6 +131,7 @@ Vue.component(IepIdentityMark.name, IepIdentityMark)
 Vue.component(IepReadMarkDel.name, IepReadMarkDel)
 Vue.component(IepFiveKay.name, IepFiveKay)
 Vue.component(IepKeyItem.name, IepKeyItem)
+Vue.component(IepUserCard.name, IepUserCard)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)
@@ -141,16 +143,19 @@ Vue.component(IepDictDetail.name, IepDictDetail)
 Vue.component(IepDictSelect.name, IepDictSelect)
 Vue.component(IepDictCascader.name, IepDictCascader)
 Vue.component(IepDictCascaderDetail.name, IepDictCascaderDetail)
-Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepDescriptionItem.name, IepDescriptionItem)
 Vue.component(IepTagDetail.name, IepTagDetail)
 Vue.component(IepDivDetail.name, IepDivDetail)
-Vue.component(IepInputArea.name, IepInputArea)
+Vue.component(IepDivDetailSwitch.name, IepDivDetailSwitch)
 Vue.component(IepDateRangeSelect.name, IepDateRangeSelect)
 Vue.component(IepFormItem.name, IepFormItem)
 Vue.component(IepCrmsSelect.name, IepCrmsSelect)
 Vue.component(IepCrmsSelectMultiple.name, IepCrmsSelectMultiple)
+
+Vue.component(IepInputNumber.name, IepInputNumber)
+Vue.component(IepInputAmount.name, IepInputAmount)
+Vue.component(IepInputArea.name, IepInputArea)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)

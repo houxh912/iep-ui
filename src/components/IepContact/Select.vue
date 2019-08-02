@@ -2,7 +2,7 @@
   <div>
     <operation-wrapper v-if="disabled">
       <span v-if="![user].length">暂无</span>
-      <span v-for="item in [user]" :key="item.id">{{item.name}}、</span>
+      <span>{{user.name}}</span>
     </operation-wrapper>
     <operation-wrapper v-if="!disabled" class="contact-wrapper">
       <a-select ref="a-select" showSearch labelInValue :value="userValue" placeholder="请输入姓名或姓名拼音" :showArrow="false" :filterOption="false" @search="handleSearch" @change="handleChange" :notFoundContent="null" dropdownClassName="iep-contact-dropdown" :getPopupContainer="getPopupContainer">
@@ -33,6 +33,10 @@ export default {
   name: 'IepContactSelect',
   components: { Relation },
   props: {
+    placeholder: {
+      type: String,
+      default: '请输入姓名或姓名拼音',
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -86,9 +90,6 @@ export default {
         label: this.user.name,
       }
     },
-  },
-  created () {
-    // this.loadPyList()
   },
   methods: {
     clearAll () {
@@ -151,8 +152,7 @@ export default {
       this.filterText = ''
       this.dialogShow = false
     },
-    filterNode (value, data, node) {
-      console.log(value, data, node)
+    filterNode (value, data) {
       if (!value) return true
       return data.label.indexOf(value) !== -1
     },
@@ -160,7 +160,7 @@ export default {
       this.fetching = true
       const name = query.toLowerCase().trim()
       const { data } = await loadContactsPyList({ name })
-      this.userResults = data.data
+      this.userResults = data.data.filter(m => !this.filterUserList.includes(m.id))
       this.fetching = false
     },
     loadNode () {
@@ -182,6 +182,7 @@ export default {
 <style lang="scss" scoped>
 .contact-wrapper {
   display: flex;
+  min-width: 200px;
 }
 .is-disabled {
   cursor: not-allowed;

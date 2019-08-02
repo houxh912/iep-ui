@@ -10,7 +10,7 @@
         <slot name="right"></slot>
       </div>
       <el-scrollbar style="height:240px">
-        <div class="bulleted-item" v-for="(item,index) in dataList" :key="index">
+        <div class="bulleted-item" @click="handleDetail(item)" v-for="(item,index) in dataList" :key="index">
           <span class="sub-item">{{item.project_name}}</span>
         </div>
       </el-scrollbar>
@@ -40,6 +40,9 @@ export default {
       this.$router.push({
         path: this.linkName,
       })
+    },
+     handleDetail (row) {
+      this.$router.push(`/gpms_spa/project/detail/${row.id}`)
     },
   },
 }
@@ -79,6 +82,7 @@ export default {
   line-height: 32px;
   font-size: 14px;
   color: #333;
+  cursor: pointer;
   .sub-item {
     display: inline-block;
     overflow: hidden;

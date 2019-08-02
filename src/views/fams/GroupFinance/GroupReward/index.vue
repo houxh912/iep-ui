@@ -61,8 +61,8 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id)
     },
-    loadPage (param) {
-      this.loadTable({ ...param, isReward: this.isReward }, getGroupRewardPage)
+    loadPage (param = this.searchForm) {
+      this.loadTable({ ...param, isIncome: this.isReward }, getGroupRewardPage)
     },
   },
 }

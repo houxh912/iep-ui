@@ -1,4 +1,4 @@
-import { getStore } from '@/util/store'
+﻿import { getStore } from '@/util/store'
 const dicData = getStore({ name: 'dictGroup' })
 let changeDictFn = (name) => {
   let obj = {}
@@ -29,23 +29,27 @@ export const deptList = [
 
 export const tableOption = [
   {
+    label: '市场经理',
+    prop: 'directorRealName',
+    width: '100px',
+  }, {
     label: '合同类型',
     prop: 'contractType',
     type: 'dict',
-    width: '180px',
+    width: '100px',
   }, {
     label: '合同金额',
     prop: 'contractAmount',
-    width: '180px',
+    width: '100px',
   }, {
     label: '合同状态',
     prop: 'contractStatus',
     type: 'dict',
-    width: '180px',
+    width: '100px',
   }, {
     label: '回款率',
     prop: '',
-    minWidth: '100px',
+    width: '100px',
   },
 ]
 
@@ -214,7 +218,7 @@ export function initSearchForm () {
 }
 
 export const infoList = [
-  { name: '关联项目', value: 'projectName' },
+  { name: '关联项目', value: 'projectName', type: 'project', subVal: 'serialNo' },
   { name: '市场经理', value: 'directorRealName' },
   { name: '合同类型', value: 'contractType', type: 'dict' },
   { name: '业务类型', value: 'businessTypeList' },

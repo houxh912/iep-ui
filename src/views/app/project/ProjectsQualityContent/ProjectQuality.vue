@@ -52,7 +52,7 @@ export default {
     line-height: 25px;
   }
   .person {
-    padding-top: 15px;
+    padding-top: 20px;
     margin-bottom: 15px;
     overflow: hidden;
     .dn {
@@ -78,7 +78,7 @@ export default {
     }
     .piece {
       float: left;
-      margin: 0 15px;
+      margin: 0 19px;
       width: 60px;
       text-align: center;
       overflow: hidden;
@@ -132,11 +132,11 @@ export default {
     align-items: center;
     padding-left: 20px;
     width: 45%;
-    background-color: #f2f2f2;
+    background-color: #f8f8f8;
     line-height: 35px;
     cursor: pointer;
     &:hover {
-      background-color: #eee;
+      background-color: #f0f0f0;
     }
     i {
       margin-right: 15px;
@@ -148,6 +148,7 @@ export default {
 }
 .red {
   display: inline-block;
+  padding: 0;
   color: #bb1a20;
   cursor: pointer;
   &:hover {
@@ -156,12 +157,6 @@ export default {
 }
 </style>
 <style scoped>
-.person >>> .el-carousel__arrow--left {
-  left: 0;
-}
-.person >>> .el-carousel__arrow--right {
-  right: 0;
-}
 .person >>> .el-carousel__item {
   left: 40px;
 }
@@ -169,6 +164,23 @@ export default {
   display: none;
 }
 .person >>> .el-card {
-  height: 330px;
+  height: 320px;
+}
+.person >>> .el-carousel__arrow {
+  background: none;
+}
+.person >>> .el-carousel__arrow i {
+  font-size: 36px;
+  color: #666;
+}
+.person >>> .el-carousel__item {
+  left: 25px;
+  width: 96%;
+}
+.person >>> .el-carousel__arrow--left {
+  left: -8px;
+}
+.person >>> .el-carousel__arrow--right {
+  right: -8px;
 }
 </style>

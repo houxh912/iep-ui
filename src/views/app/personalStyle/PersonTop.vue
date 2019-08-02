@@ -23,24 +23,24 @@
                 <iep-identity-mark class="mark" :icon="item.icon" :title="item.label" v-for="(item, index) in user_info.identityMarks" :key="index"></iep-identity-mark>
               </span>
             </div>
-            <span class="autograph">个性签名：{{user_info.signature}}</span>
+            <span class="autograph"><span class="autograph-con">个性签名：</span>{{user_info.signature}}</span>
             <div class="classTags">
               <div class="classTag">
                 <div class="label">卓越标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag">
                 <div class="label">专业标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag">
                 <div class="label">进步标签：</div>
                 <div class="span">
-                  <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index">{{item}}</el-tag>
+                  <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag more" v-if="!userInfoShow">
@@ -51,7 +51,7 @@
           <div class="right-con">
             <div class="labs-con">
               <div class="data-lab" v-for="lab in labList" :key="lab.id">
-                <div class="count">{{lab.data}}</div>
+                <div class="count">{{user_info.rankMap[lab.prop]}}</div>
                 <div class="labTitle"><span>{{lab.labTitle}}</span></div>
               </div>
             </div>
@@ -60,14 +60,13 @@
               <el-button size="mini" type="danger" plain @click="handleApprentice">拜师</el-button>
               <el-button size="mini" type="danger" plain @click="handleReward">打赏</el-button>
               <el-button size="mini" type="danger" plain @click="handleProposal">建议</el-button>
-              <el-button size="mini" type="danger" plain @click="handlePk">PK</el-button>
             </el-row>
             <el-row class="apply">
-              <el-button type="danger" plain  @click="handleApply">申请授权</el-button>
+              <el-button type="danger" plain @click="handleApply">申请授权</el-button>
+              <el-button size="mini" type="danger" @click="handlePk" class="no-hover">PK</el-button>
             </el-row>
           </div>
         </div>
-        <moreTemplate v-if="userInfoShow" :userInfo='user_info' @handleClose="()=> {userInfoShow=false}"></moreTemplate>
       </div>
     </el-card>
 
@@ -78,11 +77,10 @@
 
 <script>
 import EmailDialog from '@/views/app/components/email/'
-import moreTemplate from './moreTemplate/'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  components: { EmailDialog, moreTemplate },
+  components: { EmailDialog },
   props: {
     user_info: {
       type: Object,
@@ -98,25 +96,25 @@ export default {
       show1: 'show',
       show2: 'show',
       show3: 'show',
+      userInfoShow: true,
       labList: [
         {
-          data: '--',
+          prop: 'xyz',
           labTitle: '信用值',
         },
         {
-          data: '--',
-          labTitle: '活跃度',
+          prop: 'hydpm',
+          labTitle: '活跃度排名',
         },
         {
-          data: '--',
+          prop: 'gmbpm',
           labTitle: '财富排名',
         },
         {
-          data: '--',
+          prop: 'sjzc',
           labTitle: '数据资产',
         },
       ],
-      userInfoShow: true,
       integrityColors: '#66cb68',
     }
   },
@@ -275,8 +273,12 @@ export default {
     .classTag {
       margin-bottom: 10px;
       display: flex;
+      align-items: flex-start;
       .label {
-        width: 80px;
+        margin-bottom: 5px;
+        line-height: 28px;
+        width: 70px;
+        color: #666;
       }
       .span {
         flex: 1;
@@ -284,11 +286,10 @@ export default {
       .el-tag {
         margin-right: 5px;
         margin-bottom: 5px;
+        font-size: 14px;
         cursor: pointer;
         &:hover {
           color: #cb3737;
-          background: #fef0f0;
-          border-color: #cb3737;
         }
       }
     }
@@ -297,9 +298,36 @@ export default {
       margin-top: 15px;
       flex-direction: column;
       align-items: center;
-      .apply {
-        margin-top: 25px;
+      .el-row {
+        width: 100%;
         text-align: right;
+        .el-button {
+          font-size: 14px;
+        }
+      }
+      .el-button--danger {
+        background: #cb3737;
+        border-color: #ba1b21;
+        padding: 7px 15px;
+        min-width: 62px;
+      }
+      .el-button--danger.is-plain {
+        color: #cb3737;
+        background: #fef0f0;
+        border-color: #cb3737;
+      }
+      .el-button--danger.is-plain:hover {
+        background: #cb3737;
+        border-color: #ba1b21;
+        color: #fff;
+      }
+      .apply {
+        margin-top: 10px;
+        .no-hover:hover {
+          background: #cb3737;
+          border-color: #ba1b21;
+          color: #fff;
+        }
       }
     }
     .labs-con {
@@ -316,15 +344,19 @@ export default {
     .name-con {
       display: flex;
       justify-content: flex-start;
-      align-items: flex-end;
       margin-bottom: 10px;
       .name {
         margin-right: 10px;
-        font-size: 20px;
+        font-size: 24px;
+        font-weight: 700;
       }
     }
     .autograph {
-      color: #666;
+      .autograph-con {
+        display: inline-block;
+        padding-right: 10px;
+        color: #666;
+      }
     }
     .dn {
       opacity: 0;
@@ -368,6 +400,9 @@ export default {
       color: #fff;
     }
   }
+  .more {
+    cursor: pointer;
+  }
 }
 </style>
 <style scoped>
@@ -377,11 +412,29 @@ export default {
   align-items: stretch;
 }
 .personal-top >>> .el-tag--white {
-  border: 1px solid #dcdfe6;
+  position: relative;
+  border: 0;
   height: 28px;
-  line-height: 26px;
-  background: #fff;
-  color: #606266;
+  line-height: 28px;
+  font-size: 14px;
+  background: none;
+  color: #444;
+}
+.personal-top >>> .el-tag--white:before {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: -10px;
+  width: 15px;
+  height: 1px;
+  background-color: #aaa;
+  transform: rotate(125deg);
+  -o-transform: rotate(125deg);
+  -moz-transform: rotate(125deg);
+  -webkit-transform: rotate(125deg);
+}
+.personal-top >>> .el-tag--white:last-child:before {
+  background: none;
 }
 .personal-top >>> .el-button--danger {
   color: #fff;

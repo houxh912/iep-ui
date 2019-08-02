@@ -8,6 +8,9 @@
       <el-form-item label="收件人：" prop="receiverList">
         <iep-contact-multiple v-model="formData.receiverList"></iep-contact-multiple>
       </el-form-item>
+      <el-form-item label="分享标签：">
+        <iep-tag v-model="formData.tagKeyWords" plus></iep-tag>
+      </el-form-item>
       <el-form-item label="正文：" prop="content">
         <!-- <el-input type="textarea" rows=5 placeholder="请在此输入分享说明" v-model="formData.content" maxlength="2000"></el-input> -->
         <iep-froala-editor v-model="formData.content"></iep-froala-editor>

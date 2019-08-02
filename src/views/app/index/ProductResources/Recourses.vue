@@ -34,7 +34,7 @@ export default {
         { icon: 'icon-peixun', name: '培训库', number: this.counts.countTraining, path: '/app/resource/training' },
         { icon: 'icon-shangjifaxian', name: '商机库', number: this.counts.countOpportunity, path: '/app/resource/business' },
         { icon: 'icon-hetongliebiao', name: '专家库', number: this.counts.countExpert, path: '/app/resource/expert' },
-        { icon: 'icon-dingwei', name: '项目库', number: '0', path: '/app/project' },
+        { icon: 'icon-dingwei', name: '项目库', number: this.counts.countProject, path: '/app/project' },
       ]
     },
   },
@@ -73,14 +73,15 @@ export default {
     width: 100%;
     text-align: center;
     .iconfont {
-      width: 55%;
+      width: 65px;
+      height:65px;
       font-size: 30px;
       padding: 10px 0;
       border-radius: 50%;
       background-color: #f0f0f0;
       text-align: center;
       display: block;
-      margin: 0 auto;
+      margin: auto auto;
       &:hover {
         cursor: pointer;
         background-color: #cb3737;

@@ -2,7 +2,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`${methodName}产品`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`${methodName}产品`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
@@ -49,7 +49,7 @@
             <iep-contact-multiple-user v-model="form.userRelationCharges"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="需求方：" class="form-half">
-            <iep-contact-multiple-user v-model="form.userRelationDemands"></iep-contact-multiple-user>
+            <iep-contact-multiple-user v-model="form.userRelationDemands" :filter-user-list="filterUserList"></iep-contact-multiple-user>
           </el-form-item>
           <el-form-item label="技术经理：" class="form-half">
             <iep-contact-multiple-user v-model="form.userRelationTechnologys"></iep-contact-multiple-user>
@@ -77,7 +77,7 @@
         </el-row>
       </el-form>
       <FooterToolBar>
-        <iep-button type="primary" @click="submitForm">提交</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
       </FooterToolBar>
     </basic-container>
   </div>
@@ -86,13 +86,14 @@
 <script>
 import { getProductById, postProduct, putProduct } from '@/api/cpms/product'
 import mixins from '@/mixins/mixins'
+import formMixins from '@/mixins/formMixins'
 import IepCpmsVersionTable from '@/views/cpms/Components/VersionTable'
 import IepCpmsModuleTable from '@/views/cpms/Components/ModuleTable'
 import IepCpmsMaterialTable from '@/views/cpms/Components/MaterialTable'
 import { initForm, toDtoForm, rules } from '../options'
 export default {
   name: 'edit',
-  mixins: [mixins],
+  mixins: [mixins, formMixins],
   components: {
     IepCpmsVersionTable,
     IepCpmsModuleTable,
@@ -132,6 +133,7 @@ export default {
       filterUsers.push(...this.form.userRelationDemands)
       filterUsers.push(...this.form.userRelationTechnologys)
       filterUsers.push(...this.form.userRelationProducts)
+      filterUsers.push(...this.form.userRelationTeams)
       let dupeArray = filterUsers.map(m => m.id)
       let uniqueArray = Array.from(new Set(dupeArray))
       return uniqueArray
@@ -148,29 +150,13 @@ export default {
         })
       }
     },
-    handleEdit () {
-      this.$message.success('功能开发中')
-    },
-    handleDelete () {
-      this.$message.success('功能开发中')
-    },
     async submitForm () {
-      try {
-        const valid = await this.$refs['form'].validate()
-        if (valid) {
-          const { data } = await this.formRequestFn(toDtoForm(this.form))
-          if (data.data) {
-            this.$router.history.go(-1)
-          } else {
-            this.$message(data.msg)
-          }
-        }
-      } catch (error) {
-        console.log(error)
+      const { data } = await this.formRequestFn(toDtoForm(this.form))
+      if (data.data) {
+        this.$router.history.go(-1)
+      } else {
+        this.$message(data.msg)
       }
-    },
-    clear () {
-      this.$message.success('功能开发中')
     },
   },
 }
@@ -186,9 +172,6 @@ export default {
   padding-left: 20px;
   padding-right: 20%;
   margin-bottom: 30px;
-}
-.el-form {
-  margin: 0;
 }
 .last {
   padding-bottom: 20px;

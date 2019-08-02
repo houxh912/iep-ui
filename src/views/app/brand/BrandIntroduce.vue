@@ -3,14 +3,19 @@
     <iepAppTabCard :title="title" :linkName="linkName">
       <div class="introduce">
         <span v-text="introduce"></span>
-        <span class="red" style="display:inline-block;margin-bottom:15px;">【详细】</span>
-        <div class="task">
-          <i class="el-icon-arrow-left"></i>
-          <div class="img-list" v-for="(item,index) in img" :key="index">
-            <iep-img class="img" :src="item.imgSrc"></iep-img>
-            <span>{{item.name}}</span>
-          </div>
-          <i class="el-icon-arrow-right"></i>
+        <el-button class="red" type="text">【详细】</el-button>
+        <div class="person">
+          <el-carousel height="84px" :interval="5000" arrow="always">
+            <el-carousel-item v-for="item in 4" :key="item">
+              <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
+                <div class="img">
+                  <span class="bgb">{{item.post}}</span>
+                  <iep-img :src="item.imgSrc" class="img"></iep-img>
+                </div>
+                <span class="name">{{item.name}}<span class="dn show1" :class="item.show1">V</span></span>
+              </div>
+            </el-carousel-item>
+          </el-carousel>
         </div>
         <div class="feedback">
           <span> <i class="icon-custom"></i> 意见与建议</span>
@@ -26,7 +31,7 @@ export default {
     return {
       title: '品牌、平台与研究委员会介绍',
       linkName: '',
-      img: [
+      wonderfulList: [
         { imgSrc: require('./images/expert1.jpg'), name: '杨冰之' },
         { imgSrc: require('./images/expert2.png'), name: '郑爱军' },
         { imgSrc: require('./images/expert3.png'), name: '王路燕' },
@@ -37,39 +42,84 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-.el-card {
-  height: 325px;
-}
 .title {
-  color: #000;
+  color: #333;
 }
 .introduce {
+  margin-top: -7px;
   & > span {
     line-height: 25px;
   }
-  .task {
-    margin-bottom: 15px;
-    i {
-      display: inline-block;
-      font-size: 26px;
-      color: #ccc;
-      vertical-align: 40px;
+  .person {
+    padding-top: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    .dn {
+      opacity: 0;
     }
-    .img-list {
-      display: inline-block;
-      margin: 0 3px;
-      span {
-        display: block;
-        text-align: center;
-      }
+    .show {
+      opacity: 1;
     }
-    .img {
+    .show1 {
       display: inline-block;
-      margin: 8px;
+      margin: 0 5px;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      background-color: #ccc;
+      width: 15px;
+      height: 15px;
+      font-size: 12px;
+      line-height: 15px;
+      text-align: center;
+      background-color: #cb3737;
+      color: #fff;
+    }
+    .name {
+      display: block;
+      margin-top: 10px;
+    }
+    .piece {
+      float: left;
+      margin: 0 9px;
+      width: 54px;
+      text-align: center;
+      overflow: hidden;
+      .img {
+        position: relative;
+        width: 100%;
+        height: 54px;
+        overflow: hidden;
+        border-radius: 50%;
+        cursor: pointer;
+        .bgb {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          line-height: 54px;
+          font-size: 12px;
+          text-align: center;
+          display: block;
+          border-radius: 50%;
+          color: #fff;
+          z-index: 100;
+          opacity: 0;
+          transition: all 0.5s;
+        }
+        &:hover .bgb {
+          background: rgba(0, 0, 0, 0.5);
+          opacity: 1;
+        }
+        img {
+          width: 100%;
+          height: 54px;
+          transition: 0.5s;
+          border-radius: 50%;
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
+        }
+      }
     }
   }
 }
@@ -77,12 +127,18 @@ export default {
   display: flex;
   justify-content: space-between;
   span {
-    display: inline-block;
-    padding-left: 5px;
-    width: 47%;
-    background-color: #f2f2f2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 10px;
+    width: 46%;
+    background-color: #f8f8f8;
     line-height: 35px;
     cursor: pointer;
+    transition: 0.5s;
+    &:hover {
+      background-color: #f0f0f0;
+    }
     i {
       margin-right: 5px;
       font-size: 24px !important;
@@ -92,14 +148,43 @@ export default {
   }
 }
 .red {
+  display: inline-block;
+  padding: 0;
   color: #bb1a20;
+  cursor: pointer;
+  &:hover {
+    color: #f56c6c;
+  }
 }
 </style>
 <style scoped>
-.grid-content >>> .el-image__inner {
-  border-radius: 50%;
+.person >>> .el-carousel__item {
+  left: 40px;
+}
+.person >>> .el-carousel__indicators {
+  display: none;
+}
+.person >>> .el-card {
+  height: 330px;
+}
+.person >>> .el-carousel__arrow {
+  background: none;
+}
+.person >>> .el-carousel__arrow i {
+  font-size: 36px;
+  color: #666;
+}
+.person >>> .el-carousel__item {
+  left: 25px;
+  width: 96%;
+}
+.person >>> .el-carousel__arrow--left {
+  left: -8px;
+}
+.person >>> .el-carousel__arrow--right {
+  right: -8px;
 }
 .grid-content >>> .el-card {
-  height: 310px;
+  height: 320px;
 }
 </style>

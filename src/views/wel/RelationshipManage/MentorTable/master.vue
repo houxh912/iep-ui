@@ -1,7 +1,7 @@
 <template>
   <div>
-    <page-header title="我的师父"></page-header>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+    <iep-page-header title="我的师父"></iep-page-header>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMapMaster" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <template slot="before-columns">
       </template>
       <el-table-column label="操作" width="120px">
@@ -17,12 +17,12 @@
 <script>
 import { getMyMaster, deleteReleaseMentorById } from '@/api/wel/relationship_manage'
 import mixins from '@/mixins/mixins'
-import { columnsMap } from './options'
+import { columnsMapMaster } from './options'
 export default {
   mixins: [mixins],
   data () {
     return {
-      columnsMap,
+      columnsMapMaster,
     }
   },
   computed: {

@@ -34,6 +34,10 @@
         <iep-div-detail :value="form.projectName"></iep-div-detail>
       </el-form-item>
 
+      <el-form-item label="项目编号：">
+        <iep-div-detail :value="form.projectNumber"></iep-div-detail>
+      </el-form-item>
+
       <el-form-item label="支出金额：">
         <iep-div-detail :value="form.amount+' 元'"></iep-div-detail>
       </el-form-item>
@@ -53,6 +57,24 @@
       <el-form-item label="备注：">
         <iep-div-detail :value="form.remarks"></iep-div-detail>
       </el-form-item>
+
+      <el-form-item label="操作人：">
+        <iep-div-detail :value="form.realName"></iep-div-detail>
+      </el-form-item>
+
+      <h2 style="text-align: center;">代缴</h2>
+      <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
+        <el-table-column prop="orgId" label="组织名称">
+          <template slot-scope="scope">
+            <iep-div-detail :value="scope.row.orgName"></iep-div-detail>
+          </template>
+        </el-table-column>
+        <el-table-column prop="amount" label="金额(元)">
+          <template slot-scope="scope">
+            <iep-div-detail :value="scope.row.amount"></iep-div-detail>
+          </template>
+        </el-table-column>
+      </el-table>
 
       <template v-if="form.parentType==='17'">
         <el-form-item label="">

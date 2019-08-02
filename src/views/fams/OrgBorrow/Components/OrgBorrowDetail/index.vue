@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="组织申请借款" :replaceText="replaceText" :backOption="backOption"></page-header>
+      <iep-page-header title="组织申请借款" :replaceText="replaceText" :backOption="backOption"></iep-page-header>
       <div class="withdraw-wrapper">
         <a-steps :current="current">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />

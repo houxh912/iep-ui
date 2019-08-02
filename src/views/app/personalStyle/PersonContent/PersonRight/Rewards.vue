@@ -3,7 +3,7 @@
     <IepAppTabCard :title="title">
       <div class="dynamicList" v-if="list.length !== 0">
         <div v-for="(item, index) in list" :key="index" class="piece">
-          <span>{{item.createTime}} 被 <span class="creator" @click="handleRoute(item)">{{item.creatorName}}</span> 打赏</span>
+          <span>{{dateFormat(item.createTime)}} 被 <span class="creator" @click="handleRoute(item)">{{item.creatorName}}</span> 打赏</span>
         </div>
       </div>
       <IepNoData v-else></IepNoData>
@@ -13,12 +13,19 @@
 
 <script>
 import { getWealthFlowListById } from '@/api/fams/wealth_flow'
+import { dateFormat } from '@/util/date'
 
 export default {
+  props: {
+    userId: {
+      type: Number,
+    },
+  },
   data () {
     return {
       title: '奖惩记录',
       list: [],
+      dateFormat,
     }
   },
   methods: {
@@ -26,16 +33,18 @@ export default {
       this.$router.push(`/app/personal_style/${row.creatorId}`)
     },
   },
-  created () {
-    getWealthFlowListById(this.$route.params.id).then(({data}) => {
-      this.list = data.data
-    })
+  watch: {
+    userId (newVal) {
+      getWealthFlowListById(newVal).then(({ data }) => {
+        this.list = data.data
+      })
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
 .mark {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .dynamicList {
   .piece {

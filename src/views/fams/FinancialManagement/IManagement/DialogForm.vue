@@ -27,6 +27,9 @@
       <el-form-item label="关联项目：">
         <iep-project-select v-model="form.projectId" :projectName="form.projectName" @relation-change="handleProjectChange"></iep-project-select>
       </el-form-item>
+      <el-form-item label="关联项目编号：">
+        <iep-div-detail :value="form.serialNo"></iep-div-detail>
+      </el-form-item>
       <el-form-item label="收入金额(元)：" prop="amount">
         <iep-input-number v-model="form.amount" :min="-99999999"></iep-input-number>
       </el-form-item>
@@ -51,23 +54,59 @@
       <el-form-item label="备注：">
         <iep-input-area v-model="form.remarks"></iep-input-area>
       </el-form-item>
+      <div class="collection-box">
+        <el-collapse-transition>
+          <div v-show="isCollection" class="collection-wrapper">
+            <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>
+              <el-table-column prop="orgId" label="组织名称">
+                <template slot-scope="scope">
+                  <iep-select size="small" v-model="scope.row.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+                </template>
+              </el-table-column>
+              <el-table-column prop="amount" label="金额(元)">
+                <template slot-scope="scope">
+                  <iep-input-number size="small" v-model="scope.row.amount" :min="-99999999"></iep-input-number>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="100">
+                <template slot-scope="scope">
+                  <iep-button @click="handleDelete(scope.row, scope.$index)">删除</iep-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <iep-button type="primary" style="width: 100%; margin-top: 5px; margin-bottom: 8px" icon="el-icon-plus" @click="newMember">新增</iep-button>
+          </div>
+        </el-collapse-transition>
+        <div class="collection-real-wrapper"></div>
+        <iep-button :icon="isCollection ? 'el-icon-arrow-up' : 'el-icon-arrow-down'" class="collection-btn" @click="isCollection = !isCollection">代收</iep-button>
+      </div>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm()">提交</iep-button>
+      <iep-button type="primary" @click="confirmForm()">提交</iep-button>
       <iep-button @click="dialogShow=false">取消</iep-button>
     </template>
+    <confirm-form ref="ConfirmForm" @load-page="close"></confirm-form>
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap, toDtoForm, rules } from './options'
+import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
+import ConfirmForm from './ConfirmForm'
 import { mapGetters } from 'vuex'
+function initTableForm () {
+  return {
+    orgId: '',
+    amount: 0,
+  }
+}
 export default {
+  components: { ConfirmForm },
   mixins: [formMixins],
   data () {
     return {
       dictsMap,
       dialogShow: false,
+      isCollection: false,
       formRequestFn: () => { },
       methodName: '创建',
       form: initForm(),
@@ -93,17 +132,39 @@ export default {
     },
   },
   methods: {
-    handleContractChange (v) {
-      if (v) {
-        this.form.projectId = v.id
-        this.form.projectName = v.name
+    async confirmForm () {
+      if (this.form.relations.length) {
+        const sumAmount = this.form.relations.reduce((accumulator, currentValue) => accumulator.amount + currentValue.amount)
+        // console.log(sumAmount, this.form.amount)
+        if (sumAmount > this.form.amount) {
+          this.$message('总代收金额不得超过收入金额')
+          return
+        }
+      }
+      const valid = await this.mixinsForm()
+      if (valid) {
+        this.$refs['ConfirmForm'].form = { ...this.form }
+        this.$refs['ConfirmForm'].formRequestFn = this.formRequestFn
+        this.$refs['ConfirmForm'].dialogShow = true
       }
     },
-    handleProjectChange (v) {
-      if (v) {
-        this.form.protocolId = v.id
-        this.form.protocolName = v.name
-      }
+    newMember () {
+      this.form.relations.push(initTableForm())
+    },
+    handleDelete (row, i) {
+      this.form.relations.splice(i, 1)
+    },
+    handleContractChange (v, n, value) {
+      this.form.projectId = v && v.id
+      this.form.projectName = v && v.name
+      this.form.serialNo = v && v.serialNo
+      this.form.protocolName = value && value.name
+    },
+    handleProjectChange (v, n, value) {
+      this.form.protocolId = v && v.id
+      this.form.protocolName = v && v.name
+      this.form.serialNo = value && value.serialNo
+      this.form.projectName = value && value.name
     },
     handleChange () {
       this.form.accountId = ''
@@ -113,38 +174,27 @@ export default {
       this.dialogShow = false
       this.$emit('load-page')
     },
-    async submitForm () {
-      try {
-        await this.mixinsValidate()
-        try {
-          const { data } = await this.formRequestFn(toDtoForm(this.form))
-          if (data.data) {
-            this.$message({
-              message: '操作成功',
-              type: 'success',
-            })
-            this.close()
-          } else {
-            this.$message({
-              message: data.msg,
-              type: 'error',
-            })
-          }
-        } catch (error) {
-          this.$message({
-            message: error.message,
-            type: 'error',
-          })
-        }
-      } catch (object) {
-        this.mixinsMessage(object)
-      }
-    },
   },
-  // watch: {
-  //   'form.amount': function (n) {
-  //     this.form.invoiceAmount = n * 0.01
-  //   },
-  // },
 }
 </script>
+<style lang="scss" scoped>
+.collection-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.collection-btn {
+  margin: 0;
+  border-top: none;
+  margin-top: -1px;
+  border-radius: 0 0 5px 5px;
+}
+.collection-real-wrapper {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+}
+.collection-wrapper {
+  width: 100%;
+}
+</style>
+

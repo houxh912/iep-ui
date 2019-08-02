@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="项目列表"></page-header>
+      <iep-page-header title="项目列表"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-select
@@ -25,6 +25,7 @@
         :columnsMap="columnsMap"
         :pagination="pagination"
         :pagedTable="pagedTable"
+        :dictsMap="dictMap"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       >
@@ -37,9 +38,9 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="发布时间" width="150">
+        <el-table-column label="立项时间" width="150">
           <template slot-scope="scope">
-            <span>{{ scope.row.publisherTime }}</span>
+            <span>{{ scope.row.projectTime|parseToDay}}</span>
           </template>
         </el-table-column>
       </iep-table>
@@ -49,20 +50,33 @@
 <script>
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-import { getProjectList } from '@/api/gpms/index'
+import { getTableData } from '@/api/gpms/index'
 import AdvanceSearch from './AdvanceSearch'
+import { getStore } from '@/util/store'
+const dicData = getStore({ name: 'dictGroup' })
+function changeDict (list) {
+  let data = {}
+  for (let item of list) {
+    data[item.value] = item.label
+  }
+  return data
+}
+const dictMap = {
+  projectStage: changeDict(dicData.prms_project_stage),
+}
 const columnsMap = [
+  {
+    prop: 'projectBudget',
+    label: '项目预算',
+  },
+  {
+    prop: 'contractAmount',
+    label: '合同金额',
+  },
   {
     prop: 'projectStage',
     label: '项目阶段',
-  },
-  {
-    prop: 'projectManager',
-    label: '项目经理',
-  },
-  {
-    prop: 'projectLevel',
-    label: '项目等级',
+    type: 'dict',
   },
   {
     prop: 'publisherName',
@@ -83,6 +97,7 @@ export default {
   data () {
     return {
       orgIds: '',
+      dictMap,
       columnsMap,
       pagedTable: [],
       searchForm: {},
@@ -106,7 +121,7 @@ export default {
   },
   methods: {
     loadPage (param = {}) {
-      this.loadTable(Object.assign({ orgId: this.orgIds }, param, this.searchForm), getProjectList)
+      this.loadTable(Object.assign({ orgId: this.orgIds }, param, this.searchForm), getTableData)
     },
     listPage () {
       this.loadPage()

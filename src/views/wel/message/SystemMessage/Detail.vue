@@ -1,13 +1,13 @@
 <template>
   <basic-container>
-    <page-header :title="form.name" :backOption="backOption"></page-header>
+    <iep-page-header :title="form.name" :backOption="backOption"></iep-page-header>
     <div class="detail-container">
       <div class="item-title">
         <ul>
           <li><span>接收人：</span><span>{{form.receiverName}}</span></li>
           <li><span>时间：</span><span>{{form.time}}</span></li>
         </ul>
-        <iep-read-mark-del :enableList="[false, true, true]"></iep-read-mark-del>
+        <iep-read-mark-del :enableList="[false, true, false]" :typeList="typeList" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
       </div>
       <div class="item-con">
         <div class="paragraph">
@@ -18,12 +18,14 @@
   </basic-container>
 </template>
 <script>
-import { getSystemMessageById } from '@/api/ims/system_message'
+import { getSystemMessageById, markSystemMessageBatch } from '@/api/ims/system_message'
 import keyBy from 'lodash/keyBy'
 import { initForm } from './options'
 import MsgLink from './MsgLink'
 import { mapGetters } from 'vuex'
+import mixins from '@/mixins/mixins'
 export default {
+  mixins: [mixins],
   beforeRouteUpdate (to, from, next) {
     // console.log(to, from)
     this.$nextTick(() => {
@@ -57,11 +59,17 @@ export default {
       const imsPathType = this.dictGroup['ims_path_type']
       return keyBy(imsPathType, 'value')[this.form.pathType]
     },
+    typeList () {
+      return [false, this.form.isMark, false]
+    },
   },
   created () {
     this.loadPage()
   },
   methods: {
+    onMarkBatch () {
+      this._handleComfirm([this.form.id], markSystemMessageBatch, '设置 / 取消标记', '', '操作成功')
+    },
     handleGoBack () {
       this.$emit('onGoBack')
     },

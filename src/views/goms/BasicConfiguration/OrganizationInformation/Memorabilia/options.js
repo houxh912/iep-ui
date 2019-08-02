@@ -36,12 +36,22 @@ const initForm = () => {
   return {
     id: '',
     title: '',
-    publisher: '',
-    releaseTime: '',
-    priority: '',
-    status: '',
+    happenTime: '',
+    content: '',
   }
 }
 
+const rules = {
+  title: [
+    { required: true, message: '请输入标题', trigger: 'change' },
+  ],
+  happenTime: [
+    { required: true, message: '请选择日期', trigger: 'change' },
+  ],
+  content: [
+    { required: true, message: '请填写详细内容', trigger: 'change' },
+  ],
+}
 
-export { dictsMap, columnsMap, initForm }
+
+export { dictsMap, columnsMap, initForm, rules }

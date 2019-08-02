@@ -17,10 +17,18 @@ export const getProjectPage = (params) => {
   })
 }
 
-// 项目库统计
+// 项目统计
 export const getProjectCount = () => {
   return request({
     url: `${prefixUrl}/count`,
+    method: 'get',
+  })
+}
+
+// 项目频道页统计
+export const getProjectChannelCount = () => {
+  return request({
+    url: `${prefixUrl}/channel_count`,
     method: 'get',
   })
 }
@@ -40,3 +48,44 @@ export const getProjectProjectManager = () => {
     method: 'get',
   })
 }
+
+// 业绩变化
+export const getPerformanceChanges = () => {
+  return request({
+    url: `${prefixUrl}/Performance/changes`,
+    method: 'get',
+  })
+}
+
+// 项目概况
+export const getOverview = () => {
+  return request({
+    url: `${prefixUrl}/project/overview`,
+    method: 'get',
+  })
+}
+
+// 产品销售
+export const getSales = () => {
+  return request({
+    url: `${prefixUrl}/product/sales`,
+    method: 'get',
+  })
+}
+
+// 数据-产品销售
+export const getRanking = () => {
+  return request({
+    url: `${prefixUrl}/performance/ranking`,
+    method: 'get',
+  })
+}
+
+// 项目承接能力排行
+export const getUndertakeranking = () => {
+  return request({
+    url: `${prefixUrl}/project/undertakeranking`,
+    method: 'get',
+  })
+}
+

@@ -104,7 +104,7 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteProductById)
     },
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable({ ...param, isMine: this.isMine }, getProductPage)
     },
   },

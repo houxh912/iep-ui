@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="抄送我的"></page-header>
+      <iep-page-header title="抄送我的"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd" type="primary" icon="el-icon-plus" plain>发起申请</iep-button>
@@ -11,17 +11,17 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="申请人" width="120px">
+          <el-table-column label="申请人" width="100px">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              {{scope.row.name}}
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="100px">
           <template slot-scope="scope">
-            <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">查看</el-button>
+            <iep-button type="warning" plain @click="handleDetail(scope.row)">查看</iep-button>
           </template>
         </el-table-column>
       </iep-table>

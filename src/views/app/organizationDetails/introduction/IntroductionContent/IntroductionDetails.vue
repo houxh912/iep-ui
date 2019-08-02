@@ -27,11 +27,11 @@
     </div>
     <div class="contact">
       <span class="details-title">组织架构</span>
-      <iep-html v-model="data.structure"></iep-html>
+      <iep-html class="con" v-model="data.structure"></iep-html>
     </div>
     <div class="contact">
       <span class="details-title">核心优势</span>
-      <iep-html v-model="data.coreAdvantage"></iep-html>
+      <iep-html class="con" v-model="data.coreAdvantage"></iep-html>
     </div>
     <business-layout></business-layout>
   </div>
@@ -76,6 +76,10 @@ export default {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin-left: 30px;
+}
+.con {
+  margin-left: 30px;
 }
 .tags {
   position: relative;
@@ -171,7 +175,8 @@ export default {
 <style scoped>
 .introduction-details >>> .details-title {
   display: block;
-  margin-bottom: 10px;
+  margin-top: 35px;
+  margin-bottom: 20px;
   font-size: 16px;
 }
 </style>

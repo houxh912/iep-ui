@@ -1,20 +1,20 @@
 // org config options
 const dictsMap = {
-  isReward: {
-    1: '打赏',
-    2: '扣减',
-  },
+	isReward: {
+		1: '打赏',
+		2: '扣减',
+	},
 }
 
 const tabList = [
-  {
-    label: '转出',
-    value: 'outOrgId',
-  },
-  {
-    label: '转入',
-    value: 'inOrgId',
-  },
+	{
+		label: '转出',
+		value: 'outOrgId',
+	},
+	{
+		label: '转入',
+		value: 'inOrgId',
+	},
 ]
 
 const colMap = {
@@ -49,20 +49,20 @@ const colMap = {
 }
 
 const initForm = () => {
-  return {
-    id: '', // ID
-    amount: 0, // 打赏金额
-    remarks: '', // 打赏备注
-    orgId: '', // 打赏对象
-  }
+	return {
+		id: '', // ID
+		amount: 0, // 打赏金额
+		remarks: '', // 打赏备注
+		orgId: '', // 打赏对象
+	}
 }
 
 const rules = {
 	amount: [
-		{ type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur',  min: 1  },
+		{ type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur', min: 0.01 },
 	],
 	orgId: [
-		{ required: true, message: '请选择组织', trigger: 'blur' },
+		{ required: true, message: '请选择组织', trigger: 'change' },
 	],
 }
 

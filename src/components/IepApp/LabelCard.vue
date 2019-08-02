@@ -39,16 +39,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.label{
-  .piece{
-    padding: 2px 5px;
+.label {
+  .piece {
+    padding: 4px 15px;
     border: 1px solid #f0f0f0;
     border-radius: 2px;
     float: left;
-    margin: 7px 5px;
+    margin: 5px 4px;
     color: #333;
     transition-duration: 0.3s;
-    &:hover{
+    &:hover {
       background-color: #fef6f4;
       border: 1px solid #dc8687;
       color: #dc8687;

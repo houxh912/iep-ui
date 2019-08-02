@@ -6,10 +6,10 @@
     width: 50%;
     display: inline-block;
   }
-  .el-select {
-    width: 100%;
-  }
-  .el-date-editor {
+  .el-select,
+  .el-date-editor,
+  .el-input-number,
+  .el-cascader {
     width: 100%;
   }
 }

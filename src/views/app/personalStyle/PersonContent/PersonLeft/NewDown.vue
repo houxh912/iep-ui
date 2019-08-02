@@ -5,22 +5,22 @@
         <span class="title">{{effect}}</span>
       </div>
       <div class="classTags">
-        <div class="classTag" v-for="tag in tagList" :key="tag.id">
-          <el-tag type="white">{{tag.tag}}</el-tag>
+        <div class="classTag" v-for="(tag, index) in tagList" :key="index">
+          <el-tag type="white">{{tag.peopleImpression}}</el-tag>
         </div>
       </div>
       <div class="append" style="margin-top: 15px;">
-        <el-input class="append-input" placeholder="添加新标记" v-model="input3" size="small">
-          <el-button slot="append" icon="el-icon-plus">添加</el-button>
+        <el-input class="append-input" placeholder="添加新标记" v-model="input3" size="small" maxlength="10">
+          <el-button slot="append" icon="el-icon-plus" @click="handleImpression">添加</el-button>
         </el-input>
-        <el-select class="prepend" v-model="select" slot="prepend" placeholder="常用印象" size="small">
+        <el-select class="prepend" v-model="select" slot="prepend" placeholder="常用印象" size="small" v-if="false">
           <el-option label="技术达人" value="1"></el-option>
           <el-option label="优秀" value="2"></el-option>
           <el-option label="任劳任怨" value="3"></el-option>
         </el-select>
       </div>
     </el-card>
-    <IepAppTabCard :title="title">
+    <IepAppTabCard :title="title" :data="`累计访客${userInfo.visitPersonCount}人，访问人次${userInfo.visitTimes}次`">
       <div v-if="visitVOs.length !== 0" class="list">
         <div class="item" v-for="(item, index) in visitVOs" :key="index" @click="handleDetail(item)">
           <div class="img">
@@ -35,8 +35,12 @@
 </template>
 
 <script>
+import { getImpressionByUserId, impressionCreate } from '@/api/cpms/commonpeopleimpression'
 export default {
   props: {
+    userInfo: {
+      type: Object,
+    },
     visitVOs: {
       type: Array,
     },
@@ -47,21 +51,45 @@ export default {
       effect: '人物印象',
       input3: '',
       select: '',
-      tagList: [
-        {
-          tag: '任劳任怨 2',
-        },
-        {
-          tag: '技术达人 2',
-        },
-      ],
+      tagList: [],
       itemList: [],
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.$nextTick(() => {
+      this.getImpressionById()
+    })
+    next()
   },
   methods: {
     handleDetail (row) {
       this.$router.push(`/app/personal_style/${row.visitorId}`)
     },
+    getImpressionById () {
+      getImpressionByUserId({userId: this.$route.params.id}).then(({ data }) => {
+        this.tagList = data.records
+      })
+    },
+    // 提交印记
+    handleImpression () {
+      if (this.input3 === '') {
+        return
+      }
+      impressionCreate({
+        people: [this.input3],
+        creatorId: this.$route.params.id,
+      }).then(({ data }) => {
+        if (data.data.data) {
+          this.getImpressionById()
+          this.input3 = ''
+        } else {
+          this.$message.error(data.data.msg)
+        }
+      })
+    },
+  },
+  created () {
+    this.getImpressionById()
   },
 }
 </script>
@@ -102,12 +130,12 @@ export default {
     .item {
       margin: 0 10px 10px;
       text-align: center;
-    }
-    &:hover {
-      opacity: 0.7;
+      &:hover {
+        opacity: 0.7;
+      }
     }
     .img {
-      margin-bottom: 5px;
+      margin: 0 auto 5px;
       width: 50px;
       height: 50px;
       border: 1px solid #ebeef5;
@@ -177,5 +205,11 @@ export default {
 }
 .new-down >>> .prepend {
   margin-left: -2px;
+}
+.new-down >>> .title-con .title {
+  font-size: 16px;
+}
+.new-down >>> .datas {
+  font-size: 12px;
 }
 </style>

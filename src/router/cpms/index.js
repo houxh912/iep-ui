@@ -20,6 +20,16 @@ export default [
         name: '技术编辑',
         component: () => import('@/views/cpms/technologys/Page/Edit.vue'),
       },
+      {
+        path: 'custom_management_detail/:id',
+        name: '定制管理详情',
+        component: () => import('@/views/cpms/CustomManagement/Detail.vue'),
+      },
+      {
+        path: 'my_custom_detail/:id',
+        name: '我的定制管理',
+        component: () => import('@/views/cpms/MyCustom/Detail.vue'),
+      },
     ],
   },
 ]

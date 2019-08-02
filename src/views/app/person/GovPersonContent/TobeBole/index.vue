@@ -11,7 +11,7 @@
       </div>
       <div class="piece">
         <IepAppTabCard :title="labelTitle">
-          <IepAppListCard :dataList="labelList" name="positionName"></IepAppListCard>
+          <IepAppListCard :dataList="labelList" name="positionName" @click="handleDetail"></IepAppListCard>
         </IepAppTabCard>
       </div>
     </div>
@@ -52,6 +52,9 @@ export default {
         this.labelList = data.data
       })
     },
+    handleDetail (row) {
+      this.$router.push(`/app/recruitDetail/${row.id}`)
+    },
   },
   created () {
     this.getRectagsList()
@@ -63,7 +66,7 @@ export default {
   .breadcrumb-item {
     margin: 20px auto 0;
     width: 1200px;
-    padding: 0 0 20px 20px;
+    padding: 0 0 20px 0;
   }
 }
 .material {

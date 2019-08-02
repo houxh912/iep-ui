@@ -25,12 +25,12 @@ export default {
       default: () => [],
     },
     userInfo: {
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
     return {
-      
+
     }
   },
   methods: {
@@ -38,30 +38,30 @@ export default {
     ...mapActions(['famsReward']),
     handleReward () {
       if (this.userInfo.id) {
-        this.famsReward({id: this.userInfo.id, name: this.userInfo.name})
+        this.famsReward({ id: this.userInfo.id, name: this.userInfo.name })
       }
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-.box{
+.box {
   width: 100%;
   padding: 10px 0 20px;
   background-color: #fafafa;
   text-align: center;
-  .title{
+  .title {
     height: 50px;
     line-height: 50px;
     color: #333;
     font-size: 16px;
   }
-  .total{
+  .total {
     display: block;
     height: 32px;
     line-height: 32px;
   }
-  .avatar{
+  .avatar {
     display: inline-block;
   }
 }

@@ -2,10 +2,10 @@
   <iep-dialog :dialog-show="dialogShow" :title="methodName" width="500px" @close="close">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="金额：" prop="amount">
-        <iep-input-number v-model="form.amount"></iep-input-number>
+        <iep-input-number v-model="form.amount" :precision="2"></iep-input-number>
       </el-form-item>
       <el-form-item label="方式：" prop="isReward">
-        <el-radio-group v-model="form.isReward" size="medium">
+        <el-radio-group v-model="form.isReward" size="medium" @change="form.type=''">
           <el-radio v-for="(v,k) in dictsMap.isReward" :key="k" :label="k">{{v}}</el-radio>
         </el-radio-group>
       </el-form-item>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header :title="`投资管理 - ${methodName}`" :backOption="backOption"></page-header>
+      <iep-page-header :title="`投资管理 - ${methodName}`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="190px" size="small">
         <el-row>
           <el-col :span="12">
@@ -28,13 +28,6 @@
           <el-col :span="12">
             <iep-form-item label-name="目标金额" prop="targetAmount" tip="目标金额">
               <iep-input-number v-model="form.targetAmount" disabled></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="预计年化收益率(%)" prop="returnRate" tip="预计年化收益率">
-              <iep-input-number v-model="form.returnRate"></iep-input-number>
             </iep-form-item>
           </el-col>
         </el-row>

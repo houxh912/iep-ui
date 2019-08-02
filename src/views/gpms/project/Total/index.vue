@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button @click="handleCreate" class="add" type="primary" v-if="gpms_project_add">新增</iep-button>
+        <iep-button @click="handleCreate" class="add" icon="el-icon-plus" type="primary" v-if="gpms_project_add" plain>新增</iep-button>
         <iep-button @click="handleDeleteAll" class="add" v-if="gpms_project_edit_del">批量删除</iep-button>
       </template>
       <template slot="right">
@@ -16,12 +16,12 @@
           </el-row> -->
           <!--表单-->
           <!-- <search-form></search-form> -->
-            <advance-search @search-page="searchPage"></advance-search>
+          <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
-      <el-table-column label="项目名称" slot="before-columns" width="300px">
+      <el-table-column label="项目名称" slot="before-columns" width="280px">
         <template slot-scope="scope">
           <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
             <span>{{ scope.row.projectName }}</span>
@@ -33,11 +33,21 @@
           <span>{{ scope.row.projectTime.slice(0, 10) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" prop="operation" v-if="tabType!=='3'" min-width="220">
         <template slot-scope="scope">
-          <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
-          <el-button size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del">编辑</el-button>
-          <el-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</el-button>
+          <operation-wrapper>
+            <!-- <el-button type="warning" plain size="small" @click="handleDetail(scope.row)">详情</el-button> -->
+            <iep-button type="warning" size="small" @click="handleUpdate(scope.row)" v-if="gpms_project_edit_del" plain>编辑</iep-button>
+            <iep-button size="small" @click="handleDelete(scope.row)" v-if="gpms_project_edit_del">删除</iep-button>
+            <iep-button size="small" @click="handleClaim(scope.row)" v-if="gpms_project_edit_del">移入公海库</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" v-else>
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button size="small" type="warning" @click="handleDefine(scope.row)" plain>认领</iep-button>
+          </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
@@ -48,13 +58,14 @@
 import mixins from '@/mixins/mixins'
 import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData } from '@/api/gpms/index'
+import { getProjectPage, statusCancel, statusDefine } from '@/api/gpms/fas'
 import AdvanceSearch from './AdvanceSearch'
 import { mapGetters } from 'vuex'
 const optNameMap = {
   delete: '删除',
 }
 export default {
-  components: {AdvanceSearch},
+  components: { AdvanceSearch },
   props: {
     tabType: {
       type: String,
@@ -81,7 +92,11 @@ export default {
   mixins: [mixins],
   methods: {
     loadPage (params = {}) {
-      this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+      if (this.tabType === 3) {
+        this.loadTable(Object.assign({}, params, this.searchForm), getProjectPage)
+      } else {
+        this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+      }
     },
     closeDialog () {
       this.dialogIsShow = false
@@ -130,6 +145,28 @@ export default {
             })
           }
           this.load()
+        })
+      })
+    },
+    handleClaim (row) {
+      this.$confirm('是否确认取消认领此数据?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(() => {
+        statusCancel([row.id]).then(() => {
+          this.$message.success('取消成功！')
+          this.loadPage()
+        })
+      })
+    },
+    handleDefine (row) {
+      this.$confirm('是否确认认领此数据?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+      }).then(() => {
+        statusDefine([row.id]).then(() => {
+          this.$message.success('取消成功！')
+          this.loadPage()
         })
       })
     },

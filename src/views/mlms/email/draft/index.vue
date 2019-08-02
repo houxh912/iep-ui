@@ -1,10 +1,10 @@
 <template>
   <div class="draft">
     <div v-show="dialogShow">
-      <page-header title="草稿箱" class="title"></page-header>
+      <iep-page-header title="草稿箱" class="title"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button size="small" @click="allDelete">删除</iep-button>
+          <iep-button type="primary" size="small" @click="allDelete" plain>删除</iep-button>
           <iep-button size="small" @click="forward">转发</iep-button>
         </template>
         <template slot="right">

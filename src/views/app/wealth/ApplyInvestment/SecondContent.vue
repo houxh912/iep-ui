@@ -1,7 +1,7 @@
 <template>
   <steps-content>
     <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
-      <a-alert :closable="true" type="error" message="确认投资申请后，将向资产委员会发出投资申请。" style="margin-bottom: 24px;" />
+      <el-alert style="margin-bottom: 24px;" title="确认投资申请后，将向资产委员会发出投资申请。" type="warning" show-icon></el-alert>
       <iep-form-item label-name="投资组织">
         <iep-select v-model="data.investmentId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织投资"></iep-select>
       </iep-form-item>

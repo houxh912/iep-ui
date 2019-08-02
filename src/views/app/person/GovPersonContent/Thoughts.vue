@@ -1,6 +1,6 @@
 <template>
   <div class="thoughts">
-    <IepAppTabCard :title="title" :linkName="linkName">
+    <IepAppTabCard class="top" :title="title" :linkName="linkName">
       <div class="title-right" slot="right">
         <el-button class="btn" type="text" @click="getMore">更多></el-button>
         <el-button class="publish" type="text" @click="handlePublish">我要发布</el-button>
@@ -21,7 +21,7 @@
       </div>
     </IepAppTabCard>
 
-    <IepAppTabCard :title="titleStar" :linkName="linkName" class="mutual-card">
+    <IepAppTabCard class="bottom mutual-card" :title="titleStar" :linkName="linkName">
       <!-- <el-button class="important" type="text" slot="right">申请互助基金</el-button> -->
       <div class="star-list">
         <div v-for="(item, index) in starList" :key="index" class="piece">
@@ -103,6 +103,9 @@ export default {
   > .publish {
     margin-right: 10px;
     color: #cb3737 !important;
+    &:hover {
+      opacity: 0.7;
+    }
   }
 }
 .star-list {
@@ -135,7 +138,7 @@ export default {
     }
     .box {
       float: left;
-      width: 224px;
+      width: 274px;
       height: 64px;
       .piece-title {
         .name {
@@ -212,12 +215,22 @@ export default {
 :hover ::-webkit-scrollbar-thumb {
   display: block;
 }
+.bottom {
+  margin-top: -16px;
+}
 </style>
 <style scoped>
+.top >>> .el-card__body {
+  height: 180px;
+}
 .thoughts >>> .el-button {
   float: right;
   padding: 5px 0;
   color: #999;
+  transition: all 0.5s;
+}
+.thoughts >>> .el-button:hover {
+  color: #cb3737;
 }
 .star-list >>> .el-button {
   padding: 5px 15px;
@@ -240,7 +253,9 @@ export default {
   height: 22px;
   line-height: 22px;
 }
-.thoughts >>> .el-card__body {
-  height: 158px;
+.thoughts {
+  height: 374px;
+  overflow: hidden;
+  border-bottom: 1px solid #ebeef5;
 }
 </style>

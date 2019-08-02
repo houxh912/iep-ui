@@ -3,28 +3,28 @@
     <img :src="img">
     <div class="visualization-list">
       <div class="piece">
-        <div class="name">产品售额<i class="iconfont icon-wenhao"></i></div>
+        <div class="name">产品售额<!-- i class="iconfont icon-wenhao"></i> --></div>
         <div class="data">-</div>
         <div class="chart">
           <ve-histogram :extend="chartExtend3" :colors="colors1" width="240px" height="60px"></ve-histogram>
         </div>
       </div>
       <div class="piece">
-        <div class="name">项目数量<i class="iconfont icon-wenhao"></i></div>
+        <div class="name">项目数量<!-- i class="iconfont icon-wenhao"></i> --></div>
         <div class="data">{{this.visualizationList.countProject}}</div>
         <div class="chart">
           <ve-line :extend="chartExtend2" :colors="colors2" width="240px" height="60px"></ve-line>
         </div>
       </div>
       <div class="piece">
-        <div class="name">荣誉资质<i class="iconfont icon-wenhao"></i></div>
+        <div class="name">荣誉资质<!-- i class="iconfont icon-wenhao"></i> --></div>
         <div class="data">{{this.visualizationList.countHonor}}</div>
         <div class="chart">
           <ve-histogram :extend="chartExtend3" :colors="colors3" width="240px" height="60px"></ve-histogram>
         </div>
       </div>
       <div class="piece">
-        <div class="name">技术能力<i class="iconfont icon-wenhao"></i></div>
+        <div class="name">技术能力<!-- i class="iconfont icon-wenhao"></i> --></div>
         <div class="data">{{this.visualizationList.countTechnology}}</div>
         <div class="chart">
           <ve-histogram :extend="chartExtend3" :colors="colors4" width="240px" height="60px"></ve-histogram>

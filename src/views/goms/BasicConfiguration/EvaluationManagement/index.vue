@@ -5,11 +5,14 @@
         <el-collapse v-model="activeNames" @change="handleChange">
           <el-collapse-item v-for="(item, index) in list" :key="index" :title="item.time" :name="index">
             <div v-for="(t, i) in item.list" :key="i" class="item">
-              <div class="avatar"><iep-img :src="t.avatar" class="img"></iep-img></div>
+              <div class="avatar">
+                <iep-img :src="t.avatar" class="img"></iep-img>
+              </div>
               <div class="content">
                 <div class="head">
                   <div class="left">
-                    <div class="name">{{t.creatorName}}</div><div class="time">{{t.updateTime}}</div>
+                    <div class="name">{{t.creatorName}}</div>
+                    <div class="time">{{t.updateTime}}</div>
                   </div>
                   <div class="right">
                     <i class="icon-bianji" @click="handleUpdate(t)"></i>
@@ -106,7 +109,7 @@ export default {
             this.$mesage.error('操作出现问题，请重试！')
           }
         })
-      }).catch(() => {})
+      }).catch(() => { })
     },
     handleUpdate (row) {
       this.$refs['form'].open(row)
@@ -133,10 +136,11 @@ export default {
     padding-bottom: 15px;
     border-bottom: 1px solid #ddd;
     .avatar {
-      width: 100px;
+      margin-right: 10px;
+      width: 70px;
       .img {
-        height: 80px;
-        width: 80px;
+        height: 70px;
+        width: 70px;
         border-radius: 50%;
         overflow: hidden;
       }
@@ -147,7 +151,7 @@ export default {
       .head {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         .left {
           display: flex;
           .name {
@@ -160,6 +164,9 @@ export default {
           i {
             margin-left: 10px;
             cursor: pointer;
+            &:hover {
+              color: #cb3737;
+            }
           }
         }
       }

@@ -1,22 +1,27 @@
 <template>
-  <div class="app-container calendar-list-container">
+  <div>
     <basic-container>
-      <div class="filter-container">
-        <el-button-group>
-          <el-button style="border-right-color:#BA1B21;" type="primary" v-if="sys_menu_add" icon="plus" @click="handlerAdd" size="small" plain>添加
-          </el-button>
-          <el-button v-if="sys_menu_edit" icon="edit" size="small" @click="handlerEdit">编辑
-          </el-button>
-          <el-button v-if="sys_menu_del" icon="delete" size="small" @click="handleDelete">删除
-          </el-button>
-        </el-button-group>
-      </div>
+      <iep-page-header title="菜单管理"></iep-page-header>
+      <operation-container>
+        <template slot="left">
+          <el-button-group>
+            <el-button style="border-right-color:#BA1B21;" type="primary" v-if="sys_menu_add" icon="plus" @click="handlerAdd" size="small" plain>添加
+            </el-button>
+            <el-button v-if="sys_menu_edit" icon="edit" size="small" @click="handlerEdit">编辑
+            </el-button>
+            <el-button v-if="sys_menu_del" icon="delete" size="small" @click="handleDelete">删除
+            </el-button>
+          </el-button-group>
+        </template>
+      </operation-container>
 
       <el-row class="con">
         <el-col :span="4" class="menu">
-          <span class="border"></span>
-          <el-tree class="filter-tree" node-key="id" highlight-current :data="treeData" :default-expanded-keys="aExpandedKeys" :filter-node-method="filterNode" :props="defaultProps" @node-click="getNodeData" @node-expand="nodeExpand" @node-collapse="nodeCollapse">
-          </el-tree>
+          <el-scrollbar style="height:calc(100vh - 240px);">
+            <span class="border"></span>
+            <el-tree class="filter-tree" node-key="id" highlight-current :data="treeData" :default-expanded-keys="aExpandedKeys" :filter-node-method="filterNode" :props="defaultProps" @node-click="getNodeData" @node-expand="nodeExpand" @node-collapse="nodeCollapse">
+            </el-tree>
+          </el-scrollbar>
         </el-col>
         <el-col :span="18">
           <el-card style="border:0;" class="box-card" shadow="never">
@@ -286,7 +291,6 @@ export default {
 }
 .menu {
   position: relative;
-  height: 100vh;
 }
 .con {
   margin-top: 15px;

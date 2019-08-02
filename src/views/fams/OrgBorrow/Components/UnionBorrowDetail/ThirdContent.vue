@@ -1,6 +1,6 @@
 <template>
   <steps-content>
-    <el-form class="content-wrapper" ref="form" size="small" :model="data" label-width="150px" disabled>
+    <el-form class="form-detail" ref="form" size="small" :model="data" label-width="150px" disabled>
       <el-alert style="margin-bottom: 24px;" title="集团核准通过后，将无法撤回！" type="warning" show-icon></el-alert>
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>

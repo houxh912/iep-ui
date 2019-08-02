@@ -2,7 +2,8 @@
   <div class="gov-person-content">
     <div class="top-content">
       <busines-system></busines-system>
-      <institutional></institutional>
+      <!-- <institutional></institutional> 制度文件-->
+      <competence-list></competence-list>
       <construction-project></construction-project>
       <recommendable></recommendable>
       <project-manager></project-manager>
@@ -28,7 +29,8 @@
 </template>
 <script>
 import BusinesSystem from './BusinesSystem'
-import Institutional from './Institutional'
+// import Institutional from './Institutional'
+import CompetenceList from './CompetenceList'
 import ConstructionProject from './ConstructionProject'
 import Recommendable from './Recommendable'
 import ProjectManager from './ProjectManager'
@@ -44,7 +46,7 @@ import ExperienceTraining from './ExperienceTraining'
 import Feedback from './Feedback'
 import Reward from './Reward'
 export default {
-  components: { BusinesSystem, Institutional, ConstructionProject, Recommendable, ProjectManager, ManagerRanking, CustomerRsources, MarketOpportunity, ProjectResources, InternalExpert, ProjectQuality, QualityControl, TeamStyle, ExperienceTraining, Feedback, Reward },
+  components: { BusinesSystem, CompetenceList, ConstructionProject, Recommendable, ProjectManager, ManagerRanking, CustomerRsources, MarketOpportunity, ProjectResources, InternalExpert, ProjectQuality, QualityControl, TeamStyle, ExperienceTraining, Feedback, Reward },
   data () {
     return {
     }

@@ -1,33 +1,23 @@
 <template>
   <steps-content>
-    <a-form class="content-wrapper" :form="form">
-      <a-form-item label="提现金额：" :label-col="labelCol" :wrapper-col="wrapperCol">
+    <el-form class="form-detail" ref="form" size="small" :rules="rules" :model="form" label-width="150px">
+      <iep-form-item label-name="提现金额" prop="amount">
         <a-tooltip :trigger="['focus']" placement="topLeft" overlayClassName="numeric-input">
-          <span slot="title" v-if="form.amount" class="numeric-input-title">
-            {{value !== '-' ? formatNumber(value) : '-'}}
-          </span>
-          <template slot="title" v-else>
+          <template slot="title">
             可提现金额 {{maxAmount}} 元，最低 100
           </template>
-          <a-input-number style="width:100%;" :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')" :parser="value => value.replace(/\￥\s?|(,*)/g, '')" :min="100" :max="maxAmount" maxLength="25" v-decorator="[ 
-          'amount', {
-          initialValue: 100,
-          rules: [{ required: true, message: '请输入提现金额' }]
-        }]" placeholder="请输入提现金额" @change="handleChange" />
+          <iep-input-amount v-model="form.amount" :min="100" :max="maxAmount"></iep-input-amount>
         </a-tooltip>
-      </a-form-item>
-      <a-form-item label="发票抵税：" :label-col="labelCol" :wrapper-col="wrapperCol">
+      </iep-form-item>
+      <iep-form-item label-name="发票抵税" prop="deductionInvoice">
         <a-tooltip :trigger="['focus']" placement="topLeft" overlayClassName="numeric-input">
           <template slot="title">
             可发票抵税 {{maxDeductionInvoice}} 元
           </template>
-          <a-input-number style="width:100%;" :formatter="value => `￥ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')" :parser="value => value.replace(/\￥\s?|(,*)/g, '')" :min="0" :max="maxDeductionInvoice" maxLength="25" v-decorator="[
-          'deductionInvoice', {
-          initialValue: 0,
-        }]" placeholder="请输入发票抵税" />
+          <iep-input-amount v-model="form.deductionInvoice" :min="0" :max="maxDeductionInvoice"></iep-input-amount>
         </a-tooltip>
-      </a-form-item>
-    </a-form>
+      </iep-form-item>
+    </el-form>
     <template v-slot:action>
       <a-button type="primary" @click="handleSubmit">
         下一步
@@ -39,46 +29,40 @@
 <script>
 import StepsContent from './StepsContent'
 import { getTotal } from '@/api/fams/total'
-function formatNumber (value) {
-  value += ''
-  const list = value.split('.')
-  const prefix = list[0].charAt(0) === '-' ? '-' : ''
-  let num = prefix ? list[0].slice(1) : list[0]
-  let result = ''
-  while (num.length > 3) {
-    result = `,${num.slice(-3)}${result}`
-    num = num.slice(0, num.length - 3)
+import formMixins from '@/mixins/formMixins'
+function initForm () {
+  return {
+    amount: 100,
+    deductionInvoice: 0,
   }
-  if (num) {
-    result = num + result
-  }
-  return `${prefix}${result}${list[1] ? `.${list[1]}` : ''}`
 }
 export default {
+  mixins: [formMixins],
   components: { StepsContent },
   data () {
     return {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 18 },
-      amount: 100,
+      rules: {
+        amount: [
+          { required: true, message: '请输入提现金额', trigger: 'blur' },
+        ],
+        deductionInvoice: [
+          { required: true, message: '请输入发票抵税', trigger: 'blur' },
+        ],
+      },
       maxAmount: 0,
       withInvoice: 0,
-      formLayout: 'horizontal',
-      form: this.$form.createForm(this),
+      form: initForm(),
     }
   },
   computed: {
     maxDeductionInvoice () {
-      return Math.min(this.withInvoice, this.amount)
+      return Math.min(this.withInvoice, this.form.amount)
     },
   },
   created () {
     this.loadTotal()
   },
   methods: {
-    handleChange (value) {
-      this.amount = value
-    },
     async loadTotal () {
       const { data } = await getTotal()
       if (!data.data) {
@@ -89,16 +73,14 @@ export default {
       this.maxAmount = data.data.withdrawableCash >= 0 ? data.data.withdrawableCash : 0
       this.withInvoice = data.data.withInvoice
     },
-    formatNumber,
-    handleSubmit () {
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          if (values.amount < 100) {
-            return
-          }
-          this.$emit('on-data', values)
-        }
-      })
+    async handleSubmit () {
+      try {
+        await this.mixinsValidate()
+        this.$emit('on-data', { ...this.form })
+      }
+      catch (object) {
+        this.mixinsMessage(object)
+      }
     },
   },
 }

@@ -70,14 +70,26 @@ export default {
   .banner-list:nth-child(1) {
     grid-column: 1 / 5;
     grid-row: 1 / 9;
+    .img {
+      width: 576px;
+      height: 359px;
+    }
   }
   .banner-list:nth-child(2) {
     grid-column: 6 / 8;
     grid-row: 1 / 5;
+    .img {
+      width: 286px;
+      height: 176px;
+    }
   }
   .banner-list:nth-child(3) {
     grid-column: 6 / 8;
     grid-row: 5/ 9;
+    .img {
+      width: 286px;
+      height: 178px;
+    }
   }
 }
 </style>

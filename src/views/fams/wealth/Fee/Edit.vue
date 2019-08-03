@@ -62,8 +62,8 @@
           <iep-select v-model="form.ccOrgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择代缴组织"></iep-select>
         </iep-form-item>
 
-        <iep-form-item v-if="form.isSubstitute" class="form-half" prop="ccCompanyId" label-name="代缴公司">
-          <iep-select v-model="form.ccCompanyId" filterable autocomplete="off" prefix-url="fams/company/all" placeholder="请选择代缴公司"></iep-select>
+        <iep-form-item v-if="!ccCompanyOption.disabled" class="form-half" prop="ccCompanyId" label-name="代缴公司">
+          <iep-select v-model="form.ccCompanyId" filterable autocomplete="off" :prefix-url="ccCompanyOption.prefixUrl" placeholder="请选择代缴公司"></iep-select>
         </iep-form-item>
 
         <iep-form-item label-name="备注">
@@ -121,18 +121,18 @@ export default {
         }
       }
     },
-    // ccCompanyOption () {
-    //   if (this.form.ccOrgId) {
-    //     return {
-    //       disabled: false,
-    //       prefixUrl: `fams/company/${this.form.ccOrgId}`,
-    //     }
-    //   } else {
-    //     return {
-    //       disabled: true,
-    //     }
-    //   }
-    // },
+    ccCompanyOption () {
+      if (this.form.ccOrgId) {
+        return {
+          disabled: false,
+          prefixUrl: `fams/company/${this.form.ccOrgId}`,
+        }
+      } else {
+        return {
+          disabled: true,
+        }
+      }
+    },
   },
   created () {
     if (this.id) {

@@ -112,3 +112,22 @@ export const getProjectend = () => {
     method: 'get',
   })
 }
+
+// 项目经理或项目督导查询
+export const getProjectEmployee = (obj) => {
+  return request({
+    url: `${prefixUrl}/project/employee`,
+    method: 'get',
+    params: obj,
+  })
+}
+
+// 项目经理或项目督导担任的项目名称查询
+export const getProjectByemployee = (obj) => {
+  return request({
+    url: `${prefixUrl}/project/byemployee`,
+    method: 'get',
+    params: obj,
+  })
+}
+

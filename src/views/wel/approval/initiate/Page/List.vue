@@ -13,11 +13,11 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="申请人" width="100px">
+          <el-table-column label="申请人" width="150px">
             <template slot-scope="scope">
-              <iep-table-link>{{scope.row.name}}
+              <div>{{scope.row.name}}
                 <a-tag v-if="scope.row.isDraft" color="orange">草稿</a-tag>
-              </iep-table-link>
+              </div>
             </template>
           </el-table-column>
         </template>

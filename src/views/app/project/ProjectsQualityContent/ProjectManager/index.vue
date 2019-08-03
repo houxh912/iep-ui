@@ -1,6 +1,6 @@
 <template>
   <div class="project">
-    <IepAppTabsCard isMore>
+    <IepAppTabsCard isMore :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='ProjectManager'" v-slot:ProjectManager>
           <project-manager v-loading="activeTab !=='ProjectManager'"></project-manager>
@@ -23,19 +23,20 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '项目经理（4个)',
+        label: '项目经理（0个)',
         value: 'ProjectManager',
       }, {
-        label: '项目督导（23个）',
+        label: '项目督导（0个）',
         value: 'ProjectExecutive',
       }],
       activeTab: 'ProjectManager',
+      linkName: '/app/project_list',
     }
   },
 }
 </script>
 <style lang="css" scoped>
-.project >>> .el-card {
-  height: 346px;
+.project >>> .el-card__body {
+  height: 410px;
 }
 </style>

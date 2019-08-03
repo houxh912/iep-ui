@@ -4,8 +4,8 @@
       <div class="comment-head">
         <div class="comment-avatar"><iep-img :src="item.avatar" alt="" class="img" /></div>
         <div class="comment-name">{{item.realName}}</div>
-        <div class="huuifu">{{type == 'comment' ? '评论' : '回复'}}</div>
-        <div class="comment-name">{{type === 'comment' ? userData.name : item.replyTo}}</div>
+        <div class="huuifu" v-if="type == 'reply'">{{type == 'comment' ? '评论' : '回复'}}</div>
+        <div class="comment-name" v-if="type == 'reply'">{{type === 'comment' ? userData.name : item.replyTo}}</div>
       </div>
       <div class="comment-content">{{item.replyMsg}}</div>
       <div class="comment-date">

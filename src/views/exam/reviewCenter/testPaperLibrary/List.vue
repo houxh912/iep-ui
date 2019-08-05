@@ -64,9 +64,9 @@ export default {
     /**
      * 当没点击查看或修改
      */
-    if (!this.record) {
-      this.loadPage()
-    }
+    // if (!this.record) {
+    //   this.loadPage()
+    // }
     /**
      * 当点击查看或修改后返回
      */
@@ -79,7 +79,9 @@ export default {
       this.searchForm.title = param.title
       this.loadTable({ ...param, ...this.pageOption }, getExamPagerList)
     }
-    this.loadPage()
+    else {
+      this.loadPage()
+    }
     this.permission_exam_testPaper_del = this.permissions['exam_testPaper_del']
     this.permission_exam_testPaper_ex_del = this.permissions['exam_testPaper_ex_del']
   },

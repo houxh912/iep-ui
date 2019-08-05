@@ -325,7 +325,7 @@
 <script>
 import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
 import { getDataDetail, createData, updateData } from '@/api/gpms/index'
-import { getCustomerPage } from '@/api/crms/customer'
+// import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
 import { tipContent } from './option'
@@ -363,7 +363,7 @@ export default {
           name: '编辑',
         },
       },
-      clientList: [],
+      // clientList: [],
       typeOptions: dictMap.typeOptions, // 项目类型菜单
       isRelevOptions: dictMap.isRelevOptions, // 是否关联菜单
       workTypeOne: dictMap.workTypeOne, // 业务类型一级菜单
@@ -422,9 +422,9 @@ export default {
       })
       this.type = 'update'
     }
-    getCustomerPage({ type: 1 }).then(({ data }) => {
-      this.clientList = data.data.records
-    })
+    // getCustomerPage({ type: 1 }).then(({ data }) => {
+    //   this.clientList = data.data.records
+    // })
     this.formData = initFormData(this.userInfo)
   },
   methods: {

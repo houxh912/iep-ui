@@ -131,3 +131,12 @@ export const getProjectByemployee = (obj) => {
   })
 }
 
+// 优秀项目经理或督导达人查询
+export const getProjectExcellentemployee = (obj) => {
+  return request({
+    url: `${prefixUrl}/project/excellentemployee`,
+    method: 'get',
+    params: obj,
+  })
+}
+

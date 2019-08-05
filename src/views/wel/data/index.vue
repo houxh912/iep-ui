@@ -31,15 +31,16 @@ export default {
 <style lang="scss" scoped>
 .data {
   margin: 20px;
-  .test{
+  .test {
+    margin-bottom: 20px;
+    padding: 20px;
     width: 100%;
-    padding:20px;
     border: 1px solid #eee;
-    > p{
-      margin:0;
+    > p {
+      margin: 0;
     }
   }
-  .half{
+  .half {
     display: grid;
     grid-column-gap: 20px;
     grid-row-gap: 20px;

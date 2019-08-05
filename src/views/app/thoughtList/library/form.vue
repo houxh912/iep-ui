@@ -315,5 +315,8 @@ export default {
   /* width: 10px; */
   padding: 0;
 }
+.yincang >>> .el-autocomplete {
+  width: 160px;
+}
 </style>
 

@@ -4,20 +4,20 @@
       <div v-if="!dialogTableVisible">
         <iep-page-header title="我的定位">
           <template>
-            <el-button class="modify" size="small" @click="handleClicks">PK对比</el-button>
+            <el-button class="modify" size="small" @click="handleClicks" type="primary" plain>PK对比</el-button>
           </template>
         </iep-page-header>
         <div class="box">
           <!-- 定位分析 -->
           <el-row>
             <el-col class="borders pos">
-              <el-col class="fontcontent" >
+              <el-col class="fontcontent">
                 <p v-show="evaluate">感谢你为公司创造了财富价值，你是一个擅长
-                  <span style="color: #616266; font-weight: bolder" > {{objects.projects}} </span>
+                  <span style="color: #616266; font-weight: bolder"> {{objects.projects}} </span>
                   项目的国脉人，具备
                   <span style="color: #616266; font-weight: bolder">
-                  {{objects.Labels.join('、')}}
-                </span>
+                    {{objects.Labels.join('、')}}
+                  </span>
                   相关知识。继续加油！</p>
                 <p v-show="!evaluate">鉴于你当前未参与任何项目，因此无法开展定位分析。</p>
               </el-col>
@@ -39,7 +39,7 @@
                       平均水平：国脉人的平均数据<br />
                       同期水平：与当前用户入司时间相近的国脉人的平均数据
                     </div>
-                    <i class='el-icon-picture-outline Explain'>统计说明</i>
+                    <i class='el-icon-picture-outline explain'>统计说明</i>
                   </el-tooltip>
                 </div>
               </el-row>
@@ -88,8 +88,8 @@
                           <p>
                             平台类项目
                             <span>
-                            {{TotalNumProjects.objectsnum.platform}}
-                          </span>
+                              {{TotalNumProjects.objectsnum.platform}}
+                            </span>
                           </p>
                         </div>
                         <div>
@@ -106,12 +106,12 @@
                     </div>
                     <!--bottom-->
                     <div class="con_bot">
-                    <span>
-                      平均水平：{{TotalNumProjects.projectManager.Average}}
-                    </span>
                       <span>
-                      同期水平：{{TotalNumProjects.projectManager.Contemporaneous}}
-                    </span>
+                        平均水平：{{TotalNumProjects.projectManager.Average}}
+                      </span>
+                      <span>
+                        同期水平：{{TotalNumProjects.projectManager.Contemporaneous}}
+                      </span>
                     </div>
                   </div>
                 </el-col>
@@ -164,12 +164,12 @@
                     </div>
                     <!--bottom-->
                     <div class="con_bot">
-                    <span>
-                      平均水平：{{TotalNumProjects.TotalContractAmount.Average}}
-                    </span>
                       <span>
-                      同期水平：{{TotalNumProjects.TotalContractAmount.Contemporaneous}}
-                    </span>
+                        平均水平：{{TotalNumProjects.TotalContractAmount.Average}}
+                      </span>
+                      <span>
+                        同期水平：{{TotalNumProjects.TotalContractAmount.Contemporaneous}}
+                      </span>
                     </div>
                   </div>
                 </el-col>
@@ -216,8 +216,8 @@
                           <p>
                             平台类项目
                             <span>
-                            {{TotalNumProjects.objectsnum.platform}}
-                          </span>
+                              {{TotalNumProjects.objectsnum.platform}}
+                            </span>
                           </p>
                         </div>
                         <div>
@@ -234,12 +234,12 @@
                     </div>
                     <!--bottom-->
                     <div class="con_bot">
-                    <span>
-                      平均水平：{{TotalNumProjects.projectManager.Average}}
-                    </span>
                       <span>
-                      同期水平：{{TotalNumProjects.projectManager.Contemporaneous}}
-                    </span>
+                        平均水平：{{TotalNumProjects.projectManager.Average}}
+                      </span>
+                      <span>
+                        同期水平：{{TotalNumProjects.projectManager.Contemporaneous}}
+                      </span>
                     </div>
                   </div>
                 </el-col>
@@ -269,14 +269,14 @@
                             <span>{{TotalNumProjects.projectManager.FiftyDown}}</span>
                           </p>
                           <p class="cont-cont">
-                          <span class="marRit">
-                            咨询类项目
-                            <span>{{TotalNumProjects.projectManager.Consultation}}</span>
-                          </span>
+                            <span class="marRit">
+                              咨询类项目
+                              <span>{{TotalNumProjects.projectManager.Consultation}}</span>
+                            </span>
                             <span>
-                            产品类项目
-                            <span>{{TotalNumProjects.projectManager.product}}</span>
-                          </span>
+                              产品类项目
+                              <span>{{TotalNumProjects.projectManager.product}}</span>
+                            </span>
                           </p>
                         </div>
                         <div>
@@ -285,14 +285,14 @@
                             <span>{{TotalNumProjects.projectManager.FiftyUp}}</span>
                           </p>
                           <p class="cont-cont">
-                          <span class="marRit">
-                            数据类项目
-                            <span>{{TotalNumProjects.projectManager.datas}}</span>
-                          </span>
+                            <span class="marRit">
+                              数据类项目
+                              <span>{{TotalNumProjects.projectManager.datas}}</span>
+                            </span>
                             <span>
-                            外包类项目
-                            <span>{{TotalNumProjects.projectManager.outsource}}</span>
-                          </span>
+                              外包类项目
+                              <span>{{TotalNumProjects.projectManager.outsource}}</span>
+                            </span>
                           </p>
                         </div>
                         <div>
@@ -301,14 +301,14 @@
                             <span>{{TotalNumProjects.projectManager.OnehundredUp}}</span>
                           </p>
                           <p class="cont-cont">
-                          <span class="marRit">
-                            会议培训类项目
-                            <span>{{TotalNumProjects.projectManager.Meeting}}</span>
-                          </span>
+                            <span class="marRit">
+                              会议培训类项目
+                              <span>{{TotalNumProjects.projectManager.Meeting}}</span>
+                            </span>
                             <span>
-                            平台类项目
-                            <span>{{TotalNumProjects.projectManager.platform}}</span>
-                          </span>
+                              平台类项目
+                              <span>{{TotalNumProjects.projectManager.platform}}</span>
+                            </span>
                           </p>
                         </div>
                         <div>
@@ -317,26 +317,26 @@
                             <span>{{TotalNumProjects.projectManager.OnethousandUp}}</span>
                           </p>
                           <p class="cont-cont">
-                          <span class="marRit">
-                            技术服务类项目
-                            <span>{{TotalNumProjects.projectManager.technology}}</span>
-                          </span>
+                            <span class="marRit">
+                              技术服务类项目
+                              <span>{{TotalNumProjects.projectManager.technology}}</span>
+                            </span>
                             <span>
-                            其它类项目
-                            <span>{{TotalNumProjects.projectManager.Others}}</span>
-                          </span>
+                              其它类项目
+                              <span>{{TotalNumProjects.projectManager.Others}}</span>
+                            </span>
                           </p>
                         </div>
                       </div>
                     </div>
                     <!--bottom-->
                     <div class="con_bot">
-                    <span>
-                      平均水平：{{TotalNumProjects.projectManager.Average}}
-                    </span>
                       <span>
-                      同期水平：{{TotalNumProjects.projectManager.Contemporaneous}}
-                    </span>
+                        平均水平：{{TotalNumProjects.projectManager.Average}}
+                      </span>
+                      <span>
+                        同期水平：{{TotalNumProjects.projectManager.Contemporaneous}}
+                      </span>
                     </div>
                   </div>
                 </el-col>
@@ -363,14 +363,14 @@
                             <span>{{TotalNumProjects.ProjectMembers.FiftyDown}}</span>
                           </p>
                           <p class="cont-cont">
-                          <span class="marRit">
-                            咨询类项目
-                            <span>{{TotalNumProjects.ProjectMembers.Consultation}}</span>
-                          </span>
+                            <span class="marRit">
+                              咨询类项目
+                              <span>{{TotalNumProjects.ProjectMembers.Consultation}}</span>
+                            </span>
                             <span>
-                            产品类项目
-                            <span>{{TotalNumProjects.ProjectMembers.product}}</span>
-                          </span>
+                              产品类项目
+                              <span>{{TotalNumProjects.ProjectMembers.product}}</span>
+                            </span>
                           </p>
                         </div>
                         <div>
@@ -379,14 +379,14 @@
                             <span>{{TotalNumProjects.ProjectMembers.FiftyUp}}</span>
                           </p>
                           <p class="cont-cont">
-                          <span class="marRit">
-                            数据类项目
-                            <span>{{TotalNumProjects.ProjectMembers.datas}}</span>
-                          </span>
+                            <span class="marRit">
+                              数据类项目
+                              <span>{{TotalNumProjects.ProjectMembers.datas}}</span>
+                            </span>
                             <span>
-                            外包类项目
-                            <span>{{TotalNumProjects.ProjectMembers.outsource}}</span>
-                          </span>
+                              外包类项目
+                              <span>{{TotalNumProjects.ProjectMembers.outsource}}</span>
+                            </span>
                           </p>
                         </div>
                         <div>
@@ -395,14 +395,14 @@
                             <span>{{TotalNumProjects.ProjectMembers.OnehundredUp}}</span>
                           </p>
                           <p class="cont-cont">
-                          <span class="marRit">
-                            会议培训类项目
-                            <span>{{TotalNumProjects.ProjectMembers.Meeting}}</span>
-                          </span>
+                            <span class="marRit">
+                              会议培训类项目
+                              <span>{{TotalNumProjects.ProjectMembers.Meeting}}</span>
+                            </span>
                             <span>
-                            平台类项目
-                            <span>{{TotalNumProjects.ProjectMembers.platform}}</span>
-                          </span>
+                              平台类项目
+                              <span>{{TotalNumProjects.ProjectMembers.platform}}</span>
+                            </span>
                           </p>
                         </div>
                         <div>
@@ -411,26 +411,26 @@
                             <span>{{TotalNumProjects.ProjectMembers.OnethousandUp}}</span>
                           </p>
                           <p class="cont-cont">
-                          <span class="marRit">
-                            技术服务类项目
-                            <span>{{TotalNumProjects.ProjectMembers.technology}}</span>
-                          </span>
+                            <span class="marRit">
+                              技术服务类项目
+                              <span>{{TotalNumProjects.ProjectMembers.technology}}</span>
+                            </span>
                             <span>
-                            其它类项目
-                            <span>{{TotalNumProjects.ProjectMembers.Others}}</span>
-                          </span>
+                              其它类项目
+                              <span>{{TotalNumProjects.ProjectMembers.Others}}</span>
+                            </span>
                           </p>
                         </div>
                       </div>
                     </div>
                     <!--bottom-->
                     <div class="con_bot">
-                    <span>
-                      平均水平：{{TotalNumProjects.ProjectMembers.Average}}
-                    </span>
                       <span>
-                      同期水平：{{TotalNumProjects.ProjectMembers.Contemporaneous}}
-                    </span>
+                        平均水平：{{TotalNumProjects.ProjectMembers.Average}}
+                      </span>
+                      <span>
+                        同期水平：{{TotalNumProjects.ProjectMembers.Contemporaneous}}
+                      </span>
                     </div>
                   </div>
                 </el-col>
@@ -482,7 +482,7 @@
                 <td :key="name" v-for="name in dynamicTags">{{name}}</td>
               </tr>
               <tr class="bg-gray">
-                <td :colspan="dynamicTags.length+1"  >基础信息</td>
+                <td :colspan="dynamicTags.length+1">基础信息</td>
               </tr>
               <tr>
                 <td>岗位</td>
@@ -503,7 +503,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >职称</td>
+                <td>职称</td>
                 <td>
                   {{userMessage[0].title}}
                 </td>
@@ -539,10 +539,10 @@
                 </td>
               </tr>
               <tr class="bg-gray">
-                <td :colspan="dynamicTags.length+1"  >项目信息-概要</td>
+                <td :colspan="dynamicTags.length+1">项目信息-概要</td>
               </tr>
               <tr>
-                <td   >参与项目总数（个）</td>
+                <td>参与项目总数（个）</td>
                 <td>
                   {{userMessage[0].takePartProject}}
                 </td>
@@ -551,7 +551,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >项目合同总金额（万元）</td>
+                <td>项目合同总金额（万元）</td>
                 <td>
                   {{userMessage[0].projectContract}}
                 </td>
@@ -560,7 +560,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >担任项目经理次数（次）</td>
+                <td>担任项目经理次数（次）</td>
                 <td>
                   {{userMessage[0].projectMar}}
                 </td>
@@ -578,7 +578,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >担任项目成员次数（次）</td>
+                <td>担任项目成员次数（次）</td>
                 <td>
                   {{userMessage[0].projectMember}}
                 </td>
@@ -587,7 +587,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >分享项目材料总数（个）</td>
+                <td>分享项目材料总数（个）</td>
                 <td>
                   {{userMessage[0].shareProject}}
                 </td>
@@ -596,7 +596,7 @@
                 </td>
               </tr>
               <tr class="bg-gray">
-                <td :colspan="dynamicTags.length+1"  >项目信息-详细【参与项目总数（个）】</td>
+                <td :colspan="dynamicTags.length+1">项目信息-详细【参与项目总数（个）】</td>
               </tr>
               <tr>
                 <td>咨询类项目</td>
@@ -608,7 +608,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >产品类项目</td>
+                <td>产品类项目</td>
                 <td>
                   {{userMessage[0].Dproduct}}
                 </td>
@@ -617,7 +617,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >数据类项目</td>
+                <td>数据类项目</td>
                 <td>
                   {{userMessage[0].Ddate}}
                 </td>
@@ -626,7 +626,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >外包类项目</td>
+                <td>外包类项目</td>
                 <td>
                   {{userMessage[0].Depiboly}}
                 </td>
@@ -635,7 +635,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >会议培训类项目</td>
+                <td>会议培训类项目</td>
                 <td>
                   {{userMessage[0].Dmeeting}}
                 </td>
@@ -644,7 +644,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >平台类类项目</td>
+                <td>平台类类项目</td>
                 <td>
                   {{userMessage[0].Dplatform}}
                 </td>
@@ -653,7 +653,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >技术服务类项目</td>
+                <td>技术服务类项目</td>
                 <td>
                   {{userMessage[0].Dskill}}
                 </td>
@@ -662,7 +662,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >其他类项目</td>
+                <td>其他类项目</td>
                 <td>
                   {{userMessage[0].Drest}}
                 </td>
@@ -671,10 +671,10 @@
                 </td>
               </tr>
               <tr class="bg-gray">
-                <td :colspan="dynamicTags.length+1"  >项目信息-详细【项目合同总金额（万元）】</td>
+                <td :colspan="dynamicTags.length+1">项目信息-详细【项目合同总金额（万元）】</td>
               </tr>
               <tr>
-                <td   >50万以下项目</td>
+                <td>50万以下项目</td>
                 <td>
                   {{userMessage[0].Fbottom}}
                 </td>
@@ -683,7 +683,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >50万(含)-100万(不含)项目</td>
+                <td>50万(含)-100万(不含)项目</td>
                 <td>
                   {{userMessage[0].FOne}}
                 </td>
@@ -692,7 +692,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >100万(含)-500万(不含)项目</td>
+                <td>100万(含)-500万(不含)项目</td>
                 <td>
                   {{userMessage[0].OneF}}
                 </td>
@@ -701,7 +701,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >500万(含)-1000万(不含)项目</td>
+                <td>500万(含)-1000万(不含)项目</td>
                 <td>
                   {{userMessage[0].FOneOne}}
                 </td>
@@ -710,7 +710,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >1000万以上(含)项目</td>
+                <td>1000万以上(含)项目</td>
                 <td>
                   {{userMessage[0].OneOne}}
                 </td>
@@ -720,10 +720,10 @@
               </tr>
 
               <tr class="bg-gray">
-                <td :colspan="dynamicTags.length+1" >项目信息-详细【担任项目经理次数（次）】</td>
+                <td :colspan="dynamicTags.length+1">项目信息-详细【担任项目经理次数（次）】</td>
               </tr>
               <tr>
-                <td   >50万以下项目</td>
+                <td>50万以下项目</td>
                 <td>
                   {{userMessage[0].PFbottom}}
                 </td>
@@ -732,7 +732,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >50万(含)-100万(不含)项目</td>
+                <td>50万(含)-100万(不含)项目</td>
                 <td>
                   {{userMessage[0].PFOne}}
                 </td>
@@ -741,7 +741,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >100万(含)-500万(不含)项目</td>
+                <td>100万(含)-500万(不含)项目</td>
                 <td>
                   {{userMessage[0].POneF}}
                 </td>
@@ -750,7 +750,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >500万(含)-1000万(不含)项目</td>
+                <td>500万(含)-1000万(不含)项目</td>
                 <td>
                   {{userMessage[0].PFOneOne}}
                 </td>
@@ -759,7 +759,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >1000万以上(含)项目</td>
+                <td>1000万以上(含)项目</td>
                 <td>
                   {{userMessage[0].POneOne}}
                 </td>
@@ -768,7 +768,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >咨询类项目</td>
+                <td>咨询类项目</td>
                 <td>
                   {{userMessage[0].PDconsult}}
                 </td>
@@ -777,7 +777,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >产品类项目</td>
+                <td>产品类项目</td>
                 <td>
                   {{userMessage[0].PDproduct}}
                 </td>
@@ -786,7 +786,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >数据类项目</td>
+                <td>数据类项目</td>
                 <td>
                   {{userMessage[0].PDdate}}
                 </td>
@@ -795,7 +795,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >外包类项目</td>
+                <td>外包类项目</td>
                 <td>
                   {{userMessage[0].PDepiboly}}
                 </td>
@@ -804,7 +804,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >会议培训类项目</td>
+                <td>会议培训类项目</td>
                 <td>
                   {{userMessage[0].PDmeeting}}
                 </td>
@@ -813,7 +813,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >平台类类项目</td>
+                <td>平台类类项目</td>
                 <td>
                   {{userMessage[0].PDplatform}}
                 </td>
@@ -822,7 +822,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >技术服务类项目</td>
+                <td>技术服务类项目</td>
                 <td>
                   {{userMessage[0].PDplatform}}
                 </td>
@@ -831,7 +831,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >其它类项目</td>
+                <td>其它类项目</td>
                 <td>
                   {{userMessage[0].PDrest}}
                 </td>
@@ -841,10 +841,10 @@
               </tr>
 
               <tr class="bg-gray">
-                <td :colspan="dynamicTags.length+1"  >项目信息-详细【分享项目材料总数（个）】</td>
+                <td :colspan="dynamicTags.length+1">项目信息-详细【分享项目材料总数（个）】</td>
               </tr>
               <tr>
-                <td   >咨询类项目</td>
+                <td>咨询类项目</td>
                 <td>
                   {{userMessage[0].Mconsult}}
                 </td>
@@ -853,7 +853,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >产品类项目</td>
+                <td>产品类项目</td>
                 <td>
                   {{userMessage[0].Mproduct}}
                 </td>
@@ -862,7 +862,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >数据类项目</td>
+                <td>数据类项目</td>
                 <td>
                   {{userMessage[0].Mdate}}
                 </td>
@@ -871,7 +871,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >外包类项目</td>
+                <td>外包类项目</td>
                 <td>
                   {{userMessage[0].Mepiboly}}
                 </td>
@@ -880,7 +880,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >会议培训类项目</td>
+                <td>会议培训类项目</td>
                 <td>
                   {{userMessage[0].Mmeeting}}
                 </td>
@@ -889,7 +889,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >平台类类项目</td>
+                <td>平台类类项目</td>
                 <td>
                   {{userMessage[0].Mplatform}}
                 </td>
@@ -898,7 +898,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >技术服务类项目</td>
+                <td>技术服务类项目</td>
                 <td>
                   {{userMessage[0].Mskill}}
                 </td>
@@ -907,7 +907,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >其它类项目</td>
+                <td>其它类项目</td>
                 <td>
                   {{userMessage[0].Mrest}}
                 </td>
@@ -916,7 +916,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >被下载总量</td>
+                <td>被下载总量</td>
                 <td>
                   {{userMessage[0].Mdownload}}
                 </td>
@@ -925,7 +925,7 @@
                 </td>
               </tr>
               <tr>
-                <td   >被浏览总量</td>
+                <td>被浏览总量</td>
                 <td>
                   {{userMessage[0].Mbrowse}}
                 </td>
@@ -951,113 +951,113 @@ export default {
     return {
       // 标签组件
       dynamicTags: ['毛莹莹', '何益挺'],
-      userMessage:[
-      {
+      userMessage: [
+        {
           // 基础信息
-           post:'产品技术类-产品助理', //岗位
-           duty:'初级咨询师',
-           title:'初级经理',
-           brllTag:'电子政务|营商环境|项目管理',
-           specialtyTag:'数据基因|DIPS|项目管理',
-           progressTag:'电子政务|营商环境|项目管理',
+          post: '产品技术类-产品助理', //岗位
+          duty: '初级咨询师',
+          title: '初级经理',
+          brllTag: '电子政务|营商环境|项目管理',
+          specialtyTag: '数据基因|DIPS|项目管理',
+          progressTag: '电子政务|营商环境|项目管理',
           // 项目信息-概要
-          takePartProject:32,
-          projectContract:400,
-          projectMar:50,
-          consultProject:12,
-          projectMember:54,
-          shareProject:123,
+          takePartProject: 32,
+          projectContract: 400,
+          projectMar: 50,
+          consultProject: 12,
+          projectMember: 54,
+          shareProject: 123,
           // 项目信息-详细【参与项目总数（个）】
-          Dconsult:10,
-          Dproduct:21,
-          Ddate:14,
-          Depiboly:1,
-          Dmeeting:12,
-          Dplatform:9,
-          Dskill:4,
-          Drest:5,
+          Dconsult: 10,
+          Dproduct: 21,
+          Ddate: 14,
+          Depiboly: 1,
+          Dmeeting: 12,
+          Dplatform: 9,
+          Dskill: 4,
+          Drest: 5,
           // 项目信息-详细【项目合同总金额（万元）】
-          Fbottom:21,
-          FOne:13,
-          OneF:8,
-          FOneOne:2,
-          OneOne:0,
+          Fbottom: 21,
+          FOne: 13,
+          OneF: 8,
+          FOneOne: 2,
+          OneOne: 0,
           // 项目信息-详细【担任项目经理次数（次）】
-          PFbottom:18,
-          PFOne:10,
-          POneF:5,
-          PFOneOne:4,
-          POneOne:3,
-          PDconsult:12,
-          PDproduct:14,
-          PDdate:11,
-          PDepiboly:8,
-          PDmeeting:7,
-          PDplatform:9,
-          PDskill:2,
-          PDrest:0,
+          PFbottom: 18,
+          PFOne: 10,
+          POneF: 5,
+          PFOneOne: 4,
+          POneOne: 3,
+          PDconsult: 12,
+          PDproduct: 14,
+          PDdate: 11,
+          PDepiboly: 8,
+          PDmeeting: 7,
+          PDplatform: 9,
+          PDskill: 2,
+          PDrest: 0,
           // 项目信息-详细【分享项目材料总数（个）】
-          Mconsult:19,
-          Mproduct:13,
-          Mdate:11,
-          Mepiboly:8,
-          Mmeeting:13,
-          Mplatform:6,
-          Mskill:2,
-          Mrest:3,
-          Mdownload:312,
-          Mbrowse:668,
-       },
-       {
-           post:'产品技术类-产品经理',
-           duty:'中级咨询师',
-           title:'高级主管',
-           brllTag:'数据基因|DIPS|项目管理',
-           specialtyTag:'电子政务|营商环境|项目管理',
-           progressTag:'数据基因|DIPS|项目管理',
-           takePartProject:45,
-           projectContract:512,
-           projectMar:61,
-           consultProject:16,
-           projectMember:48,
-           shareProject:321,
-           Dconsult:18,
-           Dproduct:22,
-           Ddate:31,
-           Depiboly:2,
-           Dmeeting:23,
-           Dplatform:10,
-           Dskill:2,
-           Drest:5,
-           Fbottom:30,
-           FOne:22,
-           OneF:11,
-           FOneOne:6,
-           OneOne:3,
-           PFbottom:25,
-           PFOne:12,
-           POneF:14,
-           PFOneOne:9,
-           POneOne:10,
-           PDconsult:32,
-           PDproduct:21,
-           PDdate:12,
-           PDepiboly:10,
-           PDmeeting:8,
-           PDplatform:4,
-           PDskill:2,
-           PDrest:1,
-           Mconsult:31,
-           Mproduct:22,
-           Mdate:23,
-           Mepiboly:12,
-           Mmeeting:19,
-           Mplatform:12,
-           Mskill:4,
-           Mrest:9,
-           Mdownload:568,
-           Mbrowse:1011,
-       },
+          Mconsult: 19,
+          Mproduct: 13,
+          Mdate: 11,
+          Mepiboly: 8,
+          Mmeeting: 13,
+          Mplatform: 6,
+          Mskill: 2,
+          Mrest: 3,
+          Mdownload: 312,
+          Mbrowse: 668,
+        },
+        {
+          post: '产品技术类-产品经理',
+          duty: '中级咨询师',
+          title: '高级主管',
+          brllTag: '数据基因|DIPS|项目管理',
+          specialtyTag: '电子政务|营商环境|项目管理',
+          progressTag: '数据基因|DIPS|项目管理',
+          takePartProject: 45,
+          projectContract: 512,
+          projectMar: 61,
+          consultProject: 16,
+          projectMember: 48,
+          shareProject: 321,
+          Dconsult: 18,
+          Dproduct: 22,
+          Ddate: 31,
+          Depiboly: 2,
+          Dmeeting: 23,
+          Dplatform: 10,
+          Dskill: 2,
+          Drest: 5,
+          Fbottom: 30,
+          FOne: 22,
+          OneF: 11,
+          FOneOne: 6,
+          OneOne: 3,
+          PFbottom: 25,
+          PFOne: 12,
+          POneF: 14,
+          PFOneOne: 9,
+          POneOne: 10,
+          PDconsult: 32,
+          PDproduct: 21,
+          PDdate: 12,
+          PDepiboly: 10,
+          PDmeeting: 8,
+          PDplatform: 4,
+          PDskill: 2,
+          PDrest: 1,
+          Mconsult: 31,
+          Mproduct: 22,
+          Mdate: 23,
+          Mepiboly: 12,
+          Mmeeting: 19,
+          Mplatform: 12,
+          Mskill: 4,
+          Mrest: 9,
+          Mdownload: 568,
+          Mbrowse: 1011,
+        },
       ],
       inputVisible: false,
       inputValue: '',
@@ -1180,24 +1180,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.head-t{
+.head-t {
   width: 100%;
   height: 180px;
   border: 1px solid #ccc;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  box-shadow:0px 0px 2px #ccc;
+  box-shadow: 0px 0px 2px #ccc;
   margin-bottom: 20px;
-  .head{
+  .head {
     margin-top: 40px;
     width: 250px;
     height: 80px;
     overflow: hidden;
-    div{
-      float:left;
+    div {
+      float: left;
     }
-    .Himg{
+    .Himg {
       width: 80px;
       height: 80px;
       -webkit-border-radius: 50%;
@@ -1205,19 +1205,19 @@ export default {
       border-radius: 50%;
       overflow: hidden;
 
-      a{
+      a {
         width: 100%;
         height: 100%;
       }
-      img{
+      img {
         width: 100%;
         height: 100%;
       }
     }
-    .rt{
+    .rt {
       float: right;
     }
-    .fontP{
+    .fontP {
       line-height: 80px;
       width: 85px;
       font-size: 20px;
@@ -1225,14 +1225,14 @@ export default {
     }
   }
 }
-.pro{
+.pro {
   margin-bottom: 30px;
   border: 1px solid #cccccc;
   color: #6d7173;
-  &>div{
+  & > div {
     box-sizing: border-box;
   }
-  .promess_con{
+  .promess_con {
     padding: 0 30px;
     font-size: 14px;
 
@@ -1252,17 +1252,17 @@ export default {
       .cont-cont {
         width: 57%;
         padding-left: 20px;
-        span{
+        span {
           width: 46%;
           float: left;
           overflow: hidden;
-          span{
+          span {
             float: right;
             width: auto;
             text-align: right;
           }
         }
-        .marRit{
+        .marRit {
           margin-right: 15px;
         }
       }
@@ -1288,15 +1288,15 @@ export default {
         }
       }
     }
-    .hadFont{
+    .hadFont {
       height: 142px;
       padding: 42px 8px;
       overflow: hidden;
       border-bottom: 1px solid #cccccc;
-      div{
+      div {
         float: left;
       }
-      .icon{
+      .icon {
         width: 62px;
         height: 62px;
         -webkit-border-radius: 50%;
@@ -1308,32 +1308,32 @@ export default {
         text-align: center;
         line-height: 60px;
       }
-      .font{
-        span{
+      .font {
+        span {
           display: block;
           font-size: 30px;
           margin-top: -15px;
         }
       }
     }
-    .marPro{
+    .marPro {
       display: flex;
       justify-content: center;
     }
   }
-  .con_bot{
+  .con_bot {
     height: 61px;
     background: #fafafa;
-    padding:0 43px;
+    padding: 0 43px;
     line-height: 61px;
-    &>span:last-child{
+    & > span:last-child {
       margin-left: 8px;
     }
   }
 }
-.pos{
-    background: #fafafa;
-  }
+.pos {
+  background: #fafafa;
+}
 .box {
   width: 100%;
   background-color: #fff;
@@ -1362,11 +1362,15 @@ export default {
       font-weight: bold;
       font-size: 15px;
       color: #666666;
-      .Explain {
+      .explain {
         cursor: pointer;
-        font-size: 13px;
+        font-size: 14px;
         color: gray;
         padding-left: 5px;
+        &::before {
+          font-size: 14px;
+          margin-right: 3px;
+        }
       }
       .Blackwindow {
         line-height: 2px;
@@ -1448,7 +1452,7 @@ export default {
     }
     .fontcontent {
       height: 30px;
-      p{
+      p {
         margin: 8px;
         font-size: 14px;
         height: 14px;
@@ -1456,7 +1460,7 @@ export default {
       }
     }
   }
-  .promess{
+  .promess {
     border: none;
     padding: 0;
   }
@@ -1497,19 +1501,19 @@ export default {
 table {
   width: 100%;
   color: #9c9c9c;
-  tr{
+  tr {
     border-bottom: 1px solid #f7f7f7;
-    td{
+    td {
       color: #8a8a8a;
     }
-    td:first-child{
+    td:first-child {
       width: 40%;
       color: #9c9c9c;
     }
   }
-  .bg-gray{
+  .bg-gray {
     background: #f8f8f8;
-    td{
+    td {
       font-weight: normal;
       color: #565656;
     }
@@ -1520,14 +1524,15 @@ table {
   padding-left: 10px;
   font-weight: bold;
 }
-td,th{
+td,
+th {
   padding: 10px 15px;
 }
 .Fields {
   text-align: left;
   padding-left: 10px;
 }
-.pkCont{
+.pkCont {
   font-size: 20px;
   line-height: 30px;
   margin-bottom: 40px;

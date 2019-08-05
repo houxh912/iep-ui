@@ -62,16 +62,8 @@ export default {
         this.$emit('change-menu', row.link)
       }
     },
-    titleClick (e) {
-      console.log('titleClick', e)
-    },
     handleBgc (index) {
       this.changeBgc = index
-    },
-  },
-  watch: {
-    openKeys (val) {
-      console.log('openKeys', val)
     },
   },
   created () {

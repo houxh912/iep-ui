@@ -33,7 +33,7 @@
     </el-table-column>
     <el-table-column prop="name" label="主题" min-width="250">
       <template slot-scope="scope">
-        <div class="mail-name" @click="handleDetail(scope.row)">{{scope.row.subject}}</div>
+        <div class="mail-name" :title="scope.row.subject" @click="handleDetail(scope.row)">{{scope.row.subject}}</div>
       </template>
     </el-table-column>
     <el-table-column prop="" label="发送时间">
@@ -139,6 +139,9 @@ export default {
 .mail-name {
   width: 100%;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .mail-tags {
   margin: 0;

@@ -78,6 +78,7 @@ const columnsMap = [
   {
     prop: 'costId',
     label: 'ID',
+    width: 55,
   },
   {
     prop: 'totalAmount',

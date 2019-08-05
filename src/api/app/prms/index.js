@@ -36,7 +36,7 @@ export const getProjectChannelCount = () => {
 // 重点推荐项目
 export const getProjectRecProjects = () => {
   return request({
-    url: `${prefixUrl}/rec_projects`,
+    url: `${prefixUrl}/project/importance`,
     method: 'get',
   })
 }
@@ -86,6 +86,48 @@ export const getUndertakeranking = () => {
   return request({
     url: `${prefixUrl}/project/undertakeranking`,
     method: 'get',
+  })
+}
+
+// 项目频道页执行项目
+export const getPerform = () => {
+  return request({
+    url: `${prefixUrl}/perform`,
+    method: 'get',
+  })
+}
+
+// 项目频道页待建项目
+export const getIntention = () => {
+  return request({
+    url: `${prefixUrl}/intention`,
+    method: 'get',
+  })
+}
+
+// 项目频道页完结项目
+export const getProjectend = () => {
+  return request({
+    url: `${prefixUrl}/projectend`,
+    method: 'get',
+  })
+}
+
+// 项目经理或项目督导查询
+export const getProjectEmployee = (obj) => {
+  return request({
+    url: `${prefixUrl}/project/employee`,
+    method: 'get',
+    params: obj,
+  })
+}
+
+// 项目经理或项目督导担任的项目名称查询
+export const getProjectByemployee = (obj) => {
+  return request({
+    url: `${prefixUrl}/project/byemployee`,
+    method: 'get',
+    params: obj,
   })
 }
 

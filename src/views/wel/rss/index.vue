@@ -64,7 +64,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
-import { getPolicyPage, getThemeList } from '@/api/govdata/rss'
+import { getPolicyPage } from '@/api/govdata/rss'
 import DialogForm from './DialogForm'
 import DialogDetail from './DialogDetail'
 export default {
@@ -112,13 +112,10 @@ export default {
   },
   methods: {
     handleAdd () {
-      getThemeList().then(({ data }) => {
-        this.$refs['DialogForm'].themeList = data.data.map(m => m.value)
-        this.$refs['DialogForm'].dialogShow = true
-      })
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleDetail (row) {
-      this.$refs['DialogDetail'].form = {...row}
+      this.$refs['DialogDetail'].form = { ...row }
       this.$refs['DialogDetail'].dialogShow = true
     },
     handleSelect (item) {

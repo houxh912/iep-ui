@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="订阅主题/行业" width="700px" @close="close" @slot-mounted="loadPage">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
+    <el-tabs v-model="activeName">
       <el-tab-pane label="主题管理" name="first">
         <el-transfer style="text-align: left; display: inline-block" v-model="themeList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消订阅', '订阅']" :format="{
         noChecked: '${total}',
@@ -17,6 +17,17 @@
           <span slot-scope="{ option }">{{ option.label }}</span>
         </el-transfer>
       </el-tab-pane>
+      <el-tab-pane label="地域管理" name="third">
+        <div style="display: flex;">
+          <el-cascader style="flex: 1;" size="small" :props="cityProps" v-model="cityList" :options="cityOption"></el-cascader>
+          <iep-button @click="handleAdd">添加</iep-button>
+        </div>
+        <el-divider>已选择</el-divider>
+        <div style="display: flex;" v-for="(item,i) in selectCityList" :key="i">
+          <el-cascader style="flex: 1;" size="small" :props="cityProps" :value="item" :options="cityOption" disabled></el-cascader>
+          <iep-button @click="handleDel(i)">删除</iep-button>
+        </div>
+      </el-tab-pane>
     </el-tabs>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm()">提交</iep-button>
@@ -25,11 +36,20 @@
   </iep-dialog>
 </template>
 <script>
-import { postThemeRss, getThemeList, getIndustryList } from '@/api/govdata/rss'
+import { postThemeRss, getThemeList, getIndustryList, getRegionList } from '@/api/govdata/rss'
+import { region as cityOption } from '@/views/govdata/policyManage/region.js'
 import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      cityOption,
+      cityProps: {
+        value: 'code',
+        label: 'name',
+      },
+      cityList: [],
+      selectCityList: [],
+
       activeName: 'first',
       dialogShow: false,
       industryList: [],
@@ -49,12 +69,24 @@ export default {
     },
   },
   methods: {
+    handleDel (i) {
+      this.selectCityList.splice(i, 1)
+    },
+    handleAdd () {
+      if (this.cityList.length) {
+        this.selectCityList.push(this.cityList)
+        this.cityList = []
+      }
+    },
     loadPage () {
       getThemeList().then(({ data }) => {
         this.themeList = data.data.map(m => m.value)
       })
       getIndustryList().then(({ data }) => {
         this.industryList = data.data.map(m => m.value)
+      })
+      getRegionList().then(({ data }) => {
+        this.selectCityList = data.data.map(m => m.dictValueKey.split(','))
       })
     },
     close () {
@@ -75,6 +107,13 @@ export default {
           dictValueKey: v,
           isMail: 0,
           type: 3,
+        })
+      })
+      this.selectCityList.map(v => {
+        dictArr.push({
+          dictValueKey: v.join(','),
+          isMail: 0,
+          type: 4,
         })
       })
       postThemeRss(dictArr).then(() => {

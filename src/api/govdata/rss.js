@@ -27,6 +27,14 @@ export function getIndustryList () {
   })
 }
 
+// 查看地域订阅列表
+export function getRegionList () {
+  return request({
+    url: `${prefixUrl}/webUserContact/regionList`,
+    method: 'get',
+  })
+}
+
 // 订阅主题订阅列表
 export function postThemeRss (obj) {
   return request({

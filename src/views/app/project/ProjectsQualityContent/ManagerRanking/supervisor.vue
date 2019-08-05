@@ -24,7 +24,7 @@ export default {
     }
   },
   created () {
-    getProjectExcellentemployee({type: 'mentor'}).then(({ data }) => {
+    getProjectExcellentemployee({ type: 'mentor' }).then(({ data }) => {
       this.thoughtsList = data.data
     })
   },
@@ -67,9 +67,10 @@ export default {
         margin-bottom: 10px;
         line-height: 14px;
         .name {
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 700;
           margin-right: 8px;
+          line-height: 24px;
         }
         .time {
           color: #999;

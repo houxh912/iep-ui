@@ -8,7 +8,7 @@
           </div>
           <div class="box">
             <div class="pieceTitle">
-              <span class="name">{{item.orgName}}</span>
+              <span class="name" :title="item.orgNam">{{item.orgName}}</span>
             </div>
             <p class="feed">项目数量：{{item.projectCount}}</p>
           </div>
@@ -72,9 +72,13 @@ export default {
         margin-bottom: 10px;
         line-height: 14px;
         .name {
-          font-size: 16px;
+          font-size: 15px;
           font-weight: 700;
           margin-right: 8px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          max-width: 190px;
         }
         .time {
           color: #999;

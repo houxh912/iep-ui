@@ -83,6 +83,13 @@ export default {
       .span {
         flex: 1;
         line-height: 28px;
+        .el-tag {
+          margin-right: 8px;
+          margin-bottom: 8px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
         .el-tag:hover {
           color: #cb3737;
         }

@@ -1,35 +1,30 @@
 <template>
   <div class="thoughts">
-    <IepAppTabCard :title="title" :linkName="linkName">
-      <div class="thoughtsList">
-        <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con">
-            <iep-img :src="item.img" class="img"></iep-img>
+    <div class="thoughtsList">
+      <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
+        <div class="img-con">
+          <iep-img :src="item.img" class="img"></iep-img>
+        </div>
+        <div class="box">
+          <div class="pieceTitle">
+            <span class="name">{{item.projectManagerName}}</span>
           </div>
-          <div class="box">
-            <div class="pieceTitle">
-              <span class="name">{{item.orgName}}</span>
-            </div>
-            <p class="feed">项目数量：{{item.projectCount}}</p>
-          </div>
+          <p class="feed">担任次数：{{item.projectCount}}</p>
         </div>
       </div>
-    </IepAppTabCard>
+    </div>
   </div>
 </template>
 <script>
-import { getUndertakeranking } from '@/api/app/prms/'
+import { getProjectExcellentemployee } from '@/api/app/prms/'
 export default {
   data () {
     return {
-      title: '项目承接能力排行榜',
-      data: '（58次）',
-      linkName: '',
       thoughtsList: [],
     }
   },
   created () {
-    getUndertakeranking().then(({ data }) => {
+    getProjectExcellentemployee({type: 'manager'}).then(({ data }) => {
       this.thoughtsList = data.data
     })
   },

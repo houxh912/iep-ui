@@ -40,7 +40,7 @@ export default {
       params: {
         current: 1,
         size: 10,
-        publisher: this.userId,
+        projectManager: this.userId,
       },
       pageList: [],
     }

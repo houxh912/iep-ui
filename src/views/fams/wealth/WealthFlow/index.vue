@@ -45,7 +45,7 @@ export default {
   created () {
     this.applyName = this.$route.query.name ? this.$route.query.name : ''
     this.backOption.isBack = this.$route.query.name ? true : false
-    this.paramsId = this.$route.query.id
+    this.paramsId = this.$route.query.id || this.$route.params.id
     this.loadPage()
   },
   methods: {

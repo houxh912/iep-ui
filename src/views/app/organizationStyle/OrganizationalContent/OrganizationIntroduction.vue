@@ -58,8 +58,9 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
+    height: 125px;
   }
   .person {
     padding-top: 15px;
@@ -83,6 +84,8 @@ export default {
       color: #fff;
     }
     .name {
+      display: block;
+      margin-top: 5px;
       line-height: 24px;
       text-align: center;
     }

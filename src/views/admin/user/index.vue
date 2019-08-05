@@ -7,7 +7,7 @@
           <iep-button v-if="sys_user_add" type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>添加用户</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="username">
+          <operation-search @search-page="searchPage" prop="realName">
           </operation-search>
         </template>
       </operation-container>

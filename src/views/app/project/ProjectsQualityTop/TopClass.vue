@@ -1,15 +1,20 @@
 <template>
   <el-card class="top-class" shadow="never">
-    <div class="top-class-list" v-for="item in items" :key="item.id">
+    <!-- <div class="top-class-list" v-for="item in items" :key="item.id">
       <span class="numTotal">{{item.numTotal}}<span class="num">{{counts[item.numCount]}}</span>个</span>
       <span class="numProjects">{{item.numProjects}} {{counts[item.projectsCount]}} 个</span>
       <span class="numNow" v-if="item.numNow">{{item.numNow}} {{counts[item.nowCount]}} 个</span>
+    </div> -->
+    <div class="top-class-list" v-for="(item, index) in countList" :key="index">
+      <span :class="i === 0 ? 'numTotal' : 'numProjects'" v-for="(t, i) in item" :key="i">
+        {{t.name}}<span :class="i === 0 ? 'num' : ''"> {{counts[t.props]}} </span>{{t.unit}}
+      </span>
     </div>
   </el-card>
 </template>
 
 <script>
-import { getProjectCount } from '@/api/app/prms'
+import { getProjectChannelCount } from '@/api/app/prms'
 
 export default {
   data () {
@@ -59,11 +64,92 @@ export default {
           nowCount: 'consultManager',
         },
       ],
+      countList: [
+        [
+          {
+            name: '项目总数',
+            props: 'projectCount',
+            unit: '个',
+          }, {
+            name: '执行项目',
+            props: 'performProjectCount',
+            unit: '个',
+          }, {
+            name: '待建项目',
+            props: 'intentionPlanProjectCount',
+            unit: '个',
+          }, {
+            name: '完结项目',
+            props: 'endProjectCount',
+            unit: '个',
+          },
+        ], [
+          {
+            name: '项目合同',
+            props: 'contractPorject',
+            unit: '个',
+          }, {
+            name: '待签项目',
+            props: 'unContractPorject',
+            unit: '个',
+          },
+        ], [
+          {
+            name: '软件项目',
+            props: 'softPorject',
+            unit: '个',
+          // }, {
+          //   name: '咨询项目',
+          //   props: 'count',
+          //   unit: '个',
+          // }, {
+          //   name: '其他项目',
+          //   props: 'count',
+          //   unit: '个',
+          },
+        ], [
+          {
+            name: '国家级项目',
+            props: 'countryPorject',
+            unit: '个',
+          }, {
+            name: '省级项目',
+            props: 'provincePorject',
+            unit: '个',
+          }, {
+            name: '市区级项目',
+            props: 'cityAreaPorject',
+            unit: '个',
+          },
+        ], [
+          {
+            name: '项目经理',
+            props: 'porjectManagerCount',
+            unit: '个',
+          }, {
+            name: '产品技术类',
+            props: 'proTechManagerCount',
+            unit: '个',
+          }, {
+            name: '咨询类',
+            props: 'consultingManagerCount',
+            unit: '个',
+          }, {
+            name: '品牌市场类',
+            props: 'brandMarketManagerCount',
+            unit: '个',
+          }, {
+            name: '平台类',
+            props: 'platformManagerCount',
+            unit: '个',
+          },
+        ],
+      ],
       counts: {},
     }
   },
   created () {
-    getProjectCount().then(({ data }) => {
+    getProjectChannelCount().then(({ data }) => {
       this.counts = data.data
     })
   },

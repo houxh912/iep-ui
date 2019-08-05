@@ -14,7 +14,7 @@
       <template slot="before-columns">
         <el-table-column label="申请人" width="100px">
           <template slot-scope="scope">
-            <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+            {{scope.row.name}}
           </template>
         </el-table-column>
       </template>
@@ -38,10 +38,11 @@
           {{dictsMap.status[scope.row.status]}}
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="180px">
+      <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
-          <operation-wrapper v-if="scope.row.status === 0">
-            <iep-button type="warning" @click="handleReview(scope.row)" plain>审核</iep-button>
+          <operation-wrapper>
+            <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
+            <iep-button v-if="scope.row.status === 0" @click="handleReview(scope.row)" plain>审核</iep-button>
             <iep-button :disabled="scope.row.status===3" @click="handleDeliver(scope.row)">转交</iep-button>
           </operation-wrapper>
         </template>

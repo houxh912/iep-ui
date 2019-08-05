@@ -1,5 +1,5 @@
 <template>
-  <el-input-number controls-position="right" :min="min" :max="max" v-bind="$attrs" v-on="$listeners"></el-input-number>
+  <el-input-number class="iep-input-number-wrapper" controls-position="right" :min="min" :max="max" v-bind="$attrs" v-on="$listeners"></el-input-number>
 </template>
 <script>
 export default {
@@ -17,3 +17,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+.iep-input-number-wrapper >>> .el-input__inner {
+  text-align: left;
+}
+</style>

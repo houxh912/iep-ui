@@ -22,7 +22,7 @@
           </el-form-item>
           <div class="title">总结与感悟</div>
           <el-form-item>
-            <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="1000"></el-input>
+            <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="10000"></el-input>
           </el-form-item>
           <div class="relation-item">
             <div class="relation-head">市场拓展：</div>

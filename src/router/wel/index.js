@@ -81,9 +81,19 @@ export default [
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/desktop/VisitingLog/index'),
       },
       {
+        path: 'visiting_log_detail/:id',
+        name: '拜訪日志详情',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/desktop/VisitingLog/Detail'),
+      },
+      {
         path: 'project_report',
         name: '项目周报',
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/desktop/ProjectReport/index'),
+      },
+      {
+        path: 'project_report_detail/:id',
+        name: '项目周报详情',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/desktop/ProjectReport/Detail'),
       },
       {
         path: 'staff_report',

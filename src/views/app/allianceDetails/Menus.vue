@@ -28,9 +28,6 @@ export default {
     handleClick (e) {
       this.$emit('change_page', e.key)
     },
-    titleClick () {
-      // console.log('titleClick', e)
-    },
   },
   created () {
     let path = this.$route.path.split('/')

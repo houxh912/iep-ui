@@ -2,30 +2,13 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-select
-          v-show="isAbled"
-          size="small"
-          v-model="orgIds"
-          autocomplete="off"
-          prefix-url="admin/org/all"
-          @change="listPage()"
-          placeholder="所有"
-        ></iep-select>
+        <iep-select v-show="isAbled" size="small" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage()" placeholder="所有" clearable></iep-select>
       </template>
       <template slot="right">
         <operation-search @search-page="searchPage" prop="realName" placeholder="根据姓名进行搜索"></operation-search>
       </template>
     </operation-container>
-    <iep-table
-      :isLoadTable="isLoadTable"
-      :pagination="pagination"
-      :columnsMap="columnsMap"
-      :pagedTable="pagedTable"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      :cell-style="mixinsCellPointerStyle"
-      isMutipleSelection
-    >
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
       <template slot="before-columns">
         <el-table-column label="标题" width="400">
           <template slot-scope="scope">

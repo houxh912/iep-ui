@@ -49,6 +49,7 @@ import IepCrmsSelect from '@/components/IepForm/CrmsSelect'
 import IepCrmsSelectMultiple from '@/components/IepForm/CrmsSelectMultiple'
 
 // input
+import IepInputAmount from '@/components/IepInput/InputAmount'
 import IepInputNumber from '@/components/IepInput/InputNumber'
 import IepInputArea from '@/components/IepInput/InputArea'
 
@@ -138,17 +139,19 @@ Vue.component(IepDictDetail.name, IepDictDetail)
 Vue.component(IepDictSelect.name, IepDictSelect)
 Vue.component(IepDictCascader.name, IepDictCascader)
 Vue.component(IepDictCascaderDetail.name, IepDictCascaderDetail)
-Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepDatePicker.name, IepDatePicker)
 Vue.component(IepDescriptionItem.name, IepDescriptionItem)
 Vue.component(IepTagDetail.name, IepTagDetail)
 Vue.component(IepDivDetail.name, IepDivDetail)
 Vue.component(IepDivDetailSwitch.name, IepDivDetailSwitch)
-Vue.component(IepInputArea.name, IepInputArea)
 Vue.component(IepDateRangeSelect.name, IepDateRangeSelect)
 Vue.component(IepFormItem.name, IepFormItem)
 Vue.component(IepCrmsSelect.name, IepCrmsSelect)
 Vue.component(IepCrmsSelectMultiple.name, IepCrmsSelectMultiple)
+
+Vue.component(IepInputNumber.name, IepInputNumber)
+Vue.component(IepInputAmount.name, IepInputAmount)
+Vue.component(IepInputArea.name, IepInputArea)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)

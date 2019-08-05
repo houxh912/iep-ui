@@ -16,7 +16,7 @@ const columnsMap = [
 	{
 		prop: 'amount',
 		label: '金额',
-                                width:'80',
+		width: '80',
 	},
 	{
 		prop: 'typeValue',
@@ -25,12 +25,12 @@ const columnsMap = [
 	{
 		prop: 'orgName',
 		label: '组织',
-                                width:'150',
+		width: '150',
 	},
 	{
 		prop: 'companyName',
 		label: '线下公司',
-                                width:'220',
+		width: '220',
 	},
 	{
 		prop: 'incomeMode',
@@ -67,6 +67,7 @@ const initForm = () => {
 		amount: 0,
 		// invoiceAmount: 0,
 		remarks: '',
+		realName: '',
 		typeValue: '',
 		invoicingTax: '',
 		interestRate: '',

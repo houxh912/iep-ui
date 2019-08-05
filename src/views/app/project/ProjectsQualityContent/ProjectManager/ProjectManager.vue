@@ -56,10 +56,15 @@ export default {
 <style lang="scss" scoped>
 .manager {
   .card {
-    height: 35px;
+    height: 32px;
     margin-bottom: 10px;
+    overflow: hidden;
     .el-tag {
       margin-right: 10px;
+      cursor: pointer;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
   .module {

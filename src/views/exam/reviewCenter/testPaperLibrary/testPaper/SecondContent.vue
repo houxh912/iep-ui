@@ -153,9 +153,9 @@
       </div>
     </el-card>
     <template v-slot:action>
-      <el-button style="margin-left: 8px" @click="handlePrev" v-if="isEdit==false">
+      <iep-button style="margin-left: 8px" @click="handlePrev" v-if="isEdit==false">
         上一步
-      </el-button>
+      </iep-button>
       <el-button type="primary" :loading="submitLoading" :disabled="submitDisabled===false"
         @click="handleSubmit" v-if="readOnly===false">
         配置完成
@@ -191,54 +191,60 @@
         </el-form-item>
 
         <el-form-item label="简单题数" prop="simpleNum">
-          <el-col :span="17">
+          <el-col :span="9">
             <iep-input-number controls-position="right" :max="totalNum.simple || 0"
               v-model="form.simpleNum" style="width:100%" :disabled="form.configurationState==='0'">
             </iep-input-number>
           </el-col>
+
+          <el-col :span="8">
+            <iep-input-number controls-position="right" :min="1" v-model="form.single"
+              style="width:70%;margin-left:20px;"></iep-input-number>
+            <span>分</span>
+          </el-col>
+
           <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.simple || 0}}</span>
             道</el-col>
-
         </el-form-item>
 
         <el-form-item label="一般题数" prop="middleNum">
-          <el-col :span="17">
+          <el-col :span="9">
             <iep-input-number controls-position="right" :max="totalNum.general || 0"
               v-model="form.middleNum" style="width:100%" :disabled="form.configurationState==='0'">
             </iep-input-number>
+          </el-col>
+          <el-col :span="8">
+            <iep-input-number controls-position="right" :min="1" v-model="form.single"
+              style="width:70%;margin-left:20px;"></iep-input-number>
+            <span>分</span>
           </el-col>
           <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.general || 0}}</span>
             道</el-col>
         </el-form-item>
 
         <el-form-item label="困难题数" prop="hardNum">
-          <el-col :span="17">
+          <el-col :span="9">
             <iep-input-number controls-position="right" :max="totalNum.difficult || 0"
               v-model="form.hardNum" style="width:100%" :disabled="form.configurationState==='0'">
             </iep-input-number>
+          </el-col>
+          <el-col :span="8">
+            <iep-input-number controls-position="right" :min="1" v-model="form.single"
+              style="width:70%;margin-left:20px;"></iep-input-number>
+            <span>分</span>
           </el-col>
           <el-col :span="7" style="text-align:center">题库现有 <span>{{totalNum.difficult || 0}}</span>
             道</el-col>
         </el-form-item>
 
-        <el-form-item label="每题" prop="single">
-          <el-col :span="7">
-            <iep-input-number controls-position="right" :min="1" v-model="form.single"
-              style="width:100%"></iep-input-number>
-          </el-col>
-          <el-col :span="3">
-            <span style="border-right: 1px solid #c0c4cc;">分</span>
-            <span>共</span>
-          </el-col>
-          <el-col :span="7">
+        <el-form-item label="共">
+          <el-col :span="9">
             <el-input readonly v-model="totalScore">
               <template slot="append">
                 <span>分</span>
               </template>
             </el-input>
-
           </el-col>
-
         </el-form-item>
 
         <!-- <el-form-item label="打分方式" prop="scoringMethod" v-if="form.type==11">
@@ -540,7 +546,6 @@ export default {
           this.judgeTotal = false
         }
       }
-
     },
 
     /**
@@ -562,7 +567,6 @@ export default {
     fieldChange () {
       this.count()
     },
-
 
     /**
      * 题型选择时部分表单内容清空以及加载对应难度的总数
@@ -614,8 +618,6 @@ export default {
           this.form.hardNum = sortMap[difficulty]
         }
       }
-
-
     },
 
     /**
@@ -665,7 +667,6 @@ export default {
       }
       this.submitLoading = false
     },
-
   },
 }
 </script>

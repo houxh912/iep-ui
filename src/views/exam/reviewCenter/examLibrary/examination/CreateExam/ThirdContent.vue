@@ -84,6 +84,16 @@
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
+              <el-form-item label="考卷模式" prop="title">
+                <el-radio-group>
+                  <el-radio :label="3" :disabled="readOnly">考试模式</el-radio>
+                  <el-radio :label="6" :disabled="readOnly">练习模式</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="40">
+            <el-col :span="12">
               <el-form-item label="报名时间" required>
                 <el-row>
                   <el-col :span="11" style="padding:0">
@@ -220,11 +230,17 @@
           <el-form-item label="结束语" prop="oncludingRemarks">
             <!-- <iep-input-area v-model="examForm.oncludingRemarks" :readonly="readOnly"></iep-input-area> -->
             <el-input type="textarea" rows="4" v-model="examForm.oncludingRemarks"
-              :readonly="readOnly" maxlength="200" show-word-limit></el-input>
+              placeholder="感谢您的作答！" :readonly="readOnly" maxlength="200" show-word-limit></el-input>
           </el-form-item>
           <hr>
           <el-form-item label="权限设置" required>
             <div class="permissionSettings">
+              <el-form-item label="考试人员" label-width="150px" :class="readOnly ? 'readOnly' : ''">
+                <el-radio-group>
+                  <el-radio :label="3">全部人员</el-radio>
+                  <el-radio :label="6">按部门/人员参与</el-radio>
+                </el-radio-group>
+              </el-form-item>
               <el-form-item prop="operateUserids" label="报名管理&考卷管理" label-width="150px"
                 :class="readOnly ? 'readOnly' : ''">
                 <iep-contact-multiple-user v-model="examForm.operateUserids"
@@ -524,10 +540,10 @@ export default {
 </style>
 
 <style scoped>
-.permissionSettings >>> .el-form-item__label {
+.permissionSettings .el-form-item:nth-child(n + 2) >>> .el-form-item__label {
   line-height: 32px;
 }
-.permissionSettings .readOnly >>> .el-form-item__label {
+.permissionSettings .readOnly:nth-child(n + 2) >>> .el-form-item__label {
   line-height: 40px;
 }
 </style>

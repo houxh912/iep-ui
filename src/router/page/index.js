@@ -12,7 +12,7 @@ export default [
   {
     path: '/login',
     name: '登录页',
-    component: () => import('@/page/login/index'),
+    component: () => import('@/page/newlogin/login'),
     meta: {
       keepAlive: false,
       isTab: false,
@@ -22,7 +22,7 @@ export default [
   {
     path: '/newlogin',
     name: '登录页',
-    component: () => import('@/page/newlogin/index'),
+    component: () => import('@/page/login/index'),
     meta: {
       keepAlive: false,
       isTab: false,

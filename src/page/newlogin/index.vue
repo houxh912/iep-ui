@@ -14,8 +14,10 @@
         <img v-show="currentId === 2" class="animated fadeInUp" src="/img/bg/wh3.png" alt="">
       </div>
       <div></div>
+      <div></div>
     </div>
     <div class="login-container-wrapper">
+      <div></div>
       <div></div>
       <div class="user-opt-wrapper">
         <slot></slot>

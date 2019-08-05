@@ -1,6 +1,6 @@
 <template>
-  <user-operation-layout class="login-wrapper">
-    <div>
+  <user-operation-layout>
+    <div class="login-wrapper">
       <div class="title">
         <h1>用户登录</h1>
       </div>
@@ -22,17 +22,46 @@
             <img slot="addonAfter" :src="code.src" class="login-code-img" @click="refreshCode" />
           </a-input>
         </el-form-item>
-        <!-- <el-form-item prop="username">
-              <el-input v-model="form.username" auto-complete="off" placeholder="请输入用户名"></el-input>
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input v-model="form.password" :type="passwordType" auto-complete="off" placeholder="请输入密码"></el-input>
-            </el-form-item> -->
+        <el-form-item>
+          <div class="login-text">
+            <el-checkbox v-model="form.isKeepLogin">保持登陆</el-checkbox>
+            <div class="check-text">
+              <el-button type="text" @click.prevent="handleRetrieve">忘记密码?</el-button>
+              <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
+            </div>
+          </div>
+        </el-form-item>
+        <el-form-item>
+          <a-row :gutter="8">
+            <a-col :span="12">
+              <a-button type="primary" size="large" :loading="loginLoading" @click="handleLogin" block>登录</a-button>
+            </a-col>
+            <a-col :span="12">
+              <a-button size="large" @click="$message.success('功能开发中')" block>访客</a-button>
+            </a-col>
+          </a-row>
+        </el-form-item>
       </el-form>
+
+      <el-divider>其他方式登录</el-divider>
+      <div class="social-container">
+        <div class="box wechat" @click="handleClick('wechat')">
+          <span class="container">
+            <i icon-class="wechat" class="iconfont icon-weixin"></i>
+          </span>
+        </div>
+        <div class="box qq" @click="handleClick('tencent')">
+          <span class="container">
+            <i icon-class="qq" class="iconfont icon-qq"></i>
+          </span>
+        </div>
+      </div>
+
     </div>
   </user-operation-layout>
 </template>
 <script>
+import { openWindow } from '@/util/util'
 import UserOperationLayout from './index'
 import { codeUrl } from '@/config/env'
 import { randomLenNum } from '@/util/util'
@@ -158,9 +187,83 @@ export default {
         }
       })
     },
+    handleClick (thirdpart) {
+      let appid, client_id, redirect_uri, url
+      redirect_uri = encodeURIComponent(
+        window.location.origin + '/#/authredirect'
+      )
+      if (thirdpart === 'wechat') {
+        appid = 'wxd1678d3f83b1d83a'
+        url =
+          'https://open.weixin.qq.com/connect/qrconnect?appid=' +
+          appid +
+          '&redirect_uri=' +
+          redirect_uri +
+          '&state=WX&response_type=code&scope=snsapi_login#wechat_redirect'
+      } else if (thirdpart === 'tencent') {
+        client_id = '101322838'
+        url =
+          'https://graph.qq.com/oauth2.0/authorize?response_type=code&state=QQ&client_id=' +
+          client_id +
+          '&redirect_uri=' +
+          redirect_uri
+      }
+      openWindow(url, thirdpart, 540, 540)
+    },
   },
 }
 </script>
+
+<style lang="css" scoped>
+.login-code >>> .ant-input-group-addon {
+  padding: 0;
+  height: 40px;
+}
+.login-code .login-code-img {
+  padding: 1px 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+.login-text {
+  color: red;
+}
+.login-text .check-text {
+  float: right;
+  color: red;
+}
+.login-text >>> .el-button--text {
+  color: #ba1b20;
+}
+.login-text >>> .el-button--text:hover {
+  color: #f56c6c;
+}
+.login-text >>> .el-button--text:nth-child(1) {
+  color: #666;
+}
+.login-text >>> .el-button--text:nth-child(1):hover {
+  color: #999;
+}
+.login-form {
+  margin: 10px 0;
+}
+.login-form i {
+  color: #999;
+}
+.login-form .el-form-item {
+  margin-bottom: 20px;
+}
+.login-form >>> .el-form-item .el-form-item__content {
+  margin-left: 0 !important;
+  width: 100%;
+}
+.login-form >>> .el-input {
+  padding: 0;
+}
+.login-form >>> .el-input .el-input__prefix i {
+  padding: 0 5px;
+  font-size: 16px !important;
+}
+</style>
 
 <style lang="scss" scoped>
 .login-wrapper {
@@ -177,6 +280,62 @@ export default {
   }
   .form-detail {
     width: 100%;
+  }
+}
+.social-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 108px;
+  .box {
+    cursor: pointer;
+    &:hover,
+    &:focus {
+      .title {
+        opacity: 0.8;
+      }
+    }
+  }
+  .iconfont {
+    color: #fff;
+    font-size: 20px;
+  }
+  .container {
+    $height: 30px;
+    display: inline-block;
+    width: $height;
+    height: $height;
+    line-height: $height;
+    text-align: center;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  .wechat {
+    .container {
+      background-color: #8bd430;
+    }
+    &:hover,
+    &:focus {
+      .container {
+        background-color: #a3e254;
+      }
+    }
+  }
+  .qq {
+    .container {
+      background-color: #03a9f4;
+    }
+    &:hover,
+    &:focus {
+      .container {
+        background-color: #46c3fb;
+      }
+    }
+  }
+}
+@media (max-width: 767px) {
+  .social-container {
+    margin: 20px;
   }
 }
 </style>

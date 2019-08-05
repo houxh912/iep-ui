@@ -185,10 +185,10 @@ export const relatedFormList = [{
     name: '关联的项目',
     ids: 'projectIds',
     list: 'projectList',
-  // }, {
-  //   name: '关联的周报',
-  //   ids: 'reportIds',
-  //   list: 'reportList',
+  }, {
+    name: '关联的项目周报',
+    ids: 'reportIds',
+    list: 'reportList',
   },
 ]
 export const initSearchForm = () => {

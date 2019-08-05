@@ -5,6 +5,9 @@
         <top-logo></top-logo>
       </template>
       <template slot="top-right">
+        在线客服小脉
+        <el-divider direction="vertical"></el-divider>
+        联系电话: 0580-23566123
       </template>
     </top-wrapper>
     <div class="bg-container-wrapper">
@@ -19,7 +22,7 @@
     <div class="login-container-wrapper">
       <div></div>
       <div></div>
-      <div class="user-opt-wrapper">
+      <div class="user-opt-wrapper animated fadeInRight">
         <slot></slot>
       </div>
     </div>

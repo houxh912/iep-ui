@@ -1,6 +1,8 @@
 <template>
   <iep-app-layout>
-    <h3 class="title">#{{title}}#</h3>
+    <h3 class="title">
+      <iep-page-header :title="`#${title}#`" :backOption="backOption"></iep-page-header>
+    </h3>
     <headTpl class="head" @load-page="submitCallBack" :subject="subjectTitle"></headTpl>
     <div class="content">
       <div class="content-left">
@@ -59,6 +61,13 @@ export default {
   },
   data () {
     return {
+      backOption: {
+        isBack: true,
+        backPath: null,
+        backFunction: () => {
+          this.$router.push('/app/more_thoughts')
+        },
+      },
       isShow: true,
       title: '',
       commontActiveIndex: -1,
@@ -111,7 +120,7 @@ h3.title {
   width: 1200px;
   margin: auto;
   font-size: 24px;
-  padding: 30px 0 20px;
+  padding: 30px 0 0;
   .akey {
     color: #c74c50;
   }
@@ -152,5 +161,10 @@ h3.title {
     width: 300px;
     margin-left: 30px;
   }
+}
+</style>
+<style scoped>
+.title >>> .page-title {
+  font-size: 24px !important;
 }
 </style>

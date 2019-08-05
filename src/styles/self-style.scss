@@ -85,3 +85,9 @@
 .el-input--small .el-input__icon {
   line-height: 34px;
 }
+
+.el-radio-button__orig-radio:checked+.el-radio-button__inner {
+  color: #BA1B21;
+  background: #f8e8e9;
+  border-color: #e3a4a6;
+}

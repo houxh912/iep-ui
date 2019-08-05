@@ -31,7 +31,7 @@
         <iep-div-detail :value="form.serialNo"></iep-div-detail>
       </el-form-item>
       <el-form-item label="支出金额(元)：" prop="amount">
-        <iep-input-number v-model="form.amount" :min="-99999999"></iep-input-number>
+        <iep-input-amount v-model="form.amount" :min="-99999999"></iep-input-amount>
       </el-form-item>
       <!-- <el-form-item label="税率：">
         <el-select v-model="form.taxRate">
@@ -62,7 +62,7 @@
               </el-table-column>
               <el-table-column prop="amount" label="金额(元)">
                 <template slot-scope="scope">
-                  <iep-input-number size="small" v-model="scope.row.amount"></iep-input-number>
+                  <iep-input-amount size="small" v-model="scope.row.amount" :min="-99999999"></iep-input-amount>
                 </template>
               </el-table-column>
               <el-table-column label="操作" width="100">

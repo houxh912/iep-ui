@@ -62,14 +62,23 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.con {
+  width: 100%;
+}
 .members {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(
+      100px,
+      1fr
+    );
   grid-gap: 20px 20px;
   margin: 0 20px;
   .member {
     width: 100%;
     text-align: center;
+    .ant {
+      height: 40px;
+    }
   }
 }
 </style>

@@ -4,7 +4,8 @@
       <iep-page-header title="集团往来账" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="remarks">
+          <operation-search @search-page="searchPage" prop="remarks" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -17,7 +18,9 @@
 import { getAllCurrentBillFlowPage } from '@/api/fams/current_bill_flow'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
+import AdvanceSearch from './AdvanceSearch'
 export default {
+  components: { AdvanceSearch },
   mixins: [mixins],
   data () {
     return {

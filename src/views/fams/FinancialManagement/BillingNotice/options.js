@@ -1,15 +1,19 @@
 ﻿// import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
-  status: {
-    0: '待提交',
-    1: '待确认',
-    2: '已确认',
-    3: '拒绝',
-  },
+	status: {
+		0: '待提交',
+		1: '待确认',
+		2: '已确认',
+		3: '拒绝',
+	},
 }
 
 const columnsMap = [
+	{
+		prop: 'creatorName',
+		label: '申请人',
+	},
 	{
 		prop: 'buyerName',
 		label: '购买方',
@@ -17,6 +21,7 @@ const columnsMap = [
 	{
 		prop: 'companyName',
 		label: '销售方',
+		type: 'detail',
 	},
 	{
 		prop: 'amount',
@@ -25,7 +30,7 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '申请日期',
-                                width:'150',
+		width: '150',
 	},
 	{
 		prop: 'status',
@@ -39,7 +44,7 @@ const columnsMap = [
 	{
 		prop: 'auditingTime',
 		label: '核准日期',
-                                width:'150',
+		width: '150',
 	},
 ]
 

@@ -1,7 +1,7 @@
 <template>
   <div class="recommendable">
     <IepAppTabCard :title="title" :linkName="linkName" isMore :data="`(${data}个)`">
-      <IepAppListCard :dataList="dataList" name='project_name' @click="handleDetail"></IepAppListCard>
+      <IepAppListCard :dataList="dataList" name='projectName' @click="handleDetail"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
@@ -25,8 +25,8 @@ export default {
   },
   created () {
     getProjectRecProjects().then(({ data }) => {
-      this.dataList = data.data.list.slice(0, 9)
-      this.data = data.data.size
+      this.dataList = data.data.records.slice(0, 9)
+      this.data = data.data.total
     })
   },
 }

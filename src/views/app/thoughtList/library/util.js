@@ -99,3 +99,9 @@ export const getName = (val) => {
     }
   }
 }
+
+export const dealImage = (data, index) => {
+  let list = []
+  list = data.slice(index).concat(data.slice(0, index))
+  return list
+}

@@ -95,7 +95,6 @@ export default {
       this.$router.push({
         path: `/app/module_details/${val}`,
       })
-      console.log(111)
     },
   },
 }

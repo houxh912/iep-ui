@@ -2,7 +2,8 @@
   <div class="gov-person-content">
     <div class="top-content">
       <busines-system></busines-system>
-      <institutional></institutional>
+      <!--  制度文件-->
+      <competence-list></competence-list>
       <construction-project></construction-project>
       <recommendable></recommendable>
       <project-manager></project-manager>
@@ -14,10 +15,8 @@
       <project-resources></project-resources>
       <internal-expert></internal-expert>
       <project-quality></project-quality>
-      <quality-control></quality-control>
-    </div>
-    <div class="block">
-      <team-style></team-style>
+      <!-- <quality-control></quality-control>质量管控 -->
+      <institutional></institutional>
     </div>
     <div class="copies copies2">
       <experience-training></experience-training>
@@ -29,22 +28,22 @@
 <script>
 import BusinesSystem from './BusinesSystem'
 import Institutional from './Institutional'
-import ConstructionProject from './ConstructionProject'
+import CompetenceList from './CompetenceList'
+import ConstructionProject from './ConstructionProject/'
 import Recommendable from './Recommendable'
-import ProjectManager from './ProjectManager'
-import ManagerRanking from './ManagerRanking'
+import ProjectManager from './ProjectManager/'
+import ManagerRanking from './ManagerRanking/'
 import CustomerRsources from './CustomerRsources'
 import MarketOpportunity from './MarketOpportunity'
 import ProjectResources from './ProjectResources'
 import InternalExpert from './InternalExpert'
 import ProjectQuality from './ProjectQuality'
-import QualityControl from './QualityControl'
-import TeamStyle from './TeamStyle'
+// import QualityControl from './QualityControl'
 import ExperienceTraining from './ExperienceTraining'
 import Feedback from './Feedback'
 import Reward from './Reward'
 export default {
-  components: { BusinesSystem, Institutional, ConstructionProject, Recommendable, ProjectManager, ManagerRanking, CustomerRsources, MarketOpportunity, ProjectResources, InternalExpert, ProjectQuality, QualityControl, TeamStyle, ExperienceTraining, Feedback, Reward },
+  components: { BusinesSystem, CompetenceList, ConstructionProject, Recommendable, ProjectManager, ManagerRanking, CustomerRsources, MarketOpportunity, ProjectResources, InternalExpert, ProjectQuality, Institutional, ExperienceTraining, Feedback, Reward },
   data () {
     return {
     }

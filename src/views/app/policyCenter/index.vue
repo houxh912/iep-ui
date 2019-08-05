@@ -14,7 +14,7 @@
             </el-col>
             <el-col :span="22">
               <div class="answerSheetTop">
-                <el-tag class="choices" type="info" v-for="(item, index) in POLICY_LEVEL" :key="index" @click="clickButton(item)" style="margin-right: 10px">{{item.label}}</el-tag>
+                <el-tag class="choices" type="info" v-for="(item, index) in POLICY_LEVEL" :key="index" style="margin-right: 10px">{{item.label}}</el-tag>
               </div>
             </el-col>
           </el-row>
@@ -124,9 +124,6 @@ export default {
     this.loadDict()
   },
   methods: {
-    clickButton (item) {
-      console.log('kkk', item)
-    },
 
     /**
      * 获取获取层级、适用对象、主题、规模、行业数据

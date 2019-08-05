@@ -14,47 +14,63 @@ export default {
   },
   methods: {
     handleKeyup (val) {
-      let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
-      let startPos = elInput.selectionStart // input 第0个字符到选中的字符
-      if (val.key === ' ') { // 输入空格  --  关闭搜索
-        this.keyupTypes = false
-      } else if (val.key === 'Backspace' && this.startPos === startPos + 1) { // 输入删除  --  关闭搜索
-        this.keyupTypes = false
-      }
-      if (this.keyupType) { // 输入普通的内容  --  根据输入搜索
-        this.gettingFocus()
-      } else if (val.code === 'Digit2') { // 输入@ -- 打开搜索
-        // 中文输入发状态下监听不到 @ 输入，所以要监听 2 然后判断是否输入了 @ 
-        if (this.formData.content.slice(startPos - 1, startPos) === '@') {
-          this.startPos = startPos
-          this.keyupType = true
-          this.keyupTypes = true
+      // 因为输入法的原因，需要在输入之后延时获取字符串
+      setTimeout(() => {
+        let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
+        let startPos = elInput.selectionStart // input 第0个字符到选中的字符
+        if (val.key === ' ') { // 输入空格  --  关闭搜索
+          this.keyupTypes = false
+        } else if (val.key === 'Backspace' && this.startPos === startPos + 1) { // 输入删除  --  关闭搜索
+          this.keyupTypes = false
         }
-      }
+        if (this.keyupType) { // 输入普通的内容  --  根据输入搜索
+          this.gettingFocus()
+        } else if (val.code === 'Digit2') { // 输入@ -- 打开搜索
+          // 中文输入发状态下监听不到 @ 输入，所以要监听 2 然后判断是否输入了 @ 
+          if (this.formData.content.slice(startPos - 1, startPos) === '@') {
+            this.startPos = startPos
+            this.keyupType = true
+            this.keyupTypes = true
+          }
+        }
+      }, 200)
     },
     handleCancal () {
       this.handleEnd()
     },
     querySearchAsync (queryString, cb) {
+      let defaultObj = {
+        value: '轻敲空格完成输入',
+        id: 0,
+      }
       if (!this.keyupTypes) {
-        cb([])
+        cb([defaultObj])
         this.handleEnd()
       } else {
         loadContactsPyList({ name: this.state }).then(({ data }) => {
-          cb(data.data.map(m => {
+          let list = [defaultObj].concat(data.data.map(m => {
             return {
               value: m.name,
               id: m.id,
             }
           }))
+          cb(list)
         })
       }
     },
+    // 联想搜索
     handleSelect (item) {
       let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
       var startPos = elInput.selectionStart // input 第0个字符到选中的字符
-      this.formData.content = this.formData.content.slice(0, this.startPos) + item.value + ' ' + this.formData.content.slice(startPos)
+      if (item.id === 0) {
+        this.formData.content = this.formData.content.slice(0, startPos) + ' ' + this.formData.content.slice(startPos)
+      } else {
+        this.formData.content = this.formData.content.slice(0, this.startPos) + item.value + ' ' + this.formData.content.slice(startPos)
+      }
       this.handleEnd()
+      this.$nextTick(() => {
+        this.$refs['content'].focus()
+      })
     },
     // 结束
     handleEnd () {
@@ -67,7 +83,7 @@ export default {
       let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
       let startPos = elInput.selectionStart // input 第0个字符到选中的字符
       this.formData.content = this.formData.content.slice(0, startPos) + '@' + this.formData.content.slice(startPos)
-      this.startPos = startPos
+      this.startPos = startPos + 1
       this.keyupType = true
       this.keyupTypes = true
       this.gettingFocus()

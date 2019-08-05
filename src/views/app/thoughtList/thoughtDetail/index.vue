@@ -4,6 +4,9 @@
       <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
       </el-breadcrumb>
+      <div class="back">
+        <iep-button @click="handleBack">返回</iep-button>
+      </div>
     </div>
     <list ref="list" class="list" :dataList="dataList" @load-page="loadPage"></list>
   </iep-app-layout>
@@ -16,12 +19,20 @@ export default {
   components: { list },
   data () {
     return {
-      routerMatch: this.$route.matched,
+      routerMatch: [
+        {
+          name: '说说首页',
+          path: '/app/more_thoughts',
+        }, {
+          name: '说说详情',
+          path: '/app/thought_detail/:id',
+        },
+      ],
       dataList: [],
     }
   },
   beforeRouteUpdate (to, from, next) {
-    this.routerMatch = to.matched
+    // this.routerMatch = to.matched
     next()
   },
   methods: {
@@ -33,18 +44,24 @@ export default {
     loadPage () {
       this.loadData(this.$route.params.id)
     },
+    handleBack () {
+      this.$router.push('/app/more_thoughts')
+    },
   },
   created () {
     this.loadData(this.$route.params.id)
+    console.log('routerMatch: ', this.routerMatch)
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .breadcrumb-wrapper {
+  display: flex;
+  width: 1200px;
+  margin: 20px auto 0;
+  justify-content: space-between;
   .breadcrumb-item {
-    margin: 20px auto 0;
-    width: 1200px;
     padding: 0 0 20px 0;
   }
 }

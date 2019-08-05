@@ -1,14 +1,14 @@
 <template>
   <steps-content>
-    <a-form class="content-wrapper">
+    <el-form class="form-detail" ref="form" size="small" :model="data" label-width="150px">
       <el-alert style="margin-bottom: 24px;" title="确认提现后，财务将对您的提现申请进行核准。" type="warning" show-icon></el-alert>
-      <a-form-item label="提现金额：" :labelCol="labelCol" :wrapperCol="wrapperCol" class="stepFormText">
-        ￥ {{formatNumber(data.amount)}}
-      </a-form-item>
-      <a-form-item label="发票抵税：" :labelCol="labelCol" :wrapperCol="wrapperCol" class="stepFormText">
-        ￥ {{formatNumber(data.deductionInvoice)}}
-      </a-form-item>
-    </a-form>
+      <iep-form-item label-name="提现金额" prop="amount">
+        <iep-div-detail :value="`￥ ${formatNumber(data.amount)}`"></iep-div-detail>
+      </iep-form-item>
+      <iep-form-item label-name="发票抵税" prop="deductionInvoice">
+        <iep-div-detail :value="`￥ ${formatNumber(data.deductionInvoice)}`"></iep-div-detail>
+      </iep-form-item>
+    </el-form>
     <template v-slot:action>
       <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
         提交
@@ -43,9 +43,6 @@ export default {
   components: { StepsContent },
   data () {
     return {
-      labelCol: { lg: { span: 12 }, sm: { span: 12 } },
-      wrapperCol: { lg: { span: 12 }, sm: { span: 12 } },
-      formLayout: 'horizontal',
       submitLoading: false,
     }
   },
@@ -73,10 +70,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.content-wrapper {
-  max-width: 500px;
-  margin: 30px auto 0;
-}
-</style>

@@ -58,7 +58,7 @@ export default {
   padding: 10px 25px;
 }
 .iep-dialog >>> .el-dialog__footer {
-  padding: 10px;
+  padding: 10px 35px 20px;
 }
 </style>
 

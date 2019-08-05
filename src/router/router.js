@@ -35,7 +35,6 @@ const Router = new VueRouter({
   routes: [].concat([]),
 })
 AvueRouter.install(Router, Store)
-// console.log('AvueRouter', Store.state.user.menu)
 Router.$avueRouter.formatRoutes(Store.state.menu.menu, true)
 Router.addRoutes([
   ...hrmsRouter,

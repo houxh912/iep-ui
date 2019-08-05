@@ -114,3 +114,12 @@ export default {
   }
 }
 </style>
+<style scoped>
+.user-info >>> .span .el-tag {
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
+.user-info >>> .span .el-tag:last-child {
+  margin-right: 0;
+}
+</style>

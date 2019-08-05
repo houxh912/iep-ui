@@ -25,13 +25,13 @@
     <el-form-item label="状态：">
       <el-select v-model="form.status" clearable class="selectItem">
         <el-option :key="0" label="审核中" :value="0"></el-option>
-        <el-option :key="1" label="通过" :value="1"></el-option>
+        <el-option :key="1" label="已通过" :value="1"></el-option>
         <el-option :key="2" label="未通过" :value="2"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item>
       <iep-button type="primary" @click="searchPage" style="margin-right:6px;">搜索</iep-button>
-      <iep-button>清空</iep-button>
+      <iep-button @click="handleClean">清空</iep-button>
     </el-form-item>
   </el-form>
 </template>
@@ -65,6 +65,12 @@ export default {
       }
       const { data } = await getTestOption(params)
       this.res = data
+    },
+    /**
+     * 清空按钮
+     */
+    handleClean () {
+      this.form = {}
     },
   },
   watch: {

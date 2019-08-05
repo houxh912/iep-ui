@@ -42,7 +42,7 @@ export default {
   .piece {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     overflow: hidden;
     transition: 0.5s;
     .img-con {

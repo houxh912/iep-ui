@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     handleProject (row) {
-      getProjectByemployee({type: 'manager', userId: row.projectManager}).then(({ data }) => {
+      getProjectByemployee({ type: 'manager', userId: row.projectManager }).then(({ data }) => {
         this.projectList = data.data
       })
     },
@@ -75,7 +75,8 @@ export default {
   }
   .content {
     .avatar {
-      width: 140px;
+      width: 120px;
+      height: 120px;
       margin: 35px auto 20px;
       .img {
         border-radius: 50%;

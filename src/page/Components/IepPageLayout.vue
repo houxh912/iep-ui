@@ -1,8 +1,6 @@
 <template>
   <div class="app-layout">
-    <div>
-      <slot></slot>
-    </div>
+    <slot></slot>
     <iep-page-footer-bar></iep-page-footer-bar>
   </div>
 </template>

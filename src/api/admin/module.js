@@ -10,6 +10,15 @@ export function getModulePage (params) {
   })
 }
 
+
+export function getUnionModulePage (params) {
+  return request({
+    url: `${prefixUrl}/union/module/page`,
+    method: 'get',
+    params: params,
+  })
+}
+
 export function getOrgModuleList () {
   return request({
     url: `${prefixUrl}/org/list`,
@@ -28,6 +37,14 @@ export function postModule (obj) {
 export function putModule (obj) {
   return request({
     url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function putUnionModule (obj) {
+  return request({
+    url: `${prefixUrl}/set/charge`,
     method: 'post',
     data: obj,
   })

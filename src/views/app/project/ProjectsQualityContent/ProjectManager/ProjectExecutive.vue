@@ -75,7 +75,8 @@ export default {
   }
   .content {
     .avatar {
-      width: 140px;
+      width: 120px;
+      height: 120px;
       margin: 35px auto 20px;
       .img {
         border-radius: 50%;

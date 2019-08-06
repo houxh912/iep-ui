@@ -25,7 +25,7 @@ export default {
   },
   created () {
     getProjectExcellentemployee({type: 'mentor'}).then(({ data }) => {
-      this.thoughtsList = data.data
+      this.thoughtsList = data.data.slice(0, 4)
     })
   },
 }
@@ -68,7 +68,6 @@ export default {
         line-height: 14px;
         .name {
           font-size: 16px;
-          font-weight: 700;
           margin-right: 8px;
         }
         .time {

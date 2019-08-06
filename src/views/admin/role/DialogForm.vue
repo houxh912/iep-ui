@@ -15,7 +15,7 @@
         <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择关联组织"></iep-select>
       </el-form-item>
       <el-form-item label="是否通用：" prop="isCommon">
-        <el-switch v-model="form.isCommon" active-text="是" inactive-text="否" :active-value="2" :inactive-value="1"></el-switch>
+        <el-switch v-model="form.isCommon" active-text="是" inactive-text="否" :active-value="1" :inactive-value="2"></el-switch>
       </el-form-item>
       <el-form-item label="数据权限：" prop="dsType">
         <el-select v-model="form.dsType" placeholder="选择数据权限">

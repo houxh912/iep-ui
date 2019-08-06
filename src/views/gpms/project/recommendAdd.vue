@@ -169,6 +169,12 @@
               </el-form-item>
             </el-col> -->
           </el-row>
+          <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
+            <el-button @click="handleAddExternalProject">添加关联</el-button>
+            <ul class="relevance-list" v-if="formData.projectList.length > 0">
+              <li class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></li>
+            </ul>
+          </el-form-item>
           <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
             <span slot="label">
               是否关联产品
@@ -409,6 +415,7 @@
     </basic-container>
     <relation-dialog ref="relationDialog" @relativeSubmit="relativeSubmit"></relation-dialog>
     <product-relation-dialog ref="productRelationDialog" @relativeSubmit="relativeProductSubmit"></product-relation-dialog>
+    <project-relation-dialog ref="projectRelationDialog" @relativeSubmit="relativeprojectSubmit"></project-relation-dialog>
   </div>
 </template>
 
@@ -421,10 +428,11 @@ import { mapGetters } from 'vuex'
 import { tipContent } from './option'
 import RelationDialog from './Total/relation'
 import ProductRelationDialog from './Total/productRelation'
+import projectRelationDialog from './Total/projectRelation'
 
 export default {
   name: 'add-dialog',
-  components: { RelationDialog, ProductRelationDialog },
+  components: { RelationDialog, ProductRelationDialog, projectRelationDialog },
 
   data () {
     return {
@@ -649,6 +657,12 @@ export default {
         productList: this.formData.productList,
       })
     },
+    handleAddExternalProject () {
+      this.$refs['projectRelationDialog'].dialogShow = true
+      this.$refs['projectRelationDialog'].loadData({
+        projectList: this.formData.projectList,
+      })
+    },
     // 添加其他关联
     relativeSubmit (list) {
       this.formData = Object.assign({}, this.formData, list)
@@ -656,6 +670,10 @@ export default {
     // 添加关联产品
     relativeProductSubmit (list) {
       this.formData.productList = list.productList
+    },
+    // 添加关联项目
+    relativeprojectSubmit (list) {
+      this.formData.projectList = list.projectList
     },
     // 删除关联
     closeRelation (index, list, ids) {

@@ -140,3 +140,11 @@ export function generationProject (obj) {
     data: obj,
   })
 }
+//取外部项目分页
+export const getExternalProjectPage = (params) => {
+  return request({
+    url: `${prefixUrl}/getProjectTypePage`,
+    method: 'get',
+    params: params,
+  })
+}

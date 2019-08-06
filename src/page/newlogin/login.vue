@@ -91,7 +91,7 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { required: true, message: '请输入用户名/手机号', trigger: 'blur' },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -215,6 +215,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.login-code >>> .ant-input {
+  font-size: 14px;
+}
 .login-code >>> .ant-input-group-addon {
   padding: 0;
   height: 40px;

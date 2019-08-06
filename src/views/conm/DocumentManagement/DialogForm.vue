@@ -21,7 +21,7 @@
           图片：
         </span>
         <!-- <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload> -->
-        <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*">
+        <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="true" :headers="headers" :on-success="handleAvatarSuccess" :on-remove="handleRemove" accept="image/*">
           <iep-img v-if="form.image" :src="form.image" class="avatar"></iep-img>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -90,6 +90,9 @@ export default {
     },
     handleAvatarSuccess (row) {
       this.form.image = row.data.url
+    },
+    handleRemove () {
+      this.form.image = ''
     },
     async submitForm () {
       this.formRequestFn({ id: this.id, nodeId: this.nodeId, ...this.form }).then(({ data }) => {

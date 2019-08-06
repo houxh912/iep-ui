@@ -51,7 +51,7 @@ export default {
       } else {
         this.currentId++
       }
-    }, 5000)
+    }, 6000)
   },
   destroyed () {
     clearInterval(this.animationInterval)
@@ -67,9 +67,12 @@ export default {
   width: 100vw;
   top: 60px;
   .user-opt-wrapper {
+    margin: 20px 0;
     width: 400px;
-    background-color: #fff;
     padding: 20px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 0 1px 2px #eee;
   }
 }
 .bg-container-wrapper,
@@ -78,8 +81,12 @@ export default {
   justify-content: space-around;
   align-items: center;
   height: calc(100vh - 120px);
-  // .login-img-wrapper {
-  // position: absolute;
-  // }
+  .login-img-wrapper {
+    width: 500px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
 </style>

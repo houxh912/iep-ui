@@ -4,10 +4,10 @@
       <template slot="top-left">
         <top-logo></top-logo>
       </template>
-      <template slot="top-right">
-        在线客服小脉
+      <template class="top-right" slot="top-right">
+        <span class="contact"><i class="iconfont icon-kefu"></i>在线客服小脉</span>
         <el-divider direction="vertical"></el-divider>
-        联系电话: 0580-23566123
+        联系电话: <span class="num">0580-23566123</span>
       </template>
     </top-wrapper>
     <div class="bg-container-wrapper">
@@ -73,6 +73,24 @@ export default {
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 0 1px 2px #eee;
+  }
+}
+.top-right {
+  .num {
+    margin-left: 5px;
+    color: #c73e3e;
+  }
+  .contact {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    i {
+      margin-right: 5px;
+      font-size: 24px;
+    }
+    &:hover {
+      color: #c73e3e;
+    }
   }
 }
 .bg-container-wrapper,

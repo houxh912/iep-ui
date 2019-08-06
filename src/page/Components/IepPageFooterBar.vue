@@ -55,10 +55,10 @@ export default {
   .context {
     width: 1200px;
     margin: 0 auto;
-    color: #d1d1d1;
+    color: #999;
     a {
       padding: 0 13px;
-      color: #d1d1d1;
+      color: #999;
       &:hover {
         color: #bb1a20;
       }
@@ -70,7 +70,7 @@ export default {
       padding-left: 13px;
     }
     .number {
-      color: #a6a6a6;
+      color: #999;
     }
   }
 }

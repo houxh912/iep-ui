@@ -12,9 +12,9 @@
     </top-wrapper>
     <div class="bg-container-wrapper">
       <div class="login-img-wrapper">
-        <img v-show="currentId === 0" class="animated fadeInUp" src="/img/bg/wh1.png" alt="">
-        <img v-show="currentId === 1" class="animated fadeInUp" src="/img/bg/wh2.png" alt="">
-        <img v-show="currentId === 2" class="animated fadeInUp" src="/img/bg/wh3.png" alt="">
+        <img v-show="currentId === 0" class="animated fadeIn" src="/img/bg/wh1.png" alt="">
+        <img v-show="currentId === 1" class="animated fadeIn" src="/img/bg/wh2.png" alt="">
+        <img v-show="currentId === 2" class="animated fadeIn" src="/img/bg/wh3.png" alt="">
       </div>
       <div></div>
       <div></div>
@@ -51,7 +51,7 @@ export default {
       } else {
         this.currentId++
       }
-    }, 6000)
+    }, 20000)
   },
   destroyed () {
     clearInterval(this.animationInterval)
@@ -82,6 +82,7 @@ export default {
   align-items: center;
   height: calc(100vh - 120px);
   .login-img-wrapper {
+    margin-left: 30px;
     width: 500px;
     img {
       width: 100%;

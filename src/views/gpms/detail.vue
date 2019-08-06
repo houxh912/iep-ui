@@ -72,7 +72,7 @@
               </el-col>
               <el-col :span="12" class="item">
                 <el-form-item label="相关产品：">
-                  <span v-if="formData.productList.length==0">无</span>
+                  <span v-if="formData.productList.length==0">无（{{formData.notRelevanceProductReason}}）</span>
                   <span v-else v-for="(item, index) in formData.productList" :key="index" class="people">{{item.name}}</span>
                 </el-form-item>
               </el-col>

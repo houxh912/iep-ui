@@ -56,15 +56,16 @@ export default {
   justify-content: space-around;
   .box {
     cursor: pointer;
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       .title {
-        opacity: .8;
+        opacity: 0.8;
       }
     }
   }
   .iconfont {
     color: #fff;
-    font-size: 30px;
+    font-size: 20px;
   }
   .container {
     $height: 50px;
@@ -76,11 +77,12 @@ export default {
     border-radius: 50%;
     margin-bottom: 10px;
   }
-  .wechat{
+  .wechat {
     .container {
-      background-color: #8bd430; 
+      background-color: #8bd430;
     }
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       .container {
         background-color: #a3e254;
       }
@@ -90,21 +92,21 @@ export default {
     .container {
       background-color: #03a9f4;
     }
-    &:hover, &:focus {
-        .container {
-          background-color: #46c3fb;
-        }
+    &:hover,
+    &:focus {
+      .container {
+        background-color: #46c3fb;
       }
+    }
   }
   .title {
     margin-top: 0;
     text-align: center;
   }
 }
-@media (max-width:767px){
+@media (max-width: 767px) {
   .social-container {
     margin: 20px;
   }
 }
-
 </style>

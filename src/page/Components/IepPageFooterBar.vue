@@ -16,7 +16,7 @@
 </template>
 <script>
 export default {
-  name: 'IepAppFooterBar',
+  name: 'IepPageFooterBar',
   methods: {
     handleOpen1 () {
       this.$openPage('/app/resource/material/material_detail/7978')
@@ -48,7 +48,8 @@ export default {
 .footer-box {
   width: 100%;
   height: 65px;
-  background-color: #535353;
+  border-top: 1px solid #ddd;
+  background-color: #53535300;
   text-align: center;
   line-height: 65px;
   .context {

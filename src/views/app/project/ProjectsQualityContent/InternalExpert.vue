@@ -23,7 +23,7 @@ export default {
       leaderBoardList: [
         { img: '../img/person/p01.jpg', name: '杨冰之', num: '（项目76）', des: '国脉集团董事长' },
         { img: '../img/person/p05.jpg', name: '郑爱军', num: '（项目76）', des: '国脉集团总经理' },
-        { img: '../img/person/p04.jpg', name: '王路燕', num: '（项目76）', des: '国脉集团总助' },
+        { img: '../img/person/p04.jpg', name: '王路燕', num: '（项目76）', des: '集团副总' },
       ],
     }
   },

@@ -1,34 +1,31 @@
 <template>
   <div class="thoughts">
-    <IepAppTabCard :title="title" :linkName="linkName">
-      <div class="thoughtsList">
-        <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
-          <div class="img-con">
-            <iep-img :src="item.img" class="img"></iep-img>
+    <div class="thoughtsList">
+      <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
+        <div class="img-con">
+          <iep-img :src="item.img" class="img"></iep-img>
+        </div>
+        <div class="box">
+          <div class="pieceTitle">
+            <span class="name">{{item.projectManagerName}}</span>
           </div>
-          <div class="box">
-            <div class="pieceTitle">{{item.orgName}}</div>
-            <p class="feed">项目数量：{{item.projectCount}}</p>
-          </div>
+          <p class="feed">担任次数：{{item.projectCount}}</p>
         </div>
       </div>
-    </IepAppTabCard>
+    </div>
   </div>
 </template>
 <script>
-import { getUndertakeranking } from '@/api/app/prms/'
+import { getProjectExcellentemployee } from '@/api/app/prms/'
 export default {
   data () {
     return {
-      title: '项目承接能力排行榜',
-      data: '（58次）',
-      linkName: '',
       thoughtsList: [],
     }
   },
   created () {
-    getUndertakeranking().then(({ data }) => {
-      this.thoughtsList = data.data
+    getProjectExcellentemployee({ type: 'mentor' }).then(({ data }) => {
+      this.thoughtsList = data.data.slice(0, 4)
     })
   },
 }
@@ -45,7 +42,7 @@ export default {
   .piece {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     overflow: hidden;
     transition: 0.5s;
     .img-con {
@@ -69,12 +66,12 @@ export default {
       .pieceTitle {
         margin-bottom: 10px;
         line-height: 14px;
-        font-size: 16px;
-        margin-right: 8px;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 1;
-        overflow: hidden;
+        .name {
+          font-size: 15px;
+          font-weight: 700;
+          margin-right: 8px;
+          line-height: 24px;
+        }
         .time {
           color: #999;
         }

@@ -23,10 +23,10 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '项目经理（0个)',
+        label: '项目经理',
         value: 'ProjectManager',
       }, {
-        label: '项目督导（0个）',
+        label: '项目督导',
         value: 'ProjectExecutive',
       }],
       activeTab: 'ProjectManager',

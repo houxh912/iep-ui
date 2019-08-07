@@ -60,6 +60,8 @@ function initFormData () {
   return {
     content: '',
     status: 0, // 0开放、1不开放
+    images: [],
+    tags: [],
   }
 }
 

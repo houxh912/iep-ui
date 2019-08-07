@@ -4,7 +4,7 @@
       <iep-page-header title="项目审批" :back-option="backOption"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleReviewDialog">批量审核</iep-button>
+          <iep-button type="primary" plain @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" placeHolder="请输入项目名称" prop="projectName">
@@ -49,9 +49,9 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button size="small" type="danger" plain v-if="scope.row.projectStatus==2" @click="handleReviewDialog(scope.row, scope.index)">立项审核</iep-button>
-              <iep-button size="small" v-if="scope.row.projectStatus==3" @click="lockingEnable(scope.row.id,'5','锁定')">锁定</iep-button>
-              <iep-button size="small" v-if="scope.row.projectStatus==5" @click="lockingEnable(scope.row.id,'3','启用')">启用</iep-button>
+              <iep-button size="small" type="warning" plain v-if="scope.row.projectStatus==2" @click="handleReviewDialog(scope.row, scope.index)">立项审核</iep-button>
+              <iep-button size="small" v-if="scope.row.projectStatus==3" @click="lockingEnable(scope.row.id,'5','锁定')" type="warning" plain>锁定</iep-button>
+              <iep-button size="small" v-if="scope.row.projectStatus==5" @click="lockingEnable(scope.row.id,'3','启用')" type="warning" plain>启用</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

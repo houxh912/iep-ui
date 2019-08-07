@@ -42,9 +42,9 @@
           <span v-if="scope.row.projectStatus==5">锁定</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="200px">
+      <el-table-column label="操作" width="100px">
         <template slot-scope="scope">
-          <iep-button @click="handleDefine(scope.row)">认领</iep-button>
+          <iep-button @click="handleDefine(scope.row)" type="warning" plain>认领</iep-button>
         </template>
       </el-table-column>
     </iep-table>

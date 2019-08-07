@@ -3,7 +3,7 @@
     <basic-container>
       <iep-page-header title="我的定位">
         <template>
-          <el-button class="modify" size="small" @click="handleClicks">项目PK</el-button>
+          <el-button class="modify" size="small" @click="handleClicks" type="primary" plain>项目PK</el-button>
         </template>
       </iep-page-header>
       <div class="title-box">
@@ -41,7 +41,7 @@
                 平均水平：国脉人的平均数据<br />
                 同期水平：与当前用户入司时间相近的国脉人的平均数据 -->
               </div>
-              <i class='iconfont icon-zhuyi'>分布说明</i>
+              <span class="say"><i class='iconfont icon-zhuyi'></i>分布说明</span>
             </el-tooltip>
           </div>
         </div>
@@ -352,6 +352,13 @@ export default {
     height: 60px;
     line-height: 60px;
     font-size: 16px;
+    .say {
+      font-size: 14px;
+      color: #666;
+      i {
+        margin-right: 5px;
+      }
+    }
   }
   .counter-chart {
     width: 100%;
@@ -384,8 +391,8 @@ export default {
           .main {
             width: 100%;
             .main-box {
-              text-align: center;
-              margin: 20px 0;
+              text-align: left;
+              margin: 20px 0 20px 30px;
               .progress {
                 width: 40%;
                 margin: 0 5px;

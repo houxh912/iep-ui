@@ -1,5 +1,5 @@
 <template>
-  <basic-container>
+  <basic-container class="right">
     <iep-tabs v-model="activeTab" :tab-list="tabList">
       <template v-if="activeTab ==='ProApp'" v-slot:ProApp>
         <pro-app v-loading="activeTab !=='ProApp'" :form="formData" @submitSuccess="submitSuccess"></pro-app>
@@ -71,5 +71,8 @@ export default {
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.right {
+  padding: 0 20px;
 }
 </style>

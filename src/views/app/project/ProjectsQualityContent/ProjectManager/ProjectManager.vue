@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     handleProject (row) {
-      getProjectByemployee({type: 'manager', userId: row.projectManager}).then(({ data }) => {
+      getProjectByemployee({ type: 'manager', userId: row.projectManager }).then(({ data }) => {
         this.projectList = data.data
       })
     },
@@ -56,10 +56,15 @@ export default {
 <style lang="scss" scoped>
 .manager {
   .card {
-    height: 35px;
+    height: 32px;
     margin-bottom: 10px;
+    overflow: hidden;
     .el-tag {
       margin-right: 10px;
+      cursor: pointer;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
   .module {

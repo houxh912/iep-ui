@@ -2,20 +2,11 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button class="add" @click="handleCreate" type="primary">新增</iep-button>
+        <iep-button class="add" @click="handleCreate" type="primary" icon="el-icon-plus" plain>新增</iep-button>
         <iep-button @click="handleDeleteAll" class="add">批量删除</iep-button>
       </template>
     </operation-container>
-    <iep-table 
-      :isLoadTable="isLoadTable" 
-      :pagination="pagination" 
-      :columnsMap="columnsMap" 
-      :pagedTable="pagedTable" 
-      @size-change="handleSizeChange" 
-      @current-change="handleCurrentChange" 
-      is-mutiple-selection 
-      :dictsMap="dictsMap" 
-      @selection-change="selectionChange">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection :dictsMap="dictsMap" @selection-change="selectionChange">
       <el-table-column prop="operation" label="操作" width="280" align="center">
         <template slot-scope="scope">
           <operation-wrapper>
@@ -59,9 +50,9 @@ export default {
     },
   },
   components: { ApplyDialog },
-  mixins: [ mixins ],
+  mixins: [mixins],
   methods: {
-    loadPage (param = {projectInfoId: this.projectInfoId}) {
+    loadPage (param = { projectInfoId: this.projectInfoId }) {
       this.loadTable(param, getAuthorList)
     },
     selectionChange (val) {
@@ -77,7 +68,7 @@ export default {
       this.$emit('toggle-show', 'create')
     },
     handleUpdate (row) {
-      getDetailById(row.id).then(({data}) => {
+      getDetailById(row.id).then(({ data }) => {
         this.$emit('toggle-show', 'update', data.data.data)
       })
     },
@@ -110,13 +101,13 @@ export default {
 .searchbot {
   margin-right: 20px !important;
 }
-.num{
+.num {
   width: 47%;
 }
-.smallcol{
+.smallcol {
   width: 110px !important;
 }
-.blackColor{
+.blackColor {
   color: #666;
 }
 </style>

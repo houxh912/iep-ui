@@ -24,7 +24,7 @@ export default {
     }
   },
   created () {
-    getProjectExcellentemployee({type: 'manager'}).then(({ data }) => {
+    getProjectExcellentemployee({ type: 'manager' }).then(({ data }) => {
       this.thoughtsList = data.data.slice(0, 4)
     })
   },
@@ -42,7 +42,7 @@ export default {
   .piece {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     overflow: hidden;
     transition: 0.5s;
     .img-con {
@@ -67,8 +67,10 @@ export default {
         margin-bottom: 10px;
         line-height: 14px;
         .name {
-          font-size: 16px;
+          font-size: 15px;
+          font-weight: 700;
           margin-right: 8px;
+          line-height: 24px;
         }
         .time {
           color: #999;

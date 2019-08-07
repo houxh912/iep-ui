@@ -24,7 +24,7 @@
         </el-form-item>
         <el-form-item>
           <div class="login-text">
-            <el-checkbox v-model="form.isKeepLogin">保持登陆</el-checkbox>
+            <el-checkbox v-model="form.isKeepLogin">记住密码</el-checkbox>
             <div class="check-text">
               <el-button type="text" @click.prevent="handleRetrieve">忘记密码?</el-button>
               <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
@@ -37,7 +37,7 @@
               <a-button type="primary" size="large" :loading="loginLoading" @click="handleLogin" block>登录</a-button>
             </a-col>
             <a-col :span="12">
-              <a-button size="large" @click="$message.success('功能开发中')" block>访客</a-button>
+              <a-button class="visitor" size="large" @click="$message.success('功能开发中')" block>访客</a-button>
             </a-col>
           </a-row>
         </el-form-item>
@@ -45,14 +45,14 @@
 
       <el-divider>其他方式登录</el-divider>
       <div class="social-container">
-        <div class="box wechat" @click="handleClick('wechat')">
-          <span class="container">
-            <i icon-class="wechat" class="iconfont icon-weixin"></i>
-          </span>
-        </div>
         <div class="box qq" @click="handleClick('tencent')">
           <span class="container">
             <i icon-class="qq" class="iconfont icon-qq"></i>
+          </span>
+        </div>
+        <div class="box wechat" @click="handleClick('wechat')">
+          <span class="container">
+            <i icon-class="wechat" class="iconfont icon-weixin"></i>
           </span>
         </div>
       </div>
@@ -91,7 +91,7 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { required: true, message: '请输入用户名/手机号', trigger: 'blur' },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
@@ -215,6 +215,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.login-code >>> .ant-input {
+  font-size: 14px;
+}
 .login-code >>> .ant-input-group-addon {
   padding: 0;
   height: 40px;
@@ -226,6 +229,14 @@ export default {
 }
 .login-text {
   color: red;
+}
+.visitor {
+  background-color: #e4e4e4;
+  border-color: #e4e4e4;
+}
+.visitor:hover {
+  opacity: 0.7;
+  color: #666;
 }
 .login-text .check-text {
   float: right;
@@ -249,8 +260,8 @@ export default {
 .login-form i {
   color: #999;
 }
-.login-form .el-form-item {
-  margin-bottom: 20px;
+.form-detail >>> .el-form-item {
+  margin-bottom: 15px;
 }
 .login-form >>> .el-form-item .el-form-item__content {
   margin-left: 0 !important;
@@ -275,7 +286,6 @@ export default {
     h1 {
       color: #888;
       font-size: 18px;
-      font-weight: 600;
     }
   }
   .form-detail {
@@ -286,7 +296,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 108px;
+  width: 84px;
   .box {
     cursor: pointer;
     &:hover,
@@ -298,10 +308,10 @@ export default {
   }
   .iconfont {
     color: #fff;
-    font-size: 20px;
+    font-size: 18px;
   }
   .container {
-    $height: 30px;
+    $height: 28px;
     display: inline-block;
     width: $height;
     height: $height;

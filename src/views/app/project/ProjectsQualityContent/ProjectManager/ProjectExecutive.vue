@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     handleProject (row) {
-      getProjectByemployee({type: 'mentor', userId: row.projectManager}).then(({ data }) => {
+      getProjectByemployee({ type: 'mentor', userId: row.projectManager }).then(({ data }) => {
         this.projectList = data.data
       })
     },
@@ -46,7 +46,7 @@ export default {
     },
   },
   created () {
-    getProjectEmployee({type: 'mentor'}).then(({ data }) => {
+    getProjectEmployee({ type: 'mentor' }).then(({ data }) => {
       this.list = data.data.records.slice(0, 4)
     })
   },
@@ -56,10 +56,15 @@ export default {
 <style lang="scss" scoped>
 .manager {
   .card {
-    height: 35px;
+    height: 32px;
     margin-bottom: 10px;
+    overflow: hidden;
     .el-tag {
       margin-right: 10px;
+      cursor: pointer;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
   .module {
@@ -75,7 +80,8 @@ export default {
   }
   .content {
     .avatar {
-      width: 140px;
+      width: 120px;
+      height: 120px;
       margin: 35px auto 20px;
       .img {
         border-radius: 50%;

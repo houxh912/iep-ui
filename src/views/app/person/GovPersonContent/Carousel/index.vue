@@ -1,6 +1,6 @@
 <template>
   <div class="leaderBoard">
-    <IepAppTabsCard>
+    <IepAppTabsCard isMore :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Empolyee'" v-slot:Empolyee>
           <empolyee v-loading="activeTab !=='Empolyee'"></empolyee>
@@ -49,6 +49,7 @@ export default {
         disabled: true,
       }],
       activeTab: 'Empolyee',
+      linkName: '/app/organizational_list',
     }
   },
 }

@@ -100,6 +100,8 @@ export default {
     this.$nextTick(() => {
       if (this.$route.query.id) {
         this.params.userId = this.$route.query.id
+      } else {
+        this.params.userId = ''
       }
       this.loadPage()
     })

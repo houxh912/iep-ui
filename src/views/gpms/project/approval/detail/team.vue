@@ -3,7 +3,7 @@
     <div class="head">
       <p class="title">项目团队</p>
       <div class="button">
-        <iep-button size="small">管理</iep-button>
+        <iep-button type="primary" plain>管理</iep-button>
       </div>
     </div>
     <div class="content">
@@ -34,9 +34,9 @@ export default {
       type: Object,
       default: () => {
         return {
-          mktManagerList: {name: ''},
-          projectManagerList: {name: ''},
-          projectMentorList: {name: ''},
+          mktManagerList: { name: '' },
+          projectManagerList: { name: '' },
+          projectMentorList: { name: '' },
           membersList: [],
         }
       },
@@ -78,7 +78,7 @@ export default {
       word-break: break-all;
       .title {
         width: 150px;
-        white-space:nowrap;
+        white-space: nowrap;
         padding: 0 12px 0 0;
         text-align: right;
       }
@@ -88,5 +88,4 @@ export default {
 .el-form-item {
   margin-bottom: 0;
 }
-
 </style>

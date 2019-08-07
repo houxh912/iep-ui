@@ -26,6 +26,13 @@ export function getOrgModuleList () {
   })
 }
 
+export function getUnionModuleList () {
+  return request({
+    url: `${prefixUrl}/union/list`,
+    method: 'get',
+  })
+}
+
 export function postModule (obj) {
   return request({
     url: `${prefixUrl}/create`,

@@ -4,7 +4,7 @@
       <iep-page-header title="行为规则"></iep-page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage" prop="ruleName">
           </operation-search>
         </template>
       </operation-container>

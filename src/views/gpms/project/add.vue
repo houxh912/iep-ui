@@ -6,12 +6,12 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="项目名称：" prop="projectName">
-              <el-input v-model="formData.projectName" :placeholder="tipContent.projectName" :disabled="formData.projectStatus=='3'"></el-input>
+              <el-input v-model="formData.projectName" :placeholder="tipContent.projectName"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item prop="projectTypeBefore">
-              <el-checkbox v-model="formData.projectTypeBefore" :disabled="formData.projectStatus=='3'">内部项目</el-checkbox>
+              <el-checkbox v-model="formData.projectTypeBefore">内部项目</el-checkbox>
             </el-form-item>
           </el-col>
           <el-col :span="12" v-if="formData.projectTypeBefore == true">
@@ -22,7 +22,7 @@
           <el-col :span="12" v-if="formData.projectTypeBefore == false">
             <el-form-item label="客户名称：" prop="relatedClient">
               <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
-              <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list" :disabled="formData.projectStatus=='3'">
+              <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
               </IepCrmsSelect>
             </el-form-item>
           </el-col>
@@ -126,7 +126,7 @@
           <el-col :span="12">
             <el-form-item :label="`${formData.contractList.length > 0 ? '合同' : '项目'}金额：`" prop="projectAmount">
               <el-input v-if="formData.contractList.length > 0" v-model="formData.contractAmount" disabled />
-              <iep-input-number v-else v-model="formData.projectAmount" placeholder="请正确输入非负金额" :disabled="formData.projectStatus=='3'"></iep-input-number>
+              <iep-input-number v-else v-model="formData.projectAmount" placeholder="请正确输入非负金额"></iep-input-number>
             </el-form-item>
           </el-col>
           <!-- <el-col :span="12">
@@ -209,23 +209,23 @@
               <el-table :data="tableData" style="width: 100%" class="table">
                 <el-table-column prop="artificialCost" label="人工成本" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.artificialCost" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    <el-input v-model="scope.row.artificialCost" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="projectCommission" label="项目提成" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.projectCommission" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    <el-input v-model="scope.row.projectCommission" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column label="项目费用" align='center'>
                   <el-table-column prop="taxes" label="税费" align='center'>
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.taxes" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                      <el-input v-model="scope.row.taxes" maxlength="12" type="number" min=0></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column prop="bidWinning" label="中标服务费" align='center'>
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.bidWinning" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                      <el-input v-model="scope.row.bidWinning" maxlength="12" type="number" min=0></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column prop="outsourcingCost" align='center'>
@@ -233,12 +233,12 @@
                       <span class="column-header">外包费用</span>
                     </template>
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.outsourcingCost" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                      <el-input v-model="scope.row.outsourcingCost" maxlength="12" type="number" min=0></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column prop="expertsFee" label="项目评审专家费" align='center' width="150">
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.expertsFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                      <el-input v-model="scope.row.expertsFee" maxlength="12" type="number" min=0></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column prop="commission" align='center'>
@@ -246,28 +246,28 @@
                       <span class="column-header">佣金</span>
                     </template>
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.commission" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                      <el-input v-model="scope.row.commission" maxlength="12" type="number" min=0></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column prop="otherFees" label="其他" align='center'>
                     <template slot-scope="scope">
-                      <el-input v-model="scope.row.otherFees" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                      <el-input v-model="scope.row.otherFees" maxlength="12" type="number" min=0></el-input>
                     </template>
                   </el-table-column>
                 </el-table-column>
                 <el-table-column prop="managementFee" label="项目管理费" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.managementFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    <el-input v-model="scope.row.managementFee" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="invoiceFee" label="开票费用" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.invoiceFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    <el-input v-model="scope.row.invoiceFee" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="travelFee" label="差旅费" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.travelFee" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    <el-input v-model="scope.row.travelFee" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="projectBudget" align='center'>
@@ -275,12 +275,12 @@
                     <span class="column-header">费用总预算</span>
                   </template>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.projectBudget" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    <el-input v-model="scope.row.projectBudget" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
                 <el-table-column prop="forecastProfits" label="预估利润" align='center'>
                   <template slot-scope="scope">
-                    <el-input v-model="scope.row.forecastProfits" maxlength="12" type="number" min=0 :disabled="formData.projectStatus=='3'"></el-input>
+                    <el-input v-model="scope.row.forecastProfits" maxlength="12" type="number" min=0></el-input>
                   </template>
                 </el-table-column>
               </el-table>
@@ -358,6 +358,7 @@ export default {
       },
 
       formData: initFormData(),
+      changeData: initFormData(),
       rules,
       dictMap,
       type: 'create',
@@ -417,15 +418,19 @@ export default {
     if (this.id) {
       getDataDetail(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initFormData(), data.data)
+        this.changeData = this.$mergeByFirst(initFormData(), data.data)
         this.tableData = [this.formData.projectBudgetList]
         if (this.formData.projectType == '1') {
           this.formData.projectTypeBefore = true
+          this.changeData.projectTypeBefore = true
         }
         else {
           this.formData.projectTypeBefore = false
+          this.changeData.projectTypeBefore = false
         }
         if (this.formData.attendeeId == 0) {
           this.formData.attendeeId = ''
+          this.changeData.attendeeId = ''
         }
       })
       this.type = 'update'
@@ -459,6 +464,10 @@ export default {
 
     save (val) {
       this.formData.projectStatus = val
+      if (this.changeData.projectName != this.formData.projectName || this.changeData.projectBudgetList != this.formData.projectBudgetList || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId) {
+        console.log(this.changeData, this.formData)
+        this.formData.projectStatus = '2'
+      }//立项的项目特定字段改变时项目状态为'2'
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 进行数据的转换先

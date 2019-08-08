@@ -100,6 +100,30 @@ export function getRecommendedMemberList (obj) {
     data: obj,
   })
 }
+// 项目平均耗时
+export function getTimePerRequest  (obj) {
+  return request({
+    url: `${prefixUrl}/timePerRequest `,
+    method: 'post',
+    data: obj,
+  })
+}
+// 平均成本预算
+export function getAverageCostBudget  (obj) {
+  return request({
+    url: `${prefixUrl}/averageCostBudget `,
+    method: 'post',
+    data: obj,
+  })
+}
+// 平均合同金额
+export function getAverageContractAmount  (obj) {
+  return request({
+    url: `${prefixUrl}/averageContractAmount `,
+    method: 'post',
+    data: obj,
+  })
+}
 // //变更
 export function transferManagerList (obj) {
   return request({

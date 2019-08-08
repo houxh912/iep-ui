@@ -37,6 +37,12 @@
                 <iep-tag v-model="formData.projectTagList"></iep-tag>
               </el-form-item>
             </el-col>
+            <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
+              <el-button @click="handleAddExternalProject">添加关联</el-button>
+              <ul class="relevance-list" v-if="formData.projectList.length > 0">
+                <li class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></li>
+              </ul>
+            </el-form-item>
             <el-col :span="12">
               <el-form-item label="项目经理：" prop="projectManagerList">
                 <span slot="label">
@@ -122,6 +128,7 @@
                 </span>
                 <iep-date-picker v-model="formData.endTime" type="date" placeholder="结束时间"></iep-date-picker>
               </el-form-item>
+              <iep-button class="recom-btn" @click="cRecommendType('endTime')">>></iep-button>
             </el-col>
             <el-col :span="12">
               <el-form-item label="签订时间：" prop="estimatedSigntime">
@@ -133,6 +140,7 @@
                 <el-input v-if="formData.contractList.length > 0" v-model="formData.contractAmount" disabled />
                 <iep-input-number v-else v-model="formData.projectAmount" placeholder="请正确输入非负金额" :disabled="formData.projectStatus=='3'"></iep-input-number>
               </el-form-item>
+              <iep-button class="recom-btn" @click="cRecommendType('contractAmount')">>></iep-button>
             </el-col>
             <!-- <el-col :span="12">
               <el-form-item label="项目预算：" prop="projectBudget">
@@ -169,12 +177,6 @@
               </el-form-item>
             </el-col> -->
           </el-row>
-          <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
-            <el-button @click="handleAddExternalProject">添加关联</el-button>
-            <ul class="relevance-list" v-if="formData.projectList.length > 0">
-              <li class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></li>
-            </ul>
-          </el-form-item>
           <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
             <span slot="label">
               是否关联产品
@@ -210,6 +212,7 @@
               <el-form-item>
               </el-form-item>
               <el-form-item label="项目成本预算：">
+                <iep-button class="recom-btn" @click="cRecommendType('budget')">>></iep-button>
                 <p>注：外包费用、佣金、项目总预算为必填项，<span style="color: #f00;">如不填，则不发项目提成</span></p>
                 <el-table :data="tableData" style="width: 100%" class="table">
                   <el-table-column prop="artificialCost" label="人工成本" align='center'>
@@ -406,6 +409,27 @@
             </div>
           </div>
         </div>
+        <div class="recommend-echart" v-if="this.recommendType=='endTime'">
+          <h4 class="recommend-title">项目平均耗时<span class="number">{{chartData.timePerDataStr}}</span>天</h4>
+          <div class="recommend-container">
+            <ve-ring :data="chartDataRing1" :settings="chartSettingsRing" :colors="colorsRing">
+            </ve-ring>
+          </div>
+        </div>
+        <div class="recommend-echart" v-if="this.recommendType=='budget'">
+          <h4 class="recommend-title">平均成本预算<span class="number">{{chartData.averageBudget}}</span>元</h4>
+          <div class="recommend-container">
+            <ve-ring :data="chartDataRing2" :settings="chartSettingsRing" :colors="colorsRing">
+            </ve-ring>
+          </div>
+        </div>
+        <div class="recommend-echart" v-if="this.recommendType=='contractAmount'">
+          <h4 class="recommend-title">平均合同金额<span class="number">{{chartData.averageAmount}}</span>元</h4>
+          <div class="recommend-container">
+            <ve-ring :data="chartDataRing3" :settings="chartSettingsRing" :colors="colorsRing">
+            </ve-ring>
+          </div>
+        </div>
       </div>
 
       <footer-tool-bar>
@@ -421,7 +445,7 @@
 
 <script>
 import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
-import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList, getRecommendedMktManagerList, generationProject, getRecommendedMemberList, getRecommendedMentortList } from '@/api/gpms/index'
+import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList, getRecommendedMktManagerList, generationProject, getRecommendedMemberList, getRecommendedMentortList, getTimePerRequest, getAverageCostBudget, getAverageContractAmount } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapGetters } from 'vuex'
@@ -435,6 +459,15 @@ export default {
   components: { RelationDialog, ProductRelationDialog, projectRelationDialog },
 
   data () {
+    this.chartSettingsRing = {
+      radius: [70, 100],
+    }
+    this.colorsRing = [
+      (paramsA) => {
+        var colorList1 = ['#93c5dc', '#efbf8f', '#e8b0b3']
+        return colorList1[paramsA.dataIndex]
+      },
+    ]
     return {
       projectTime: '',
       endTime: '',
@@ -499,6 +532,35 @@ export default {
       recommendMembersList: [],//推荐成员
       show3: true,
       shrink: '收缩',
+      chartDataRing1: {
+        columns: ['类型', '数量'],
+        rows: [
+          { '类型': '90天以下', '数量': 0, 'prop': '90天以下' },
+          { '类型': '90天-180天', '数量': 0, 'prop': '90天-180天' },
+          { '类型': '180天以上', '数量': 0, 'prop': '180天以上' },
+        ],
+      },//项目评价耗时
+      chartDataRing2: {
+        columns: ['类型', '数量'],
+        rows: [
+          { '类型': '10万以下', '数量': 0, 'prop': '10万以下' },
+          { '类型': '10-50万', '数量': 0, 'prop': '10-50万' },
+          { '类型': '50万以上', '数量': 0, 'prop': '50万以上' },
+        ],
+      },//平均成本预算
+      chartDataRing3: {
+        columns: ['类型', '数量'],
+        rows: [
+          { '类型': '50万以下', '数量': 0, 'prop': '50万以下' },
+          { '类型': '50-100万', '数量': 0, 'prop': '50-100万' },
+          { '类型': '100万以上', '数量': 0, 'prop': '100万以上' },
+        ],
+      },//平均成本预算
+      chartData: {
+        timePerDataStr: 0,
+        averageBudget: 0,
+        averageAmount: 0,
+      },
     }
   },
   computed: {
@@ -629,11 +691,18 @@ export default {
           else {
             form.projectType = '2'
           }
-          this.typeObj[this.type].requestFn(form).then(() => {
-            this.$message({
-              message: '新增成功',
-              type: 'success',
-            })
+          this.typeObj[this.type].requestFn(form).then(res => {
+            if (res.data.data === true) {
+              this.$message({
+                type: 'success',
+                message: '新增成功!',
+              })
+            } else {
+              this.$message({
+                type: 'info',
+                message: `新增失败,${res.data.msg}`,
+              })
+            }
             this.$router.push('/gpms/project')
           })
         } else {
@@ -772,6 +841,31 @@ export default {
           this.recommendMembersList = data
         })
       }//推荐项目成员
+
+      else if (val == 'endTime') {
+        getTimePerRequest({ tagList: this.tagList }).then(({ data }) => {
+          this.chartDataRing1.rows[0].数量 = data.classifiedProportion
+          this.chartDataRing1.rows[1].数量 = data.classifiedProportion1
+          this.chartDataRing1.rows[2].数量 = data.classifiedProportion2
+          this.chartData.timePerDataStr = data.timePerDataStr
+        })
+      }//项目平均耗时
+      else if (val == 'budget') {
+        getAverageCostBudget({ tagList: this.tagList }).then(({ data }) => {
+          this.chartDataRing2.rows[0].数量 = data.classifiedProportion
+          this.chartDataRing2.rows[1].数量 = data.classifiedProportion1
+          this.chartDataRing2.rows[2].数量 = data.classifiedProportion2
+          this.chartData.averageBudget = data.averageBudget
+        })
+      }//平均成本预算
+      else if (val == 'contractAmount') {
+        getAverageContractAmount({ tagList: this.tagList }).then(({ data }) => {
+          this.chartDataRing3.rows[0].数量 = data.classifiedProportion
+          this.chartDataRing3.rows[1].数量 = data.classifiedProportion1
+          this.chartDataRing3.rows[2].数量 = data.classifiedProportion2
+          this.chartData.averageBudget = data.averageBudget
+        })
+      }//平均合同金额字段
     },
     nowTime () {
       var nowDate = new Date()
@@ -875,7 +969,8 @@ export default {
     padding-right: 12%;
   }
   .recommend-peopel,
-  .recommend-project {
+  .recommend-project,
+  .recommend-echart {
     padding: 20px;
     border-left: 1px solid #eee;
     box-shadow: -2px 0px 2px #eee;
@@ -885,6 +980,11 @@ export default {
       margin-bottom: 20px;
       padding-bottom: 10px;
       border-bottom: 1px solid #eee;
+      .number {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0 10px;
+      }
     }
     .recommend-container {
       margin-bottom: 10px;
@@ -900,6 +1000,15 @@ export default {
         right: 0;
         top: 5px;
       }
+    }
+  }
+  .recommend-echart {
+    .recommend-title {
+      position: fixed;
+    }
+    .recommend-container {
+      position: fixed;
+      top: 220px;
     }
   }
   .recommend-project {

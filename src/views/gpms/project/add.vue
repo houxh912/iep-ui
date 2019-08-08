@@ -35,6 +35,12 @@
               <iep-tag v-model="formData.projectTagList"></iep-tag>
             </el-form-item>
           </el-col>
+          <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
+            <el-button @click="handleAddExternalProject">添加关联</el-button>
+            <ul class="relevance-list" v-if="formData.projectList.length > 0">
+              <li class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></li>
+            </ul>
+          </el-form-item>
           <el-col :span="12">
             <el-form-item label="项目经理：" prop="projectManagerList">
               <span slot="label">
@@ -164,12 +170,6 @@
             </el-form-item>
           </el-col> -->
         </el-row>
-        <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
-          <el-button @click="handleAddExternalProject">添加关联</el-button>
-          <ul class="relevance-list" v-if="formData.projectList.length > 0">
-            <li class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></li>
-          </ul>
-        </el-form-item>
         <el-form-item label="是否关联产品：" prop="isRelevanceProduct">
           <span slot="label">
             是否关联产品
@@ -546,11 +546,18 @@ export default {
             form.projectType = '2'
           }
           this.btnLoading = true
-          this.typeObj[this.type].requestFn(form).then(() => {
-            this.$message({
-              message: `${this.methodName}成功`,
-              type: 'success',
-            })
+          this.typeObj[this.type].requestFn(form).then(res => {
+            if (res.data.data === true) {
+              this.$message({
+                type: 'success',
+                message: `${this.methodName}成功!`,
+              })
+            } else {
+              this.$message({
+                type: 'info',
+                message: `${this.methodName}失败,${res.data.msg}`,
+              })
+            }
             this.$router.push('/gpms/project')
           })
         } else {

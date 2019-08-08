@@ -57,3 +57,13 @@ export function getIndexPage (params) {
     params: params,
   })
 }
+
+// 前台查询推荐文章
+export function getListBySiteId (params) {
+  return request({
+    url: `${prefixUrl}/${params.siteId}/list`,
+    method: 'get',
+    params: params,
+  })
+}
+

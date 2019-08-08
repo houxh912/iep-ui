@@ -4,7 +4,7 @@
       <div class="head">
         <div class="title" v-show="formData.index">{{`第${formatDig(formData.index)}周组织工作周报`}}<span class="date">（{{`${formData.startTime} ~ ${formData.endTime}`}}）</span></div>
         <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本组织成员本周周报</a></div>
-        <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
+        <div class="tips update" v-else-if="permission_edit" @click="handleUpdate"><i class="el-icon-edit"></i></div>
       </div>
       <div class="content">
         <el-form ref="form" v-if="dislogState!=='detail'" :rules="rules" :model="formData">
@@ -86,6 +86,7 @@ import { toChinesNum, getDateStr, getWeekStartAndEnd } from '../util'
 import { updateData, createData } from '@/api/mlms/material/report/organize'
 import RelationDialog from './relationDialog'
 import reference from './reference'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -93,6 +94,9 @@ export default {
       type: Object,
       default: () => { },
     },
+  },
+  computed: {
+    ...mapGetters(['permissions']),
   },
   components: { RelationDialog, reference },
   data () {
@@ -112,6 +116,7 @@ export default {
         product: 'productList',
       },
       submitMsg: '',
+      permission_edit: false,
     }
   },
   methods: {
@@ -182,6 +187,9 @@ export default {
       this.formData.workSummary += row
       this.pageState = true
     },
+  },
+  created () {
+    this.permission_edit = this.permissions['mlms_report_orgwm_edit']
   },
   watch: {
     data (newVal) {

@@ -113,7 +113,7 @@
                 </el-form-item>
               </el-col>
               <el-col :span="12" class="item">
-                <el-form-item label="执行项目经理：">
+                <el-form-item label="协作负责人：">
                   <span v-if="formData.projectHandlesList.length==0">无</span>
                   <span v-for="a in formData.projectHandlesList" :key="a.id" class="people">{{a.name}}</span>
                   <!-- <iep-button type="danger" plain size="mini" @click="transferHandles(formData.projectHandlesList)">变更</iep-button> -->

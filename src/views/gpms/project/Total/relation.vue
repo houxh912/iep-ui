@@ -63,8 +63,8 @@ export default {
       transferList: {
         summaryList: [], // 纪要
         materialList: [], // 材料
-        contractList: [], // 合同
-        projectList: [], // 项目
+        // contractList: [], // 合同
+        // projectList: [], // 项目
         reportList: [], // 周报
       },
       name: '',

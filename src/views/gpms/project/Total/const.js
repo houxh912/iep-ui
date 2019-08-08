@@ -126,7 +126,7 @@ export function initFormData (obj) {
       id,
       name,
     },// 项目经理
-    projectHandles:'',// 执行项目经理
+    projectHandles:'',// 协作负责人
     projectHandlesList:[],
     memberList: [], // 项目成员
     membersList: [],
@@ -177,14 +177,14 @@ export const relatedFormList = [{
     name: '关联的材料',
     ids: 'materialIds',
     list: 'materialList',
-  }, {
-    name: '关联的合同',
-    ids: 'contractIds',
-    list: 'contractList',
-  }, {
-    name: '关联的项目',
-    ids: 'projectIds',
-    list: 'projectList',
+  // }, {
+  //   name: '关联的合同',
+  //   ids: 'contractIds',
+  //   list: 'contractList',
+  // }, {
+  //   name: '关联的项目',
+  //   ids: 'projectIds',
+  //   list: 'projectList',
   }, {
     name: '关联的项目周报',
     ids: 'reportIds',

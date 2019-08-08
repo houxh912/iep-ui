@@ -16,16 +16,24 @@
                 <el-checkbox v-model="formData.projectTypeBefore">内部项目</el-checkbox>
               </el-form-item>
             </el-col>
-            <el-col :span="12" v-if="formData.projectTypeBefore == true">
-              <el-form-item label="委托组织：" prop="attendeeId">
-                <iep-select v-model="formData.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
-              </el-form-item>
-            </el-col>
             <el-col :span="12" v-if="formData.projectTypeBefore == false">
               <el-form-item label="客户名称：" prop="relatedClient">
                 <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
                 <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
                 </IepCrmsSelect>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
+                <el-button @click="handleAddExternalProject">添加关联</el-button>
+                <div class="relevance-list-after" v-if="formData.projectList.length > 0">
+                  <span class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></span>
+                </div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12" v-if="formData.projectTypeBefore == true">
+              <el-form-item label="委托组织：" prop="attendeeId">
+                <iep-select v-model="formData.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -37,12 +45,6 @@
                 <iep-tag v-model="formData.projectTagList"></iep-tag>
               </el-form-item>
             </el-col>
-            <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
-              <el-button @click="handleAddExternalProject">添加关联</el-button>
-              <ul class="relevance-list" v-if="formData.projectList.length > 0">
-                <li class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></li>
-              </ul>
-            </el-form-item>
             <el-col :span="12">
               <el-form-item label="项目经理：" prop="projectManagerList">
                 <span slot="label">
@@ -73,9 +75,10 @@
               <iep-button class="recom-btn" @click="cRecommendType('mktManager')">荐</iep-button>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="执行项目经理：" prop="projectHandlesList">
+              <el-form-item label="协作负责人：" prop="projectHandlesList">
                 <span slot="label">
-                  执行项目经理：
+                  协作负责人
+                  <iep-tip :content="tipContent.projectHandlesList"></iep-tip>：
                 </span>
                 <iep-contact-multiple-user v-model="formData.projectHandlesList" :is-show-contact-btn="false"></iep-contact-multiple-user>
               </el-form-item>
@@ -674,8 +677,8 @@ export default {
           delete form.productList
           delete form.summaryList
           delete form.materialList
-          delete form.contractList
-          delete form.projectList
+          // delete form.contractList
+          // delete form.projectList
           delete form.reportList
           for (let item of this.validate) {
             if (this.tableData[0][item.prop] === '') {
@@ -715,8 +718,8 @@ export default {
       this.$refs['relationDialog'].loadData({
         summaryList: this.formData.summaryList,
         materialList: this.formData.materialList,
-        contractList: this.formData.contractList,
-        projectList: this.formData.projectList,
+        // contractList: this.formData.contractList,
+        // projectList: this.formData.projectList,
         reportList: this.formData.reportList,
       })
     },
@@ -913,7 +916,8 @@ export default {
 .abs {
   padding-bottom: 30px;
 }
-.relevance-list {
+.relevance-list,
+.relevance-list-after {
   padding: 0;
   .item {
     list-style: none;
@@ -923,6 +927,10 @@ export default {
       cursor: pointer;
     }
   }
+}
+.relevance-list-after {
+  display: inline-block;
+  margin: 0 10px;
 }
 .table {
   .create {

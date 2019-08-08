@@ -2,8 +2,9 @@
   <div class="wrapper">
     <div class="top">
       <div class="policy-top">
-        <div class="top-header"> 国策数据库 <div class="top-desc">一站式政策服务</div>
-        </div>
+        <el-input class="search-input" v-model="title" placeholder="请输入关键字进行搜索" prefix-icon="el-icon-search" clearable>
+        </el-input>
+        <el-tag class="search" @click="search">搜索</el-tag>
       </div>
 
       <div class="button-box" :model="searchForm">
@@ -105,15 +106,19 @@
         <el-col :span="18">
           <div class="left">
             <div class="page-top">
-              <div class="page-header"> 通用政策
-                <div class="page-desc">共有{{paginationOption.total}}条政策</div>
-                <span>
-                  <el-radio-group v-model="pageOption.sort" size="mini" @change="handleChangeSort">
-                    <el-radio-button label="time">发文时间</el-radio-button>
-                    <el-radio-button label="views">热门</el-radio-button>
-                  </el-radio-group>
-                </span>
-              </div>
+              <el-row style="width:100%">
+                <el-col :span="7" class="page-header">
+                  通用政策<span>共有{{paginationOption.total}}条政策</span>
+                </el-col>
+                <el-col :span="17" class="page-header-btn">
+                  <span class="header-btn">
+                    <el-radio-group v-model="pageOption.sort" size="mini" @change="handleChangeSort">
+                      <el-radio-button label="time">发文时间</el-radio-button>
+                      <el-radio-button label="views">热门</el-radio-button>
+                    </el-radio-group>
+                  </span>
+                </el-col>
+              </el-row>
             </div>
 
             <div class="tip" v-if="paginationOption.total == 0">暂无数据</div>
@@ -129,8 +134,9 @@
                 {{item.summary}}
               </div>
               <div class="detail">
-                <div><i class="el-icon-setting" v-for="(item, index) in item.dispatchList" :key="index">{{item.dispatchName}}</i></div>
-                <div style="margin-left:20px"><i class="el-icon-time"></i>{{item.publishTime | dateFormat}}</div>
+                <div :class="{'distance-right':item.dispatchList.length>0}"><i class="el-icon-setting" v-for="(item, index) in item.dispatchList" :key="index">{{item.dispatchName}}</i></div>
+                <div :class="{'distance-right':item.publishTime}"><i class="el-icon-time"></i>{{item.publishTime | dateFormat}}</div>
+                <div v-if="item.views">浏览次数: {{item.views}}</div>
               </div>
               <div class="tag">
                 标签:
@@ -149,26 +155,18 @@
         </el-col>
 
         <el-col :span="6">
-          <el-row class="right shang">
-            <div class="title">热门标签<span>换一换</span></div>
-            <hr style="margin:-5px 20px">
-            <div class="hotTag">
-              <el-tag type="info" v-for="(item, index) in hotTagList" :key="index">{{item.name}}</el-tag>
-            </div>
-          </el-row>
-
-          <el-row class="right xia">
-            <div class="title">热门政策<span>换一换</span></div>
+          <div class="right">
+            <div class="title">热门政策<span @click="changeData">换一换</span></div>
             <hr style="margin:-5px 20px">
             <div class="hotPolicy">
-              <el-row v-for="(item,index) in textList" :key="index">
+              <el-row v-for="(item,index) in policyList" :key="index">
                 <el-col :span="1"><i class="el-icon-caret-right"></i></el-col>
                 <el-col :span="23">
                   <div class="content">{{item.title}}</div>
                 </el-col>
               </el-row>
             </div>
-          </el-row>
+          </div>
         </el-col>
       </el-row>
     </div>
@@ -177,7 +175,7 @@
 
 <script>
 import mixins from '@/mixins/mixins'
-import { region } from '../region'
+import { region } from '../../policyManage/region'
 import { dateFormat } from '@/util/date'
 import { findByTypeList } from '@/api/govdata/common'
 import { getGeneralCenterPage } from '@/api/govdata/general_policy'
@@ -185,6 +183,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
+      title: '',
       show: false,
       level: [],      //层级
       target: [],     //对象
@@ -219,36 +218,13 @@ export default {
         size: 0,
         total: 0,
       },
-      //   changeOption: {
-      //     limit: 10,
-      //     page: 1,
-      //     views: 1,
-      //   },
+      changeOption: {
+        limit: 10,
+        page: 1,
+        views: 1,
+      },
       resdata: [],
-      hotTagList: [
-        { tagId: 1, name: '云南省' },
-        { tagId: 2, name: '实施方案' },
-        { tagId: 3, name: '国脉' },
-        { tagId: 4, name: '资产证券化' },
-        { tagId: 5, name: 'PPP项目' },
-        { tagId: 6, name: '责任清单' },
-        { tagId: 7, name: '知识产权' },
-        { tagId: 8, name: '农业领域' },
-        { tagId: 9, name: '综合信息平台' },
-        { tagId: 10, name: '专家库管理' },
-      ],
-      textList: [
-        { textId: 1, title: '深圳市商务局关于印发《深圳市中央外经贸发展专项资金服务贸易创新发展资金实施细则》的通知' },
-        { textId: 2, title: '河南省人民政府办公厅关于加快推进5G网络建设发展的通知' },
-        { textId: 3, title: '深圳市商务局关于印发《深圳市中央外经贸发展专项资金服务贸易创新发展资金实施细则》的通知' },
-        { textId: 4, title: '河南省人民政府办公厅关于加快推进5G网络建设发展的通知' },
-        { textId: 5, title: '深圳市商务局关于印发《深圳市中央外经贸发展专项资金服务贸易创新发展资金实施细则》的通知' },
-        { textId: 6, title: '河南省人民政府办公厅关于加快推进5G网络建设发展的通知' },
-        { textId: 7, title: '深圳市商务局关于印发《深圳市中央外经贸发展专项资金服务贸易创新发展资金实施细则》的通知' },
-        { textId: 8, title: '河南省人民政府办公厅关于加快推进5G网络建设发展的通知' },
-        { textId: 9, title: '深圳市商务局关于印发《深圳市中央外经贸发展专项资金服务贸易创新发展资金实施细则》的通知' },
-        { textId: 10, title: '河南省人民政府办公厅关于加快推进5G网络建设发展的通知' },
-      ],
+      policyList: [],
     }
   },
   computed: {
@@ -263,10 +239,11 @@ export default {
   created () {
     this.load()
     this.loadDict()
+    this.hotPolicy()
   },
   methods: {
     /**
-     * 获取获取层级、适用对象、主题、规模、行业数据
+     * 获取层级、适用对象、主题、规模、行业数据
      */
     loadDict () {
       findByTypeList().then(res => {
@@ -287,6 +264,29 @@ export default {
     },
 
     /**
+     * 获取热门政策
+     */
+    hotPolicy (option = this.changeOption) {
+      getGeneralCenterPage(option).then(res => {
+        this.policyList = res.data.records
+        this.pages = res.data.pages
+      })
+    },
+
+    /**
+     * 换一换
+     */
+    changeData () {
+      if (this.changeOption.page + 1 > this.pages) {
+        this.changeOption.page = 1
+      } else {
+        this.changeOption.page++
+      }
+      this.changeOption = { ...this.changeOption }
+      this.hotPolicy()
+    },
+
+    /**
      * 获取获取列表数据
      */
     async load () {
@@ -303,14 +303,12 @@ export default {
     },
 
     /**
-     * 获取热门标签列表数据
+     * 根据标题去搜索
      */
-    // tagList (option = this.changeOption) {
-    //   getTagPage({ ...option }).then(res => {
-    //     this.mockTagList = res.data.records
-    //     this.pages = res.data.pages
-    //   })
-    // },
+    search () {
+      this.pageOption.title = this.title
+      this.load()
+    },
 
     /**
      * 点击层级字典按钮
@@ -365,13 +363,16 @@ export default {
     },
 
     /**
-     * 打开原文链接
+     * 打开政策详情
      */
     handleOpenLink (item) {
-       this.$router.push({
-          path: `policyCenter/general/general_detail/${item.id}`,
-        })
-        console.log('item',item.id)
+      this.$router.push({
+        path: `/views_spa/detail/${item.id}`,
+        query: {
+          type: 'general',
+          id: item.id,
+        },
+      })
     },
 
     /**
@@ -407,47 +408,38 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-  background-color: #eee;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  flex-direction: column;
-  margin: 0;
+  margin: 20px;
   padding: 0;
-  box-sizing: border-box;
 }
 .top {
-  width: 1400px;
-  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #ddd;
   border-radius: 3px;
-  background-color: #fff;
-  padding: 5px 25px;
-  margin: 20px auto;
+  padding: 20px;
   .policy-top {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #eee;
-    .top-header {
-      display: flex;
-      align-items: baseline;
-      font-size: 30px;
-      color: #333;
-      font-weight: 600;
-      .top-desc {
-        font-size: 15px;
-        margin-left: 15px;
-        color: #555;
-        font-weight: 400;
-      }
+    margin-left: 23px;
+    .search-input {
+      width: 350px;
+      border-right: 1px solid #ba1b21;
+    }
+    .search {
+      width: 65px;
+      background-color: #ba1b21;
+      padding: 0px 17px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+      color: #fff;
+      border-radius: 0px 4px 4px 0px;
+      margin-left: -2px;
     }
   }
   .button-box {
     margin-top: 10px;
     .card {
       text-align: left;
-      padding: 8px 18px 0;
+      padding-top: 8px;
       .titletop {
         text-align: right;
         font-size: 15px;
@@ -459,21 +451,12 @@ export default {
         padding: 10px 15px;
         font-size: 14px;
       }
-      // .choices {
-      //   font-size: 14px;
-      //   color: #2c3e50;
-      //   background-color: #f1f6fe;
-      //   // background-color: #fff;
-      //   border: 0px solid #eee;
-      //   margin: 10px 5px;
-      // }
     }
   }
   .btn {
     text-align: center;
     border-top: 1px solid #eee;
-    margin-top: 20px;
-    margin-bottom: 5px;
+    margin-top: 10px;
     .collapse-btn {
       margin: 0;
       border-top: none;
@@ -483,35 +466,35 @@ export default {
   }
 }
 .bottom {
-  width: 1400px;
-  margin: 0 auto 50px auto;
+  width: 100%;
+  margin: 25px auto 50px auto;
   display: flex;
   flex-direction: row;
   -webkit-box-flex: 1;
   flex: 1;
   box-sizing: border-box;
   .left {
-    background-color: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     border-radius: 3px;
     .page-top {
       display: flex;
-      justify-content: space-between;
       margin: 20px 20px -20px 20px;
       padding-bottom: 13px;
       .page-header {
-        display: flex;
         align-items: baseline;
         font-size: 22px;
         color: #222;
-        .page-desc {
+        span {
           font-size: 13px;
           margin-left: 16px;
           color: #999;
           font-weight: 400;
         }
+      }
+      .page-header-btn {
+        text-align: left;
         span {
-          margin-left: 650px;
+          float: right;
         }
       }
     }
@@ -549,6 +532,9 @@ export default {
         font-size: 14px;
         color: #999;
         margin: 20px 0;
+        .distance-right {
+          margin-right: 20px;
+        }
         .el-icon-setting:before {
           margin-right: 5px;
         }
@@ -572,12 +558,9 @@ export default {
     }
   }
   .right {
-    background-color: #fff;
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     border-radius: 3px;
-    margin-left: 20px;
-  }
-  .shang {
+    margin-left: 25px;
     .title {
       margin: 20px;
       font-size: 16px;
@@ -588,35 +571,14 @@ export default {
         font-weight: 300;
         color: #4ea4eb;
         cursor: pointer;
-        padding-left: 179px;
-      }
-    }
-    .hotTag {
-      margin: 20px;
-      .el-tag:hover {
-        color: #4ea4eb;
-        border-color: #4ea4eb;
-      }
-    }
-  }
-  .xia {
-    margin-top: 20px;
-    .title {
-      margin: 20px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #2c3e50;
-      span {
-        font-size: 14px;
-        font-weight: 300;
-        color: #4ea4eb;
-        cursor: pointer;
-        padding-left: 179px;
+        float: right;
       }
     }
     .hotPolicy {
       margin: 20px;
       .content {
+        font-size: 13.3px;
+        color: #2c3e50;
         margin-bottom: 10px;
         padding-left: 9px;
         &:hover {
@@ -629,9 +591,17 @@ export default {
 }
 </style>
 <style  scoped>
+.search-input >>> .el-input__inner {
+  border-radius: 4px 0px 0px 4px;
+}
 .answerSheetTop >>> .el-cascader {
   margin-top: 7px;
   width: 35%;
+}
+.header-btn >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  color: #fff;
+  border-color: #ba1b21;
+  background-color: #ba1b21;
 }
 .istop >>> .el-tag {
   height: 27px;
@@ -651,24 +621,13 @@ export default {
 }
 .card >>> .el-radio-button__inner {
   border: 0px solid #dcdfe6;
-  margin: 3px;
+  margin: 1px;
 }
 .card >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
   color: #ba1b21;
   font-weight: 700;
   background-color: #f1f6fe;
   -webkit-box-shadow: -1px 0 0 0 #f1f6fe;
-}
-.hotTag >>> .el-tag {
-  font-size: 13px;
-  background-color: #fff;
-  color: #777;
-  height: 30px;
-  line-height: 30px;
-  border-radius: 22px;
-  margin: 5px 10px 5px 0px;
-  padding: 0px 14px;
-  cursor: pointer;
 }
 .hotPolicy >>> .el-icon-caret-right {
   margin-left: -4px;

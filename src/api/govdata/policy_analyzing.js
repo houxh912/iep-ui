@@ -1,7 +1,10 @@
+/**
+ * 新增政策库政策解读API请求接口
+ */
 import request from '@/router/axios'
-
 const prefixUrl = '/gc'
-// @/api/gms/declare
+
+
 // 查看政策解读分页
 export function getExplainPage (params) {
   return request({
@@ -13,6 +16,32 @@ export function getExplainPage (params) {
    },
   })
 }
+
+// 政策中心里根据不同的条件的政策解读分页
+export function getAnalysisCenterPage (params) {
+  return request({
+    url: `${prefixUrl}/policy/explain/page`,
+    method: 'get',
+    params: params,
+    headers: {
+      isNoNeed: true,
+   },
+  })
+}
+
+/**
+ * 政策中心里根据id查询政策解读
+ */ 
+export function getAnalysisCenterById (id) {
+  return request({
+      url: `${prefixUrl}/policy/explain/${id}`,
+      method: 'get',
+      headers: {
+          isNoNeed: true,
+      },
+  })
+}
+
 
 // 根据id查看政策解读
 export function getExplainById (id) {

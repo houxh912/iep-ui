@@ -49,3 +49,17 @@ export function findByTypeList () {
     },
   })
 }
+
+/**
+ * 获取上下篇的信息
+ */
+export function preOrNextPolicy (params) {
+  return request({
+    url: `${prefixUrl}/sortingData/selectPrevAndNext`,
+    method: 'get',
+    params: params,
+    headers: {
+      isNoNeed: true,
+   },
+  })
+}

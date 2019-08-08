@@ -57,3 +57,11 @@ export function getIndexPage (params) {
     params: params,
   })
 }
+
+//推荐位选择
+// export function getInfoAttributePage (siteId) {
+//   return request({
+//     url: `${prefixUrl}/${siteId}/list`,
+//     method: 'get',
+//   })
+// }

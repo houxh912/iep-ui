@@ -328,7 +328,7 @@
             </div>
           </el-collapse-transition>
         </el-form>
-        <div class="recommend-project" v-if="this.recommendType=='project'">
+        <div class="recommend-project" v-if="recommendType=='project'">
           <h4 class="recommend-title">同类项目推荐</h4>
           <div class="recommend-container" v-for="r in recommendProjectList" :key="r.id">
             <span class="name" @click="handleDetail(r.id)" style="cursor: pointer;">{{r.projectName}}</span>
@@ -348,7 +348,7 @@
             </span>
           </div>
         </div>
-        <div class="recommend-peopel" v-if="this.recommendType=='projectMentor'">
+        <div class="recommend-peopel" v-if="recommendType=='projectMentor'">
           <h4 class="recommend-title">优秀项目督导推荐</h4>
           <div class="recommend-container" v-for="r in recommendMentorList" :key="r.id">
             <div class="img">
@@ -364,7 +364,7 @@
             </div>
           </div>
         </div>
-        <div class="recommend-peopel" v-if="this.recommendType=='projectHandles'">
+        <div class="recommend-peopel" v-if="recommendType=='projectHandles'">
           <h4 class="recommend-title">优秀项目经理推荐</h4>
           <div class="recommend-container" v-for="r in recommendHandlesList" :key="r.id">
             <div class="img">
@@ -380,7 +380,7 @@
             </div>
           </div>
         </div>
-        <div class="recommend-peopel" v-if="this.recommendType=='mktManager'">
+        <div class="recommend-peopel" v-if="recommendType=='mktManager'">
           <h4 class="recommend-title">优秀市场经理推荐</h4>
           <div class="recommend-container" v-for="r in recommendMktManagerList" :key="r.id">
             <div class="img">
@@ -396,7 +396,7 @@
             </div>
           </div>
         </div>
-        <div class="recommend-peopel" v-if="this.recommendType=='members'">
+        <div class="recommend-peopel" v-if="recommendType=='members'">
           <h4 class="recommend-title">项目成员推荐</h4>
           <div class="recommend-container" v-for="r in recommendMembersList" :key="r.id">
             <div class="img">
@@ -412,21 +412,21 @@
             </div>
           </div>
         </div>
-        <div class="recommend-echart" v-if="this.recommendType=='endTime'">
+        <div class="recommend-echart" v-if="recommendType=='endTime'">
           <h4 class="recommend-title">项目平均耗时<span class="number">{{chartData.timePerDataStr}}</span>天</h4>
           <div class="recommend-container">
             <ve-ring :data="chartDataRing1" :settings="chartSettingsRing" :colors="colorsRing">
             </ve-ring>
           </div>
         </div>
-        <div class="recommend-echart" v-if="this.recommendType=='budget'">
+        <div class="recommend-echart" v-if="recommendType=='budget'">
           <h4 class="recommend-title">平均成本预算<span class="number">{{chartData.averageBudget}}</span>元</h4>
           <div class="recommend-container">
             <ve-ring :data="chartDataRing2" :settings="chartSettingsRing" :colors="colorsRing">
             </ve-ring>
           </div>
         </div>
-        <div class="recommend-echart" v-if="this.recommendType=='contractAmount'">
+        <div class="recommend-echart" v-if="recommendType=='contractAmount'">
           <h4 class="recommend-title">平均合同金额<span class="number">{{chartData.averageAmount}}</span>元</h4>
           <div class="recommend-container">
             <ve-ring :data="chartDataRing3" :settings="chartSettingsRing" :colors="colorsRing">
@@ -863,9 +863,6 @@ export default {
       }//平均成本预算
       else if (val == 'contractAmount') {
         getAverageContractAmount({ tagList: this.tagList }).then(({ data }) => {
-          this.chartDataRing3.rows[0].数量 = data.classifiedProportion
-          this.chartDataRing3.rows[1].数量 = data.classifiedProportion1
-          this.chartDataRing3.rows[2].数量 = data.classifiedProportion2
           this.chartData.averageBudget = data.averageBudget
         })
       }//平均合同金额字段
@@ -1011,13 +1008,10 @@ export default {
     }
   }
   .recommend-echart {
-    .recommend-title {
-      position: fixed;
-    }
-    .recommend-container {
-      position: fixed;
-      top: 220px;
-    }
+    position: fixed;
+    right: 0;
+    width: 400px;
+    height: 100%;
   }
   .recommend-project {
     .recommend-container {

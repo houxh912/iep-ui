@@ -67,3 +67,10 @@ export function getListBySiteId (params) {
   })
 }
 
+//推荐位选择
+// export function getInfoAttributePage (siteId) {
+//   return request({
+//     url: `${prefixUrl}/${siteId}/list`,
+//     method: 'get',
+//   })
+// }

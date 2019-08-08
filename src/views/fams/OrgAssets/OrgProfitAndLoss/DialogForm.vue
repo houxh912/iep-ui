@@ -28,6 +28,7 @@ export default {
   mixins: [formMixins],
   data () {
     return {
+      dialogShow: false,
       form: initForm(),
       rules: {
         projectIncome: [

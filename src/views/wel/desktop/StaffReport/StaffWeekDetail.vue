@@ -15,7 +15,10 @@
       </operation-container>
       <div class="container">
         <div class="con-item">
-          <div class="title">领导指示</div>
+          <div style="clear:both;">
+            <span class="title">领导指示</span>
+            <span class="leadership" @click="handleLeaderClick">领导批示</span>
+          </div>
           <iep-div-detail class="content" :value="form.leaderIndication"></iep-div-detail>
         </div>
         <div class="con-item">
@@ -32,10 +35,12 @@
         </div>
       </div>
     </basic-container>
+    <leadership ref="leaderShip"></leadership>
   </div>
 </template>
 <script>
 import { getStaffReport, putStaffReport } from '@/api/mlms/leader_report/'
+import Leadership from '../Components/Leadership'
 function initForm () {
   return {
     title: '',
@@ -59,7 +64,7 @@ export default {
         isBack: true,
       },
       form: initForm(),
-      isdisabled:false,
+      isdisabled: false,
       useId: '',
       reportInfo: {
         reportType: 0,
@@ -67,6 +72,9 @@ export default {
         userId: '',
       },
     }
+  },
+  components: {
+    Leadership,
   },
   computed: {
     id () {
@@ -99,16 +107,19 @@ export default {
         this.form = this.$mergeByFirst(initForm(), data.data[0])
       })
     },
+    handleLeaderClick () {
+      this.$refs['leaderShip'].dialogShow = true
+    },
     handlePreClick () {
       this.resultData(this.dataReduce() - 7 * 24 * 60 * 60 * 1000)
-       let flag = this.dataReduce()<=new Date().getTime()
-      if(flag)  this.isdisabled = false
+      let flag = this.dataReduce() <= new Date().getTime()
+      if (flag) this.isdisabled = false
       this.putStaffReport()
     },
     handleNextClick () {
       this.resultData(this.dataReduce() + 7 * 24 * 60 * 60 * 1000)
-      let flag = this.dataReduce()>new Date().getTime()
-      flag? this.isdisabled = true:this.putStaffReport()
+      let flag = this.dataReduce() > new Date().getTime()
+      flag ? this.isdisabled = true : this.putStaffReport()
     },
   },
 }
@@ -121,6 +132,19 @@ export default {
     .title {
       font-size: 15px;
       color: #333;
+    }
+    .leadership {
+      float: right;
+      padding: 3px 6px;
+      border: 1px solid #ba1b21;
+      border-radius: 5px;
+      color: #ba1b21;
+      font-size: 14px;
+      cursor: pointer;
+      &:hover {
+        color: #fff;
+        background-color: #ba1b21;
+      }
     }
     .content {
       word-break: break-all;

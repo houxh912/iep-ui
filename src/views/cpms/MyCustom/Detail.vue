@@ -81,6 +81,7 @@ export default {
       size: '',
       count: '',
       pagedTable: [],
+      isLoadTable: false,
     }
   },
   computed: {

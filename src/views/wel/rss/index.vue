@@ -42,7 +42,10 @@
         <template slot="before-columns">
           <el-table-column label="政策名称">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.title}}</iep-table-link>
+              <div @click="handleDetail(scope.row)" class="row-style">
+                <span v-if="arrFlag[scope.$index]" class="grade">最新推荐</span>
+                <span>{{scope.row.title}}</span>
+              </div>
             </template>
           </el-table-column>
         </template>
@@ -75,6 +78,7 @@ export default {
       dictsMap,
       columnsMap,
       type: '*',
+      arrFlag: [],
       tabList: [
         {
           label: '全部',
@@ -89,18 +93,18 @@ export default {
           value: 'declare',
         },
         {
-          label: '分析',
+          label: '解读',
           value: 'explain',
         },
         {
-          label: '信息',
+          label: '资讯',
           value: 'information',
         },
       ],
       rssType: [
         { label: '国策订阅', value: '1' },
       ],
-      rssTitle: '我的订阅',
+      rssTitle: '政策订阅',
       selectType: '0',
       bodyStyle: {
         padding: 0,
@@ -114,6 +118,11 @@ export default {
     handleAdd () {
       this.$refs['DialogForm'].dialogShow = true
     },
+    dataReduce () {
+      let data = new Date()
+      let time = data.getTime()
+      return time
+    },
     handleDetail (row) {
       this.$refs['DialogDetail'].form = { ...row }
       this.$refs['DialogDetail'].dialogShow = true
@@ -124,7 +133,18 @@ export default {
       this.loadPage()
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param, beforeDays: 3, policyType: this.type }, getPolicyPage)
+      const D = this.loadTable({ ...param, beforeDays: 3, policyType: this.type }, getPolicyPage)
+      let publishTime = []
+      D.then((data) => {
+        data.records.forEach(element => {
+          if (this.dataReduce() - element.publishTime - 3 * 24 * 60 * 60 * 1000 > 0) {
+            publishTime.push(false)
+          } else {
+            publishTime.push(true)
+          }
+        })
+      })
+      this.arrFlag = publishTime
     },
   },
 }
@@ -149,6 +169,20 @@ export default {
   margin: 0 !important;
   padding: 20px;
   height: 100vh;
+  .row-style {
+    cursor: pointer;
+  }
+  .grade {
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    height: 18px;
+    line-height: 18px;
+    margin-right: 4px;
+    margin-top: 10px;
+    background-color: #b91b21;
+    margin-right: 10px;
+  }
   .menu-vertical {
     border: none;
   }
@@ -187,4 +221,10 @@ export default {
   height: 40px;
   line-height: 40px;
 }
+/* .aside-main >>> .el-badge {
+  display: inline;
+} */
+/* .aside-main >>> .cell {
+  flex-wrap: nowrap;
+} */
 </style>

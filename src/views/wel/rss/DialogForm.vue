@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="订阅主题/行业" width="700px" @close="close" @slot-mounted="loadPage">
+  <iep-dialog class="remark" :dialog-show="dialogShow" title="订阅主题/行业" width="700px" @close="close" @slot-mounted="loadPage">
     <el-tabs v-model="activeName">
       <el-tab-pane label="主题管理" name="first">
         <el-transfer style="text-align: left; display: inline-block" v-model="themeList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消订阅', '订阅']" :format="{
@@ -127,4 +127,14 @@ export default {
   },
 }
 </script>
-
+<style scoped>
+.remark >>> .el-transfer__button:nth-child(2) {
+  width: 100%;
+}
+.remark >>> .el-transfer-panel {
+  width: 243px;
+}
+.remark >>> .el-transfer-panel__item.el-checkbox {
+  display: block;
+}
+</style>

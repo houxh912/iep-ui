@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { getIndexPage } from '@/api/conm/article_controller'
+import { getListBySiteId } from '@/api/conm/article_controller'
 export default {
   data () {
     return {
@@ -23,13 +23,12 @@ export default {
   },
   created () {
     let params = {
-      nodeNumber: 'groupNews',
+      attributeNumber: 'gmrrec',
       siteId: 1,
-      current: 1,
       size: 3,
     }
-    getIndexPage(params).then(({data}) => {
-      this.bannerList = data.data.records
+    getListBySiteId(params).then(({ data }) => {
+      this.bannerList = data.data
     })
   },
 }

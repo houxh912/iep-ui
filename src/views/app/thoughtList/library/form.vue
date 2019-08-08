@@ -50,7 +50,7 @@
         <div class="func" @click="handleAnt">
           <i class="symbol">@</i><p>提醒</p>
         </div>
-        <div class="func" @click="handleSubject" v-if="false">
+        <div class="func" @click="handleSubject">
           <i class="symbol">#</i><p>话题</p>
         </div>
         <div class="switch">

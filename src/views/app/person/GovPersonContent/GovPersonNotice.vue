@@ -62,7 +62,7 @@ export default {
 </style>
 <style scoped>
 .notice >>> .el-card {
-  height: 350px;
+  height: 366px;
 }
 .notice >>> .assort .piece {
   margin-left: -8px;

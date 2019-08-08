@@ -6,6 +6,26 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle" show-summary>
+      <el-table-column prop="projectIncome" label="项目收入">
+        <template slot-scope="scope">
+          {{scope.row.projectIncome}} (+{{scope.row.projectInitialValue}})
+        </template>
+      </el-table-column>
+      <el-table-column prop="cost" label="费用">
+        <template slot-scope="scope">
+          {{scope.row.cost}} (+{{scope.row.costInitialValue}})
+        </template>
+      </el-table-column>
+      <el-table-column prop="operatingProfit" label="营业利润">
+        <template slot-scope="scope">
+          {{scope.row.operatingProfit}} (-{{scope.row.costInitialValue}})
+        </template>
+      </el-table-column>
+      <el-table-column prop="netProfit" label="净利润">
+        <template slot-scope="scope">
+          {{scope.row.netProfit}} (+{{scope.row.projectInitialValue}}) (-{{scope.row.costInitialValue}})
+        </template>
+      </el-table-column>
     </iep-table>
   </div>
 </template>

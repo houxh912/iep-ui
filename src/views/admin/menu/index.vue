@@ -135,7 +135,7 @@ export default {
         type: undefined,
         path: undefined,
       },
-      currentId: -1,
+      currentId: 1,
       sys_menu_add: false,
       sys_menu_edit: false,
       sys_menu_del: false,

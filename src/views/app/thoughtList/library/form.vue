@@ -65,7 +65,7 @@
           </el-switch>
         </div>
         <div class="label">
-          <label>说说标签：</label>,
+          <label>说说标签：</label>
           <iep-tag v-model="formData.tags"></iep-tag>
         </div>
         <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">发布</iep-button>

@@ -1,5 +1,5 @@
 /**
- * 新增通用政策API请求接口
+ * 新增政策库通用政策API请求接口
  */
 
 import request from '@/router/axios'
@@ -10,7 +10,6 @@ const prefixUrl = '/gc/policy/general'
  */
 export function getGeneralPage (params) {
     return request({
-        // url: '/gov/policy/general/pageConsole',
         url: `${prefixUrl}/pageConsole`,
         method: 'get',
         params: params,
@@ -20,10 +19,9 @@ export function getGeneralPage (params) {
     })
 }
 
-// 政策中心里根据不同的条件通用政策分页
-export function getGeneralCentrePage (params) {
+// 政策中心里根据不同的条件的通用政策分页
+export function getGeneralCenterPage (params) {
     return request({
-    //   url: '/gov/policy/general/page',
       url: `${prefixUrl}/page`,
       method: 'get',
       params: params,
@@ -34,11 +32,23 @@ export function getGeneralCentrePage (params) {
   }
 
 /**
+ * 政策中心里根据id查询通用政策
+ */ 
+export function getGeneralCenterById (id) {
+    return request({
+        url: `${prefixUrl}/${id}`,
+        method: 'get',
+        headers: {
+            isNoNeed: true,
+        },
+    })
+}
+
+/**
  * 根据id查询通用政策
  */ 
 export function getGeneralById (id) {
     return request({
-        // url: `/gov/policy/general/infoForConsole/${id}`,
         url: `${prefixUrl}/infoForConsole/${id}`,
         method: 'get',
         headers: {
@@ -50,7 +60,6 @@ export function getGeneralById (id) {
 // 删除政策
 export function deleteGeneralBatch (id) {
     return request({
-        // url: '/gov/policy/general/logicDelete',
         url: `${prefixUrl}/logicDelete`,
         method: 'delete',
         data: id,
@@ -63,7 +72,6 @@ export function deleteGeneralBatch (id) {
 // 验证通用政策
 export function validGeneralTitle (params) {
     return request({
-        // url: '/gov/policy/general/repeat',
         url: `${prefixUrl}/repeat`,
         method: 'post',
         params: params,
@@ -79,7 +87,6 @@ export function validGeneralTitle (params) {
  */
 export function postGeneralAndCommit (params) {
     return request({
-        // url: '/gov/policy/general/createAndCommit',
         url: `${prefixUrl}/createAndCommit`,
         method: 'post',
         data: params,
@@ -95,7 +102,6 @@ export function postGeneralAndCommit (params) {
  */
 export function putGeneralAndCommit (params) {
     return request({
-        // url: '/gov/policy/general/updateAndCommit',
         url: `${prefixUrl}/updateAndCommit`,
         method: 'post',
         data: params,
@@ -108,7 +114,6 @@ export function putGeneralAndCommit (params) {
 // 暂存(添加)
 export function postGeneral (params) {
     return request({
-        // url: '/gov/policy/general/create',
         url: `${prefixUrl}/create`,
         method: 'post',
         data: params,
@@ -121,7 +126,6 @@ export function postGeneral (params) {
 // 暂存(修改)
 export function putGeneral (params) {
     return request({
-        // url: '/gov/policy/general/update',
         url: `${prefixUrl}/update`,
         method: 'post',
         data: params,

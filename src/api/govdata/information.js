@@ -1,5 +1,5 @@
 /**
- * 新增政策资讯API请求接口
+ * 新增政策库政策资讯API请求接口
  */
 
 import request from '@/router/axios'
@@ -19,6 +19,32 @@ export function getInformationPage (params) {
     },
   })
 }
+
+// 政策中心里的政策资讯分页
+export function getInformationCenterPage (params) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: params,
+    headers: {
+      isNoNeed: true,
+   },
+  })
+}
+
+/**
+ * 政策中心里根据id查询政策资讯
+ */ 
+export function getInformationCenterById (id) {
+  return request({
+      url: `${prefixUrl}/policy/information/${id}`,
+      method: 'get',
+      headers: {
+          isNoNeed: true,
+      },
+  })
+}
+
 
 // 删除政策
 export function deleteInformationById (id) {

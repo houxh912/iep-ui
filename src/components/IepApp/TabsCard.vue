@@ -1,5 +1,6 @@
 <template>
   <el-card class="index-card" shadow="never">
+    <slot name="left"></slot>
     <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
     <slot></slot>
   </el-card>

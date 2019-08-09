@@ -23,7 +23,7 @@ const columnsMap = [
   {
     prop: 'education',
     label: '学历',
-    width:'100',
+    width: '100',
   },
   {
     prop: 'applyPosition',
@@ -36,70 +36,71 @@ const columnsMap = [
   {
     prop: 'source',
     label: '来源',
-    width:'100',
+    width: '100',
   },
   {
     prop: 'remarks',
     label: '备注',
-    width:'120',
+    width: '120',
   },
 ]
 
 const initForm = () => {
   return {
-    'id': '',
-    'name': '',
-    'sex': 1,
-    'avatar': '',
-    'birthday': '',
-    'title': '',
-    'phone': '',
-    'age': '',
-    'email': '',
-    'height': '',
-    'weight': '',
-    'nation': '',
-    'address': '',
-    'politics': '',
-    'health': '',
-    'marriage': '',
-    'bear': '',
-    'university': '',
-    'education': '',
-    'relation': '',
-    'referrer': '',
-    'appWay': '',
-    'source': '',
-    'hobbies': '',
-    'advantage': '',
-    'honor': '',
-    'result': '',
-    'position': [],
-    'positionId': '',
-    'positionName': '',
-    'arrive': '',
-    'salary': '',
-    'workPlace': '',
+    id: '',
+    name: '',
+    sex: 1,
+    avatar: '',
+    birthday: '',
+    title: '',
+    phone: '',
+    age: '',
+    email: '',
+    height: '',
+    weight: '',
+    nation: '',
+    address: '',
+    politics: '',
+    health: '',
+    marriage: '',
+    bear: '',
+    university: '',
+    education: '',
+    relation: '',
+    referrer: '',
+    appWay: '',
+    source: '',
+    hobbies: '',
+    advantage: '',
+    honor: '',
+    result: '',
+    position: [],
+    positionId: '',
+    positionName: '',
+    arrive: '',
+    salary: '',
+    workPlace: '',
     attach: [],
     attachFile: [], // 文件
-    'workExperience': [],
-    'trainingSituation': [],
-    'eduSituation': [],
-    'userCert': [],
-    'blacklistArea': '',
-    'blacklistReasons': '',
-    'cities': [],
+    workExperience: [],
+    trainingSituation: [],
+    eduSituation: [],
+    userCert: [],
+    blacklistArea: '',
+    blacklistReasons: '',
+    postscript: '',
+    cities: [],
   }
 }
 
-const formToDto = (row) => {
+const formToDto = row => {
   const newForm = mergeByFirst(initForm(), row)
   newForm.attachFileUrl = row.attach.map(m => m.url)[0]
   newForm.positionId = row.position[row.position.length - 1]
   return newForm
 }
 
-const formToVo = (row) => {
+const formToVo = row => {
   const newForm = mergeByFirst(initForm(), row)
   newForm.attach = row.attachFile || []
   return newForm
@@ -137,10 +138,11 @@ const initDtoSearchForm = () => {
 // status: 1, // 招聘状态id
 // startTime: initNow(), // 开始时间
 // endTime: initNow(), // 结束时间
-const toDtoSearchForm = (row) => {
+const toDtoSearchForm = row => {
   const newForm = mergeByFirst(initDtoSearchForm(), row)
   newForm.sex = row.sex ? row.sex : null
-  newForm.positionId = row.position.length && row.position[row.position.length - 1]
+  newForm.positionId =
+    row.position.length && row.position[row.position.length - 1]
   if (row.rangeTime) {
     newForm.startTime = row.rangeTime[0]
     newForm.endTime = row.rangeTime[1]
@@ -249,21 +251,34 @@ const certificateColumns = [
 ]
 
 const rules = {
-  name: [
-    { required: true, message: '请填写姓名', trigger: 'blur' },
-  ],
-  phone: [
-    { required: true, message: '请填写联系电话', trigger: 'blur' },
-  ],
-  education: [
-    { required: true, message: '请填写最高学历', trigger: 'blur' },
-  ],
+  name: [{ required: true, message: '请填写姓名', trigger: 'blur' }],
+  phone: [{ required: true, message: '请填写联系电话', trigger: 'blur' }],
+  education: [{ required: true, message: '请填写最高学历', trigger: 'blur' }],
   position: [
-    { required: true, type: 'array', message: '请填写应聘岗位', trigger: 'blur' },
+    {
+      required: true,
+      type: 'array',
+      message: '请填写应聘岗位',
+      trigger: 'blur',
+    },
   ],
-  workPlace: [
-    { required: true, message: '请填写期望工作地', trigger: 'blur' },
-  ],
+  workPlace: [{ required: true, message: '请填写期望工作地', trigger: 'blur' }],
 }
 
-export { dictsMap, columnsMap, initForm, initrejectedForm, formToDto, initToResumeForm, initToBlacklistForm, workExpColumns, studyColumns, trainingColumns, certificateColumns, initSearchForm, toDtoSearchForm, formToVo, rules }
+export {
+  dictsMap,
+  columnsMap,
+  initForm,
+  initrejectedForm,
+  formToDto,
+  initToResumeForm,
+  initToBlacklistForm,
+  workExpColumns,
+  studyColumns,
+  trainingColumns,
+  certificateColumns,
+  initSearchForm,
+  toDtoSearchForm,
+  formToVo,
+  rules,
+}

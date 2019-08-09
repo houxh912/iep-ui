@@ -188,6 +188,11 @@ export default {
 }
 </script>
 <style scoped>
+.contact-wrapper >>> .ant-select {
+  min-width: 173px;
+}
+</style>
+<style scoped>
 .contact-wrapper {
   display: flex;
   min-width: 200px;

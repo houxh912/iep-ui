@@ -1,23 +1,23 @@
 <template>
-  <iep-dialog class="remark" :dialog-show="dialogShow" title="订阅主题/行业" width="700px" @close="close" @slot-mounted="loadPage">
+  <iep-dialog class="remark" :dialog-show="dialogShow" title="订阅" width="700px" @close="close" @slot-mounted="loadPage">
     <el-tabs v-model="activeName">
-      <el-tab-pane label="主题管理" name="first">
-        <el-transfer style="text-align: left; display: inline-block" v-model="themeList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消订阅', '订阅']" :format="{
+      <el-tab-pane label="主题" name="first">
+        <el-transfer style="text-align: left; display: inline-block" v-model="themeList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消', '订阅']" :format="{
         noChecked: '${total}',
         hasChecked: '${checked}/${total}'
       }" :data="POLICY_THEME">
           <span slot-scope="{ option }">{{ option.label }}</span>
         </el-transfer>
       </el-tab-pane>
-      <el-tab-pane label="行业管理" name="second">
-        <el-transfer style="text-align: left; display: inline-block" v-model="industryList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消订阅', '订阅']" :format="{
+      <el-tab-pane label="行业" name="second">
+        <el-transfer style="text-align: left; display: inline-block" v-model="industryList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消', '订阅']" :format="{
         noChecked: '${total}',
         hasChecked: '${checked}/${total}'
       }" :data="POLICY_INDUSTRY">
           <span slot-scope="{ option }">{{ option.label }}</span>
         </el-transfer>
       </el-tab-pane>
-      <el-tab-pane label="地域管理" name="third">
+      <el-tab-pane label="地域" name="third">
         <div style="display: flex;">
           <el-cascader style="flex: 1;" size="small" :props="cityProps" v-model="cityList" :options="cityOption"></el-cascader>
           <iep-button @click="handleAdd">添加</iep-button>
@@ -48,12 +48,12 @@ export default {
         label: 'name',
       },
       cityList: [],
-      selectCityList: [],
 
       activeName: 'first',
       dialogShow: false,
       industryList: [],
       themeList: [],
+      selectCityList: [],
       props: {
         key: 'value',
       },

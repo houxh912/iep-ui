@@ -863,9 +863,9 @@ export default {
       }//平均成本预算
       else if (val == 'contractAmount') {
         getAverageContractAmount({ tagList: this.tagList }).then(({ data }) => {
-          this.chartDataRing2.rows[0].数量 = data.classifiedProportion
-          this.chartDataRing2.rows[1].数量 = data.classifiedProportion1
-          this.chartDataRing2.rows[2].数量 = data.classifiedProportion2
+          this.chartDataRing3.rows[0].数量 = data.classifiedProportion
+          this.chartDataRing3.rows[1].数量 = data.classifiedProportion1
+          this.chartDataRing3.rows[2].数量 = data.classifiedProportion2
           this.chartData.averageAmount = data.averageAmount
         })
       }//平均合同金额字段

@@ -36,7 +36,7 @@
             <operation-wrapper>
               <iep-button :disabled="isEditDelPermissions(scope.row)" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button :disabled="isEditDelPermissions(scope.row)" @click="handleDelete(scope.row)">删除</iep-button>
-              <iep-button>加入定制</iep-button>
+              <iep-button @click="handleProductClick(scope.row.id)">加入定制</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { putProductById } from '@/api/app/cpms/custom_module'
 import { getProductPage, deleteProductById } from '@/api/cpms/product'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
@@ -75,6 +76,15 @@ export default {
   methods: {
     isEditDelPermissions (row) {
       return !(this.cpms_products_edit_del || this.userInfo.userId === row.creatorId)
+    },
+    handleProductClick (productId) {
+      putProductById(productId).then((data) => {
+        this.$message({
+          type: 'success',
+          message: '加入成功',
+        })
+        console.log(data)
+      })
     },
     isViewPermissions (row) {
       return this.cpms_products_view || this.userInfo.userId === row.creatorId

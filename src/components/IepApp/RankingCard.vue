@@ -1,11 +1,31 @@
 <template>
   <div class="ranking">
     <div v-if="dataList.length !== 0">
-      <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item)">
-        <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
-        <span class="name">{{item[name]}}</span>
-        <span class="grade">{{item[grade]}}</span>
+
+      <div v-if="isReference">
+        <el-popover
+          v-for="(item,index) in dataList" :key="index" 
+          placement="top-start"
+          title=""
+          :width="width"
+          trigger="hover"
+          :content="item[name]">
+          <div class="piece" @click="handleDetail(item)" slot="reference">
+            <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
+            <span class="name">{{item[name]}}</span>
+            <span class="grade">{{item[grade]}}</span>
+          </div>
+        </el-popover>
       </div>
+      
+      <div v-else>
+        <div class="piece" v-for="(item,index) in dataList" :key="index" @click="handleDetail(item)">
+          <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
+          <span class="name">{{item[name]}}</span>
+          <span class="grade">{{item[grade]}}</span>
+        </div>
+      </div>
+      
     </div>
     <IepNoData v-else></IepNoData>
   </div>
@@ -27,6 +47,13 @@ export default {
       type: String,
       default: 'grade',
     },
+    width: {
+      default: 350,
+    },
+    isReference: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleDetail (row) {
@@ -47,7 +74,7 @@ export default {
     transition: 0.5s;
     cursor: pointer;
     &:nth-child(1) {
-      margin-top: -7px;
+      // margin-top: -7px;
     }
     .name {
       height: 30px;

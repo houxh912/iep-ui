@@ -42,3 +42,12 @@ export function getProductList (obj) {
     params: obj,
   })
 }
+
+// 本组织下成员周月报
+export function getWeekMonthReportByOrg (obj) {
+  return request({
+    url: '/mlms/weekmonthreport/report/page',
+    method: 'get',
+    params: obj,
+  })
+}

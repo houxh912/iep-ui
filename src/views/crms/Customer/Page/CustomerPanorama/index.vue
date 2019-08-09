@@ -4,11 +4,11 @@
       <h3 class="title">基本信息</h3>
       <div class="base">
         <el-row>
-          <el-col :span=12 class="item">
+          <el-col :span=12 class="item" v-if="formData.companyUrl===''?false:true">
             <div class="label">单位网址：</div>
             <div class="value">{{formData.companyUrl}}</div>
           </el-col>
-          <el-col :span=12 class="item">
+          <el-col :span=12 class="item" v-if="formData.contractAddress===''?false:true">
             <div class="label">联系地址：</div>
             <div class="value">{{formData.contractAddress}}</div>
           </el-col>
@@ -17,7 +17,7 @@
             <div class="value customer" v-for="(item,index) in formData.businessTypeKey" :key="index">{{item.commonName}}</div>
             <div>{{formData.specificBusinessType}}</div>
           </el-col> -->
-          <el-col :span=12 class="item">
+          <el-col :span=12 class="item" v-if="formData.companyFunction===''?false:true">
             <div class="label">单位职能：</div>
             <div class="value">{{formData.companyFunction}}</div>
           </el-col>
@@ -33,33 +33,33 @@
             <div class="label">客户关系：</div>
             <div class="value">{{formData.clientRelaName}}</div>
           </el-col>
-          <el-col :span=12 class="item">
+          <el-col :span=12 class="item" v-if="formData.otherDesc===''?false:true">
             <div class="label">其他说明：</div>
             <div class="value">{{formData.otherDesc}}</div>
           </el-col>
         </el-row>
       </div>
       <div class="other">
-        <div class="item">
+        <div class="item" v-if="formData.projects.length==0?false:true">
           <div class="label">合作项目：</div>
           <div class="value">
             <div class="dot" v-for="(item, index) in formData.projects" :key="index">{{item.name}}<span>（合同金额：{{item.amount}}）</span></div>
           </div>
         </div>
-        <div class="item">
+        <div class="item" v-if="formData.tagsName===''?false:true">
           <div class="label">客户标签：</div>
           <div class="value">
             <!-- <el-tag type="info" class="tag-dot" v-for="(item,index) in formData.tags" :key="index">{{item.commonName}}</el-tag> -->
             <iep-tag-detail v-model="formData.tagsName"></iep-tag-detail>
           </div>
         </div>
-        <div class="item">
+        <div class="item" v-if="formData.products.length==0?false:true">
           <div class="label">相关产品：</div>
           <div class="value">
             <div class="dot" v-for="(item,index) in formData.products" :key="index">{{item}}</div>
           </div>
         </div>
-        <div class="item">
+        <div class="item" v-if="formData.programs.length==0?false:true">
           <div class="label">相关方案：</div>
           <div class="value">
             <div class="dot" v-for="(item,index) in formData.programs" :key="index">{{item.commonName}}</div>
@@ -71,19 +71,19 @@
             <div class="dot" v-for="(item,index) in formData.similarClient" :key="index">{{item.name}}</div>
           </div>
         </div> -->
-        <div class="item">
+        <div class="item" v-if="formData.partners.length==0?false:true">
           <div class="label">项目合作伙伴：</div>
           <div class="value">
             <div class="dot" v-for="(item,index) in formData.partners" :key="index">{{item}}<span>（市场经理：{{item.marketManager}}）</span></div>
           </div>
         </div>
-        <div class="item">
+        <div class="item" v-if="formData.marketManagerName===''?false:true">
           <div class="label">市场经理：</div>
           <div class="value">
             <div class="dot">{{formData.marketManagerName}}</div>
           </div>
         </div>
-        <div class="item">
+        <div class="item" v-if="formData.collaborations.length==0?false:true">
           <div class="label">协作人：</div>
           <div class="value">
             <div class="dot" v-for="(item,index) in formData.collaborations" :key="index">{{item.commonName}}</div>
@@ -105,15 +105,15 @@
             <div class="label">发布人：</div>
             <div class="value">{{formData.creatorName}}</div>
           </el-col>
-          <el-col :span=12 class="item">
+          <el-col :span=12 class="item" v-if="formData.deptName?true:false">
             <div class="label">负责部门：</div>
             <div class="value">{{formData.deptName}}</div>
           </el-col>
-          <el-col :span=12 class="item">
+          <el-col :span=12 class="item" v-if="formData.preMarketManagerName?true:false">
             <div class="label">前市场经理：</div>
             <div class="value">{{formData.preMarketManagerName}}</div>
           </el-col>
-          <el-col :span=12 class="item">
+          <el-col :span=12 class="item" v-if="formData.preDeptName?true:false">
             <div class="label">前所属部门：</div>
             <div class="value">{{formData.preDeptName}}</div>
           </el-col>
@@ -160,10 +160,10 @@ export default {
     }
     .base {
       background-color: #f9f9f9;
-      padding: 10px 20px;
+      padding: 15px 20px 0 20px;
     }
     .other {
-      padding: 10px 20px;
+      padding: 15px 20px 0 20px;
     }
     .item {
       margin-bottom: 15px;

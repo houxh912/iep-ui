@@ -7,9 +7,7 @@
             <iep-img :src="item.img" class="img"></iep-img>
           </div>
           <div class="box">
-            <div class="pieceTitle">
-              <span class="name">{{item.orgName}}</span>
-            </div>
+            <div class="pieceTitle">{{item.orgName}}</div>
             <p class="feed">项目数量：{{item.projectCount}}</p>
           </div>
         </div>
@@ -71,11 +69,12 @@ export default {
       .pieceTitle {
         margin-bottom: 10px;
         line-height: 14px;
-        .name {
-          font-size: 16px;
-          font-weight: 700;
-          margin-right: 8px;
-        }
+        font-size: 16px;
+        margin-right: 8px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
         .time {
           color: #999;
         }

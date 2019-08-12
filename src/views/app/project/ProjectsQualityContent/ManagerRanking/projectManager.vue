@@ -3,7 +3,7 @@
     <div class="thoughtsList">
       <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
         <div class="img-con">
-          <iep-img :src="item.img" class="img"></iep-img>
+          <iep-img :src="item.projectManagerAvatar" class="img"></iep-img>
         </div>
         <div class="box">
           <div class="pieceTitle">

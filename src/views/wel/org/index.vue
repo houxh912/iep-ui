@@ -144,9 +144,9 @@ export default {
     onSearch (name) {
       this.loadPage(name)
     },
-    loadPage (name = null) {
+    loadPage (orgName = null) {
       this.dialogVisible = false
-      getOrgList(name).then(({ data }) => {
+      getOrgList(orgName).then(({ data }) => {
         this.orgList = data.data
       })
     },

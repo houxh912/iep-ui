@@ -41,6 +41,7 @@ export default {
   grid-column-start: 1;
   grid-column-end: 4;
   text-align: center;
+  border: 1px solid #eee;
 }
 </style>
 

@@ -1,6 +1,5 @@
 <template>
   <div class="my-products">
-    <div class="title">产品系列</div>
     <!-- <div class="title">我的产品<span>（{{num[0]}}）</span></div> -->
     <div class="products-btn">
       <!-- <el-button size="small">产品官网</el-button>
@@ -101,8 +100,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .my-products {
-  grid-column-start: 1;
-  grid-column-end: 4;
   text-align: center;
   .title {
     height: 60px;

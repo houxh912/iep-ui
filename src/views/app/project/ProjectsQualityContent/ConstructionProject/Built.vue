@@ -5,7 +5,7 @@
       </el-table-column>
       <el-table-column prop="projectAmount" label="项目金额" width="180">
       </el-table-column>
-      <el-table-column prop="department" label="承接部门">
+      <el-table-column prop="projectType" label="承接部门">
       </el-table-column>
       <el-table-column prop="manager" label="项目经理" width="100">
       </el-table-column>

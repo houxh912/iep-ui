@@ -12,9 +12,9 @@
     </top-wrapper>
     <div class="bg-container-wrapper">
       <div class="login-img-wrapper">
-        <img v-show="currentId === 0" class="animated fadeIn" src="/img/bg/wh1.png" alt="">
-        <img v-show="currentId === 1" class="animated fadeIn" src="/img/bg/wh2.png" alt="">
-        <img v-show="currentId === 2" class="animated fadeIn" src="/img/bg/wh3.png" alt="">
+        <img v-show="currentId === 0" class="animated fadeIn" src="/img/bg/wh1.webp" alt="">
+        <img v-show="currentId === 1" class="animated fadeIn" src="/img/bg/wh2.webp" alt="">
+        <img v-show="currentId === 2" class="animated fadeIn" src="/img/bg/wh3.webp" alt="">
       </div>
       <div></div>
       <div></div>

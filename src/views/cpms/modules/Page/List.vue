@@ -37,6 +37,7 @@
             <operation-wrapper>
               <iep-button :disabled="isEditDelPermissions(scope.row)" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button :disabled="isEditDelPermissions(scope.row)" @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button @click="handleModuleClick(scope.row.id)">加入定制</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -46,6 +47,7 @@
 </template>
 
 <script>
+import { putModuleById } from '@/api/app/cpms/custom_module'
 import { getModulePage, deleteModuleById } from '@/api/cpms/module'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
@@ -99,6 +101,22 @@ export default {
       }
       this.$emit('onDetail', {
         id: row.id,
+      })
+    },
+    handleModuleClick (moduleId) {
+      putModuleById(moduleId).then((data) => {
+        const resData = data.data.data
+        if (resData) {
+          this.$message({
+            message: '操作成功',
+            type: 'success',
+          })
+        } else {
+          this.$message({
+            message: '已近加入定制了，亲，请不要重复订购',
+            type: 'warming',
+          })
+        }
       })
     },
     handleChangeMe (value) {

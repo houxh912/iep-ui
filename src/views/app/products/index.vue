@@ -20,7 +20,7 @@
 </template>
 <script>
 import Banner from './Banner'
-import MyProducts from './MyProducts'
+import MyProducts from './MyProducts/index'
 import Visualization from './Visualization'
 // import Newcomers from './Newcomers'
 import InstitutionalDocument from './InstitutionalDocument'

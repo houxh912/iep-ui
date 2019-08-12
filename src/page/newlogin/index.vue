@@ -7,7 +7,7 @@
       <template class="top-right" slot="top-right">
         <span class="contact"><i class="iconfont icon-kefu"></i>在线客服小脉</span>
         <el-divider direction="vertical"></el-divider>
-        联系电话: <span class="num">0580-23566123</span>
+        联系电话: <span class="num">0580-2299669</span>
       </template>
     </top-wrapper>
     <div class="bg-container-wrapper">

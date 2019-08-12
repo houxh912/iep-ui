@@ -35,7 +35,7 @@
               <iep-button v-if="_isNeedApproval(scope.row)" @click="handleReject(scope.row)">驳回</iep-button>
               <iep-button :disabled="isEditDelPermissions(scope.row)" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button :disabled="isEditDelPermissions(scope.row)" @click="handleDelete(scope.row)">删除</iep-button>
-              <iep-button @click="handleProductClick(scope.row.id)">加入定制</iep-button>
+              <iep-button v-if="scope.row.status===1" @click="handleProductClick(scope.row.id)">加入定制</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

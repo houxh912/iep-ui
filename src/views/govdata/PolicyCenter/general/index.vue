@@ -3,8 +3,8 @@
     <div class="top">
       <div class="policy-top">
         <el-input class="search-input" v-model="title" placeholder="请输入关键字进行搜索" prefix-icon="el-icon-search" clearable>
+          <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
         </el-input>
-        <el-tag class="search" @click="search">搜索</el-tag>
       </div>
 
       <div class="button-box" :model="searchForm">
@@ -102,7 +102,7 @@
     </div>
 
     <div class="bottom">
-      <el-row style="width:100%">
+      <el-row style="width:100%" :gutter="20">
         <el-col :span="18">
           <div class="left">
             <div class="page-top">
@@ -367,7 +367,7 @@ export default {
      */
     handleOpenLink (item) {
       this.$router.push({
-        path: `/views_spa/detail/${item.id}`,
+        path: `/app/detail/${item.id}`,
         query: {
           type: 'general',
           id: item.id,
@@ -407,10 +407,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  margin: 20px;
-  padding: 0;
-}
 .top {
   width: 100%;
   border: 1px solid #ddd;
@@ -418,21 +414,9 @@ export default {
   padding: 20px;
   .policy-top {
     display: flex;
-    margin-left: 23px;
+    margin-left: 18px;
     .search-input {
       width: 350px;
-      border-right: 1px solid #ba1b21;
-    }
-    .search {
-      width: 65px;
-      background-color: #ba1b21;
-      padding: 0px 17px;
-      height: 40px;
-      line-height: 40px;
-      font-size: 14px;
-      color: #fff;
-      border-radius: 0px 4px 4px 0px;
-      margin-left: -2px;
     }
   }
   .button-box {
@@ -560,7 +544,7 @@ export default {
   .right {
     border: 1px solid #ddd;
     border-radius: 3px;
-    margin-left: 25px;
+    // margin-left: 25px;
     .title {
       margin: 20px;
       font-size: 16px;
@@ -593,6 +577,7 @@ export default {
 <style  scoped>
 .search-input >>> .el-input__inner {
   border-radius: 4px 0px 0px 4px;
+  border-color: #ccc;
 }
 .answerSheetTop >>> .el-cascader {
   margin-top: 7px;

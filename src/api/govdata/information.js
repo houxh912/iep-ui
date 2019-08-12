@@ -37,7 +37,7 @@ export function getInformationCenterPage (params) {
  */ 
 export function getInformationCenterById (id) {
   return request({
-      url: `${prefixUrl}/policy/information/${id}`,
+      url: `${prefixUrl}/${id}`,
       method: 'get',
       headers: {
           isNoNeed: true,

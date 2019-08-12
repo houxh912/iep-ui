@@ -91,6 +91,15 @@ export default [
     ],
   },
   {
+    path: 'policy_center',
+    name: '政策中心',
+    icon: 'icon-xiangmu',
+    count: 0,
+    countName: 'countPolicy',
+    component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/resource/policyCenter'),
+    meta: {keepAlive: true},
+  },
+  {
     path: 'project_list',
     name: '项目库',
     icon: 'icon-xiangmu',

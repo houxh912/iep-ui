@@ -167,7 +167,7 @@ export default {
      */
     handleOpenLink (item) {
       this.$router.push({
-        path: `/views_spa/detail/${item.id}`,
+        path: `/app/detail/${item.id}`,
         query: {
           type: 'information',
           id: item.id,
@@ -206,10 +206,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-  margin: 20px;
-  padding: 0;
-}
 .container {
   width: 100%;
   margin: 0 auto 50px auto;

@@ -265,6 +265,12 @@ export default [
         meta: noAuth,
       },
       {
+        path: 'detail/:id',
+        name: '政策详情',
+        component: () => import('@/views/govdata/detail'),
+        meta: noAuth,
+      },
+      {
         path: 'module_details/:id',
         name: '展示模块详情',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/moduleDetails/'),

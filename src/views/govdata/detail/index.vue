@@ -16,11 +16,11 @@
         </div>
       </div>
 
-      <div class="detail">
+      <div class="detail" v-if="this.$route.query.type == 'general' || this.$route.query.type == 'declare'">
         <div class="detail-box">
           <div class="box">文体：{{resdata.styleName}} </div>
           <div class="box">层级：{{resdata.levelName}}</div>
-          <div class="box">适用规模：{{scale}}</div>
+          <div class="box">适用规模：{{resdata.scaleList}}</div>
         </div>
         <div class="detail-box">
           <div class="box">发文号：{{resdata.issue}}</div>
@@ -29,11 +29,11 @@
         </div>
         <div class="detail-box">
           <div class="box">发文时间：{{resdata.publishTime |dateFormat}} </div>
-          <div class="box">适用行业：{{industry}}</div>
-          <div class="box">主题：{{theme}}</div>
+          <div class="box">适用行业：{{resdata.industryList}}</div>
+          <div class="box">主题：{{resdata.themeList}}</div>
         </div>
         <div class="detail-box">
-          <div class="box">适用对象：{{target}} </div>
+          <div class="box">适用对象：{{resdata.targetList}} </div>
         </div>
       </div>
 
@@ -42,10 +42,10 @@
       </div>
 
       <div class="foot">
-        <div class="foot-select" v-if="prvNextList.prev">
+        <div class="foot-select" v-if="prvNextList.prev" @click="prv">
           上一篇：{{prvNextList.prev.commonName}}
         </div>
-        <div class="foot-select" v-if="prvNextList.next">
+        <div class="foot-select" v-if="prvNextList.next" @click="next">
           下一篇：{{prvNextList.next.commonName}}
         </div>
       </div>
@@ -76,20 +76,7 @@ export default {
       prvNextList: {},
     }
   },
-  computed: {
-    theme () {
-      return this.resdata.themeList.map(i => i).join(' , ')
-    },
-    industry () {
-      return this.resdata.industryList.map(i => i).join(' , ')
-    },
-    scale () {
-      return this.resdata.scaleList.map(i => i).join(' , ')
-    },
-    target () {
-      return this.resdata.targetList.map(i => i).join(' , ')
-    },
-  },
+  computed: {},
   filters: {
     dateFormat (time) {
       var date = new Date(time)
@@ -100,12 +87,15 @@ export default {
     this.load()
   },
   methods: {
+    /**
+     * 公用部分
+     */
     common (record) {
       this.resdata = record
-      this.resdata.themeList = record.themeList
-      this.resdata.industryList = record.industryList
-      this.resdata.scaleList = record.scaleList
-      this.resdata.targetList = record.targetList
+      this.resdata.themeList = record.themeList ? record.themeList.map(i => i).join(' , ') : []
+      this.resdata.industryList = record.themeList ? record.industryList.map(i => i).join(' , ') : []
+      this.resdata.scaleList = record.themeList ? record.scaleList.map(i => i).join(' , ') : []
+      this.resdata.targetList = record.themeList ? record.targetList.map(i => i).join(' , ') : []
       this.resdata.text = record.text
     },
 
@@ -129,15 +119,15 @@ export default {
       }
       if (this.$route.query.type == 'explain') {
         getAnalysisCenterById(this.id).then(res => {
-          const record = res.data.data
-          this.common(record)
+          const record = res.data
+          this.resdata = record
           this.selectPrvOrNext(record)
         })
       }
       if (this.$route.query.type == 'information') {
         getInformationCenterById(this.id).then(res => {
           const record = res.data.data
-          this.common(record)
+          this.resdata = record
           this.selectPrvOrNext(record)
         })
       }
@@ -156,13 +146,29 @@ export default {
         this.prvNextList = res.data
       })
     },
+
+    /**
+     * 点击上一篇
+     */
+    prv () {
+      this.id = this.prvNextList.prev.commonId
+      this.load()
+    },
+
+    /**
+     * 点击下一篇
+     */
+    next () {
+      this.id = this.prvNextList.next.commonId
+      this.load()
+    },
   },
 }
 </script>
 
 <style lang="scss" scoped>
 .wrapper {
-  margin: 30px 60px;
+  margin: 30px 200px;
   padding: 0;
 }
 .container {

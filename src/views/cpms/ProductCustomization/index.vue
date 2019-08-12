@@ -5,9 +5,10 @@
       <operation-container>
         <template slot="left">
           <iep-button type="primary" plain @click="handleProductClick">产品定制</iep-button>
+          <iep-button size="small" @click="handleDeleteAll">批量删除</iep-button>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <el-table-column prop="operation" label="操作" width="260">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -31,7 +32,7 @@
 </template>
 
 <script>
-import { getCusList, deleteModuleById } from '@/api/app/cpms/custom_module'
+import { getCusList, deleteModuleById, deleteBatchDelete } from '@/api/app/cpms/custom_module'
 import { columnsMap, initSearchForm, rules } from './options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
@@ -76,6 +77,33 @@ export default {
     sentProduct () {
       this.loadPage()
       this.count = 0
+    },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
+    async handleDeleteAll () {
+      try {
+        await deleteBatchDelete(this.multipleSelection).then((data) => {
+          if (data.data && this.multipleSelection.length !== 0) {
+            this.$message.success({
+              message: '操作成功',
+              type: 'success',
+            })
+            this.arrId = []
+            this.sentProduct()
+          } else {
+            this.$message({
+              message: '请选择删除对象',
+              type: 'warming',
+            })
+          }
+        })
+      } catch (error) {
+        this.$message({
+          message: error.message,
+          type: 'error',
+        })
+      }
     },
     handleProductClick () {
       this.$refs['DialogForm'].dialogShow = true

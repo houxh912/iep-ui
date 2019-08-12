@@ -1,28 +1,34 @@
 <template>
   <div class="product-ku">
-    <div class="module">
-      <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover" @click.native="handleleDetail(item)">
-        <div class="content">
-          <div class="img">
-            <iep-img :src="item.imageUrl" alt></iep-img>
-          </div>
-          <div class="text">
-            <h4 class="item-title">{{item.name}}</h4>
-            <p class="con">{{item.synopsis}}</p>
-            <div class="header clearfix">
-              <span class="price">产品估值：¥{{item.valuation}}</span>
-            </div>
-          </div>
+    <div class="deletion-box">
+      <div class="codule-deletion">
+        按分类：
+        <div :class="productType==''?'color':''" class="piece-deletion" @click="tabProductType('')">全部</div>
+        <div v-for="(item) in cpmsProductType" :key="item.value" :class="productType==item.value?'color':''" class="piece-deletion" @click="tabProductType(item.value)">{{item.label}}</div>
+      </div>
+    </div>
+    <iep-no-data v-if="!moduleList.length"></iep-no-data>
+    <div class="my-products-box">
+      <el-card shadow="never" v-for="(item) in moduleList" :key="item.id" class="module-list">
+        <div @click="handleleDetail(item)">
+          <iep-img :src="item.imageUrl" style="width: 100px;height:100px;"></iep-img>
+          <hr>
+          <span class="name">{{item.name}}</span>
+          <p class="desc">{{item.synopsis}}</p>
+          <RouterLink class="inline change" :to="`/app/product_details/${item.id}`">详情介绍>
+          </RouterLink>
         </div>
       </el-card>
+
     </div>
-    <div class="page">
+    <!-- <div class="page">
       <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { getDetailsPage } from '@/api/app/cpms/channel'
 // import { putProductById } from '@/api/app/cpms/custom_module'
 
@@ -36,7 +42,16 @@ export default {
         size: 12,
       },
       total: 0,
+      productType: '',
     }
+  },
+  computed: {
+    ...mapGetters([
+      'dictGroup',
+    ]),
+    cpmsProductType () {
+      return this.dictGroup['PRODUCT_TYPE']
+    },
   },
   methods: {
     searchData (val) {
@@ -44,10 +59,12 @@ export default {
       this.paramForm = val
       this.getDetailsPage()
     },
+
     getDetailsPage () {
-      getDetailsPage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {
-        this.moduleList = data.data.records
+      getDetailsPage(Object.assign({}, this.params, this.paramForm, { type: this.productType })).then(({ data }) => {
+        const moduleList = data.data.records
         this.total = data.data.total
+        this.moduleList = moduleList.slice(0, 8)
       })
     },
     // handleProductClick (productId) {
@@ -55,10 +72,14 @@ export default {
     //     this.$emit('click-add')
     //   })
     // },
-    currentChange (val) {
-      this.params.current = val
+    tabProductType (val) {
+      this.productType = val
       this.getDetailsPage()
     },
+    // currentChange (val) {
+    //   this.params.current = val
+    //   this.getDetailsPage()
+    // },
     handleleDetail (row) {
       this.$router.push(`/app/product_detail/${row.id}`)
     },
@@ -69,110 +90,105 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
-.clearfix:before,
-.clearfix:after {
-  display: table;
-  content: "";
-}
-.clearfix:after {
-  clear: both;
-}
-.module {
-  display: grid;
-  margin: 25px 0;
-  grid-auto-flow: row dense;
-  grid-row-gap: 30px;
-  grid-column-gap: 30px;
-  grid-template-columns: minmax(100px, 3fr) minmax(100px, 3fr) minmax(
-      100px,
-      3fr
-    );
-  .module-item {
-    cursor: pointer;
-    .img {
-      margin-right: 15px;
-      width: 120px;
-      height: 120px;
-      border: 1px solid #dcdfe6;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-        transition: 0.5s;
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-    }
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      .price {
-        display: inline-block;
-        flex: 1;
-      }
+<style lang="scss" scoped>
+.my-products {
+  text-align: center;
+  .title {
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+    color: #333;
+    span {
+      font-size: 14px;
+      color: #999;
     }
   }
-  .content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    .text {
-      width: 55%;
-      .item-title {
-        max-width: 210px;
-        font-size: 16px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+  .products-btn {
+    width: 100%;
+  }
+  .products-deletion {
+    padding-left: 5px;
+  }
+  .codule-deletion,
+  .products-deletion {
+    text-align: left;
+    margin: 20px 0;
+    .piece-deletion {
+      display: inline;
+      padding: 2px 10px;
+      border-radius: 12px;
+      border: 1px solid #ffffff;
+      margin: 0 10px;
+      cursor: pointer;
+      &:hover {
+        background-color: #fef6f4;
+        border: 1px solid #dc8687;
+        color: #dc8687;
       }
-      .con {
-        height: 47px;
+    }
+    .color {
+      background-color: #fef6f4;
+      border: 1px solid #dc8687;
+      color: #dc8687;
+    }
+  }
+  .my-products-box {
+    width: 100%;
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    grid-template-columns:
+      minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
+      minmax(100px, 1fr);
+    .module-list {
+      text-align: center;
+      cursor: pointer;
+      &:hover {
+        background-color: #fafafa;
+      }
+      .iconfont {
+        font-size: 46px;
+        color: #999;
+        display: block;
+      }
+      hr {
+        margin: 20px 0 10px;
+      }
+      .name {
+        font-size: 16px;
+        color: #333;
+        line-height: 55px;
+      }
+      .desc {
+        line-height: 22px;
+        height: 44px;
+        color: #999;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
-        color: #999;
+      }
+      .change {
+        padding: 4px 20px;
+        border-radius: 3px;
+        font-size: 14px;
+        text-align: center;
+        color: #cb3737;
+        margin-left: 10px;
+        border: 1px solid #cb3737;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+        &:focus,
+        &:hover {
+          cursor: pointer;
+          background-color: #cb3737;
+          color: #fff;
+          outline: none;
+        }
       }
     }
   }
-}
-.page {
-  text-align: center;
-}
-</style>
-<style scoped>
-.header >>> .el-button {
-  padding: 0;
-  width: 22px;
-  height: 22px;
-  line-height: 22px;
-  border-radius: 50%;
-}
-.module >>> .el-tag--white {
-  border: 1px solid #dcdfe6;
-  height: 28px;
-  line-height: 26px;
-  background: #fff;
-  color: #606266;
-}
-.module >>> .el-card__body {
-  padding: 0;
-}
-.module >>> .el-card.module-item {
-  border: 1px solid #dcdfe6;
-}
-.img >>> .el-image {
-  width: 120px;
-  height: 120px;
-}
-.img >>> .el-image__inner {
-  width: 120px;
-  height: 120px;
 }
 </style>

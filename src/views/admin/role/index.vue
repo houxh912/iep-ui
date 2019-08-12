@@ -16,7 +16,9 @@
           <el-table-column label="角色名称">
             <template slot-scope="scope">
               <div>{{scope.row.roleName}}
-                <a-tag color="orange">{{_getStatus(scope.row)}}</a-tag>
+                <a-tag v-if="scope.row.isCommon===1" color="orange">通用</a-tag>
+                <a-tag v-else-if="scope.row.unionId!==0" color="pink">联盟角色</a-tag>
+                <a-tag v-else color="red">组织角色</a-tag>
               </div>
             </template>
           </el-table-column>
@@ -90,17 +92,6 @@ export default {
     ...mapGetters(['permissions']),
   },
   methods: {
-    _getStatus (row) {
-      if (row.isCommon === 1) {
-        return '通用'
-      } else {
-        if (row.unionId !== 0) {
-          return '组织角色'
-        } else {
-          return '联盟角色'
-        }
-      }
-    },
     async loadPage (param = this.searchForm) {
       await this.loadTable(param, fetchList)
     },

@@ -68,7 +68,7 @@ export default {
       height: 62px;
       .pieceTitle {
         margin-bottom: 10px;
-        line-height: 14px;
+        line-height: 18px;
         font-size: 16px;
         margin-right: 8px;
         display: -webkit-box;

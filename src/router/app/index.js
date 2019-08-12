@@ -199,6 +199,57 @@ export default [
         ],
       },
       {
+        path: 'newComers',
+        name: '新人必读',
+        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newComers/'),
+        meta: noAuth,
+        redirect: '/app/newComers/guidelines',
+        children: [
+          {
+            path: 'guidelines',
+            name: '新员工入职指南',
+            component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newComers/content'),
+            meta: noAuth,
+          },
+          {
+            path: 'publicityFilm',
+            name: '国脉集团宣传片',
+            component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newComers/content'),
+            meta: noAuth,
+          },
+          {
+            path: 'culture',
+            name: '公司文化',
+            component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newComers/content'),
+            meta: noAuth,
+          },
+          {
+            path: 'system',
+            name: '业务体系',
+            component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newComers/content'),
+            meta: noAuth,
+          },
+          {
+            path: 'operationalChart',
+            name: '业务作战图',
+            component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newComers/content'),
+            meta: noAuth,
+          },
+          {
+            path: 'specifications',
+            name: '内网个人信息填写规范',
+            component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newComers/content'),
+            meta: noAuth,
+          },
+          {
+            path: 'problems',
+            name: '内网常见问题',
+            component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/newComers/content'),
+            meta: noAuth,
+          },
+        ],
+      },
+      {
         path: 'personal_style/:id',
         name: '个人风采',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/personalStyle/'),

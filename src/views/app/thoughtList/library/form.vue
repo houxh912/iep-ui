@@ -50,7 +50,7 @@
         <div class="func" @click="handleAnt">
           <i class="symbol">@</i><p>提醒</p>
         </div>
-        <div class="func" @click="handleSubject" v-if="false">
+        <div class="func" @click="handleSubject">
           <i class="symbol">#</i><p>话题</p>
         </div>
         <div class="switch">
@@ -65,7 +65,7 @@
           </el-switch>
         </div>
         <div class="label">
-          <label>说说标签：</label>,
+          <label>说说标签：</label>
           <iep-tag v-model="formData.tags"></iep-tag>
         </div>
         <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">发布</iep-button>

@@ -15,6 +15,7 @@ const initForm = () => {
     tagKeyWords: [],
     content: '',
     image: '',
+    attributeId: '',
   }
 }
 const columnsMap = [

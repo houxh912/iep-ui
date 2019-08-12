@@ -181,10 +181,10 @@ export const relatedFormList = [{
   //   name: '关联的合同',
   //   ids: 'contractIds',
   //   list: 'contractList',
-  // }, {
-  //   name: '关联的项目',
-  //   ids: 'projectIds',
-  //   list: 'projectList',
+  }, {
+    name: '关联的项目',
+    ids: 'projectIds',
+    list: 'projectList',
   }, {
     name: '关联的项目周报',
     ids: 'reportIds',

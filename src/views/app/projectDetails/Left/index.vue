@@ -24,6 +24,17 @@ import Material from './Material/'
 import { getDataDetail } from '@/api/gpms/'
 
 export default {
+  beforeRouteUpdate (to, from, next) {
+    // console.log(to, from)
+    this.$nextTick(() => {
+      this.getDataDetail()
+    })
+    next()
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+  },
   components: { Basic, Approval, Material },
   data () {
     return {
@@ -38,8 +49,8 @@ export default {
     }
   },
   methods: {
-    getDataDetail (id) {
-      getDataDetail(id).then(({ data }) => {
+    getDataDetail () {
+      getDataDetail(this.$route.params.id).then(({ data }) => {
         let obj = data.data
         obj.publisherName = obj.publisherList ? obj.publisherList.name : ''
         obj.relatedClientName = obj.relatedClientList ? obj.relatedClientList.name : ''
@@ -51,7 +62,7 @@ export default {
     },
   },
   created () {
-    this.getDataDetail(this.$route.params.id)
+    this.getDataDetail()
   },
 }
 </script>

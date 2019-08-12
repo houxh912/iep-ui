@@ -495,6 +495,7 @@ export default {
           for (let item of this.relatedFormList) {
             form[item.ids] = this.formData[item.list].map(m => m.id)
           }
+          form.projectIds = this.formData.projectList.map(m => m.id)
           for (let item of mentorList) {
             form[item.name] = this.formData[item.list].id
           }

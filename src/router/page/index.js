@@ -20,16 +20,6 @@ export default [
     },
   },
   {
-    path: '/newlogin',
-    name: '登录页',
-    component: () => import('@/page/login/index'),
-    meta: {
-      keepAlive: false,
-      isTab: false,
-      isAuth: false,
-    },
-  },
-  {
     path: '/register',
     name: '注册页',
     component: () => import('@/page/register/index'),

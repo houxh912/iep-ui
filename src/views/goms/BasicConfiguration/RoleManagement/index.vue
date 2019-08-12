@@ -34,7 +34,7 @@ import {
   postOrgObj,
   delObj,
   getObj,
-  fetchList,
+  getOrgRolePage,
   fetchRoleTree,
   putObj,
 } from '@/api/admin/role'
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     async loadPage (param = this.searchForm) {
-      await this.loadTable(param, fetchList)
+      await this.loadTable(param, getOrgRolePage)
     },
     handleAdd () {
       this.$refs['DialogForm'].methodName = '创建'

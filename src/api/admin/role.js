@@ -15,6 +15,14 @@ export function fetchList (query) {
   })
 }
 
+export function getOrgRolePage (query) {
+  return request({
+    url: '/admin/role/org/page',
+    method: 'get',
+    params: query,
+  })
+}
+
 export function getUnionRolePage (query) {
   return request({
     url: '/admin/role/union/page',

@@ -20,16 +20,33 @@
       </div> -->
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" @click="handleAdd()" plain>订阅主题</iep-button>
-          <!-- <el-dropdown size="medium">
-            <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
-              <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
-              <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
-              <el-dropdown-item>分享</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown> -->
+          <iep-button type="primary" @click="handleAdd()" plain>订阅</iep-button>
+          <el-popover placement="bottom" width="600" trigger="click">
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="主题" name="first">
+                <el-transfer style="text-align: left; display: inline-block" v-model="themeList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消', '订阅']" :format="{
+        noChecked: '${total}',
+        hasChecked: '${checked}/${total}'
+      }" :data="POLICY_THEME" disabled>
+                  <span slot-scope="{ option }">{{ option.label }}</span>
+                </el-transfer>
+              </el-tab-pane>
+              <el-tab-pane label="行业" name="second">
+                <el-transfer style="text-align: left; display: inline-block" v-model="industryList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消', '订阅']" :format="{
+        noChecked: '${total}',
+        hasChecked: '${checked}/${total}'
+      }" :data="POLICY_INDUSTRY" disabled>
+                  <span slot-scope="{ option }">{{ option.label }}</span>
+                </el-transfer>
+              </el-tab-pane>
+              <el-tab-pane label="地域" name="third">
+                <div style="display: flex;" v-for="(item,i) in selectCityList" :key="i">
+                  <el-cascader style="flex: 1;" size="small" :props="cityProps" :value="item" :options="cityOption" disabled></el-cascader>
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+            <iep-button slot="reference">查看订阅</iep-button>
+          </el-popover>
         </template>
         <template slot="right">
           <el-radio-group v-model="type" size="small" @change="loadPage">
@@ -67,17 +84,31 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
-import { getPolicyPage } from '@/api/govdata/rss'
+import { getPolicyPage, getThemeList, getIndustryList, getRegionList } from '@/api/govdata/rss'
+import { region as cityOption } from '@/views/govdata/policyManage/region.js'
 import DialogForm from './DialogForm'
+import { mapGetters } from 'vuex'
 import DialogDetail from './DialogDetail'
 export default {
   components: { DialogForm, DialogDetail },
   mixins: [mixins],
   data () {
     return {
+      cityOption,
       dictsMap,
       columnsMap,
+      activeName: 'first',
       type: '*',
+      cityProps: {
+        value: 'code',
+        label: 'name',
+      },
+      props: {
+        key: 'value',
+      },
+      industryList: [],
+      themeList: [],
+      selectCityList: [],
       arrFlag: [],
       tabList: [
         {
@@ -102,7 +133,7 @@ export default {
         },
       ],
       rssType: [
-        { label: '国策订阅', value: '1' },
+        { label: '政策订阅', value: '1' },
       ],
       rssTitle: '政策订阅',
       selectType: '0',
@@ -110,6 +141,15 @@ export default {
         padding: 0,
       },
     }
+  },
+  computed: {
+    ...mapGetters(['dictGroup']),
+    POLICY_THEME () {
+      return this.dictGroup['POLICY_THEME']
+    },
+    POLICY_INDUSTRY () {
+      return this.dictGroup['POLICY_INDUSTRY']
+    },
   },
   created () {
     this.loadPage()
@@ -133,6 +173,15 @@ export default {
       this.loadPage()
     },
     loadPage (param = this.searchForm) {
+      getThemeList().then(({ data }) => {
+        this.themeList = data.data.map(m => m.value)
+      })
+      getIndustryList().then(({ data }) => {
+        this.industryList = data.data.map(m => m.value)
+      })
+      getRegionList().then(({ data }) => {
+        this.selectCityList = data.data.map(m => m.dictValueKey.split(','))
+      })
       const D = this.loadTable({ ...param, beforeDays: 3, policyType: this.type }, getPolicyPage)
       let publishTime = []
       D.then((data) => {

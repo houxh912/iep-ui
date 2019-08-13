@@ -46,7 +46,7 @@
       <IepDatePicker v-model="form.positiveTime" type="date" placeholder="选择日期"></IepDatePicker>
     </el-form-item>
     <el-form-item label="员工状态：" prop="status" class="form-half">
-      <el-select v-model="form.status" placeholder="请选择" clearable>
+      <el-select v-model="form.status" placeholder="请选择" :disabled="form.status===1" clearable>
         <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
         </el-option>
       </el-select>

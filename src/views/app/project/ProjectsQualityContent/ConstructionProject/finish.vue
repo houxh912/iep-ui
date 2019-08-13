@@ -1,11 +1,11 @@
 <template>
   <div class="construction">
-    <el-table :data="tableData" style="width: 100%">
+    <el-table :data="list" style="width: 100%">
       <el-table-column prop="projectName" label="项目名称" width="200">
       </el-table-column>
       <el-table-column prop="projectAmount" label="项目金额" width="180">
       </el-table-column>
-      <el-table-column prop="department" label="承接部门">
+      <el-table-column prop="projectType" label="承接部门">
       </el-table-column>
       <el-table-column prop="manager" label="项目经理" width="100">
       </el-table-column>
@@ -13,17 +13,19 @@
   </div>
 </template>
 <script>
-import { getProjectend } from '@/api/app/prms/'
 export default {
+  props: {
+    list: {
+      type: Array,
+    },
+  },
   data () {
     return {
       tableData: [],
     }
   },
   created () {
-    getProjectend().then(({ data }) => {
-      this.tableData = data.data.records.slice(0, 4)
-    })
+    
   },
 }
 </script>

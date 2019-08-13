@@ -1,108 +1,97 @@
 <template>
-  <div class="my-products">
-    <div class="title">产品系列</div>
-    <!-- <div class="title">我的产品<span>（{{num[0]}}）</span></div> -->
-    <div class="products-btn">
-      <!-- <el-button size="small">产品官网</el-button>
-      <el-button size="small">代理政策</el-button>
-      <el-button size="small">我要代理</el-button>
-      <el-button size="small">申请技术服务</el-button>
-      <el-button size="small">联合开发</el-button> -->
-      <!-- <el-button size="small" @click="()=>{this.$router.push('/app/resource/product_ku')}">产品定制</el-button> -->
-    </div>
+  <div class="product-ku">
     <div class="deletion-box">
       <div class="codule-deletion">
         按分类：
-        <div :class="moduleType==''?'color':''" class="piece-deletion" @click="tabModuleType('')">全部</div>
-        <div v-for="(item) in cpmsModuleType" :key="item.value" :class="moduleType==item.value?'color':''" class="piece-deletion" @click="tabModuleType(item.value)">{{item.label}}</div>
-      </div>
-      <div class="products-deletion">
-        按产品：
-        <div v-for="(item) in productList" :key="item.id" :class="productId==item.id?'color':''" class="piece-deletion" @click="tabProductId(item.id)">{{item.name}}</div>
+        <div :class="productType==''?'color':''" class="piece-deletion" @click="tabProductType('')">全部</div>
+        <div v-for="(item) in cpmsProductType" :key="item.value" :class="productType==item.value?'color':''" class="piece-deletion" @click="tabProductType(item.value)">{{item.label}}</div>
       </div>
     </div>
     <iep-no-data v-if="!moduleList.length"></iep-no-data>
     <div class="my-products-box">
       <el-card shadow="never" v-for="(item) in moduleList" :key="item.id" class="module-list">
-        <div @click="getDetail(item.id)">
+        <div @click="handleleDetail(item)">
           <iep-img :src="item.imageUrl" style="width: 100px;height:100px;"></iep-img>
           <hr>
           <span class="name">{{item.name}}</span>
           <p class="desc">{{item.synopsis}}</p>
-          <RouterLink class="inline change" :to="`/app/module_details/${item.id}`">详情介绍>
+          <RouterLink class="inline change" :to="`/app/product_details/${item.id}`">详情介绍>
           </RouterLink>
         </div>
       </el-card>
+
     </div>
+    <!-- <div class="page">
+      <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+    </div> -->
   </div>
 </template>
+
 <script>
 import { mapGetters } from 'vuex'
-import { getProductList } from '@/api/app/cpms/product'
-import { getModuleList } from '@/api/app/cpms/module'
+import { getDetailsPage } from '@/api/app/cpms/channel'
+// import { putProductById } from '@/api/app/cpms/custom_module'
+
 export default {
   data () {
     return {
-      moduleType: '',
-      productId: 0,
-      num: [18],
-      productList: [],
       moduleList: [],
+      paramForm: {},
+      params: {
+        current: 1,
+        size: 12,
+      },
+      total: 0,
+      productType: '',
     }
   },
   computed: {
     ...mapGetters([
       'dictGroup',
     ]),
-    cpmsModuleType () {
-      return this.dictGroup['cpms_module_type']
+    cpmsProductType () {
+      return this.dictGroup['PRODUCT_TYPE']
+    },
+  },
+  methods: {
+    searchData (val) {
+      this.params.current = 1
+      this.paramForm = val
+      this.getDetailsPage()
+    },
+
+    getDetailsPage () {
+      getDetailsPage(Object.assign({}, this.params, this.paramForm, { type: this.productType })).then(({ data }) => {
+        const moduleList = data.data.records
+        this.total = data.data.total
+        this.moduleList = moduleList.slice(0, 8)
+      })
+    },
+    // handleProductClick (productId) {
+    //   putProductById(productId).then(() => {
+    //     this.$emit('click-add')
+    //   })
+    // },
+    tabProductType (val) {
+      this.productType = val
+      this.getDetailsPage()
+    },
+    // currentChange (val) {
+    //   this.params.current = val
+    //   this.getDetailsPage()
+    // },
+    handleleDetail (row) {
+      this.$router.push(`/app/product_detail/${row.id}`)
     },
   },
   created () {
-    this.loadPage()
-  },
-  methods: {
-    async loadPage () {
-      this.loadProductList()
-      this.loadModuleList()
-    },
-    async loadModuleList () {
-      const { data } = await getModuleList({
-        type: this.moduleType,
-        productId: this.productId || undefined,
-      })
-      const moduleList = data.data
-      this.moduleList = moduleList.slice(0, 8)
-    },
-    async loadProductList () {
-      const { data } = await getProductList()
-      const productList = data.data
-      productList.unshift({
-        id: 0,
-        name: '全部',
-      })
-      this.productList = productList.slice(0, 4)
-    },
-    tabModuleType (val) {
-      this.moduleType = val
-      this.loadModuleList()
-    },
-    tabProductId (val) {
-      this.productId = val
-      this.loadModuleList()
-    },
-    getDetail (val) {
-      this.$router.push({
-        path: `/app/module_details/${val}`,
-      })
-    },
+    this.getDetailsPage()
   },
 }
 </script>
+
 <style lang="scss" scoped>
 .my-products {
-  grid-column-start: 1;
-  grid-column-end: 4;
   text-align: center;
   .title {
     height: 60px;
@@ -122,8 +111,6 @@ export default {
   }
   .codule-deletion,
   .products-deletion {
-    width: 50%;
-    float: left;
     text-align: left;
     margin: 20px 0;
     .piece-deletion {

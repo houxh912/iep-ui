@@ -1,11 +1,10 @@
 <template>
   <iep-app-layout class="products">
-    <banner></banner>
     <div class="content">
+      <banner></banner>
+      <dynamic></dynamic>
+      <visualization></visualization>
       <my-products></my-products>
-    </div>
-    <visualization></visualization>
-    <div class="content">
       <!-- <newcomers></newcomers> -->
       <institutional-document></institutional-document>
       <resources></resources>
@@ -20,7 +19,8 @@
 </template>
 <script>
 import Banner from './Banner'
-import MyProducts from './MyProducts'
+import Dynamic from './Dynamic'
+import MyProducts from './MyProducts/index'
 import Visualization from './Visualization'
 // import Newcomers from './Newcomers'
 import InstitutionalDocument from './InstitutionalDocument'
@@ -32,7 +32,7 @@ import Honor from './Honor'
 // import Task from './Task'
 import Suggest from './Suggest'
 export default {
-  components: { Banner, MyProducts, Visualization, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, Suggest },
+  components: { Banner, Dynamic, MyProducts, Visualization, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, Suggest },
   data () {
     return {
     }

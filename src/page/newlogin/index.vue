@@ -7,14 +7,14 @@
       <template class="top-right" slot="top-right">
         <span class="contact"><i class="iconfont icon-kefu"></i>在线客服小脉</span>
         <el-divider direction="vertical"></el-divider>
-        联系电话: <span class="num">0580-23566123</span>
+        联系电话: <span class="num">0580-2299669</span>
       </template>
     </top-wrapper>
     <div class="bg-container-wrapper">
       <div class="login-img-wrapper">
-        <img v-show="currentId === 0" class="animated fadeIn" src="/img/bg/wh1.png" alt="">
-        <img v-show="currentId === 1" class="animated fadeIn" src="/img/bg/wh2.png" alt="">
-        <img v-show="currentId === 2" class="animated fadeIn" src="/img/bg/wh3.png" alt="">
+        <img v-show="currentId === 0" class="animated fadeIn" src="/img/bg/wh1.webp" alt="">
+        <img v-show="currentId === 1" class="animated fadeIn" src="/img/bg/wh2.webp" alt="">
+        <img v-show="currentId === 2" class="animated fadeIn" src="/img/bg/wh3.webp" alt="">
       </div>
       <div></div>
       <div></div>

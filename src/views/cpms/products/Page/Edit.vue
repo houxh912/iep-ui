@@ -15,6 +15,9 @@
           <el-form-item label="产品名称：" prop="name" class="form-half">
             <el-input :maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
+          <el-form-item label="产品分类：" prop="type" class="form-half">
+            <iep-dict-select v-model="form.type" dict-name="PRODUCT_TYPE"></iep-dict-select>
+          </el-form-item>
           <el-form-item label="产品网址：" prop="website" class="form-half">
             <el-input :maxlength="2010" v-model="form.website"></el-input>
           </el-form-item>

@@ -108,7 +108,7 @@ export default {
       })
     },
     handleSome1 () {
-      this.$message('页面建设中')
+      this.$openPage('/wel/material/report')
     },
     handleSome2 () {
       this.$openPage('/wel/desktop')

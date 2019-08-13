@@ -110,21 +110,21 @@ export default {
     line-height: 40px;
     border-left: 3px solid #fafafa;
     &:hover {
-      border-color: #cb3737;
+      border-color: $--menu-color-primary;
     }
   }
 }
 .el-menu-item.is-active {
-  border-color: #cb3737;
-  background: #f9eae7;
-  color: #cb3737;
+  border-color: $--menu-color-primary;
+  background: $--menu-color-second;
+  color: $--menu-color-primary;
 }
 
 .el-menu-item {
   &:hover,
   &:focus {
-    background-color: #f9eae7;
-    color: #cb3737;
+    background-color: $--menu-color-second;
+    color: $--menu-color-primary;
   }
 }
 </style>

@@ -145,14 +145,14 @@ export default {
     .leadership {
       float: right;
       padding: 3px 6px;
-      border: 1px solid #ba1b21;
+      border: 1px solid $--color-primary;
       border-radius: 5px;
-      color: #ba1b21;
+      color: $--color-primary;
       font-size: 14px;
       cursor: pointer;
       &:hover {
         color: #fff;
-        background-color: #ba1b21;
+        background-color: $--color-primary;
       }
     }
     .content {

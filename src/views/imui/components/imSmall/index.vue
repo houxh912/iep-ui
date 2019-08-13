@@ -115,7 +115,7 @@ export default {
   height: 40px;
   width: 200px;
   padding: 0 20px;
-  background: #BA1B21;
+  background: $--color-primary;
   color: #FFFFFF;
   -webkit-box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
@@ -133,7 +133,7 @@ export default {
       line-height: 14px;
       border-radius: 7px;
       background: #FFFFFF;
-      color: #BA1B21;
+      color: $--color-primary;
     }
   }
 

@@ -20,8 +20,8 @@ export default {
     border: 1px solid #eee;
     color: #666;
     &:hover {
-      border: 1px solid #ba1b21;
-      color: #ba1b21;
+      border: 1px solid $--color-primary;
+      color: $--color-primary;
     }
   }
 }

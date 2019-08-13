@@ -66,7 +66,7 @@ export default {
   }
 }
 .red {
-  color: #ba1b21 !important;
+  color: $--color-primary !important;
 }
 .block-right {
   line-height: 48px;
@@ -80,7 +80,7 @@ export default {
     display: inline-block;
     margin-right: 20px;
     &:hover {
-      color: #ba1b21;
+      color: $--color-primary;
     }
   }
 }

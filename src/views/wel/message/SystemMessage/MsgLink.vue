@@ -28,7 +28,11 @@ export default {
   },
   methods: {
     handleOpen () {
-      this.$openPage(this.isCommon, 'url')
+      if (['11', '12', '13', '14'].includes(this.imsPathType.value)) {
+        this.$openPage(this.isCommon, 'url')
+      } else {
+        this.$openPage(this.isCommon)
+      }
     },
   },
 }

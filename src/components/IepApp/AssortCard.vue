@@ -46,7 +46,7 @@ export default {
       margin-top: -7px;
     }
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
     .assort {
       color: #999;

@@ -34,6 +34,7 @@ const Column = {
 const initForm = () => {
   return {
     id: '', // ID
+    type: '',
     imageUrl: '', // logo
     number: '', // 编号
     name: '', // 名称

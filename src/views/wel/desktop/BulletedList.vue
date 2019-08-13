@@ -89,7 +89,7 @@ export default {
     text-overflow: ellipsis;
     white-space: nowrap;
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
   }
 }

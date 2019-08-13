@@ -181,7 +181,7 @@ export default {
     .welcome-text {
       margin-left: 10px;
       font-size: 16px;
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
   }
   .user-position-box {
@@ -222,7 +222,7 @@ export default {
     }
     .task {
       cursor: pointer;
-      background: #f9eae7;
+      background: $--menu-color-second;
       padding: 0 10px;
       height: 30px;
       font-size: 14px;

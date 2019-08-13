@@ -133,7 +133,7 @@ export default {
   }
   .content {
     font-size: 24px;
-    color: #ba1b21;
+    color: $--color-primary;
   }
 }
 .info {

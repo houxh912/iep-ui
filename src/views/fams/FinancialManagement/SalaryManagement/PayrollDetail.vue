@@ -129,20 +129,20 @@ export default {
   },
 }
 </script>
-<style lang="css" scoped>
-.wages-details >>> .first-table.el-table--border td:nth-child(6) .cell,
-.wages-details >>> .first-table.el-table--border td:nth-child(7) .cell,
-.wages-details >>> .first-table.el-table--border td:nth-child(8) .cell {
-  color: #cb3737;
+<style lang="scss" scoped>
+.wages-details ::v-deep .first-table.el-table--border td:nth-child(6) .cell,
+.wages-details ::v-deep .first-table.el-table--border td:nth-child(7) .cell,
+.wages-details ::v-deep .first-table.el-table--border td:nth-child(8) .cell {
+  color: $--menu-color-primary;
 }
-.wages-details >>> .el-table {
+.wages-details ::v-deep .el-table {
   margin-bottom: 20px;
 }
-.wages-details >>> .el-table thead th {
+.wages-details ::v-deep .el-table thead th {
   background-color: #f5f7fa;
   text-align: center;
 }
-.wages-details >>> .el-table td {
+.wages-details ::v-deep .el-table td {
   text-align: center;
 }
 </style>

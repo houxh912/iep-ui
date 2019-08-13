@@ -75,7 +75,7 @@ export default {
   cursor: pointer;
   transition: all 0.5s;
   &:hover {
-    color: #cb3737;
+    color: $--menu-color-primary;
   }
 }
 .datas {

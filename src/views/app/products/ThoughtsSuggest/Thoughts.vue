@@ -1,43 +1,41 @@
 <template>
   <div class="suggest">
-    <IepAppTabCard :title="title">
-      <el-button class="btn" type="text" slot="right" @click="handleSubmit">产品有奖建议</el-button>
-      <div>
-        <div class="suggest-list">
-          <div v-for="(item,index) in suggestList" :key="index" class="piece">
-            <div @click="peopleDetail(item.userId)">
-              <iep-img :src="item.avatar" class="photo"></iep-img>
+    <div>
+      <div class="suggest-list">
+        <div v-for="(item,index) in suggestList" :key="index" class="piece">
+          <div @click="peopleDetail(item.userId)">
+            <iep-img :src="item.avatar" class="photo"></iep-img>
+          </div>
+          <div class="box">
+            <div class="piece-title">
+              <span class="name" @click="peopleDetail(item.userId)">{{item.userName}}</span>
+              <span class="time">{{item.createTime}}</span>
             </div>
-            <div class="box">
-              <div class="piece-title">
-                <span class="name" @click="peopleDetail(item.userId)">{{item.name}}</span>
-                <span class="time">{{item.sendTime}}</span>
-              </div>
-              <p class="feed">{{item.proposeContent}}</p>
-            </div>
+            <p class="feed">{{item.content}}</p>
           </div>
         </div>
       </div>
-    </IepAppTabCard>
+    </div>
   </div>
 </template>
 <script>
-import { getProposeList } from '@/api/app/cpms/channel'
+import { getTopicThoughts } from '@/api/cpms/thoughts'
 export default {
   data () {
     return {
-      title: '意见反馈',
       suggestList: [],
+      params: {
+        current: 1,
+        size: 10,
+        topicId: 40,
+      },
     }
   },
   methods: {
     loadList () {
-      getProposeList().then(({ data }) => {
-        this.suggestList = data.data
+      getTopicThoughts(this.params).then(({ data }) => {
+        this.suggestList = data.data.records.slice(0, 3)
       })
-    },
-    handleSubmit () {
-      this.$router.push('/hrms_spa/suggestion_new')
     },
     peopleDetail (val) {
       this.$router.push(`/app/personal_style/${val}`)
@@ -97,15 +95,5 @@ export default {
 <style scoped>
 .suggest >>> .el-card {
   height: 306px;
-}
-.suggest >>> .btn {
-  margin-right: 5px;
-  padding: 0;
-  height: 22px;
-  line-height: 22px;
-  color: #cb3737;
-}
-.suggest >>> .btn:hover {
-  opacity: 0.7;
 }
 </style>

@@ -41,3 +41,11 @@ export const getOrgCredit = () => {
     method: 'get',
   })
 }
+
+// 精彩瞬间
+export const getAlbumList = () => {
+  return request({
+    url: `${prefixUrl}/album/list`,
+    method: 'get',
+  })
+}

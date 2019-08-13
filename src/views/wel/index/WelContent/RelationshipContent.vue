@@ -103,7 +103,7 @@ li {
     font-size: 14px;
     cursor: pointer;
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
   }
 }

@@ -545,7 +545,7 @@ export default {
 }
 .grays {
   // background-color: #E4E4E4;
-  color: #ba1b21;
+  color: $--color-primary;
 }
 .sixsix {
   color: #717276;

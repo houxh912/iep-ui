@@ -160,10 +160,10 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .ant-tag {
   margin-left: 5px;
-  color: #ba1b21;
+  color: $--color-primary;
   background: #f8e8e9;
   border-color: #e3a4a6;
 }

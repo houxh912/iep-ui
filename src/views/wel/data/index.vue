@@ -1,7 +1,7 @@
 <template>
   <div class="data">
     <div class="test">
-      <p style="color:#ba1b21">数据频道正在建设中，敬请期待，本页面仅为样式效果演示</p>
+      <p style="color:red;">数据频道正在建设中，敬请期待，本页面仅为样式效果演示</p>
     </div>
     <div class="half">
       <performance></performance>

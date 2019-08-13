@@ -85,6 +85,7 @@ export default {
       size: '',
       count: '',
       pagedTable: [],
+      isLoadTable: false,
     }
   },
   computed: {
@@ -161,7 +162,7 @@ export default {
       font-size: 16px;
     }
     .count {
-      color: #ba1b21;
+      color: $--color-primary;
     }
   }
 }

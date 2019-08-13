@@ -1,5 +1,10 @@
 // org config options
 const dictsMap = {
+  status: {
+    0: '待审核',
+    1: '通过',
+    2: '未通过',
+  },
   schedule: {
     1: '立项',
     2: '研发中',
@@ -10,6 +15,16 @@ const dictsMap = {
 }
 
 const columnsMap = [
+  {
+    label: '研发进度',
+    prop: 'schedule',
+    type: 'dict',
+  },
+  {
+    label: '状态',
+    prop: 'status',
+    type: 'dict',
+  },
 ]
 
 const Column = {

@@ -1,6 +1,26 @@
 import { checkContactUsers } from '@/util/rules'
 
-const columnsMap = []
+const dictsMap = {
+  status: {
+    0: '待审核',
+    1: '通过',
+    2: '未通过',
+  },
+}
+
+const columnsMap = [
+  {
+    label: '上线时间',
+    prop: 'onlineTime',
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
+  },
+  {
+    label: '状态',
+    prop: 'status',
+    type: 'dict',
+  },
+]
 
 const Column = {
   id: '',
@@ -14,6 +34,7 @@ const Column = {
 const initForm = () => {
   return {
     id: '', // ID
+    type: '',
     imageUrl: '', // logo
     number: '', // 编号
     name: '', // 名称
@@ -103,4 +124,4 @@ const rules = {
   ],
 }
 
-export { columnsMap, Column, initForm, toDtoForm, initSearchForm, rules }
+export { columnsMap, Column, initForm, toDtoForm, initSearchForm, rules, dictsMap }

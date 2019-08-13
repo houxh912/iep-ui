@@ -482,11 +482,11 @@ export default {
         .activess {
           background: #f8e8e9;
           border-color: #e3a4a6;
-          color: #ba1b21;
+          color: $--color-primary;
         }
         .active {
-          background: #ba1b21;
-          border-color: #ba1b21;
+          background: $--color-primary;
+          border-color: $--color-primary;
           color: #fff;
         }
         .answerSheet {

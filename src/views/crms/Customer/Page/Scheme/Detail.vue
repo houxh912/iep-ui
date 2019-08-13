@@ -70,7 +70,7 @@ export default {
   margin-right: 20px;
   cursor: pointer;
   &:hover {
-    color: #ba1b21;
+    color: $--color-primary;
   }
 }
 </style>

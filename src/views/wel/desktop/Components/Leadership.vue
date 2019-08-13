@@ -50,7 +50,7 @@ export default {
           this.loadState = true
           createEmail(this.form).then(() => {
             this.$message({
-              message: '分享成功',
+              message: '操作成功',
               type: 'success',
             })
             this.loadState = false

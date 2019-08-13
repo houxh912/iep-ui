@@ -47,19 +47,19 @@ export default {
 }
 </style>
 
-<style lang="css" scoped>
-.evaluation >>> ::-webkit-scrollbar {
+<style lang="scss" scoped>
+.evaluation ::v-deep ::-webkit-scrollbar {
   border-radius: 10px;
   width: 5px;
   background-color: #fafafa;
 }
-.evaluation >>> ::-webkit-scrollbar-track {
+.evaluation ::v-deep ::-webkit-scrollbar-track {
   border-radius: 10px;
   background-color: #fafafa;
   -webkit-transition: 0.3s background-color;
   transition: 0.3s background-color;
 }
-.evaluation >>> ::-webkit-scrollbar-thumb {
+.evaluation ::v-deep ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #ddd;
   -webkit-transition: 0.3s background-color;
@@ -68,45 +68,46 @@ export default {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
-.evaluation >>> .block:hover ::-webkit-scrollbar-thumb {
+.evaluation ::v-deep .block:hover ::-webkit-scrollbar-thumb {
   display: block;
 }
-.evaluation >>> .el-timeline-item__node--normal {
+.evaluation ::v-deep .el-timeline-item__node--normal {
   top: 4px;
   left: 1px;
   width: 8px;
   height: 8px;
 }
-.evaluation >>> .el-timeline-item__tail {
+.evaluation ::v-deep .el-timeline-item__tail {
   left: 5px;
 }
-.evaluation >>> .el-timeline-item__content {
+.evaluation ::v-deep .el-timeline-item__content {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.evaluation >>> .block {
+.evaluation ::v-deep .block {
   padding: 5px 0;
 }
-.evaluation >>> .el-timeline-item {
+.evaluation ::v-deep .el-timeline-item {
   padding-bottom: 5px;
 }
-.evaluation >>> .el-timeline-item:hover .el-timeline-item__node {
-  border-color: #cb3737;
-  background-color: #cb3737;
+.evaluation ::v-deep .el-timeline-item:hover .el-timeline-item__node {
+  border-color: $--menu-color-primary;
+  background-color: $--menu-color-primary;
 }
-.evaluation >>> .el-timeline-item:hover .el-timeline-item__content {
-  color: #cb3737;
+.evaluation ::v-deep .el-timeline-item:hover .el-timeline-item__content {
+  color: $--menu-color-primary;
 }
-.evaluation >>> .el-timeline-item:last-child {
+.evaluation ::v-deep .el-timeline-item:last-child {
   padding: 0;
 }
-.evaluation >>> .el-timeline-item__node {
+.evaluation ::v-deep .el-timeline-item__node {
   background-color: #fff;
   border: 1px solid #d7d7d7;
 }
 .evaluation
-  >>> .el-timeline
+  ::v-deep
+  .el-timeline
   .el-timeline-item:last-child
   .el-timeline-item__tail {
   display: block;

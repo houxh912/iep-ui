@@ -25,6 +25,20 @@ export function putProduct (obj) {
   })
 }
 
+export function passProduct (id) {
+  return request({
+    url: `${prefixUrl}/audit_agree/${id}`,
+    method: 'post',
+  })
+}
+
+export function rejectProduct (id) {
+  return request({
+    url: `${prefixUrl}/audit_disagree/${id}`,
+    method: 'post',
+  })
+}
+
 export function getProductById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

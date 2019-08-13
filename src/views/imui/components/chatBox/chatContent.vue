@@ -520,7 +520,7 @@ export default {
           i {
             margin-left: 10px;
             &:hover {
-              color: #ba1b21;
+              color: $--color-primary;
             }
           }
         }
@@ -638,12 +638,12 @@ export default {
               z-index: 1;
               .icon-chenggong3 {
                 font-size: 20px;
-                color: #ba1b21;
+                color: $--color-primary;
               }
               .not-check {
                 height: 20px;
                 width: 20px;
-                border: 1px solid #ba1b21;
+                border: 1px solid $--color-primary;
                 border-radius: 10px;
               }
             }
@@ -685,7 +685,7 @@ export default {
                 justify-content: center;
                 align-items: flex-start;
                 font-size: 12px;
-                color: #ba1b21;
+                color: $--color-primary;
               }
               .headimage {
                 flex: 0 0 40px;
@@ -737,7 +737,7 @@ export default {
               vertical-align: middle;
               padding: 0 20px;
               border-radius: 3px;
-              background: #ba1b21;
+              background: $--color-primary;
               cursor: pointer;
               color: #ffffff;
               &:hover {

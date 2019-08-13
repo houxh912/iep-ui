@@ -10,6 +10,7 @@ function initContentForm () {
     title: '',
     orgName: '',
     realName: '',
+    userId: 0,
     createTime: '',
     visitingUser: [],
     meetingContent: '',//会议内容

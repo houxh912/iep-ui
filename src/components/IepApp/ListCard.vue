@@ -50,9 +50,9 @@ export default {
       margin-top: -7px;
     }
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
       &:before {
-        background-color: #cb3737;
+        background-color: $--menu-color-primary;
       }
     }
     &:before {

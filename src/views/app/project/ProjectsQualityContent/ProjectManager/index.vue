@@ -49,6 +49,9 @@ export default {
         current: 1,
         size: 7,
       },
+      projectParmas: {
+        type: 'manager',
+      },
       list: [],
       activeIndex: -1,
       activeTab: 'ProjectManager',
@@ -56,26 +59,24 @@ export default {
     }
   },
   methods: {
-    getProjectEmployee (obj) {
-      getProjectEmployee(obj).then(({ data }) => {
+    getProjectEmployee () {
+      getProjectEmployee(this.projectParmas).then(({ data }) => {
         this.list = data.data
       })
     },
-    activeTag (index, tag) {
+    activeTag (index, tagId) {
       if (index === this.activeIndex) {
         this.activeIndex = -1
-        tag = ''
+        tagId = ''
       } else {
         this.activeIndex = index
       }
       // 根据返回的数据进行项目经理的查询
-      let obj = {
-        type: this.activeTab === 'ProjectManager' ? 'manager' : 'mentor',
-        tag: tag,
-      }
-      this.getProjectEmployee(obj)
+      this.projectParmas.tagId = tagId
+      this.getProjectEmployee()
     },
     handleFresh () {
+      this.activeIndex = -1
       this.params.current += 1
       this.loadPage()
     },
@@ -88,6 +89,12 @@ export default {
   },
   created () {
     this.loadPage()
+  },
+  watch: {
+    activeTab (newVal) {
+      this.projectParmas.type = newVal === 'ProjectManager' ? 'manager' : 'mentor',
+      this.getProjectEmployee()
+    },
   },
 }
 </script>

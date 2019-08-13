@@ -4,7 +4,7 @@
     <div class="manager">
       <div class="card">
         <div class="tags">
-          <el-tag :type="activeIndex === index ? 'danger' : 'info'" v-for="(item, index) in tagList" :key="index" @click="activeTag(index, item.name)">{{item.name}}</el-tag>
+          <el-tag :type="activeIndex === index ? 'danger' : 'info'" v-for="(item, index) in tagList" :key="index" @click="activeTag(index, item.id)">{{item.name}}</el-tag>
         </div>
         <div class="fresh" @click="handleFresh">
           <i class="el-icon-refresh" :class="isLoading ? 'fresh-icon' : ''"></i>换一批
@@ -65,8 +65,8 @@ export default {
       this.isLoading = true
       this.$emit('fresh', true)
     },
-    activeTag (index, name) {
-      this.$emit('activeTag', index, name)
+    activeTag (index, id) {
+      this.$emit('activeTag', index, id)
     },
   },
 }

@@ -3,7 +3,12 @@
     <!-- <IepNoData></IepNoData> -->
     <div class="manager">
       <div class="card">
-        <el-tag type="info" v-for="(item, index) in tagList" :key="index">{{item.name}}</el-tag>
+        <div class="tags">
+          <el-tag :type="activeIndex === index ? 'danger' : 'info'" v-for="(item, index) in tagList" :key="index" @click="activeTag(index, item.id)">{{item.name}}</el-tag>
+        </div>
+        <div class="fresh" @click="handleFresh">
+          <i class="el-icon-refresh" :class="isLoading ? 'fresh-icon' : ''"></i>换一批
+        </div>
       </div>
       <div class="module">
         <el-card class="module-item" v-for="(item,index) in list" :key="index" shadow="hover">
@@ -26,17 +31,24 @@
 </template>
 
 <script>
-import { getProjectEmployee, getProjectByemployee } from '@/api/app/prms/'
+import { getProjectByemployee } from '@/api/app/prms/'
 export default {
   props: {
     tagList: {
       default: [],
     },
+    list: {
+      default: [],
+    },
+    activeIndex: {
+      type: Number,
+      default: -1,
+    },
   },
   data () {
     return {
-      list: [],
       projectList: [],
+      isLoading: false,
     }
   },
   methods: {
@@ -48,11 +60,14 @@ export default {
     handleProjectLeave () {
       this.projectList = []
     },
-  },
-  created () {
-    getProjectEmployee({ type: 'mentor' }).then(({ data }) => {
-      this.list = data.data.records.slice(0, 4)
-    })
+    // 换一批
+    handleFresh () {
+      this.isLoading = true
+      this.$emit('fresh', true)
+    },
+    activeTag (index, id) {
+      this.$emit('activeTag', index, id)
+    },
   },
 }
 </script>
@@ -63,11 +78,42 @@ export default {
     height: 32px;
     margin-bottom: 10px;
     overflow: hidden;
-    .el-tag {
+    display: flex;
+    .tags {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
       margin-right: 10px;
+      .el-tag {
+        margin-right: 10px;
+        cursor: pointer;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+    .fresh {
+      background-color: #eee;
+      border-radius: 15px;
+      width: 100px;
+      line-height: 30px;
+      text-align: center;
       cursor: pointer;
-      &:last-child {
-        margin-right: 0;
+      i {
+        margin-right: 10px;
+      }
+      .fresh-icon {
+        animation: que 2s linear infinite;
+      }
+      @keyframes que {
+        /*以百分比来规定改变发生的时间 也可以通过"from"和"to",等价于0% 和 100%*/
+        0%{
+          /*rotate(2D旋转) scale(放大或者缩小) translate(移动) skew(翻转)*/
+          transform: rotate(360deg);
+        }
+        100%{
+          transform: rotate(0deg);
+        }
       }
     }
   }

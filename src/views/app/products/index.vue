@@ -13,7 +13,7 @@
       <honor></honor>
       <!-- <bounty-mission></bounty-mission> -->
       <!-- <task></task> -->
-      <suggest></suggest>
+      <thoughts-suggest></thoughts-suggest>
     </div>
   </iep-app-layout>
 </template>
@@ -30,9 +30,9 @@ import Optimal from './Optimal'
 import Honor from './Honor'
 // import BountyMission from './BountyMission/'
 // import Task from './Task'
-import Suggest from './Suggest'
+import ThoughtsSuggest from './ThoughtsSuggest'
 export default {
-  components: { Banner, Dynamic, MyProducts, Visualization, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, Suggest },
+  components: { Banner, Dynamic, MyProducts, Visualization, InstitutionalDocument, Resources, NewTechnology, Optimal, Honor, ThoughtsSuggest },
   data () {
     return {
     }

@@ -4,7 +4,7 @@
       <collapse-form ref="collapseForm" @clear="formInline=initFormInline()" @search="search()">
         <template slot="search-header">
           <el-form-item label="政策标题:">
-            <el-input placeholder="请输入政策标题" v-model.trim="formInline.title" clearable></el-input>
+            <el-input placeholder="请输入政策标题" v-model.trim="formInline.description" clearable></el-input>
           </el-form-item>
         </template>
       </collapse-form>
@@ -45,7 +45,7 @@ import collapseForm from '@/components/deprecated/collapse-form'
 import dialogMixins from '@/mixins/deprecated/dialog_mixins'
 import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 import dialogForm from './dialog-form'
-import { getInformationPage, deleteInformationById } from '@/api/govdata/information'
+import { getPacketPage, deletePacket } from '@/api/govdata/policy_packet'
 const columnMap = [
   {
     prop: 'title',
@@ -81,10 +81,10 @@ const columnMap = [
 ]
 function initFormInline () {
   return {
-    title: '',
-    username: '',
-    startTime: '',
-    endTime: '',
+    description: '',
+    // username: '',
+    // startTime: '',
+    // endTime: '',
   }
 }
 function initForm () {
@@ -116,6 +116,10 @@ export default {
       isReadonly: false,
       isNeedConfirm: true,
       permissionDelete: false,
+      pageOptions:{
+        current: 1,
+        size: 10,
+      },
     }
   },
   computed: {
@@ -133,11 +137,12 @@ export default {
     /**
      * 获取政策列表数据
      */
-    load (pageOption = this.pageOption, params = this.params) {
+    load (pageOption = this.pageOptions, params = this.params) {
+      console.log('dd',pageOption)
       this.isLoadTable = false
       this.editDialogShow = false
       this.dialogShow = false
-      getInformationPage({ ...params, ...pageOption }).then(res => {
+      getPacketPage({ ...params, ...pageOption }).then(res => {
         const { data } = res
         this.loadTable(data)
       })
@@ -193,7 +198,7 @@ export default {
      */
     handleDelete (rows) {
       const id = rows.id
-      this._handleGlobalDeleteById([id], deleteInformationById)
+      this._handleGlobalDeleteById([id], deletePacket)
     },
 
   },

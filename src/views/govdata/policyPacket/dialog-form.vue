@@ -4,10 +4,6 @@
       <el-input v-model="formData.taskName" maxlength="255" :readonly="isReadonly"></el-input>
     </el-form-item>
 
-    <!-- <el-form-item label="政策url" prop="url">
-      <el-input v-model="formData.url" maxlength="255" :readonly="isReadonly"></el-input>
-    </el-form-item> -->
-
     <el-form-item label="红包政策" class="formWidth" prop="dispatchList">
       <mutiply-select class="mutiplySelect" v-model="formData.dispatchList" :selectObjs="formData.dispatchsList" :options="政策options" :otherProps="orgOption" v-if="!isReadonly"></mutiply-select>
       <el-select style="width: 100%" v-model="formData.dispatchList" multiple disabled v-else>
@@ -15,13 +11,6 @@
         </el-option>
       </el-select>
     </el-form-item>
-
-    <!-- <el-form-item label="红包政策" prop="id">
-      <el-select style="width: 100%" v-model="tagValue" multiple placeholder="请选择" :disabled="isReadonly">
-        <el-option v-for="item in resdata" :key="item.value" :label="item.label" :value="item.value">
-        </el-option>
-      </el-select>
-    </el-form-item> -->
 
     <div class="code-box">
       <div class="label">二维码</div>

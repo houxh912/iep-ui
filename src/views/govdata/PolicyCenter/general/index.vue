@@ -142,9 +142,9 @@
                 标签:
                 <el-tag type="info" v-for="(item, index) in item.tagList" :key="index">{{item.commonName}}</el-tag>
               </div>
-              <div class="comparison">
+              <!-- <div class="comparison">
                 <el-button plain type="danger" size="mini" icon="el-icon-sort">比对</el-button>
-              </div>
+              </div> -->
             </div>
 
             <div class="page-wrapper">
@@ -156,7 +156,7 @@
 
         <el-col :span="6">
           <div class="right">
-            <div class="title">热门政策<span @click="changeData">换一换</span></div>
+            <div class="title">推荐政策<span @click="changeData">换一换</span></div>
             <hr style="margin:-5px 20px">
             <div class="hotPolicy">
               <el-row v-for="(item,index) in policyList" :key="index">

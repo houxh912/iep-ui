@@ -2,13 +2,13 @@
  * 新增政策红包API请求接口
  */
 import request from '@/router/axios'
-const prefixUrl = '/gov'
+const prefixUrl = '/go'
 
 
 // 查看政策红包分页
 export function getPacketPage (params) {
     return request({
-        url: `${prefixUrl}/policy/explain/pageConsole`,
+        url: `${prefixUrl}/redEnvelope/page`,
         method: 'get',
         params: params,
         // headers: {

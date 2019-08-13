@@ -5,7 +5,8 @@
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
           <span style="margin-right:15px;">组织：{{form.orgName}}</span>
-          <span style="margin-right:15px;">发布人：{{form.realName}}</span>
+          <span style="margin-right:15px;">发布人: <iep-hover-card v-if="form.realName" :obj="sender"></iep-hover-card>
+          </span>
           <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
         <!-- <template slot="right">
@@ -38,6 +39,7 @@
 function initForm () {
   return {
     projectName: '',
+    userId: 0,
     realName: '',
     orgName: '',
     clientRqmt: '',
@@ -62,6 +64,10 @@ export default {
         orgId: '',
         userId: '',
       },
+      sender: {
+        id: 0,
+        name: '',
+      },
     }
   },
   computed: {
@@ -75,10 +81,13 @@ export default {
   methods: {
     loadPage () {
       getProjectReportById(this.id).then(({ data }) => {
-        this.form = this.$mergeByFirst(initForm(), data.data)
-        this.reportInfo.time = data.data.createTime
-        this.reportInfo.orgId = data.data.orgId
-        this.reportInfo.userId = data.data.userId
+        const newData = data.data
+        this.form = this.$mergeByFirst(initForm(), newData)
+        this.sender.id = newData.userId
+        this.sender.name = newData.realName
+        this.reportInfo.time = newData.createTime
+        this.reportInfo.orgId = newData.orgId
+        this.reportInfo.userId = newData.userId
       })
     },
     // dataReduce () {

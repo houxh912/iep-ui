@@ -23,13 +23,13 @@
           </div>
           <div class="user-operation-box">
             <div class="operation-box-con">
-              <span class="inline task" @click="handleSome1()">
+              <!-- <span class="inline task" @click="handleSome1()">
                 <i class="icon-qian icon padding"></i>
                 <span>完成每日工作，领国脉贝
                   <i class="el-icon-d-arrow-right"></i>
                 </span>
-              </span>
-              <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
+              </span> -->
+              <iep-button type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
               <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
             </div>
             <div class="user-tags-box">

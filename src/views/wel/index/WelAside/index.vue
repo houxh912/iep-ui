@@ -5,7 +5,7 @@
     <!-- 我要找 -->
     <my-find />
     <!-- 我的财富 -->
-    <my-treasure />
+    <!-- <my-treasure /> -->
     <!-- 我的机会 -->
     <my-chance ref="myChance" :opportunity="opportunity" />
     <!-- 收到评价 -->
@@ -18,12 +18,12 @@
 import { getAside } from '@/api/wel/index'
 import MyCreated from './MyCreated'
 import MyFind from './MyFind'
-import MyTreasure from './MyTreasure'
+// import MyTreasure from './MyTreasure'
 import MyChance from './MyChance'
 // import ReceiveEvaluation from './ReceiveEvaluation'
 import MyData from './MyData'
 export default {
-  components: { MyCreated, MyFind, MyTreasure, MyChance, MyData },
+  components: { MyCreated, MyFind, MyChance, MyData },
   data () {
     return {
       opportunity: [],

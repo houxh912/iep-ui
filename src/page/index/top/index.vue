@@ -8,8 +8,8 @@
     </template>
     <template slot="top-right">
       <top-search-icon></top-search-icon>
-      <top-scan></top-scan>
-      <top-guide></top-guide>
+      <!-- <top-scan></top-scan>
+      <top-guide></top-guide> -->
       <top-chat></top-chat>
       <top-message></top-message>
       <top-email></top-email>
@@ -23,8 +23,8 @@ import TopLogo from '@/page/Components/TopLogo'
 import TopNavbar from './TopNavbar'
 import TopMessage from './TopMessage'
 import TopEmail from './TopEmail'
-import TopGuide from './TopGuide'
-import TopScan from './TopScan'
+// import TopGuide from './TopGuide'
+// import TopScan from './TopScan'
 import TopSearchIcon from './TopSearchIcon'
 import TopUser from './TopUser'
 import TopChat from './TopChat'
@@ -36,8 +36,8 @@ export default {
     TopMessage,
     TopEmail,
     TopSearchIcon,
-    TopGuide,
-    TopScan,
+    // TopGuide,
+    // TopScan,
     TopUser,
     TopChat,
   },

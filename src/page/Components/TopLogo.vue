@@ -1,7 +1,7 @@
 <template>
   <div class="logo-wrapper">
     <div class="logo" @click="$openPage('/')"></div>
-    <a-dropdown>
+    <!-- <a-dropdown>
       <a>
         国脉智慧平台
         <a-icon type="down" />
@@ -11,7 +11,7 @@
           {{v.name}}
         </a-menu-item>
       </a-menu>
-    </a-dropdown>
+    </a-dropdown> -->
   </div>
 </template>
 

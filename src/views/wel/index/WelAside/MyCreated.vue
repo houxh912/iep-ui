@@ -3,7 +3,7 @@
     <div class="title">我要创建</div>
     <div class="created-content">
       <div class="handelCreate" :class="item.disabled" v-for="(item,index) in dataList" :key="index" @click="item.callback">{{item.title}}</div>
-      <div class="add"><i class="el-icon-plus"></i></div>
+      <!-- <div class="add"><i class="el-icon-plus"></i></div> -->
     </div>
   </div>
 </template>
@@ -74,7 +74,14 @@ export default {
           },
         },
         {
-          title: '建模',
+          title: '',
+          callback: () => {
+            this.$message('功能开发中')
+          },
+          disabled: 'disabled',
+        },
+        {
+          title: '',
           callback: () => {
             this.$message('功能开发中')
           },

@@ -16,7 +16,7 @@ RouterPlugin.install = function (router, store) {
   this.$router.$avueRouter = {
     // 全局配置
     $website: this.$store.getters.website,
-    $defaultTitle: '国脉内部智慧平台',
+    $defaultTitle: '国脉我能智慧平台',
     routerList: [],
     group: '',
     safe: this,

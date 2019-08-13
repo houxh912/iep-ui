@@ -5,7 +5,7 @@ export function timeFix () {
 }
 
 export function welcome () {
-  const arr = ['国脉人，人人都要成为专家！', '国脉智慧，成就客户！', '以奋斗者为本，做智慧国脉系！']
+  const arr = ['智慧组织，遇见未来']
   const index = Math.floor(Math.random() * arr.length)
   return arr[index]
 }

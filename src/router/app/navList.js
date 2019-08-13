@@ -1,42 +1,36 @@
 const navList = [
   {
     id: '/app/index',
-    name: '首页',
+    name: '平台首页',
   }, {
     id: '/app/person',
-    name: '国脉人',
+    name: '头条新知',
   }, {
     id: '/app/resource',
-    name: '资源',
+    name: '上级合作',
     show: 'show',
   }, {
     id: '/app/products',
-    name: '产品',
+    name: '方案实例',
   }, {
     //   id: '/app/news',
     //   name: '要闻',
     // }, {
     id: '/app/data',
-    name: '数据',
+    name: '师傅专家',
   }, {
     id: '/app/wealth',
-    name: '财富',
+    name: '数据资产',
   }, {
-    id: '/app/more_thoughts',
-    name: '说说',
+    id: '/app/project',
+    name: '学堂考试',
   }, {
     //   id: '/app/policyCenter',
     //   name: '政策中心',
     //   show: 'show',
     // }, {
-    id: '/app/project',
-    name: '项目',
-  }, {
-    id: '/app/college',
-    name: '学堂',
-  }, {
-    id: '/app/brand',
-    name: '品牌',
+    id: '/app/more_thoughts',
+    name: '我要说说',
   },
 ]
 const navPathList = navList.map(m => m.id)

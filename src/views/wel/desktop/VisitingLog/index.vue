@@ -24,7 +24,7 @@
           </el-table-column>
           <el-table-column label="发布时间">
             <template slot-scope="scope">
-              {{scope.row.createTime|parseToDay}}
+              {{scope.row.visitingObject|parseToDay}}
             </template>
           </el-table-column>
         </template>

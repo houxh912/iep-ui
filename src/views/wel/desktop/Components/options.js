@@ -24,7 +24,7 @@ const initForm = () => {
     summaryIds: [],
     summaryList: [],
     tagKeyWords: [],
-    type: 2, // 类型为分享
+    type: 1, // 类型为批示
     kind: 0,
   }
 }

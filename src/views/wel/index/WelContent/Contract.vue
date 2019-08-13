@@ -69,6 +69,6 @@ export default {
   min-height: 24px;
 }
 .el-row:hover .el-col .name {
-  color: #cb3737;
+  color: $--menu-color-primary;
 }
 </style>

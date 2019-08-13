@@ -8,7 +8,7 @@
         <el-collapse v-model="activeNames">
           <el-collapse-item name="1">
             <template slot="title">
-              <i class="header-icon el-icon-info"></i> 基础信息
+              基础信息
             </template>
             <iep-form-item class="form-half" prop="name" label-name="姓名" tip="请务必根据本人身份证上的姓名全称填写">
               <el-input v-model="form.name"></el-input>
@@ -144,9 +144,12 @@
               <inline-form-table :table-data="form.userCert" :columns="certificateColumns" requestName="certificate" type="talent_pool" :rid="form.id" @load-page="submitForm"></inline-form-table>
             </el-form-item>
           </el-collapse-item>
-          <el-collapse-item v-if="methodName !=='新增'" title="附件上传" name="5">
+          <el-collapse-item title="附件上传" name="5">
             <el-form-item label="附件上传：">
               <iep-upload v-model="form.attach"></iep-upload>
+            </el-form-item>
+            <el-form-item label="备注：">
+              <iep-input-area v-model="form.postscript"></iep-input-area>
             </el-form-item>
           </el-collapse-item>
         </el-collapse>

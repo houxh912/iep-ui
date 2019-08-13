@@ -4,7 +4,7 @@
       <div class="head">
         <div class="title">组织工作月报<span class="date">{{getYearMonth(formData.timeStamp)}}</span></div>
         <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本月周报</a></div>
-        <div class="tips update" v-else @click="handleUpdate"><i class="el-icon-edit"></i></div>
+        <div class="tips update" v-else-if="permission_edit" @click="handleUpdate"><i class="el-icon-edit"></i></div>
       </div>
       <div class="content">
         <el-form ref="form" v-if="dislogState!=='detail'" :model="formData">
@@ -98,6 +98,7 @@
 import { getDateStr, getWeekStartAndEnd } from '../util'
 import { updateData, createData, getTableData } from '@/api/mlms/material/report/organize'
 import RelationDialog from './relationDialog'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -108,6 +109,7 @@ export default {
   },
   components: { RelationDialog },
   computed: {
+    ...mapGetters(['permissions']),
   },
   data () {
     return {
@@ -128,6 +130,7 @@ export default {
         product: 'productList',
       },
       submitMsg: '',
+      permission_edit: false,
     }
   },
   methods: {
@@ -220,6 +223,9 @@ export default {
       this.formData[this.relationObj[type]] = list
     },
   },
+  created () {
+    this.permission_edit = this.permissions['mlms_report_orgwm_edit']
+  },
   watch: {
     data (newVal) {
       this.formData = {
@@ -264,7 +270,7 @@ export default {
         margin-right: 3px;
         color: #999;
         .href {
-          color: #ba1b21;
+          color: $--color-primary;
           cursor: pointer;
         }
       }

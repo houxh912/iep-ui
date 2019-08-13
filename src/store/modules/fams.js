@@ -3,7 +3,7 @@ const fams = {
   state: {
     rewardDialogShow: false,
     withdrawableCash: 0,
-    ARewardedPerson: {id: '', name: ''},
+    ARewardedPerson: { id: '', name: '' },
     invoiceDialogShow: false,
     billingDialogShow: false,
 
@@ -24,8 +24,8 @@ const fams = {
     },
   },
   actions: {
-    famsReward ({ commit }, person = {id: '', name: ''}) {
-      getTotal().then(({data}) => {
+    famsReward ({ commit }, person = { id: '', name: '' }) {
+      getTotal().then(({ data }) => {
         if (data.data) {
           commit('SET_WITHDRAWABLE_CASH', {
             withdrawableCash: data.data.withdrawableCash,

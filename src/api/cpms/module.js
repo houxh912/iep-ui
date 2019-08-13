@@ -25,6 +25,20 @@ export function putModule (obj) {
   })
 }
 
+export function passModule (id) {
+  return request({
+    url: `${prefixUrl}/audit_agree/${id}`,
+    method: 'post',
+  })
+}
+
+export function rejectModule (id) {
+  return request({
+    url: `${prefixUrl}/audit_disagree/${id}`,
+    method: 'post',
+  })
+}
+
 export function getModuleById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

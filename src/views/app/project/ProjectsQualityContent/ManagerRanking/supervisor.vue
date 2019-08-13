@@ -3,11 +3,11 @@
     <div class="thoughtsList">
       <div v-for="(item,index) in thoughtsList" :key="index" class="piece">
         <div class="img-con">
-          <iep-img :src="item.img" class="img"></iep-img>
+          <iep-img :src="item.projectMentorAvatar" class="img"></iep-img>
         </div>
         <div class="box">
           <div class="pieceTitle">
-            <span class="name">{{item.projectManagerName}}</span>
+            <span class="name">{{item.projectMentorName}}</span>
           </div>
           <p class="feed">担任次数：{{item.projectCount}}</p>
         </div>

@@ -159,3 +159,11 @@ export function getTopicThoughts (obj) {
     params: obj,
   })
 }
+
+// 根据id置顶指定说说
+export function topUpThoughts (obj) {
+  return request({
+    url: `${prefixUrl}/topUp/${obj.id}`,
+    method: 'post',
+  })
+}

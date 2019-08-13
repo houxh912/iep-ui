@@ -407,7 +407,7 @@ export default {
     .file {
       cursor: pointer;
       &:hover {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
       i {
         font-size: 16px !important;
@@ -419,7 +419,7 @@ export default {
       }
       &:hover i,
       &:hover .tip {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
     }
   }
@@ -566,7 +566,7 @@ export default {
     p {
       cursor: pointer;
       &:hover {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
     }
   }

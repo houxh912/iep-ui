@@ -140,3 +140,42 @@ export const getProjectExcellentemployee = (obj) => {
   })
 }
 
+// 项目频道页客户资源
+export const getClient = () => {
+  return request({
+    url: `${prefixUrl}/client`,
+    method: 'get',
+  })
+}
+
+// 项目频道页市场机会
+export const getOpportunity = () => {
+  return request({
+    url: `${prefixUrl}/opportunity`,
+    method: 'get',
+  })
+}
+
+// 项目频道页项目资源
+export const getProjectResources = () => {
+  return request({
+    url: `${prefixUrl}/projectResources`,
+    method: 'get',
+  })
+}
+
+// 项目频道页制度文件
+export const getSystemFile = () => {
+  return request({
+    url: `${prefixUrl}/systemFile`,
+    method: 'get',
+  })
+}
+
+// 项目频道页经验培训
+export const getExperienceInTraining = () => {
+  return request({
+    url: `${prefixUrl}/experienceInTraining`,
+    method: 'get',
+  })
+}

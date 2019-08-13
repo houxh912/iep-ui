@@ -28,7 +28,7 @@
         <el-table-column prop="operation" label="操作" width="250" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleCulomn(scope.row)" type="warning" plain>栏目管理</iep-button>
+              <iep-button @click="handleCulomn(scope.row)" type="primary" plain>栏目管理</iep-button>
               <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>

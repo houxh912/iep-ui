@@ -55,6 +55,6 @@ export default {
   }
 }
 .red {
-  color: #ba1b21 !important;
+  color: $--color-primary !important;
 }
 </style>

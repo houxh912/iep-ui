@@ -3,7 +3,7 @@
     <!-- <IepNoData></IepNoData> -->
     <div class="manager">
       <div class="card">
-        <el-tag type="info" v-for="(item, index) in tagList" :key="index">{{item}}</el-tag>
+        <el-tag type="info" v-for="(item, index) in tagList" :key="index">{{item.name}}</el-tag>
       </div>
       <div class="module">
         <el-card class="module-item" v-for="(item,index) in list" :key="index" shadow="hover">
@@ -28,9 +28,13 @@
 <script>
 import { getProjectEmployee, getProjectByemployee } from '@/api/app/prms/'
 export default {
+  props: {
+    tagList: {
+      default: [],
+    },
+  },
   data () {
     return {
-      tagList: ['数据基因', '营商通', '流程再造'],
       list: [],
       projectList: [],
     }

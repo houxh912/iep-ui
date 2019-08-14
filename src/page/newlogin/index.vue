@@ -78,7 +78,8 @@ export default {
 .top-right {
   .num {
     margin-left: 5px;
-    color: #c73e3e;
+    color: $--menu-color-primary;
+    font-weight: 600;
   }
   .contact {
     display: flex;
@@ -89,7 +90,7 @@ export default {
       font-size: 24px;
     }
     &:hover {
-      color: #c73e3e;
+      color: $--menu-color-primary;
     }
   }
 }

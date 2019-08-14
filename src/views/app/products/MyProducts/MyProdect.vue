@@ -150,7 +150,7 @@ export default {
       .text {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 440px;
         margin-left: 15px;
         text-align: left;
         span {

@@ -8,7 +8,6 @@ const navList = [
   }, {
     id: '/app/resource',
     name: '上级合作',
-    show: 'show',
   }, {
     id: '/app/products',
     name: '方案实例',

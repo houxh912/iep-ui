@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}`" width="500px" @close="loadPage">
-    <el-form class="form-detail" :model="form" size="small" :rules="rules" label-width="120px">
+    <el-form class="form-detail" :model="form" ref="form" size="small" :rules="rules" label-width="120px">
       <el-form-item label="评选名称" prop="selectionName">
         <el-input v-model="form.selectionName"></el-input>
       </el-form-item>
@@ -10,7 +10,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="优先级" prop="priority">
-        <el-input v-model="form.priority"></el-input>
+        <iep-input-number v-model="form.priority" placeholder="请正确输入非负优先级"></iep-input-number>
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="form.status">

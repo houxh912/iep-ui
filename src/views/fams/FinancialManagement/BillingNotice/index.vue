@@ -15,6 +15,7 @@
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
               <iep-button v-if="scope.row.status===1" @click="handlePass(scope.row)" plain>通过</iep-button>
               <iep-button v-if="scope.row.status===1" @click="handleReject(scope.row)">驳回</iep-button>
+              <iep-button v-if="scope.row.status!==1" @click="handleDelete(scope.row)">废除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-import { getBillingPage } from '@/api/fams/billing'
+import { getBillingPage, deleteBillingById } from '@/api/fams/billing'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 import passDialogForm from './passDialogForm'
@@ -44,6 +45,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.id, deleteBillingById)
+    },
     handlePass (row) {
       this.$refs['passDialogForm'].id = row.id
       this.$refs['passDialogForm'].content = ''

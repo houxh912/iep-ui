@@ -10,29 +10,31 @@ const columnsMap = [
   {
     prop: 'orgName',
     label: '所属组织',
-    width: '300',
     type: 'detail',
   },
   {
     prop: 'balance',
-    label: '国脉贝',
+    label: '可用金额',
   },
   {
-    prop: 'frozenAmount',
-    label: '冻结金额',
+    prop: 'bankAmount',
+    label: '银行存款',
   },
   {
-    prop: 'availableAmount',
-    label: '发票可用额度',
-    width: '120',
+    prop: 'cash',
+    label: '库存现金',
   },
   {
-    prop: 'investmentAmount',
-    label: '投资',
+    prop: 'groupAmount',
+    label: '集团往来',
+  },
+  {
+    prop: 'orgAmount',
+    label: '组织拆借',
   },
   {
     prop: 'accountStatus',
-    label: '状态',
+    label: '账户状态',
     type: 'dict',
     width: '80',
   },

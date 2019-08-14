@@ -21,15 +21,18 @@
       </div>
     </div>
     <iep-no-data v-if="!moduleList.length"></iep-no-data>
-    <div class="my-products-box">
-      <div v-for="(item,index) in moduleList" :key="index" class="piece" @click="getDetail(item.id)">
-        <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
-        <div class="text">
-          <span>{{item.name}}</span>
-          <span class="introduction">{{item.synopsis}}</span>
+
+    <el-scrollbar style="height:300px">
+      <div class="my-products-box">
+        <div v-for="(item,index) in moduleList" :key="index" class="piece" @click="getDetail(item.id)">
+          <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
+          <div class="text">
+            <span>{{item.name}}</span>
+            <span class="introduction">{{item.synopsis}}</span>
+          </div>
         </div>
       </div>
-    </div>
+    </el-scrollbar>
   </div>
 </template>
 <script>
@@ -67,7 +70,7 @@ export default {
         type: this.moduleType,
         productId: this.productId || undefined,
       })
-      this.moduleList = data.data.slice(0, 6)
+      this.moduleList = data.data
     },
     async loadProductList () {
       const { data } = await getProductList()
@@ -160,7 +163,7 @@ export default {
       .text {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 440px;
         margin-left: 15px;
         text-align: left;
         span {

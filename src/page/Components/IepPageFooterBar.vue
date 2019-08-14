@@ -49,16 +49,16 @@ export default {
   width: 100%;
   height: 65px;
   border-top: 1px solid #ddd;
-  background-color: #53535300;
+  background-color: #cacaca;
   text-align: center;
   line-height: 65px;
   .context {
     width: 1200px;
     margin: 0 auto;
-    color: #999;
+    color: #4c4c4c;
     a {
       padding: 0 13px;
-      color: #999;
+      color: #4c4c4c;
       &:hover {
         color: $--color-primary;
       }
@@ -70,7 +70,7 @@ export default {
       padding-left: 13px;
     }
     .number {
-      color: #999;
+      color: #4c4c4c;
     }
   }
 }

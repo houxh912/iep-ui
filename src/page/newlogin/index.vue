@@ -10,7 +10,7 @@
         联系电话: <span class="num">0580-2299669</span>
       </template>
     </top-wrapper>
-    <div class="bg-container-wrapper">
+    <!-- <div class="bg-container-wrapper">
       <div class="login-img-wrapper">
         <img v-show="currentId === 0" class="animated fadeIn" src="/img/bg/wh1.webp" alt="">
         <img v-show="currentId === 1" class="animated fadeIn" src="/img/bg/wh2.webp" alt="">
@@ -18,7 +18,7 @@
       </div>
       <div></div>
       <div></div>
-    </div>
+    </div> -->
     <div class="login-container-wrapper">
       <div></div>
       <div></div>

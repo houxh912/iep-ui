@@ -1,6 +1,7 @@
 <template>
   <div class="logo-wrapper">
     <div class="logo" @click="$openPage('/')"></div>
+    <div>一站式数字化转型服务平台</div>
     <!-- <a-dropdown>
       <a>
         国脉智慧平台
@@ -38,7 +39,7 @@ export default {
     cursor: pointer;
     margin-right: 10px;
     width: 76px;
-    height: 32px;
+    height: 28px;
     background-image: url("/img/logo.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;

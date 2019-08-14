@@ -57,7 +57,7 @@ export default {
     font-size: 14px;
     cursor: auto;
     &:hover {
-      color: #BA1B21;
+      color: $--color-primary;
     }
   }
 }

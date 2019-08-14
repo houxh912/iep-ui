@@ -3,32 +3,49 @@
     <img :src="img">
     <div class="visualization-list">
       <div class="piece">
-        <div class="name">产品售额<!-- i class="iconfont icon-wenhao"></i> --></div>
-        <div class="data">-</div>
-        <div class="chart">
+        <div class="data">-<span class="unit">元</span></div>
+        <div class="name">产品售额
+          <!-- i class="iconfont icon-wenhao"></i> -->
+        </div>
+        <!-- <div class="chart">
           <ve-histogram :extend="chartExtend3" :colors="colors1" width="240px" height="60px"></ve-histogram>
-        </div>
+        </div> -->
       </div>
       <div class="piece">
-        <div class="name">项目数量<!-- i class="iconfont icon-wenhao"></i> --></div>
-        <div class="data">{{this.visualizationList.countProject}}</div>
-        <div class="chart">
+        <div class="data">{{this.visualizationList.countProject}}<span class="unit">个</span></div>
+        <div class="name">项目数量
+          <!-- i class="iconfont icon-wenhao"></i> -->
+        </div>
+        <!-- <div class="chart">
           <ve-line :extend="chartExtend2" :colors="colors2" width="240px" height="60px"></ve-line>
+        </div> -->
+      </div>
+      <div class="piece">
+        <div class="data">{{this.visualizationList.countProduct}}<span class="unit">个</span></div>
+        <div class="name">产品系列
+          <!-- i class="iconfont icon-wenhao"></i> -->
         </div>
       </div>
       <div class="piece">
-        <div class="name">荣誉资质<!-- i class="iconfont icon-wenhao"></i> --></div>
-        <div class="data">{{this.visualizationList.countHonor}}</div>
-        <div class="chart">
+        <div class="data">{{this.visualizationList.countModule}}<span class="unit">个</span></div>
+        <div class="name">模块清单
+          <!-- i class="iconfont icon-wenhao"></i> -->
+        </div>
+      </div>
+      <div class="piece">
+        <div class="data">{{this.visualizationList.countTechnology}}<span class="unit">个</span></div>
+        <div class="name">技术能力
+          <!-- i class="iconfont icon-wenhao"></i> -->
+        </div>
+      </div>
+      <div class="piece">
+        <div class="data">{{this.visualizationList.countHonor}}<span class="unit">个</span></div>
+        <div class="name">荣誉资质
+          <!-- i class="iconfont icon-wenhao"></i> -->
+        </div>
+        <!-- <div class="chart">
           <ve-histogram :extend="chartExtend3" :colors="colors3" width="240px" height="60px"></ve-histogram>
-        </div>
-      </div>
-      <div class="piece">
-        <div class="name">技术能力<!-- i class="iconfont icon-wenhao"></i> --></div>
-        <div class="data">{{this.visualizationList.countTechnology}}</div>
-        <div class="chart">
-          <ve-histogram :extend="chartExtend3" :colors="colors4" width="240px" height="60px"></ve-histogram>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -90,7 +107,7 @@ export default {
     }
     return {
       img: [require('./img/date.jpg')],
-      visualizationList: { countHonor: '', countProject: '', countTechnology: '' },
+      visualizationList: { countHonor: '', countProduct: '', countModule: '', countProject: '', countTechnology: '' },
     }
   },
   created () {
@@ -102,38 +119,48 @@ export default {
 </script>
 <style lang="scss" scoped>
 .visualization {
-  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  padding: 20px 15px;
   position: relative;
+  border: 1px solid #eee;
   img {
     width: 100%;
-    height: 205px;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
     z-index: -1;
   }
   .visualization-list {
-    width: 1200px;
-    margin: 0 auto;
-    padding: 30px 15px;
     display: grid;
     grid-auto-flow: row dense;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     .piece {
       padding: 0 20px;
+      border-right: 1px solid #eee;
+      text-align: center;
+      &:last-child {
+        border-right: 0;
+      }
       .name {
         height: 40px;
         line-height: 40px;
         font-size: 16px;
+        color: #666;
         i {
           height: 40px;
           line-height: 40px;
-          color: #999;
+          color: #666;
           float: right;
         }
       }
       .data {
         font-size: 30px;
+        .unit {
+          font-size: 14px;
+          color: #666;
+        }
       }
     }
   }

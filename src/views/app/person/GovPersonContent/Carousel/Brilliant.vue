@@ -1,12 +1,13 @@
 <template>
-  <div class="study">
+  <div class="empolyee">
     <el-carousel :interval="5000" arrow="always">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
+      <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/4)" :key="index">
+        <div class="piece" v-for="(t, i) in wonderfulList.slice(index*4, index*4+4)" :key="i" @click="handleDetail(t.orgId)">
           <div class="img">
-            <iep-img :src="item.img" class="img"></iep-img>
+            <iep-img v-if="t.imageUrl" :src="t.imageUrl" class="img"></iep-img>
+            <img v-else src="./img/organization.png" class="img">
           </div>
-          <span class="name">{{item.name}}</span>
+          <span class="name">{{t.orgName}}</span>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -14,21 +15,32 @@
 </template>
 
 <script>
+import { getAlbumList } from '@/api/app/upms/'
+
 export default {
   data () {
     return {
-      wonderfulList: [
-        { name: '国脉海洋信息发展有限公司', img: '../../img/department/d1.jpg' },
-        { name: '国脉湖南子公司', img: '../../img/department/d2.jpg' },
-        { name: '集团平台运营中心', img: '../../img/department/d3.jpg' },
-        { name: '集团研发中心', img: '../../img/department/d4.jpg' },
-      ],
+      wonderfulList: [],
     }
+  },
+  methods: {
+    loadList () {
+      getAlbumList().then(({ data }) => {
+        this.wonderfulList = data.data
+      })
+    },
+    handleDetail (orgId) {
+      this.$router.push(`/app/organization_details/album?id=${orgId}`)
+    },
+  },
+  created () {
+    this.loadList()
   },
 }
 </script>
+
 <style lang="scss" scoped>
-.study {
+.empolyee {
   .piece {
     text-align: center;
     width: 238px;
@@ -62,15 +74,15 @@ export default {
 }
 </style>
 <style scoped>
-.study >>> .el-carousel__container {
+.empolyee >>> .el-carousel__container {
   height: 180px;
 }
-.study >>> .el-image__inner {
+.empolyee >>> .el-image__inner {
   width: 100%;
   height: 142px;
   transition: 0.5s;
 }
-.study >>> .el-image__inner:hover {
+.empolyee >>> .el-image__inner:hover {
   cursor: pointer;
   transform: scale(1.1);
 }

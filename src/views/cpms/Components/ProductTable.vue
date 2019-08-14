@@ -84,7 +84,7 @@ export default {
       this.multipleSelection = val.map(m => m.id)
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param }, getProductPage)
+      this.loadTable({ ...param, status: 1 }, getProductPage)
     },
   },
 }

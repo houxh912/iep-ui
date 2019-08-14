@@ -80,7 +80,7 @@ export default {
     // padding: 5px 0;
     cursor: pointer;
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
   }
 }

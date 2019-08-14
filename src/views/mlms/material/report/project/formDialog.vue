@@ -182,7 +182,7 @@ export default {
     border: 1px solid #eee;
     .create {
       text-align: center;
-      color: #ba1b21;
+      color: $--color-primary;
       cursor: pointer;
     }
   }

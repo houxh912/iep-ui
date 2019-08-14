@@ -5,7 +5,7 @@
       <operation-container>
         <template slot="left">
           <el-button-group>
-            <el-button style="border-right-color:#BA1B21;z-index:1;" type="primary" v-if="sys_menu_add" icon="plus" @click="handlerAdd" size="small" plain>添加
+            <el-button type="primary" v-if="sys_menu_add" icon="plus" @click="handlerAdd" size="small" plain>添加
             </el-button>
             <el-button v-if="sys_menu_edit" icon="edit" size="small" @click="handlerEdit">编辑
             </el-button>

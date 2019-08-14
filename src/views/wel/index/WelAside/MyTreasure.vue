@@ -161,7 +161,7 @@ export default {
     cursor: pointer;
     position: relative;
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
     span {
       color: #bbb;

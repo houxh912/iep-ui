@@ -1,23 +1,18 @@
-import { getStore } from '@/util/store'
-const dicData = getStore({ name: 'dictGroup' })
-function changeDict (name) {
-  let data = {}
-  for (let item of dicData[name]) {
-    data[item.value] = item.label
-  }
-  return data
-}
+
 const dictsMap = {
-  category: changeDict('mlms_contract_level'),
   status: {
-    0: '启用',
-    1: '禁用',
+    1: '启用',
+    2: '禁用',
   },
 }
 
 const initForm = () => {
   return {
-    
+    selectionName:'',//名称
+    targetId:'',//指标
+    priority:'',//优先级
+    status:'',//状态
+    describes:'',//描述
   }
 }
 const columnsMap = [
@@ -30,9 +25,8 @@ const columnsMap = [
     label: '评选名称',
   },
   {
-    prop: 'category',
+    prop: 'categoryName',
     label: '类别',
-    type: 'dict',
   },
   {
     prop: 'status',
@@ -55,11 +49,18 @@ const initSearchForm = () => {
 }
 
 const rules = {
-  selectionName: [{
-    required: true,
-    message: '请输入评选名称',
-    trigger: 'blur',
-  }],
+  selectionName: [
+    { required: true, message: '请输入评选名称', trigger: 'blur' },
+  ],
+  targetId: [
+    { required: true, message: '请选择关联指标', trigger: 'change' },
+  ],
+  status: [
+    { required: true, message: '请选择评选状态', trigger: 'change' },
+  ],
+  priority: [
+    { required: true, message: '请输入评选优先级', trigger: 'blur' },
+  ],
 }
 
 export { dictsMap, columnsMap, initForm, initSearchForm, rules }

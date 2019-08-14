@@ -1,31 +1,25 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`站点${methodName}`" width="500px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}`" width="500px" @close="loadPage">
     <el-form class="form-detail" :model="form" size="small" :rules="rules" label-width="120px">
-      <el-form-item label="上级站点">
-        <el-input v-model="form.parentId" disabled></el-input>
+      <el-form-item label="评选名称" prop="selectionName">
+        <el-input v-model="form.selectionName"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="组织" prop="orgId">
-        <iep-select
-          v-model="form.orgId"
-          autocomplete="off"
-          prefix-url="admin/org/all"
-          placeholder="请选择"
-        ></iep-select>
-      </el-form-item> -->
-      <el-form-item label="名称" prop="siteName">
-        <el-input v-model="form.siteName"></el-input>
+      <el-form-item label="关联指标" prop="targetId">
+        <el-select v-model="form.targetId" size="small" clearable>
+          <el-option v-for="(item, index) in targetlist" :key="index" :label="item.targetName" :value="item.targetId"></el-option>
+        </el-select>
       </el-form-item>
-      <el-form-item label="域名">
-        <el-input v-model="form.url"></el-input>
+      <el-form-item label="优先级" prop="priority">
+        <el-input v-model="form.priority"></el-input>
       </el-form-item>
-      <el-form-item label="手机端域名">
-        <el-input v-model="form.mobileUrl"></el-input>
-      </el-form-item>
-      <el-form-item label="状态">
+      <el-form-item label="状态" prop="status">
         <el-radio-group v-model="form.status">
           <el-radio :label="1">启用</el-radio>
-          <el-radio :label="0">停用</el-radio>
+          <el-radio :label="2">禁用</el-radio>
         </el-radio-group>
+      </el-form-item>
+      <el-form-item label="简述">
+        <el-input v-model="form.describes"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -35,7 +29,7 @@
   </iep-dialog>
 </template>
 <script>
-import { getPageById } from '@/api/conm/index'
+import { getTargetlist, getGloriousById } from '@/api/hrms/event_selection'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 // import { mapGetters } from 'vuex'
@@ -50,6 +44,7 @@ export default {
       form: initForm(),
       rules,
       id: '',
+      targetlist: [],
     }
   },
   // },
@@ -61,21 +56,23 @@ export default {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
+      getTargetlist().then(({ data }) => {
+        this.targetlist = data.data
+      })
     },
     loadTypeList () {
-      getPageById(this.id).then(({ data }) => {
+      getGloriousById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(this.form, data.data)
       })
     },
     async submitForm () {
-      this.formRequestFn({ id: this.id, ...this.form }).then(({ data }) => {
-        if (data.data) {
-          this.$message.success('操作成功')
-          this.loadPage()
-        } else {
-          this.$message(data.msg)
-        }
-      })
+      const { data } = await this.formRequestFn({ id: this.id, ...this.form })
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.loadPage()
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

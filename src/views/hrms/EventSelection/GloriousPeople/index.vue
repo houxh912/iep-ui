@@ -29,8 +29,7 @@
   </div>
 </template>
 <script>
-import { postStationManagementCreate, deleteStationManagement, updateStationManagement } from '@/api/conm/index'
-import { getGloriousPeoplePage } from '@/api/hrms/event_selection'
+import { getGloriousPeoplePage, postGloriousPeopleCreate, deleteGloriousPeople, updateGloriousPeople } from '@/api/hrms/event_selection'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, dictsMap } from './options'
 import DialogForm from './DialogForm'
@@ -53,19 +52,19 @@ export default {
   },
   methods: {
     handleAdd () {
-      this.$refs['DialogForm'].formRequestFn = postStationManagementCreate
+      this.$refs['DialogForm'].formRequestFn = postGloriousPeopleCreate
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].methodName = '新增'
     },
     handleEdit (row) {
-      this.$refs['DialogForm'].id = row.id
-      this.$refs['DialogForm'].formRequestFn = updateStationManagement
+      this.$refs['DialogForm'].id = row.splendorId
+      this.$refs['DialogForm'].formRequestFn = updateGloriousPeople
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].loadTypeList()
       this.$refs['DialogForm'].methodName = '编辑'
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.id, deleteStationManagement)
+      this._handleGlobalDeleteById(row.splendorId, deleteGloriousPeople)
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, getGloriousPeoplePage)

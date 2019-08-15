@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}`" width="580px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}`" width="580px" @close="loadDialog">
     <el-form class="form-detail" :model="form" ref="form" size="small" :rules="rules" label-width="120px">
       <el-form-item label="评选名称" prop="selectionName">
         <el-input v-model="form.selectionName"></el-input>
@@ -54,11 +54,13 @@ export default {
   },
   // },
   created () {
-    this.loadPage()
+    this.loadDialog()
+    getTargetlist().then((res) => {
+      this.targetlist = res.data.data
+    })
   },
   methods: {
     changePeople (val) {
-      console.log(val)
       this.form.userName = val.name
       this.form.userId = val.id
     },
@@ -76,14 +78,10 @@ export default {
       this.$refs['DialogList'].dialogShow = true
       this.$refs['DialogList'].loadTypeList()
     },
-    loadPage () {
+    loadDialog () {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
-      getTargetlist().then((res) => {
-        this.targetlist = res.data.data
-
-      })
     },
     loadTypeList () {
       getGloriousById(this.id).then(({ data }) => {
@@ -97,10 +95,10 @@ export default {
       else {
         this.form.sign = 1
       }
-      const { data } = await this.formRequestFn({ id: this.id, ...this.form })
+      const { data } = await this.formRequestFn({ splendorId: this.id, ...this.form })
       if (data.data) {
         this.$message.success('操作成功')
-        this.loadPage()
+        this.loadDialog()
       } else {
         this.$message(data.msg)
       }

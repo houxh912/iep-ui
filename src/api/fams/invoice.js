@@ -38,7 +38,15 @@ export function postInvoice (obj, isPublish = false) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
-    data: {isPublish,...obj},
+    data: { isPublish, ...obj },
+  })
+}
+
+export function putInvoiceRelation (obj) {
+  return request({
+    url: `${prefixUrl}/financial/update`,
+    method: 'post',
+    data: obj,
   })
 }
 
@@ -46,7 +54,7 @@ export function putInvoice (obj, isPublish = false) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
-    data: {isPublish,...obj},
+    data: { isPublish, ...obj },
   })
 }
 

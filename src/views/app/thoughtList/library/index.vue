@@ -12,7 +12,10 @@
             <!-- <div class="date">{{getNumber(index)}}</div>原来的假楼层 -->
             <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
           </div>
-          <!-- <el-button size="mini" round>只看此人</el-button> -->
+          <div class="right" v-if="userInfo.userId !== item.userId">
+            <iep-button class="add" v-if="item.isFollow === 0" @click="handleFollow(item)"><i class="icon-xinzeng"></i> 关注</iep-button>
+            <iep-button class="add" v-else @click="handleUnFollow(item)"><i class="icon-check"></i> 已关注</iep-button>
+          </div>
         </div>
         <!-- 说说的内容 -->
         <contentTpl :data="item">
@@ -61,12 +64,13 @@
 
 <script>
 import { addThumbsUpByRecord, getThumbMembers, CommentThoughts } from '@/api/cpms/thoughts'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import forwardContent from './forwardContent'
 import commentTpl from './commentTpl'
 import contentTpl from './content'
 import forwardDialog from '../forwardDialog'
 import CollectDialog from '@/views/mlms/material/components/collectDialog'
+import { followById, unfollowById } from '@/api/cpms/iepuserfollow'
 
 const initFormData = () => {
   return {
@@ -84,6 +88,9 @@ export default {
     params: {
       type: Object,
     },
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
   },
   data () {
     return {
@@ -174,6 +181,18 @@ export default {
     },
     // 取消收藏
     handleNoCollect () {},
+    // 关注
+    handleFollow (row) {
+      followById(row.userId).then(() => {
+        this.loadPage()
+      })
+    },
+    // 取消关注
+    handleUnFollow (row) {
+      unfollowById(row.userId).then(() => {
+        this.loadPage()
+      })
+    },
   },
 }
 </script>
@@ -207,6 +226,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 10px;
       }
       .comment {
         margin-top: 20px;
@@ -240,6 +260,13 @@ export default {
           }
           &:nth-child(2) {
             color: #999;
+          }
+        }
+      }
+      .right {
+        .add {
+          i {
+            font-size: 16px !important;
           }
         }
       }

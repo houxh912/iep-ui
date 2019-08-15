@@ -79,6 +79,16 @@ export function getOrgList (name) {
   })
 }
 
+export function getICanOrgList (name) {
+  return request({
+    url: `${prefixUrl}/i_can/list`,
+    method: 'get',
+    params: {
+      name,
+    },
+  })
+}
+
 export function addObj (obj) {
   return request({
     url: `${prefixUrl}/create`,

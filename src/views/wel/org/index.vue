@@ -57,7 +57,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { initForm } from './options'
-import { getOrgList, addObj, applyObj, validOrgName } from '@/api/goms/org'
+import { getICanOrgList, addObj, applyObj, validOrgName } from '@/api/goms/org'
 export default {
   name: 'org',
   data () {
@@ -146,7 +146,7 @@ export default {
     },
     loadPage (orgName = null) {
       this.dialogVisible = false
-      getOrgList(orgName).then(({ data }) => {
+      getICanOrgList(orgName).then(({ data }) => {
         this.orgList = data.data
       })
     },

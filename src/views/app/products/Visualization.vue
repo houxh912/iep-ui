@@ -121,7 +121,7 @@ export default {
 .visualization {
   grid-column-start: 1;
   grid-column-end: 4;
-  padding: 30px 15px;
+  padding: 20px 15px;
   position: relative;
   border: 1px solid #eee;
   img {
@@ -131,7 +131,6 @@ export default {
     top: 0;
     left: 0;
     z-index: -1;
-    opacity: 0.3;
   }
   .visualization-list {
     display: grid;
@@ -148,19 +147,19 @@ export default {
         height: 40px;
         line-height: 40px;
         font-size: 16px;
-        color: #999;
+        color: #666;
         i {
           height: 40px;
           line-height: 40px;
-          color: #999;
+          color: #666;
           float: right;
         }
       }
       .data {
         font-size: 30px;
         .unit {
-          font-size: 16px;
-          color: #999;
+          font-size: 14px;
+          color: #666;
         }
       }
     }

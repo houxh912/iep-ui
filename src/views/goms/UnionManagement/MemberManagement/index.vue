@@ -4,7 +4,7 @@
       <iep-page-header title="联盟成员"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-select v-model="assetOrgId" size="small" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" clearable @change="loadPage"></iep-select>
+          <iep-select v-model="assetOrgId" size="small" autocomplete="off" prefix-url="admin/org/i_can/all" placeholder="请选择组织" clearable @change="loadPage"></iep-select>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="realName">

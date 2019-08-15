@@ -57,7 +57,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { initForm } from './options'
-import { getICanOrgList, addObj, applyObj, validOrgName } from '@/api/goms/org'
+import { getICanOrgList, addiCanObj, applyObj, validOrgName } from '@/api/goms/org'
 export default {
   name: 'org',
   data () {
@@ -156,7 +156,7 @@ export default {
     onSubmit (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          addObj(this.form).then(({ data }) => {
+          addiCanObj(this.form).then(({ data }) => {
             if (data.data) {
               this.$message({
                 message: '创建成功，等待审核',

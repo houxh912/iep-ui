@@ -1,7 +1,7 @@
 const navList = [
   {
     id: '/app/index',
-    name: '平台首页',
+    name: '首页',
   }, {
     id: '/app/person',
     name: '头条新知',

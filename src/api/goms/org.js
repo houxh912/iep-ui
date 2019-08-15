@@ -97,6 +97,14 @@ export function addObj (obj) {
   })
 }
 
+export function addiCanObj (obj) {
+  return request({
+    url: `${prefixUrl}/i_can/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function applyObj (obj) {
   return request({
     url: `${prefixUrl}/apply`,

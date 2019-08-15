@@ -19,6 +19,14 @@ export function postIncome (obj) {
   })
 }
 
+export function putIncome (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function getIncomeById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

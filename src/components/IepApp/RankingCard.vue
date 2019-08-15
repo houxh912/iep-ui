@@ -3,7 +3,7 @@
     <div v-if="dataList.length !== 0">
 
       <div v-if="isReference">
-        <el-popover v-for="(item,index) in dataList" :key="index" placement="top-start" title="" :width="width" trigger="hover" :content="item[name]">
+        <el-popover v-for="(item,index) in dataList" :key="index" placement="right-end" title="" :width="width" trigger="hover" :content="item[name]">
           <div class="piece" @click="handleDetail(item)" slot="reference">
             <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
             <span class="name">{{item[name]}}</span>
@@ -42,7 +42,7 @@ export default {
       default: 'grade',
     },
     width: {
-      default: 350,
+      default: 300,
     },
     isReference: {
       type: Boolean,

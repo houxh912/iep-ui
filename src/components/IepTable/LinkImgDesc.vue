@@ -30,6 +30,7 @@ export default {
   cursor: pointer;
   padding: 5px;
   border: 1px solid #eee;
+  height: 62px;
   margin: 5px;
   & > .img {
     width: 50px;

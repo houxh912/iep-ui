@@ -11,11 +11,13 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
-        <el-table-column prop="operation" label="操作" width="200" fixed="right">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column prop="operation" label="操作" width="300" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleProcess(scope.row)" type="warning" plain>待处理</iep-button>
+              <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
+              <iep-button @click="handleEditProject(scope.row)">修改</iep-button>
+              <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleProcess(scope.row)">待处理</iep-button>
               <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleIssued(scope.row)">提成发放</iep-button>
             </operation-wrapper>
           </template>
@@ -26,6 +28,7 @@
     <dialog-detail ref="DialogDetail" @load-page="loadPage"></dialog-detail>
     <project-form ref="ProjectForm" @load-page="loadPage"></project-form>
     <issued-form ref="IssuedForm" @load-page="loadPage"></issued-form>
+    <relation-dialog-form ref="RelationDialogForm" @load-page="loadPage"></relation-dialog-form>
   </div>
 </template>
 <script>
@@ -34,12 +37,13 @@ import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
 import ProjectForm from './ProjectForm'
+import RelationDialogForm from './RelationDialogForm'
 import IssuedForm from './IssuedForm'
 import DialogDetail from './DialogDetail'
 import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
-  components: { DialogForm, DialogDetail, ProjectForm, IssuedForm },
+  components: { DialogForm, DialogDetail, ProjectForm, IssuedForm, RelationDialogForm },
   data () {
     return {
       dictsMap,
@@ -57,6 +61,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleEditProject (row) {
+      this.$refs['RelationDialogForm'].id = row.incomeId
+      this.$refs['RelationDialogForm'].loadPage()
+      this.$refs['RelationDialogForm'].dialogShow = true
+    },
     handleProcess (row) {
       this.$refs['ProjectForm'].incomeId = row.incomeId
       this.$refs['ProjectForm'].actualRepayment = row.amount

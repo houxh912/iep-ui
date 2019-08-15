@@ -52,6 +52,8 @@ module.exports = {
   chainWebpack: config => {
     // config.entry('index').add('babel-polyfill').end()
     config.plugin('html').tap(args => {
+      args[0].title = '国脉内部智慧平台'
+      args[0].url = 'iep.govmade.com'
       if (isProduction) {
         args[0].cdn = cdn.build
       } else {

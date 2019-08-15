@@ -1,30 +1,41 @@
 <template>
   <div>
-    <basic-container>
-      <iep-page-header title="联盟成员"></iep-page-header>
-      <div class="con">
-        <div class="members">
-          <div class="member" v-for="(item, index) in orgList" :key="index">
-            <a-button class="ant" @click="handleRemoveOrg(item.value)" block>{{ item.label }}</a-button>
-          </div>
-          <div class="member">
-            <a-button type="dashed" @click="handleAddOrg" block>添加联盟成员</a-button>
-          </div>
-        </div>
-      </div>
-    </basic-container>
+    <operation-container>
+      <template slot="left">
+        <iep-button @click="handleAddOrg" type="primary" plain>添加组织</iep-button>
+      </template>
+      <template slot="right">
+        <operation-search @search-page="searchPage" prop="orgName">
+        </operation-search>
+      </template>
+    </operation-container>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <el-table-column prop="operation" label="操作" width="200">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
+            <iep-button @click="handleRemoveOrg(scope.row)">移除</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
+    </iep-table>
     <add-org-dialog-form ref="AddOrgDialogForm" @load-page="loadPage"></add-org-dialog-form>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
-import { getUnionOrgList, removeOrgById, addOrgById } from '@/api/goms/union'
+import { getUnionOrgPage, removeOrgById, addOrgById } from '@/api/goms/union'
+import { putObj } from '@/api/admin/org'
 import AddOrgDialogForm from './AddOrgDialogForm'
+import DialogForm from './DialogForm'
 import mixins from '@/mixins/mixins'
+import { columnsMap, initForm } from './options'
 export default {
-  components: { AddOrgDialogForm },
+  components: { AddOrgDialogForm, DialogForm },
   mixins: [mixins],
   data () {
     return {
+      columnsMap,
       orgList: [],
     }
   },
@@ -32,6 +43,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleEdit (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].formRequestFn = putObj
+      this.$refs['DialogForm'].dialogShow = true
+    },
     handleRemoveOrg (id) {
       this._handleComfirm(id, removeOrgById, '移除组织')
     },
@@ -39,32 +55,9 @@ export default {
       this.$refs['AddOrgDialogForm'].formRequestFn = addOrgById
       this.$refs['AddOrgDialogForm'].dialogShow = true
     },
-    loadPage () {
-      getUnionOrgList().then(({ data }) => {
-        this.orgList = data.data
-      })
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getUnionOrgPage)
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-.con {
-  width: 100%;
-}
-.members {
-  display: grid;
-  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(
-      100px,
-      1fr
-    );
-  grid-gap: 20px 20px;
-  margin: 0 20px;
-  .member {
-    width: 100%;
-    text-align: center;
-    .ant {
-      height: 40px;
-    }
-  }
-}
-</style>

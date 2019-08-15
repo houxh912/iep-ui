@@ -144,9 +144,9 @@ export default {
     onSearch (name) {
       this.loadPage(name)
     },
-    loadPage (name = null) {
+    loadPage (orgName = null) {
       this.dialogVisible = false
-      getOrgList(name).then(({ data }) => {
+      getOrgList(orgName).then(({ data }) => {
         this.orgList = data.data
       })
     },
@@ -199,7 +199,7 @@ export default {
     }
     .select-org-container {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       .grid-item {
         margin: 10px 20px;
       }

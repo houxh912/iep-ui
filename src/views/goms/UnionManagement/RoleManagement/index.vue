@@ -7,8 +7,7 @@
           <iep-button v-if="goms_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
-          </operation-search>
+          <operation-search @search-page="searchPage" prop="roleName"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
@@ -31,14 +30,14 @@
 
 <script>
 import {
-  postOrgObj,
+  postUnionRole,
   delObj,
   getObj,
-  getOrgRolePage,
+  getUnionRolePage,
   fetchRoleTree,
   putObj,
 } from '@/api/admin/role'
-import { getModuleMenuTree } from '@/api/admin/menu'
+import { getUnionModuleMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm, orgDsType } from './options'
@@ -90,12 +89,11 @@ export default {
   },
   methods: {
     async loadPage (param = this.searchForm) {
-      await this.loadTable(param, getOrgRolePage)
+      await this.loadTable(param, getUnionRolePage)
     },
     handleAdd () {
       this.$refs['DialogForm'].methodName = '创建'
-      this.$refs['DialogForm'].form = initForm()
-      this.$refs['DialogForm'].formRequestFn = postOrgObj
+      this.$refs['DialogForm'].formRequestFn = postUnionRole
       this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = false
@@ -123,7 +121,7 @@ export default {
       fetchRoleTree(row.roleId)
         .then(response => {
           this.$refs['PermissionDialogForm'].checkedKeys = response.data
-          return getModuleMenuTree()
+          return getUnionModuleMenuTree()
         })
         .then(response => {
           const treeData = response.data.data

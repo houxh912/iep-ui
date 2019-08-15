@@ -12,6 +12,17 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <template slot="before-columns">
+          <el-table-column label="角色名称">
+            <template slot-scope="scope">
+              <div>{{scope.row.roleName}}
+                <a-tag v-if="scope.row.isCommon===1" color="orange">通用</a-tag>
+                <a-tag v-else-if="scope.row.unionId!==0" color="pink">联盟角色</a-tag>
+                <a-tag v-else color="red">组织角色</a-tag>
+              </div>
+            </template>
+          </el-table-column>
+        </template>
         <el-table-column prop="operation" label="操作" width="260">
           <template slot-scope="scope">
             <operation-wrapper>

@@ -20,13 +20,13 @@
   </iep-dialog>
 </template>
 <script>
-import { initOrgForm } from './options'
+import { initForm } from './options'
 export default {
   data () {
     return {
       dialogShow: false,
       formRequestFn: () => { },
-      form: initOrgForm(),
+      form: initForm(),
       rules: {
         name: [
           { required: true, message: '请输入组织名称', trigger: 'blur' },
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     loadPage () {
-      this.form = initOrgForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },

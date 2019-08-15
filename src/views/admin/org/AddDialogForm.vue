@@ -10,6 +10,9 @@
       <iep-form-item label-name="组织排序" prop="orgSort">
         <iep-input-number v-model="form.orgSort"></iep-input-number>
       </iep-form-item>
+      <iep-form-item label-name="组织模块" prop="moduleIds">
+        <iep-select v-model="form.moduleIds" autocomplete="off" multiple prefix-url="admin/module" placeholder="请选择关联模块"></iep-select>
+      </iep-form-item>
       <iep-form-item label-name="组织描述" prop="intro">
         <iep-input-area v-model="form.intro"></iep-input-area>
       </iep-form-item>

@@ -39,7 +39,7 @@
           <el-table-column prop="operation" label="操作" width="100">
             <template slot-scope="scope">
               <operation-wrapper>
-                <iep-button :disabled="isDisabled(scope.row)" type="text" @click="handleSelect(scope.row)">选择</iep-button>
+                <iep-button :disabled="isDisabled(scope.row)" @click="handleSelect(scope.row)">选择</iep-button>
               </operation-wrapper>
             </template>
           </el-table-column>

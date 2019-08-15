@@ -42,6 +42,7 @@ const initForm = () => {
     isOpen: 0,
     orgSort: 0,
     abrName: '',
+    moduleIds: [],
     establishTime: '',
     creatorName: '',
     contactMethod: '',

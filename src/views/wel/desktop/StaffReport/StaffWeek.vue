@@ -5,7 +5,9 @@
         <iep-select v-show="isAbled" size="small" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage()" placeholder="所有" clearable></iep-select>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage" prop="realName" placeholder="根据姓名进行搜索"></operation-search>
+        <operation-search @search-page="searchPage" prop="realName" placeholder="根据姓名进行搜索" advance-search>
+          <advance-search @search-page="searchPage"></advance-search>
+        </operation-search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" :cell-style="mixinsCellPointerStyle" isMutipleSelection>
@@ -32,15 +34,18 @@
 <script>
 import { getTableData } from '@/api/mlms/leader_report/'
 import mixins from '@/mixins/mixins'
+import AdvanceSearch from '../Components/AdvanceSearch'
 import { mapGetters, mapState } from 'vuex'
 import { columnsMap } from './options'
 export default {
   mixins: [mixins],
+  components: {
+    AdvanceSearch,
+  },
   data () {
     return {
       columnsMap,
       orgIds: '',
-      realName: '',
       isLoadTable: false,
     }
   },
@@ -68,7 +73,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({ realName: this.realName, orgId: this.orgIds, reportType: 0, ...param }, getTableData)
+      this.loadTable({ orgId: this.orgIds, reportType: 0, ...param }, getTableData)
     },
     handleClick (row) {
       this.$router.push({
@@ -76,17 +81,10 @@ export default {
       })
     },
     listPage () {
-      this.realName = ''
       this.loadPage()
     },
     searchPage (val) {
-      if (val.realName == '') {
-        // this.$message.error('请输入搜索内容')
-        // return
-        this.loadPage()
-      }
-      this.realName = val.realName
-      this.loadPage()
+      this.loadPage(val)
     },
   },
 }

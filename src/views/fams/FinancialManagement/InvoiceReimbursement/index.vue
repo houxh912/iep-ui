@@ -13,7 +13,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
-              <iep-button v-if="scope.row.referType === 1" @click="handleEditProject(scope.row)" plain>修改</iep-button>
+              <iep-button v-if="scope.row.financialAudit===1&&scope.row.referType === 1" @click="handleEditProject(scope.row)" plain>修改</iep-button>
               <iep-button v-if="scope.row.financialAudit===0" @click="handlePass(scope.row)" plain>通过</iep-button>
               <iep-button v-if="scope.row.financialAudit===0" @click="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>

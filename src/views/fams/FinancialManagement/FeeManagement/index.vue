@@ -15,7 +15,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
-              <iep-button @click="handleEditProject(scope.row)">修改</iep-button>
+              <iep-button v-if="[4,6].includes(scope.row.status)" @click="handleEditProject(scope.row)">修改</iep-button>
               <iep-button v-if="scope.row.status===2" @click="handlePass(scope.row)" plain>通过</iep-button>
               <iep-button v-if="scope.row.status===2" @click="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>

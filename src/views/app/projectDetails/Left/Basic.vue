@@ -20,6 +20,7 @@
             <span v-else-if="list.dict">{{dictMap[list.dict][projectData[list.name]]}}</span>
             <span v-else-if="list.replace">{{projectData[list.replace]?projectData[list.replace]:projectData[list.name]}}</span>
             <span v-else-if="projectData[list.name]">{{projectData[list.name]}}</span>
+            <span v-else>暂无</span>
           </span>
         </span>
       </div>
@@ -65,17 +66,12 @@ export default {
             }, {
               post: '客户名称',
               name: 'relatedClientName',
-            }, {
-              post: '委托组织',
-              name: 'attendeeByName',
+              replace: 'attendeeByName',
+              replaceLabel: '委托组织',
             }, {
               post: '项目等级',
               name: 'projectLevel',
               dict: 'prms_project_level',
-            }, {
-              post: '相关产品',
-              name: 'productList',
-              list: 'name',
             }, {
               post: '项目预算',
               name: 'projectBudget',

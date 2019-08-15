@@ -44,3 +44,12 @@ export function getTargetlist (query) {
     params: query,
   })
 }
+//排行榜
+
+export function getRankinglist (query) {
+  return request({
+    url: '/hrms/iephrsplendortarget/getRankinglist',
+    method: 'get',
+    params: query,
+  })
+}

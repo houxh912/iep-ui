@@ -13,6 +13,9 @@ const initForm = () => {
     priority:'',//优先级
     status:'',//状态
     describes:'',//描述
+    userId:'',
+    userName:'默认',
+    sign:1,//标记
   }
 }
 const columnsMap = [

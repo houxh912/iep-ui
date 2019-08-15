@@ -15,7 +15,7 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
         </template>
-        <el-table-column prop="operation" label="操作" width="250" fixed="right">
+        <el-table-column prop="operation" label="操作" width="180" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" type="warning" plain>编辑</iep-button>

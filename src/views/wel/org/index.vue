@@ -199,7 +199,7 @@ export default {
     }
     .select-org-container {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       .grid-item {
         margin: 10px 20px;
       }

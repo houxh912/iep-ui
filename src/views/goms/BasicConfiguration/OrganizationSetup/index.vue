@@ -3,14 +3,18 @@
     <basic-container>
       <iep-page-header title="组织设置"></iep-page-header>
       <div class="message-box" v-for="(item,i) in message" :key="i">
+        <template v-if="item.status===4">
+          <i class="el-icon-info"></i>
+          <span class="message-text"> 您创建的联盟正在审核中。</span>
+        </template>
         <template v-if="item.status===3">
           <i class="el-icon-info"></i>
-          <span class="message-text">{{userInfo.orgName}} 现在属于 {{item.union.name}} 。</span>
-          <iep-button type="primary" plain>申请退出</iep-button>
+          <span class="message-text">{{userInfo.orgName}} 现在属于 {{item.union.name}}。</span>
+          <iep-button type="primary" plain disabled>申请退出</iep-button>
         </template>
         <template v-if="item.status===2">
           <i class="el-icon-info"></i>
-          <span class="message-text">{{item.user.name}} 邀请 {{userInfo.orgName}} 加入 {{item.union.name}} 。</span>
+          <span class="message-text">{{item.user.name}} 邀请 {{userInfo.orgName}} 加入 {{item.union.name}}。</span>
           <operation-wrapper style="display:inline-block;">
             <iep-button type="primary" @click="handleAgree(item.id)" plain>同意</iep-button>
             <iep-button @click="handleRefuse(item.id)" plain>拒绝</iep-button>
@@ -18,7 +22,7 @@
         </template>
         <template v-if="item.status===1">
           <i class="el-icon-info"></i>
-          <span class="message-text"> {{userInfo.orgName}} 现在无所属联盟 。</span>
+          <span class="message-text"> {{userInfo.orgName}} 现在无所属联盟。</span>
         </template>
       </div>
       <iep-divider />
@@ -143,9 +147,9 @@ export default {
   span {
     display: inline-block;
     margin-left: 20px;
-    color: #bf051a;
+    color: #b3b3b3;
     font-size: 14px;
-    cursor: pointer;
+    cursor: not-allowed;
   }
 }
 .message-box {

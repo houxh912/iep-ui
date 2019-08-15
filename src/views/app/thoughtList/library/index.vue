@@ -34,6 +34,8 @@
           <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
           <div class="button" @click="handleForward(item)" v-if="item.transmitId === 0"><i class="icon-zhuanfa1"></i> 转发</div>
+          <div class="button" @click="handleCollect(item)" v-if="item.isCollected === 0"><i class="icon-heart"></i> 收藏</div>
+          <div class="button" @click="handleNoCollect(item)" v-else><i class="icon-aixin"></i> 已收藏</div>
         </div>
         <!-- 说说评论 -->
         <div class="comment" v-if="activeIndex == index">
@@ -52,6 +54,8 @@
     </div>
     <!-- 转发 -->
     <forwardDialog ref="forward" @load-page="loadPage"></forwardDialog>
+    <!-- 收藏 -->
+    <collect-dialog ref="collect" @load-page="loadPage"></collect-dialog>
   </div>
 </template>
 
@@ -62,6 +66,7 @@ import forwardContent from './forwardContent'
 import commentTpl from './commentTpl'
 import contentTpl from './content'
 import forwardDialog from '../forwardDialog'
+import CollectDialog from '@/views/mlms/material/components/collectDialog'
 
 const initFormData = () => {
   return {
@@ -71,7 +76,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { forwardContent, commentTpl, contentTpl, forwardDialog },
+  components: { forwardContent, commentTpl, contentTpl, forwardDialog, CollectDialog },
   props: {
     dataList: {
       type: Array,
@@ -159,6 +164,16 @@ export default {
     handleForward (row) {
       this.$refs['forward'].open(row)
     },
+    // 收藏
+    handleCollect (item) {
+      this.$refs['collect'].openDialog([{
+        name: item.content.slice(0, 10) + '...',
+        type: 'thoughts',
+        id: item.thoughtsId,
+      }])
+    },
+    // 取消收藏
+    handleNoCollect () {},
   },
 }
 </script>

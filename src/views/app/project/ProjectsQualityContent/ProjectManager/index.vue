@@ -61,7 +61,7 @@ export default {
   methods: {
     getProjectEmployee () {
       getProjectEmployee(this.projectParmas).then(({ data }) => {
-        this.list = data.data
+        this.list = data.data.records.slice(0, 4)
       })
     },
     activeTag (index, tagId) {
@@ -89,6 +89,7 @@ export default {
   },
   created () {
     this.loadPage()
+    this.getProjectEmployee()
   },
   watch: {
     activeTab (newVal) {

@@ -54,7 +54,7 @@ export default {
   methods: {
     handleProject (row) {
       getProjectByemployee({ type: 'mentor', userId: row.projectMentor }).then(({ data }) => {
-        this.projectList = data.data.slice(0, 4)
+        this.projectList = data.data.slice(0, 7)
       })
     },
     handleProjectLeave () {
@@ -194,7 +194,7 @@ export default {
     }
     .piece {
       position: relative;
-      margin-left: 15px;
+      margin: 0 0 10px 15px;
       text-align: left;
       &:before {
         content: "";

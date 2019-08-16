@@ -400,7 +400,7 @@ export default {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   .btn-addgroup {
     margin: 5px 0;
-    background: #ba1b21;
+    background: $--color-primary;
     color: #FFFFFF;
     &:hover {
       opacity: .8;
@@ -438,7 +438,7 @@ export default {
           bottom: -2px;
           left: 0;
           right: 0;
-          border-bottom: 2px solid #ba1b21;
+          border-bottom: 2px solid $--color-primary;
           cursor: pointer;
           opacity: 1;
         }
@@ -566,7 +566,7 @@ export default {
       line-height: 40px;
       top: 6px;
       &:hover {
-        color: #ba1b21;
+        color: $--color-primary;
       }
     }
   }

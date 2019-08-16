@@ -11,6 +11,7 @@ const columnsMap = [
 		prop: 'createTime',
 		label: '时间',
 		type: 'date',
+		width: '150',
 		formatString: 'YYYY-MM-DD',
 	},
 	{
@@ -25,12 +26,12 @@ const columnsMap = [
 	{
 		prop: 'orgName',
 		label: '组织',
-		width: '150',
+		type: 'detail',
 	},
 	{
 		prop: 'companyName',
 		label: '线下公司',
-		width: '220',
+		type: 'detail',
 	},
 	{
 		prop: 'expenditureMode',
@@ -41,7 +42,7 @@ const columnsMap = [
 	{
 		prop: 'bankAccount',
 		label: '银行账户',
-		width: '250',
+		type: 'detail',
 	},
 	{
 		prop: 'remarks',

@@ -114,14 +114,14 @@ export default {
 .list-item {
   cursor: pointer;
   &:hover {
-    border: 1px solid #ba1b21;
+    border: 1px solid $--color-primary;
     background-color: #f8e8e9;
-    color: #ba1b21;
+    color: $--color-primary;
   }
   &.active {
-    border: 1px solid #ba1b21;
+    border: 1px solid $--color-primary;
     background-color: #f8e8e9;
-    color: #ba1b21;
+    color: $--color-primary;
   }
 }
 </style>

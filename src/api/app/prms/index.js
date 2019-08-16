@@ -179,3 +179,12 @@ export const getExperienceInTraining = () => {
     method: 'get',
   })
 }
+
+// 项目标签查询
+export const getProjectTag = (params) => {
+  return request({
+    url: `${prefixUrl}/project/tag`,
+    method: 'get',
+    params: params,
+  })
+}

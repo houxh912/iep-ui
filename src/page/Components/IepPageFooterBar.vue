@@ -60,7 +60,7 @@ export default {
       padding: 0 13px;
       color: #999;
       &:hover {
-        color: #bb1a20;
+        color: $--color-primary;
       }
     }
     .position {

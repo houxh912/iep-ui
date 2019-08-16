@@ -79,7 +79,7 @@ export default {
     cursor: pointer;
     color: #666;
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
   }
 }

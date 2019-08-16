@@ -11,7 +11,7 @@
         <el-tag type="info" class="tag-style" v-for="(item,index) in formData.businessType" :key="index">{{item.commonName}}</el-tag>
       </el-form-item>
       <el-form-item label="意向程度：">
-        <a-tag type="info">{{formData.intentionLevelValue}}</a-tag>
+        <a-tag type="info">{{formData.intentionLevel[0].commonName}}</a-tag>
       </el-form-item>
       <el-form-item label="商机描述：">
         <span>{{formData.opportunityDes}}</span>
@@ -26,7 +26,7 @@
         <span>{{formData.publishDate}}</span>
       </el-form-item>
       <el-form-item label="认领状态：">
-        <span>{{formData.statusValue}}</span>
+        <span>{{formData.status[0].commonName}}</span>
       </el-form-item>
       <el-form-item label="创建状态：">
         <span v-if="formData.isCreate==0">未创建</span>

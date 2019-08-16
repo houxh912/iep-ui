@@ -22,17 +22,17 @@ export default {
   },
 }
 </script>
-<style scoped>
-.iep-tabs >>> .el-tabs__nav-wrap::after {
+<style lang="scss" scoped>
+.iep-tabs ::v-deep .el-tabs__nav-wrap::after {
   height: 1px;
 }
-.iep-tabs >>> .el-tabs__active-bar {
-  background-color: #ba1b21;
+.iep-tabs ::v-deep .el-tabs__active-bar {
+  background-color: $--color-primary;
 }
-.iep-tabs >>> .el-tabs__item.is-active {
-  color: #ba1b21;
+.iep-tabs ::v-deep .el-tabs__item.is-active {
+  color: $--color-primary;
 }
-.iep-tabs >>> .el-tabs__item {
+.iep-tabs ::v-deep .el-tabs__item {
   font-size: 16px;
   height: 22px;
   line-height: 22px;

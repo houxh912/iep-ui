@@ -190,7 +190,7 @@ export default {
   font-size: 20px;
   .sub-title {
     font-size: 12px;
-    color: #ba1b21;
+    color: $--color-primary;
   }
 }
 .tags {

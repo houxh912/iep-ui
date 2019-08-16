@@ -1,7 +1,7 @@
 <template>
   <div class="institutional">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <IepAppListCard :dataList="dataList" @click="handleDetail" name="project_name"></IepAppListCard>
+      <IepAppListCard :dataList="dataList" @click="handleDetail" name="projectName"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>

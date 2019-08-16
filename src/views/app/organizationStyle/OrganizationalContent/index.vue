@@ -9,8 +9,8 @@
     </div>
     <div class="organization-content">
       <talent-demand :orgId="data.orgId" :data="data"></talent-demand>
-      <texture-score :data="data"></texture-score>
       <products-services :orgId="data.orgId" :data="data"></products-services>
+      <texture-score :data="data"></texture-score>
       <collaborative-record :data="data" v-if="false"></collaborative-record>
       <new-down :visitVOs="data.visitVOs" :data="data"></new-down>
     </div>

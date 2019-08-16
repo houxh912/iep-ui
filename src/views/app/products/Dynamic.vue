@@ -1,7 +1,7 @@
 <template>
   <div class="InstitutionalDocument">
     <iepAppTabCard :title="title">
-      <IepAppListCard :dataList="dataList.slice(0, 8)" @click="handleDetail"></IepAppListCard>
+      <IepAppListCard :dataList="dataList" @click="handleDetail"></IepAppListCard>
     </iepAppTabCard>
   </div>
 </template>

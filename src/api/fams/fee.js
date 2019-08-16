@@ -37,7 +37,7 @@ export function postFee (obj, isPublish = false) {
   return request({
     url: `${prefixUrl}/create`,
     method: 'post',
-    data: {isPublish,...obj},
+    data: { isPublish, ...obj },
   })
 }
 
@@ -45,7 +45,15 @@ export function putFee (obj, isPublish = false) {
   return request({
     url: `${prefixUrl}/update`,
     method: 'post',
-    data: {isPublish,...obj},
+    data: { isPublish, ...obj },
+  })
+}
+
+export function putFeeRelation (obj) {
+  return request({
+    url: `${prefixUrl}/update/project`,
+    method: 'post',
+    data: obj,
   })
 }
 

@@ -236,7 +236,7 @@ export default {
         margin-right: 3px;
         color: #999;
         .href {
-          color: #ba1b21;
+          color: $--color-primary;
           cursor: pointer;
         }
       }

@@ -81,7 +81,8 @@ export default {
   }
 }
 .left {
-  margin-left: 5px;
+  font-size: 18px;
+  margin-left: 15px;
 }
 </style>
 <style scoped>

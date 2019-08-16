@@ -24,20 +24,23 @@
     <IepAppTabCard class="bottom mutual-card" :title="titleStar" :linkName="linkName">
       <!-- <el-button class="important" type="text" slot="right">申请互助基金</el-button> -->
       <div class="star-list">
-        <div v-for="(item, index) in starList" :key="index" class="piece">
-          <div class="img-con" @click="handleDetail(item.id)">
-            <iep-img :src="item.avatar" class="img"></iep-img>
-          </div>
-          <div class="box" @click="handleDetail(item.id)">
-            <div class="piece-title">
-              <span class="name">{{item.name}}</span>
+        <div v-if="starList.length > 0">
+          <div v-for="(item, index) in starList" :key="index" class="piece">
+            <div class="img-con" @click="handleDetail(item.id)">
+              <iep-img :src="item.avatar" class="img"></iep-img>
             </div>
-            <p class="job" v-for="(item, index) in item.orgList" :key="index">{{item}}</p>
-          </div>
-          <div class="btn">
-            <el-button type="danger" plain @click="sendBlessing(item)">送上祝福</el-button>
+            <div class="box" @click="handleDetail(item.id)">
+              <div class="piece-title">
+                <span class="name">{{item.name}}</span>
+              </div>
+              <p class="job" v-for="(item, index) in item.orgList" :key="index">{{item}}</p>
+            </div>
+            <div class="btn">
+              <el-button type="danger" plain @click="sendBlessing(item)">送上祝福</el-button>
+            </div>
           </div>
         </div>
+        <div class="no-data" v-else>常怀感激之情、常抱进取之心、常存敬畏之念</div>
       </div>
     </IepAppTabCard>
     <!-- 祝福 -->
@@ -117,6 +120,12 @@ export default {
       margin-bottom: 7px;
       line-height: 14px;
     }
+  }
+  .no-data {
+    padding: 20px 0 0;
+    text-align: center;
+    font-size: 16px;
+    color: #cb3737;
   }
 }
 .thoughts-list,
@@ -229,7 +238,7 @@ export default {
 </style>
 <style scoped>
 .top >>> .el-card__body {
-  height: 180px;
+  height: 165px;
 }
 .thoughts >>> .el-button {
   float: right;

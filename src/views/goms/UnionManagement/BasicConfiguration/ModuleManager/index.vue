@@ -7,7 +7,7 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-      <el-table-column prop="operation" label="操作" width="200">
+      <el-table-column prop="operation" label="操作" width="100">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>

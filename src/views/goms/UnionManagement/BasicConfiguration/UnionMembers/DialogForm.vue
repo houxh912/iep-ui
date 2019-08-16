@@ -1,9 +1,21 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="编辑组织" width="400px" @close="close">
-    <el-form :model="form" size="small" ref="form" label-width="100px">
-      <el-form-item label="模块权限" prop="moduleIds">
+  <iep-dialog :dialog-show="dialogShow" title="编辑组织" width="500px" @close="close">
+    <el-form class="form-detail" :model="form" size="small" ref="form" label-width="100px">
+      <iep-form-item label-name="组织Logo" prop="logo">
+        <iep-img style="width: 80px;height: 80px;" :src="form.logo"></iep-img>
+      </iep-form-item>
+      <iep-form-item label-name="组织名称" prop="orgName">
+        <el-input v-model="form.orgName" disabled></el-input>
+      </iep-form-item>
+      <iep-form-item label-name="所有者" prop="belongUser">
+        <el-input v-model="form.belongUser" disabled></el-input>
+      </iep-form-item>
+      <iep-form-item label-name="加入时间" prop="createTime">
+        <iep-date-picker v-model="form.createTime" type="date" disabled></iep-date-picker>
+      </iep-form-item>
+      <iep-form-item label-name="模块权限" prop="moduleIds">
         <iep-select v-model="form.moduleIds" prefix-url="admin/module/union/module" multiple></iep-select>
-      </el-form-item>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>

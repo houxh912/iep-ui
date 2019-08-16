@@ -6,6 +6,7 @@ const initOrgForm = () => {
 const initForm = () => {
   return {
     belongUser: '',
+    logo: '',
     createTime: '',
     id: null,
     moduleIds: [],

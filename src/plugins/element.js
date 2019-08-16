@@ -1,9 +1,7 @@
 import Vue from 'vue'
 // 全局重置变量
 import '@/styles/reset.css'
-// TODO:等 element-ui 2.11.0 修复
 import '@/styles/element-variables.scss'
-import 'element-ui/lib/theme-chalk/index.css'
 
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
 import ElementUI from 'element-ui'

@@ -149,10 +149,10 @@ export default {
         color: #999;
       }
       .active {
-        border: 1px solid #cb3737;
-        color: #cb3737;
-        background: #f9eae7;
-        border-color: #cb3737;
+        border: 1px solid $--menu-color-primary;
+        color: $--menu-color-primary;
+        background: $--menu-color-second;
+        border-color: $--menu-color-primary;
       }
       .content {
         position: relative;
@@ -202,22 +202,22 @@ export default {
       }
     }
     .actively {
-      border-color: #cb3737 !important;
-      color: #cb3737;
+      border-color: $--menu-color-primary !important;
+      color: $--menu-color-primary;
       .title {
-        color: #cb3737!important;
+        color: $--menu-color-primary !important;
       }
       .date {
-        background-color: #f9eae7;
-        border: 1px solid #cb3737;
+        background-color: $--menu-color-second;
+        border: 1px solid $--menu-color-primary;
         .spot:before {
-          border: 2px solid #cb3737;
-          background-color: #cb3737;
+          border: 2px solid $--menu-color-primary;
+          background-color: $--menu-color-primary;
         }
       }
     }
     .actively.date {
-      background-color: #f9eae7 !important;
+      background-color: $--menu-color-second !important;
     }
   }
 }

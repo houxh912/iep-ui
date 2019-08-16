@@ -323,8 +323,8 @@ export default {
   padding: 3px 10px;
   margin-right: 10px;
   &:hover {
-    color: #ba1b21;
-    border: 1px solid #ba1b21;
+    color: $--color-primary;
+    border: 1px solid $--color-primary;
   }
 }
 .line {

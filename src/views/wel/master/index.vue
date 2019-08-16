@@ -165,9 +165,9 @@ export default {
       margin-right: 5px;
       cursor: pointer;
       &:hover {
-        color: #cb3737;
+        color: $--menu-color-primary;
         background: #fef0f0;
-        border-color: #cb3737;
+        border-color: $--menu-color-primary;
       }
     }
   }
@@ -179,11 +179,11 @@ export default {
     color: #606266;
   }
   .el-button--danger {
-    color: #cb3737;
-    border-color: #cb3737;
+    color: $--menu-color-primary;
+    border-color: $--menu-color-primary;
     &:hover,
     &:focus {
-      background-color: #cb3737;
+      background-color: $--menu-color-primary;
       color: #fff;
     }
   }

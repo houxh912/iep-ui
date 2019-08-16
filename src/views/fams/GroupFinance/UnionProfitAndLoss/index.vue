@@ -1,7 +1,13 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="集团盈亏"></iep-page-header>
+      <iep-page-header title="集团盈亏">
+        <iep-tip content="项目收入=项目收入+代收和项目相关的本组织代收（收入-支出）<br/>
+内部收入=集团打赏组织+组织转账收入<br/>
+费用：支出管理（除了员工提现、组织借款、银行提现、集团往来结算、非成本费用）+【代缴、费用代缴、组织打赏（项目提成发放）】这几项是支出-收入+组织转账支出+集团扣减组织<br/>
+营业利润=合同金额-费用<br/>
+净利润=项目收入+内部收入-费用"></iep-tip>
+      </iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Year'" v-slot:Year>
           <year v-loading="activeTab !=='Year'"></year>

@@ -43,14 +43,14 @@ export default {
     color: #666;
 
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
   }
   .line {
     padding: 0 10px;
   }
   .color {
-    color: #cb3737;
+    color: $--menu-color-primary;
   }
   .showLine {
     display: none;

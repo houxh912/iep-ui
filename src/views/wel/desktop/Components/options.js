@@ -1,3 +1,4 @@
+import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   status: {
     0: '禁用',
@@ -24,7 +25,7 @@ const initForm = () => {
     summaryIds: [],
     summaryList: [],
     tagKeyWords: [],
-    type: 2, // 类型为分享
+    type: 1, // 类型为批示
     kind: 0,
   }
 }
@@ -41,6 +42,26 @@ const rules = {
     trigger: 'blur',
   }],
 }
+const initSearchForm = () => {
+  return {
+    rangeTime: null, // 日期
+    realName: '',
+  }
+}
+const initDtoSearchForm = () => {
+  return {
+    startTime: '', // 日期
+    endTime: '', // 日期
+    realName: '',
+  }
+}
+const toDtoSearchForm = (row) => {
+  const newForm = mergeByFirst(initDtoSearchForm(), row)
+  if (row.rangeTime) {
+    newForm.startTime = row.rangeTime[0]
+    newForm.endTime = row.rangeTime[1]
+  }
+  return newForm
+}
 
-
-export { dictsMap, initForm, rules }
+export { initSearchForm, toDtoSearchForm, dictsMap, initForm, rules }

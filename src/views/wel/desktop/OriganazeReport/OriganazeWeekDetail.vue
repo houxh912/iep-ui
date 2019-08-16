@@ -5,7 +5,8 @@
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
           <span style="margin-right:15px;">组织：{{form.orgName}}</span>
-          <span>发布人：{{form.realName}}</span>
+          <span style="margin-right:15px;">发布人: <iep-hover-card v-if="form.realName" :obj="sender"></iep-hover-card>
+          </span>
           <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
         <template slot="right">
@@ -62,6 +63,7 @@ function initForm () {
     title: '',
     orgName: '',
     createTime: '',
+    userId: '',
     realName: '',
     leaderIndication: '',
     workSummary: '',
@@ -88,6 +90,10 @@ export default {
         startTime: '',
         orgId: '',
       },
+      sender: {
+        id: 0,
+        name: '',
+      },
     }
   },
   computed: {
@@ -97,9 +103,12 @@ export default {
   },
   created () {
     getOgrReport(this.id).then(({ data }) => {
-      this.form = this.$mergeByFirst(initForm(), data.data)
-      this.reportInfo.startTime = data.data.createTime
-      this.reportInfo.orgId = data.data.orgId
+      const newData = data.data
+      this.form = this.$mergeByFirst(initForm(), newData)
+      this.sender.id = newData.userId
+      this.sender.name = newData.realName
+      this.reportInfo.startTime = newData.createTime
+      this.reportInfo.orgId = newData.orgId
     })
   },
   methods: {
@@ -150,14 +159,14 @@ export default {
     .leadership {
       float: right;
       padding: 3px 6px;
-      border: 1px solid #ba1b21;
+      border: 1px solid $--color-primary;
       border-radius: 5px;
-      color: #ba1b21;
+      color: $--color-primary;
       font-size: 14px;
       cursor: pointer;
       &:hover {
         color: #fff;
-        background-color: #ba1b21;
+        background-color: $--color-primary;
       }
     }
     .content {

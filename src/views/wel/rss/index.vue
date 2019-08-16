@@ -210,7 +210,7 @@ export default {
     color: #333;
   }
   .red {
-    color: #ba1b21 !important;
+    color: $--color-primary !important;
   }
 }
 .aside-main {

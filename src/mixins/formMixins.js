@@ -71,9 +71,17 @@ export default {
       const valid = (await mixinsFormGen.next()).value
       let mixinsResult = false
       if (valid) {
-        mixinsResult = await this.submitForm()
+        // 网络 400
+        try {
+          mixinsResult = await this.submitForm()
+        } catch (error) {
+          console.log(error)
+        } finally {
+          await mixinsFormGen.next()
+        }
+      } else {
+        await mixinsFormGen.next()
       }
-      await mixinsFormGen.next()
       return mixinsResult
     },
   },

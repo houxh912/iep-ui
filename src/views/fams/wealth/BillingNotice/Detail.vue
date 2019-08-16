@@ -52,8 +52,11 @@
           <iep-div-detail :value="form.projectName"></iep-div-detail>
         </iep-form-item>
         <h4 class="iep-sub-title">销售方</h4>
+        <iep-form-item label-name="销售组织">
+          <iep-select-detail v-model="form.orgId" prefix-url="admin/org/all"></iep-select-detail>
+        </iep-form-item>
         <iep-form-item label-name="销售方公司">
-          <iep-select-detail v-model="form.companyId" prefix-url="fams/company"></iep-select-detail>
+          <iep-select-detail v-model="form.companyId" prefix-url="fams/company/all"></iep-select-detail>
         </iep-form-item>
         <iep-form-item label-name="纳税人识别号">
           <span>{{companyForm.taxpayerNumber}}</span>

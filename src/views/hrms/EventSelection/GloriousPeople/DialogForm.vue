@@ -104,5 +104,12 @@ export default {
       }
     },
   },
+  watch: {
+    'form.targetId' () {
+      this.form.userName = '默认'
+      this.form.userId = ''
+    },
+  },
+
 }
 </script>

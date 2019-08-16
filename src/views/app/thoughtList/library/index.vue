@@ -12,7 +12,10 @@
             <!-- <div class="date">{{getNumber(index)}}</div>原来的假楼层 -->
             <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
           </div>
-          <!-- <el-button size="mini" round>只看此人</el-button> -->
+          <div class="right" v-if="userInfo.userId !== item.userId">
+            <iep-button class="add" v-if="item.isFollow === 0" @click="handleFollow(item)"><i class="icon-xinzeng"></i> 关注</iep-button>
+            <iep-button class="add" v-else @click="handleUnFollow(item)"><i class="icon-check"></i> 已关注</iep-button>
+          </div>
         </div>
         <!-- 说说的内容 -->
         <contentTpl :data="item">
@@ -34,6 +37,8 @@
           <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
           <div class="button" @click="handleForward(item)" v-if="item.transmitId === 0"><i class="icon-zhuanfa1"></i> 转发</div>
+          <div class="button" @click="handleCollect(item)" v-if="item.isCollected === 0"><i class="icon-heart"></i> 收藏</div>
+          <div class="button" @click="handleNoCollect(item)" v-else><i class="icon-aixin"></i> 已收藏</div>
         </div>
         <!-- 说说评论 -->
         <div class="comment" v-if="activeIndex == index">
@@ -52,16 +57,20 @@
     </div>
     <!-- 转发 -->
     <forwardDialog ref="forward" @load-page="loadPage"></forwardDialog>
+    <!-- 收藏 -->
+    <collect-dialog ref="collect" @load-page="loadPage"></collect-dialog>
   </div>
 </template>
 
 <script>
 import { addThumbsUpByRecord, getThumbMembers, CommentThoughts } from '@/api/cpms/thoughts'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import forwardContent from './forwardContent'
 import commentTpl from './commentTpl'
 import contentTpl from './content'
 import forwardDialog from '../forwardDialog'
+import CollectDialog from '@/views/mlms/material/components/collectDialog'
+import { followById, unfollowById } from '@/api/cpms/iepuserfollow'
 
 const initFormData = () => {
   return {
@@ -71,7 +80,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { forwardContent, commentTpl, contentTpl, forwardDialog },
+  components: { forwardContent, commentTpl, contentTpl, forwardDialog, CollectDialog },
   props: {
     dataList: {
       type: Array,
@@ -79,6 +88,9 @@ export default {
     params: {
       type: Object,
     },
+  },
+  computed: {
+    ...mapGetters(['userInfo']),
   },
   data () {
     return {
@@ -159,6 +171,28 @@ export default {
     handleForward (row) {
       this.$refs['forward'].open(row)
     },
+    // 收藏
+    handleCollect (item) {
+      this.$refs['collect'].openDialog([{
+        name: item.content.slice(0, 10) + '...',
+        type: 'thoughts',
+        id: item.thoughtsId,
+      }])
+    },
+    // 取消收藏
+    handleNoCollect () {},
+    // 关注
+    handleFollow (row) {
+      followById(row.userId).then(() => {
+        this.loadPage()
+      })
+    },
+    // 取消关注
+    handleUnFollow (row) {
+      unfollowById(row.userId).then(() => {
+        this.loadPage()
+      })
+    },
   },
 }
 </script>
@@ -192,6 +226,7 @@ export default {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 10px;
       }
       .comment {
         margin-top: 20px;
@@ -225,6 +260,13 @@ export default {
           }
           &:nth-child(2) {
             color: #999;
+          }
+        }
+      }
+      .right {
+        .add {
+          i {
+            font-size: 16px !important;
           }
         }
       }

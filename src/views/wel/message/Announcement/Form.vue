@@ -22,7 +22,6 @@
         <el-form-item label="">
           <operation-wrapper>
             <a-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">{{methodName}}</a-button>
-            <!-- <iep-button @click="handlePublish">保存并发布</iep-button> -->
           </operation-wrapper>
         </el-form-item>
       </el-form>
@@ -90,10 +89,6 @@ export default {
     }
   },
   methods: {
-    handlePublish () {
-      this.isPublish = true
-      this.mixinsSubmitFormGen()
-    },
     async submitForm () {
       const publish = this.isPublish
       const { data } = await this.formRequestFn(formToDto(this.form), publish)
@@ -102,6 +97,7 @@ export default {
         this.$router.history.go(-1)
       } else {
         this.$message(data.msg)
+        return false
       }
     },
   },

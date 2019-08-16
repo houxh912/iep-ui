@@ -1,6 +1,7 @@
 <template>
   <div class="my-products">
-    <basic-container>
+    <IepAppTabsCard>
+      <el-button class="publish" slot="left" type="text" @click="custom">产品定制</el-button>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='MyProdect'" v-slot:MyProdect>
           <my-prodect v-loading="activeTab !=='MyProdect'"></my-prodect>
@@ -9,7 +10,7 @@
           <my-module v-loading="activeTab !=='MyModule'"></my-module>
         </template>
       </iep-tabs>
-    </basic-container>
+    </IepAppTabsCard>
   </div>
 </template>
 <script>
@@ -34,6 +35,11 @@ export default {
       activeTab: 'MyProdect',
     }
   },
+  methods: {
+    custom () {
+      this.$router.push('/cpms/modules')
+    },
+  },
 }
 </script>
 <style scoped lang='scss'>
@@ -41,7 +47,19 @@ export default {
   grid-column-start: 1;
   grid-column-end: 4;
   text-align: center;
-  border: 1px solid #eee;
+}
+.publish {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  line-height: 50px;
+  padding: 0;
+  color: #cb3737;
+  z-index: 3;
+  transition: all 0.5s;
+  &:hover {
+    opacity: 0.7;
+  }
 }
 </style>
 

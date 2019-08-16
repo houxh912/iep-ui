@@ -3,7 +3,7 @@
     <IepAppTabCard :title="title" :linkName="linkName">
       <el-button style="float: right; padding: 5px 0;" type="text" slot="right" @click="handleEvaluate">我要评价</el-button>
       <div class="texture-score-list">
-        <div v-if="textureScoreList.length !== 0">
+        <div v-if="textureScoreList.length !== 0" class="texture-score-item">
           <div v-for="(item,index) in textureScoreList" :key="index" class="piece">
             <div class="img">
               <iep-img :src="item.avatar"></iep-img>
@@ -98,6 +98,9 @@ export default {
 <style lang="scss" scoped>
 .texture-score-list {
   max-height: 261px;
+  .texture-score-item {
+    overflow: hidden;
+  }
   .piece {
     display: flex;
     justify-content: space-between;

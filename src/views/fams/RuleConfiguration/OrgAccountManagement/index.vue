@@ -3,11 +3,6 @@
     <basic-container>
       <iep-page-header title="组织账户"></iep-page-header>
       <iep-table :isLoadTable="isLoadTable" :isPagination="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable">
-        <el-table-column label="操作" width="150px" fixed="right">
-          <template slot-scope="scope">
-            <el-button size="small" type="warning" plain @click="handleDetail(scope.row)">查看明细</el-button>
-          </template>
-        </el-table-column>
       </iep-table>
     </basic-container>
   </div>
@@ -29,12 +24,12 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleDetail (row) {
-      this.$router.push({
-        path: '/wel/wealth/wealth_flow',
-        query: { name: row.realName, id: row.id },
-      })
-    },
+    // handleDetail (row) {
+    //   this.$router.push({
+    //     path: '/wel/wealth/wealth_flow',
+    //     query: { name: row.realName, id: row.id },
+    //   })
+    // },
     async loadPage () {
       this.isLoadTable = true
       const { data } = await getOrgAccountList()

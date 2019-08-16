@@ -8,6 +8,7 @@ const externals = {
   'vue': 'Vue',
   'vue-router': 'VueRouter',
   'vuex': 'Vuex',
+  'lodash': '_',
   'axios': 'axios',
   'element-ui': 'ELEMENT'
 }
@@ -42,7 +43,8 @@ const cdn = {
       '/cdn/vue-router.min.js',
       '/cdn/vuex.min.js',
       '/cdn/axios.min.js',
-      '/cdn/element-ui.js'
+      '/cdn/element-ui.js',
+      '/cdn/lodash.min.js'
     ]
   }
 }
@@ -52,6 +54,8 @@ module.exports = {
   chainWebpack: config => {
     // config.entry('index').add('babel-polyfill').end()
     config.plugin('html').tap(args => {
+      args[0].title = '国脉内部智慧平台'
+      args[0].url = 'iep.govmade.com'
       if (isProduction) {
         args[0].cdn = cdn.build
       } else {

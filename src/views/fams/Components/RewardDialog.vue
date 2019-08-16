@@ -88,7 +88,7 @@ export default {
   watch: {
     dialogShow (newVal) {
       if (newVal) {
-        this.form.targetUser = this.person
+        this.form.targetUserList = [...this.person]
       }
     },
   },

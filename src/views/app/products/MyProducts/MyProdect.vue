@@ -8,15 +8,17 @@
       </div>
     </div>
     <iep-no-data v-if="!moduleList.length"></iep-no-data>
-    <div class="my-products-box">
-      <div v-for="(item,index) in moduleList" :key="index" class="piece" @click="handleleDetail(item)">
-        <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
-        <div class="text">
-          <span>{{item.name}}</span>
-          <span class="introduction">{{item.synopsis}}</span>
+    <el-scrollbar style="height:300px">
+      <div class="my-products-box">
+        <div v-for="(item,index) in moduleList" :key="index" class="piece" @click="handleleDetail(item)">
+          <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
+          <div class="text">
+            <span>{{item.name}}</span>
+            <span class="introduction">{{item.synopsis}}</span>
+          </div>
         </div>
       </div>
-    </div>
+    </el-scrollbar>
     <!-- <div class="page">
       <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div> -->
@@ -60,7 +62,7 @@ export default {
       getDetailsPage(Object.assign({}, this.params, this.paramForm, { type: this.productType })).then(({ data }) => {
         const moduleList = data.data.records
         this.total = data.data.total
-        this.moduleList = moduleList.slice(0, 6)
+        this.moduleList = moduleList
       })
     },
     // handleProductClick (productId) {
@@ -150,7 +152,7 @@ export default {
       .text {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        width: 440px;
         margin-left: 15px;
         text-align: left;
         span {

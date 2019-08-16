@@ -9,10 +9,11 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column label="操作" width="200" fixed="right">
+        <el-table-column label="操作" width="300" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
+              <iep-button v-if="scope.row.financialAudit===1&&scope.row.referType === 1" @click="handleEditProject(scope.row)" plain>修改</iep-button>
               <iep-button v-if="scope.row.financialAudit===0" @click="handlePass(scope.row)" plain>通过</iep-button>
               <iep-button v-if="scope.row.financialAudit===0" @click="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
@@ -22,6 +23,7 @@
     </basic-container>
     <invoice-pass-dialog-form ref="InvoicePassDialogForm" is-financial @load-page="loadPage"></invoice-pass-dialog-form>
     <invoice-reject-dialog-form ref="InvoiceRejectDialogForm" is-financial @load-page="loadPage"></invoice-reject-dialog-form>
+    <relation-dialog-form ref="RelationDialogForm" @load-page="loadPage"></relation-dialog-form>
   </div>
 </template>
 
@@ -29,10 +31,11 @@
 import { getInvoicePage } from '@/api/fams/invoice'
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
+import RelationDialogForm from './RelationDialogForm'
 import InvoicePassDialogForm from '@/views/fams/Components/InvoicePassDialogForm.vue'
 import InvoiceRejectDialogForm from '@/views/fams/Components/InvoiceRejectDialogForm.vue'
 export default {
-  components: { InvoicePassDialogForm, InvoiceRejectDialogForm },
+  components: { InvoicePassDialogForm, InvoiceRejectDialogForm, RelationDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -46,6 +49,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleEditProject (row) {
+      this.$refs['RelationDialogForm'].id = row.id
+      this.$refs['RelationDialogForm'].loadPage()
+      this.$refs['RelationDialogForm'].dialogShow = true
+    },
     handlePass (row) {
       this.$refs['InvoicePassDialogForm'].id = row.id
       this.$refs['InvoicePassDialogForm'].content = ''

@@ -16,11 +16,17 @@
       </el-form>
 
       <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
+        <el-table-column prop="status" label="发布状态" width="100">
+          <template slot-scope="scope">
+            <el-tag type="info" size="small" v-if="scope.row.status === 0">未发布</el-tag>
+            <el-tag size="success" v-if="scope.row.status === 1">已发布</el-tag>
+          </template>
+        </el-table-column>
         <el-table-column prop="operation" align="center" label="操作" width="200">
           <template slot-scope="scope">
             <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
             <iep-divider type="vertical" />
-            <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit">修改</el-button>
+            <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit" v-if="scope.row.status === 0">修改</el-button>
             <iep-divider type="vertical" />
             <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete">删除</el-button>
           </template>
@@ -30,51 +36,47 @@
       <pagination @handleSizeChange=" handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption">
       </pagination>
 
-      <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="800px">
-        <dialog-form v-if="dialogShow" :formData="form" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()"></dialog-form>
+      <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
+        <dialog-form v-if="dialogShow" :formData="form" :isAdd="isAdd" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()"></dialog-form>
       </form-dialog>
     </template>
   </page-dialog>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-import { validatenull } from '@/util/validate'
+// import { validatenull } from '@/util/validate'
 import crudTable from '@/components/deprecated/crud-table'
 import collapseForm from '@/components/deprecated/collapse-form'
 import dialogMixins from '@/mixins/deprecated/dialog_mixins'
 import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 import dialogForm from './dialog-form'
-import { getPacketPage, deletePacket } from '@/api/govdata/policy_packet'
+import { getPacketPage, getPacketById, deletePacket } from '@/api/govdata/policy_packet'
 const columnMap = [
   {
-    prop: 'title',
-    label: '政策标题',
+    prop: 'description',
+    label: '红包简介',
   },
   {
-    prop: 'source',
-    label: '来源',
+    prop: 'totalAmount',
+    label: '红包总量',
     width: 140,
   },
   {
-    prop: 'publishTime',
-    label: '发布时间',
-    type: 'time',
+    prop: 'remainAmount',
+    label: '红包剩余数量',
     width: 150,
   },
   {
-    prop: 'creatorName',
-    label: '上传者',
+    prop: 'createTime',
+    label: '创建时间',
+    type: 'time',
     width: 100,
   },
   {
-    prop: 'examineUserName',
-    label: '审核人',
-    width: 100,
-  },
-  {
-    prop: 'examineDate',
-    label: '审核通过时间',
+    prop: 'modifiedTime',
+    label: '修改时间',
     type: 'time',
     width: 150,
   },
@@ -82,22 +84,14 @@ const columnMap = [
 function initFormInline () {
   return {
     description: '',
-    // username: '',
-    // startTime: '',
-    // endTime: '',
   }
 }
 function initForm () {
   return {
-    title: '',
-    tagList: [],
-    publishTime: '',
-    source: '',
-    url: '',
-    regionArr: [],
-    priority: 0,
-    summary: '',
-    text: '',
+    description: '',
+    relationList: [],
+    remainAmount: [],
+    totalAmount: [],
   }
 }
 export default {
@@ -105,24 +99,30 @@ export default {
   components: { crudTable, collapseForm, dialogForm },
   data () {
     return {
-      id: '',
-      type: 'information',
+      // id: '',
+      // type: 'information',
+      createUser: '',
+      modifiedUser: '',
       columnMap,
-      // formInline: {},
       initFormInline,
       formInline: initFormInline(),
       form: initForm(),
+      isAdd: false,
       isEdit: true,
       isReadonly: false,
       isNeedConfirm: true,
-      permissionDelete: false,
-      pageOptions:{
+      pageOption: {
         current: 1,
         size: 10,
+      },
+      dataList: {
+
       },
     }
   },
   computed: {
+    ...mapGetters(['userInfo']),
+
     infoFormTitle () {
       return this.isReadonly ? '查看政策红包' : this.isEdit ? '修改政策红包' : '新增政策红包'
     },
@@ -132,13 +132,18 @@ export default {
   },
   created () {
     this.load()
+    this.information()
   },
   methods: {
+    information () {
+      this.createUser = this.userInfo.userId
+      this.modifiedUser = this.userInfo.userId
+    },
+
     /**
      * 获取政策列表数据
      */
-    load (pageOption = this.pageOptions, params = this.params) {
-      console.log('dd',pageOption)
+    load (pageOption = this.pageOption, params = this.params) {
       this.isLoadTable = false
       this.editDialogShow = false
       this.dialogShow = false
@@ -149,15 +154,13 @@ export default {
     },
 
     readRelation (rows) {
-      const { tagList } = rows
-      // file
-      rows.attachments = validatenull(rows.file) ? null : [{
-        name: rows.file.match(/([^/]*)$/)[1],
-        url: rows.file,
-      }]
-      // 标签
-      rows.tagsList = this._mapPickTagIdName(tagList)
-      rows.tagList = rows.tagsList.map(m => m.name)
+      const { relationList } = rows
+      //
+      rows.relationList = relationList.map(m => m.policyId)
+      rows.relationPolicyList = relationList.map(m => {
+        return { id: m.policyId, name: m.policyType }
+      })
+      console.log('relationsList', rows.relationsList)
       return rows
     },
 
@@ -169,11 +172,15 @@ export default {
      * 查看按钮
      */
     handleView (rows) {
-      this.readRelation(rows)
-      this.form = { ...rows }
+      this.isAdd = false
       this.isReadonly = true
       this.isNeedConfirm = false
-      this.dialogShow = true
+      getPacketById(rows.id).then(res => {
+        const row = res.data.data
+        this.readRelation(row)
+        this.form = { ...row }
+        this.dialogShow = true
+      })
     },
 
     /**
@@ -181,15 +188,23 @@ export default {
      */
     handleClickMotify (rows) {
       this.isReadonly = false
-      this.dialogShow = true
       if (rows === undefined) {
+        this.isAdd = true
         this.isEdit = false
         this.form = initForm()
+        // this.form.createUser = this.createUser
+        this.dialogShow = true
       } else {
+        this.isAdd = false
         this.isEdit = true
-        this.isNeedConfirm = false
-        this.readRelation(rows)
-        this.form = { ...rows }
+        getPacketById(rows.id).then(res => {
+          const row = res.data.data
+          this.readRelation(row)
+          //this.row.modifiedUser = this.modifiedUser
+          this.form = { ...row }
+          this.isNeedConfirm = false
+          this.dialogShow = true
+        })
       }
     },
 
@@ -199,6 +214,26 @@ export default {
     handleDelete (rows) {
       const id = rows.id
       this._handleGlobalDeleteById([id], deletePacket)
+    },
+
+    /**
+     * 控制页面数据(10条/页)
+     */
+    handleSizeChange (val) {
+      this.paginationOption.size = val
+      this.pageOption.page = this.paginationOption.current
+      this.pageOption.size = this.paginationOption.size
+      this.load()
+    },
+
+    /**
+     * 控制去到第几页
+     */
+    handleCurrentChange (val) {
+      this.paginationOption.current = val
+      this.pageOption.current = this.paginationOption.current
+      this.pageOption.size = this.paginationOption.size
+      this.load()
     },
 
   },

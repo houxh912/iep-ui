@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.item >>> .is-dot {
+.item ::v-deep .is-dot {
   top: 13px;
   right: -3px;
   background: $--menu-color-primary;

@@ -22,7 +22,7 @@
             <div class="depart">{{item.attendeeByName}}</div>
           </div>
           <div class="hover" @mouseenter="handleProject(item)" @mouseleave="handleProjectLeave">
-            <div class="piece" v-for="(t, i) in projectList" :key="i">{{t}}</div>
+            <div class="piece" v-for="(t, i) in projectList" :key="i">{{t.projectName}}</div>
           </div>
         </el-card>
       </div>
@@ -54,7 +54,7 @@ export default {
   methods: {
     handleProject (row) {
       getProjectByemployee({ type: 'manager', userId: row.projectManager }).then(({ data }) => {
-        this.projectList = data.data
+        this.projectList = data.data.slice(0, 4)
       })
     },
     handleProjectLeave () {

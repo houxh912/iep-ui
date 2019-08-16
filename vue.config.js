@@ -8,6 +8,7 @@ const externals = {
   'vue': 'Vue',
   'vue-router': 'VueRouter',
   'vuex': 'Vuex',
+  'lodash': '_',
   'axios': 'axios',
   'element-ui': 'ELEMENT'
 }
@@ -42,7 +43,8 @@ const cdn = {
       '/cdn/vue-router.min.js',
       '/cdn/vuex.min.js',
       '/cdn/axios.min.js',
-      '/cdn/element-ui.js'
+      '/cdn/element-ui.js',
+      '/cdn/lodash.min.js'
     ]
   }
 }

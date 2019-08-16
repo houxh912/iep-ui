@@ -34,10 +34,11 @@ export function getUnionOrgList () {
   })
 }
 
-export function getUnionOrgPage () {
+export function getUnionOrgPage (query) {
   return request({
     url: `${prefixUrl}/org/page`,
     method: 'get',
+    params: query,
   })
 }
 

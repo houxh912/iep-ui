@@ -23,13 +23,7 @@
           </div>
           <div class="user-operation-box">
             <div class="operation-box-con">
-              <!-- <span class="inline task" @click="handleSome1()">
-                <i class="icon-qian icon padding"></i>
-                <span>完成每日工作，领国脉贝
-                  <i class="el-icon-d-arrow-right"></i>
-                </span>
-              </span> -->
-              <iep-button type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
+              <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
               <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
             </div>
             <div class="user-tags-box">
@@ -106,9 +100,6 @@ export default {
       this.$router.push({
         path: '/wel/relationship_manage',
       })
-    },
-    handleSome1 () {
-      this.$openPage('/wel/material/report')
     },
     handleSome2 () {
       this.$openPage('/wel/desktop')
@@ -210,6 +201,9 @@ export default {
       i {
         font-size: 14px;
       }
+      &:first-child {
+        margin-left: 0;
+      }
     }
     .inline {
       justify-content: center;
@@ -218,30 +212,6 @@ export default {
       .padding {
         padding-right: 5px;
         font-size: 18px;
-      }
-    }
-    .task {
-      cursor: pointer;
-      background: $--menu-color-second;
-      padding: 0 10px;
-      height: 30px;
-      font-size: 14px;
-      border-radius: 3px;
-      color: #666;
-      span {
-        font-size: 12px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-      > .icon {
-        font-size: 20px;
-        color: #ffbc01;
-      }
-      &:focus,
-      &:hover {
-        opacity: 0.6;
-        outline: none;
       }
     }
   }

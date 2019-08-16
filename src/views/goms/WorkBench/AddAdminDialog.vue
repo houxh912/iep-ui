@@ -1,9 +1,9 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="添加管理员" width="400px" @close="loadPage">
-    <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="管理员" prop="userId">
-        <iep-select prefix-url="admin/org/no_admin_user" v-model="form.userId"></iep-select>
-      </el-form-item>
+  <iep-dialog :dialog-show="dialogShow" title="添加管理员" width="500px" @close="loadPage">
+    <el-form class="form-detail" :model="form" :rules="rules" size="small" ref="form" label-width="100px">
+      <iep-form-item label-name="管理员" prop="userId">
+        <iep-select prefix-url="admin/org/no_admin_user" filterable v-model="form.userId"></iep-select>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">提交</iep-button>

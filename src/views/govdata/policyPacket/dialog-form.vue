@@ -143,7 +143,8 @@ export default {
      * 生成二维码
      */
     getCode () {
-      this.url = `http://gc.govmade.cn/policy-red-envelope-detail/${this.formData.id}`
+      this.url = `https://gc.govmade.cn/policy-red-envelope-detail/${this.formData.id}`
+      console.log('this.url',this.url)
     },
 
     /**

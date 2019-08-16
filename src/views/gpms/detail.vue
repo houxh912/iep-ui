@@ -11,11 +11,16 @@
           <el-row class="topBot">
             <el-form label-width="150px">
               <el-row>
-                <el-col :span="12" class="item">
+                <el-col :span="24" class="item">
                   <el-form-item label="项目名称：">
                     {{formData.projectName}}
                     <span v-if="formData.projectType==1" class="name-span">内部项目</span>
                     <span v-else class="name-span">外部项目</span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="24" class="item">
+                  <el-form-item label="项目标签：">
+                    <el-tag type='info' v-for="(item, index) in formData.projectTagList" :key="index">{{item}}</el-tag>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" class="item">
@@ -26,11 +31,6 @@
                 <el-col :span="12" class="item" v-show="formData.projectType==1">
                   <el-form-item label="委托组织：">
                     {{formData.attendeeByName}}
-                  </el-form-item>
-                </el-col>
-                <el-col :span="12" class="item">
-                  <el-form-item label="项目标签：">
-                    <el-tag type='info' v-for="(item, index) in formData.projectTagList" :key="index">{{item}}</el-tag>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" class="item" v-show="formData.projectType==2">
@@ -55,8 +55,9 @@
                 </el-col>
                 <el-col :span="12" class="item">
                   <el-form-item label="立项时间：">
-                    <span v-if="formData.approvalTime==''">{{formData.projectTime|parseToDay}}</span>
-                    <span v-else>{{formData.approvalTime|parseToDay}}</span>
+                    <!-- <span v-if="formData.approvalTime==''">{{formData.projectTime|parseToDay}}</span>
+                    <span v-else>{{formData.approvalTime|parseToDay}}</span> -->
+                    <span>{{formData.projectTime|parseToDay}}</span> -->
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" class="item">
@@ -85,6 +86,11 @@
                 <el-col :span="12" class="item" v-else>
                   <el-form-item label="项目预算：">
                     {{formData.projectAmount}}
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12" class="item">
+                  <el-form-item label="外部合作：">
+                    {{formData.groupExternalCooperatePartnerName}}
                   </el-form-item>
                 </el-col>
                 <el-col :span="24" class="item">
@@ -343,6 +349,7 @@ export default {
         let list = [
           { name: 'relatedClientName', list: 'relatedClientList' },
           { name: 'projectManagerName', list: 'projectManagerList' },//负责人
+          { name: 'groupExternalCooperatePartnerName', list: 'groupExternalCooperatePartnerList' },//外部合作
         ]
         for (let item of list) {
           if (data.data[item.list]) {

@@ -51,6 +51,9 @@ export const rules = {
   projectName: [
     { required: true, message: '请输入项目名称', trigger: 'blur' },
   ],
+  projectTime: [
+    { required: true, message: '请选择立项时间', trigger: 'blur' },
+  ],
   relatedClient: [
     { required: true, message: '请输入相关客户', trigger: 'change' },
   ],

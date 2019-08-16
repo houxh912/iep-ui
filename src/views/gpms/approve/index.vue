@@ -41,9 +41,9 @@
             {{ scope.row.approverName }}
           </template>
         </el-table-column>
-        <el-table-column label="项目开始时间" slot="before-columns">
+        <el-table-column label="立项时间" slot="before-columns">
           <template slot-scope="scope">
-            {{ scope.row.applyTime | parseToDay }}
+            {{ scope.row.projectTime | parseToDay }}
           </template>
         </el-table-column>
         <el-table-column label="操作">

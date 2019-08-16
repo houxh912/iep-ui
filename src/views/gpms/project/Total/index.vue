@@ -38,8 +38,9 @@
       </el-table-column>
       <el-table-column label="立项时间" width="160px">
         <template slot-scope="scope">
-          <span v-if="scope.row.projectStatus=='3'">{{ scope.row.approvalTime | parseToDay }}（审核）</span>
-          <span v-else>{{ scope.row.projectTime | parseToDay }}（预计）</span>
+          <!-- <span v-if="scope.row.projectStatus=='3'">{{ scope.row.approvalTime | parseToDay }}（审核）</span> -->
+          <!-- <span v-else>{{ scope.row.projectTime | parseToDay }}（预计）</span> -->
+          <span>{{ scope.row.projectTime | parseToDay }}</span>
         </template>
       </el-table-column>
       <el-table-column label="项目状态" width="100px">

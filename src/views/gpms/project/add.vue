@@ -114,8 +114,8 @@
               <span slot="label">
                 立项时间：
               </span>
-              <iep-date-picker v-if="formData.projectStatus=='3'" v-model="formData.approvalTime" type="date" placeholder="立项时间" disabled></iep-date-picker>
-              <iep-date-picker v-else v-model="formData.projectTime" type="date" placeholder="立项时间"></iep-date-picker>
+              <!-- <iep-date-picker v-if="formData.projectStatus=='3'" v-model="formData.approvalTime" type="date" placeholder="立项时间" disabled></iep-date-picker>-->
+              <iep-date-picker v-model="formData.projectTime" type="date" placeholder="立项时间"></iep-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -547,6 +547,9 @@ export default {
           }
           else {
             form.projectType = '2'
+          }
+          if (form.groupExternalCooperatePartner == '') {
+            form.groupExternalCooperatePartner = 0
           }
           this.btnLoading = true
           this.typeObj[this.type].requestFn(form).then(res => {

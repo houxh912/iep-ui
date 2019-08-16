@@ -14,8 +14,14 @@ const initForm = () => {
     status:'',//状态
     describes:'',//描述
     userId:'',
-    userName:'默认',
+    userName:'',
     sign:1,//标记
+    user: {
+      id: '',
+      name: '',
+    },
+    targetUserName:'默认',
+    targetUserId:'',
   }
 }
 const columnsMap = [

@@ -5,7 +5,11 @@
         <el-input v-model="form.selectionName"></el-input>
       </el-form-item>
       <el-form-item label="关联指标" prop="targetId">
-        <iep-select v-model="form.targetId" autocomplete="off" prefix-url="hrms/iephrsplendortarget" placeholder="请选择关联指标"></iep-select>
+        <iep-select v-model="form.targetId" autocomplete="off" prefix-url="hrms/iephrsplendortarget" placeholder="请选择关联指标" style="width:240px;margin-right:10px;" v-show="!customClass"></iep-select>
+        <el-button @click="changeCustomClass">{{customClass==false?'自定义类':'关联指标类'}}</el-button>
+      </el-form-item>
+      <el-form-item label="对象名" prop="user" v-show="customClass">
+        <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
       <el-form-item label="优先级" prop="priority">
         <iep-input-number v-model="form.priority" placeholder="请正确输入非负优先级"></iep-input-number>
@@ -16,8 +20,8 @@
           <el-radio :label="2">禁用</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="显示对象">
-        <el-input v-model="form.userName" style="width:90px;margin-right:10px;" disabled></el-input>
+      <el-form-item label="显示对象" v-show="!customClass">
+        <el-input v-model="form.targetUserName" style="width:90px;margin-right:10px;" disabled></el-input>
         <el-button @click="customize">自定义</el-button>
       </el-form-item>
       <el-form-item label="简述">
@@ -50,6 +54,7 @@ export default {
       rules,
       id: '',
       targetlist: [],
+      customClass: false,
     }
   },
   // },
@@ -60,9 +65,12 @@ export default {
     })
   },
   methods: {
+    changeCustomClass () {
+      this.customClass = !this.customClass
+    },
     changePeople (val) {
-      this.form.userName = val.name
-      this.form.userId = val.id
+      this.form.targetUserName = val.name
+      this.form.targetUserId = val.id
     },
     customize () {
       let chooseType
@@ -86,6 +94,14 @@ export default {
     loadTypeList () {
       getGloriousById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(this.form, data.data)
+        if (this.form.targetId == 0) {
+          this.form.targetId == ''
+          this.customClass = true
+          this.form.user.name = this.form.userName
+          this.form.user.id = this.form.userId
+        }
+        this.form.targetUserName = this.form.userName
+        this.form.targetUserId = this.form.userId
       })
     },
     async submitForm () {
@@ -94,6 +110,15 @@ export default {
       }
       else {
         this.form.sign = 1
+      }
+      if (this.customClass === true) {
+        this.form.userName = this.form.user.name
+        this.form.userId = this.form.user.id
+        this.form.targetId == ''
+      }
+      else {
+        this.form.userName = this.form.targetUserName
+        this.form.userId = this.form.targetUserId
       }
       const { data } = await this.formRequestFn({ splendorId: this.id, ...this.form })
       if (data.data) {

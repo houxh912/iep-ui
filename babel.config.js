@@ -8,9 +8,5 @@ module.exports = {
       'libraryDirectory': 'es',
       'style': true, // `style: true` 会加载 less 文件
     }],
-    ['component', {
-      'libraryName': 'element-ui',
-      'styleLibraryName': 'theme-chalk',
-    }],
   ],
 }

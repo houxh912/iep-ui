@@ -3,21 +3,34 @@
     <h3 class="title">早晚五分钟，为<span class="akey">智慧</span>加油</h3>
     <headTpl class="head" @load-page="loadPage"></headTpl>
     <div class="content">
-      <div class="content-left">
+
+      <iep-tabs v-model="tabName" :tab-list="tabList" class="content-left">
+        <template v-if="tabName ==='allThougth'" v-slot:allThougth>
+          <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
+          <div style="text-align: center;margin: 20px 0;">
+            <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+          </div>
+        </template>
+        <template v-if="tabName ==='followThougth'" v-slot:followThougth>
+          <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
+          <div style="text-align: center;margin: 20px 0;">
+            <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+          </div>
+        </template>
+      </iep-tabs>
+
+
+      <!-- <div class="content-left">
         <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
         <div class="list">
-          <IepNoData v-if="dataList.length == 0"></IepNoData>
-          <div v-else>
-            <div class="material">
-              <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
-            </div>
+          <div class="material">
+            <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
           </div>
         </div>
-        <!-- 分页 -->
         <div style="text-align: center;margin: 20px 0;">
           <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
         </div>
-      </div>
+      </div> -->
       <div class="content-right">
         <rightTpl ref="contentRight"></rightTpl>
       </div>
@@ -29,7 +42,7 @@
 </template>
 
 <script>
-import { geTallPage } from '@/api/cpms/thoughts'
+import { geTallPage, getFollowPage } from '@/api/cpms/thoughts'
 import headTpl from './library/form'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 import rightTpl from './right'
@@ -67,6 +80,16 @@ export default {
       activeIndex: -1,
       params: initParams(),
       dataList: [],
+      tabList: [
+        {
+          label: '全部',
+          value: 'allThougth',
+        }, {
+          label: '关注',
+          value: 'followThougth',
+        },
+      ],
+      tabName: 'allThougth',
     }
   },
   methods: {
@@ -89,7 +112,13 @@ export default {
       this.$refs['contentRight'].loadData()
     },
     loadPage () {
-      geTallPage(this.params).then(({ data }) => {
+      let fn = () => {}
+      if (this.tabName === 'allThougth') {
+        fn = geTallPage
+      } else {
+        fn = getFollowPage
+      }
+      fn(this.params).then(({ data }) => {
         this.dataList = data.data.records
         this.total = data.data.total
         this.activeIndex = -1
@@ -112,6 +141,15 @@ export default {
       this.params.userId = this.$route.query.id
     }
     this.loadPage()
+  },
+  watch: {
+    tabName (newVal) {
+      if (newVal === 'allThougth' || newVal === 'followThougth') {
+        this.dataList = []
+        this.params = initParams()
+        this.loadPage()
+      }
+    },
   },
 }
 </script>
@@ -161,5 +199,11 @@ h3.title {
     width: 300px;
     margin-left: 30px;
   }
+}
+</style>
+
+<style scoped>
+.content-left >>> .el-tabs__header {
+  margin: 1px 0 15px;
 }
 </style>

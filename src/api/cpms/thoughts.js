@@ -44,6 +44,15 @@ export function geTallPage (obj) {
   })
 }
 
+// 获取我关注的用户的说说
+export function getFollowPage (obj) {
+  return request({
+    url: `${prefixUrl}/follow_page`,
+    method: 'get',
+    params: obj,
+  })
+}
+
 // 说说点赞
 export function addThumbsUpByRecord (id) {
   return request({

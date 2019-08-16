@@ -25,7 +25,7 @@
       <iep-form-item label-name="借款金额">
         <iep-div-detail :value="`${data.amount}元`"></iep-div-detail>
       </iep-form-item>
-      <template v-if="!data.isOut && [6, 9].includes(data.status)">
+      <template v-if="!data.isOut && [3, 6, 9].includes(data.status)">
         <iep-divider />
         <iep-form-item label-name="还款公司">
           <iep-select v-model="borrowInRepayCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
@@ -36,7 +36,7 @@
       </template>
     </el-form>
     <template v-slot:action>
-      <a-button v-if="!data.isOut && [6, 9].includes(data.status)" type="primary" @click="handleRepay">还款</a-button>
+      <a-button v-if="!data.isOut && [3, 6, 9].includes(data.status)" type="primary" @click="handleRepay">还款</a-button>
       <a-button v-if="data.isOut && data.status === 10" type="primary" @click="handleConfirm">确认收款</a-button>
       <a-button style="margin-left: 8px" @click="handleBack">返回列表</a-button>
     </template>

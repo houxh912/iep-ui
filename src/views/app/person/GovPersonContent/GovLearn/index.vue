@@ -48,8 +48,9 @@ export default {
   right: 70px;
   line-height: 50px;
   padding: 0;
-  color: #999;
+  color: #BA1B21;
   z-index: 3;
   transition: all 0.5s;
+  font-size: 18px;
 }
 </style>

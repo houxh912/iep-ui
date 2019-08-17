@@ -108,6 +108,7 @@ export default {
       }
       this.$refs['iepReviewForm'].title = '审核'
       this.$refs['iepReviewForm'].formRequestFn = reviewById
+      this.$refs['iepReviewForm'].status = 0
       this.$refs['iepReviewForm'].dialogShow = true
     },
     handleSelectionChange (val) {

@@ -30,7 +30,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <iep-dialog :dialog-show="dialogShow" :title="`${title}版本`" width="400px" @close="loadPage">
+    <iep-dialog :dialog-show="dialogShow" :title="`${title}版本`" width="500px" @close="loadPage">
       <el-form ref="form" :model="form" size="small" label-width="80px">
         <el-form-item label="版本号">
           <el-input v-model="form.versionNumber"></el-input>

@@ -2,18 +2,18 @@
   <iep-dialog :dialog-show="dialogShow" :title="title" width="40%" @close="resetForm">
 
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="120px" style="margin-bottom: 50px;" class="form-detail">
-      <el-form-item label="上传图片：" prop="imageUrl">
+      <iep-form-item label-name="上传图片" prop="imageUrl">
         <iep-avatar v-model="form.imageUrl"></iep-avatar>
-      </el-form-item>
-      <el-form-item label="标题：" prop="title">
+      </iep-form-item>
+      <iep-form-item label-name="标题" prop="title">
         <el-input v-model="form.title" :maxlength="50"></el-input>
-      </el-form-item>
-      <el-form-item label="日期：" prop="publishTime">
+      </iep-form-item>
+      <iep-form-item label-name="日期" prop="publishTime">
         <IepDatePicker v-model="form.publishTime"></IepDatePicker>
-      </el-form-item>
-      <el-form-item label="说明：" prop="synopsis">
+      </iep-form-item>
+      <iep-form-item label-name="说明" prop="synopsis">
         <el-input type="textarea" v-model="form.synopsis" :maxlength="2000" :rows="5"></el-input>
-      </el-form-item>
+      </iep-form-item>
 
     </el-form>
 

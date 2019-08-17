@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="部门移动" width="400px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="部门移动" width="500px" @close="close">
     <el-form :model="moveForm" :rules="rules" size="small" ref="moveForm" label-width="100px">
     </el-form>
     <template slot="footer">

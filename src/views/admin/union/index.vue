@@ -19,7 +19,7 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" min-width="60">
+        <el-table-column prop="operation" label="操作" width="100">
           <template slot-scope="scope">
             <operation-wrapper>
               <!-- <iep-button type="warning" @click="handleEdit(scope.row)">编辑</iep-button>

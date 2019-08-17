@@ -8,7 +8,7 @@
         <el-input v-model="form.realName" disabled></el-input>
       </el-form-item>
       <el-form-item label="配置角色：" prop="role">
-        <el-select v-model="form.roleList" multiple placeholder="请选择">
+        <el-select v-model="form.roleList" filterable multiple placeholder="请选择">
           <el-option v-for="item in roleList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
           </el-option>
         </el-select>

@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="放入黑名单" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="放入黑名单" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="拉黑地区" prop="area">
         <el-input v-model="form.area"></el-input>

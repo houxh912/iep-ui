@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="离职" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="离职" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="离职时间" prop="departureTime">
         <iep-date-picker v-model="form.departureTime" type="date" placeholder="选择日期">

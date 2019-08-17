@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="入职新增" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="入职新增" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="员工状态" prop="position">
         <el-select v-model="form.status">

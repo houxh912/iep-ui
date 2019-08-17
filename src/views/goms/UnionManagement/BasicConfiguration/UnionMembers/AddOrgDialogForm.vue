@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="添加组织" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="添加组织" width="500px" @close="loadPage">
     <el-form :model="form" size="small" ref="form" label-width="100px">
       <el-form-item label="组织" prop="orgId">
         <iep-select v-model="form.orgId" prefix-url="admin/union/no_union_org"></iep-select>

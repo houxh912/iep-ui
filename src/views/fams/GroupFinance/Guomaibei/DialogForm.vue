@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="新增发行" width="400px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="新增发行" width="500px" @close="close">
     <el-form :model="form" size="small" ref="form" label-width="100px">
       <el-form-item label="金额：" prop="amount">
         <iep-input-number v-model="form.amount"></iep-input-number>

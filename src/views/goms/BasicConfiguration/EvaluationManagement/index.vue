@@ -166,7 +166,7 @@ export default {
             margin-left: 10px;
             cursor: pointer;
             &:hover {
-              color: #cb3737;
+              color: $--menu-color-primary;
             }
           }
         }

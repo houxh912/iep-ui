@@ -7,7 +7,7 @@
         </operation-wrapper>
       </template>
       <template slot="right">
-        <iep-date-picker type="year" v-model="year" @change="loadPage"></iep-date-picker>
+        <iep-date-picker type="year" v-model="yearDate" size="small" @change="loadPage"></iep-date-picker>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
@@ -51,8 +51,13 @@ export default {
         },
       ],
       isLoadTable: false,
-      year: getYear(new Date()),
+      yearDate: new Date(),
     }
+  },
+  computed: {
+    year () {
+      return getYear(this.yearDate)
+    },
   },
   created () {
     this.loadPage()

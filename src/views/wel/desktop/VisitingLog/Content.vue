@@ -5,7 +5,8 @@
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
           <span style="margin-right:15px;">组织：{{form.orgName}}</span>
-          <span style="margin-right:15px;">发布人：{{form.realName}}</span>
+          <span style="margin-right:15px;">发布人: <iep-hover-card v-if="form.realName" :obj="sender"></iep-hover-card>
+          </span>
           <span>发布日期：{{form.createTime|parseToDay}}</span>
         </template>
       </operation-container>
@@ -42,6 +43,10 @@ export default {
         isBack: true,
       },
       form: initForm(),
+      sender: {
+        id: 0,
+        name: '',
+      },
     }
   },
   props: {
@@ -57,7 +62,10 @@ export default {
   },
   created () {
     this.$watch('message', (newVal) => {
-      this.form = { ...newVal }
+      const newObj = { ...newVal }
+      this.form = newObj
+      this.sender.id = newObj.userId
+      this.sender.name = newObj.realName
     })
   },
   methods: {

@@ -34,7 +34,7 @@ export default {
         {
           title: '任务',
           callback: () => {
-            this.$message.success('功能开发中')
+            this.$router.push('/atms/add')
           },
         },
         {

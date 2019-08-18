@@ -1,34 +1,24 @@
 <template>
   <div class="leaderBoard">
-    <IepAppTabsCard>
+    <IepAppTabsCard isMore :linkName="linkName">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Empolyee'" v-slot:Empolyee>
           <empolyee v-loading="activeTab !=='Empolyee'"></empolyee>
         </template>
-        <template v-if="activeTab ==='Study'" v-slot:Study>
-          <study v-loading="activeTab !=='Study'"></study>
-        </template>
-        <template v-if="activeTab ==='Share'" v-slot:Share>
-          <share v-loading="activeTab !=='Share'"></share>
-        </template>
-        <template v-if="activeTab ==='Activity'" v-slot:Activity>
-          <activity v-loading="activeTab !=='Activity'"></activity>
+        <template v-if="activeTab ==='Brilliant'" v-slot:Brilliant>
+          <brilliant v-loading="activeTab !=='Brilliant'"></brilliant>
         </template>
       </iep-tabs>
     </IepAppTabsCard>
   </div>
 </template>
 <script>
-import Activity from './Activity'
 import Empolyee from './Empolyee'
-import Share from './Share'
-import Study from './Study'
+import Brilliant from './Brilliant'
 export default {
   components: {
-    Activity,
     Empolyee,
-    Share,
-    Study,
+    Brilliant,
   },
   data () {
     return {
@@ -36,19 +26,11 @@ export default {
         label: '组织风采',
         value: 'Empolyee',
       }, {
-        label: '培训学习',
-        value: 'Study',
-        disabled: true,
-      }, {
-        label: '成果分享',
-        value: 'Share',
-        disabled: true,
-      }, {
-        label: '团建活动',
-        value: 'Activity',
-        disabled: true,
+        label: '精彩瞬间',
+        value: 'Brilliant',
       }],
       activeTab: 'Empolyee',
+      linkName: '/app/organizational_list',
     }
   },
 }

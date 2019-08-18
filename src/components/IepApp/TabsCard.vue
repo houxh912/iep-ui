@@ -1,5 +1,6 @@
 <template>
   <el-card class="index-card" shadow="never">
+    <slot name="left"></slot>
     <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
     <slot></slot>
   </el-card>
@@ -30,8 +31,8 @@ export default {
   },
 }
 </script>
-<style scoped>
-.el-card >>> .el-card__body {
+<style lang="scss" scoped>
+.el-card ::v-deep .el-card__body {
   position: relative;
   padding: 0;
 }
@@ -46,16 +47,16 @@ export default {
   transition: all 0.5s;
 }
 .btn:hover {
-  color: #cb3737;
+  color: $--menu-color-primary;
 }
-.index-card >>> .el-tabs__nav {
+.index-card ::v-deep .el-tabs__nav {
   line-height: 59px;
 }
-.index-card >>> .el-tabs__item {
+.index-card ::v-deep .el-tabs__item {
   bottom: 0;
   font-size: 18px;
 }
-.index-card >>> .el-card__body {
+.index-card ::v-deep .el-card__body {
   padding: 0 0 15px;
 }
 .el-card {

@@ -17,7 +17,7 @@
           </el-row>
         </el-form>
         <div class="footer" v-if="setUpData.approvalStatus == 1">
-          <iep-button type="danger" @click="sumbit">提交</iep-button>
+          <iep-button type="primary" plain @click="sumbit">提交</iep-button>
         </div>
       </el-row>
     </div>
@@ -41,7 +41,7 @@
             </el-col>
           </el-row>
         </el-form>
-        
+
       </el-row>
     </div>
     <!-- 立项申请 -->
@@ -76,7 +76,7 @@ export default {
       dictMap,
     }
   },
-  methods:{
+  methods: {
     sumbit () {
       this.$refs['form'].open(this.form)
     },
@@ -121,5 +121,4 @@ export default {
 .el-form-item {
   margin-bottom: 0;
 }
-
 </style>

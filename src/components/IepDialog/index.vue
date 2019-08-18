@@ -52,14 +52,13 @@ export default {
 </script>
 <style lang="css" scoped>
 .iep-dialog >>> .el-scrollbar__wrap {
-  margin-right: -26px !important;
   overflow-x: hidden;
 }
 .iep-dialog >>> .el-dialog__body {
   padding: 10px 25px;
 }
 .iep-dialog >>> .el-dialog__footer {
-  padding: 10px 25px 20px;
+  padding: 10px 35px 20px;
 }
 </style>
 

@@ -37,7 +37,7 @@ export default {
       padding: 5px 0px;
       font-size: 18px;
       &:hover {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
     }
   }

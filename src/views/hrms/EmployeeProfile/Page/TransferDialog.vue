@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="调动" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="调动" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <!-- <el-form-item label="选择部门" prop="dept">
         <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select></iep-cascader>

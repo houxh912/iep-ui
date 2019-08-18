@@ -16,13 +16,18 @@
           <el-radio :label="0">停用</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="推荐位选择：">
+        <iep-select v-model="form.attributeId" :prefix-url="`cms/info_attribute/${siteId}`"></iep-select>
+      </el-form-item>
       <el-form-item label="图片：" prop="image">
         <span slot="label">
           图片：
         </span>
         <!-- <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload> -->
-        <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*">
+
+        <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" :on-remove="handleRemove" accept="image/*">
           <iep-img v-if="form.image" :src="form.image" class="avatar"></iep-img>
+          <i v-if="form.image" class="el-icon-circle-close" @click.stop="handleRemove"></i>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -34,7 +39,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm()">提交</iep-button>
+      <iep-button type="primary" plain @click="submitForm()">提交</iep-button>
       <iep-button @click="dialogShow=false">取消</iep-button>
     </template>
   </iep-dialog>
@@ -56,6 +61,7 @@ export default {
       form: initForm(),
       rules,
       id: '',
+      siteId: '',
       nodeId: '',
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
@@ -65,6 +71,10 @@ export default {
   // },
   created () {
     this.form.updateTime = this.createTimeDefault()
+    // getInfoAttributePage(this.siteId).then((data) => {
+    //   console.log(data)
+    // })
+    // console.log(this.siteId)
   },
   methods: {
     loadPage () {
@@ -89,7 +99,11 @@ export default {
       })
     },
     handleAvatarSuccess (row) {
+      // this.handleRemove()
       this.form.image = row.data.url
+    },
+    handleRemove () {
+      this.form.image = ''
     },
     async submitForm () {
       this.formRequestFn({ id: this.id, nodeId: this.nodeId, ...this.form }).then(({ data }) => {
@@ -111,7 +125,21 @@ export default {
   border-radius: 6px;
   cursor: pointer;
   position: relative;
-  overflow: hidden;
+  transition: 0.3s;
+  &:hover .el-icon-circle-close {
+    visibility: visible;
+  }
+}
+.el-icon-circle-close {
+  position: absolute;
+  visibility: hidden;
+  top: -7px;
+  right: -7px;
+  font-size: 16px;
+  color: #ccc;
+  &:hover {
+    color: #409eff;
+  }
 }
 .avatar-uploader:hover {
   border-color: #409eff;

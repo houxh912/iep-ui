@@ -83,7 +83,7 @@ export default {
         top: 15px;
         font-size: 14px;
         &:hover {
-          color: #BA1B21;
+          color: $--color-primary;
         }
       }
       &:hover {

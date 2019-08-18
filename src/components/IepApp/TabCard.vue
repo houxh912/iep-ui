@@ -1,7 +1,8 @@
 <template>
   <el-card class="index-card" shadow="never">
     <div slot="header" class="title-con clearfix">
-      <span class="title">{{title}}<span class="datas">{{data}}</span><i class="iconfont icon-wenhao" v-if="icon"></i></span><span class="tip">{{tip}}</span>
+      <span class="title">{{title}}<slot name="left"></slot><span class="datas">{{data}}</span><i class="iconfont icon-wenhao" v-if="icon"></i></span>
+      <span class="tip">{{tip}}</span>
       <slot name="statistics"></slot>
       <el-button class="btn" type="text" v-if="isMore" @click="getMore">更多></el-button>
       <slot name="right"></slot>
@@ -74,7 +75,7 @@ export default {
   cursor: pointer;
   transition: all 0.5s;
   &:hover {
-    color: #cb3737;
+    color: $--menu-color-primary;
   }
 }
 .datas {

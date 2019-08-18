@@ -102,7 +102,7 @@ export default {
       line-height: 35px;
     }
     .active {
-      color: #BA1B21;
+      color: $--color-primary;
     }
   }
 }

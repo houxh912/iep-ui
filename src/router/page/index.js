@@ -12,8 +12,7 @@ export default [
   {
     path: '/login',
     name: '登录页',
-    component: () =>
-      import('@/page/login/index'),
+    component: () => import('@/page/newlogin/login'),
     meta: {
       keepAlive: false,
       isTab: false,
@@ -23,8 +22,7 @@ export default [
   {
     path: '/register',
     name: '注册页',
-    component: () =>
-      import('@/page/register/index'),
+    component: () => import('@/page/register/index'),
     meta: {
       keepAlive: false,
       isTab: false,

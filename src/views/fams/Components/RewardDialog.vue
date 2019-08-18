@@ -2,10 +2,10 @@
   <iep-dialog :dialog-show="dialogShow" title="打赏" width="520px" @close="close">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
       <el-form-item label="打赏金额：" prop="amount">
-        <iep-input-number v-model="form.amount" :max="maxAmount" :precision="0"></iep-input-number>
+        <iep-input-amount v-model="form.amount" :max="maxAmount" :precision="0"></iep-input-amount>
       </el-form-item>
-      <el-form-item label="打赏对象：" prop="targetUser">
-        <iep-contact-select v-model="form.targetUser"></iep-contact-select>
+      <el-form-item label="打赏对象：" prop="targetUserList">
+        <iep-contact-multiple-user v-model="form.targetUserList"></iep-contact-multiple-user>
       </el-form-item>
       <el-form-item label="备注：" prop="message">
         <iep-input-area v-model="form.message"></iep-input-area>
@@ -23,16 +23,13 @@ import { reward } from '@/api/fams/total'
 function initForm () {
   return {
     amount: 0,
-    targetUser: {
-      id: '',
-      name: '',
-    },
+    targetUserList: [],
     message: '',
   }
 }
 function toDtoForm (row) {
   const newForm = row
-  newForm.targetUserId = row.targetUser.id
+  newForm.targetUserIds = row.targetUserList.map(m => m.id)
   return newForm
 }
 export default {
@@ -91,7 +88,7 @@ export default {
   watch: {
     dialogShow (newVal) {
       if (newVal) {
-        this.form.targetUser = this.person
+        this.form.targetUserList = [...this.person]
       }
     },
   },

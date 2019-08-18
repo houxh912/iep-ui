@@ -13,6 +13,9 @@
       <!-- <span v-for="(item, index) in transfSubject(data.content)" :key="index" :class="item.type ? 'subject' : ''" v-html="item.html"></span> -->
     </div>
     <slot></slot>
+    <div class="tags">
+      <iep-tag-detail v-model="data.tags" v-if="data.tags && data.tags.length > 0"></iep-tag-detail>
+    </div>
     <div class="image-list" v-if="data.images.length > 0">
       <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img" :preview-src-list="dealImage(data.images, index)"></iep-img>
     </div>
@@ -133,6 +136,9 @@ export default {
       margin: 10px;
       max-height: 175px;
     }
+  }
+  .tags {
+    margin: 10px 0 0;
   }
 }
 </style>

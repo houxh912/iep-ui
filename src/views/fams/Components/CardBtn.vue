@@ -1,12 +1,6 @@
 <template>
   <div class="card-btn-grid">
-    <div @click="$openPage('/fams/org_borrow/org_borrow')">组织拆借</div>
-    <div @click="$openPage('/fams_spa/organization_transfer')">组织转账</div>
-    <div @click="$openPage('/fams_spa/organization_reward')">组织打赏/扣减</div>
-    <div>投资管理</div>
-    <div @click="$openPage('/fams/financial_management/organizational_budget')">组织预算</div>
-    <div @click="$openPage('/fams_spa/org_payment_plan/0')">回款计划</div>
-    <div @click="$openPage(`/app/data_assets_detail?id=${userInfo.orgId}&name=${userInfo.orgName}`)">组织资产</div>
+    <slot></slot>
   </div>
 </template>
 <script>
@@ -26,8 +20,8 @@ export default {
     border: 1px solid #eee;
     color: #666;
     &:hover {
-      border: 1px solid #ba1b21;
-      color: #ba1b21;
+      border: 1px solid $--color-primary;
+      color: $--color-primary;
     }
   }
 }

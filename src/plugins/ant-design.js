@@ -11,14 +11,14 @@ import {
   LocaleProvider,
   // Layout,
   Input,
-  InputNumber,
+  // InputNumber,
   Button,
   Switch,
   // Radio,
   // Checkbox,
   Select,
   Card,
-  Form,
+  // Form,
   Row,
   Col,
   Modal,
@@ -26,7 +26,7 @@ import {
   // Tabs,
   Icon,
   // Badge,
-  Popover,
+  // Popover,
   Dropdown,
   List,
   Avatar,
@@ -56,14 +56,14 @@ Vue.use(LocaleProvider)
 // Vue.use(Layout)
 Vue.use(Input)
 // Vue.use(AutoComplete)
-Vue.use(InputNumber)
+// Vue.use(InputNumber)
 Vue.use(Button)
 Vue.use(Switch)
 // Vue.use(Radio)
 // Vue.use(Checkbox)
 Vue.use(Select)
 Vue.use(Card)
-Vue.use(Form)
+// Vue.use(Form)
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Modal)
@@ -71,7 +71,7 @@ Vue.use(Modal)
 // Vue.use(Tabs)
 Vue.use(Icon)
 // Vue.use(Badge)
-Vue.use(Popover)
+// Vue.use(Popover)
 Vue.use(Dropdown)
 Vue.use(List)
 Vue.use(Avatar)

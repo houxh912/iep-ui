@@ -46,7 +46,7 @@ export default {
       color: #333;
       cursor: pointer;
       &:hover {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
     }
     .el-progress {

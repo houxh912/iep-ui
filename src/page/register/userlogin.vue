@@ -219,7 +219,7 @@ export default {
 .login-form {
   margin: 10px 0;
   .el-form-item {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     .el-form-item__content {
       margin-left: 0 !important;
       width: 100%;

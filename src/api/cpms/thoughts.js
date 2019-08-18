@@ -44,6 +44,15 @@ export function geTallPage (obj) {
   })
 }
 
+// 获取我关注的用户的说说
+export function getFollowPage (obj) {
+  return request({
+    url: `${prefixUrl}/follow_page`,
+    method: 'get',
+    params: obj,
+  })
+}
+
 // 说说点赞
 export function addThumbsUpByRecord (id) {
   return request({
@@ -157,5 +166,13 @@ export function getTopicThoughts (obj) {
     url: `${prefixUrl}/topicThoughts`,
     method: 'get',
     params: obj,
+  })
+}
+
+// 根据id置顶指定说说
+export function topUpThoughts (obj) {
+  return request({
+    url: `${prefixUrl}/topUp/${obj.id}`,
+    method: 'post',
   })
 }

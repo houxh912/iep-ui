@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="部门合并" width="400px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="部门合并" width="500px" @close="close">
     <el-form :model="mergeForm" :rules="rules" size="small" ref="mergeForm" label-width="100px">
 
     </el-form>

@@ -20,16 +20,15 @@
       </el-table>
     </iep-fams-card>
     <iep-fams-card class="total-item-1" title="快捷入口">
-      <iep-card-btn></iep-card-btn>
-      <!-- <div class="card-btn-grid">
+      <iep-card-btn>
         <div @click="$openPage('/fams/group_finance/fund_fransfer')">资金调拨</div>
         <div @click="$openPage('/fams_spa/group_reward')">打赏/扣减(组织)</div>
         <div @click="$openPage('/fams_spa/group_reward_user')">打赏/扣减(个人)</div>
         <div>投资管理</div>
-        <div>组织预算</div>
+        <div @click="$openPage('/fams/group_finance/budget')">集团预算</div>
         <div @click="$openPage('/fams_spa/union_payment_plan')">回款计划</div>
         <div @click="$openPage('/app/data_assets?type=1')">组织资产</div>
-      </div> -->
+      </iep-card-btn>
     </iep-fams-card>
   </div>
 </template>

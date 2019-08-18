@@ -77,7 +77,7 @@ export default {
       cursor: pointer;
       padding: 10px 0px;
       &:hover {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
     }
   }

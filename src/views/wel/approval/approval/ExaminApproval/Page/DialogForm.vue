@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="培训信息" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="培训信息" width="500px" @close="loadPage">
     <el-form :model="form" size="small" ref="form" label-width="100px">
       <el-form-item label="审批人" prop="name">
         <el-input v-model="form.name"></el-input>

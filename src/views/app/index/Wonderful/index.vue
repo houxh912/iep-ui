@@ -1,6 +1,6 @@
 <template>
   <div class="wonderful">
-    <IepAppTabsCard :linkName="linkName">
+    <IepAppTabsCard :linkName="linkName" isMore>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Organization'" v-slot:Organization>
           <organization v-loading="activeTab !=='Organization'"></organization>
@@ -49,7 +49,7 @@ export default {
         expertCount: 0,
       },
       activeTab: 'Organization',
-      linkName: '',
+      linkName: '/app/organizational_list',
     }
   },
   methods: {
@@ -64,7 +64,13 @@ export default {
   },
   watch: {
     activeTab (newVal) {
-      this.$router.push({ path: '/app/resource/expert', query: { type: newVal === 'Empolyee' ? '1' : '2' } })
+      if (newVal === 'Organization') {
+        this.linkName = '/app/organizational_list'
+      } else if (newVal === 'Empolyee') {
+        this.linkName = '/app/resource/expert?type=1'
+      } else if (newVal === 'Specialist') {
+        this.linkName = '/app/resource/expert'
+      }
     },
   },
 }

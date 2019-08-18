@@ -6,7 +6,9 @@
     <headTpl class="head" @load-page="submitCallBack" :subject="subjectTitle"></headTpl>
     <div class="content">
       <div class="content-left">
-        <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
+        <div class="explain">
+          <h3>说说列表</h3><span>（共{{total}}条说说）</span>
+        </div>
         <div class="list">
           <IepNoData v-if="dataList.length == 0"></IepNoData>
           <div v-else>
@@ -24,7 +26,7 @@
         <subjectTpl ref="subject"></subjectTpl>
       </div>
     </div>
-    
+
     <!-- 发表说说 -->
     <publish-dialog ref="publish" @load-page="searchPage"></publish-dialog>
     <!-- 转发 -->

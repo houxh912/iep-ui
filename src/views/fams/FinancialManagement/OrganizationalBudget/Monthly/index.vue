@@ -80,7 +80,15 @@ export default {
       return item.flag ? item.time + '季度' : item.time + ((this.budgetTime - 1) * 3) + '月份'
     },
     getValue (item, scope, tName) {
-      return this.budgetMap[item.id].relation[scope.$index][tName]
+      try {
+        const data = this.budgetMap[item.id].relation[scope.$index][tName]
+        if (Number.isFinite(data)) {
+          return data
+        }
+      } catch (error) {
+        console.log(error)
+        return 0
+      }
     },
     handleDetail (item, scope) {
       this.$refs['DialogForm'].form = initForm()

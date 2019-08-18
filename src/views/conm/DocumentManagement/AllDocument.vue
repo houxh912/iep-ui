@@ -88,6 +88,7 @@ export default {
     handleAdd () {
       this.$refs['DialogForm'].form.updateTime = this.$refs['DialogForm'].createTimeDefault()
       this.$refs['DialogForm'].nodeId = this.id
+      this.$refs['DialogForm'].siteId = this.siteId
       this.$refs['DialogForm'].formRequestFn = addObj
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].methodName = '新增'
@@ -98,6 +99,7 @@ export default {
     handleEdit (row) {
       this.$refs['DialogForm'].id = row.id
       this.$refs['DialogForm'].nodeId = this.id
+      this.$refs['DialogForm'].siteId = this.siteId
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].formRequestFn = updateObj
       this.$refs['DialogForm'].loadTypeList()

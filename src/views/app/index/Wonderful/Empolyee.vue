@@ -1,12 +1,12 @@
 <template>
   <div class="empolyee">
-    <el-carousel height="200px" :interval="2000000000000" indicator-position="none">
-      <el-carousel-item v-for="item in 4" :key="item">
-        <div v-for="(item,index) in wonderfulList" :key="index" class="piece">
+    <el-carousel height="200px" :interval="5000" indicator-position="none">
+      <el-carousel-item v-for="(item, index) in Math.ceil(wonderfulList.length/4)" :key="index">
+        <div class="piece" v-for="(t, i) in wonderfulList.slice(index*4, (index+1)*4)" :key="i" @click="handleOpen(t)">
           <div class="img">
-            <iep-img :src="item.img" class="img"></iep-img>
+            <iep-img :src="t.avatar" class="img"></iep-img>
           </div>
-          <span class="name">{{item.name}}</span>
+          <span class="name">{{t.name}}</span>
         </div>
       </el-carousel-item>
     </el-carousel>
@@ -14,15 +14,28 @@
 </template>
 
 <script>
+import { getRecruitDetailPage } from '@/api/app/hrms/'
 export default {
   data () {
     return {
-      wonderfulList: [
-        { name: '国脉先锋队', img: require('../img/organization1.jpg') },
-        { name: '国脉集团研发中心', img: require('../img/organization2.jpg') },
-        { name: '佛山司马钱信息技术有限公司', img: require('../img/organization3.jpg') },
-      ],
+      wonderfulList: [],
     }
+  },
+  methods: {
+    handleOpen (row) {
+      this.$router.push({
+        path: `/app/personal_style/${row.id}`,
+      })
+    },
+  },
+  created () {
+    getRecruitDetailPage({
+      current: 1,
+      size: 20,
+      type: 1,
+    }).then(({ data }) => {
+      this.wonderfulList = data.data.records
+    })
   },
 }
 </script>
@@ -30,7 +43,7 @@ export default {
 .empolyee {
   .piece {
     text-align: center;
-    width: 268px;
+    width: 198px;
     float: left;
     margin: 0 5px;
     cursor: pointer;

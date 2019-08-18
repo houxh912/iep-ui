@@ -51,7 +51,7 @@ export default {
   .piece {
     float: left;
     margin: 0 17px;
-    width: 238px;
+    width: 245px;
     text-align: center;
     overflow: hidden;
     height: 100%;
@@ -65,12 +65,6 @@ export default {
     }
     .name {
       line-height: 40px;
-    }
-    &:first-child {
-      margin: 0 27px 0 22px;
-    }
-    &:last-child {
-      margin: 0 27px 0 27px;
     }
   }
 }

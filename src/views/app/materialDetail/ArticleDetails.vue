@@ -172,7 +172,7 @@ export default {
   .title {
     font-size: 22px;
     color: #333;
-    height: 50px;
+    // height: 50px;
     line-height: 50px;
   }
   .time,

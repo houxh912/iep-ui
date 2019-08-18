@@ -22,7 +22,7 @@
   <% } %>
 
   <link rel="icon" href="/favicon.ico" />
-  <title>国脉内部智慧平台</title>
+  <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 
 <body>
@@ -32,18 +32,26 @@
   </noscript>
   <div id="app">
     <div class="iep-home">
-      <div class="iep-home__main">
-        <img class="iep-home__loading" src="/svg/loading-spin.svg" alt="loading" />
-        <div class="iep-home__title">
-          正在加载资源
+      <div class="d2-app-loading-group">
+        <div class="d2-app-loading-grid">
+          <div class="d2-app-loading d2-app-loading1"></div>
+          <div class="d2-app-loading d2-app-loading2"></div>
+          <div class="d2-app-loading d2-app-loading3"></div>
+          <div class="d2-app-loading d2-app-loading4"></div>
+          <div class="d2-app-loading d2-app-loading5"></div>
+          <div class="d2-app-loading d2-app-loading6"></div>
+          <div class="d2-app-loading d2-app-loading7"></div>
+          <div class="d2-app-loading d2-app-loading8"></div>
+          <div class="d2-app-loading d2-app-loading9"></div>
         </div>
-        <div class="iep-home__sub-title">
-          初次加载资源可能需要较多时间 请耐心等待
+
+        <div class="d2-app-loading-title">加载中</div>
+        <div class="d2-app-loading-sub-title">欢迎使用<%= htmlWebpackPlugin.options.title %>。初次加载较慢，请耐心等待</div>
+        <div class="d2-app-loading-sub-info">如果很久很久都没有加载成功，请清空缓存重新加载页面</div>
+        <div class="iep-home__footer">
+          <a href="//<%= htmlWebpackPlugin.options.url %>/" target="_blank">
+            Copyright © 2019 <%= htmlWebpackPlugin.options.url %></a>
         </div>
-      </div>
-      <div class="iep-home__footer">
-        <a href="https://iep.govmade.com/" target="_blank">
-          Copyright © 2019 iep.govmade.com</a>
       </div>
     </div>
   </div>

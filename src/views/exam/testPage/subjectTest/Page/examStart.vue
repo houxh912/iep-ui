@@ -159,7 +159,7 @@ export default {
   mixins: [mixins],
   props: ['record'],
   data () {
-    this.colors = ['#ba1b21', '#999']
+    this.colors = ['$--color-primary', '#999']
     this.chartSettings = {
       radius: [50, 60],
       offsetY: 100,
@@ -698,7 +698,7 @@ export default {
         position: relative;
         top: 78px;
         .count {
-          color: #ba1b21;
+          color: $--color-primary;
           font-size: 18px;
         }
         .line {
@@ -720,11 +720,11 @@ export default {
         .activess {
           background: #f8e8e9;
           border-color: #e3a4a6;
-          color: #ba1b21;
+          color: $--color-primary;
         }
         .active {
-          background: #ba1b21;
-          border-color: #ba1b21;
+          background: $--color-primary;
+          border-color: $--color-primary;
           color: #fff;
         }
       }

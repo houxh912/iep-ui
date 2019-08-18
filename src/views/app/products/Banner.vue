@@ -6,7 +6,7 @@
         </div>
       </el-carousel-item>
     </el-carousel>
-    <div class="new-dynamic">
+    <!-- <div class="new-dynamic">
       最新动态：
       <div class="box">
         <div v-for="(item,index) in newDynamic.slice(0, 3)" :key="index" class="new-dynamic-list" @click="details(item.id)">
@@ -15,7 +15,7 @@
           <i class="iconfont icon-dingyue"></i>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -28,20 +28,20 @@ export default {
         {
           backgroundImage: 'url(' + require('./img/banner2.jpg') + ')',
           backgroundRepeat: 'no-repeat',
-          url:'http://www.datadnas.com/',
-          name:'数据基因',
+          url: 'http://www.datadnas.com/',
+          name: '数据基因',
         },
         {
           backgroundImage: 'url(' + require('./img/banner3.jpg') + ')',
           backgroundRepeat: 'no-repeat',
-          url:'http://gc.govmade.cn/',
-          name:'国策',
+          url: 'http://gc.govmade.cn/',
+          name: '国策',
         },
         {
           backgroundImage: 'url(' + require('./img/banner4.jpg') + ')',
           backgroundRepeat: 'no-repeat',
-          url:'https://www.govmade.com/yingst/',
-          name:'营商通',
+          url: 'https://www.govmade.com/yingst/',
+          name: '营商通',
         },
       ],
       newDynamic: [
@@ -51,18 +51,18 @@ export default {
       ],
     }
   },
-  methods:{
-    open (val,name) {
+  methods: {
+    open (val, name) {
       openWindow(`${val}`, `${name}`, 800, 600)
     },
     details (val) {
       this.$router.push({
-        path:`/app/resource/material/material_detail/${val}`,
+        path: `/app/resource/material/material_detail/${val}`,
       })
     },
   },
   created () {
-    getNewsList().then(({data}) => {
+    getNewsList().then(({ data }) => {
       this.newDynamic = data.data
     })
   },
@@ -70,7 +70,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .banner {
-  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 3;
   background-color: #f8f8f8;
   .baner-img {
     width: 100%;
@@ -84,25 +85,32 @@ export default {
     line-height: 60px;
     margin: 0 auto;
     display: flex;
-    .box{
+    .box {
       width: 1100px;
       display: grid;
       grid-auto-flow: row dense;
-      grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
+      grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr) minmax(
+          100px,
+          1fr
+        );
       .new-dynamic-list {
         cursor: pointer;
-        .time{
+        .time {
           float: left;
           margin-right: 5px;
         }
-        > i{
+        > i {
           float: left;
           margin-left: 5px;
         }
-        .desc{
+        .desc {
           float: left;
           max-width: 270px;
-          overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
         }
       }
     }
@@ -111,6 +119,6 @@ export default {
 </style>
 <style scoped>
 .el-carousel >>> .el-carousel__container {
-  height: 400px;
+  height: 330px;
 }
 </style>

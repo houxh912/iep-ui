@@ -1,6 +1,6 @@
 <template>
   <div class="wel-aside-wrapper">
-    <div class="adv-money-btn">
+    <div class="adv-money-btn" @click="handleSome1()">
       <img src="/img/adv-money.png" alt="/img/adv-money.png">
     </div>
     <!-- 我要创建 -->
@@ -37,6 +37,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleSome1 () {
+      this.$router.push('/wel/material/report')
+    },
     loadPage () {
       getAside().then(({ data }) => {
         const rawData = data.data

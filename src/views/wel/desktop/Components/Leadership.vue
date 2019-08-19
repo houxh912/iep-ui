@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="领导批示" width="500px" @close="loadPage">
     <el-form class="form-detail" :model="form" size="small" :rules="rules" label-width="120px" ref="form">
       <el-form-item label="主题" prop="subject">
-        <el-input v-model="form.subject" :maxlength="50"></el-input>
+        <el-input v-model="form.subject" :maxlength="50" :show-word-limit="true"></el-input>
       </el-form-item>
       <el-form-item label="收件人">
         <!-- <iep-tag v-model="formData.receiverIds"></iep-tag> -->

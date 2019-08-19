@@ -14,6 +14,7 @@ import './core/use'
 Vue.use(VueRouter)
 
 Vue.config.productionTip = false
+Vue.prototype.$eventBus = new Vue()
 
 new Vue({
 	router,

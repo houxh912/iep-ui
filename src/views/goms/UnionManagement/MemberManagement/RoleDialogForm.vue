@@ -2,6 +2,18 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="修改角色" width="520px" @close="close">
     <el-form class="form-detail" :model="form" ref="form" size="small" label-width="100px">
+      <div class="avatar" style="text-align: center;margin-bottom:20px;">
+        <iep-img-avatar :size="128" :src="form.avatar"></iep-img-avatar>
+      </div>
+      <el-form-item label="真实姓名：" prop="realName">
+        <el-input v-model="form.realName" disabled></el-input>
+      </el-form-item>
+      <el-form-item label="手机号：" prop="phone">
+        <el-input v-model="form.phone" disabled></el-input>
+      </el-form-item>
+      <el-form-item label="资产所属：" prop="assetOrg">
+        <el-input v-model="form.assetOrg" disabled></el-input>
+      </el-form-item>
       <el-form-item label="组织角色：" prop="roleOrg">
         <iep-cascader v-model="form.roleOrg" placeholder="请填入组织角色" :props="{ multiple: true }" :prefixUrl="`admin/role/union/${form.userId}`"></iep-cascader>
       </el-form-item>

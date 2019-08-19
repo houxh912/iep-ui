@@ -8,10 +8,8 @@
             <img :src="img" alt="" />
             <span>右侧选择成员加入</span>
           </span>
-          <!-- <iep-no-data v-if="!selectUserList.length" message=""></iep-no-data> -->
           <a-button class="ant" v-for="user in selectUserList" :key="user.id" @click="handleDelete(user)" block>
             {{user.name}}
-            <!-- <a-icon type="user-delete" /> -->
             <i class="el-icon-close" type="user-delete"></i>
           </a-button>
         </el-scrollbar>
@@ -101,9 +99,6 @@ export default {
       const selectUserList = this.selectUserList.filter(user => user.id !== row.id)
       this.selectUserList = selectUserList
     },
-    // handleSelectionChange (val) {
-    //   this.multipleSelection = val.map(m => m.id)
-    // },
     loadPage (param = this.searchForm) {
       this.loadTable({ ...param, ...this.searchForm }, gomsNoJoinUserPage)
     },

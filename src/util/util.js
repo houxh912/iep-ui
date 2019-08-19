@@ -293,8 +293,8 @@ export function mergeByFirst (distObject, srcObject) {
 }
 
 export async function openTagDetail (value) {
-  if (typeof value=='string') {
-    const {data} = await getTagViewByName(value)
+  if (typeof value == 'string') {
+    const { data } = await getTagViewByName(value)
     this.$router.push({
       path: `/app/tags_detail/${data.data.tagId}`,
     })
@@ -363,4 +363,11 @@ export function fillStatisticsArray (oldData, newData) {
     }
   }
   return newStatistics
+}
+
+export function calculateSign (num, isNative = true) {
+  if (isNative) {
+    return Math.sign(num) * Math.abs(num)
+  }
+  return Math.sign(-(num)) * Math.abs(num)
 }

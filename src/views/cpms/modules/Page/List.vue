@@ -133,7 +133,7 @@ export default {
           })
         } else {
           this.$message({
-            message: '已近加入定制了，亲，请不要重复订购',
+            message: '已经加入定制了，亲，请不要重复订购',
             type: 'warming',
           })
         }

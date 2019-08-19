@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}自定义分组`" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`${methodName}自定义分组`" width="500px" @close="loadPage">
     <el-radio-group v-model="form.customId">
       <el-radio v-for="item in relationship" :key="item.id" :label="item.id">{{item.name}}</el-radio>
     </el-radio-group>
@@ -20,9 +20,9 @@ export default {
       dialogShow: false,
       formRequestFn: () => { },
       methodName: '创建',
-      customName:'',
+      customName: '',
       checked: false,
-      relationship:[],
+      relationship: [],
       form: initGroupForm(),
     }
   },
@@ -38,7 +38,7 @@ export default {
     loadTypeList () {
       getRelationshipList().then(({ data }) => {
         this.relationship = data.data
-        this.form.customId=this.relationship[0].id
+        this.form.customId = this.relationship[0].id
       })
     },
     async submitForm () {

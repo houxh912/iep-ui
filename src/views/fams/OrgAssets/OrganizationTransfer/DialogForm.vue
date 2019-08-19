@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="methodName" width="400px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" :title="methodName" width="500px" @close="close">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="金额(元)：" prop="amount">
         <iep-input-number v-model="form.amount" :precision="2"></iep-input-number>

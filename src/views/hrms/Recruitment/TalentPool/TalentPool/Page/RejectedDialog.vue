@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="离职" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="离职" width="500px" @close="loadPage">
     <el-form :model="rejectedForm" :rules="rules" size="small" ref="rejectedForm" label-width="100px">
       <el-form-item label="备注" prop="msg">
         <el-input v-model="rejectedForm.msg" type="textarea"></el-input>

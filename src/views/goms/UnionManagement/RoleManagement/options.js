@@ -46,17 +46,13 @@ const orgDsType = [
 
 const columnsMap = [
   {
-    prop: 'roleName',
-    label: '角色名称',
-  },
-  {
     prop: 'roleCode',
     label: '角色标识',
   },
   {
     prop: 'roleDesc',
     label: '角色描述',
-    width:'280px',
+    width: '280px',
   },
   {
     prop: 'dsType',
@@ -66,7 +62,7 @@ const columnsMap = [
   {
     prop: 'createTime',
     label: '创建时间',
-    width:'150px',
+    width: '150px',
   },
 ]
 

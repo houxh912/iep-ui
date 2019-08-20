@@ -72,6 +72,9 @@ export default {
     async handleRole (row) {
       const { data } = await getUnionRoleByUserId(row.userId)
       this.$refs['RoleDialogForm'].form = this.$mergeByFirst(initForm(), data.data)
+      this.$refs['RoleDialogForm'].form.realName = row.realName
+      this.$refs['RoleDialogForm'].form.phone = row.phone
+      this.$refs['RoleDialogForm'].form.assetOrg = row.assetOrg
       this.$refs['RoleDialogForm'].formRequestFn = putUnionRoleUpdate
       this.$refs['RoleDialogForm'].dialogShow = true
     },

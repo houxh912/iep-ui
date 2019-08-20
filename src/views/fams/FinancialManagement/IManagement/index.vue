@@ -16,7 +16,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
-              <iep-button @click="handleEditProject(scope.row)">修改</iep-button>
+              <iep-button v-if="isQichizhi" @click="handleEditProject(scope.row)">修改</iep-button>
               <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleProcess(scope.row)">待处理</iep-button>
               <iep-button v-if="scope.row.projectStatus===2" @click.stop="handleIssued(scope.row)">提成发放</iep-button>
             </operation-wrapper>
@@ -53,6 +53,9 @@ export default {
     }
   },
   computed: {
+    isQichizhi () {
+      return [207, 1].includes(this.userInfo.userId)
+    },
     ...mapGetters([
       'userInfo',
     ]),

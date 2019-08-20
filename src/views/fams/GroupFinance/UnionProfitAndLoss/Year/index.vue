@@ -15,6 +15,7 @@
       <el-table-column prop="internalRevenue" label="内部收入">
         <template slot-scope="scope">
           {{scope.row.internalRevenue}}
+          {{`${isQichizhi ? `(${calculateSign(scope.row.internalInitialValue)})` : ''}`}}
         </template>
       </el-table-column>
       <el-table-column prop="cost" label="费用">

@@ -1,0 +1,73 @@
+<template>
+  <div class="join-org-wrapper">
+    <a-input-group class="search-box" compact>
+      <a-select defaultValue="1" style="width: 120px" @change="handleChange">
+        <a-select-option v-for="item in GOMS_ORG_TYPE" :key="item.value" :value="item.value">{{item.label}}</a-select-option>
+      </a-select>
+      <a-input-search style="width: 50%" placeholder="请输入组织名进行搜索" @search="onSearch" enterButton />
+    </a-input-group>
+    <iep-no-data v-if="!orgList.length" message="无相关组织"></iep-no-data>
+    <div class="select-org-container">
+      <el-button :disabled="!!item.isApplyed" class="grid-item" v-for="(item,index) in orgList" :key="index" @click="handleApplyJoin(item)">{{item.name}}</el-button>
+    </div>
+    <apply-form-dialog ref="ApplyFormDialog" @load-page="loadPage"></apply-form-dialog>
+  </div>
+</template>
+<script>
+import { mapGetters } from 'vuex'
+import { getICanOrgList } from '@/api/goms/org'
+import ApplyFormDialog from './ApplyFormDialog'
+export default {
+  components: { ApplyFormDialog },
+  data () {
+    return {
+      orgList: [],
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'dictGroup',
+    ]),
+    GOMS_ORG_TYPE () {
+      return this.dictGroup['GOMS_ORG_TYPE']
+    },
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    handleChange () { },
+    handleApplyJoin (item) {
+      this.$refs['ApplyFormDialog'].form = {
+        name: item.name,
+        orgId: item.orgId,
+        message: '',
+      }
+      this.$refs['ApplyFormDialog'].DialogShow = true
+    },
+    onSearch (name) {
+      this.loadPage(name)
+    },
+    loadPage (orgName = null) {
+      getICanOrgList(orgName).then(({ data }) => {
+        this.orgList = data.data
+      })
+    },
+  },
+}
+</script>
+<style lang="scss" scoped>
+.join-org-wrapper {
+  text-align: center;
+}
+.search-box {
+  margin: 10px 0;
+}
+.select-org-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  .grid-item {
+    margin: 10px 20px;
+  }
+}
+</style>

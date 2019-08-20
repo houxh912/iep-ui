@@ -2,20 +2,21 @@
  * 全站权限配置
  *
  */
+import Vue from 'vue'
 import router from './router/router'
 import store from '@/store'
 import orderBy from 'lodash/orderBy'
-// import { Message } from 'element-ui'
-// import { getStore } from '@/util/store'
 import { validatenull } from '@/util/validate'
-import NProgress from 'nprogress' // progress bar
-import 'nprogress/nprogress.css' // progress bar style
-NProgress.configure({ showSpinner: false })
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 
+const eventBus = new Vue()
+Vue.prototype.$eventBus = eventBus
+
+NProgress.configure({ showSpinner: false })
 
 const lockPage = store.getters.website.lockPage // 锁屏页
 router.beforeEach(async (to, from, next) => {
-
   const {
     access_token,
     isLock,
@@ -84,5 +85,6 @@ router.beforeEach(async (to, from, next) => {
 })
 
 router.afterEach(() => {
+  eventBus.$emit('scrollToTop')
   NProgress.done()
 })

@@ -17,6 +17,9 @@
             <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
           </div>
         </template>
+        <template v-if="tabName ==='subject'" v-slot:subject>
+          <subjectPage ref="subject"></subjectPage>
+        </template>
       </iep-tabs>
 
 
@@ -47,6 +50,7 @@ import headTpl from './library/form'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 import rightTpl from './right'
 import library from './library'
+import subjectPage from './subjectPage/'
 
 const initParams = () => {
   return {
@@ -56,7 +60,7 @@ const initParams = () => {
 }
 
 export default {
-  components: { headTpl, PublishDialog, rightTpl, library },
+  components: { headTpl, PublishDialog, rightTpl, library, subjectPage },
   data () {
     return {
       isShow: true,
@@ -87,6 +91,9 @@ export default {
         }, {
           label: '关注',
           value: 'followThougth',
+        }, {
+          label: '话题',
+          value: 'subject',
         },
       ],
       tabName: 'allThougth',

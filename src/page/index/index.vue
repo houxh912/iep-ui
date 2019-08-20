@@ -11,11 +11,11 @@
         <sidebar />
         <el-main>
           <!-- 主体视图层 -->
-          <el-scrollbar style="height:100%">
+          <el-scrollbar ref="elscrollbar" style="height:100%">
             <keep-alive>
-              <router-view class="avue-view" v-if="$route.meta.keepAlive" />
+              <router-view ref="wrap" class="avue-view" v-if="$route.meta.keepAlive" />
             </keep-alive>
-            <router-view class="avue-view" v-if="!$route.meta.keepAlive" />
+            <router-view ref="wrap" class="avue-view" v-if="!$route.meta.keepAlive" />
           </el-scrollbar>
         </el-main>
       </el-container>
@@ -109,6 +109,12 @@ export default {
           //          this.setScreen(admin.getScreen())
         }, 0)
       }
+      this.$eventBus.$on('scrollToTop', () => {
+        this.$nextTick(() => {
+          const div = this.$refs['elscrollbar'].$refs['wrap']
+          div.scrollTop = 0
+        })
+      })
     },
     // 实时检测刷新token
     handleRefreshToken () {

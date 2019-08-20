@@ -2,9 +2,7 @@
   <div class="iep-page-form">
     <basic-container>
       <iep-page-header title="修改组织基本信息" :backOption="backOption">
-        <template>
-          <iep-button type="primary" @click="handleSubmit">保存</iep-button>
-        </template>
+        <iep-button type="primary" @click="handleSubmit">保存</iep-button>
       </iep-page-header>
       <el-form :model="form" class="form-detail" size="small" ref="form" label-width="120px">
         <el-form-item label="组织Logo：">

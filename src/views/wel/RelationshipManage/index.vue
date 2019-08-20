@@ -80,9 +80,10 @@
                 <el-dropdown size="medium" v-show="mark==''">
                   <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                   <el-dropdown-menu slot="dropdown">
-                    <el-dropdown-item @click.native="handleFollow(scope.row)">拜师</el-dropdown-item>
-                    <el-dropdown-item @click.native="handleFollow(scope.row)"><i class="icon-xinzeng"></i> 关注</el-dropdown-item>
-                    <el-dropdown-item @click.native="handleUnFollow(scope.row)"><i class="icon-check"></i> 取消关注</el-dropdown-item>
+                    <el-dropdown-item v-if="scope.row.isMentor==0" @click.native="handleApprenticeConfirm(scope.row)">拜师</el-dropdown-item>
+                    <el-dropdown-item v-else @click.native="handleRelease(scope.row)">解除关系</el-dropdown-item>
+                    <el-dropdown-item v-if="scope.row.isFollowed==0" @click.native="handleFollow(scope.row)"><i class="icon-xinzeng" style="font-size:14px;"></i> 关注</el-dropdown-item>
+                    <el-dropdown-item v-else @click.native="handleUnFollow(scope.row)"><i class="icon-check" style="font-size:14px;"></i> 取消关注</el-dropdown-item>
                   </el-dropdown-menu>
                 </el-dropdown>
               </operation-wrapper>
@@ -107,6 +108,8 @@ import apprentice from './MentorTable/apprentice'
 import attentionPage from './MentorTable/attentionPage'
 import { mapGetters } from 'vuex'
 import { followById, unfollowById } from '@/api/cpms/iepuserfollow'
+import { deleteReleaseMentorById } from '@/api/wel/relationship_manage'
+import { addMasterWorker } from '@/api/cpms/characterrelations'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins, formMixins],
@@ -301,6 +304,40 @@ export default {
     handleUnFollow (row) {
       unfollowById(row.userId).then(() => {
         this.loadPage()
+      })
+    },
+    //拜师
+    handleApprenticeConfirm (row) {
+      addMasterWorker({ masterWorker: [row.userId], refuseContent: '' }).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('拜师成功！')
+        } else {
+          this.$message.error(data.msg)
+        }
+        this.loadPage()
+      })
+    },
+    //解除师徒关系
+    handleRelease (row) {
+      this.$confirm('此操作将永久解除师徒关系, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteReleaseMentorById(row.userId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '解除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `解除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
       })
     },
   },

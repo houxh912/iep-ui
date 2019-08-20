@@ -61,7 +61,7 @@ export function getDataById (id) {
 // 文件下载浏览次数统计
 export function downloadCount (id) {
   return request({
-    url: `${prefixUrl}/getUpload/${id}`,
+    url: `${prefixUrl}/i_can/download/${id}`,
     method: 'get',
   })
 }

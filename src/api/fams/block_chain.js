@@ -48,3 +48,9 @@ export function issuedAmount (obj) {
     data: obj,
   })
 }
+
+export function getAccountInfo () {
+  return request({
+    url: `${prefixUrl}/account/info`,
+  })
+}

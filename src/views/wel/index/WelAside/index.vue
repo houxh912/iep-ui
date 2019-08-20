@@ -7,6 +7,8 @@
     <my-created />
     <!-- 我要找 -->
     <my-find />
+    <!-- 我的区块链 -->
+    <my-block-clain />
     <!-- 我的财富 -->
     <!-- <my-treasure /> -->
     <!-- 我的机会 -->
@@ -22,11 +24,12 @@ import { getAside } from '@/api/wel/index'
 import MyCreated from './MyCreated'
 import MyFind from './MyFind'
 // import MyTreasure from './MyTreasure'
+import MyBlockClain from './MyBlockClain'
 import MyChance from './MyChance'
 // import ReceiveEvaluation from './ReceiveEvaluation'
 import MyData from './MyData'
 export default {
-  components: { MyCreated, MyFind, MyChance, MyData },
+  components: { MyCreated, MyFind, MyChance, MyData, MyBlockClain },
   data () {
     return {
       opportunity: [],

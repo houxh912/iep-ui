@@ -52,7 +52,7 @@ export function getDataById (id) {
 // 统计荣誉资质的下载
 export function downloadCount (id) {
   return request({
-    url: `${prefixUrl}/getUpload/${id}`,
+    url: `${prefixUrl}/i_can/download/${id}`,
     method: 'get',
   })
 }

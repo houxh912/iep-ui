@@ -11,6 +11,7 @@ import hrms from './modules/hrms'
 import notify from './modules/notify'
 import im from './modules/im'
 import cpms from './modules/cpms'
+import ican from './modules/ican'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -27,6 +28,7 @@ const store = new Vuex.Store({
     notify,
     im,
     cpms,
+    ican,
   },
   getters,
 })

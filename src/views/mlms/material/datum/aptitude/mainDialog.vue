@@ -44,7 +44,7 @@
         </span>
         <!-- <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select> -->
         <el-select v-model="formData.downloadCost" placeholder="请选择">
-          <el-option v-for="item in dictGroup.mlms_download_cost" :key="item.id" :label="`${item.label}国脉贝`" :value="item.value"></el-option>
+          <el-option v-for="item in dictGroup.mlms_download_cost" :key="item.id" :label="`${item.label}能贝`" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
@@ -63,13 +63,7 @@
           <iep-tip :content="tipContent.image"></iep-tip>：
         </span>
         <!-- <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload> -->
-        <el-upload
-          class="avatar-uploader"
-          action="/api/admin/file/upload/avatar"
-          :show-file-list="false"
-          :headers="headers"
-          :on-success="handleAvatarSuccess"
-          accept="image/*">
+        <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*">
           <iep-img v-if="formData.image" :src="formData.image" class="avatar"></iep-img>
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
@@ -171,7 +165,7 @@ export default {
   overflow: hidden;
 }
 .avatar-uploader:hover {
-  border-color: #409EFF;
+  border-color: #409eff;
 }
 .avatar-uploader-icon {
   font-size: 28px;

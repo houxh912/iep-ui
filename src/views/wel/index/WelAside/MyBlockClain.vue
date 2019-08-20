@@ -55,9 +55,9 @@ export default {
     ...mapMutations({
       setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
     }),
-    ...mapActions(['famsReward']),
+    ...mapActions(['icanReward']),
     handleReward () {
-      this.famsReward()
+      this.icanReward()
     },
   },
 }

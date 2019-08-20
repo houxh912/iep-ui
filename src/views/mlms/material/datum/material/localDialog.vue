@@ -10,7 +10,7 @@
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <!-- <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200" :placeholder="tipContent.intro"></el-input> -->
-<el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200" placeholder="1、材料内容主旨说明，如选取文中重要的段落；
+        <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200" placeholder="1、材料内容主旨说明，如选取文中重要的段落；
 2、字数控制在200字以内。"></el-input>
       </el-form-item>
       <el-row>
@@ -49,7 +49,7 @@
         </span>
         <!-- <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select> -->
         <el-select v-model="formData.downloadCost" placeholder="请选择">
-          <el-option v-for="item in dictGroup.mlms_download_cost" :key="item.id" :label="`${item.label}国脉贝`" :value="item.value"></el-option>
+          <el-option v-for="item in dictGroup.mlms_download_cost" :key="item.id" :label="`${item.label}能贝`" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
@@ -162,7 +162,7 @@ export default {
               this.dialogShow = false
             }
             if (this.methodName == 'create') {
-              addBellBalanceRuleByNumber('MATERIAL_ADD').then(({data}) => {
+              addBellBalanceRuleByNumber('MATERIAL_ADD').then(({ data }) => {
                 requestFn(`恭喜您成功上传了一篇材料，${data.msg}，继续努力`)
               })
             } else {
@@ -190,7 +190,7 @@ export default {
     },
   },
   created () {
-    getUnion().then(({data}) => {
+    getUnion().then(({ data }) => {
       this.inUnion = data
       // 有联盟，新建时默认选中联盟开放，无联盟，默认选中对组织开放
       if (this.methodName == 'create' && data == 1) {

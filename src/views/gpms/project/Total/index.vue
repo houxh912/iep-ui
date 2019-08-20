@@ -54,7 +54,7 @@
             <iep-button type="warning" plain @click="handleAccounting(scope.row.id)" v-if="scope.row.projectStatus=='3' || scope.row.isHistory=='2'">项目核算</iep-button>
             <iep-button type="warning" plain @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'&&scope.row.isHistory=='1'">撤回</iep-button>
             <iep-button @click.native="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'" type="warning" plain>立项</iep-button>
-            <iep-button @click.native="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus!=='5'||scope.row.isHistory === 2">编辑</iep-button>
+            <iep-button @click.native="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus!=='5'||scope.row.isHistory === '2'">编辑</iep-button>
             <iep-button @click.native="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">删除</iep-button>
           </operation-wrapper>
         </template>
@@ -98,8 +98,11 @@ export default {
   mixins: [mixins],
   methods: {
     项目状态 (row) {
-      if (row.isHistory === 2) {
+      if (row.isHistory === 2 && row.projectStatus !== '5') {
         return '已完结'
+      }
+      else if (row.isHistory === 2 && row.projectStatus === '5') {
+        return '已锁定'
       }
       else {
         return dictMap.projectStatus[row.projectStatus]

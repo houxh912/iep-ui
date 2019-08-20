@@ -417,10 +417,12 @@ export default {
     this.tableData = []
     let obj = Object.assign({}, initBudgetForm(), this.formData.projectBudgetList)
     this.tableData.push(obj)
+
     if (this.id) {
       getDataDetail(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initFormData(), data.data)
         this.changeData = this.$mergeByFirst(initFormData(), data.data)
+        console.log(this.changeData.projectBudgetList)
         this.tableData = [this.formData.projectBudgetList]
         if (this.formData.projectType == '1') {
           this.formData.projectTypeBefore = true
@@ -470,7 +472,7 @@ export default {
         if (this.changeData.projectName != this.formData.projectName || this.changeData.projectAmount != this.formData.projectAmount || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId || this.changeData.projectBudgetList != this.tableData[0]) {
           this.formData.projectStatus = '2'
         }//立项的项目特定字段改变时项目状态为'2'
-        console.log(this.changeData, this.formData.projectBudgetList, this.changeData.projectBudgetList === this.formData.projectBudgetList)
+        console.log(this.changeData.projectBudgetList, this.tableData[0], this.changeData.projectBudgetList === this.tableData[0])
       }
       this.$refs['form'].validate((valid) => {
         if (valid) {

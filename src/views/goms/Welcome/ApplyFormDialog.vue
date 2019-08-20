@@ -1,12 +1,19 @@
 <template>
   <iep-dialog title="申请" :dialog-show="DialogShow" width="520" @close="close()">
-    <el-form ref="form" :model="form" size="small" label-width="80px">
-      <el-form-item label="组织名称">
-        <el-input v-model="form.name" disabled></el-input>
-      </el-form-item>
-      <el-form-item label="申请理由">
+    <el-form ref="form" :model="form" size="small" label-width="120px">
+      <iep-form-item label-name="组织名称">
+        <iep-div-detail :value="form.name"></iep-div-detail>
+      </iep-form-item>
+      <iep-form-item label-name="组织介绍">
+        <div>{{form.intro}}</div>
+      </iep-form-item>
+      <iep-form-item label-name="组织标签">
+        <!-- (卓越) -->
+        <iep-tag-detail class="tag" :value="form.abilityTag"></iep-tag-detail>
+      </iep-form-item>
+      <iep-form-item label-name="申请理由">
         <iep-input-area placeholder="请输入申请理由" v-model="form.message"></iep-input-area>
-      </el-form-item>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="handleSubmitApply">申 请</iep-button>
@@ -23,6 +30,7 @@ export default {
       form: {
         name: '',
         orgId: '',
+        intro: '',
         message: '',
       },
     }

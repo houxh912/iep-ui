@@ -15,7 +15,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getICanOrgList } from '@/api/goms/org'
+import { getICanOrgList, getOrgById } from '@/api/goms/org'
 import ApplyFormDialog from './ApplyFormDialog'
 export default {
   components: { ApplyFormDialog },
@@ -37,13 +37,12 @@ export default {
   },
   methods: {
     handleChange () { },
-    handleApplyJoin (item) {
-      this.$refs['ApplyFormDialog'].form = {
-        name: item.name,
-        orgId: item.orgId,
-        message: '',
-      }
-      this.$refs['ApplyFormDialog'].DialogShow = true
+    handleApplyJoin (row) {
+      getOrgById(row.orgId).then(({ data }) => {
+        const form = data.data
+        this.$refs['ApplyFormDialog'].form = { ...form }
+        this.$refs['ApplyFormDialog'].DialogShow = true
+      })
     },
     onSearch (name) {
       this.loadPage(name)

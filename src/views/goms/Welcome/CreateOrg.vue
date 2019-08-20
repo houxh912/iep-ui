@@ -1,19 +1,19 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="16">
-      <el-form ref="form" :rules="rules" size="small" :model="form" label-width="80px">
-        <el-form-item label="组织名称" prop="name">
+      <el-form ref="form" :rules="rules" size="small" :model="form" label-width="120px">
+        <iep-form-item label-name="组织名称" prop="name">
           <el-input v-model="form.name" :maxlength="110"></el-input>
-        </el-form-item>
-        <el-form-item label="组织名称" prop="orgType">
+        </iep-form-item>
+        <iep-form-item label-name="组织名称" prop="orgType">
           <iep-dict-select v-model="form.orgType" dict-name="GOMS_ORG_TYPE"></iep-dict-select>
-        </el-form-item>
-        <el-form-item label="Logo" prop="logo">
+        </iep-form-item>
+        <iep-form-item label-name="组织Logo" prop="logo">
           <iep-avatar v-model="form.logo"></iep-avatar>
-        </el-form-item>
-        <el-form-item label="组织简介" prop="intro">
+        </iep-form-item>
+        <iep-form-item label-name="组织简介" prop="intro">
           <iep-input-area v-model="form.intro"></iep-input-area>
-        </el-form-item>
+        </iep-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
           <el-button @click="resetForm('form')">重置</el-button>
@@ -77,6 +77,7 @@ export default {
               })
               this.tabsActive = 0
               this.form = initForm()
+              // this.$openPage('/wel/finishorg')
             } else {
               this.$message({
                 message: data.msg,

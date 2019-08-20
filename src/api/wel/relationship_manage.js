@@ -10,9 +10,18 @@ export function getRelationshipManagePage (query) {
   })
 }
 
+//我关注的分页
+export function getMyAttentionPage (query) {
+  return request({
+    url: '/cpms/iepuserfollow/address/page',
+    method: 'get',
+    params: query,
+  })
+}
+
 export function getRelationshipList () {
   return request({
-    url: `${prefixUrl}/contacts/custom/contacts/list`,
+    url: `${prefixUrl}/contacts/custom/group/list`,
     method: 'get',
   })
 }

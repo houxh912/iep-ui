@@ -28,11 +28,15 @@
               <el-menu-item index="602" class="menu-item" @click.native="handleSelectApprentice()">
                 <span>我的徒弟</span>
               </el-menu-item>
+              <el-menu-item index="603" class="menu-item" @click.native="handleSelectAttention()">
+                <span>我的关注</span>
+              </el-menu-item>
               <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="changeGroup(item.name,item.id)">
-                <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start">
+                <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start" v-if="item.userId==userInfo.userId">
                   <span>{{item.name}}</span>
                 </el-tooltip>
-                <i class="iconfont icon-shanchu1" @click="handleDelete(item.id)"></i>
+                <span v-else>{{item.name}}</span>
+                <i class="iconfont icon-shanchu1" @click="handleDelete(item.id)" v-show="item.userId==userInfo.userId"></i>
               </el-menu-item>
             </el-submenu>
           </el-menu>
@@ -44,6 +48,9 @@
       </el-col>
       <el-col :span="20" v-else-if="this.mark=='apprentice'">
         <apprentice></apprentice>
+      </el-col>
+      <el-col :span="20" v-else-if="this.mark=='attention'">
+        <attention-page></attention-page>
       </el-col>
       <el-col :span="20" v-else>
         <!-- <iep-page-header title=""></iep-page-header> -->
@@ -65,11 +72,19 @@
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
           </template>
-          <el-table-column prop="operation" label="操作" width="120px">
+          <el-table-column prop="operation" label="操作" width="160px">
             <template slot-scope="scope">
               <operation-wrapper>
                 <iep-button type="warning" v-show="mark==''" plain @click="handleadd(scope.row)">添加</iep-button>
                 <iep-button v-show="mark=='group'" plain @click="handleRemove(scope.row,scope.row)">移除</iep-button>
+                <el-dropdown size="medium" v-show="mark==''">
+                  <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item @click.native="handleFollow(scope.row)">拜师</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleFollow(scope.row)"><i class="icon-xinzeng"></i> 关注</el-dropdown-item>
+                    <el-dropdown-item @click.native="handleUnFollow(scope.row)"><i class="icon-check"></i> 取消关注</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </operation-wrapper>
             </template>
           </el-table-column>
@@ -89,11 +104,14 @@ import DialogForm from './DialogForm'
 import AddDialogForm from './AddDialogForm'
 import master from './MentorTable/master'
 import apprentice from './MentorTable/apprentice'
+import attentionPage from './MentorTable/attentionPage'
+import { mapGetters } from 'vuex'
+import { followById, unfollowById } from '@/api/cpms/iepuserfollow'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
-  mixins: [mixins,formMixins],
+  mixins: [mixins, formMixins],
   // components: { AdvanceSearch },
-  components: { DialogForm, AddDialogForm, master, apprentice },
+  components: { DialogForm, AddDialogForm, master, apprentice, attentionPage },
   data () {
     return {
       dictsMap,
@@ -101,29 +119,32 @@ export default {
       bodyStyle: {
         padding: 0,
       },
-      mark:'',
+      mark: '',
       typeCountMap: {},
-      selectType: ['1','2'],
-      allPeople:[
-        {value:1001,label:'按岗位信息'},
-        {value:1002,label:'按职务信息'},
-        {value:1003,label:'按职称信息'},
+      selectType: ['1', '2'],
+      allPeople: [
+        { value: 1001, label: '按岗位信息' },
+        { value: 1002, label: '按职务信息' },
+        { value: 1003, label: '按职称信息' },
       ],
-      sort:{positionId:'',jobId:'',professionalTitleId:''},
-      relationship:[
+      sort: { positionId: '', jobId: '', professionalTitleId: '' },
+      relationship: [
       ],
-      tabList:[
-        {value:0,label:'含离职'},
-        {value:1,label:'仅管理员'},
-        {value:2,label:'资产所属为本组织'},
+      tabList: [
+        { value: 0, label: '含离职' },
+        { value: 1, label: '仅管理员' },
+        { value: 2, label: '资产所属为本组织' },
       ],
-      orgId:'',
+      orgId: '',
     }
   },
   computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   created () {
-    this.mark = this.$route.query.mark? this.$route.query.mark:''
+    this.mark = this.$route.query.mark ? this.$route.query.mark : ''
     this.loadPage()
   },
   methods: {
@@ -134,7 +155,7 @@ export default {
       this.$refs['AddDialogForm'].dialogShow = true
     },
     handleAddBatch () {
-      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+      if (this.multipleSelection === undefined || this.multipleSelection.length === 0) {
         this.$message('请先选择需要添加的选项')
         return
       }
@@ -148,22 +169,22 @@ export default {
     },
     handleAllPeople (val) {
       this.mark = ''
-      if(val==1001){
-        this.sort.positionId='1'
-        this.sort.jobId=''
-        this.sort.professionalTitleId=''
+      if (val == 1001) {
+        this.sort.positionId = '1'
+        this.sort.jobId = ''
+        this.sort.professionalTitleId = ''
       }
-      else if(val==1002){
-        this.sort.positionId=''
-        this.sort.jobId='1'
-        this.sort.professionalTitleId=''
+      else if (val == 1002) {
+        this.sort.positionId = ''
+        this.sort.jobId = '1'
+        this.sort.professionalTitleId = ''
       }
-      else if(val==1003){
-        this.sort.positionId=''
-        this.sort.jobId=''
-        this.sort.professionalTitleId='1'
+      else if (val == 1003) {
+        this.sort.positionId = ''
+        this.sort.jobId = ''
+        this.sort.professionalTitleId = '1'
       }
-      if (typeof this.$refs['OperationSearch']!='undefined'){
+      if (typeof this.$refs['OperationSearch'] != 'undefined') {
         this.$refs['OperationSearch'].input = ''
       }
       this.searchPage()
@@ -174,7 +195,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        removeRelationshipById(row.groupId,[row.userId]).then(res => {
+        removeRelationshipById(row.groupId, [row.userId]).then(res => {
           if (res.data.data) {
             this.$message({
               type: 'success',
@@ -191,7 +212,7 @@ export default {
       })
     },
     handleRemoveBatch () {
-      if ( this.multipleSelection === undefined || this.multipleSelection.length === 0) {
+      if (this.multipleSelection === undefined || this.multipleSelection.length === 0) {
         this.$message('请先选择需要移除的选项')
         return
       }
@@ -200,7 +221,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        removeRelationshipBatch(this.groupType,this.multipleSelection).then(res => {
+        removeRelationshipBatch(this.groupType, this.multipleSelection).then(res => {
           if (res.data.data) {
             this.$message({
               type: 'success',
@@ -221,7 +242,7 @@ export default {
       this.$refs['DialogForm'].formRequestFn = joinRelationship
       this.$refs['DialogForm'].dialogShow = true
     },
-    changeGroup (name,id) {
+    changeGroup (name, id) {
       this.$refs['DialogForm'].form.name = name
       this.$refs['DialogForm'].form.id = id
       this.$refs['DialogForm'].methodName = '编辑'
@@ -237,10 +258,13 @@ export default {
     handleSelectApprentice () {
       this.mark = 'apprentice'
     },
+    handleSelectAttention () {
+      this.mark = 'attention'
+    },//我关注的分页
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
-      if (typeof this.$refs['OperationSearch']!='undefined'){
+      if (typeof this.$refs['OperationSearch'] != 'undefined') {
         this.$refs['OperationSearch'].input = ''
       }
       this.searchPage()
@@ -259,13 +283,25 @@ export default {
     // },
     loadPage (param = this.searchForm) {
       this.loadTypeList()
-      this.$nextTick(() => {this.$refs['AddDialogForm'].loadTypeList()})
-      if(this.mark=='group'){
-        this.loadTable({ orgId:this.orgId, groupId: this.groupType, ...param }, getTypeCountMap)
+      this.$nextTick(() => { this.$refs['AddDialogForm'].loadTypeList() })
+      if (this.mark == 'group') {
+        this.loadTable({ orgId: this.orgId, groupId: this.groupType, ...param }, getTypeCountMap)
       }
       else {
-        this.loadTable({ orgId:this.orgId, positionId: this.sort.positionId,jobId: this.sort.jobId,professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
+        this.loadTable({ orgId: this.orgId, positionId: this.sort.positionId, jobId: this.sort.jobId, professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
       }
+    },
+    // 关注
+    handleFollow (row) {
+      followById(row.userId).then(() => {
+        this.loadPage()
+      })
+    },
+    // 取消关注
+    handleUnFollow (row) {
+      unfollowById(row.userId).then(() => {
+        this.loadPage()
+      })
     },
   },
   watch: {

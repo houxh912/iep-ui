@@ -56,6 +56,7 @@ const columnsMap = [
 const initForm = () => {
   return {
     name:'',
+    isOpen:false,
   }
 }
 
@@ -67,6 +68,12 @@ const initGroupForm = () => {
 }
 
 const formToDto = (row) => {
+  if (row.isOpen === false) {
+    row.isOpen = 1
+  }
+  else {
+    row.isOpen = 2
+  }
   const newForm = {...row}
   return newForm
 }

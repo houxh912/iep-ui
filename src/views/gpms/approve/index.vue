@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="项目审批" :back-option="backOption"></iep-page-header>
+      <iep-page-header title="项目审批"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button type="primary" plain @click="handleReviewDialog">批量审核</iep-button>
@@ -76,13 +76,6 @@ export default {
     return {
       columnsMap,
       dictsMap,
-      backOption: {
-        isBack: true,
-        backPath: null,
-        backFunction: () => {
-          this.close()
-        },
-      },
     }
   },
   created () {

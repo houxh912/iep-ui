@@ -466,10 +466,12 @@ export default {
 
     save (val) {
       this.formData.projectStatus = val
-      if (this.changeData.projectName != this.formData.projectName || this.changeData.projectBudgetList != this.formData.projectBudgetList || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId) {
-        console.log(this.changeData, this.formData)
-        this.formData.projectStatus = '2'
-      }//立项的项目特定字段改变时项目状态为'2'
+      if (val == '3') {
+        if (this.changeData.projectName != this.formData.projectName || this.changeData.projectAmount != this.formData.projectAmount || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId || this.changeData.projectBudgetList != this.tableData[0]) {
+          this.formData.projectStatus = '2'
+        }//立项的项目特定字段改变时项目状态为'2'
+        console.log(this.changeData, this.formData.projectBudgetList, this.changeData.projectBudgetList === this.formData.projectBudgetList)
+      }
       this.$refs['form'].validate((valid) => {
         if (valid) {
           // 进行数据的转换先

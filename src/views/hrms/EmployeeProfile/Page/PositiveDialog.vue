@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="转正" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="转正" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="转正时间" prop="positiveTime">
         <iep-date-picker v-model="form.positiveTime" type="date" placeholder="选择日期">

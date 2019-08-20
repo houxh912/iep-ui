@@ -72,7 +72,7 @@ const columnMap = [
     prop: 'createTime',
     label: '创建时间',
     type: 'time',
-    width: 100,
+    width: 140,
   },
   {
     prop: 'modifiedTime',
@@ -154,13 +154,19 @@ export default {
     },
 
     readRelation (rows) {
-      const { relationList } = rows
-      //
-      rows.relationList = relationList.map(m => m.policyId)
-      rows.relationPolicyList = relationList.map(m => {
-        return { id: m.policyId, name: m.policyType }
+      const { relationPolicyList } = rows
+      // 联合发文单位
+      // rows.dispatchList = dispatchList.map(m => m.commonId)
+      // rows.dispatchsList = dispatchList.map(m => {
+      //   return { id: m.commonId, name: m.commonName }
+      // })
+
+      //关联政策
+      rows.relationList = relationPolicyList.map(m => m.title)
+      rows.relationPolicyList = relationPolicyList.map(m => {
+        return { id: m.id, name: m.title }
       })
-      console.log('relationsList', rows.relationsList)
+      console.log('relationsList', rows.relationPolicyList)
       return rows
     },
 

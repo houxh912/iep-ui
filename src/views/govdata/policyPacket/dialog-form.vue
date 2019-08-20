@@ -47,11 +47,11 @@ import MutiplySelect from './mutiply-select'
 import multiplyMixin from '@/views/govdata/policyManage/multiply_mixin'
 const orgOption = [
   {
-    prop: 'label',
-    label: '机构分类',
+    prop: 'creatorName',
+    label: '创建人',
   }, {
-    prop: 'organizationUrl',
-    label: '机构网址',
+    prop: 'issue',
+    label: '发文号',
   }]
 export default {
   mixins: [multiplyMixin],
@@ -114,7 +114,7 @@ export default {
       政策options: {
         name: '政策',
         labelName: '政策名称',
-        labelProp: 'titleLike',
+        labelProp: 'title',
         valueName: '政策ID',
         valueProp: 'id',
         getRequestName: getpolicyPage,
@@ -144,7 +144,6 @@ export default {
      */
     getCode () {
       this.url = `https://gc.govmade.cn/policy-red-envelope-detail/${this.formData.id}`
-      console.log('this.url',this.url)
     },
 
     /**

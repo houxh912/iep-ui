@@ -9,12 +9,12 @@
         </el-form-item>
 
         <!-- 标签有问题 -->
-        <el-form-item label="标签筛选" style="100%" class="tag">
+        <!-- <el-form-item label="标签筛选" style="100%" class="tag">
           <iep-tag v-model="listQuery.tagKeyWords"></iep-tag>
-        </el-form-item>
+        </el-form-item> -->
 
         <el-form-item label="政策类型" class="selectinput">
-          <el-select v-model="listQuery.type" placeholder="请选择">
+          <el-select v-model="policytype" placeholder="请选择">
             <el-option v-for="item in policyType" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -101,7 +101,7 @@ export default {
       listQuery: {
         current: 1,
         size: pageLimit,
-        type: 'general',
+        // type: 'general',
         // page: 1,
         // limit: pageLimit,
         tagKeyWords: [],
@@ -145,6 +145,7 @@ export default {
         value: 'code',
         label: 'name',
       },
+      policytype: 'general',
     }
   },
   computed: {
@@ -200,32 +201,36 @@ export default {
      */
     getList () {
       this.tableLoading = true
-      this.getRequestName(this.listQuery).then(response => {
-        this.tableData = response.data.records
-        this.page.total = response.data.total
-        this.tableLoading = false
-        const selectedIds = this.selectedIds
-        // 当前页的数据 value 映射
-        this.keyObject = _.keyBy(this.tableData, this.columnMap[0].prop)
-        // 当前页的临时总数据
-        this.tempSelectedObjs = [...this.selectedObjs]
-        // 移除当前页的数据 为了与当前页选择的合并.
-        for (const key in this.keyObject) {
-          const isIncludes = selectedIds.includes(parseInt(key))
-          if (this.keyObject.hasOwnProperty(key) && isIncludes) {
-            // this.tempSelectedObjs.splice(index, 1)
-            _.remove(this.tempSelectedObjs, item => {
-              return item.value === parseInt(key)
-            })
+      this.listQuery.current = 1
+      this.listQuery.size = 10
+      this.listQuery.type = this.policytype
+      console.log('this.listQuery', this.listQuery),
+        this.getRequestName(this.listQuery).then(response => {
+          this.tableData = response.data.records
+          this.page.total = response.data.total
+          this.tableLoading = false
+          const selectedIds = this.selectedIds
+          // 当前页的数据 value 映射
+          this.keyObject = _.keyBy(this.tableData, this.columnMap[0].prop)
+          // 当前页的临时总数据
+          this.tempSelectedObjs = [...this.selectedObjs]
+          // 移除当前页的数据 为了与当前页选择的合并.
+          for (const key in this.keyObject) {
+            const isIncludes = selectedIds.includes(parseInt(key))
+            if (this.keyObject.hasOwnProperty(key) && isIncludes) {
+              // this.tempSelectedObjs.splice(index, 1)
+              _.remove(this.tempSelectedObjs, item => {
+                return item.value === parseInt(key)
+              })
+            }
           }
-        }
-        window.tempSelectedObjs = this.tempSelectedObjs
-        this.$nextTick(() => {
-          this._handleSelectStatus()
+          window.tempSelectedObjs = this.tempSelectedObjs
+          this.$nextTick(() => {
+            this._handleSelectStatus()
+          })
+        }, error => {
+          this.$message.error(error.msg)
         })
-      }, error => {
-        this.$message.error(error.msg)
-      })
     },
     /**
      * 刷新回调

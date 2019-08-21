@@ -44,8 +44,8 @@ export default {
         this.$refs['ApplyFormDialog'].DialogShow = true
       })
     },
-    onSearch (name) {
-      this.loadPage(name)
+    onSearch (orgName) {
+      this.loadPage(orgName)
     },
     loadPage (orgName = null) {
       getOrgList(orgName).then(({ data }) => {

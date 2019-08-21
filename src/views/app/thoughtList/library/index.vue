@@ -71,11 +71,13 @@ import contentTpl from './content'
 import forwardDialog from '../forwardDialog'
 import CollectDialog from '@/views/mlms/material/components/collectDialog'
 import { followById, unfollowById } from '@/api/cpms/iepuserfollow'
+import { getName } from './util'
 
 const initFormData = () => {
   return {
     replyMsg: '',
     thoughtsId: 0,
+    nameList: [],
   }
 }
 
@@ -152,11 +154,17 @@ export default {
       this.form = {
         replyMsg: '',
         thoughtsId: item.thoughtsId,
+        nameList: [],
       }
     },
     // 评论
     commentSubmit () {
       if (this.form.replyMsg == '') return
+      // 判断说说中是否存在人名
+      let nameObj = getName(this.form.replyMsg)
+      if (nameObj.type) {
+        this.form.nameList = nameObj.list.map(m => m.name)
+      }
       CommentThoughts(this.form).then(() => {
         this.activeIndex = -1
         this.loadPage()

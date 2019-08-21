@@ -54,10 +54,6 @@
           <iep-identity-mark icon="iep2-iconzhuanjia1" title="专家"></iep-identity-mark>
         </el-form-item>
 
-        <el-form-item label="用户卡片:">
-          <iep-user-card></iep-user-card>
-        </el-form-item>
-
         <el-form-item label="文件:">
           <iep-upload v-model="form.fileList" drag :limit="2">
             点击进入<a href="http://77777">haahahahah</a>你好

@@ -77,8 +77,9 @@
                 <span>{{dictsMap.processStatus[process.status]}}</span>
               </div>
               <br>
-              <div>备注：
-                <iep-div-detail style="display: inline;" :value="process.remarks"></iep-div-detail>
+              <div style="display:flex;">
+                <div style="flex: 0 0 50px;">备注：</div>
+                <iep-div-detail-switch :value="process.remarks"></iep-div-detail-switch>
               </div>
             </el-card>
           </el-timeline-item>

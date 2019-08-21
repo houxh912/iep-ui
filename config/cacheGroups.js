@@ -135,4 +135,20 @@ exports.cacheGroups = {
     reuseExistingChunk: true,
     enforce: true
   },
+  pgbd: {
+    name: 'pgbd',
+    test: /[\\/]src[\\/]views[\\/]pgbd[\\/]/,
+    chunks: 'all',
+    priority: 1,
+    reuseExistingChunk: true,
+    enforce: true
+  },
+  govdata: {
+    name: 'govdata',
+    test: /[\\/]src[\\/]views[\\/]govdata[\\/]/,
+    chunks: 'all',
+    priority: 1,
+    reuseExistingChunk: true,
+    enforce: true
+  },
 }

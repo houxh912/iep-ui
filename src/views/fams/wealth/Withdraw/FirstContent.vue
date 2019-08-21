@@ -12,7 +12,7 @@
       <iep-form-item label-name="发票抵税" prop="deductionInvoice">
         <a-tooltip :trigger="['focus']" placement="topLeft" overlayClassName="numeric-input">
           <template slot="title">
-            可发票抵税 {{maxDeductionInvoice}} 元
+            可发票抵税 {{withInvoice}} 元
           </template>
           <iep-input-amount v-model="form.deductionInvoice" :min="0" :max="maxDeductionInvoice"></iep-input-amount>
         </a-tooltip>

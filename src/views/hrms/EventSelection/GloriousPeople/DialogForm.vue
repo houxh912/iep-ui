@@ -4,8 +4,11 @@
       <el-form-item label="评选名称：" prop="selectionName">
         <el-input v-model="form.selectionName"></el-input>
       </el-form-item>
-      <el-form-item label="关联指标：" prop="targetId">
-        <iep-select v-model="form.targetId" autocomplete="off" prefix-url="hrms/iephrsplendortarget" placeholder="请选择关联指标" style="width:240px;margin-right:10px;" v-show="!customClass" @change="targetIdChange"></iep-select>
+      <el-form-item label="关联指标：" prop="targetId" v-show="!customClass">
+        <iep-select v-model="form.targetId" autocomplete="off" prefix-url="hrms/iephrsplendortarget" placeholder="请选择关联指标" style="width:240px;margin-right:10px;" @change="targetIdChange"></iep-select>
+        <el-button @click="changeCustomClass">{{customClass==false?'自定义类':'关联指标类'}}</el-button>
+      </el-form-item>
+      <el-form-item label="关联指标：" v-show="customClass">
         <el-button @click="changeCustomClass">{{customClass==false?'自定义类':'关联指标类'}}</el-button>
       </el-form-item>
       <el-form-item label="对象名：" prop="user" v-show="customClass">
@@ -111,30 +114,36 @@ export default {
       })
     },
     async submitForm () {
-      if (this.form.targetUserId == '') {
-        this.form.sign = 1
-      }
-      else {
-        this.form.sign = 2
-      }
-      if (this.customClass === true) {
-        this.form.targetId = 0
-        this.form.userName = this.form.user.name
-        this.form.userId = this.form.user.id
-        this.form.targetUserName = '默认'
-        this.form.targetUserId = ''
-      }
-      else {
-        this.form.userName = this.form.targetUserName
-        this.form.userId = this.form.targetUserId
-      }
-      const { data } = await this.formRequestFn({ splendorId: this.id, ...this.form })
-      if (data.data) {
-        this.$message.success('操作成功')
-        this.loadDialog()
-      } else {
-        this.$message(data.msg)
-      }
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          if (this.customClass === true) {
+            this.form.targetId = 0
+            this.form.userName = this.form.user.name
+            this.form.userId = this.form.user.id
+            this.form.targetUserName = '默认'
+            this.form.targetUserId = ''
+          }
+          else {
+            this.form.userName = this.form.targetUserName
+            this.form.userId = this.form.targetUserId
+          }
+          if (this.form.targetUserId == '' && this.form.userId == '') {
+            this.form.sign = 1
+          }
+          else {
+            this.form.sign = 2
+          }
+          this.formRequestFn({ splendorId: this.id, ...this.form }).then(({ data }) => {
+            if (data.data) {
+              this.$message({
+                message: `${this.methodName}成功`,
+                type: 'success',
+              })
+              this.back()
+            }
+          })
+        }
+      })
     },
     targetIdChange () {
       this.form.realName = '默认'

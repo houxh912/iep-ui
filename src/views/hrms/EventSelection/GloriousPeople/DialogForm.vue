@@ -103,14 +103,19 @@ export default {
         else {
           this.form.targetUserId = this.form.userId
         }
+        if (this.form.sign === 1) {
+          this.form.userId = ''
+          this.form.targetUserId = ''
+          console.log(11)
+        }
       })
     },
     async submitForm () {
-      if (this.form.userId != '') {
-        this.form.sign = 2
+      if (this.form.targetUserId == '') {
+        this.form.sign = 1
       }
       else {
-        this.form.sign = 1
+        this.form.sign = 2
       }
       if (this.customClass === true) {
         this.form.targetId = 0
@@ -118,7 +123,6 @@ export default {
         this.form.userId = this.form.user.id
         this.form.targetUserName = '默认'
         this.form.targetUserId = ''
-        console.log(0)
       }
       else {
         this.form.userName = this.form.targetUserName

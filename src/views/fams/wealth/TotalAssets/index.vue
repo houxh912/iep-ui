@@ -91,7 +91,7 @@ export default {
       replaceText: (data) => `${data[0]}`,
       accountType: 0,
       financialData: {
-        '现金': 0,
+        '已提现金': 0,
         '国脉贝': 0,
         '冻结金额': 0,
         '发票额度': 0,
@@ -192,7 +192,7 @@ ul {
   .left {
     flex: 1;
     margin-right: 20px;
-    height:152px;
+    height: 152px;
     li {
       padding: 12px 40px;
       border-right: 1px solid #ebeef5;
@@ -203,7 +203,7 @@ ul {
   }
   .right {
     flex: 0 0 300px;
-    height:152px;
+    height: 152px;
     ul {
       display: flex;
       justify-content: flex-start;

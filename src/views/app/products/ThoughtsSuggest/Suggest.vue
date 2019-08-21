@@ -11,7 +11,7 @@
               <span class="name" @click="peopleDetail(item.userId)">{{item.name}}</span>
               <span class="time">{{item.sendTime}}</span>
             </div>
-            <p class="feed">{{item.proposeContent}}</p>
+            <p class="feed" @click="peopleDetail(item.userId)">{{item.proposeContent}}</p>
           </div>
         </div>
       </div>

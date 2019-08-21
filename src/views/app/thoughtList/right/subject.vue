@@ -1,14 +1,16 @@
 <template>
   <div class="subject">
     <IepAppTabCard :title="labelTitle">
-      <IepAppRankingCard isReference :dataList="labelList" @click="handleDetail" name="topic" grade="count"></IepAppRankingCard>
+      <iep-app-ranking-card :dataList="labelList" @click="handleDetail" name="topic" grade="count"></iep-app-ranking-card>
     </IepAppTabCard>
   </div>
 </template>
 
 <script>
 import { getHotTopics } from '@/api/cpms/thoughts'
+import IepAppRankingCard from './RankingCard'
 export default {
+  components: { IepAppRankingCard },
   data () {
     return {
       labelTitle: '热门话题榜',

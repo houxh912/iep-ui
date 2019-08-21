@@ -221,7 +221,7 @@ export default {
       margin: 10px 0;
       text-align: left;
       span {
-        white-space: pre;
+        white-space: pre-wrap;
       }
       .person {
         color: #cb3737;

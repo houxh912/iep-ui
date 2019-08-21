@@ -68,7 +68,7 @@ export default {
 .content-tpl {
   .content {
     span {
-      white-space: pre;
+      white-space: pre-wrap;
     }
     .subject {
       color: #cb3737;

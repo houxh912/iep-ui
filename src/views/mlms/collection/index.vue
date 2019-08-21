@@ -16,6 +16,24 @@ export default {
     return {
       currentComponet: 'List',
       record: '',
+      detailList: {
+        material: {
+          name: '材料',
+          path: '/mlms_spa/material/detail/',
+        },
+        meeting: {
+          name: '纪要',
+          path: '/mlms_spa/summary/detail/',
+        },
+        thoughts: {
+          name: '说说',
+          path: '/mlms_spa/thought/detail/',
+        },
+        honor: {
+          name: '荣誉资质',
+          path: '',
+        },
+      },
     }
   },
   methods: {
@@ -24,10 +42,9 @@ export default {
       this.currentComponet = 'List'
     },
     handleDetail (row) {
-      if (row.type == 'material') {
-        this.$router.push(`/mlms_spa/material/detail/${row.targetId}`)
-      } else if (row.type == 'meeting') {
-        this.$router.push(`/mlms_spa/summary/detail/${row.targetId}`)
+      let path = this.detailList[row.type].path
+      if (path) {
+        this.$router.push(`${path}${row.targetId}`)
       }
     },
   },

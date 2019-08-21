@@ -4,10 +4,10 @@
       <top-logo></top-logo>
     </template>
     <template slot="top-center">
-      <top-navbar></top-navbar>
+      <top-navbar v-if="!noOrg"></top-navbar>
     </template>
     <template slot="top-right">
-      <top-search-icon></top-search-icon>
+      <!-- <top-search-icon v-if="!noOrg"></top-search-icon> -->
       <!-- <top-scan></top-scan>
       <top-guide></top-guide> -->
       <top-chat></top-chat>
@@ -25,9 +25,10 @@ import TopMessage from './TopMessage'
 import TopEmail from './TopEmail'
 // import TopGuide from './TopGuide'
 // import TopScan from './TopScan'
-import TopSearchIcon from './TopSearchIcon'
+// import TopSearchIcon from './TopSearchIcon'
 import TopUser from './TopUser'
 import TopChat from './TopChat'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     TopWrapper,
@@ -35,12 +36,17 @@ export default {
     TopNavbar,
     TopMessage,
     TopEmail,
-    TopSearchIcon,
+    // TopSearchIcon,
     // TopGuide,
     // TopScan,
     TopUser,
     TopChat,
   },
   name: 'Top',
+  computed: {
+    ...mapGetters([
+      'noOrg',
+    ]),
+  },
 }
 </script>

@@ -15,7 +15,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
-              <iep-button @click="handleEditProject(scope.row)">修改</iep-button>
+              <iep-button v-if="isQichizhi" @click="handleEditProject(scope.row)">修改</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -46,6 +46,9 @@ export default {
     }
   },
   computed: {
+    isQichizhi () {
+      return [207, 1].includes(this.userInfo.userId)
+    },
     ...mapGetters([
       'userInfo',
     ]),

@@ -28,11 +28,15 @@
               <el-menu-item index="602" class="menu-item" @click.native="handleSelectApprentice()">
                 <span>我的徒弟</span>
               </el-menu-item>
-              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="changeGroup(item.name,item.id)">
-                <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start">
+              <el-menu-item index="603" class="menu-item" @click.native="handleSelectAttention()">
+                <span>我的关注</span>
+              </el-menu-item>
+              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="item.userId==userInfo.userId?changeGroup(item.name,item.id,item.isOpen):''">
+                <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start" v-if="item.userId==userInfo.userId">
                   <span>{{item.name}}</span>
                 </el-tooltip>
-                <i class="iconfont icon-shanchu1" @click="handleDelete(item.id)"></i>
+                <span v-else>{{item.name}}</span>
+                <i class="iconfont icon-shanchu1" @click="handleDelete(item.id)" v-show="item.userId==userInfo.userId"></i>
               </el-menu-item>
             </el-submenu>
           </el-menu>
@@ -44,6 +48,9 @@
       </el-col>
       <el-col :span="20" v-else-if="this.mark=='apprentice'">
         <apprentice></apprentice>
+      </el-col>
+      <el-col :span="20" v-else-if="this.mark=='attention'">
+        <attention-page></attention-page>
       </el-col>
       <el-col :span="20" v-else>
         <!-- <iep-page-header title=""></iep-page-header> -->
@@ -65,11 +72,20 @@
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
           </template>
-          <el-table-column prop="operation" label="操作" width="120px">
+          <el-table-column prop="operation" label="操作" width="160px">
             <template slot-scope="scope">
               <operation-wrapper>
                 <iep-button type="warning" v-show="mark==''" plain @click="handleadd(scope.row)">添加</iep-button>
                 <iep-button v-show="mark=='group'" plain @click="handleRemove(scope.row,scope.row)">移除</iep-button>
+                <el-dropdown size="medium" v-show="mark==''">
+                  <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item v-if="scope.row.isMentor==0" @click.native="handleApprenticeConfirm(scope.row)">拜师</el-dropdown-item>
+                    <el-dropdown-item v-else @click.native="handleRelease(scope.row)">解除关系</el-dropdown-item>
+                    <el-dropdown-item v-if="scope.row.isFollowed==0" @click.native="handleFollow(scope.row)"><i class="icon-xinzeng" style="font-size:14px;"></i> 关注</el-dropdown-item>
+                    <el-dropdown-item v-else @click.native="handleUnFollow(scope.row)"><i class="icon-check" style="font-size:14px;"></i> 取消关注</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </operation-wrapper>
             </template>
           </el-table-column>
@@ -89,11 +105,16 @@ import DialogForm from './DialogForm'
 import AddDialogForm from './AddDialogForm'
 import master from './MentorTable/master'
 import apprentice from './MentorTable/apprentice'
+import attentionPage from './MentorTable/attentionPage'
+import { mapGetters } from 'vuex'
+import { followById, unfollowById } from '@/api/cpms/iepuserfollow'
+import { deleteReleaseMentorById } from '@/api/wel/relationship_manage'
+import { addMasterWorker } from '@/api/cpms/characterrelations'
 // import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins, formMixins],
   // components: { AdvanceSearch },
-  components: { DialogForm, AddDialogForm, master, apprentice },
+  components: { DialogForm, AddDialogForm, master, apprentice, attentionPage },
   data () {
     return {
       dictsMap,
@@ -121,6 +142,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'userInfo',
+    ]),
   },
   created () {
     this.mark = this.$route.query.mark ? this.$route.query.mark : ''
@@ -222,9 +246,10 @@ export default {
       this.$refs['DialogForm'].formRequestFn = joinRelationship
       this.$refs['DialogForm'].dialogShow = true
     },
-    changeGroup (name, id) {
+    changeGroup (name, id, isOpen) {
       this.$refs['DialogForm'].form.name = name
       this.$refs['DialogForm'].form.id = id
+      this.$refs['DialogForm'].form.isOpen = isOpen
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putRelationshipList
       this.$refs['DialogForm'].dialogShow = true
@@ -238,6 +263,9 @@ export default {
     handleSelectApprentice () {
       this.mark = 'apprentice'
     },
+    handleSelectAttention () {
+      this.mark = 'attention'
+    },//我关注的分页
     handleSelectType (k) {
       this.groupType = k
       this.mark = 'group'
@@ -268,6 +296,52 @@ export default {
       else {
         this.loadTable({ orgId: this.orgId, positionId: this.sort.positionId, jobId: this.sort.jobId, professionalTitleId: this.sort.professionalTitleId, ...param }, getRelationshipManagePage)
       }
+    },
+    // 关注
+    handleFollow (row) {
+      followById(row.userId).then(() => {
+        this.loadPage()
+      })
+    },
+    // 取消关注
+    handleUnFollow (row) {
+      unfollowById(row.userId).then(() => {
+        this.loadPage()
+      })
+    },
+    //拜师
+    handleApprenticeConfirm (row) {
+      addMasterWorker({ masterWorker: [row.userId], refuseContent: '' }).then(({ data }) => {
+        if (data.data) {
+          this.$message.success('拜师成功！')
+        } else {
+          this.$message.error(data.msg)
+        }
+        this.loadPage()
+      })
+    },
+    //解除师徒关系
+    handleRelease (row) {
+      this.$confirm('此操作将永久解除师徒关系, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        deleteReleaseMentorById(row.userId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '解除成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `解除失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
   },
   watch: {

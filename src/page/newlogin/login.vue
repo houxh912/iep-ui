@@ -6,19 +6,19 @@
       </div>
       <el-form class="form-detail" ref="form" :model="form">
         <el-form-item prop="username">
-          <a-input ref="username" @keyup.enter.native="handleLogin" v-model="form.username" auto-complete="off" placeholder="请输入用户名" size="large">
+          <a-input ref="username" @keyup.enter.native="handleLogin" v-model="form.username" autocomplete="username" placeholder="请输入用户名" size="large">
             <a-icon slot="prefix" type="user" />
             <a-icon v-if="form.username" slot="suffix" type="close-circle" @click="emitEmpty('username')" />
           </a-input>
         </el-form-item>
         <el-form-item prop="password">
-          <a-input ref="password" @keyup.enter.native="handleLogin" :type="passwordType" v-model="form.password" auto-complete="false" placeholder="请输入密码" size="large">
+          <a-input ref="password" @keyup.enter.native="handleLogin" :type="passwordType" v-model="form.password" autocomplete="current-password" placeholder="请输入密码" size="large">
             <a-icon slot="prefix" type="lock" />
             <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
           </a-input>
         </el-form-item>
         <el-form-item prop="code">
-          <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" auto-complete="false" placeholder="请输入验证码" size="large">
+          <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" size="large">
             <img slot="addonAfter" :src="code.src" class="login-code-img" @click="refreshCode" />
           </a-input>
         </el-form-item>

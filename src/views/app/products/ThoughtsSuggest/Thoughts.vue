@@ -11,7 +11,7 @@
               <span class="name" @click="peopleDetail(item.userId)">{{item.userName}}</span>
               <span class="time">{{item.createTime}}</span>
             </div>
-            <p class="feed">{{item.content}}</p>
+            <p class="feed" @click="thoughtsDetail(item.thoughtsId)">{{item.content}}</p>
           </div>
         </div>
       </div>
@@ -39,6 +39,9 @@ export default {
     },
     peopleDetail (val) {
       this.$router.push(`/app/personal_style/${val}`)
+    },
+    thoughtsDetail (id) {
+      this.$router.push(`/app/thought_detail/${id}`)
     },
   },
   created () {

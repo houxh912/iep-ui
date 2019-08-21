@@ -127,8 +127,6 @@ export default {
 .el-menu {
   background-color: #fafafa;
 }
-</style>
-<style lang="scss" scoped>
 .avue-sidebar ::v-deep .el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;
 }

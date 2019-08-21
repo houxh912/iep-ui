@@ -23,11 +23,11 @@
           <iep-div-detail class="content" :value="form.leaderIndication"></iep-div-detail>
         </div>
         <div class="con-item">
-          <div class="title">本月工作总结</div>
+          <div class="title">本周工作总结</div>
           <iep-div-detail class="content" :value="form.workSummary"></iep-div-detail>
         </div>
         <div class="con-item">
-          <div class="title">下月工作计划</div>
+          <div class="title">下周工作计划</div>
           <iep-div-detail class="content" :value="form.workPlan"></iep-div-detail>
         </div>
         <div class="con-item">

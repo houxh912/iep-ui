@@ -2,10 +2,10 @@
   <iep-dialog :dialog-show="dialogShow" :title="methodName" width="500px" @close="close">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
       <el-form-item label="金额(元)：" prop="amount">
-        <iep-input-number v-model="form.amount" :precision="2"></iep-input-number>
+        <iep-input-amount v-model="form.amount"></iep-input-amount>
       </el-form-item>
       <el-form-item label="组织：" prop="orgId">
-        <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+        <iep-select v-model="form.orgId" filterable prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
       </el-form-item>
       <el-form-item label="备注：" prop="remarks">
         <iep-input-area v-model="form.remarks"></iep-input-area>

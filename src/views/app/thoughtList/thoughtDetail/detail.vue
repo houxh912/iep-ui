@@ -1,15 +1,12 @@
 <template>
-  <iep-app-layout>
+  <div>
     <div class="breadcrumb-wrapper">
-      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
-      </el-breadcrumb>
       <div class="back">
         <iep-button @click="handleBack">返回</iep-button>
       </div>
     </div>
     <list ref="list" class="list" :dataList="dataList" @load-page="loadPage"></list>
-  </iep-app-layout>
+  </div>
 </template>
 
 <script>
@@ -57,10 +54,10 @@ export default {
 
 <style lang="scss" scoped>
 .breadcrumb-wrapper {
-  display: flex;
+  position: relative;
   width: 1200px;
   margin: 20px auto 0;
-  justify-content: space-between;
+  text-align: right;
   .breadcrumb-item {
     padding: 0 0 20px 0;
   }

@@ -16,7 +16,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="支出公司：" prop="companyId">
-        <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
+        <iep-select v-model="form.companyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择支出公司"></iep-select>
       </el-form-item>
       <el-form-item v-if="!bankAmountOption.disabled" label="银行户头：" prop="accountId">
         <iep-select v-model="form.accountId" autocomplete="off" :prefix-url="bankAmountOption.prefixUrl" placeholder="请选择银行账户"></iep-select>

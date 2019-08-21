@@ -154,7 +154,9 @@ export default {
     },
 
     readRelation (rows) {
-      const { relationPolicyList } = rows
+      const { relationList } = rows
+
+      // const { relationList } = rows
       // 联合发文单位
       // rows.dispatchList = dispatchList.map(m => m.commonId)
       // rows.dispatchsList = dispatchList.map(m => {
@@ -162,11 +164,17 @@ export default {
       // })
 
       //关联政策
-      rows.relationList = relationPolicyList.map(m => m.title)
-      rows.relationPolicyList = relationPolicyList.map(m => {
-        return { id: m.id, name: m.title }
+      rows.relation = relationList
+      rows.relationList = relationList.map(m => m.policyId)
+      rows.relationPolicyList = relationList.map(m => {
+        return { id: m.policyId, name: m.title, type: m.policyType }
       })
-      console.log('relationsList', rows.relationPolicyList)
+      console.log('row.relation', rows.relationPolicyList)
+
+      // rows.relationList = relationList.map(m => m.policyId)
+      // rows.relationPolicyList = relationList.map(m => {
+      //   return { id: m.policyId, name: m.title }
+      // })
       return rows
     },
 

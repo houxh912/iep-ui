@@ -118,6 +118,9 @@ export default {
       ]
     },
   },
+  created () {
+    // console.log('this.selectObjs', this.selectObjs)
+  },
   mounted () {
     this.initData()
   },
@@ -128,8 +131,9 @@ export default {
     initData () {
       this.selectedList = this.selectObjs.map(item => {
         return {
-          value: item[this.options.valueProp],
-          label: item[this.options.labelProp],
+          value: item.id,
+          label: item.name,
+          // type: item.policyType,
         }
       })
     },

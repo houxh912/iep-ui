@@ -204,33 +204,32 @@ export default {
       this.listQuery.current = 1
       this.listQuery.size = 10
       this.listQuery.type = this.policytype
-      console.log('this.listQuery', this.listQuery),
-        this.getRequestName(this.listQuery).then(response => {
-          this.tableData = response.data.records
-          this.page.total = response.data.total
-          this.tableLoading = false
-          const selectedIds = this.selectedIds
-          // 当前页的数据 value 映射
-          this.keyObject = _.keyBy(this.tableData, this.columnMap[0].prop)
-          // 当前页的临时总数据
-          this.tempSelectedObjs = [...this.selectedObjs]
-          // 移除当前页的数据 为了与当前页选择的合并.
-          for (const key in this.keyObject) {
-            const isIncludes = selectedIds.includes(parseInt(key))
-            if (this.keyObject.hasOwnProperty(key) && isIncludes) {
-              // this.tempSelectedObjs.splice(index, 1)
-              _.remove(this.tempSelectedObjs, item => {
-                return item.value === parseInt(key)
-              })
-            }
+      this.getRequestName(this.listQuery).then(response => {
+        this.tableData = response.data.records
+        this.page.total = response.data.total
+        this.tableLoading = false
+        const selectedIds = this.selectedIds
+        // 当前页的数据 value 映射
+        this.keyObject = _.keyBy(this.tableData, this.columnMap[0].prop)
+        // 当前页的临时总数据
+        this.tempSelectedObjs = [...this.selectedObjs]
+        // 移除当前页的数据 为了与当前页选择的合并.
+        for (const key in this.keyObject) {
+          const isIncludes = selectedIds.includes(parseInt(key))
+          if (this.keyObject.hasOwnProperty(key) && isIncludes) {
+            // this.tempSelectedObjs.splice(index, 1)
+            _.remove(this.tempSelectedObjs, item => {
+              return item.value === parseInt(key)
+            })
           }
-          window.tempSelectedObjs = this.tempSelectedObjs
-          this.$nextTick(() => {
-            this._handleSelectStatus()
-          })
-        }, error => {
-          this.$message.error(error.msg)
+        }
+        window.tempSelectedObjs = this.tempSelectedObjs
+        this.$nextTick(() => {
+          this._handleSelectStatus()
         })
+      }, error => {
+        this.$message.error(error.msg)
+      })
     },
     /**
      * 刷新回调
@@ -246,12 +245,14 @@ export default {
       const theVal = {
         value: val[this.columnMap[0].prop],
         label: val[this.columnMap[1].prop],
+        // type: val[this.columnMap[2].prop],
       }
       this.selectedObjs = _([theVal])
         .uniqBy('value')
         .value()
     },
     selectionChange (list) {
+      console.log('list', list)
       list = list.filter(element => {
         return element !== undefined
       })
@@ -259,11 +260,13 @@ export default {
         return {
           value: item[this.columnMap[0].prop],
           label: item[this.columnMap[1].prop],
+          // type: item[this.columnMap[2].prop],
         }
       })
       this.selectedObjs = _([...this.tempSelectedObjs, ...theVal])
         .uniqBy('value')
         .value()
+      console.log(' this.selectedObjs', this.selectedObjs)
     },
     handleSaveAndExit () {
       this.$emit('giveSelectedObjs', this.selectedObjs)

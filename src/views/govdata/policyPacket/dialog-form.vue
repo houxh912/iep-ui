@@ -4,10 +4,10 @@
       <el-input v-model="formData.description" maxlength="255" :readonly="isReadonly" clearable></el-input>
     </el-form-item>
 
-    <el-form-item label="关联政策" prop="relationList">
-      <mutiply-select class="mutiplySelect" v-model="formData.relationList" :selectObjs="formData.relationPolicyList" :options="政策options" :otherProps="orgOption" v-if="!isReadonly"></mutiply-select>
+    <el-form-item label="关联政策" prop="relation">
+      <mutiply-select class="mutiplySelect" v-model="formData.relation" :selectObjs="formData.relationPolicyList" :options="政策options" :otherProps="orgOption" v-if="!isReadonly"></mutiply-select>
       <el-select style="width: 100%" v-model="formData.relationList" multiple disabled v-else>
-        <el-option v-for="item in formData.relationPolicyList" :key="item.id" :label="item.title" :value="item.id">
+        <el-option v-for="item in formData.relationPolicyList" :key="item.id" :label="item.name" :value="item.id">
         </el-option>
       </el-select>
     </el-form-item>
@@ -18,10 +18,6 @@
 
     <el-form-item label="红包总量" class="formWidth" prop="totalAmount">
       <el-input-number v-model.number="formData.totalAmount" style="width:100%" controls-position="right" :min="1" :max="100000"></el-input-number>
-    </el-form-item>
-
-    <el-form-item label="红包剩余数量" class="formWidth" prop="remainAmount">
-      <el-input-number v-model.number="formData.remainAmount" style="width:100%" controls-position="right" :min="0" :max="100000"></el-input-number>
     </el-form-item>
 
     <div class="code-box" v-if="!isAdd">
@@ -41,7 +37,6 @@
 
 <script>
 import { postPacket, putPacket, getpolicyPage } from '@/api/govdata/policy_packet'
-// import { getOrganizationPage } from '@/api/govdata/common'
 import Qrcode from '@chenfengyuan/vue-qrcode'
 import MutiplySelect from './mutiply-select'
 import multiplyMixin from '@/views/govdata/policyManage/multiply_mixin'
@@ -80,33 +75,6 @@ export default {
       }, 1000)
     }
 
-    var checkRemainAmount = (rule, value, callback) => {
-      if (this.isAdd && !value) {
-        return callback(new Error('红包剩余不能为空'))
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error('请输入数字值'))
-        } else {
-          if (this.isEdit) {
-            if (value > this.formData.totalAmount) {
-              callback(new Error('剩余红包数量不能大于红包总数量 !'))
-            }
-          }
-          if (this.isAdd) {
-            if (value !== this.formData.totalAmount) {
-              callback(new Error('剩余红包数量必须等于红包总数量 !'))
-            } else {
-              callback()
-            }
-          }
-          else {
-            callback()
-          }
-        }
-      }, 1000)
-    }
-
     return {
       loading: false,
       url: '',
@@ -123,7 +91,6 @@ export default {
       rules: {
         description: [{ required: true, message: '请输入通用政策正文' }],
         totalAmount: [{ validator: checkTotalAmount, trigger: 'blur' }],
-        remainAmount: [{ validator: checkRemainAmount, trigger: 'blur' }],
       },
     }
   },
@@ -135,8 +102,11 @@ export default {
      * 转化格式
      */
     _processForm (rows) {
-      // rows.target = this.encodeSplitStr(rows.target)
-      rows.industry = this.encodeSplitStr(rows.industry)
+      rows.relationList = rows.relationList.map(m => {
+        return { policyId: m.policyId, type: m.type }
+      })
+      console.log('rows.relationList', rows.relationList)
+      return rows
     },
 
     /**
@@ -151,8 +121,9 @@ export default {
      */
     handleSubmit (formName) {
       this.loading = true
+      this.formData.relationList = this.formData.relation
       const submitForm = JSON.parse(JSON.stringify(this.formData))
-      //this._processForm(submitForm)
+      // this._processForm(submitForm)
 
       this.$refs[formName].validate((valid) => {
         if (valid) {

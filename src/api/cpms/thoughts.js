@@ -208,7 +208,17 @@ export function getTopicThoughts (obj) {
 // 根据id置顶指定说说
 export function topUpThoughts (obj) {
   return request({
-    url: `${prefixUrl}/topUp/${obj.id}`,
+    url: `${prefixUrl}/topUp`,
     method: 'post',
+    data: obj,
+  })
+}
+
+// 说说管理页面的说说分页
+export function getManagePage (params) {
+  return request({
+    url: `${prefixUrl}/manage/page`,
+    method: 'get',
+    params: params,
   })
 }

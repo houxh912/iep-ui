@@ -19,11 +19,11 @@
         isMutipleSelection 
         :dictsMap="dictsMap" 
         @selection-change="selectionChange">
-        <el-table-column prop="operation" label="操作" width="220">
+        <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain size="small" @click="handleDetail(scope.row)">查看</iep-button>
-              <iep-button size="small" @click="handleTop(scope.row)">{{scope.row.status === 2 ? '取消置顶' : '置顶'}}</iep-button>
+              <iep-button size="small" @click="handleTop(scope.row)">{{scope.row.isTop === 2 ? '取消置顶' : '置顶'}}</iep-button>
               <iep-button size="small" @click="handleDeleteById(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
@@ -36,7 +36,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { geTallPage, thoughtsDelete, topUpThoughts } from '@/api/cpms/thoughts'
+import { getManagePage, thoughtsDelete, topUpThoughts } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -52,7 +52,7 @@ export default {
       columnsMap: tableOption,
       selectList: [],
       firstClass: [],
-      getTableDataFn: geTallPage,
+      getTableDataFn: getManagePage,
     }
   },
   created () {
@@ -75,7 +75,7 @@ export default {
     },
     // 置顶
     handleTop (row) {
-      topUpThoughts({ id: row.thoughtsId, type: row.status === 2 ? 1: 2 }).then(() => {
+      topUpThoughts({ id: row.thoughtsId, type: row.isTop === 2 ? 1: 2 }).then(() => {
         this.loadPage()
       })
     },

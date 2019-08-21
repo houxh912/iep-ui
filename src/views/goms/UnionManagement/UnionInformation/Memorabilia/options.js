@@ -17,7 +17,15 @@ const columnsMap = [
   },
   {
     prop: 'happenTime',
+    label: '事件时间',
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
+  },
+  {
+    prop: 'createTime',
     label: '发布时间',
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
   },
   {
     prop: 'status',

@@ -21,13 +21,23 @@
           </el-table-column>
           <el-table-column label="主题" min-width="400">
             <template slot-scope="scope">
-              <iep-table-link :is-dot="type==='2'" :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+              <div v-if="type==='1'">
+                {{scope.row.name}}
+                <a-tag>{{scope.row.status}}</a-tag>
+              </div>
+              <iep-table-link v-if="type==='2'" is-dot :is-read="scope.row.isRead" @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
-        <el-table-column v-if="type==='1'" label="操作">
+        <el-table-column v-if="type==='1'" label="操作" width="200">
           <template slot-scope="scope">
-            <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+            <operation-wrapper>
+              <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
+              <template v-if="scope.row.status==='草稿'">
+                <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+                <iep-button @click="handlePublish(scope.row)">发布</iep-button>
+              </template>
+            </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
@@ -36,7 +46,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getAnnouncementPage, readAnnouncementBatch, markAnnouncementBatch } from '@/api/ims/announcement'
+import { getAnnouncementPage, readAnnouncementBatch, markAnnouncementBatch, publishAnnouncement } from '@/api/ims/announcement'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 export default {
@@ -53,14 +63,6 @@ export default {
           label: '我发出的',
           value: '1',
         },
-        // {
-        //   label: '未读',
-        //   value: '3',
-        // },
-        // {
-        //   label: '我标记的',
-        //   value: '4',
-        // },
       ],
       columnsMap,
       ims_announcement_add: false,
@@ -87,6 +89,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    handlePublish (row) {
+      this._handleComfirm(row.id, publishAnnouncement, '发布', '', '操作成功')
+    },
     handleViewBatch () {
       // TODO: 是否多选提醒
       if (!this.multipleSelection.length) {

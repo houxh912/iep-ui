@@ -31,7 +31,7 @@
               <el-menu-item index="603" class="menu-item" @click.native="handleSelectAttention()">
                 <span>我的关注</span>
               </el-menu-item>
-              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="changeGroup(item.name,item.id)">
+              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="item.userId==userInfo.userId?changeGroup(item.name,item.id,item.isOpen):''">
                 <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start" v-if="item.userId==userInfo.userId">
                   <span>{{item.name}}</span>
                 </el-tooltip>
@@ -245,9 +245,10 @@ export default {
       this.$refs['DialogForm'].formRequestFn = joinRelationship
       this.$refs['DialogForm'].dialogShow = true
     },
-    changeGroup (name, id) {
+    changeGroup (name, id, isOpen) {
       this.$refs['DialogForm'].form.name = name
       this.$refs['DialogForm'].form.id = id
+      this.$refs['DialogForm'].form.isOpen = isOpen
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putRelationshipList
       this.$refs['DialogForm'].dialogShow = true

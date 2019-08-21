@@ -19,9 +19,16 @@ export function getMyAttentionPage (query) {
   })
 }
 
-export function getRelationshipList () {
+export function getRelationshipAddList () {
   return request({
     url: `${prefixUrl}/contacts/custom/group/list`,
+    method: 'get',
+  })
+}
+
+export function getRelationshipList () {
+  return request({
+    url: `${prefixUrl}/contacts/custom/contacts/list`,
     method: 'get',
   })
 }
@@ -70,6 +77,13 @@ export function getMyApprenticeContactList () {
     method: 'get',
   })
 }
+
+export function getMyAttentionContactList () {
+  return request({
+    url: '/cpms/iepuserfollow/address/list',
+    method: 'get',
+  })
+}//我的关注list
 
 export function getRelationshipManageById (id) {
   return request({

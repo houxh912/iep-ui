@@ -5,7 +5,7 @@
         <el-input v-model="form.name" maxlength="10"></el-input>
       </iep-form-item>
       <iep-form-item label-name="是否公开" v-if="permissions.relationship_manage_add">
-        <el-switch style="display: block" v-model="form.isOpen" active-color="#13ce66" inactive-color="#ff4949" active-text="公开" inactive-text="不公开">
+        <el-switch style="display: block" v-model="form.isOpen" :active-value="2" :inactive-value="1" active-color="#13ce66" inactive-color="#ff4949" active-text="公开" inactive-text="不公开">
         </el-switch>
       </iep-form-item>
     </el-form>

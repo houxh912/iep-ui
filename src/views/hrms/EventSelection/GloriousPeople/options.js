@@ -9,18 +9,17 @@ const dictsMap = {
 const initForm = () => {
   return {
     selectionName:'',//名称
-    targetId:'',//指标
+    targetId:0,//指标
     priority:'',//优先级
     status:'',//状态
     describes:'',//描述
     userId:'',
-    userName:'',
     sign:1,//标记
     user: {
       id: '',
       name: '',
     },
-    targetUserName:'默认',
+    realName:'默认',
     targetUserId:'',
   }
 }
@@ -61,9 +60,9 @@ const rules = {
   selectionName: [
     { required: true, message: '请输入评选名称', trigger: 'blur' },
   ],
-  targetId: [
-    { required: true, message: '请选择关联指标', trigger: 'change' },
-  ],
+  // targetId: [
+  //   { required: true, message: '请选择关联指标', trigger: 'change' },
+  // ],
   status: [
     { required: true, message: '请选择评选状态', trigger: 'change' },
   ],

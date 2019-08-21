@@ -33,6 +33,13 @@ export function putAnnouncement (obj) {
   })
 }
 
+export function publishAnnouncement (id) {
+  return request({
+    url: `${prefixUrl}/publish/${id}`,
+    method: 'get',
+  })
+}
+
 export function readAnnouncementBatch (ids) {
   return request({
     url: `${prefixUrl}/read_or_set/batch`,

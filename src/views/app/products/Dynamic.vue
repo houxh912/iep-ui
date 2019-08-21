@@ -1,30 +1,33 @@
 <template>
   <div class="InstitutionalDocument">
     <iepAppTabCard :title="title">
-      <IepAppListCard :dataList="dataList" @click="handleDetail"></IepAppListCard>
+      <IepAppListCard :dataList="dataList" @click="handleDetail" name="title"></IepAppListCard>
     </iepAppTabCard>
   </div>
 </template>
 <script>
-import { getNewsList } from '@/api/app/mlms/index'
+import { getIndexPage } from '@/api/conm/article_controller'
 export default {
   data () {
     return {
       title: '产品动态',
       dataList: [],
+      params: {
+        nodeNumber: '003',
+        siteId: 1,
+        current: 1,
+        size: 3,
+      },
     }
   },
   methods: {
     loadList () {
-      // getNewsList().then(({ data }) => {
-      //   this.dataList = data.data.gzzd ? data.data.gzzd.map((m) => { return { name: m.material_name, id: m.id } }) : []
-      // })
-      getNewsList().then(({ data }) => {
-        this.dataList = data.data.slice(0, 8)
+      getIndexPage(this.params).then(({ data }) => {
+        this.dataList = data.data.records
       })
     },
     handleDetail (row) {
-      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+      this.$router.push(`/app/news/news_detail/${row.id}`)
     },
   },
   created () {

@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { getHotTopics } from '@/api/cpms/thoughts'
+import { getHotTopicsPage } from '@/api/cpms/thoughts'
 import IepAppRankingCard from './RankingCard'
 export default {
   components: { IepAppRankingCard },
@@ -22,8 +22,8 @@ export default {
       this.$router.push({ path: '/app/subject_list', query: {title: row.topic, id: row.topicId} })
     },
     loadData () {
-      getHotTopics().then(({ data }) => {
-        this.labelList = data.data.slice(0, 10)
+      getHotTopicsPage().then(({ data }) => {
+        this.labelList = data.data.records
       })
     },
   },

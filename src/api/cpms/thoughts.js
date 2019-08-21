@@ -112,7 +112,7 @@ export function addReplyThumbsByRecord (id) {
   })
 }
 
-// 说说总数榜
+// 说说总数榜 - 总
 export function getMostThoughts () {
   return request({
     url: `${prefixUrl}/mostThoughts`,
@@ -120,7 +120,16 @@ export function getMostThoughts () {
   })
 }
 
-// 本周排行榜
+// 说说总数榜 - 分页
+export function getMostThoughtsPage (params) {
+  return request({
+    url: `${prefixUrl}/mostThoughts/page`,
+    method: 'get',
+    params: params,
+  })
+}
+
+// 本周排行榜 - 总
 export function getMostThoughtsWeekly () {
   return request({
     url: `${prefixUrl}/mostThoughtsWeekly`,
@@ -128,7 +137,16 @@ export function getMostThoughtsWeekly () {
   })
 }
 
-//  本周点赞榜
+// 本周排行榜 - 分页
+export function getMostThoughtsWeeklyPage (params) {
+  return request({
+    url: `${prefixUrl}/mostThoughtsWeekly/page`,
+    method: 'get',
+    params: params,
+  })
+}
+
+//  本周点赞榜 - 总
 export function getMostThumbedThoughtsWeekly () {
   return request({
     url: `${prefixUrl}/mostThumbedThoughtsWeekly`,
@@ -136,11 +154,29 @@ export function getMostThumbedThoughtsWeekly () {
   })
 }
 
-// 热门话题榜
+//  本周点赞榜 - 分页
+export function getMostThumbedThoughtsWeeklyPage (params) {
+  return request({
+    url: `${prefixUrl}/mostThumbedThoughtsWeekly/page`,
+    method: 'get',
+    params: params,
+  })
+}
+
+// 热门话题榜 - 总
 export function getHotTopics () {
   return request({
     url: `${prefixUrl}/hotTopics`,
     method: 'get',
+  })
+}
+
+// 热门话题榜 - 分页
+export function getHotTopicsPage (params) {
+  return request({
+    url: `${prefixUrl}/hotTopics/page`,
+    method: 'get',
+    params: params,
   })
 }
 

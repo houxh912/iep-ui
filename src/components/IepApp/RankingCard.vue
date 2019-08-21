@@ -1,11 +1,25 @@
 <template>
   <div class="ranking">
     <div v-if="dataList.length !== 0">
-      <div v-for="(item,index) in dataList" :key="index" class="piece" @click="handleDetail(item)">
-        <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
-        <span class="name">{{item[name]}}</span>
-        <span class="grade">{{item[grade]}}</span>
+
+      <div v-if="isReference">
+        <el-popover v-for="(item,index) in dataList" :key="index" placement="right-end" title="" :width="width" trigger="hover" :content="item[name]">
+          <div class="piece" @click="handleDetail(item)" slot="reference">
+            <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
+            <span class="name">{{item[name]}}</span>
+            <span class="grade">{{item[grade]}}</span>
+          </div>
+        </el-popover>
       </div>
+
+      <div v-else>
+        <div class="piece" v-for="(item,index) in dataList" :key="index" @click="handleDetail(item)">
+          <span class="count" :class="index==0||index==1||index==2?'red':''">{{index+1}}</span>
+          <span class="name">{{item[name]}}</span>
+          <span class="grade">{{item[grade]}}</span>
+        </div>
+      </div>
+
     </div>
     <IepNoData v-else></IepNoData>
   </div>
@@ -27,6 +41,13 @@ export default {
       type: String,
       default: 'grade',
     },
+    width: {
+      default: 300,
+    },
+    isReference: {
+      type: Boolean,
+      default: false,
+    },
   },
   methods: {
     handleDetail (row) {
@@ -46,9 +67,6 @@ export default {
     transition-duration: 0.3s;
     transition: 0.5s;
     cursor: pointer;
-    &:nth-child(1) {
-      margin-top: -7px;
-    }
     .name {
       height: 30px;
       line-height: 30px;
@@ -70,16 +88,16 @@ export default {
       display: inline-block;
     }
     .red {
-      background-color: #bb1a20;
+      background-color: $--color-primary;
     }
     .grade {
       float: right;
-      color: #bb1a20;
+      color: $--color-primary;
       width: 68px;
       text-align: right;
     }
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
   }
 }

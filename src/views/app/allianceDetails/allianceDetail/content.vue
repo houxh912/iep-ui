@@ -21,11 +21,6 @@ export default {
     return {
     }
   },
-  watch: {
-    index (newVal) {
-      console.log('newVal: ', newVal)
-    },
-  },
 }
 </script>
 

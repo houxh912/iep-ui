@@ -3,7 +3,7 @@
     <el-row class="contract">
       <el-col class="head">合同概况<span class="sub">（本月已签订合同金额共￥{{totalMoney}}）</span>
         <span class="dropdown">
-          <el-select v-model="value" @change="change()">
+          <el-select v-model="value" @change="change()" size="mini">
             <el-option v-for="item in options" :key="item.label" :label="item.label" :value="item.value">
             </el-option>
           </el-select>

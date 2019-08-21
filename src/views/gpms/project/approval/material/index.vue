@@ -1,6 +1,6 @@
 <template>
   <div>
-    <basic-container>
+    <basic-container class="right">
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='Normy'" v-slot:Normy>
           <!-- <normy v-loading="activeTab !=='Normy'" :projectId="form.id" :form="form" @createSummary="createSummary" @relateSummary="relateSummary"></normy> -->
@@ -45,20 +45,20 @@ export default {
         label: '规范性材料',
         value: 'Norm',
       },
-      // {
-      //   label: '合同',
-      //   value: 'Agreement',
-      // },{
-      //   label: '过去的项目',
+        // {
+        //   label: '合同',
+        //   value: 'Agreement',
+        // },{
+        //   label: '过去的项目',
 
-      // }
+        // }
       ],
       activeTab: 'Normy',
     }
   },
   methods: {
     createSummary () {
-      this.$emit('createSummary', {id: this.form.id, name: this.form.projectName})
+      this.$emit('createSummary', { id: this.form.id, name: this.form.projectName })
     },
     relateSummary (id) {
       this.$refs['relation'].open(id)
@@ -68,4 +68,7 @@ export default {
 </script>
 
 <style scoped>
+.right {
+  padding: 0 20px;
+}
 </style>

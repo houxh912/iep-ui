@@ -4,10 +4,15 @@
       <el-col :span="6">
         已选择的用户(点击移除)：
         <el-scrollbar style="height:410px;">
-          <iep-no-data v-if="!selectUserList.length" message="请添加组织成员"></iep-no-data>
-          <a-button v-for="user in selectUserList" :key="user.id" @click="handleDelete(user)" block>
+          <span class="br" v-if="!selectUserList.length">
+            <img :src="img" alt="" />
+            <span>右侧选择成员加入</span>
+          </span>
+          <!-- <iep-no-data v-if="!selectUserList.length" message=""></iep-no-data> -->
+          <a-button class="ant" v-for="user in selectUserList" :key="user.id" @click="handleDelete(user)" block>
             {{user.name}}
-            <a-icon type="user-delete" />
+            <!-- <a-icon type="user-delete" /> -->
+            <i class="el-icon-close" type="user-delete"></i>
           </a-button>
         </el-scrollbar>
       </el-col>
@@ -61,6 +66,7 @@ export default {
       dialogShow: false,
       confirmLoading: false,
       selectUserList: [],
+      img: '../img/noinfo.png',
     }
   },
   computed: {
@@ -104,3 +110,58 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.el-scrollbar {
+  margin-top: 25px;
+  padding: 15px;
+  border: 1px solid #eee;
+}
+.br {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  img {
+    margin-bottom: 20px;
+    width: 100px;
+  }
+}
+.ant {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  height: 40px !important;
+  border: 0;
+  border-bottom: 1px solid #eee;
+}
+</style>
+<style scoped>
+.el-scrollbar >>> .el-scrollbar__wrap {
+  margin-right: -6px !important;
+  overflow-x: hidden;
+}
+.el-scrollbar >>> ::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+.el-scrollbar >>> ::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+}
+.el-scrollbar >>> ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  -webkit-transition: 0.3s background-color;
+  transition: 0.3s background-color;
+  display: none;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+.el-scrollbar >>> :hover::-webkit-scrollbar-thumb {
+  display: block;
+}
+</style>

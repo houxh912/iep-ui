@@ -20,7 +20,7 @@
         <el-row>
           <el-col :span="12">
             <iep-form-item label-name="每股单价" prop="sharesUnivalent" tip="每股单价">
-              <iep-input-number v-model="form.sharesUnivalent"></iep-input-number>
+              <iep-input-amount v-model="form.sharesUnivalent"></iep-input-amount>
             </iep-form-item>
           </el-col>
         </el-row>

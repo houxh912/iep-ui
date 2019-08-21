@@ -1,13 +1,14 @@
 <template>
   <div class="leader-board">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <div class="important" slot="right">
+      <!-- <div class="important" slot="left">
         <el-button type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
-      </div>
+      </div> -->
+      <el-button class="left" slot="left" type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
       <el-table :data="tableData" style="padding-bottom:20px;width: 100%" height="300px" @cell-click="handleDetail">
-        <el-table-column prop="positionName" label="岗位名称" width="180">
+        <el-table-column prop="positionName" label="岗位名称">
         </el-table-column>
-        <el-table-column prop="recruitsCount" label="需求数" width="180">
+        <el-table-column prop="recruitsCount" label="需求数">
         </el-table-column>
         <el-table-column prop="academicId" label="学历要求">
           <template slot-scope="scope">
@@ -79,6 +80,10 @@ export default {
     color: #999;
   }
 }
+.left {
+  font-size: 18px;
+  margin-left: 15px;
+}
 </style>
 <style scoped>
 .important >>> .el-button--text {
@@ -90,9 +95,6 @@ export default {
 .leader-board >>> .el-table th {
   background-color: #fafafa;
 }
-.leader-board >>> .el-table tr {
-  /* cursor: pointer; */
-}
 .leader-board >>> .el-card {
   height: 350px;
 }
@@ -103,6 +105,7 @@ export default {
 }
 .leader-board >>> .el-table__body-wrapper {
   overflow-y: scroll;
+  height: 210px !important;
 }
 .leader-board >>> .el-table__body-wrapper::-webkit-scrollbar {
   border-radius: 10px;

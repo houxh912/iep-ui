@@ -10,11 +10,20 @@
           <operation-search @search-page="searchPage" prop="remarks"></operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column prop="operation" label="操作" width="200" fixed="right">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
+              <iep-button v-if="isQichizhi" @click="handleEditProject(scope.row)">修改</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <dialog-detail ref="DialogDetail" @load-page="loadPage"></dialog-detail>
+    <relation-dialog-form ref="RelationDialogForm" @load-page="loadPage"></relation-dialog-form>
   </div>
 </template>
 <script>
@@ -22,11 +31,12 @@ import { getExpenditurePage, postExpenditure } from '@/api/fams/expenditure'
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
+import RelationDialogForm from './RelationDialogForm'
 import DialogDetail from './DialogDetail'
 import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
-  components: { DialogForm, DialogDetail },
+  components: { DialogForm, DialogDetail, RelationDialogForm },
   data () {
     return {
       dictsMap,
@@ -36,6 +46,9 @@ export default {
     }
   },
   computed: {
+    isQichizhi () {
+      return [207, 1].includes(this.userInfo.userId)
+    },
     ...mapGetters([
       'userInfo',
     ]),
@@ -44,6 +57,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleEditProject (row) {
+      this.$refs['RelationDialogForm'].id = row.expenditureId
+      this.$refs['RelationDialogForm'].loadPage()
+      this.$refs['RelationDialogForm'].dialogShow = true
+    },
     handleDetail (row) {
       this.$refs['DialogDetail'].id = row.expenditureId
       this.$refs['DialogDetail'].loadPage()

@@ -6,7 +6,7 @@
       <operation-container>
         <template slot="left">
           <iep-button v-if="ims_announcement_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
-          <iep-read-mark-del :enableList="[type==='2', true, false]" @on-view-batch="handleViewBatch" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
+          <iep-read-mark-del :enableList="[type==='2', type==='2', false]" @on-view-batch="handleViewBatch" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="title"></operation-search>
@@ -27,7 +27,7 @@
         </template>
         <el-table-column v-if="type==='1'" label="操作">
           <template slot-scope="scope">
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
           </template>
         </el-table-column>
       </iep-table>

@@ -4,6 +4,9 @@
       <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
         <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
       </el-breadcrumb>
+      <div class="back">
+        <iep-button @click="handleBack">返回</iep-button>
+      </div>
     </div>
     <list ref="list" class="list" :dataList="dataList" @load-page="loadPage"></list>
   </iep-app-layout>
@@ -41,6 +44,9 @@ export default {
     loadPage () {
       this.loadData(this.$route.params.id)
     },
+    handleBack () {
+      this.$router.go(-1)
+    },
   },
   created () {
     this.loadData(this.$route.params.id)
@@ -51,9 +57,11 @@ export default {
 
 <style lang="scss" scoped>
 .breadcrumb-wrapper {
+  display: flex;
+  width: 1200px;
+  margin: 20px auto 0;
+  justify-content: space-between;
   .breadcrumb-item {
-    margin: 20px auto 0;
-    width: 1200px;
     padding: 0 0 20px 0;
   }
 }

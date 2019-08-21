@@ -10,7 +10,7 @@
           </a-timeline-item>
         </a-timeline>
         <OperationWrapper>
-          <iep-button v-if="isMore" @click="handleViewMore">查看更多</iep-button>
+          <iep-button type="primary" v-if="isMore" @click="handleViewMore" plain>查看更多</iep-button>
           <iep-button @click="handleRefresh">刷新</iep-button>
         </OperationWrapper>
       </div>

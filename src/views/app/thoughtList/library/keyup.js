@@ -39,17 +39,22 @@ export default {
       this.handleEnd()
     },
     querySearchAsync (queryString, cb) {
+      let defaultObj = {
+        value: '轻敲空格完成输入',
+        id: 0,
+      }
       if (!this.keyupTypes) {
-        cb([])
+        cb([defaultObj])
         this.handleEnd()
       } else {
         loadContactsPyList({ name: this.state }).then(({ data }) => {
-          cb(data.data.map(m => {
+          let list = [defaultObj].concat(data.data.map(m => {
             return {
               value: m.name,
               id: m.id,
             }
           }))
+          cb(list)
         })
       }
     },
@@ -57,8 +62,15 @@ export default {
     handleSelect (item) {
       let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
       var startPos = elInput.selectionStart // input 第0个字符到选中的字符
-      this.formData.content = this.formData.content.slice(0, this.startPos) + item.value + ' ' + this.formData.content.slice(startPos)
+      if (item.id === 0) {
+        this.formData.content = this.formData.content.slice(0, startPos) + ' ' + this.formData.content.slice(startPos)
+      } else {
+        this.formData.content = this.formData.content.slice(0, this.startPos) + item.value + ' ' + this.formData.content.slice(startPos)
+      }
       this.handleEnd()
+      this.$nextTick(() => {
+        this.$refs['content'].focus()
+      })
     },
     // 结束
     handleEnd () {
@@ -91,7 +103,7 @@ export default {
     handleSubject () {
       let elInput = document.getElementById('keyupStart') // 根据id选择器选中对象
       let startPos = elInput.selectionStart // input 第0个字符到选中的字符
-      this.formData.content = this.formData.content.slice(0, startPos) + '## ' + this.formData.content.slice(startPos)
+      this.formData.content = this.formData.content.slice(0, startPos) + '#请填写话题# ' + this.formData.content.slice(startPos)
     },
   },
 }

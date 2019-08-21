@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="添加管理员" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="添加管理员" width="500px" @close="loadPage">
     <el-form :model="form" size="small" ref="form" label-width="100px">
       <el-form-item label="管理员" prop="user">
         <iep-contact-select v-model="form.user"></iep-contact-select>

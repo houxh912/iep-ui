@@ -202,7 +202,7 @@ export default {
     }
     .img-con {
       display: flex;
-      margin-top: 15px;
+      margin-top: 5px;
       flex-wrap: wrap;
       flex-direction: column;
       align-items: center;
@@ -261,7 +261,7 @@ export default {
       }
     }
     .classTags {
-      margin-top: 20px;
+      margin-top: 15px;
       transition: all 0.5s;
       .text-btn {
         color: #666;
@@ -271,7 +271,7 @@ export default {
       }
     }
     .classTag {
-      margin-bottom: 10px;
+      margin-bottom: 0;
       display: flex;
       align-items: flex-start;
       .label {

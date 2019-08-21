@@ -1,13 +1,13 @@
 <template>
   <div class="institutional">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <IepAppListCard :dataList="dataList" @click="handleDetail" name="material_name"></IepAppListCard>
+      <IepAppListCard :dataList="dataList" @click="handleDetail" name="projectName"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
 
 <script>
-import { getMaterialList } from '@/api/app/mlms/'
+import { getSystemFile } from '@/api/app/prms/'
 
 export default {
   data () {
@@ -19,8 +19,8 @@ export default {
   },
   methods: {
     loadList () {
-      getMaterialList().then(({ data }) => {
-        this.dataList = data.data.gzzd ? data.data.gzzd.slice(0, 8) : []
+      getSystemFile().then(({ data }) => {
+        this.dataList = data.data.records.slice(0, 8)
       })
     },
     handleDetail (row) {

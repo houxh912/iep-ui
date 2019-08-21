@@ -44,8 +44,8 @@
         <div class="name">{{formData.creatorRealName}}</div>
         <div class="num">共{{materialTotal}}篇材料</div>
         <div class="foot">
-          <iep-button type="primary" disabled @click="subscribe">订阅</iep-button>
-          <iep-button type="primary" @click="apprentice">向他拜师</iep-button>
+          <iep-button type="primary" disabled @click="subscribe" plain>订阅</iep-button>
+          <iep-button @click="apprentice">向他拜师</iep-button>
         </div>
       </div>
       <div class="material">
@@ -306,7 +306,7 @@ export default {
     .file {
       cursor: pointer;
       &:hover {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
       i {
         font-size: 16px !important;
@@ -318,7 +318,7 @@ export default {
       }
       &:hover i,
       &:hover .tip {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
     }
   }
@@ -379,7 +379,7 @@ export default {
     p {
       cursor: pointer;
       &:hover {
-        color: #cb3737;
+        color: $--menu-color-primary;
       }
     }
   }

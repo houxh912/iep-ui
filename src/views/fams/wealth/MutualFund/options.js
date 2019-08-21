@@ -12,7 +12,7 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '捐助日期',
-                                width:'170',
+		width: '170',
 	},
 ]
 

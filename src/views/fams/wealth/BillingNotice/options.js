@@ -18,38 +18,34 @@ const columnsMap = [
 	{
 		prop: 'buyerName',
 		label: '购买方',
-                                width:'150',
 	},
 	{
 		prop: 'companyName',
 		label: '销售方',
-                                width:'150',
 	},
 	{
 		prop: 'amount',
 		label: '开票金额',
-                                width:'80',
+		width: '80',
 	},
 	{
 		prop: 'createTime',
 		label: '申请日期',
-                                width:'150',
 	},
 	{
 		prop: 'status',
 		label: '状态',
 		type: 'dict',
-                                width:'80',
+		width: '80',
 	},
 	{
 		prop: 'auditorName',
 		label: '核准人',
-                                width:'80',
+		width: '80',
 	},
 	{
 		prop: 'auditingTime',
 		label: '核准日期',
-                                width:'150',
 	},
 ]
 

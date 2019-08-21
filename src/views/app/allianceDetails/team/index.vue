@@ -2,7 +2,9 @@
   <div class="team">
     <div class="person" v-loading="loading">
       <div class="person-item" v-for="(item,index) in personList" :key="index" @click="handleDetail(item.id)">
-        <div class="img"><iep-img :src="item.avatar" alt=""></iep-img></div>
+        <div class="img">
+          <iep-img :src="item.avatar" alt=""></iep-img>
+        </div>
         <div class="text">
           <span class="name">{{item.name}}<span class="dn show1 show" v-if="item.isExpert == 1">V</span></span>
           <span class="job">{{item.externalTitle}}</span>
@@ -46,7 +48,7 @@ export default {
     loadPage () {
       this.loading = true
       let obj = Object.assign({}, this.params, this.paramData)
-      getRecruitDetailPage(obj).then(({data}) => {
+      getRecruitDetailPage(obj).then(({ data }) => {
         this.loading = false
         this.personList = data.data.records
         this.total = data.data.total
@@ -121,7 +123,7 @@ export default {
               content: "";
               top: 15px;
               right: -7px;
-              width: 15px;
+              width: 13px;
               height: 1px;
               background-color: #aaa;
               transform: rotate(125deg);

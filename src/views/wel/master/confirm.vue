@@ -240,9 +240,9 @@ export default {
         margin-right: 5px;
         margin-bottom: 5px;
         &:hover {
-          color: #cb3737;
+          color: $--menu-color-primary;
           background: #fef0f0;
-          border-color: #cb3737;
+          border-color: $--menu-color-primary;
         }
         // &:last-child {
         //   overflow: hidden;
@@ -303,36 +303,36 @@ export default {
   }
 }
 </style>
-<style scoped>
-.personal-top >>> .el-card__body {
+<style lang="scss" scoped>
+.personal-top ::v-deep .el-card__body {
   display: flex;
   justify-content: space-between;
   align-items: stretch;
 }
-.personal-top >>> .el-tag--white {
+.personal-top ::v-deep .el-tag--white {
   border: 1px solid #dcdfe6;
   height: 28px;
   line-height: 26px;
   background: #fff;
   color: #606266;
 }
-.personal-top >>> .el-button--danger {
+.personal-top ::v-deep .el-button--danger {
   color: #fff;
-  background: #cb3737;
-  border-color: #cb3737;
+  background: $--menu-color-primary;
+  border-color: $--menu-color-primary;
 }
-.personal-top >>> .el-button--danger:hover {
-  color: #cb3737;
+.personal-top ::v-deep .el-button--danger:hover {
+  color: $--menu-color-primary;
   background: #fef0f0;
-  border-color: #cb3737;
+  border-color: $--menu-color-primary;
 }
-.personal-top >>> .el-button--danger.is-plain {
-  color: #cb3737;
+.personal-top ::v-deep .el-button--danger.is-plain {
+  color: $--menu-color-primary;
   background: #fef0f0;
-  border-color: #cb3737;
+  border-color: $--menu-color-primary;
 }
-.personal-top >>> .el-button--danger.is-plain:hover {
+.personal-top ::v-deep .el-button--danger.is-plain:hover {
   color: #fff;
-  background: #cb3737;
+  background: $--menu-color-primary;
 }
 </style>

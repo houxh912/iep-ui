@@ -94,28 +94,28 @@ export default {
   }
 }
 </style>
-<style scoped>
-.fund >>> .time {
+<style lang="scss" scoped>
+.fund ::v-deep .time {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: auto;
 }
-.fund >>> .time .el-button {
+.fund ::v-deep .time .el-button {
   padding: 5px 20px;
 }
-.fund >>> .time .el-button.active,
-.fund >>> .time .el-button:focus {
-  border-color: #cb3737;
-  color: #cb3737;
+.fund ::v-deep .time .el-button.active,
+.fund ::v-deep .time .el-button:focus {
+  border-color: $--menu-color-primary;
+  color: $--menu-color-primary;
 }
-.fund >>> .block {
+.fund ::v-deep .block {
   width: 200px;
 }
-.fund >>> .el-date-editor.el-input__inner {
+.fund ::v-deep .el-date-editor.el-input__inner {
   width: 100%;
 }
-.fund >>> .el-card__body {
+.fund ::v-deep .el-card__body {
   height: 100%;
 }
 </style>

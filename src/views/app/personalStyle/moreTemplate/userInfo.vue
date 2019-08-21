@@ -1,10 +1,10 @@
 <template>
-  <div class="userInfo">
+  <div class="user-info">
     <div class="row">
       <div class="item" v-for="(item, index) in firstFormList" :key="index">
         <span class="label">{{item.name}}：</span>
         <!-- <span class="span">{{item.type ? userInfo[item.value].map(m => m.name).join('、') : userInfo[item.value]}}</span> -->
-        <span class="span" v-if="item.type">
+        <span class="span" :title="item.value" v-if="item.type">
           <el-tag type="white" style="cursor: pointer;" v-for="(t, i) in userInfo[item.value]" :key="i" @click="() => { $router.push(`/app/organization_style/${t.id}`) }">{{t.name}}</el-tag>
         </span>
         <span class="span" v-else>{{userInfo[item.value]}}</span>
@@ -66,7 +66,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.userInfo {
+.user-info {
   display: flex;
   flex-direction: column;
   .row {
@@ -80,9 +80,24 @@ export default {
         text-align: right;
         line-height: 28px;
       }
+      &:last-child span {
+        width: auto;
+      }
       .span {
         flex: 1;
+        margin-right: 5px;
+        width: 130px;
         line-height: 28px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        .el-tag {
+          margin-right: 8px;
+          margin-bottom: 8px;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
         .el-tag:hover {
           color: #cb3737;
         }

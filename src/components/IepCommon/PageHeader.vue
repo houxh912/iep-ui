@@ -4,6 +4,7 @@
       <div class="left">
         <span v-if="!isAdvance" class="page-title" :style="{fontSize: `${titleSize}px`,fontWeight: titleWeight}">{{title}}</span>
         <span v-if="!isAdvance" class="page-desc">{{desc}}</span>
+        <slot name="left"></slot>
         <slot v-if="isAdvance" name="custom"></slot>
       </div>
       <div class="right">

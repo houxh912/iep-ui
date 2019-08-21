@@ -68,7 +68,7 @@ export default {
     cursor: pointer;
   }
   .item-select {
-    color: #ba1b21;
+    color: $--color-primary;
   }
   .middle {
     width: 30px;

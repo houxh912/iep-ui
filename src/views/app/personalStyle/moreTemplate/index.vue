@@ -73,6 +73,7 @@ export default {
   grid-column-end: 3;
   display: grid;
   .el-card {
+    padding: 0;
     border: 0;
     .iep-tabs {
       width: 100%;
@@ -84,5 +85,3 @@ export default {
   }
 }
 </style>
-
-

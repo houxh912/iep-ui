@@ -191,7 +191,7 @@ export default {
       // line-height: 24px;
       // height: 24px;
       .member-name {
-        font-size: 14px;
+        font-size: 12px;
         color: rgba(0, 0, 0, 0.65);
         // line-height: 24px;
         max-width: 100px;

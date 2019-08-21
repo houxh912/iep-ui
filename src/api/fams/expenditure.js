@@ -19,6 +19,14 @@ export function postExpenditure (obj) {
   })
 }
 
+export function putExpenditure (obj) {
+  return request({
+    url: `${prefixUrl}/update`,
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function getExpenditureById (id) {
   return request({
     url: `${prefixUrl}/${id}`,

@@ -139,3 +139,11 @@ export default {
   margin-bottom: 20px;
 }
 </style>
+<style scoped>
+.person-list >>> .box-card > .el-card__body {
+  padding: 0 15px;
+}
+.person-list .box-card >>> .el-card {
+  padding: 0;
+}
+</style>

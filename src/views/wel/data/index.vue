@@ -1,7 +1,7 @@
 <template>
   <div class="data">
     <div class="test">
-      <p style="color:#ba1b21">数据频道正在建设中，敬请期待，本页面仅为样式效果演示</p>
+      <p style="color:red;">数据频道正在建设中，敬请期待，本页面仅为样式效果演示</p>
     </div>
     <div class="half">
       <performance></performance>
@@ -31,15 +31,16 @@ export default {
 <style lang="scss" scoped>
 .data {
   margin: 20px;
-  .test{
+  .test {
+    margin-bottom: 20px;
+    padding: 20px;
     width: 100%;
-    padding:20px;
     border: 1px solid #eee;
-    > p{
-      margin:0;
+    > p {
+      margin: 0;
     }
   }
-  .half{
+  .half {
     display: grid;
     grid-column-gap: 20px;
     grid-row-gap: 20px;

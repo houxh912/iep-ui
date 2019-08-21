@@ -2,9 +2,9 @@
   <div class="iep-page-form">
     <basic-container>
       <iep-page-header :title="`编辑-${form.ruleName}-规则`" :backOption="backOption"></iep-page-header>
-      <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
+      <el-form ref="form" :model="form" :rules="rules" label-width="150px" size="small">
         <iep-form-item label-name="国脉贝数量" prop="score">
-          <iep-input-number v-model="form.score"></iep-input-number>
+          <iep-input-amount v-model="form.score"></iep-input-amount>
         </iep-form-item>
         <iep-form-item label-name="每日上限次数" prop="dailyLimit">
           <iep-input-number v-model="form.dailyLimit"></iep-input-number>

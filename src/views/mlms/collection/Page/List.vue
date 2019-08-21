@@ -99,8 +99,8 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="catalogCancel">取 消</el-button>
-        <el-button type="primary" @click="catalogSubmit">确 定</el-button>
+        <iep-button type="primary" @click="catalogSubmit">确 定</iep-button>
+        <iep-button @click="catalogCancel">取 消</iep-button>
       </span>
     </el-dialog>
     <collection-dialog ref="collection" @load-page="loadPage" :requestFn="collectUpdate"></collection-dialog>

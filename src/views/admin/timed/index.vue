@@ -32,16 +32,16 @@
         </template>
 
         <template slot="menuLeft">
-          <iep-button type="primary" @click="handleAdd" size="small" v-if="permissions.job_sys_job_add" plain>
+          <iep-button type="primary" @click="handleAdd" v-if="permissions.job_sys_job_add" icon="el-icon-plus" plain>
             新建任务
           </iep-button>
           <el-tooltip content="暂停全部运行状态的定时任务" placement="top">
-            <iep-button @click="shutdownJobs" size="small" v-if="permissions.job_sys_job_shutdown_job">
+            <iep-button @click="shutdownJobs" v-if="permissions.job_sys_job_shutdown_job">
               暂停全部任务
             </iep-button>
           </el-tooltip>
           <el-tooltip content="启动全部暂停状态的定时任务" placement="top">
-            <iep-button @click="startJobs" size="small" v-if="permissions.job_sys_job_start_job">
+            <iep-button @click="startJobs" v-if="permissions.job_sys_job_start_job">
               启动全部任务
             </iep-button>
           </el-tooltip>
@@ -554,14 +554,20 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.jobmanage >>> .el-form-item__content:nth-child(1) .el-button--primary {
+.jobmanage >>> .el-form-item i {
+  display: none;
+}
+.jobmanage >>> .el-form-item span {
+  margin-left: 0;
+}
+.jobmanage >>> .el-form-item__content .el-button--primary:first-child {
+  margin-right: -5px;
   color: #909399;
   background: #f4f4f5;
   border-color: #d3d4d6;
 }
-.jobmanage >>> .el-form-item__content:nth-child(1) .el-button--primary:hover {
-  background: #909399;
-  border-color: #909399;
+.jobmanage >>> .el-form-item__content .el-button--primary:first-child:hover {
   color: #fff;
+  background: #909399;
 }
 </style>

@@ -48,6 +48,9 @@
         <template v-if="activeTab ==='Budget'" v-slot:Budget>
           <budget v-loading="activeTab !=='Budget'"></budget>
         </template>
+        <template v-if="activeTab ==='Invoiceing'" v-slot:Invoiceing>
+          <invoiceing v-loading="activeTab !=='Invoiceing'"></invoiceing>
+        </template>
       </iep-tabs>
     </basic-container>
   </div>
@@ -60,8 +63,9 @@ import Budget from './Budget/'
 import mixins from '@/mixins/mixins'
 import Cost from './Cost/'
 import Payback from './Payback/'
+import Invoiceing from './Invoiceing/'
 export default {
-  components: { Accounting, Cost, Payback, Budget },
+  components: { Accounting, Cost, Payback, Budget, Invoiceing },
   mixins: [mixins],
   data () {
     return {
@@ -69,19 +73,28 @@ export default {
         isBack: true,
       },
       form: initDetailForm(),
-      tabList: [{
-        label: '项目核算表',
-        value: 'Accounting',
-      }, {
-        label: '项目费用表',
-        value: 'Cost',
-      }, {
-        label: '项目回款表',
-        value: 'Payback',
-      }, {
-        label: '项目回款计划',
-        value: 'Budget',
-      }],
+      tabList: [
+        {
+          label: '项目核算表',
+          value: 'Accounting',
+        },
+        {
+          label: '项目费用表',
+          value: 'Cost',
+        },
+        {
+          label: '项目回款表',
+          value: 'Payback',
+        },
+        {
+          label: '项目回款计划',
+          value: 'Budget',
+        },
+        {
+          label: '项目开票表',
+          value: 'Invoiceing',
+        },
+      ],
       activeTab: 'Accounting',
     }
   },
@@ -119,8 +132,8 @@ export default {
     margin-top: 20px;
   }
   .content {
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 24px;
+    color: $--color-primary;
   }
 }
 .info {

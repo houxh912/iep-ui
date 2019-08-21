@@ -3,9 +3,11 @@
     <h3 class="title">{{formData.title}}</h3>
     <div class="sub-title">
       <div class="left">
-        <span>来源：集团中心</span>
-        <span>作者：admin</span>
-        <span>发布日期：2019-07-18</span>
+        <span>作者：{{formData.creatorName}}</span>
+        <span>发布日期：{{formData.createTime}}</span>
+      </div>
+      <div class="right">
+        <span><i class="icon-yanjing"></i> {{formData.views}}人浏览</span>
       </div>
     </div>
     <!-- <iep-img class="img" :src="formData.image"></iep-img> -->
@@ -19,7 +21,7 @@
 </template>
 
 <script>
-import { getPageById } from '@/api/conm/article_controller'
+import { getPageByIndexId } from '@/api/conm/article_controller'
 export default {
   data () {
     return {
@@ -41,7 +43,7 @@ export default {
   },
   methods: {
     loadPage () {
-      getPageById(this.id).then(({ data }) => {
+      getPageByIndexId(this.id).then(({ data }) => {
         this.formData = data.data
       })
     },
@@ -67,8 +69,9 @@ export default {
     margin: 40px 0 25px;
     padding-bottom: 15px;
     border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
     .left {
-      display: flex;
       span {
         margin-right: 20px;
       }

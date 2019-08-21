@@ -1,22 +1,18 @@
 <template>
   <basic-container>
     <div v-show="pageState == 'list'">
-      <iep-page-header title="详情" :backOption="backOption"></iep-page-header>
+      <iep-page-header style="margin-bottom:10px;" title="项目详情" :backOption="backOption"></iep-page-header>
       <div class="content">
-        <div class="left">
-          <el-card class="box-card">
-            <div class="navigation" 
-              :class="selectNavigation===item.value?'selectNavigation':''" 
-              v-for="item in selectNavigatList" 
-              :key="item.value"
-              @click="navigationChosen(item)">{{item.name}}</div>
+        <el-col class="left" :span="4">
+          <el-card class="box-card" shadow="never">
+            <div class="navigation" :class="selectNavigation===item.value?'selectNavigation':''" v-for="item in selectNavigatList" :key="item.value" @click="navigationChosen(item)">{{item.name}}</div>
           </el-card>
-        </div>
-        <div class="right">
+        </el-col>
+        <el-col class="right" :span="20">
           <detailPage v-if="selectNavigation===0" :form="formData"></detailPage>
           <stagePage v-if="selectNavigation===1" ref="stage" :form="formData" @author_detail="authorDetail" @author_opera="authorOpera" @submitSuccess="submitSuccess"></stagePage>
           <materialPage v-if="selectNavigation===2" :form="formData" @createSummary="materialCreateSummary"></materialPage>
-        </div>
+        </el-col>
       </div>
     </div>
     <stageAuthorDetail ref="authorDetail" v-if="pageState == 'authorDetail'" @close="authorClose"></stageAuthorDetail>
@@ -58,7 +54,7 @@ export default {
   },
   methods: {
     close () {
-      
+
     },
     // 导航切换
     navigationChosen (item) {
@@ -74,7 +70,7 @@ export default {
     authorClose (state, name) {
       this.pageState = 'list'
       if (state === true) { // 即需要刷新页面
-      console.log('asd')
+        console.log('asd')
         this.$refs['stage'].changePage(name)
       }
     },
@@ -87,7 +83,7 @@ export default {
     },
     // 获取详情的数据，初步处理数据
     getDetailData () {
-      getDataDetail(this.$route.params.id).then(({data}) => {
+      getDataDetail(this.$route.params.id).then(({ data }) => {
         let list = [
           { name: 'applicantName', list: 'applicantList' },
           { name: 'approverName', list: 'approverList' },
@@ -132,18 +128,25 @@ export default {
 .content {
   display: flex;
   .left {
-    width: 200px;
     .navigation {
-      margin-bottom: 20px;
+      padding: 0 20px;
+      height: 40px;
+      line-height: 40px;
       cursor: pointer;
     }
     .selectNavigation {
-      color: #cb3737
+      background-color: #f8e8e9;
     }
   }
   .right {
     flex: 1;
   }
+}
+</style>
+<style scoped>
+.left >>> .el-card__body {
+  padding: 0;
+  height: 100vh;
 }
 </style>
 

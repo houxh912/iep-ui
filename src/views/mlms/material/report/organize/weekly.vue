@@ -1,10 +1,10 @@
 <template>
   <div class="weekly">
-    <div class="update-page">
+    <div class="update-page" v-if="pageState">
       <div class="head">
         <div class="title" v-show="formData.index">{{`第${formatDig(formData.index)}周组织工作周报`}}<span class="date">（{{`${formData.startTime} ~ ${formData.endTime}`}}）</span></div>
-        <!-- <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本周日报</a></div> -->
-        <div class="tips update" @click="handleUpdate"><i class="el-icon-edit"></i></div>
+        <div class="tips" v-if="dislogState!=='detail'">记不清楚做什么？<a class="href" @click="changePage">参考本组织成员本周周报</a></div>
+        <div class="tips update" v-else-if="permission_edit" @click="handleUpdate"><i class="el-icon-edit"></i></div>
       </div>
       <div class="content">
         <el-form ref="form" v-if="dislogState!=='detail'" :rules="rules" :model="formData">
@@ -22,7 +22,7 @@
           </el-form-item>
           <div class="title">总结与感悟</div>
           <el-form-item>
-            <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="1000"></el-input>
+            <el-input type="textarea" v-model="formData.summarySentiment" rows=5 placeholder="此处填写总结与感悟" maxlength="10000"></el-input>
           </el-form-item>
           <div class="relation-item">
             <div class="relation-head">市场拓展：</div>
@@ -74,6 +74,8 @@
       </div>
     </div>
 
+    <reference ref="reference" v-else :type='0' :time="formData.timeStamp" @load_reference="loadReference"></reference>
+
     <relation-dialog ref="relation" :type="relationType" @submit-success="relationSuccess"></relation-dialog>
 
   </div>
@@ -83,6 +85,8 @@
 import { toChinesNum, getDateStr, getWeekStartAndEnd } from '../util'
 import { updateData, createData } from '@/api/mlms/material/report/organize'
 import RelationDialog from './relationDialog'
+import reference from './reference'
+import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -91,9 +95,13 @@ export default {
       default: () => { },
     },
   },
-  components: { RelationDialog },
+  computed: {
+    ...mapGetters(['permissions']),
+  },
+  components: { RelationDialog, reference },
   data () {
     return {
+      pageState: true,
       loadState: false,
       formData: {},
       dislogState: 'detail',
@@ -108,6 +116,7 @@ export default {
         product: 'productList',
       },
       submitMsg: '',
+      permission_edit: false,
     }
   },
   methods: {
@@ -169,6 +178,18 @@ export default {
     relationSuccess (list, type) {
       this.formData[this.relationObj[type]] = list
     },
+    // 参考本组织下成员本周的周报
+    changePage () {
+      this.pageState = false
+    },
+    // 查看本组织下成员周报后保存
+    loadReference (row) {
+      this.formData.workSummary += row
+      this.pageState = true
+    },
+  },
+  created () {
+    this.permission_edit = this.permissions['mlms_report_orgwm_edit']
   },
   watch: {
     data (newVal) {
@@ -215,7 +236,7 @@ export default {
         margin-right: 3px;
         color: #999;
         .href {
-          color: #ba1b21;
+          color: $--color-primary;
           cursor: pointer;
         }
       }

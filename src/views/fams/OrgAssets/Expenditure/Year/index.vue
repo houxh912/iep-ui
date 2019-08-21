@@ -70,7 +70,6 @@ export default {
         const idx = index - 1
         const values = data.map(item => Number(item[column.property]))
         if (!values.every(value => isNaN(value))) {
-          console.log(this.statistics[idx])
           sums[index] = (this.statistics[idx])
         } else {
           sums[index] = ''

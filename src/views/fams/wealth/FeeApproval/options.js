@@ -18,13 +18,13 @@ const columnsMap = [
 	{
 		prop: 'createTime',
 		label: '申请日期',
-                                width:'170',
+		width: '170',
 	},
 	{
 		prop: 'status',
 		label: '状态',
 		type: 'dict',
-                                width:'100',
+		width: '100',
 	},
 	{
 		prop: 'auditorName',

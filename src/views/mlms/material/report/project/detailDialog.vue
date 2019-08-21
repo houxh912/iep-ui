@@ -14,13 +14,13 @@
                 <el-table-column prop="paymentAmount" label="回款金额"></el-table-column>
               </el-table> -->
             <div class="title">客户需求</div>
-              <pre>{{item.clientRqmt}}</pre>
+            <pre>{{item.clientRqmt}}</pre>
             <div class="title">本周工作总结</div>
-              <pre>{{item.workSummary}}</pre>
+            <pre>{{item.workSummary}}</pre>
             <div class="title">下周工作计划</div>
-              <pre>{{item.workPlan}}</pre>
+            <pre>{{item.workPlan}}</pre>
             <div class="title">备注</div>
-              <pre>{{item.remark}}</pre>
+            <pre>{{item.remark}}</pre>
           </div>
           <div class="edit">
             <i class="el-icon-edit" @click="update"></i>
@@ -28,7 +28,7 @@
         </div>
       </el-collapse-item>
     </el-collapse>
-    <iep-button type="primary" class="iep-button" @click="handleCreate"><i class="el-icon-plus"></i>创建项目周报</iep-button>
+    <iep-button type="primary" class="iep-button" @click="handleCreate" plain><i class="el-icon-plus"></i>创建项目周报</iep-button>
   </div>
 </template>
 
@@ -36,7 +36,7 @@
 import { formatYear } from '../util'
 
 export default {
-  components: {  },
+  components: {},
   data () {
     return {
       activeName: '-1',

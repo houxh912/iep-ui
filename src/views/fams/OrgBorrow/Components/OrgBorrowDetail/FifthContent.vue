@@ -28,7 +28,7 @@
       </iep-form-item>
     </el-form>
     <template v-slot:action>
-      <a-button type="primary" :loading="submitLoading" @click="handleSubmit">
+      <a-button type="primary" v-if="!data.isOut" :loading="submitLoading" @click="handleSubmit">
         确认收款
       </a-button>
       <a-button style="margin-left: 8px" @click="handleBack">

@@ -22,7 +22,6 @@ export default {
     }
   },
   beforeRouteUpdate (to, from, next) {
-    //console.log(to, from)
     this.routerMatch = to.matched
     next()
     // 在当前路由改变，但是该组件被复用时调用

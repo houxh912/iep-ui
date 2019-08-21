@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="转交" width="400px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="转交" width="500px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="80px">
       <el-form-item label="转交人" prop="user">
         <iep-contact-select v-model="form.user" :filter-user-list="filterUserList">

@@ -2,17 +2,18 @@
   <div class="banner">
     <el-card class="banner-list" shadow="hover" v-for="banner in bannerList" :key="banner.id">
       <span class="title">{{banner.title}}</span>
-      <iep-img class="img" :src="banner.image" alt="" @click.native="handleDetail(banner)"></iep-img>
+      <iep-img class="img" :src="banner.image ? banner.image : image" alt="" @click.native="handleDetail(banner)"></iep-img>
     </el-card>
   </div>
 </template>
 
 <script>
-import { getIndexPage } from '@/api/conm/article_controller'
+import { getListBySiteId } from '@/api/conm/article_controller'
 export default {
   data () {
     return {
       bannerList: [],
+      image: '../img/app/person/image.jpg',
     }
   },
   methods: {
@@ -22,13 +23,12 @@ export default {
   },
   created () {
     let params = {
-      nodeNumber: 'groupNews',
+      attributeNumber: 'gmrrec',
       siteId: 1,
-      current: 1,
       size: 3,
     }
-    getIndexPage(params).then(({data}) => {
-      this.bannerList = data.data.records
+    getListBySiteId(params).then(({ data }) => {
+      this.bannerList = data.data
     })
   },
 }

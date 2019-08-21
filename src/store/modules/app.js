@@ -33,7 +33,6 @@ const app = {
         name: SIDEBAR_TYPE,
         content: type,
       })
-      // console.log('SET_SIDEBAR_TYPE', type)
     },
     CLOSE_SIDEBAR: (state) => {
       setStore({

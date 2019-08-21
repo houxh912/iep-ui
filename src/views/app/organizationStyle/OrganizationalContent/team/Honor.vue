@@ -28,32 +28,20 @@ export default {
   .piece {
     float: left;
     margin: 0 17px;
-    width: 238px;
+    width: 245px;
     text-align: center;
     overflow: hidden;
     height: 100%;
     .imgs {
-      width: 100%;
-      height: 142px;
-      overflow: hidden;
-      img {
+      .img {
         width: 100%;
         height: 142px;
-        transition: 0.5s;
-        &:hover {
-          cursor: pointer;
-          transform: scale(1.1);
-        }
+        overflow: hidden;
+        cursor: pointer;
       }
     }
     .name {
       line-height: 40px;
-    }
-    &:first-child {
-      margin: 0 27px 0 22px;
-    }
-    &:last-child {
-      margin: 0 27px 0 27px;
     }
   }
 }
@@ -61,5 +49,14 @@ export default {
 <style scoped>
 .empolyee >>> .el-carousel__container {
   height: 180px;
+}
+.empolyee >>> .el-image__inner {
+  width: 100%;
+  height: 142px;
+  transition: 0.5s;
+}
+.empolyee >>> .el-image__inner:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 </style>

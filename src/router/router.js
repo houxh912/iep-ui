@@ -19,24 +19,9 @@ import Store from '../store/'
 
 const Router = new VueRouter({
   mode: 'history',
-  scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      if (from.meta.keepAlive) {
-        from.meta.savedPosition = document.body.scrollTop
-      }
-      const scrollPosition = {
-        x: 0, y: from.meta.savedPosition || 0,
-      }
-      document.documentElement.scrollTop = scrollPosition.y
-      return scrollPosition
-    }
-  },
   routes: [].concat([]),
 })
 AvueRouter.install(Router, Store)
-// console.log('AvueRouter', Store.state.user.menu)
 Router.$avueRouter.formatRoutes(Store.state.menu.menu, true)
 Router.addRoutes([
   ...hrmsRouter,

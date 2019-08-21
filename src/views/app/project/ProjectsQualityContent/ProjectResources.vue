@@ -1,19 +1,32 @@
 <template>
   <div class="recommendable">
     <IepAppTabCard :title="title" :linkName="linkName" isMore :data="data">
-      <IepAppListCard :dataList="dataList"></IepAppListCard>
+      <IepAppListCard :dataList="dataList" name="projectName" @click="handleDetail"></IepAppListCard>
     </IepAppTabCard>
   </div>
 </template>
+
 <script>
+import { getProjectResources } from '@/api/app/prms/'
 export default {
   data () {
     return {
-      data: '(15个)',
+      data: '',
       title: '项目资源',
-      dataList: ['内蒙古大数据局信息资源建设项目', '中央政府门户网站内容规划与咨询服务', '事项梳理优化项目', '年全国林业信息化率评测', '政务信息资源梳理与目录编制项目合同', '广东省政务服务绩效评估项目', '深圳市政务服务事项数源供需对接', '广州市工信委大数据局政府数据资产登'],
-      linkName: '',
+      dataList: [],
+      linkName: '/app/resource/material',
     }
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/app/resource/material/material_detail/${row.id}`)
+    },
+  },
+  created () {
+    getProjectResources().then(({ data }) => {
+      this.dataList = data.data.records.slice(0, 8)
+      this.data = `(${data.data.total}个)`
+    })
   },
 }
 </script>

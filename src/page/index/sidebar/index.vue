@@ -96,9 +96,9 @@ export default {
     border-left: 3px solid #fafafa;
     &:hover,
     &:focus {
-      border-color: #cb3737;
-      background: #f9eae7;
-      color: #cb3737;
+      border-color: $--menu-color-primary;
+      background: $--menu-color-second;
+      color: $--menu-color-primary;
     }
   }
   .sub-menu {
@@ -116,8 +116,8 @@ export default {
       vertical-align: middle;
     }
     &:hover {
-      background-color: #f9eae7;
-      color: #fb4147;
+      background-color: $--menu-color-second;
+      color: $--menu-color-font;
     }
     i {
       margin-right: 5px;
@@ -127,33 +127,35 @@ export default {
 .el-menu {
   background-color: #fafafa;
 }
-</style>
-<style lang="css" scoped>
-.avue-sidebar >>> .el-scrollbar .el-scrollbar__wrap {
+.avue-sidebar ::v-deep .el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;
 }
-.avue-sidebar >>> .el-submenu .el-submenu__title {
+.avue-sidebar ::v-deep .el-submenu .el-submenu__title {
   border-left: 3px solid #fafafa;
 }
-.avue-sidebar >>> .el-submenu .el-submenu__title:focus,
-.avue-sidebar >>> .el-menu--collapse .el-submenu.is-active .el-submenu__title,
-.avue-sidebar >>> .el-submenu .el-submenu__title:hover {
+.avue-sidebar ::v-deep .el-submenu .el-submenu__title:focus,
+.avue-sidebar
+  ::v-deep
+  .el-menu--collapse
+  .el-submenu.is-active
+  .el-submenu__title,
+.avue-sidebar ::v-deep .el-submenu .el-submenu__title:hover {
   margin-left: 0 !important;
-  border-color: #cb3737;
-  background-color: #f9eae7;
-  color: #cb3737;
+  border-color: $--menu-color-primary;
+  background-color: $--menu-color-second;
+  color: $--menu-color-primary;
 }
-.avue-sidebar >>> .el-submenu .el-submenu__title,
-.avue-sidebar >>> .el-menu-item {
+.avue-sidebar ::v-deep .el-submenu .el-submenu__title,
+.avue-sidebar ::v-deep .el-menu-item {
   height: 36px;
   line-height: 36px;
   color: #444;
 }
-.avue-sidebar >>> .el-menu-item i,
-.avue-sidebar >>> .el-submenu__title i {
+.avue-sidebar ::v-deep .el-menu-item i,
+.avue-sidebar ::v-deep .el-submenu__title i {
   color: #666;
 }
-.avue-sidebar >>> .el-menu {
+.avue-sidebar ::v-deep .el-menu {
   border-right: none;
 }
 </style>

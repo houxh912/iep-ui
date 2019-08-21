@@ -35,10 +35,10 @@
       </el-form-item>
 
       <el-form-item label="项目编号：">
-        <iep-div-detail :value="form.projectNumber"></iep-div-detail>
+        <iep-div-detail :value="form.serialNo"></iep-div-detail>
       </el-form-item>
 
-      <el-form-item label="支出金额：">
+      <el-form-item label="收入金额：">
         <iep-div-detail :value="form.amount+' 元'"></iep-div-detail>
       </el-form-item>
 

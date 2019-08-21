@@ -72,7 +72,6 @@ export default {
   },
   methods: {
     searchPage (val) {
-      console.log('ssss')
       let obj = val ? val : this.paramForm
       this.$emit('search-page', obj)
     },

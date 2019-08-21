@@ -1,7 +1,7 @@
 <template>
   <div class="praise">
     <IepAppTabCard :title="labelTitle">
-      <IepAppRankingCard :dataList="labelList" @click="handleDetail" grade="thumbedTimes" name="content"></IepAppRankingCard>
+      <IepAppRankingCard isReference :dataList="labelList" @click="handleDetail" grade="thumbedTimes" name="content"></IepAppRankingCard>
     </IepAppTabCard>
   </div>
 </template>

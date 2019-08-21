@@ -4,8 +4,12 @@
       <span class="title" :class="showClass==0?'color':''">师徒</span>
       <span class="line">/</span>
     </div>
-    <div class="tabList" v-for="(item,index) in navList" :key="index" @click="tab(index+1,index+1)">
-      <span class="title" :class="showClass==index+1?'color':''">{{item.name}} </span>
+    <div class="tabList" @click="tab(1,1)">
+      <span class="title" :class="showClass==1?'color':''">我的关注</span>
+      <span class="line">/</span>
+    </div>
+    <div class="tabList" v-for="(item,index) in navList" :key="index" @click="tab(index+2,index+2)">
+      <span class="title" :class="showClass==index+2?'color':''">{{item.name}} </span>
       <span class="line" :class="index==navList.length-1?'showLine':''">/</span>
     </div>
   </div>
@@ -43,14 +47,14 @@ export default {
     color: #666;
 
     &:hover {
-      color: #cb3737;
+      color: $--menu-color-primary;
     }
   }
   .line {
     padding: 0 10px;
   }
   .color {
-    color: #cb3737;
+    color: $--menu-color-primary;
   }
   .showLine {
     display: none;

@@ -65,13 +65,14 @@ export default {
   methods: {
     async loadTotal () {
       const { data } = await getTotal()
-      if (!data.data) {
-        this.$message(data.msg)
+      if (data.data) {
+        this.maxAmount = data.data.withdrawableCash >= 0 ? data.data.withdrawableCash : 0
+        this.withInvoice = data.data.withInvoice
+      } else {
+        this.$message('请先开通并领取 1000 国脉贝')
         this.$router.history.go(-1)
         return
       }
-      this.maxAmount = data.data.withdrawableCash >= 0 ? data.data.withdrawableCash : 0
-      this.withInvoice = data.data.withInvoice
     },
     async handleSubmit () {
       try {

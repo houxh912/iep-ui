@@ -83,14 +83,14 @@ export default {
   box-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6);
 }
 .login-main {
-  margin: 30px;
+  margin: 0 30px;
   box-sizing: border-box;
   .title-image {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 25px;
-    margin-top: 40px;
+    margin-top: 30px;
     .top-image {
       width: 90px;
       border-right: 1px solid #eee;

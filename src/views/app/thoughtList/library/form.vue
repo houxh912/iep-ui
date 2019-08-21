@@ -50,7 +50,7 @@
         <div class="func" @click="handleAnt">
           <i class="symbol">@</i><p>提醒</p>
         </div>
-        <div class="func" @click="handleSubject" v-if="false">
+        <div class="func" @click="handleSubject">
           <i class="symbol">#</i><p>话题</p>
         </div>
         <div class="switch">
@@ -63,6 +63,10 @@
             :active-value="0"
             :inactive-value="1">
           </el-switch>
+        </div>
+        <div class="label">
+          <label>说说标签：</label>
+          <iep-tag v-model="formData.tags"></iep-tag>
         </div>
         <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">发布</iep-button>
       </div>
@@ -82,6 +86,7 @@ var initForm = () => {
     content: '',
     status: 0,
     images: [],
+    tags: [],
   }
 }
 
@@ -150,13 +155,14 @@ export default {
           }
           thoughtsCreate(this.formData).then(({ data }) => {
             if (data.data) {
-              this.resetForm()
               // 判断是否公开，不公开(1)的说说没有奖励
               if (this.formData.status === 1) {
+                this.resetForm()
                 this.loadState = false
                 this.$emit('load-page')
               } else {
                 addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+                  this.resetForm()
                   this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
                   this.loadState = false
                   this.$emit('load-page')
@@ -185,6 +191,7 @@ export default {
           content: this.subject,
           status: 0,
           images: [],
+          tags: [],
         }
       }
       this.formData = initForm()
@@ -280,6 +287,17 @@ export default {
           margin: 0;
         }
       }
+      .label {
+        margin-left: 25px;
+        max-width: 600px;
+        min-width: 320px;
+        display: flex;
+        text-align: left;
+        label {
+          line-height: 26px;
+          width: 110px;
+        }
+      }
       .submit {
         position: absolute;
         right: 0;
@@ -314,6 +332,9 @@ export default {
 .yincang >>> .el-input__inner {
   /* width: 10px; */
   padding: 0;
+}
+.yincang >>> .el-autocomplete {
+  width: 160px;
 }
 </style>
 

@@ -55,6 +55,13 @@ export function getProjectPaymentPlanList (id) {
     method: 'get',
   })
 }
+
+export function getProjectInvoiceingList (id) {
+  return request({
+    url: `/fams/statistics/project/invoiceing/${id}`,
+    method: 'get',
+  })
+}
 export function getIssuedList (id) {
   return request({
     url: `${InformationUrl}/getAmount/${id}`,

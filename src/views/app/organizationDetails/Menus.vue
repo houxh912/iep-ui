@@ -28,9 +28,6 @@ export default {
     handleClick (e) {
       this.$emit('change_page', e.key)
     },
-    titleClick () {
-      // console.log('titleClick', e)
-    },
     pathObject (path) {
       return { path: path, query: this.$route.query }
     },

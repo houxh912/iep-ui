@@ -137,12 +137,11 @@ export default {
     padding-bottom: 15px;
     border-bottom: 1px solid #ddd;
     .avatar {
-      margin-right: 20px;
-      width: 60px;
-      height: 60px;
+      margin-right: 10px;
+      width: 70px;
       .img {
-        height: 60px;
-        width: 60px;
+        height: 70px;
+        width: 70px;
         border-radius: 50%;
         overflow: hidden;
       }
@@ -153,8 +152,7 @@ export default {
       .head {
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        margin-bottom: 0;
+        margin-bottom: 5px;
         .left {
           display: flex;
           .name {
@@ -167,10 +165,8 @@ export default {
           i {
             margin-left: 10px;
             cursor: pointer;
-            transition: all 0.5s;
-            color: #999;
             &:hover {
-              color: crimson;
+              color: $--menu-color-primary;
             }
           }
         }

@@ -20,23 +20,24 @@
       </el-table>
     </iep-fams-card>
     <iep-fams-card class="total-item-1" title="快捷入口">
-      <div class="card-btn-grid">
+      <iep-card-btn>
         <div @click="$openPage('/fams/group_finance/fund_fransfer')">资金调拨</div>
         <div @click="$openPage('/fams_spa/group_reward')">打赏/扣减(组织)</div>
         <div @click="$openPage('/fams_spa/group_reward_user')">打赏/扣减(个人)</div>
         <div>投资管理</div>
-        <div>组织预算</div>
+        <div @click="$openPage('/fams/group_finance/budget')">集团预算</div>
         <div @click="$openPage('/fams_spa/union_payment_plan')">回款计划</div>
         <div @click="$openPage('/app/data_assets?type=1')">组织资产</div>
-      </div>
+      </iep-card-btn>
     </iep-fams-card>
   </div>
 </template>
 <script>
 import { getOrgBudgetList } from '@/api/fams/statistics'
 import IepFamsCard from './IepFamsCard'
+import IepCardBtn from '@/views/fams/Components/CardBtn'
 export default {
-  components: { IepFamsCard },
+  components: { IepFamsCard, IepCardBtn },
   data () {
     return {
       type: '1',
@@ -64,22 +65,6 @@ export default {
   .total-item-1 {
     flex: 1;
     margin-left: 20px;
-  }
-}
-.card-btn-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 20px;
-  & > div {
-    cursor: pointer;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #aaa;
-    color: #666;
-    &:hover {
-      border: 1px solid #ba1b21;
-      color: #ba1b21;
-    }
   }
 }
 </style>

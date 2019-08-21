@@ -13,11 +13,11 @@
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
-          <el-table-column label="申请人" width="100px">
+          <el-table-column label="申请人" width="150px">
             <template slot-scope="scope">
-              <iep-table-link>{{scope.row.name}}
+              <div>{{scope.row.name}}
                 <a-tag v-if="scope.row.isDraft" color="orange">草稿</a-tag>
-              </iep-table-link>
+              </div>
             </template>
           </el-table-column>
         </template>
@@ -34,10 +34,10 @@
             {{dictsMap.approveResult[scope.row.approveResult]}}
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="220px">
+        <el-table-column label="操作" width="250px">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" @click="handleDetail(scope.row)">查看</iep-button>
+              <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
               <iep-button v-if="scope.row.isDraft===0 && scope.row.approveResult===0" plain @click="handleCancel(scope.row)">撤销</iep-button>
               <iep-button v-if="scope.row.isDraft===1" plain @click="handleEdit(scope.row)">修改</iep-button>
               <iep-button v-if="scope.row.isDraft===1" plain @click="handleDelete(scope.row)">删除</iep-button>

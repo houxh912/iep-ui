@@ -19,7 +19,7 @@
       <el-table-column label="操作" width="100px">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" @click="handleDetail(scope.row)">查看</iep-button>
+            <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>

@@ -21,7 +21,7 @@
         </template>
         <el-table-column label="操作" width="100px">
           <template slot-scope="scope">
-            <iep-button type="warning" plain @click="handleDetail(scope.row)">查看</iep-button>
+            <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
           </template>
         </el-table-column>
       </iep-table>

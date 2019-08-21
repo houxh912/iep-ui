@@ -11,7 +11,7 @@
         <el-tag type="info" class="tag-style" v-for="(item,index) in formData.businessType" :key="index">{{item.commonName}}</el-tag>
       </el-form-item>
       <el-form-item label="意向程度：">
-        <a-tag type="info">{{formData.intentionLevelValue}}</a-tag>
+        <a-tag type="info">{{formData.intentionLevel[0].commonName}}</a-tag>
       </el-form-item>
       <el-form-item label="商机描述：">
         <span>{{formData.opportunityDes}}</span>
@@ -26,7 +26,7 @@
         <span>{{formData.publishDate}}</span>
       </el-form-item>
       <el-form-item label="认领状态：">
-        <span>{{formData.statusValue}}</span>
+        <span>{{formData.status[0].commonName}}</span>
       </el-form-item>
       <el-form-item label="创建状态：">
         <span v-if="formData.isCreate==0">未创建</span>
@@ -67,20 +67,32 @@ export default {
       this.drawerShow = false
       this.$emit('load-page')
     },
+    // 认领商机
     claimBusiness () {
       let claim = {
         opportunityId: this.formData.opportunityId,
         status: this.formData.statusKey,
         creatorId: this.formData.creatorId,
       }
-      claimById({ ...claim }).then(res => {
-        if (res.status == 200) {
-          this.$message.success('认领成功！')
-          this.drawerShow = false
-          this.$emit('load-page')
-        } else {
-          this.$message.info(`认领失败，${res.data.msg}`)
-        }
+      this.$confirm('此操作将认领该条商机, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        claimById({ ...claim }).then(res => {
+          if (res.status == 200) {
+            this.$message.success('认领成功！')
+            this.drawerShow = false
+            this.$emit('load-page')
+          } else {
+            this.$message.info(`认领失败，${res.data.msg}`)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消认领',
+        })
       })
     },
     handleGoBack () {

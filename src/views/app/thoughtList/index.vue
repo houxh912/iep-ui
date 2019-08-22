@@ -3,7 +3,7 @@
     <h3 class="title">早晚五分钟，为<span class="akey">智慧</span>加油</h3>
     <headTpl class="head" @load-page="loadPage"></headTpl>
     <div class="content">
-      <iep-tabs v-model="tabName" :tab-list="tabList" class="content-left">
+      <tabsTpl v-model="tabName" :tab-list="tabList" class="content-left">
         <template v-if="tabName ==='allThougth'" v-slot:allThougth>
           <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
           <div style="text-align: center;margin: 20px 0;">
@@ -19,7 +19,11 @@
         <template v-if="tabName ==='subject'" v-slot:subject>
           <subjectPage ref="subject"></subjectPage>
         </template>
-      </iep-tabs>
+        <!-- 搜索 -->
+        <template v-slot:search>
+          <searchTpl></searchTpl>
+        </template>
+      </tabsTpl>
       <div class="content-right">
         <rightTpl ref="contentRight"></rightTpl>
       </div>
@@ -37,6 +41,8 @@ import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 import rightTpl from './right'
 import library from './library'
 import subjectPage from './subjectPage/'
+import tabsTpl from './tabsTpl'
+import searchTpl from './search'
 
 const initParams = () => {
   return {
@@ -46,7 +52,7 @@ const initParams = () => {
 }
 
 export default {
-  components: { headTpl, PublishDialog, rightTpl, library, subjectPage },
+  components: { headTpl, PublishDialog, rightTpl, library, subjectPage, tabsTpl, searchTpl },
   data () {
     return {
       isShow: true,

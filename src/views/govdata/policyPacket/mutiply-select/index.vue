@@ -119,7 +119,7 @@ export default {
     },
   },
   created () {
-    // console.log('this.selectObjs', this.selectObjs)
+
   },
   mounted () {
     this.initData()
@@ -133,7 +133,7 @@ export default {
         return {
           value: item.id,
           label: item.name,
-          // type: item.policyType,
+          mark: item.mark,
         }
       })
     },
@@ -156,6 +156,7 @@ export default {
       this.submitSelectedIds = _([...idVal])
         .uniq()
         .value()
+      this.$emit('changeSelectedObjs', this.selectedList)
     },
     handleOpenTable () {
       this.dialogShow = true
@@ -173,6 +174,7 @@ export default {
           return {
             label: m.name || m.title,
             value: m.id,
+            mark: m.mark,
           }
         })
         this.loading = false

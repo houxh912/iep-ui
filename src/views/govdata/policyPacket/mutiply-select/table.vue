@@ -245,14 +245,13 @@ export default {
       const theVal = {
         value: val[this.columnMap[0].prop],
         label: val[this.columnMap[1].prop],
-        // type: val[this.columnMap[2].prop],
+        mark: val[this.columnMap[2].prop],
       }
       this.selectedObjs = _([theVal])
         .uniqBy('value')
         .value()
     },
     selectionChange (list) {
-      console.log('list', list)
       list = list.filter(element => {
         return element !== undefined
       })
@@ -260,13 +259,12 @@ export default {
         return {
           value: item[this.columnMap[0].prop],
           label: item[this.columnMap[1].prop],
-          // type: item[this.columnMap[2].prop],
+          mark: item[this.columnMap[2].prop],
         }
       })
       this.selectedObjs = _([...this.tempSelectedObjs, ...theVal])
         .uniqBy('value')
         .value()
-      console.log(' this.selectedObjs', this.selectedObjs)
     },
     handleSaveAndExit () {
       this.$emit('giveSelectedObjs', this.selectedObjs)

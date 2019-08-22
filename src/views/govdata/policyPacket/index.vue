@@ -90,8 +90,8 @@ function initForm () {
   return {
     description: '',
     relationList: [],
-    remainAmount: [],
-    totalAmount: [],
+    totalAmount: 0,
+    remainAmount: 0,
   }
 }
 export default {
@@ -114,9 +114,6 @@ export default {
       pageOption: {
         current: 1,
         size: 10,
-      },
-      dataList: {
-
       },
     }
   },
@@ -156,20 +153,11 @@ export default {
     readRelation (rows) {
       const { relationList } = rows
 
-      // const { relationList } = rows
-      // 联合发文单位
-      // rows.dispatchList = dispatchList.map(m => m.commonId)
-      // rows.dispatchsList = dispatchList.map(m => {
-      //   return { id: m.commonId, name: m.commonName }
-      // })
-
       //关联政策
-      rows.relation = relationList
       rows.relationList = relationList.map(m => m.policyId)
       rows.relationPolicyList = relationList.map(m => {
-        return { id: m.policyId, name: m.title, type: m.policyType }
+        return { id: m.policyId, name: m.title, mark: m.policyType }
       })
-      console.log('row.relation', rows.relationPolicyList)
 
       // rows.relationList = relationList.map(m => m.policyId)
       // rows.relationPolicyList = relationList.map(m => {
@@ -206,7 +194,7 @@ export default {
         this.isAdd = true
         this.isEdit = false
         this.form = initForm()
-        // this.form.createUser = this.createUser
+        this.form.createUser = this.createUser
         this.dialogShow = true
       } else {
         this.isAdd = false
@@ -214,7 +202,7 @@ export default {
         getPacketById(rows.id).then(res => {
           const row = res.data.data
           this.readRelation(row)
-          //this.row.modifiedUser = this.modifiedUser
+          // this.row.modifiedUser = this.modifiedUser
           this.form = { ...row }
           this.isNeedConfirm = false
           this.dialogShow = true

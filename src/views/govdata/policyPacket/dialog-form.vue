@@ -4,8 +4,8 @@
       <el-input v-model="formData.description" maxlength="255" :readonly="isReadonly" clearable></el-input>
     </el-form-item>
 
-    <el-form-item label="关联政策" prop="relation">
-      <mutiply-select class="mutiplySelect" v-model="formData.relation" :selectObjs="formData.relationPolicyList" :options="政策options" :otherProps="orgOption" v-if="!isReadonly"></mutiply-select>
+    <el-form-item label="关联政策" prop="relationList">
+      <mutiply-select class="mutiplySelect" v-model="formData.relationList" :selectObjs="formData.relationPolicyList" :options="政策options" :otherProps="orgOption" v-if="!isReadonly" @changeSelectedObjs="changeData"></mutiply-select>
       <el-select style="width: 100%" v-model="formData.relationList" multiple disabled v-else>
         <el-option v-for="item in formData.relationPolicyList" :key="item.id" :label="item.name" :value="item.id">
         </el-option>
@@ -20,10 +20,14 @@
       <el-input-number v-model.number="formData.totalAmount" style="width:100%" controls-position="right" :min="1" :max="100000"></el-input-number>
     </el-form-item>
 
-    <div class="code-box" v-if="!isAdd">
+    <el-form-item label="红包剩余数量" class="formWidth" prop="remainAmount" v-if="isAdd">
+      <el-input-number v-model.number="formData.remainAmount" style="width:100%" controls-position="right" :min="1" :max="100000"></el-input-number>
+    </el-form-item>
+
+    <div class="code-container" v-if="!isAdd">
       <div class="label">二维码</div>
-      <div class="code">
-        <qrcode :value="url" v-if="url" :options="{width:120}"></qrcode>
+      <div class="code-box">
+        <qrcode class="code" :value="url" v-if="url" :options="{width:120}"></qrcode>
         <div class="code-bgc" v-else></div>
       </div>
     </div>
@@ -42,8 +46,8 @@ import MutiplySelect from './mutiply-select'
 import multiplyMixin from '@/views/govdata/policyManage/multiply_mixin'
 const orgOption = [
   {
-    prop: 'creatorName',
-    label: '创建人',
+    prop: 'mark',
+    label: '政策类型',
   }, {
     prop: 'issue',
     label: '发文号',
@@ -54,7 +58,7 @@ export default {
   props: ['formData', 'isAdd', 'isEdit', 'isReadonly'],
   data () {
     var checkTotalAmount = (rule, value, callback) => {
-      if (this.isAdd && !value) {
+      if (!value) {
         return callback(new Error('红包总数量不能为空'))
       }
       setTimeout(() => {
@@ -62,13 +66,34 @@ export default {
           callback(new Error('请输入数字值'))
         } else {
           if (this.isAdd) {
-            if (value !== this.formData.remainAmount) {
+            if (this.formData.totalAmount !== this.formData.remainAmount) {
               callback(new Error('红包总数量必须等于剩余红包数量 !'))
             } else {
               callback()
             }
+
+          } else {
+            callback()
           }
-          else {
+        }
+      }, 1000)
+    }
+    var checkRemainAmount = (rule, value, callback) => {
+      if (this.isAdd && !value) {
+        return callback(new Error('红包剩余数量不能为空'))
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error('请输入数字值'))
+        } else {
+          if (this.isAdd) {
+            if (this.formData.totalAmount !== this.formData.remainAmount) {
+              callback(new Error('红包总数量必须等于剩余红包数量 !'))
+            } else {
+              callback()
+            }
+
+          } else {
             callback()
           }
         }
@@ -76,6 +101,7 @@ export default {
     }
 
     return {
+      flag: false,
       loading: false,
       url: '',
       orgOption,
@@ -91,6 +117,7 @@ export default {
       rules: {
         description: [{ required: true, message: '请输入通用政策正文' }],
         totalAmount: [{ validator: checkTotalAmount, trigger: 'blur' }],
+        remainAmount: [{ validator: checkRemainAmount, trigger: 'blur' }],
       },
     }
   },
@@ -99,21 +126,27 @@ export default {
   },
   methods: {
     /**
-     * 转化格式
-     */
-    _processForm (rows) {
-      rows.relationList = rows.relationList.map(m => {
-        return { policyId: m.policyId, type: m.type }
-      })
-      console.log('rows.relationList', rows.relationList)
-      return rows
-    },
-
-    /**
      * 生成二维码
      */
     getCode () {
       this.url = `https://gc.govmade.cn/policy-red-envelope-detail/${this.formData.id}`
+    },
+
+    _processForm (rows) {
+      rows.relationPolicyList = rows.relationPolicyList.map(m => {
+        return { policyId: m.id, title: m.name, policyType: m.mark }
+      })
+      rows.relationList = rows.relationPolicyList
+      return rows
+    },
+
+    changeData (val) {
+      console.log(22)
+      this.flag = true
+      this.formData.relationList = val.map(m => {
+        return { policyId: m.value, title: m.label, policyType: m.mark }
+      })
+      console.log('22', this.formData.relationList)
     },
 
     /**
@@ -121,15 +154,21 @@ export default {
      */
     handleSubmit (formName) {
       this.loading = true
-      this.formData.relationList = this.formData.relation
       const submitForm = JSON.parse(JSON.stringify(this.formData))
-      // this._processForm(submitForm)
+      if (!this.flag && this.formData.relationPolicyList && this.formData.relationPolicyList.length > 0) {
+        console.log(22)
+        this._processForm(submitForm)
+        console.log(' this.formData.relationList', this.formData.relationList)
+      }
 
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const requestFun = this.isEdit ? putPacket : postPacket
-          requestFun(submitForm).then(() => {
-            this.submitMessage()
+          console.log('succes', this.formData.relationList)
+          requestFun(submitForm).then(res => {
+            if (res.data.data) {
+              this.submitMessage()
+            }
           }).catch(() => {
             this.msg('保存失败，请检查你的网络链接。', 'error')
           })
@@ -167,12 +206,12 @@ export default {
   display: inline-block;
   width: 50%;
 }
-.code-box {
+.code-container {
   width: 200px;
   height: 120px;
   margin: 0px 52px 25px;
   display: flex;
-  .code {
+  .code-box {
     width: 127px;
     height: 127px;
     padding: 3px;
@@ -180,6 +219,13 @@ export default {
     border-radius: 2px;
     border: 1px solid #dcdfe6;
     position: relative;
+    .code {
+      cursor: pointer;
+      transition: all 0.6s;
+      &:hover {
+        transform: scale(1.4);
+      }
+    }
     .code-bgc {
       width: 99%;
       height: 100%;

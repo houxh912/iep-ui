@@ -29,7 +29,7 @@ export default {
       return [
         { icon: 'icon-dangan', name: '材料库', number: this.counts.countMaterial, path: '/app/resource/material' },
         { icon: 'icon-renwu', name: '资质库', number: this.counts.countHonor, path: '/app/resource/qualification' },
-        { icon: 'icon-gongzuotai', name: '产品库', number: this.counts.countProduct, path: '/app/resource/product_ku' },
+        { icon: 'icon-gongzuotai', name: '模块库', number: this.counts.countProduct, path: '/app/resource/product_ku' },
         { icon: 'icon-kehu', name: '客户库', number: this.counts.countClient, path: '/app/resource/client' },
         { icon: 'icon-peixun', name: '培训库', number: this.counts.countTraining, path: '/app/resource/training' },
         { icon: 'icon-shangjifaxian', name: '商机库', number: this.counts.countOpportunity, path: '/app/resource/business' },

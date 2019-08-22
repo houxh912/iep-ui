@@ -1,8 +1,23 @@
 <template>
   <div class="expert-search">
     <div class="search-con">
-      <operation-search @search-page="searchPage"></operation-search>
-      <el-button type="danger" plain>高级搜索</el-button>
+      <operation-search @search-page="searchPage" :paramForm="paramForm" prop="content" advance-search>
+        <el-form :model="paramForm" label-width="100px" size="small" class="form-detail">
+          <el-form-item label="作者组织：">
+            <iep-select v-model="paramForm.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择作者组织" multiple></iep-select>
+          </el-form-item>
+          <el-form-item label="起始时间：">
+            <el-date-picker v-model="paramForm.beginTime" value-format="yyyy-MM-dd HH:mm:ss" type="date" placeholder="选择日期时间"></el-date-picker>
+          </el-form-item>
+          <el-form-item label="结束时间：">
+            <el-date-picker v-model="paramForm.endTime" value-format="yyyy-MM-dd 23:59:59" type="date" placeholder="选择日期时间"></el-date-picker>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="searchPage(paramForm)">搜索</el-button>
+            <el-button @click="clearSearchParam">清空</el-button>
+          </el-form-item>
+        </el-form>
+      </operation-search>
     </div>
   </div>
 </template>
@@ -12,13 +27,19 @@
 export default {
   data () {
     return {
-      
+      paramForm: {
+        content: '',
+        orgId: '',
+        beginTime: '',
+        endTime: '',
+      },
     }
   },
   methods: {
     searchPage (val) {
       this.$emit('load-page', val)
     },
+    clearSearchParam () {},
   },
 }
 </script>
@@ -26,7 +47,7 @@ export default {
 .expert-search {
   margin: 0 auto 25px;
   text-align: center;
-  width: 1200px;
+  width: 300px;
   h3 {
     font-size: 24px;
     position: relative;
@@ -47,35 +68,6 @@ export default {
 .search-con {
   display: flex;
   margin: 0 auto;
-  max-width: 600px;
   justify-content: space-between;
-}
-</style>
-<style scoped>
-.expert-search >>> .el-card__body {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-.expert-search >>> .el-input--small input {
-  height: 40px !important;
-}
-.expert-search >>> .el-card {
-  background-color: #fafafa;
-}
-.expert-search >>> .search-con .input-wrapper {
-  max-width: 510px;
-  width: 510px;
-}
-.expert-search >>> .el-button--danger.is-plain {
-  color: #cb3737;
-  background: #fef0f0;
-  border-color: #cb3737;
-}
-.expert-search >>> .el-button--danger.is-plain:hover,
-.expert-search >>> .el-button--danger.is-plain:focus {
-  background: #cb3737;
-  border-color: #ba1b21;
-  color: #fff;
 }
 </style>

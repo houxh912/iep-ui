@@ -77,7 +77,7 @@ export default [
   },
   {
     path: 'product_ku',
-    name: '产品库',
+    name: '模块库',
     icon: 'icon-chanpin',
     count: 0,
     countName: 'countProduct',

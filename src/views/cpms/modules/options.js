@@ -42,6 +42,7 @@ const initForm = () => {
     number: '', // 编号
     name: '', // 名称
     type: '', // 类别
+    serviceTypes: [], // 业务类别
     website: '', // 测试地址
     guidePrice: '', // 模块指导价
     preferentialPrice: '', // 模块优惠价

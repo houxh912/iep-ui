@@ -69,12 +69,13 @@ export function validOrgName (name) {
   })
 }
 
-export function getOrgList (orgName) {
+export function getOrgList (orgName, orgType) {
   return request({
     url: `${prefixUrl}/list`,
     method: 'get',
     params: {
       orgName,
+      orgType,
     },
   })
 }

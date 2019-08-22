@@ -21,6 +21,7 @@ export default {
   components: { ApplyFormDialog },
   data () {
     return {
+      orgType: '1',
       orgList: [],
     }
   },
@@ -36,7 +37,10 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleChange () { },
+    handleChange (value) {
+      console.log(value)
+      this.orgType = '' + value
+    },
     handleApplyJoin (row) {
       getOrgById(row.orgId).then(({ data }) => {
         const form = data.data
@@ -45,10 +49,10 @@ export default {
       })
     },
     onSearch (orgName) {
-      this.loadPage(orgName)
+      this.loadPage(orgName, this.orgType)
     },
-    loadPage (orgName = null) {
-      getICanOrgList(orgName).then(({ data }) => {
+    loadPage (orgName = null, orgType = null) {
+      getICanOrgList(orgName, orgType).then(({ data }) => {
         this.orgList = data.data
       })
     },

@@ -13,13 +13,24 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'isOpen',
-    label: '允许加入',
-    type: 'dict',
+    prop: 'name',
+    label: '组织名称',
+    type: 'detail',
   },
   {
-    prop: 'status',
-    label: '状态',
+    prop: 'orgType',
+    label: '组织类别',
+    type: 'dictGroup',
+    dictName: 'GOMS_ORG_TYPE',
+  },
+  {
+    prop: 'intro',
+    label: '组织描述',
+    type: 'detail',
+  },
+  {
+    prop: 'isOpen',
+    label: '允许加入',
     type: 'dict',
   },
   {
@@ -32,6 +43,11 @@ const columnsMap = [
     label: '创建人',
     width: 80,
   },
+  {
+    prop: 'status',
+    label: '状态',
+    type: 'dict',
+  },
 ]
 
 const initForm = () => {
@@ -39,6 +55,7 @@ const initForm = () => {
     orgId: '',
     logo: '',
     name: '',
+    orgType: '',
     isOpen: 0,
     orgSort: 0,
     abrName: '',

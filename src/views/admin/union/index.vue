@@ -19,26 +19,27 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="100">
+        <el-table-column prop="operation" label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
-              <!-- <iep-button type="warning" @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleDeleteById(scope.row)">删除</iep-button>
-              <iep-button @click="handlePerson(scope.row, scope.index)">人员</iep-button> -->
-              <iep-button :disabled="!scope.row.status" @click="handleReviewDialog(scope.row, scope.index)" type="warning" plain>审核</iep-button>
+              <iep-button @click="handleDetail(scope.row)" type="warning" plain>查看</iep-button>
+              <iep-button :disabled="!scope.row.status" @click="handleReviewDialog(scope.row, scope.index)">审核</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </basic-container>
     <iep-review-confirm is-inverse ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
 import { getUnionPage, reviewById } from '@/api/goms/union'
 import { dictsMap, columnsMap, checkboxInit } from './options'
 import mixins from '@/mixins/mixins'
+import DialogForm from './DialogForm'
 export default {
+  components: { DialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -51,6 +52,10 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      this.$refs['DialogForm'].form = { ...row }
+      this.$refs['DialogForm'].dialogShow = true
+    },
     handleReviewDialog (row) {
       if (row.unionId) {
         this.$refs['iepReviewForm'].id = row.unionId

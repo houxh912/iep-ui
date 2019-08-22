@@ -37,6 +37,14 @@ const columnsMap = [
   },
 ]
 
+const initForm = () => {
+  return {
+    name: '',
+    logo: '',
+    intro: '',
+  }
+}
+
 const checkboxInit = (row) => {
   if (row.status === 0)
     return 0 //不可勾选
@@ -45,4 +53,4 @@ const checkboxInit = (row) => {
 }
 
 
-export { dictsMap, columnsMap, checkboxInit }
+export { dictsMap, columnsMap, checkboxInit, initForm }

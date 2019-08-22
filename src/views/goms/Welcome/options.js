@@ -3,7 +3,7 @@ const initForm = () => {
     name: '',
     logo: '',
     intro: '',
-    orgType: '',
+    orgType: '1',
   }
 }
 

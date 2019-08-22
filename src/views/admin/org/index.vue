@@ -13,18 +13,6 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
-        <template slot="before-columns">
-          <el-table-column label="组织名称" width="150px">
-            <template slot-scope="scope">
-              <span>{{scope.row.name}}</span>
-            </template>
-          </el-table-column>
-          <el-table-column label="组织描述" width="150px">
-            <template slot-scope="scope">
-              <div class="iep-ellipsis" :title="scope.row.intro">{{scope.row.intro}}</div>
-            </template>
-          </el-table-column>
-        </template>
         <el-table-column prop="operation" label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -37,21 +25,21 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-dialog-form ref="addDialogForm" @load-page="loadPage"></add-dialog-form>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <person-dialog-form ref="personDialogForm" @load-page="loadPage"></person-dialog-form>
     <iep-review-confirm is-inverse ref="iepReviewForm" @load-page="loadPage"></iep-review-confirm>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import AddDialogForm from './AddDialogForm'
+import DialogForm from './DialogForm'
 import PersonDialogForm from './PersonDialogForm'
 import { addObj, putObj, delObj, fetchList, reviewById } from '@/api/admin/org'
 import { dictsMap, columnsMap, initForm, initOrgSearchForm } from './options'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
-  components: { AddDialogForm, PersonDialogForm },
+  components: { DialogForm, PersonDialogForm },
   data () {
     return {
       dictsMap,
@@ -85,15 +73,15 @@ export default {
       this._handleGlobalDeleteById(row.orgId, delObj)
     },
     handleEdit (row) {
-      this.$refs['addDialogForm'].form = this.$mergeByFirst(initForm(), row)
-      this.$refs['addDialogForm'].methodName = '修改'
-      this.$refs['addDialogForm'].formRequestFn = putObj
-      this.$refs['addDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].methodName = '修改'
+      this.$refs['DialogForm'].formRequestFn = putObj
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleAdd () {
-      this.$refs['addDialogForm'].methodName = '创建'
-      this.$refs['addDialogForm'].formRequestFn = addObj
-      this.$refs['addDialogForm'].dialogShow = true
+      this.$refs['DialogForm'].methodName = '创建'
+      this.$refs['DialogForm'].formRequestFn = addObj
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleReviewDialog (row) {
       if (row.orgId) {

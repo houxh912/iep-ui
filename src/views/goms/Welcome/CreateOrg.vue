@@ -5,7 +5,7 @@
         <iep-form-item label-name="组织名称" prop="name">
           <el-input v-model="form.name" :maxlength="110"></el-input>
         </iep-form-item>
-        <iep-form-item label-name="组织名称" prop="orgType">
+        <iep-form-item label-name="组织类别" prop="orgType">
           <iep-dict-select v-model="form.orgType" dict-name="GOMS_ORG_TYPE"></iep-dict-select>
         </iep-form-item>
         <iep-form-item label-name="组织Logo" prop="logo">
@@ -51,6 +51,9 @@ export default {
         name: [
           { required: true, validator: validateOrgName, trigger: 'blur' },
           { min: 3, max: 100, message: '组织名称必须超过 3 个字符，但不得超过 100 个字符', trigger: 'blur' },
+        ],
+        orgType: [
+          { required: true, message: '请选择类别', trigger: 'blur' },
         ],
         logo: [
           { required: true, message: '请输入LOGO', trigger: 'blur' },

@@ -19,12 +19,13 @@
               <iep-select v-model="formData.attendeeId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
             </el-form-item>
           </el-col>
-          <el-col :span="12" v-if="formData.projectTypeBefore == false">
+          <el-col :span="12" v-if="formData.projectTypeBefore == false" style="position: relative;">
             <el-form-item label="客户名称：" prop="relatedClient">
               <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
               <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
               </IepCrmsSelect>
             </el-form-item>
+            <iep-button style="position: absolute;right:-100px;top:0;" @click="addClient">新增客户</iep-button>
           </el-col>
           <el-col :span="12">
             <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
@@ -385,6 +386,7 @@ export default {
         index: -1,
       },
       tableData: [],
+      changeTableData: [],
       validate: [
         {
           name: '外包费用',
@@ -417,12 +419,12 @@ export default {
     this.tableData = []
     let obj = Object.assign({}, initBudgetForm(), this.formData.projectBudgetList)
     this.tableData.push(obj)
-
+    this.changeTableData = []
+    this.changeTableData.push(obj)
     if (this.id) {
       getDataDetail(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initFormData(), data.data)
         this.changeData = this.$mergeByFirst(initFormData(), data.data)
-        console.log(this.changeData.projectBudgetList)
         this.tableData = [this.formData.projectBudgetList]
         if (this.formData.projectType == '1') {
           this.formData.projectTypeBefore = true
@@ -465,14 +467,25 @@ export default {
         this.methodName = '修改'
       }
     },
-
-    save (val) {
+    isObjectValueEqual (a, b) {
+      for (let key in a) {
+        if (a[key] != b[key]) {
+          return true
+        }
+      }
+    },
+    async save (val) {
+      await getDataDetail(this.id).then(({ data }) => {
+        const changeData = this.$mergeByFirst(initFormData(), data.data)
+        this.changeTableData = changeData.projectBudgetList
+      })
       this.formData.projectStatus = val
+
       if (val == '3') {
-        if (this.changeData.projectName != this.formData.projectName || this.changeData.projectAmount != this.formData.projectAmount || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId || this.changeData.projectBudgetList != this.tableData[0]) {
+        if (this.changeData.projectName != this.formData.projectName || this.changeData.projectAmount != this.formData.projectAmount || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId || this.isObjectValueEqual(this.changeTableData, this.tableData[0])) {
           this.formData.projectStatus = '2'
         }//立项的项目特定字段改变时项目状态为'2'
-        console.log(this.changeData.projectBudgetList, this.tableData[0], this.changeData.projectBudgetList === this.tableData[0])
+        console.log(this.changeTableData, this.tableData[0], this.isObjectValueEqual(this.changeTableData, this.tableData[0]))
       }
       this.$refs['form'].validate((valid) => {
         if (valid) {
@@ -658,6 +671,9 @@ export default {
       else {
         this.shrink = '展开'
       }
+    },
+    addClient () {
+      this.$router.push('/crms/customer')
     },
   },
   watch: {

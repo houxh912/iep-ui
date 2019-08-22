@@ -13,7 +13,7 @@ export const rules = {
   ],
 }
 
-export const initFormData = () => {
+export const initForm = () => {
   return {
     imageUrl: '',
     title: '',

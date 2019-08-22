@@ -18,6 +18,7 @@
       <div class="agree-wrapper">
         <el-checkbox v-model="checked">
         </el-checkbox>
+        我已查看
         <el-link type="primary" @click="handleOpen('https://www.yuque.com/govmade/dzsv2m/lzdm4e','激励股权认购须知')">激励股权认购须知</el-link>
         <iep-divider type="vertical"></iep-divider>
         <el-link type="primary" @click="handleOpen('https://www.yuque.com/govmade/dzsv2m/toymli','投资风险告知说明')">投资风险告知说明</el-link>

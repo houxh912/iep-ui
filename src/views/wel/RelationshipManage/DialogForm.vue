@@ -4,6 +4,10 @@
       <iep-form-item label-name="自定义分组名" prop="name">
         <el-input v-model="form.name" maxlength="10"></el-input>
       </iep-form-item>
+      <iep-form-item label-name="是否公开" v-if="permissions.relationship_manage_add">
+        <el-switch style="display: block" v-model="form.isOpen" :active-value="2" :inactive-value="1" active-color="#13ce66" inactive-color="#ff4949" active-text="公开" inactive-text="不公开">
+        </el-switch>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm()">确定</iep-button>
@@ -14,6 +18,7 @@
 <script>
 import { initForm, dictsMap, formToDto, rules } from './options'
 import formMixins from '@/mixins/formMixins'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   data () {
@@ -27,6 +32,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
   },
   // created () {
   //   this.loadPage()

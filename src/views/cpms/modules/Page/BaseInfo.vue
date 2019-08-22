@@ -12,6 +12,11 @@
         </el-form-item>
       </el-col>
       <el-col :span='8'>
+        <el-form-item label="业务分类：">
+          <iep-dict-select v-model="form.serviceTypes" dict-name="MODULE_SERVICE_TYPE" multiple disabled></iep-dict-select>
+        </el-form-item>
+      </el-col>
+      <el-col :span='8'>
         <el-form-item label="测试地址：">
           <iep-div-detail :value="form.website"></iep-div-detail>
         </el-form-item>

@@ -56,6 +56,7 @@ const columnsMap = [
 const initForm = () => {
   return {
     name:'',
+    isOpen:false,
   }
 }
 

@@ -127,9 +127,7 @@ export default {
     color: $--menu-color-primary;
   }
 }
-</style>
-<style scoped>
-.menu-wrapper >>> .el-menu {
+.menu-wrapper ::v-deep .el-menu {
   border-right: none;
 }
 </style>

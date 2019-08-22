@@ -1,37 +1,37 @@
 <template>
   <el-form class="login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
     <el-form-item prop="username">
-      <a-input ref="username" v-model="form.username" auto-complete="off" placeholder="请输入用户名" size="large">
+      <a-input ref="username" v-model="form.username" autocomplete="username" placeholder="请输入用户名" size="large">
         <a-icon slot="prefix" type="user" />
         <a-icon v-if="form.username" slot="suffix" type="close-circle" @click="emitEmpty('username')" />
       </a-input>
     </el-form-item>
     <el-form-item prop="password">
-      <a-input ref="password" :type="passwordType" v-model="form.password" auto-complete="false" placeholder="请输入密码" size="large">
+      <a-input ref="password" :type="passwordType" v-model="form.password" autocomplete="new-password" placeholder="请输入密码" size="large">
         <a-icon slot="prefix" type="lock" />
         <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
       </a-input>
     </el-form-item>
     <el-form-item prop="cpassword">
-      <a-input ref="cpassword" :type="passwordType" v-model="form.cpassword" auto-complete="false" placeholder="确认你的密码" size="large">
+      <a-input ref="cpassword" :type="passwordType" v-model="form.cpassword" autocomplete="new-password" placeholder="确认你的密码" size="large">
         <a-icon slot="prefix" type="lock" />
         <a-icon v-if="form.cpassword" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
       </a-input>
     </el-form-item>
     <el-form-item prop="realName">
-      <a-input ref="realName" v-model="form.realName" auto-complete="off" placeholder="请输入真实姓名" size="large">
+      <a-input ref="realName" v-model="form.realName" autocomplete="name" placeholder="请输入真实姓名" size="large">
         <a-icon slot="prefix" type="user" />
         <a-icon v-if="form.realName" slot="suffix" type="close-circle" @click="emitEmpty('realName')" />
       </a-input>
     </el-form-item>
     <el-form-item prop="phone">
-      <a-input ref="phone" v-model="form.phone" auto-complete="off" placeholder="请输入手机号码" size="large">
+      <a-input ref="phone" v-model="form.phone" auto-complete="tel" placeholder="请输入手机号码" size="large">
         <a-icon slot="prefix" type="phone" />
         <a-icon v-if="form.phone" slot="suffix" type="close-circle" @click="emitEmpty('phone')" />
       </a-input>
     </el-form-item>
     <el-form-item prop="code">
-      <a-input-search :maxlength="4" v-model="form.code" auto-complete="off" placeholder="请输入验证码" @search="handleSend" size="large">
+      <a-input-search :maxlength="4" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" @search="handleSend" size="large">
         <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
       </a-input-search>
     </el-form-item>

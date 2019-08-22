@@ -46,6 +46,11 @@
                   <el-option v-for="item in typeOptions" :key="item" :label="item | typeFilter" :value="item"></el-option>
                 </el-select>
               </el-form-item>
+              <el-form-item label="权限类型" prop="permissionType">
+                <el-select class="filter-item" v-model="form.permissionType" :disabled="formEdit" placeholder="请输入权限类型">
+                  <el-option v-for="item in permissionTypeOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+              </el-form-item>
               <el-form-item label="排序" prop="sort">
                 <el-input type="number" v-model="form.sort" :disabled="formEdit" placeholder="请输入排序"></el-input>
               </el-form-item>
@@ -100,6 +105,13 @@ export default {
       formStatus: '',
       showElement: false,
       typeOptions: ['0', '1', '2'],
+      permissionTypeOptions: [{
+        value: 0,
+        label: '基础',
+      }, {
+        value: 1,
+        label: '高级',
+      }],
       methodOptions: ['GET', 'POST', 'PUT', 'DELETE'],
       listQuery: {
         name: undefined,
@@ -129,7 +141,7 @@ export default {
         type: undefined,
         path: undefined,
       },
-      currentId: -1,
+      currentId: 1,
       sys_menu_add: false,
       sys_menu_edit: false,
       sys_menu_del: false,

@@ -3,5 +3,31 @@ const initOrgForm = () => {
     orgId: null,
   }
 }
+const initForm = () => {
+  return {
+    belongUser: '',
+    logo: '',
+    createTime: '',
+    id: null,
+    moduleIds: [],
+    moduleNum: null,
+    orgName: '',
+  }
+}
 
-export { initOrgForm }
+const columnsMap = [
+  {
+    prop: 'orgName',
+    label: '组织名称',
+  },
+  {
+    prop: 'belongUser',
+    label: '所属者',
+  },
+  {
+    prop: 'createTime',
+    label: '创建时间',
+  },
+]
+
+export { initOrgForm, columnsMap, initForm }

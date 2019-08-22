@@ -55,12 +55,6 @@ export default {
       itemList: [],
     }
   },
-  beforeRouteUpdate (to, from, next) {
-    this.$nextTick(() => {
-      this.getImpressionById()
-    })
-    next()
-  },
   methods: {
     handleDetail (row) {
       this.$router.push(`/app/personal_style/${row.visitorId}`)
@@ -90,6 +84,14 @@ export default {
   },
   created () {
     this.getImpressionById()
+  },
+  watch: {
+    userInfo: {
+      handler () {
+        this.getImpressionById()
+      },
+      deep: true,
+    },
   },
 }
 </script>

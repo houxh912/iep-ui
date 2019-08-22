@@ -3,34 +3,23 @@
     <h3 class="title">早晚五分钟，为<span class="akey">智慧</span>加油</h3>
     <headTpl class="head" @load-page="loadPage"></headTpl>
     <div class="content">
-
       <iep-tabs v-model="tabName" :tab-list="tabList" class="content-left">
         <template v-if="tabName ==='allThougth'" v-slot:allThougth>
           <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
           <div style="text-align: center;margin: 20px 0;">
-            <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+            <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
           </div>
         </template>
         <template v-if="tabName ==='followThougth'" v-slot:followThougth>
           <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
           <div style="text-align: center;margin: 20px 0;">
-            <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+            <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
           </div>
         </template>
+        <template v-if="tabName ==='subject'" v-slot:subject>
+          <subjectPage ref="subject"></subjectPage>
+        </template>
       </iep-tabs>
-
-
-      <!-- <div class="content-left">
-        <div class="explain"><h3>说说列表</h3><span>（共{{total}}条说说）</span></div>
-        <div class="list">
-          <div class="material">
-            <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
-          </div>
-        </div>
-        <div style="text-align: center;margin: 20px 0;">
-          <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
-        </div>
-      </div> -->
       <div class="content-right">
         <rightTpl ref="contentRight"></rightTpl>
       </div>
@@ -47,6 +36,7 @@ import headTpl from './library/form'
 import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 import rightTpl from './right'
 import library from './library'
+import subjectPage from './subjectPage/'
 
 const initParams = () => {
   return {
@@ -56,7 +46,7 @@ const initParams = () => {
 }
 
 export default {
-  components: { headTpl, PublishDialog, rightTpl, library },
+  components: { headTpl, PublishDialog, rightTpl, library, subjectPage },
   data () {
     return {
       isShow: true,
@@ -87,6 +77,9 @@ export default {
         }, {
           label: '关注',
           value: 'followThougth',
+        }, {
+          label: '话题',
+          value: 'subject',
         },
       ],
       tabName: 'allThougth',
@@ -127,6 +120,8 @@ export default {
   },
   beforeRouteUpdate (to, from, next) {
     this.$nextTick(() => {
+      this.params = initParams()
+      this.tabName = 'allThougth'
       if (this.$route.query.id) {
         this.params.userId = this.$route.query.id
       } else {

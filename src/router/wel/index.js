@@ -48,7 +48,12 @@ export default [
       {
         path: 'org',
         name: '选择组织',
-        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/org/index'),
+        component: () => import(/* webpackChunkName: "wel" */'@/views/goms/Welcome/index.vue'),
+      },
+      {
+        path: 'finishorg',
+        name: '欢迎组织',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/goms/Welcome/FinishOrg.vue'),
       },
       {
         path: 'desktop',

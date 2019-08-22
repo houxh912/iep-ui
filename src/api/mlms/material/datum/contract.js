@@ -74,3 +74,12 @@ export function getContractPageAll (query) {
     params: query,
   })
 }
+
+// 复核
+export function contractReview (obj) {
+  return request({
+    url: `${prefixUrl}/review`,
+    method: 'post',
+    data: obj,
+  })
+}

@@ -137,7 +137,7 @@ module.exports = {
     loaderOptions: {
       less: {
         modifyVars: {
-          'primary-color': '#24a1f1',
+          'primary-color': '#e05255',
           // 'link-color': '#1DA57A',
           // 'border-radius-base': '2px',
         },
@@ -167,8 +167,8 @@ module.exports = {
     },
   },
   pwa: {
-    name: 'iep-2.0',
-    themeColor: '#24a1f1',
+    name: 'i-can',
+    themeColor: '#e05255',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',

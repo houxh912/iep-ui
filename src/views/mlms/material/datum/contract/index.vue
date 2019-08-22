@@ -38,7 +38,7 @@
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
               <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
-              <iep-button @click="handleToReview(scope.row)" size="small" v-if="scope.row.toReview === 1 && permission_review">复核</iep-button>
+              <iep-button @click="handleToReview(scope.row)" size="small" v-if="scope.row.toReview === 1 && permission_review && lookByMeOnly">复核</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

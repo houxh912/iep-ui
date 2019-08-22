@@ -141,12 +141,10 @@ export default {
     },
 
     changeData (val) {
-      console.log(22)
       this.flag = true
       this.formData.relationList = val.map(m => {
         return { policyId: m.value, title: m.label, policyType: m.mark }
       })
-      console.log('22', this.formData.relationList)
     },
 
     /**
@@ -156,15 +154,12 @@ export default {
       this.loading = true
       const submitForm = JSON.parse(JSON.stringify(this.formData))
       if (!this.flag && this.formData.relationPolicyList && this.formData.relationPolicyList.length > 0) {
-        console.log(22)
         this._processForm(submitForm)
-        console.log(' this.formData.relationList', this.formData.relationList)
       }
 
       this.$refs[formName].validate((valid) => {
         if (valid) {
           const requestFun = this.isEdit ? putPacket : postPacket
-          console.log('succes', this.formData.relationList)
           requestFun(submitForm).then(res => {
             if (res.data.data) {
               this.submitMessage()

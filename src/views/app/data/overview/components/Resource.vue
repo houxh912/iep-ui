@@ -48,7 +48,7 @@ export default {
           count: '--',
         },
         {
-          name: '产品库',
+          name: '模块库',
           prop: 'countProduct',
           count: '--',
         },

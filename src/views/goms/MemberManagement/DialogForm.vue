@@ -78,7 +78,6 @@ export default {
           }
         })
         this.roleList = [
-          { value: 1, label: '超级管理员', disabled: true },
           { value: 2, label: '游客权限', disabled: true },
           { value: 3, label: '组织成员', disabled: true },
           ...roleList,

@@ -7,7 +7,7 @@
           <iep-button v-if="goms_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="roleName">
           </operation-search>
         </template>
       </operation-container>
@@ -31,19 +31,19 @@
 
 <script>
 import {
-  addObj,
+  postOrgObj,
   delObj,
   getObj,
-  fetchList,
+  getOrgRolePage,
   fetchRoleTree,
   putObj,
 } from '@/api/admin/role'
-import { fetchMenuTree } from '@/api/admin/menu'
+import { getModuleMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap, initForm, orgDsType } from '@/views/admin/role/options'
-import DialogForm from '@/views/admin/role/DialogForm'
-import PermissionDialogForm from '@/views/admin/role/PermissionDialogForm'
+import { dictsMap, columnsMap, initForm, orgDsType } from './options'
+import DialogForm from './DialogForm'
+import PermissionDialogForm from './PermissionDialogForm'
 function filterTree (arr, selectedKey) {
   return arr.filter(item => !selectedKey.includes(item.id)).map(item => {
     item = Object.assign({}, item)
@@ -90,11 +90,12 @@ export default {
   },
   methods: {
     async loadPage (param = this.searchForm) {
-      await this.loadTable(param, fetchList)
+      await this.loadTable(param, getOrgRolePage)
     },
     handleAdd () {
       this.$refs['DialogForm'].methodName = '创建'
-      this.$refs['DialogForm'].formRequestFn = addObj
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = postOrgObj
       this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = false
@@ -122,7 +123,7 @@ export default {
       fetchRoleTree(row.roleId)
         .then(response => {
           this.$refs['PermissionDialogForm'].checkedKeys = response.data
-          return fetchMenuTree()
+          return getModuleMenuTree()
         })
         .then(response => {
           const treeData = response.data.data

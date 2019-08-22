@@ -86,17 +86,6 @@
   line-height: 34px;
 }
 
-.el-switch.is-checked .el-switch__core,
-.ant-switch-checked {
-  background-color: #67c23a;
-  border-color: #67c23a;
-}
-
-.el-switch.is-disabled .el-switch__core {
-  background-color: #13ce66 !important;
-  border-color: #13ce66 !important;
-}
-
 .el-radio-button__orig-radio:checked+.el-radio-button__inner {
   color: #BA1B21;
   background: #f8e8e9;

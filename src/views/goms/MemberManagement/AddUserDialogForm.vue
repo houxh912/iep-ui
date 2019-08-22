@@ -8,10 +8,8 @@
             <img :src="img" alt="" />
             <span>右侧选择成员加入</span>
           </span>
-          <!-- <iep-no-data v-if="!selectUserList.length" message=""></iep-no-data> -->
           <a-button class="ant" v-for="user in selectUserList" :key="user.id" @click="handleDelete(user)" block>
             {{user.name}}
-            <!-- <a-icon type="user-delete" /> -->
             <i class="el-icon-close" type="user-delete"></i>
           </a-button>
         </el-scrollbar>
@@ -39,7 +37,7 @@
           <el-table-column prop="operation" label="操作" width="100">
             <template slot-scope="scope">
               <operation-wrapper>
-                <iep-button :disabled="isDisabled(scope.row)" type="text" @click="handleSelect(scope.row)">选择</iep-button>
+                <iep-button :disabled="isDisabled(scope.row)" @click="handleSelect(scope.row)">选择</iep-button>
               </operation-wrapper>
             </template>
           </el-table-column>
@@ -101,9 +99,6 @@ export default {
       const selectUserList = this.selectUserList.filter(user => user.id !== row.id)
       this.selectUserList = selectUserList
     },
-    // handleSelectionChange (val) {
-    //   this.multipleSelection = val.map(m => m.id)
-    // },
     loadPage (param = this.searchForm) {
       this.loadTable({ ...param, ...this.searchForm }, gomsNoJoinUserPage)
     },

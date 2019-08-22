@@ -37,14 +37,15 @@ export default {
   },
 }
 </script>
-<style scoped>
-.avatar-uploader >>> .el-upload {
+<style lang="scss" scoped>
+.avatar-uploader {
+  border: none;
+}
+.avatar-uploader ::v-deep .el-upload {
   cursor: pointer;
   position: relative;
   overflow: hidden;
 }
-</style>
-<style lang="scss" scoped>
 .no-avatar-wrapper {
   display: flex;
   align-items: center;

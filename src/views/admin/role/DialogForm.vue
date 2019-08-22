@@ -11,6 +11,12 @@
       <el-form-item label="角色描述：" prop="roleDesc">
         <el-input v-model="form.roleDesc" placeholder="请填入角色描述"></el-input>
       </el-form-item>
+      <el-form-item label="关联组织：" prop="orgId">
+        <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择关联组织"></iep-select>
+      </el-form-item>
+      <el-form-item label="是否通用：" prop="isCommon">
+        <el-switch v-model="form.isCommon" active-text="是" inactive-text="否" :active-value="1" :inactive-value="2"></el-switch>
+      </el-form-item>
       <el-form-item label="数据权限：" prop="dsType">
         <el-select v-model="form.dsType" placeholder="选择数据权限">
           <el-option v-for="item in dsType" :key="item.value" :label="item.label" :value="+item.value" :disabled="item.disabled"></el-option>

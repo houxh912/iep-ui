@@ -3,9 +3,6 @@
     <basic-container>
       <iep-page-header title="用户管理"></iep-page-header>
       <operation-container>
-        <template slot="left">
-          <iep-button v-if="sys_user_add" type="primary" @click="handleAddUsers()" icon="el-icon-plus" plain>添加用户</iep-button>
-        </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="realName">
           </operation-search>

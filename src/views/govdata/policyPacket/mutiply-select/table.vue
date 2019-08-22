@@ -101,10 +101,11 @@ export default {
       listQuery: {
         current: 1,
         size: pageLimit,
-        // type: 'general',
-        // page: 1,
-        // limit: pageLimit,
         tagKeyWords: [],
+      },
+      pagePolicyOption: {
+        current: 1,
+        size: 10,
       },
       tableLoading: false,
       tableOption: {
@@ -201,10 +202,8 @@ export default {
      */
     getList () {
       this.tableLoading = true
-      this.listQuery.current = 1
-      this.listQuery.size = 10
       this.listQuery.type = this.policytype
-      this.getRequestName(this.listQuery).then(response => {
+      this.getRequestName({ ...this.listQuery, ...this.pagePolicyOption }).then(response => {
         this.tableData = response.data.records
         this.page.total = response.data.total
         this.tableLoading = false
@@ -276,13 +275,14 @@ export default {
       this.$refs.crud.toggleSelection(selectList)
     },
     currentChange (val) {
+      console.log('val', val)
       this.page.currentPage = val
-      this.listQuery.page = val
+      this.pagePolicyOption.current = val
       this.getList()
     },
     sizeChange (val) {
       this.page.pageSize = val
-      this.listQuery.limit = val
+      this.pagePolicyOption.size = val
       this.getList()
     },
   },

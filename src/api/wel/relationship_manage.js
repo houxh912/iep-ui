@@ -80,7 +80,7 @@ export function getMyApprenticeContactList () {
 
 export function getMyAttentionContactList () {
   return request({
-    url: '/cpms/iepuserfollow/address/list',
+    url: '/cpms/iepuserfollow/follow/list',
     method: 'get',
   })
 }//我的关注list

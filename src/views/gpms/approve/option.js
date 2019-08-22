@@ -15,3 +15,9 @@ export const columnsMap = [
     type: 'dict',
   },
 ]
+export const initSearchForm = () => {
+  return {
+    projectName: '',//项目名称
+    projectStatus:'',//审批状态
+  }
+}

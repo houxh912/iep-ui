@@ -7,7 +7,8 @@
           <iep-button type="primary" plain @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" placeHolder="请输入项目名称" prop="projectName">
+          <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称">
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -68,10 +69,11 @@ import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './option.js'
 import { getApprovalList, approvalById } from '@/api/gpms/index'
 import ReviewConfirm from './ReviewConfirm'
+import AdvanceSearch from './AdvanceSearch'
 
 export default {
   mixins: [mixins],
-  components: { ReviewConfirm },
+  components: { ReviewConfirm, AdvanceSearch },
   data () {
     return {
       columnsMap,

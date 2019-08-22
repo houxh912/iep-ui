@@ -16,10 +16,10 @@
       </el-form>
 
       <crud-table :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
-        <el-table-column prop="status" label="发布状态" width="100">
+        <el-table-column prop="effectiveDeadline" label="状态" width="100">
           <template slot-scope="scope">
-            <el-tag type="info" size="small" v-if="scope.row.status === 0">未发布</el-tag>
-            <el-tag size="success" v-if="scope.row.status === 1">已发布</el-tag>
+            <el-tag type="success" size="small" v-if="getLocalData(scope.row.effectiveDeadline)">有效</el-tag>
+            <el-tag type="info" size="small" v-else>已失效</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="operation" align="center" label="操作" width="200">
@@ -115,6 +115,8 @@ export default {
         current: 1,
         size: 10,
       },
+      resdata: {},
+      dataNow: '',
     }
   },
   computed: {
@@ -132,9 +134,25 @@ export default {
     this.information()
   },
   methods: {
+    /**
+     * 获取用户ID 
+     */
     information () {
       this.createUser = this.userInfo.userId
       this.modifiedUser = this.userInfo.userId
+    },
+
+    /**
+     * 判断有效/无效
+     */
+    getLocalData (data) {
+      let dataEffec = new Date(data).getTime()
+      this.Date = new Date().getTime()
+      if (dataEffec > this.Date) {
+        return true
+      } else {
+        return false
+      }
     },
 
     /**
@@ -158,11 +176,6 @@ export default {
       rows.relationPolicyList = relationList.map(m => {
         return { id: m.policyId, name: m.title, mark: m.policyType }
       })
-
-      // rows.relationList = relationList.map(m => m.policyId)
-      // rows.relationPolicyList = relationList.map(m => {
-      //   return { id: m.policyId, name: m.title }
-      // })
       return rows
     },
 

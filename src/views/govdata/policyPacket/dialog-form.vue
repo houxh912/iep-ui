@@ -27,7 +27,12 @@
     <div class="code-container" v-if="!isAdd">
       <div class="label">二维码</div>
       <div class="code-box">
-        <qrcode class="code" :value="url" v-if="url" :options="{width:120}"></qrcode>
+        <div v-if="url">
+          <el-popover placement="top" title="政策红包二维码" width="500" trigger="click">
+            <qrcode class="code" :value="url" :options="{width:450}"></qrcode>
+            <qrcode slot="reference" class="code" :value="url" :options="{width:120}"></qrcode>
+          </el-popover>
+        </div>
         <div class="code-bgc" v-else></div>
       </div>
     </div>
@@ -123,6 +128,7 @@ export default {
   },
   created () {
     this.getCode()
+    
   },
   methods: {
     /**
@@ -216,10 +222,6 @@ export default {
     position: relative;
     .code {
       cursor: pointer;
-      transition: all 0.6s;
-      &:hover {
-        transform: scale(1.4);
-      }
     }
     .code-bgc {
       width: 99%;

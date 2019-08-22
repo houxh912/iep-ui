@@ -32,11 +32,8 @@
         </el-form-item>
       </template>
 
-      <!-- <template slot="searchMenu">
-        <el-button size="small">自定义按钮</el-button>
-      </template> -->
       <template slot="menuLeft">
-        <el-button type="primary" size="small" @click="handleSaveAndExit();">保存</el-button>
+        <el-button type="primary" size="small" @click="handleSaveAndExit();">选中</el-button>
         <span>表格总共已选择：</span>
         <el-tag> {{ selectedObjs.length }} 个 </el-tag>
       </template>
@@ -163,6 +160,7 @@ export default {
   created () {
     this.getList()
     this.loadDict()
+    console.log('selectedList', this.selectedList)
   },
   mounted: function () { },
   methods: {
@@ -272,10 +270,10 @@ export default {
       const selectList = this.selectedIds.map(id => {
         return this.keyObject[id]
       })
+      // console.log('selectList', this.selectedIds)
       this.$refs.crud.toggleSelection(selectList)
     },
     currentChange (val) {
-      console.log('val', val)
       this.page.currentPage = val
       this.pagePolicyOption.current = val
       this.getList()

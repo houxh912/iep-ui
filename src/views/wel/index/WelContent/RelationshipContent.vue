@@ -14,7 +14,7 @@
         </ul>
       </div>
     </div>
-    <div v-if="mark==1">
+    <div v-else-if="mark==1">
       <ul>
         <li class="name" v-for="(item,index) in attentionData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
       </ul>

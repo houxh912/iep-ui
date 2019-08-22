@@ -15,6 +15,30 @@ export function fetchList (query) {
   })
 }
 
+export function getOrgRolePage (query) {
+  return request({
+    url: '/admin/role/org/page',
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getUnionRolePage (query) {
+  return request({
+    url: '/admin/role/union/page',
+    method: 'get',
+    params: query,
+  })
+}
+
+export function postUnionRole (obj) {
+  return request({
+    url: '/admin/role/union/create',
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function deptRoleList () {
   return request({
     url: '/admin/role/list',
@@ -37,18 +61,26 @@ export function addObj (obj) {
   })
 }
 
+export function postOrgObj (obj) {
+  return request({
+    url: '/admin/role/create/org',
+    method: 'post',
+    data: obj,
+  })
+}
+
 export function putObj (obj) {
   return request({
-    url: '/admin/role',
-    method: 'put',
+    url: '/admin/role/update',
+    method: 'post',
     data: obj,
   })
 }
 
 export function delObj (id) {
   return request({
-    url: '/admin/role/' + id,
-    method: 'delete',
+    url: '/admin/role/delete/' + id,
+    method: 'post',
   })
 }
 

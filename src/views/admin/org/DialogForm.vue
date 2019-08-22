@@ -1,14 +1,23 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}组织`" width="50%" @close="loadPage">
-    <el-form :model="form" :rules="rules" ref="form" size="small" label-width="100px">
+    <div class="avatar" style="text-align: center;margin-bottom:20px;">
+      <iep-img-avatar :size="128" :src="form.logo"></iep-img-avatar>
+    </div>
+    <el-form class="form-detail" :model="form" :rules="rules" ref="form" size="small" label-width="100px">
       <iep-form-item label-name="组织名称" prop="name">
         <el-input v-model="form.name"></el-input>
+      </iep-form-item>
+      <iep-form-item label-name="组织类别" prop="orgType">
+        <iep-dict-select v-model="form.orgType" dict-name="GOMS_ORG_TYPE"></iep-dict-select>
       </iep-form-item>
       <iep-form-item label-name="允许加入" prop="isOpen">
         <el-switch v-model="form.isOpen" :active-value="0" :inactive-value="1"></el-switch>
       </iep-form-item>
       <iep-form-item label-name="组织排序" prop="orgSort">
         <iep-input-number v-model="form.orgSort"></iep-input-number>
+      </iep-form-item>
+      <iep-form-item label-name="组织模块" prop="moduleIds">
+        <iep-select v-model="form.moduleIds" autocomplete="off" multiple prefix-url="admin/module" placeholder="请选择关联模块"></iep-select>
       </iep-form-item>
       <iep-form-item label-name="组织描述" prop="intro">
         <iep-input-area v-model="form.intro"></iep-input-area>

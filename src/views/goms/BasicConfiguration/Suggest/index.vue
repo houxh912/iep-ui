@@ -12,8 +12,7 @@
           </el-dropdown>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="theme" advance-search>
-            <advance-search @search-page="searchPage"></advance-search>
+          <operation-search @search-page="searchPage" prop="theme">
           </operation-search>
         </template>
       </operation-container>
@@ -46,12 +45,8 @@
 <script>
 import { getSuggestionReceivedPage, deleteSuggestionById, deleteSuggestionBatch } from '@/api/hrms/suggestion'
 import mixins from '@/mixins/mixins'
-import AdvanceSearch from './AdvanceSearch'
 import { dictsMap, columnsMap } from './options'
 export default {
-  components: {
-    AdvanceSearch,
-  },
   mixins: [mixins],
   data () {
     return {

@@ -30,7 +30,7 @@ export default {
     const log = formatLogList.map((m) => {
       let result = m.template
       result = this.flatMap(result.split('$'), function (part, i) {
-        return [part, <span style="color:#2558a9;">{m.nameList[i]}</span>] // JSX
+        return [part, <span style="color:#2558a9;"> {m.nameList[i]} </span>] // JSX
       })
       result.pop()
       return <p>{result}<span style="float:right;padding-right:20px;font-size:13px;color:#999;">{m.time}</span></p>

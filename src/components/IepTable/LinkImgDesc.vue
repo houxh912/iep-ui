@@ -1,7 +1,8 @@
 <template>
   <div class="wrapper">
     <div class="img-wrapper" @click="handleClick">
-      <iep-img class="img" :src="img" alt=""></iep-img>
+      <i v-if="isIcon" class="img-icon icon iconfont" :class="img"></i>
+      <iep-img v-else class="img" :src="img" alt=""></iep-img>
     </div>
     <div>
       <iep-table-link :isDot="false" @click="handleClick" disabled>{{name}}</iep-table-link>
@@ -13,6 +14,11 @@
 export default {
   name: 'IepTableLinkImgDesc',
   props: ['img', 'desc', 'name'],
+  computed: {
+    isIcon () {
+      return this.img.startsWith('icon-')
+    },
+  },
   methods: {
     handleClick () {
       this.$emit('m-click')
@@ -35,6 +41,9 @@ export default {
   & > .img {
     width: 50px;
     height: 50px;
+  }
+  .img-icon {
+    font-size: 30px;
   }
 }
 .desc {

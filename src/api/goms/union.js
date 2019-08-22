@@ -34,6 +34,14 @@ export function getUnionOrgList () {
   })
 }
 
+export function getUnionOrgPage (query) {
+  return request({
+    url: `${prefixUrl}/org/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
 export function getUnionNoOrgList () {
   return request({
     url: `${prefixUrl}/no_union_org/list`,
@@ -194,3 +202,17 @@ export function postHistory (obj) {
   })
 }
 
+export function putUnionRoleUpdate (obj) {
+  return request({
+    url: `${prefixUrl}/update/user/role`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function getUnionRoleByUserId (id) {
+  return request({
+    url: `${prefixUrl}/user/role/${id}`,
+    method: 'get',
+  })
+}

@@ -105,3 +105,58 @@ export const dealImage = (data, index) => {
   list = data.slice(index).concat(data.slice(0, index))
   return list
 }
+
+// 话题转换 - 只存在一个
+export const transfSubject = (val) => {
+  let obj = getSubject(val)
+  if (obj.type) {
+    return [
+      {
+        type: false,
+        html: val.slice(0, obj.first),
+      }, {
+        type: true,
+        html: `#${obj.data}#`,
+      }, {
+        type: false,
+        html: val.slice(obj.second),
+      },
+    ]
+  } else {
+    return [{
+      type: false,
+      html: val,
+    }]
+  }
+}
+
+// 人名转换 - 可存在多个
+export const transfPerson = (val) => {
+  if (getName(val).type) {
+    let list = []
+    let code = 0
+    for (let item of getName(val).list) {
+      list.push({
+        type: false,
+        html: val.slice(code, item.first),
+      })
+      list.push({
+        type: true,
+        html: val.slice(item.first, item.second),
+      })
+      code = item.second
+    }
+    list.push({
+      type: false,
+      html: val.slice(code),
+    })
+    return list
+  } else {
+    return [
+      {
+        type: false,
+        html: val,
+      },
+    ]
+  }
+}

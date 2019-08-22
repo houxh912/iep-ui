@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { getMostThoughts } from '@/api/cpms/thoughts'
+import { getMostThoughtsPage } from '@/api/cpms/thoughts'
 export default {
   data () {
     return {
@@ -17,8 +17,8 @@ export default {
       this.$router.push({ path: '/app/more_thoughts', query: {id: row.id} })
     },
     loadData () {
-      getMostThoughts().then(({ data }) => {
-        this.list = data.data.slice(0, 10)
+      getMostThoughtsPage().then(({ data }) => {
+        this.list = data.data.records
       })
     },
   },

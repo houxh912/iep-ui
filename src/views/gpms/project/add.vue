@@ -25,7 +25,7 @@
               <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
               </IepCrmsSelect>
             </el-form-item>
-            <iep-button style="position: absolute;right:-100px;top:0;" @click="addClient">新增客户</iep-button>
+            <!-- <iep-button style="position: absolute;right:-100px;top:0;" @click="addClient">新增客户</iep-button> -->
           </el-col>
           <el-col :span="12">
             <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">

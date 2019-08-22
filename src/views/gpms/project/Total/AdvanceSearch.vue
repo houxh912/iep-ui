@@ -65,9 +65,7 @@ export default {
     },
     clearSearchParam () {
       this.form = initSearchForm()
-    },
-    handleSelect (item) {
-      console.log(item)
+      this.$emit('clear-search-param')
     },
   },
 }

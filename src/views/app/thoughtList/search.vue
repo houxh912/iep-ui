@@ -4,7 +4,7 @@
       <operation-search @search-page="searchPage" :paramForm="paramForm" prop="content" advance-search>
         <el-form :model="paramForm" label-width="100px" size="small" class="form-detail">
           <el-form-item label="作者组织：">
-            <iep-select v-model="paramForm.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择作者组织" multiple></iep-select>
+            <iep-select v-model="paramForm.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择作者组织"></iep-select>
           </el-form-item>
           <el-form-item label="起始时间：">
             <el-date-picker v-model="paramForm.beginTime" value-format="yyyy-MM-dd HH:mm:ss" type="date" placeholder="选择日期时间"></el-date-picker>
@@ -23,23 +23,28 @@
 </template>
 
 <script>
+const initParmas = () => {
+  return {
+    content: '',
+    orgId: '',
+    beginTime: '',
+    endTime: '',
+  }
+}
 
 export default {
   data () {
     return {
-      paramForm: {
-        content: '',
-        orgId: '',
-        beginTime: '',
-        endTime: '',
-      },
+      paramForm: initParmas(),
     }
   },
   methods: {
     searchPage (val) {
       this.$emit('load-page', val)
     },
-    clearSearchParam () {},
+    clearSearchParam () {
+      this.paramForm = initParmas()
+    },
   },
 }
 </script>

@@ -2,12 +2,12 @@
   <div class="footer-box">
     <div class="context">
       <div class="text">
-        <a href="javascript:void(0);" @click="handleOpen1()">常见问题</a>
+        <!-- <a href="javascript:void(0);" @click="handleOpen1()">常见问题</a>
         <a href="javascript:void(0);" @click="handleOpen2()">操作手册</a>
         <a href="javascript:void(0);" @click="getTag()">标签库</a>
         <a href="javascript:void(0);">知识图谱</a>
         <a href="javascript:void(0);" v-show="false" @click="handleOpen5()">国脉贝制度</a>
-        <a href="javascript:void(0);"> 新人培训</a>
+        <a href="javascript:void(0);"> 新人培训</a> -->
         <span> Copyright 2014 - 2019 技术支持：<a class="position" href="javascript:void(0);"> 国脉数据智能门户系统DIPS</a></span>
         <span class="number">浙ICP备13016715号-4</span>
       </div>

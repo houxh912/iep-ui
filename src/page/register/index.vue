@@ -1,5 +1,5 @@
 <template>
-  <container title="欢迎注册">
+  <container title="探索智慧之旅">
     <template v-slot:tab-panel>
       <user-login v-if="activeName === 'user'"></user-login>
     </template>

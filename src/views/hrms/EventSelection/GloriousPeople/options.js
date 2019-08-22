@@ -9,7 +9,7 @@ const dictsMap = {
 const initForm = () => {
   return {
     selectionName:'',//名称
-    targetId:0,//指标
+    targetId:'',//指标
     priority:'',//优先级
     status:'',//状态
     describes:'',//描述

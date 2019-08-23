@@ -10,7 +10,7 @@
               <el-dropdown-item @click.native="handleDeleteByIds" v-if="!lookByMeOnly || permission_edit_del">删除</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
-          <el-checkbox class="see-more" v-model="lookByMeOnly" @change="changeGetWay">查看全部</el-checkbox>
+          <el-checkbox class="see-more" v-model="lookByMeOnly" @change="changeGetWay" v-if="permission_review">查看全部</el-checkbox>
         </template>
         <template slot="right">
           <searchForm @searchPage="searchPage"></searchForm>
@@ -33,11 +33,12 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="150" v-if="!lookByMeOnly || permission_edit_del">
+        <el-table-column prop="operation" label="操作" width="200" v-if="!lookByMeOnly || permission_edit_del">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleEdit(scope.row)" size="small" type="warning" plain>编辑</iep-button>
               <iep-button @click="handleDeleteById(scope.row)" size="small">删除</iep-button>
+              <iep-button @click="handleToReview(scope.row)" size="small" v-if="scope.row.toReview === 1 && permission_review && lookByMeOnly">复核</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -51,7 +52,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
-import { getTableData, getTableDataOnlyMe, createData, deleteData } from '@/api/mlms/material/datum/contract'
+import { getTableData, getTableDataOnlyMe, createData, deleteData, contractReview } from '@/api/mlms/material/datum/contract'
 import MainDialog from './mainDialog'
 import detailDialog from './detail'
 import { mapGetters } from 'vuex'
@@ -70,6 +71,7 @@ export default {
       columnsMap: tableOption,
       getTableDataFn: getTableDataOnlyMe,
       permission_edit_del: false,
+      permission_review: false,
       lookByMeOnly: false,
     }
   },
@@ -116,10 +118,24 @@ export default {
     handleTagDetail (val) {
       this.$openTagDetail(val)
     },
+    // 复核
+    handleToReview (row) {
+      this.$confirm('是否确认复核此条合同?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        contractReview([row.id]).then(({ data }) => {
+          console.log('data: ', data)
+        })
+        this.loadPage()
+      })
+    },
   },
   created () {
     this.loadPage()
     this.permission_edit_del = this.permissions['mlms_datum_ht_edit_del']
+    this.permission_review = this.permissions['mlms_datum_ht_review']
   },
 }
 </script>

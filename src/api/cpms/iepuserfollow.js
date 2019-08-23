@@ -16,3 +16,12 @@ export function unfollowById (id) {
     method: 'post',
   })
 }
+
+// 分页查询关注的用户
+export function getFollowPage (params) {
+  return request({
+    url: `${prefixUrl}/page`,
+    method: 'get',
+    params: params,
+  })
+}

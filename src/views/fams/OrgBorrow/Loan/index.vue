@@ -68,6 +68,7 @@ export default {
     handleDetail (row) {
       this.$router.push({
         path: formatBorrow(row),
+        query: { repayment: 'true' },
       })
     },
     loadPage (param = this.searchForm) {

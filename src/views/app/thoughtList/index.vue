@@ -3,7 +3,7 @@
     <h3 class="title">早晚五分钟，为<span class="akey">智慧</span>加油</h3>
     <headTpl class="head" @load-page="loadPage"></headTpl>
     <div class="content">
-      <iep-tabs v-model="tabName" :tab-list="tabList" class="content-left">
+      <tabsTpl v-model="tabName" :tab-list="tabList" class="content-left">
         <template v-if="tabName ==='allThougth'" v-slot:allThougth>
           <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
           <div style="text-align: center;margin: 20px 0;">
@@ -19,24 +19,27 @@
         <template v-if="tabName ==='subject'" v-slot:subject>
           <subjectPage ref="subject"></subjectPage>
         </template>
-      </iep-tabs>
+        <!-- 搜索 -->
+        <template v-slot:search>
+          <searchTpl @load-page="searchPage" ref="search" v-if="isSearchShow"></searchTpl>
+        </template>
+      </tabsTpl>
       <div class="content-right">
         <rightTpl ref="contentRight"></rightTpl>
       </div>
     </div>
     
-    <!-- 发表说说 -->
-    <publish-dialog ref="publish" @load-page="searchPage"></publish-dialog>
   </iep-app-layout>
 </template>
 
 <script>
 import { geTallPage, getFollowPage } from '@/api/cpms/thoughts'
 import headTpl from './library/form'
-import PublishDialog from '@/views/app/components/ThoughtsDialog/Publish'
 import rightTpl from './right'
 import library from './library'
 import subjectPage from './subjectPage/'
+import tabsTpl from './tabsTpl'
+import searchTpl from './search'
 
 const initParams = () => {
   return {
@@ -46,7 +49,7 @@ const initParams = () => {
 }
 
 export default {
-  components: { headTpl, PublishDialog, rightTpl, library, subjectPage },
+  components: { headTpl, rightTpl, library, subjectPage, tabsTpl, searchTpl },
   data () {
     return {
       isShow: true,
@@ -83,17 +86,12 @@ export default {
         },
       ],
       tabName: 'allThougth',
+      isSearchShow: true,
     }
   },
   methods: {
     currentChange (val) {
       this.params.current = val
-      this.loadPage()
-    },
-    searchPage (params) {
-      if (params) {
-        this.paramData = Object({}, this.paramData, params)
-      }
       this.loadPage()
     },
     // 我要发布
@@ -111,16 +109,25 @@ export default {
       } else {
         fn = getFollowPage
       }
-      fn(this.params).then(({ data }) => {
+      fn(Object.assign({}, this.params, this.paramData)).then(({ data }) => {
         this.dataList = data.data.records
         this.total = data.data.total
         this.activeIndex = -1
       })
     },
+    // 搜素
+    searchPage (params) {
+      if (params) {
+        this.paramData = Object.assign({}, this.paramData, params)
+      }
+      this.loadPage()
+    },
   },
   beforeRouteUpdate (to, from, next) {
     this.$nextTick(() => {
       this.params = initParams()
+      this.paramData = {}
+      this.$refs['search'].clearSearchParam()
       this.tabName = 'allThougth'
       if (this.$route.query.id) {
         this.params.userId = this.$route.query.id
@@ -139,10 +146,19 @@ export default {
   },
   watch: {
     tabName (newVal) {
-      if (newVal === 'allThougth' || newVal === 'followThougth') {
+      let loadPage = () => {
         this.dataList = []
         this.params = initParams()
         this.loadPage()
+      }
+      if (newVal === 'allThougth') {
+        loadPage()
+        this.isSearchShow = true
+      } else if (newVal === 'followThougth') {
+        loadPage()
+        this.isSearchShow = false
+      } else if (newVal === 'subject') {
+        this.isSearchShow = false
       }
     },
   },

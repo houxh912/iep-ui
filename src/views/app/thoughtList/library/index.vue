@@ -9,8 +9,8 @@
           <div class="title">
             <div class="name" @click="handleDetail(item.userId)">{{item.userName}}</div>
             <div class="date">F{{item.thoughtsId}}</div>
-            <!-- <div class="date">{{getNumber(index)}}</div>原来的假楼层 -->
             <div class="date"><i class="icon-shijian"></i> {{item.createTime}}</div>
+            <div class="top" v-if="item.isTop === 2">置顶</div>
           </div>
           <div class="right" v-if="userInfo.userId !== item.userId">
             <iep-button class="add" v-if="item.isFollow === 0" @click="handleFollow(item)"><i class="icon-xinzeng"></i> 关注</iep-button>
@@ -269,6 +269,17 @@ export default {
           &:nth-child(2) {
             color: #999;
           }
+        }
+        .top {
+          border: 1px solid #BA1B21;
+          color: #BA1B21;
+          border-radius: 3px;
+          font-size: 12px;
+          padding: 0 5px;
+          margin-left: 15px;
+          margin-top: 5px;
+          height: 18px;
+          line-height: 18px;
         }
       }
       .right {

@@ -7,7 +7,7 @@
             <!-- <div @click="handleDetail(scope.row)" class="detail">{{scope.row.title}}</div> -->
             <div class="row-tpl" @click="handleDetail(scope.row)">
               <div class="custom-name">{{scope.row.title}}</div>
-              <el-col class="custom-tags" v-show="isShow">
+              <el-col class="custom-tags">
                 <el-tag type="info" size="mini" v-for="(item, index) in scope.row.tagKeyWords" :key="index" @click="handleTagDetail(item)">{{item}}</el-tag>
               </el-col>
             </div>

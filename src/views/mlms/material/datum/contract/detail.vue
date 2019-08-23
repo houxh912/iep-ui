@@ -35,7 +35,7 @@
       </el-col>
     </el-row>
 
-    <el-row class="clause">
+    <el-row class="clause record">
       <el-col class="name">合同/项目款项</el-col>
       <el-row class="list">
         <el-col class="title">关联项目：</el-col>
@@ -84,6 +84,15 @@
           </el-table>
         </el-col>
       </el-row>
+    </el-row>
+
+    <el-row class="clause">
+      <el-col class="name">流转记录</el-col>
+      <div class="record-list">
+        <el-row class="record-item" v-for="(record, index) in formData.recordList" :key="index">
+          {{record.createTime}} {{record.remarks}}
+        </el-row>
+      </div>
     </el-row>
 
   </basic-container>
@@ -245,5 +254,15 @@ export default {
       }
     }
   }
+  .record-list {
+    padding: 0;
+    padding-left: 20px;
+    .record-item {
+      margin-bottom: 5px;
+    }
+  }
+}
+.record {
+  border-bottom: 1px solid #ddd;
 }
 </style>

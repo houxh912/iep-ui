@@ -10,6 +10,11 @@ export default [
         component: () => import('@/views/conm/ColumnManagement/index'),
       },
       {
+        path: 'attribute_management/:id',
+        name: '推荐位管理',
+        component: () => import('@/views/conm/AttributeManagement/index'),
+      },
+      {
         path: 'document_management/:id',
         name: '文档管理',
         component: () => import('@/views/conm/DocumentManagement/index'),

@@ -15,7 +15,8 @@
       </div>
     </div>
     <div v-else-if="mark==1">
-      <ul>
+      <iep-no-data v-if="!attentionData.length" message="暂无内容"></iep-no-data>
+      <ul v-else class="relationship-item">
         <li class="name" v-for="(item,index) in attentionData" :key="index" @click="gotoDetails(item.id)">{{item.name}}</li>
       </ul>
     </div>

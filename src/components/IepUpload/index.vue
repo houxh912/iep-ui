@@ -1,5 +1,5 @@
 <template>
-  <el-upload :action="action" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :on-success="handleSuccess" :on-error="handleError" :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :drag="drag" v-bind="$attrs" v-on="$listeners">
+  <el-upload :action="action" :headers="headers" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="handleSuccess" :on-error="handleError" :limit="limit" :on-exceed="handleExceed" :file-list="fileList" :drag="drag" :before-upload="onBeforeUpload" v-bind="$attrs" v-on="$listeners">
     <iep-button v-if="!drag" type="primary" plain>点击上传</iep-button>
     <template v-else>
       <i class="el-icon-upload"></i>
@@ -52,6 +52,13 @@ export default {
     },
   },
   methods: {
+    onBeforeUpload (file) {
+      const isLt1M = file.size / 1024 / 1024 < 100
+      if (!isLt1M) {
+        this.$message.error('上传文件大小不能超过 100MB!')
+      }
+      return isLt1M
+    },
     handleError () {
       this.$message.error('错了哦，请检查文件服务器')
     },
@@ -89,9 +96,6 @@ export default {
     },
     handleExceed (files, fileList) {
       this.$message.warning(`当前限制选择 ${this.limit} 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
-    },
-    beforeRemove (file) {
-      return this.$confirm(`确定移除 ${file.name}？`)
     },
   },
 }

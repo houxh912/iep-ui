@@ -77,7 +77,7 @@ export default {
       if (this.id) {
         return '修改'
       } else {
-        return '发布'
+        return '保存为草稿'
       }
     },
   },

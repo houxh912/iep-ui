@@ -6,6 +6,9 @@
         <template v-if="activeTab ==='UnionModule'" v-slot:UnionModule>
           <union-module v-loading="activeTab !=='UnionModule'"></union-module>
         </template>
+        <template v-if="activeTab ==='ModuleManager'" v-slot:ModuleManager>
+          <module-manager v-loading="activeTab !=='ModuleManager'"></module-manager>
+        </template>
         <template v-if="activeTab ==='UnionMembers'" v-slot:UnionMembers>
           <union-members v-loading="activeTab !=='UnionMembers'"></union-members>
         </template>
@@ -20,8 +23,9 @@
 import UnionModule from './UnionModule/'
 import UnionSettings from './UnionSettings/'
 import UnionMembers from './UnionMembers/'
+import ModuleManager from './ModuleManager/'
 export default {
-  components: { UnionModule, UnionSettings, UnionMembers },
+  components: { UnionModule, UnionSettings, UnionMembers, ModuleManager },
   data () {
     return {
       tabList: [
@@ -30,7 +34,11 @@ export default {
           value: 'UnionModule',
         },
         {
-          label: '名下组织',
+          label: '模块管理',
+          value: 'ModuleManager',
+        },
+        {
+          label: '联盟组织',
           value: 'UnionMembers',
         },
         {

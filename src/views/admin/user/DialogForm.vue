@@ -1,6 +1,9 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="`${methodName}信息`" width="500px" @close="loadPage" @slot-mounted="load">
-    <el-form :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
+    <div class="avatar" style="text-align: center;margin-bottom:20px;">
+      <iep-img-avatar :size="128" :src="form.avatar"></iep-img-avatar>
+    </div>
+    <el-form class="form-detail" :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
       <el-form-item label="用户名：" prop="username">
         <el-input v-model="form.username" disabled></el-input>
       </el-form-item>
@@ -8,7 +11,7 @@
         <el-input v-model="form.realName" disabled></el-input>
       </el-form-item>
       <el-form-item label="配置角色：" prop="role">
-        <el-select v-model="form.roleList" multiple placeholder="请选择">
+        <el-select v-model="form.roleList" filterable multiple placeholder="请选择">
           <el-option v-for="item in roleList" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
           </el-option>
         </el-select>

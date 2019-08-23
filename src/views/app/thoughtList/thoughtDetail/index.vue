@@ -45,7 +45,7 @@ export default {
       this.loadData(this.$route.params.id)
     },
     handleBack () {
-      this.$router.push('/app/more_thoughts')
+      this.$router.go(-1)
     },
   },
   created () {

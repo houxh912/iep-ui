@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { getMostThoughtsWeekly } from '@/api/cpms/thoughts'
+import { getMostThoughtsWeeklyPage } from '@/api/cpms/thoughts'
 export default {
   data () {
     return {
@@ -17,8 +17,8 @@ export default {
       this.$router.push({ path: '/app/more_thoughts', query: {id: row.id} })
     },
     loadData () {
-      getMostThoughtsWeekly().then(({ data }) => {
-        this.list = data.data.slice(0, 10)
+      getMostThoughtsWeeklyPage().then(({ data }) => {
+        this.list = data.data.records
       })
     },
   },

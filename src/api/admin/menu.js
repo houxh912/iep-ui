@@ -44,3 +44,16 @@ export function putObj (obj) {
     data: obj,
   })
 }
+
+export function getModuleMenuTree () {
+  return request({
+    url: '/admin/menu/module/menu/tree',
+    method: 'get',
+  })
+}
+export function getUnionModuleMenuTree () {
+  return request({
+    url: '/admin/menu/module/union/menu/tree',
+    method: 'get',
+  })
+}

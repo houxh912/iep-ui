@@ -88,7 +88,7 @@ export default {
       await this.loadTable(param, fetchList)
     },
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.id, delObj)
+      this._handleGlobalDeleteById(row, delObj)
     },
   },
 }

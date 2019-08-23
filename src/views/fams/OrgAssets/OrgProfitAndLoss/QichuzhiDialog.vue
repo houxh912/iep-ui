@@ -1,9 +1,11 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="期初值设置" width="700px" @slot-mounted="loadPage" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="期初值设置" width="800px" @slot-mounted="loadPage" @close="close">
     <el-table :data="tableData" style="width: 100%" border>
       <el-table-column type="index" label="月份" width="180">
       </el-table-column>
       <el-table-column prop="projectIncome" label="项目收入" width="180">
+      </el-table-column>
+      <el-table-column prop="internalRevenue" label="内部收入" width="180">
       </el-table-column>
       <el-table-column prop="cost" label="费用">
       </el-table-column>

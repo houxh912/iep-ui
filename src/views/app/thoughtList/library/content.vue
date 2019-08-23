@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { getSubject, getName, dealImage } from './util'
+import { transfSubject, transfPerson, dealImage } from './util'
 export default {
   props: {
     data: {
@@ -34,6 +34,8 @@ export default {
   data () {
     return {
       dealImage,
+      transfSubject,
+      transfPerson,
     }
   },
   methods: {
@@ -58,59 +60,6 @@ export default {
       }
       this.$message.error('抱歉，此话题未关联其他说说')
     },
-    // 话题转换 - 只存在一个
-    transfSubject (val) {
-      let obj = getSubject(val)
-      if (obj.type) {
-        return [
-          {
-            type: false,
-            html: val.slice(0, obj.first),
-          }, {
-            type: true,
-            html: `#${obj.data}#`,
-          }, {
-            type: false,
-            html: val.slice(obj.second),
-          },
-        ]
-      } else {
-        return [{
-          type: false,
-          html: val,
-        }]
-      }
-    },
-    // 人名转换 - 可存在多个
-    transfPerson (val) {
-      if (getName(val).type) {
-        let list = []
-        let code = 0
-        for (let item of getName(val).list) {
-          list.push({
-            type: false,
-            html: val.slice(code, item.first),
-          })
-          list.push({
-            type: true,
-            html: val.slice(item.first, item.second),
-          })
-          code = item.second
-        }
-        list.push({
-          type: false,
-          html: val.slice(code),
-        })
-        return list
-      } else {
-        return [
-          {
-            type: false,
-            html: val,
-          },
-        ]
-      }
-    },
   },
 }
 </script>
@@ -118,6 +67,9 @@ export default {
 <style lang="scss" scoped>
 .content-tpl {
   .content {
+    span {
+      white-space: pre-wrap;
+    }
     .subject {
       color: #cb3737;
       cursor: pointer;

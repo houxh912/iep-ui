@@ -10,6 +10,22 @@ export function getRelationshipManagePage (query) {
   })
 }
 
+//我关注的分页
+export function getMyAttentionPage (query) {
+  return request({
+    url: '/cpms/iepuserfollow/address/page',
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getRelationshipAddList () {
+  return request({
+    url: `${prefixUrl}/contacts/custom/group/list`,
+    method: 'get',
+  })
+}
+
 export function getRelationshipList () {
   return request({
     url: `${prefixUrl}/contacts/custom/contacts/list`,
@@ -17,12 +33,12 @@ export function getRelationshipList () {
   })
 }
 
-export function getCustomList () {
-  return request({
-    url: `${prefixUrl}/contacts/custom/list`,
-    method: 'get',
-  })
-}
+// export function getCustomList () {
+//   return request({
+//     url: `${prefixUrl}/contacts/custom/list`,
+//     method: 'get',
+//   })
+// }
 
 export function getTypeCountMap (query) {
   return request({
@@ -61,6 +77,13 @@ export function getMyApprenticeContactList () {
     method: 'get',
   })
 }
+
+export function getMyAttentionContactList () {
+  return request({
+    url: '/cpms/iepuserfollow/follow/list',
+    method: 'get',
+  })
+}//我的关注list
 
 export function getRelationshipManageById (id) {
   return request({

@@ -15,23 +15,13 @@ import conmRouter from './conm/'
 import exceptionRouter from './exception/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
-
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
+  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => err)
+}
 const Router = new VueRouter({
   mode: 'history',
-  scrollBehavior (to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
-      if (from.meta.keepAlive) {
-        from.meta.savedPosition = document.body.scrollTop
-      }
-      const scrollPosition = {
-        x: 0, y: from.meta.savedPosition || 0,
-      }
-      document.documentElement.scrollTop = scrollPosition.y
-      return scrollPosition
-    }
-  },
   routes: [].concat([]),
 })
 AvueRouter.install(Router, Store)

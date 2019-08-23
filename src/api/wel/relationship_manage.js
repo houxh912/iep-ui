@@ -33,12 +33,12 @@ export function getRelationshipList () {
   })
 }
 
-export function getCustomList () {
-  return request({
-    url: `${prefixUrl}/contacts/custom/list`,
-    method: 'get',
-  })
-}
+// export function getCustomList () {
+//   return request({
+//     url: `${prefixUrl}/contacts/custom/list`,
+//     method: 'get',
+//   })
+// }
 
 export function getTypeCountMap (query) {
   return request({
@@ -80,7 +80,7 @@ export function getMyApprenticeContactList () {
 
 export function getMyAttentionContactList () {
   return request({
-    url: '/cpms/iepuserfollow/address/list',
+    url: '/cpms/iepuserfollow/follow/list',
     method: 'get',
   })
 }//我的关注list

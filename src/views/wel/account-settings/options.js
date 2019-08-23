@@ -1,10 +1,10 @@
-const initPasswordForm = (username = null) => {
+const initForm = (username = null) => {
   return {
     username,
     password: '',
-    newpassword1: '',
-    newpassword2: '',
+    newPassword1: '',
+    newPassword2: '',
   }
 }
 
-export { initPasswordForm }
+export { initForm }

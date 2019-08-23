@@ -4,7 +4,7 @@
       <iep-page-header title="角色管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button v-if="goms_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
+          <iep-button v-if="goms_union_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="roleName"></operation-search>
@@ -26,9 +26,9 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
-              <iep-button v-if="goms_role_edit" @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="goms_role_del" @click="handleDeleteById(scope.row)">删除</iep-button>
-              <iep-button @click="handlePermission(scope.row, scope.index)" v-if="goms_role_perm">权限</iep-button>
+              <iep-button v-if="goms_union_role_edit" @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="goms_union_role_del" @click="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button @click="handlePermission(scope.row, scope.index)" v-if="goms_union_role_perm">权限</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -82,18 +82,18 @@ export default {
       },
       form: {},
       rolesOptions: undefined,
-      goms_role_add: false,
-      goms_role_edit: false,
-      goms_role_del: false,
-      goms_role_perm: false,
+      goms_union_role_add: false,
+      goms_union_role_edit: false,
+      goms_union_role_del: false,
+      goms_union_role_perm: false,
     }
   },
   created () {
     this.loadPage()
-    this.goms_role_add = this.permissions['goms_role_add']
-    this.goms_role_edit = this.permissions['goms_role_edit']
-    this.goms_role_del = this.permissions['goms_role_del']
-    this.goms_role_perm = this.permissions['goms_role_perm']
+    this.goms_union_role_add = this.permissions['goms_union_role_add']
+    this.goms_union_role_edit = this.permissions['goms_union_role_edit']
+    this.goms_union_role_del = this.permissions['goms_union_role_del']
+    this.goms_union_role_perm = this.permissions['goms_union_role_perm']
   },
   computed: {
     ...mapGetters(['permissions']),

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { getRelationshipList, getCustomList } from '@/api/wel/relationship_manage'
+import { getRelationshipList } from '@/api/wel/relationship_manage'
 import RelationshipNavTab from './RelationshipNavTab'
 import RelationshipContent from './RelationshipContent'
 export default {
@@ -35,16 +35,15 @@ export default {
   methods: {
     tab (val) {
       if (val > 1) {
-        this.contentData = this.content[val - 1].userList
+        this.contentData = this.content[val - 2].userList
       }
       this.mark = val
     },
     loadTypeList () {
       getRelationshipList().then(({ data }) => {
-        this.relationship = data.data.splice(0, 3)
-      })
-      getCustomList().then(({ data }) => {
-        this.content = data.data
+        this.content = data.data.splice(0, 3)
+        this.relationship = this.content
+        console.log(this.content)
       })
 
     },

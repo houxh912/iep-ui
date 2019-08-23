@@ -10,15 +10,14 @@
         联系电话: <span class="num">0580-2299669</span> -->
       </template>
     </top-wrapper>
-    <!-- <div class="bg-container-wrapper">
+    <div class="bg-container-wrapper">
       <div class="login-img-wrapper">
-        <img v-show="currentId === 0" class="animated fadeIn" src="/img/bg/wh1.webp" alt="">
-        <img v-show="currentId === 1" class="animated fadeIn" src="/img/bg/wh2.webp" alt="">
-        <img v-show="currentId === 2" class="animated fadeIn" src="/img/bg/wh3.webp" alt="">
+        <div class="title">以人为本 数据赋能 智慧组织新物种</div>
+        <img class="animated fadeIn" src="/img/bg/login-left.webp" alt="">
       </div>
       <div></div>
       <div></div>
-    </div> -->
+    </div>
     <div class="login-container-wrapper">
       <div></div>
       <div></div>
@@ -102,7 +101,12 @@ export default {
   height: calc(100vh - 120px);
   .login-img-wrapper {
     margin-left: 30px;
-    width: 500px;
+    width: 750px;
+    .title {
+      color: $--menu-color-primary;
+      text-align: center;
+      font-size: 30px;
+    }
     img {
       width: 100%;
       height: 100%;

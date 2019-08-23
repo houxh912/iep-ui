@@ -4,13 +4,65 @@
       <el-input v-model="formData.description" maxlength="255" :readonly="isReadonly" clearable></el-input>
     </el-form-item>
 
-    <el-form-item label="关联政策" prop="relationList">
-      <mutiply-select class="mutiplySelect" v-model="formData.relationList" :selectObjs="formData.relationPolicyList" :options="政策options" :otherProps="orgOption" v-if="!isReadonly" @changeSelectedObjs="changeData"></mutiply-select>
-      <el-select style="width: 100%" v-model="formData.relationList" multiple disabled v-else>
-        <el-option v-for="item in formData.relationPolicyList" :key="item.id" :label="item.name" :value="item.id">
-        </el-option>
-      </el-select>
+    <el-form-item label="关联政策">
+      <div class="policyList">
+        <el-tag type="info" v-for="item in formData.relationList" :key="item.value" :label="item.label" closable :disable-transitions="false" @close="handleClose(item)">{{item.title}}</el-tag>
+        <el-button class="open" type="primary" icon="el-icon-edit" circle @click="getPolicyList"></el-button>
+      </div>
+
     </el-form-item>
+
+    <div class="policy-container" v-if="show">
+      <collapse-form ref="collapseForm" @clear="formInline=initFormInline()" @search="search()">
+        <template slot="search-header">
+          <el-form-item label="政策标题:">
+            <el-input placeholder="请输入政策标题" v-model.trim="formInline.title" clearable></el-input>
+          </el-form-item>
+        </template>
+        <template slot="search-body">
+          <el-form-item label="发布时间">
+            <el-date-picker v-model="formInline.startTime" type="date" value-format="yyyy-MM-dd" placeholder="开始日期" class="block" clearable></el-date-picker> —
+            <el-date-picker v-model="formInline.endTime" type="date" value-format="yyyy-MM-dd" placeholder="结束日期" class="block" clearable></el-date-picker>
+          </el-form-item>
+          <el-form-item label="政策类型" class="selectinput">
+            <el-select v-model="policytype" placeholder="请选择">
+              <el-option v-for="item in policyTypeList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="主题" class="selectinput">
+            <el-select v-model="formInline.theme" placeholder="请选择" clearable>
+              <el-option v-for="item in themeList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="适用行业" class="selectinput">
+            <el-select v-model="formInline.industry" placeholder="请选择" clearable>
+              <el-option v-for="item in industryList" :key="item.value" :label="item.label" :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="地域" class="selectinput">
+            <el-cascader :options="options" :props="regionProps" v-model="formInline.regionList" ref="region" clearable change-on-select @visible-change="handleVisibleChange($event)"></el-cascader>
+          </el-form-item>
+        </template>
+      </collapse-form>
+
+      <div class="tip">
+        已选择<span>{{selectValue}}</span>条数据
+        <el-button @click="closePolicyList">选中</el-button>
+      </div>
+
+      <el-table ref="multipleTable" :data="tableData" :row-key="getRowKeys" tooltip-effect="dark" style="width: 100%" @selection-change="handleChange">
+        <el-table-column type="selection" :reserve-selection="true" width="55"></el-table-column>
+        <el-table-column prop="id" label="政策id" align="left" width="100"></el-table-column>
+        <el-table-column prop="title" label="政策名称" align="left"></el-table-column>
+        <el-table-column prop="mark" label="政策类型" align="center" width="150"></el-table-column>
+      </el-table>
+
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="paginationOption.current" :page-sizes="[10, 20, 30, 40]" :page-size="paginationOption.size" layout="total, sizes, prev, pager, next, jumper" :total="paginationOption.total">
+      </el-pagination>
+    </div>
 
     <el-form-item label="有效时间" class="formWidth" prop="modifiedTime">
       <el-date-picker type="date" style="width:100%" placeholder="选择日期" v-model="formData.modifiedTime" value-format="yyyy-M-d HH:mm:ss" :disabled="isReadonly"></el-date-picker>
@@ -37,7 +89,7 @@
       </div>
     </div>
 
-    <el-form-item>
+    <el-form-item style="text-align:center">
       <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly">提交</el-button>
       <el-button type="primary" plain @click="$emit('hideDialog', false)">关闭</el-button>
     </el-form-item>
@@ -47,19 +99,19 @@
 <script>
 import { postPacket, putPacket, getpolicyPage } from '@/api/govdata/policy_packet'
 import Qrcode from '@chenfengyuan/vue-qrcode'
-import MutiplySelect from './mutiply-select'
+import mixins from '@/mixins/mixins'
 import multiplyMixin from '@/views/govdata/policyManage/multiply_mixin'
-const orgOption = [
-  {
-    prop: 'mark',
-    label: '政策类型',
-  }, {
-    prop: 'issue',
-    label: '发文号',
-  }]
+import collapseForm from '@/components/deprecated/collapse-form'
+import { findByTypeList } from '@/api/govdata/common'
+import { region } from '../policyManage/region'
+function initFormInline () {
+  return {
+
+  }
+}
 export default {
-  mixins: [multiplyMixin],
-  components: { Qrcode, MutiplySelect },
+  mixins: [mixins, multiplyMixin],
+  components: { Qrcode, collapseForm },
   props: ['formData', 'isAdd', 'isEdit', 'isReadonly'],
   data () {
     var checkTotalAmount = (rule, value, callback) => {
@@ -106,51 +158,125 @@ export default {
     }
 
     return {
-      flag: false,
+      show: false,
       loading: false,
       url: '',
-      orgOption,
-      政策options: {
-        name: '政策',
-        labelName: '政策名称',
-        labelProp: 'title',
-        valueName: '政策ID',
-        valueProp: 'id',
-        getRequestName: getpolicyPage,
-        pageLimit: 6,
-      },
       rules: {
         description: [{ required: true, message: '请输入通用政策正文' }],
         totalAmount: [{ validator: checkTotalAmount, trigger: 'blur' }],
         remainAmount: [{ validator: checkRemainAmount, trigger: 'blur' }],
       },
+      selectValue: 0,
+      tableData: [],
+      themeList: [],
+      industryList: [],
+      initFormInline,
+      formInline: initFormInline(),
+      policytype: 'general',
+      policyTypeList: [
+        {
+          value: 'general',
+          label: '通用政策',
+        }, {
+          value: 'declare',
+          label: '申报政策',
+
+        }, {
+          value: 'explain',
+          label: '政策解读',
+        }, {
+          value: 'information',
+          label: '政策资讯',
+        },
+      ],
+      options: region,
+      regionProps: {
+        value: 'code',
+        label: 'name',
+      },
+      paginationOption: {
+        current: 1,
+        size: 0,
+        total: 0,
+      },
+      pagePolicyOption: {
+        current: 1,
+        size: 10,
+      },
     }
   },
+  watch: {},
   created () {
     this.getCode()
-    
+    this.loadDict()
+
   },
   methods: {
+    change (val) {
+      console.log(val)
+    },
+
     /**
-     * 生成二维码
+     * 获取政策列表数据
      */
-    getCode () {
-      this.url = `https://gc.govmade.cn/policy-red-envelope-detail/${this.formData.id}`
+    getPolicyList () {
+      this.show = true
+      this.formInline.type = this.policytype
+      getpolicyPage({ ...this.pagePolicyOption, ...this.formInline }).then(res => {
+        const data = res.data
+        this.paginationOption.current = data.current
+        this.paginationOption.size = data.size
+        this.paginationOption.total = data.total
+        this.tableData = data.records
+
+        const list = this.formData.relationPolicyList
+        if (list && list.length > 0) {
+          for (let i = 0; i < list.length; i++) {
+            for (let j = 0; j < this.tableData.length; j++) {
+              if (list[i].id == this.tableData[j].id) {
+                this.$refs.multipleTable.toggleRowSelection(this.tableData[j], true)
+              }
+            }
+          }
+        }
+      })
     },
 
-    _processForm (rows) {
-      rows.relationPolicyList = rows.relationPolicyList.map(m => {
-        return { policyId: m.id, title: m.name, policyType: m.mark }
-      })
-      rows.relationList = rows.relationPolicyList
-      return rows
+    /**
+     * 关闭政策列表界面
+     */
+    closePolicyList () {
+      this.show = false
     },
 
-    changeData (val) {
-      this.flag = true
-      this.formData.relationList = val.map(m => {
-        return { policyId: m.value, title: m.label, policyType: m.mark }
+    /**
+     * 政策列表的多选
+     */
+    handleChange (val) {
+      this.mutipleSelection = val.map(m => {
+        return { policyId: m.id, title: m.title, policyType: m.mark }
       })
+      let Arr = this.mutipleSelection
+      let newArr = []
+      if (Arr && Arr.length > 0) {
+        let flag = true
+        for (let i = 0; i < Arr.length; i++) {
+          for (let j = 0; j < newArr.length; j++) {
+            if (Arr[i].policyId == newArr[j].policyId) {
+              flag = false
+            }
+          }
+          if (flag) {
+            newArr.push(Arr[i])
+            this.formData.relationList = newArr
+            this.selectValue = this.formData.relationList.length
+          }
+        }
+      }
+    },
+
+    handleClose (item) {
+      this.formData.relationList.splice(this.formData.relationList.indexOf(item), 1)
     },
 
     /**
@@ -159,9 +285,6 @@ export default {
     handleSubmit (formName) {
       this.loading = true
       const submitForm = JSON.parse(JSON.stringify(this.formData))
-      if (!this.flag && this.formData.relationPolicyList && this.formData.relationPolicyList.length > 0) {
-        this._processForm(submitForm)
-      }
 
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -178,6 +301,71 @@ export default {
           return false
         }
       })
+    },
+
+    /**
+     * 回显
+     */
+    getRowKeys (row) {
+      return row.id
+    },
+
+    /*
+     * 获取层级、适用对象、主题、规模、行业数据
+     */
+    loadDict () {
+      findByTypeList().then(res => {
+        const { data } = res
+        this.themeList = data.POLICY_THEME
+        this.industryList = data.POLICY_INDUSTRY
+      })
+    },
+
+    /**
+     * 点击地区字典按钮
+     */
+    handleVisibleChange (callback) {
+      const { regionList } = this.formInline
+      // 当关闭级联选择框时触发
+      if (!callback) {
+        this.formInline.region = regionList ? regionList.join(',') : []
+        this.getPolicyList()
+      }
+    },
+
+    /**
+     * 生成二维码
+     */
+    getCode () {
+      this.url = `https://gc.govmade.cn/policy-red-envelope-detail/${this.formData.id}`
+    },
+
+    /**
+     *搜索
+     */
+    search () {
+      this.pagePolicyOption.current = 1
+      this.getPolicyList()
+    },
+
+    /**
+     * 控制页面数据(10条/页)
+     */
+    handleSizeChange (val) {
+      this.paginationOption.size = val
+      this.pagePolicyOption.current = this.paginationOption.current
+      this.pagePolicyOption.size = this.paginationOption.size
+      this.getPolicyList()
+    },
+
+    /**
+     * 控制去到第几页
+     */
+    handleCurrentChange (val) {
+      this.paginationOption.current = val
+      this.pagePolicyOption.current = this.paginationOption.current
+      this.pagePolicyOption.size = this.paginationOption.size
+      this.getPolicyList()
     },
 
     /**
@@ -198,6 +386,7 @@ export default {
       })
       this.loading = false
     },
+
   },
 }
 </script>
@@ -230,6 +419,40 @@ export default {
       position: absolute;
     }
   }
+}
+.policyList {
+  .el-tag {
+    margin-right: 5px;
+  }
+}
+.open {
+  margin-left: 5px;
+  border-color: #66b1ff;
+  background-color: #66b1ff;
+}
+.tip {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 10px;
+  span {
+    margin: 0 7px;
+    color: #66b1ff;
+    font-size: 21px;
+    font-weight: 600;
+  }
+  .el-button {
+    padding: 6px 8px;
+    margin-left: 20px;
+    color: #fff;
+    border-color: #ba1b21;
+    background-color: #ba1b21;
+  }
+}
+.policy-container {
+  width: 80%;
+  margin: 30px auto;
+  padding: 20px;
+  box-shadow: 0px 0px 2px 0px #bbb;
 }
 </style>
 <style scoped>

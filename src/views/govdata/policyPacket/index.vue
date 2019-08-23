@@ -36,7 +36,7 @@
       <pagination @handleSizeChange=" handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption">
       </pagination>
 
-      <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1000px">
+      <form-dialog :dialog-show="dialogShow" :title="infoFormTitle" @close="load()" :isNeedConfirm="isNeedConfirm" width="1200px">
         <dialog-form v-if="dialogShow" :formData="form" :isAdd="isAdd" :isReadonly="isReadonly" :isEdit="isEdit" :isHideSubmitBtn="false" @hideDialog="load()"></dialog-form>
       </form-dialog>
     </template>
@@ -46,7 +46,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-// import { validatenull } from '@/util/validate'
 import crudTable from '@/components/deprecated/crud-table'
 import collapseForm from '@/components/deprecated/collapse-form'
 import dialogMixins from '@/mixins/deprecated/dialog_mixins'
@@ -99,8 +98,6 @@ export default {
   components: { crudTable, collapseForm, dialogForm },
   data () {
     return {
-      // id: '',
-      // type: 'information',
       createUser: '',
       modifiedUser: '',
       columnMap,
@@ -169,13 +166,13 @@ export default {
     },
 
     readRelation (rows) {
-      const { relationList } = rows
-
-      //关联政策
-      rows.relationList = relationList.map(m => m.policyId)
-      rows.relationPolicyList = relationList.map(m => {
-        return { id: m.policyId, name: m.title, mark: m.policyType }
-      })
+      // const { relationList } = rows
+      // rows.relation = relationList.map(m => m.policyId)
+      // console.log('rows.relation', rows.relation)
+      // rows.relationPolicyList = relationList.map(m => {
+      //   return { policyId: m.policyId, title: m.title, policyType: m.policyType }
+      // })
+      // console.log('bbb', rows.relationPolicyList)
       return rows
     },
 
@@ -214,9 +211,8 @@ export default {
         this.isEdit = true
         getPacketById(rows.id).then(res => {
           const row = res.data.data
-          this.readRelation(row)
           // this.row.modifiedUser = this.modifiedUser
-          this.form = { ...row }
+          this.form = this.readRelation(row)
           this.isNeedConfirm = false
           this.dialogShow = true
         })

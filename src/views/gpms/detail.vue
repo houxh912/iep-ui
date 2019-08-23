@@ -57,7 +57,7 @@
                   <el-form-item label="立项时间：">
                     <!-- <span v-if="formData.approvalTime==''">{{formData.projectTime|parseToDay}}</span>
                     <span v-else>{{formData.approvalTime|parseToDay}}</span> -->
-                    <span>{{formData.projectTime|parseToDay}}</span> -->
+                    <span>{{formData.projectTime|parseToDay}}</span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="12" class="item">

@@ -15,7 +15,7 @@ const columnsMap = [
   {
     prop: 'intro',
     label: '联盟描述',
-    width:'400px',
+    type: 'detail',
   },
   // {
   //   prop: 'isOpen',
@@ -26,14 +26,24 @@ const columnsMap = [
     prop: 'status',
     label: '状态',
     type: 'dict',
-    width:'80px',
+    width: '80px',
   },
   {
     prop: 'createTime',
     label: '创建时间',
-    width: '150px',
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
+    width: '140px',
   },
 ]
+
+const initForm = () => {
+  return {
+    name: '',
+    logo: '',
+    intro: '',
+  }
+}
 
 const checkboxInit = (row) => {
   if (row.status === 0)
@@ -43,4 +53,4 @@ const checkboxInit = (row) => {
 }
 
 
-export { dictsMap, columnsMap, checkboxInit }
+export { dictsMap, columnsMap, checkboxInit, initForm }

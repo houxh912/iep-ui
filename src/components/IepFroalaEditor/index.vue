@@ -37,7 +37,7 @@ export default {
         language: 'zh_cn',//国际化
         imageUploadURL: '/api/admin/file/wysiwyg/upload',//上传url
         fileUploadURL: '/api/admin/file/wysiwyg/upload',//上传url 更多上传介绍 请访问https://www.froala.com/wysiwyg-editor/docs/options
-        fileMaxSize: 1024 * 1024 * 500,
+        fileMaxSize: 1024 * 1024 * 100,
         quickInsertButtons: ['image', 'table', 'ul', 'ol', 'hr'],//快速插入项
         toolbarVisibleWithoutSelection: false,//是否开启 不选中模式
         // disableRightClick: true,//是否屏蔽右击

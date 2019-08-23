@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { getMostThumbedThoughtsWeekly } from '@/api/cpms/thoughts'
+import { getMostThumbedThoughtsWeeklyPage } from '@/api/cpms/thoughts'
 export default {
   data () {
     return {
@@ -20,8 +20,8 @@ export default {
       this.$router.push(`/app/thought_detail/${row.id}`)
     },
     loadData () {
-      getMostThumbedThoughtsWeekly().then(({ data }) => {
-        this.labelList = data.data.slice(0, 10)
+      getMostThumbedThoughtsWeeklyPage().then(({ data }) => {
+        this.labelList = data.data.records
       })
     },
   },

@@ -1,24 +1,27 @@
 <template>
   <div>
-    <operation-container>
-      <template slot="left">
-        <iep-button @click="handleAddOrg" type="primary" plain>添加组织</iep-button>
-      </template>
-      <template slot="right">
-        <operation-search @search-page="searchPage" prop="orgName">
-        </operation-search>
-      </template>
-    </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-      <el-table-column prop="operation" label="操作" width="200">
-        <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
-            <iep-button @click="handleRemoveOrg(scope.row)">移除</iep-button>
-          </operation-wrapper>
+    <basic-container>
+      <iep-page-header title="联盟组织"></iep-page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button @click="handleAddOrg" type="primary" plain>添加组织</iep-button>
         </template>
-      </el-table-column>
-    </iep-table>
+        <template slot="right">
+          <operation-search @search-page="searchPage" prop="orgName">
+          </operation-search>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column prop="operation" label="操作" width="200">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" @click="handleEdit(scope.row)" plain>编辑</iep-button>
+              <iep-button @click="handleRemoveOrg(scope.row)">移除</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
+    </basic-container>
     <add-org-dialog-form ref="AddOrgDialogForm" @load-page="loadPage"></add-org-dialog-form>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>

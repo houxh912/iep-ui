@@ -5,7 +5,7 @@ const common = {
   state: {
     isCollapse: false,
     screen: -1,
-    windowSize: {width: 0, height: 0},
+    windowSize: { width: 0, height: 0 },
     isWelcome: getStore({ name: 'isWelcome' }) || false,
     isExperimental: getStore({ name: 'isExperimental' }) ? getStore({ name: 'isExperimental' }) : true,
     isLock: getStore({ name: 'isLock' }) || false,
@@ -19,6 +19,7 @@ const common = {
   },
   actions: {},
   mutations: {
+    SET_SCROLLTOTOP: () => { },
     SET_WELCOME: state => {
       state.isWelcome = !state.isWelcome
       setStore({

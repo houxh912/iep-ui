@@ -9,6 +9,7 @@ const initForm = () => {
     logo: '',
     createTime: '',
     id: null,
+    orgId: null,
     moduleIds: [],
     moduleNum: null,
     orgName: '',

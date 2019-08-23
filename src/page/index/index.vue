@@ -73,7 +73,7 @@ export default {
   },
   created () {
     //实时检测刷新token
-    // this.handleRefreshToken()
+    this.handleRefreshToken()
   },
   destroyed () {
     // console.log("销毁")
@@ -99,21 +99,23 @@ export default {
         width: document.body.clientWidth,
         height: document.body.clientHeight,
       })
-      //      this.setScreen(admin.getScreen())
+      // this.setScreen(admin.getScreen())
       window.onresize = () => {
         setTimeout(() => {
           this.setWindowSize({
             width: document.body.clientWidth,
             height: document.body.clientHeight,
           })
-          //          this.setScreen(admin.getScreen())
+          // this.setScreen(admin.getScreen())
         }, 0)
       }
-      this.$eventBus.$on('scrollToTop', () => {
-        this.$nextTick(() => {
-          const div = this.$refs['elscrollbar'].$refs['wrap']
-          div.scrollTop = 0
-        })
+      // 监听调转路由时Vuex操作
+      this.$store.subscribe((mutation) => {
+        if (mutation.type === 'SET_SCROLLTOTOP') {
+          const scrollBar = this.$refs['elscrollbar']
+          const wrap = scrollBar.$refs['wrap']
+          wrap.scrollTop = 0
+        }
       })
     },
     // 实时检测刷新token

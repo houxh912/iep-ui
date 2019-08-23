@@ -168,7 +168,7 @@ export function updateGomsUser (obj) {
 
 export function getRoleOrgList () {
   return request({
-    url: '/admin/role/org/list',
+    url: '/admin/role/list',
     method: 'get',
   })
 }

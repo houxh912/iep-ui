@@ -86,6 +86,7 @@ export default {
         },
       ],
       tabName: 'allThougth',
+      isSearchShow: true,
     }
   },
   methods: {

@@ -43,7 +43,6 @@ export default {
       getRelationshipList().then(({ data }) => {
         this.content = data.data.splice(0, 3)
         this.relationship = this.content
-        console.log(this.content)
       })
 
     },

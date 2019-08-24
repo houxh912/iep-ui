@@ -70,8 +70,8 @@
       </el-pagination>
     </div>
 
-    <el-form-item label="有效时间" class="formWidth" prop="modifiedTime">
-      <el-date-picker type="date" style="width:100%" placeholder="选择日期" v-model="formData.modifiedTime" value-format="yyyy-M-d HH:mm:ss" :disabled="isReadonly"></el-date-picker>
+    <el-form-item label="有效时间" class="formWidth" prop="effectiveDeadline">
+      <el-date-picker type="date" style="width:100%" placeholder="选择日期" v-model="formData.effectiveDeadline" value-format="yyyy-M-d HH:mm:ss" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="红包总量" class="formWidth" prop="totalAmount">
@@ -84,15 +84,14 @@
 
     <div class="code-container" v-if="!isAdd">
       <div class="label">二维码</div>
-      <div class="code-box">
-        <div v-if="url">
-          <el-popover placement="top" title="政策红包二维码" width="500" trigger="click">
-            <qrcode class="code" :value="url" :options="{width:450}"></qrcode>
-            <qrcode slot="reference" class="code" :value="url" :options="{width:120}"></qrcode>
-          </el-popover>
+      <el-popover placement="right-end" title="政策红包二维码" width="500" trigger="click">
+        <qrcode class="code" :value="url" :options="{width:450}"></qrcode>
+        <div class="code-box" slot="reference">
+          <div class="code-box-border">
+            <qrcode class="code" :value="url" :options="{width:120}"></qrcode>
+          </div>
         </div>
-        <div class="code-bgc" v-else></div>
-      </div>
+      </el-popover>
     </div>
 
     <el-form-item>
@@ -411,26 +410,22 @@ export default {
   width: 50%;
 }
 .code-container {
-  width: 200px;
   height: 120px;
   margin: 0px 52px 25px;
   display: flex;
   .code-box {
-    width: 127px;
-    height: 127px;
+    width: 200px;
+    height: 130px;
     padding: 3px;
     margin-left: 25px;
-    border-radius: 2px;
-    border: 1px solid #dcdfe6;
-    position: relative;
-    .code {
-      cursor: pointer;
-    }
-    .code-bgc {
-      width: 99%;
-      height: 100%;
-      background-image: url("./add.jpg");
-      position: absolute;
+    .code-box-border {
+      width: 127px;
+      height: 127px;
+      border-radius: 2px;
+      border: 1px solid #dcdfe6;
+      .code {
+        cursor: pointer;
+      }
     }
   }
 }

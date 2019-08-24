@@ -37,9 +37,9 @@
           <div class="tags-detail">
             <span class="details-title">联盟标签</span>
             <div class="tag-wrapper">
-              <iep-goms-tags title="卓越" :tags="form.abilityTag"></iep-goms-tags>
-              <iep-goms-tags title="专业" :tags="form.projectTag"></iep-goms-tags>
-              <iep-goms-tags title="进步" :tags="form.learningTag"></iep-goms-tags>
+              <iep-goms-tags title="我能" :tags="form.abilityTag"></iep-goms-tags>
+              <iep-goms-tags title="我要" :tags="form.projectTag"></iep-goms-tags>
+              <iep-goms-tags title="我想" :tags="form.learningTag"></iep-goms-tags>
             </div>
           </div>
           <div class="brief">

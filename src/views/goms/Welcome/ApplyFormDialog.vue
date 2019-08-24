@@ -8,7 +8,7 @@
         <div>{{form.intro}}</div>
       </iep-form-item>
       <iep-form-item label-name="组织标签">
-        <!-- (卓越) -->
+        <!-- (我能) -->
         <iep-tag-detail class="tag" :value="form.abilityTag"></iep-tag-detail>
       </iep-form-item>
       <iep-form-item label-name="申请理由">

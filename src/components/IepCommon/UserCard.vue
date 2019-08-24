@@ -17,8 +17,8 @@
           <iep-div-detail v-else class="user-org" :value="`所属组织：${cardData.orgList.join('、')}`"></iep-div-detail>
         </template>
         <template>
-          <iep-div-detail v-if="!cardData.projectTag.length" class="user-tags" :value="`卓越标签：暂无`"></iep-div-detail>
-          <iep-div-detail v-else class="user-tags" :value="`卓越标签：${cardData.projectTag.join(' / ')}`"></iep-div-detail>
+          <iep-div-detail v-if="!cardData.projectTag.length" class="user-tags" :value="`我能标签：暂无`"></iep-div-detail>
+          <iep-div-detail v-else class="user-tags" :value="`我能标签：${cardData.projectTag.join(' / ')}`"></iep-div-detail>
         </template>
       </div>
     </div>

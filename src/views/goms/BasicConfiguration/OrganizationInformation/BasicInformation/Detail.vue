@@ -41,13 +41,13 @@
             </div>
             <div class="tag-wrapper">
               <div class="tag-item">
-                卓越：<iep-tag-detail class="tag" :value="form.abilityTag"></iep-tag-detail>
+                我能：<iep-tag-detail class="tag" :value="form.abilityTag"></iep-tag-detail>
               </div>
               <div class="tag-item">
-                专业：<iep-tag-detail class="tag" :value="form.projectTag"></iep-tag-detail>
+                我要：<iep-tag-detail class="tag" :value="form.projectTag"></iep-tag-detail>
               </div>
               <div>
-                进步：<iep-tag-detail class="tag" :value="form.learningTag"></iep-tag-detail>
+                我想：<iep-tag-detail class="tag" :value="form.learningTag"></iep-tag-detail>
               </div>
             </div>
           </div>

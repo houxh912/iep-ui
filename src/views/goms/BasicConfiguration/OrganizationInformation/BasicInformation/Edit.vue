@@ -26,13 +26,13 @@
         <el-form-item label="联系地址：" prop="address" class="form-half">
           <el-input v-model="form.address" placeholder="请输入联系地址"></el-input>
         </el-form-item>
-        <el-form-item label="卓越标签：">
+        <el-form-item label="我能标签：">
           <iep-tag v-model="form.abilityTag"></iep-tag>
         </el-form-item>
-        <el-form-item label="专业标签：">
+        <el-form-item label="我要标签：">
           <iep-tag v-model="form.projectTag"></iep-tag>
         </el-form-item>
-        <el-form-item label="进步标签：">
+        <el-form-item label="我想标签：">
           <iep-tag v-model="form.learningTag"></iep-tag>
         </el-form-item>
         <el-form-item label="组织简介：" prop="intro">

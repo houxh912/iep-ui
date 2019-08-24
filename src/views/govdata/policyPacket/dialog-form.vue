@@ -7,14 +7,14 @@
     <el-form-item label="关联政策">
       <div class="policyList">
         <el-tag type="info" v-for="item in formData.relationList" :key="item.value" :label="item.label" closable :disable-transitions="false" @close="handleClose(item)">{{item.title}}</el-tag>
-        <el-button class="open" type="primary" icon="el-icon-edit" circle @click="getPolicyList"></el-button>
+        <el-button class="open" type="primary" icon="el-icon-edit" circle @click="getPolicyList" :disabled="isReadonly"></el-button>
       </div>
 
     </el-form-item>
 
     <div class="policy-container" v-if="show">
       <collapse-form ref="collapseForm" @clear="formInline=initFormInline()" @search="search()">
-        <template slot="search-header">
+        <template slot="search-header" class="title">
           <el-form-item label="政策标题:">
             <el-input placeholder="请输入政策标题" v-model.trim="formInline.title" clearable></el-input>
           </el-form-item>
@@ -49,18 +49,24 @@
       </collapse-form>
 
       <div class="tip">
-        已选择<span>{{selectValue}}</span>条数据
+        已选择<span>{{formData.relationList.length}}</span>条数据
         <el-button @click="closePolicyList">选中</el-button>
       </div>
 
       <el-table ref="multipleTable" :data="tableData" :row-key="getRowKeys" tooltip-effect="dark" style="width: 100%" @selection-change="handleChange">
-        <el-table-column type="selection" :reserve-selection="true" width="55"></el-table-column>
-        <el-table-column prop="id" label="政策id" align="left" width="100"></el-table-column>
+        <el-table-column type="selection" :reserve-selection="true" width="40"></el-table-column>
         <el-table-column prop="title" label="政策名称" align="left"></el-table-column>
-        <el-table-column prop="mark" label="政策类型" align="center" width="150"></el-table-column>
+        <el-table-column prop="publishTime" label="发布时间" :formatter="dateFormat" align="center" width="120"> </el-table-column>
+        <el-table-column prop="mark" label="政策类型" align="center" width="120">
+          <template slot-scope="scope">
+            <el-tag type="success" size="small" v-if="scope.row.mark=='general'">通用政策</el-tag>
+            <el-tag type="info" size="small" v-if="scope.row.mark=='declare'">申报政策</el-tag>
+            <el-tag type="warning" size="small" v-if="scope.row.mark=='explain'">政策解读</el-tag>
+            <el-tag type="danger" size="small" v-if="scope.row.mark=='information'">政策资讯</el-tag>
+          </template></el-table-column>
       </el-table>
 
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="paginationOption.current" :page-sizes="[10, 20, 30, 40]" :page-size="paginationOption.size" layout="total, sizes, prev, pager, next, jumper" :total="paginationOption.total">
+      <el-pagination class="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="paginationOption.current" :page-sizes="[10, 20, 30, 40]" :page-size="paginationOption.size" layout="total, sizes, prev, pager, next, jumper" :total="paginationOption.total">
       </el-pagination>
     </div>
 
@@ -69,7 +75,7 @@
     </el-form-item>
 
     <el-form-item label="红包总量" class="formWidth" prop="totalAmount">
-      <el-input-number v-model.number="formData.totalAmount" style="width:100%" controls-position="right" :min="1" :max="100000"></el-input-number>
+      <el-input-number v-model.number="formData.totalAmount" style="width:100%" controls-position="right" :min="1" :max="100000" :disabled="isReadonly"></el-input-number>
     </el-form-item>
 
     <el-form-item label="红包剩余数量" class="formWidth" prop="remainAmount" v-if="isAdd">
@@ -89,7 +95,7 @@
       </div>
     </div>
 
-    <el-form-item style="text-align:center">
+    <el-form-item>
       <el-button type="primary" :loading="loading" @click="handleSubmit('form')" v-if="!isReadonly">提交</el-button>
       <el-button type="primary" plain @click="$emit('hideDialog', false)">关闭</el-button>
     </el-form-item>
@@ -104,6 +110,7 @@ import multiplyMixin from '@/views/govdata/policyManage/multiply_mixin'
 import collapseForm from '@/components/deprecated/collapse-form'
 import { findByTypeList } from '@/api/govdata/common'
 import { region } from '../policyManage/region'
+import moment from 'moment'
 function initFormInline () {
   return {
 
@@ -166,7 +173,6 @@ export default {
         totalAmount: [{ validator: checkTotalAmount, trigger: 'blur' }],
         remainAmount: [{ validator: checkRemainAmount, trigger: 'blur' }],
       },
-      selectValue: 0,
       tableData: [],
       themeList: [],
       industryList: [],
@@ -205,17 +211,12 @@ export default {
       },
     }
   },
-  watch: {},
   created () {
     this.getCode()
     this.loadDict()
 
   },
   methods: {
-    change (val) {
-      console.log(val)
-    },
-
     /**
      * 获取政策列表数据
      */
@@ -269,18 +270,20 @@ export default {
           if (flag) {
             newArr.push(Arr[i])
             this.formData.relationList = newArr
-            this.selectValue = this.formData.relationList.length
           }
         }
       }
     },
 
+    /**
+     * 动态关闭政策tag
+     */
     handleClose (item) {
       this.formData.relationList.splice(this.formData.relationList.indexOf(item), 1)
     },
 
     /**
-     * 验证并提交
+     * 验证并提交表单
      */
     handleSubmit (formName) {
       this.loading = true
@@ -304,7 +307,7 @@ export default {
     },
 
     /**
-     * 回显
+     * 政策列表多选的回显
      */
     getRowKeys (row) {
       return row.id
@@ -341,11 +344,22 @@ export default {
     },
 
     /**
-     *搜索
+     *政策列表的搜索
      */
     search () {
       this.pagePolicyOption.current = 1
       this.getPolicyList()
+    },
+
+    /**
+     * 获取政策列表里时间戳转标准时间
+     */
+    dateFormat: function (row, column) {
+      let publishTime = row[column.property]
+      if (publishTime == undefined) {
+        return ''
+      }
+      return moment(publishTime).format('YYYY-MM-DD')
     },
 
     /**
@@ -424,39 +438,51 @@ export default {
   .el-tag {
     margin-right: 5px;
   }
-}
-.open {
-  margin-left: 5px;
-  border-color: #66b1ff;
-  background-color: #66b1ff;
-}
-.tip {
-  color: #666;
-  font-size: 13px;
-  margin-bottom: 10px;
-  span {
-    margin: 0 7px;
-    color: #66b1ff;
-    font-size: 21px;
-    font-weight: 600;
-  }
-  .el-button {
-    padding: 6px 8px;
-    margin-left: 20px;
-    color: #fff;
-    border-color: #ba1b21;
-    background-color: #ba1b21;
+  .open {
+    margin-left: 5px;
+    border-color: #66b1ff;
+    background-color: #66b1ff;
   }
 }
 .policy-container {
-  width: 80%;
+  width: 79%;
   margin: 30px auto;
   padding: 20px;
   box-shadow: 0px 0px 2px 0px #bbb;
+  .tip {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 10px;
+    span {
+      margin: 0 7px;
+      color: #66b1ff;
+      font-size: 21px;
+      font-weight: 600;
+    }
+    .el-button {
+      padding: 5px 6px;
+      margin-left: 20px;
+      color: #fff;
+      font-size: 13px;
+      border-color: #ba1b21;
+      background-color: #ba1b21;
+    }
+  }
+  .pagination {
+    text-align: center;
+    padding: 15px 0px 0px;
+  }
 }
 </style>
 <style scoped>
 .mutiplySelect >>> .select-box {
   width: 100%;
+}
+.policy-container >>> .search {
+  margin-left: -1px;
+  border-radius: 3px;
+  color: #fff;
+  background: #ba1b21;
+  border-color: #ba1b21;
 }
 </style>

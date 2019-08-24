@@ -65,9 +65,9 @@ const initForm = () => {
     profession: '', // 专业
     graduationTime: '', // 毕业时间
     referrer: '', // 推荐人
-    abilityTag: [], // 卓越标签
-    projectTag: [], // 专业标签
-    learningTag: [], // 进步标签
+    abilityTag: [], // 我能标签
+    projectTag: [], // 我要标签
+    learningTag: [], // 我想标签
     workExperience: [], // 工作经历
     trainingSituation: [], // 培训情况
     eduSituation: [], // 学习情况
@@ -502,11 +502,11 @@ const rules = {
   ],
   projectTag: [
     { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-    // { type: 'array', required: true, message: '请填写专业标签', trigger: 'change' },
+    // { type: 'array', required: true, message: '请填写我要标签', trigger: 'change' },
   ],
   learningTag: [
     { type: 'array', max: 20, message: '标签不得超过 20 个', trigger: 'change' },
-    // { type: 'array', required: true, message: '请填写进步标签', trigger: 'change' },
+    // { type: 'array', required: true, message: '请填写我想标签', trigger: 'change' },
   ],
   careerPlanning: [
     { max: 2000, message: '字符不得超过 2000 个', trigger: 'change' },

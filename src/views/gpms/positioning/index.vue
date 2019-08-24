@@ -512,7 +512,7 @@
                 </td>
               </tr>
               <tr>
-                <td>卓越标签</td>
+                <td>我能标签</td>
                 <td>
                   {{userMessage[0].brllTag}}
                 </td>
@@ -521,7 +521,7 @@
                 </td>
               </tr>
               <tr>
-                <td>专业标签</td>
+                <td>我要标签</td>
                 <td>
                   {{userMessage[0].specialtyTag}}
                 </td>
@@ -530,7 +530,7 @@
                 </td>
               </tr>
               <tr>
-                <td>进步标签</td>
+                <td>我想标签</td>
                 <td>
                   {{userMessage[0].progressTag}}
                 </td>

@@ -3,13 +3,13 @@
     <div class="tags-detail">
       <span class="details-title">{{subTitle1}}</span>
       <div class="tags-con">
-        <span>卓越：</span>
+        <span>我能：</span>
         <span class="tags" v-for="item in tags" :key="item.id">
           {{item.tag}}
         </span>
       </div>
       <div class="tags-con">
-        <span>专业：</span>
+        <span>我要：</span>
         <span class="tags" v-for="item2 in tags2" :key="item2.id">
           {{item2.tag}}
         </span>

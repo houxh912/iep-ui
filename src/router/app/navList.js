@@ -1,34 +1,21 @@
 const navList = [
   {
-    id: '/app/index',
+    id: '//218.205.124.18:10056/',
     name: '首页',
   }, {
-    id: '/app/person',
+    id: '//218.205.124.18:10056/newsList',
     name: '头条新知',
   }, {
-    id: '/app/resource',
-    name: '上级合作',
+    id: '//218.205.124.18:10056/businessList',
+    name: '商机合作',
   }, {
-    id: '/app/products',
-    name: '方案实例',
-  }, {
-    //   id: '/app/news',
-    //   name: '要闻',
-    // }, {
-    id: '/app/data',
-    name: '师傅专家',
-  }, {
-    id: '/app/wealth',
+    id: '//218.205.124.18:10056/',
     name: '数据资产',
   }, {
-    id: '/app/project',
-    name: '学堂考试',
+    id: '//218.205.124.18:10056/',
+    name: '师傅专家',
   }, {
-    //   id: '/app/policyCenter',
-    //   name: '政策中心',
-    //   show: 'show',
-    // }, {
-    id: '/app/more_thoughts',
+    id: '//218.205.124.18:10056/thoughtsList',
     name: '我要说说',
   },
 ]

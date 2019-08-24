@@ -17,19 +17,19 @@
         <span class="autograph">个性签名：{{userInfo.signature}}</span>
         <div class="classTags">
           <div class="classTag">
-            <div class="label">卓越标签：</div>
+            <div class="label">我能标签：</div>
             <div class="span">
               <el-tag type="white" v-for="(item, index) in userInfo.abilityTag" :key="index">{{item}}</el-tag>
             </div>
           </div>
           <div class="classTag">
-            <div class="label">专业标签：</div>
+            <div class="label">我要标签：</div>
             <div class="span">
               <el-tag type="white" v-for="(item, index) in userInfo.projectTag" :key="index">{{item}}</el-tag>
             </div>
           </div>
           <div class="classTag">
-            <div class="label">进步标签：</div>
+            <div class="label">我想标签：</div>
             <div class="span">
               <el-tag type="white" v-for="(item, index) in userInfo.learningTag" :key="index">{{item}}</el-tag>
             </div>

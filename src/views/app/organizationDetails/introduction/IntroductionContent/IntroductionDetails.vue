@@ -3,19 +3,19 @@
     <div class="tags-detail" v-if="false">
       <span class="details-title">组织标签</span>
       <div class="tags-con">
-        <span>卓越：</span>
+        <span>我能：</span>
         <span class="tags" v-for="(item, index) in data.abilityTag" :key="index">
           {{item}}
         </span>
       </div>
       <div class="tags-con">
-        <span>专业：</span>
+        <span>我要：</span>
         <span class="tags" v-for="(item, index) in data.projectTag" :key="index">
           {{item}}
         </span>
       </div>
       <div class="tags-con">
-        <span>进步：</span>
+        <span>我想：</span>
         <span class="tags" v-for="(item, index) in data.learningTag" :key="index">
           {{item}}
         </span>

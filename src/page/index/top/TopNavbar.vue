@@ -1,21 +1,21 @@
 <template>
   <div class="nav">
     <div class="navbar">
-      <el-menu ref="navMenu" v-if="keyCollapse" class="menu-collapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click" router>
+      <el-menu ref="navMenu" v-if="keyCollapse" class="menu-collapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click">
         <el-submenu index="">
           <template slot="title">导航</template>
-          <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
+          <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id" @click="$openPage(item.id, 'url')"><span class="sub-menu">{{item.name}}</span></el-menu-item>
         </el-submenu>
       </el-menu>
-      <el-menu ref="navMenu" v-else :default-active="activeIndex" mode="horizontal" router>
-        <el-menu-item v-for="(item) in navListFront" :key="item.id" :index="item.id" :class="item.show">
+      <el-menu ref="navMenu" v-else :default-active="activeIndex" mode="horizontal">
+        <el-menu-item v-for="(item) in navListFront" :key="item.id" :index="item.id" :class="item.show" @click="$openPage(item.id, 'url')">
           <span class="sub-menu">{{item.name}}</span>
           <resource-con ref="resource" class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
         </el-menu-item>
         <a-dropdown>
           <a-icon class="ant-dropdown-link" type="ellipsis" />
           <a-menu slot="overlay">
-            <a-menu-item v-for="item in navListEnd" :key="item.id" @click="$openPage(item.id)">
+            <a-menu-item v-for="item in navListEnd" :key="item.id" @click="$openPage(item.id, 'url')">
               <a href="javascript:;">{{item.name}}</a>
             </a-menu-item>
           </a-menu>

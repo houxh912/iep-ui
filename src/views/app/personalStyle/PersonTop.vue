@@ -26,19 +26,19 @@
             <span class="autograph"><span class="autograph-con">个性签名：</span>{{user_info.signature}}</span>
             <div class="classTags">
               <div class="classTag">
-                <div class="label">卓越标签：</div>
+                <div class="label">我能标签：</div>
                 <div class="span">
                   <el-tag type="white" v-for="(item, index) in user_info.abilityTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag">
-                <div class="label">专业标签：</div>
+                <div class="label">我要标签：</div>
                 <div class="span">
                   <el-tag type="white" v-for="(item, index) in user_info.projectTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>
               </div>
               <div class="classTag">
-                <div class="label">进步标签：</div>
+                <div class="label">我想标签：</div>
                 <div class="span">
                   <el-tag type="white" v-for="(item, index) in user_info.learningTag" :key="index" @click="() => { $openTagDetail(item) }">{{item}}</el-tag>
                 </div>

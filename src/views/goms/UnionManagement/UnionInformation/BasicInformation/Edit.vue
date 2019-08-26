@@ -22,13 +22,13 @@
         <el-form-item label="联系方式：" prop="contactMethod" class="form-half">
           <el-input v-model="form.contactMethod" placeholder="请输入联系方式"></el-input>
         </el-form-item>
-        <el-form-item label="我能标签：">
+        <el-form-item label="我能：">
           <iep-tag v-model="form.abilityTag"></iep-tag>
         </el-form-item>
-        <el-form-item label="我要标签：">
+        <el-form-item label="我要：">
           <iep-tag v-model="form.projectTag"></iep-tag>
         </el-form-item>
-        <el-form-item label="我想标签：">
+        <el-form-item label="我想：">
           <iep-tag v-model="form.learningTag"></iep-tag>
         </el-form-item>
         <el-form-item label="联盟简介：" prop="intro">

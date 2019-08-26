@@ -115,15 +115,15 @@
       <iep-tag v-model="form.people"></iep-tag>
     </el-form-item> -->
 
-    <iep-form-item prop="abilityTag" label-name="我能标签" tip="请务必根据自身能力选择对应标签，如发现标签不匹配导致信用降低等">
+    <iep-form-item prop="abilityTag" label-name="我能" tip="请务必根据自身能力选择对应标签，如发现标签不匹配导致信用降低等">
       <iep-tag v-model="form.abilityTag"></iep-tag>
     </iep-form-item>
 
-    <iep-form-item prop="projectTag" label-name="我要标签" tip="请务必根据自身相关岗位进行选择，如发现标签不匹配导致信用降低等">
+    <iep-form-item prop="projectTag" label-name="我要" tip="请务必根据自身相关岗位进行选择，如发现标签不匹配导致信用降低等">
       <iep-tag v-model="form.projectTag"></iep-tag>
     </iep-form-item>
 
-    <iep-form-item prop="learningTag" label-name="我想标签" tip="请务必根据自身相关岗位进行选择，如发现标签不匹配导致信用降低等">
+    <iep-form-item prop="learningTag" label-name="我想" tip="请务必根据自身相关岗位进行选择，如发现标签不匹配导致信用降低等">
       <iep-tag v-model="form.learningTag"></iep-tag>
     </iep-form-item>
 

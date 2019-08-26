@@ -22,15 +22,15 @@
             <span>职称：{{form.title}}</span>
           </div>
           <div class="list">
-            <span>我能标签：</span>
+            <span>我能：</span>
             <iep-tag-detail style="display: inline;" :value="form.abilityTag"></iep-tag-detail>
           </div>
           <div class="list">
-            <span>我要标签：</span>
+            <span>我要：</span>
             <iep-tag-detail style="display: inline;" :value="form.projectTag"></iep-tag-detail>
           </div>
           <div class="list">
-            <span>我想标签：</span>
+            <span>我想：</span>
             <iep-tag-detail style="display: inline;" :value="form.learningTag"></iep-tag-detail>
           </div>
         </div>

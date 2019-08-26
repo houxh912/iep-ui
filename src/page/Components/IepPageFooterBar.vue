@@ -8,8 +8,8 @@
         <a href="javascript:void(0);">知识图谱</a>
         <a href="javascript:void(0);" v-show="false" @click="handleOpen5()">国脉贝制度</a>
         <a href="javascript:void(0);"> 新人培训</a> -->
-        <span> Copyright 2014 - 2019 技术支持：<a class="position" href="javascript:void(0);"> 国脉数据智能门户系统DIPS</a></span>
-        <span class="number">浙ICP备13016715号-4</span>
+        <span> Copyright 2014 - 2019 技术支持：<a class="position" href="javascript:void(0);">国脉集团-数据智能门户系统DIPS</a></span>
+        <span class="number"> 浙ICP备13016715号-4</span>
       </div>
     </div>
   </div>

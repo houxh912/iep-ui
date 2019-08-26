@@ -65,9 +65,9 @@ const initForm = () => {
     profession: '', // 专业
     graduationTime: '', // 毕业时间
     referrer: '', // 推荐人
-    abilityTag: [], // 我能标签
-    projectTag: [], // 我要标签
-    learningTag: [], // 我想标签
+    abilityTag: [], // 我能
+    projectTag: [], // 我要
+    learningTag: [], // 我想
     workExperience: [], // 工作经历
     trainingSituation: [], // 培训情况
     eduSituation: [], // 学习情况

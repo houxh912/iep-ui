@@ -4,11 +4,11 @@
       <el-form-item label="原密码" prop="password">
         <el-input type="password" v-model="form.password" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="新密码" prop="newpassword1">
-        <el-input type="password" v-model="form.newpassword1" auto-complete="off"></el-input>
+      <el-form-item label="新密码" prop="newPassword1">
+        <el-input type="password" v-model="form.newPassword1" auto-complete="off"></el-input>
       </el-form-item>
-      <el-form-item label="确认密码" prop="newpassword2">
-        <el-input type="password" v-model="form.newpassword2" auto-complete="off"></el-input>
+      <el-form-item label="确认密码" prop="newPassword2">
+        <el-input type="password" v-model="form.newPassword2" auto-complete="off"></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -19,7 +19,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import { initPasswordForm } from './options'
+import { initForm } from './options'
 import request from '@/router/axios'
 export default {
   data () {
@@ -36,7 +36,7 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'))
-      } else if (value !== this.form.newpassword1) {
+      } else if (value !== this.form.newPassword1) {
         callback(new Error('两次输入密码不一致!'))
       } else {
         callback()
@@ -45,15 +45,15 @@ export default {
     return {
       dialogShow: false,
       formRequestFn: () => { },
-      form: initPasswordForm(),
+      form: initForm(),
       rules: {
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
         ],
-        newpassword1: [
+        newPassword1: [
           { required: true, validator: validatePass, trigger: 'blur' },
         ],
-        newpassword2: [
+        newPassword2: [
           { required: true, validator: validatePass2, trigger: 'blur' },
         ],
       },
@@ -67,7 +67,7 @@ export default {
   methods: {
     ...mapActions(['GetUserInfo', 'LogOut']),
     loadPage () {
-      this.form = initPasswordForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },
@@ -75,7 +75,7 @@ export default {
       this.$refs[formName].resetFields()
     },
     submitForm (formName) {
-      const newForm = this.$mergeByFirst(initPasswordForm(this.userInfo.username), { ...this.form })
+      const newForm = this.$mergeByFirst(initForm(this.userInfo.username), { ...this.form })
       this.$refs[formName].validate(valid => {
         if (valid) {
           request({

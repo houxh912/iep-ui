@@ -28,7 +28,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { initMemberForm } from './options'
-import { getRoleOrgList } from '@/api/admin/org'
+import { getRoleList } from '@/api/admin/org'
 export default {
   props: {
     loadImage: {
@@ -60,7 +60,7 @@ export default {
       this.form.assetOrgId = row.id
     },
     load () {
-      getRoleOrgList().then(({ data }) => {
+      getRoleList().then(({ data }) => {
         const roleList = data.data.map(m => {
           return {
             label: m.roleName,

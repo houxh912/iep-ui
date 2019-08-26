@@ -1,34 +1,49 @@
 <template>
   <div>
-    {{link.content}}
-    <a href="#" v-if="isCommon" @click.prevent="handleOpen">进入</a>
+    {{form.content}}
+    <a href="#" v-if="isShowEnterBtn" @click.prevent="handleOpen">进入</a>
   </div>
 </template>
 <script>
+import keyBy from 'lodash/keyBy'
+import { mapGetters } from 'vuex'
 export default {
   name: 'MsgLink',
   props: {
-    link: {
-      type: Object,
-      required: true,
-    },
-    imsPathType: {
+    form: {
       type: Object,
       required: true,
     },
   },
   computed: {
-    isCommon () {
-      if (this.link.pathId) {
-        return this.link.pathType !== '3' ? `${this.imsPathType.label}/${this.link.pathId}` : undefined
+    ...mapGetters(['dictGroup']),
+    isShowEnterBtn () {
+      if (this.form.pathType === '3') {
+        return false
+      } else if (!this.imsPathTypeIds.includes(this.form.pathType)) {
+        return false
       } else {
-        return this.link.pathType !== '3' ? `${this.imsPathType.label}` : undefined
+        return true
       }
+    },
+    imsPathTypeMap () {
+      const imsPathType = this.dictGroup['ims_path_type']
+      return keyBy(imsPathType, 'value')
+    },
+    imsPathTypeIds () {
+      return this.dictGroup['ims_path_type'].map(m => m.value)
     },
   },
   methods: {
     handleOpen () {
-      this.$openPage(this.isCommon)
+      const type = ['11', '12', '13', '14'].includes(this.form.pathType) ? 'url' : 'path'
+
+      let suffixUrl = ''
+      if (this.form.pathId) {
+        suffixUrl = `/${this.form.pathId}`
+      }
+      const url = this.imsPathTypeMap[this.form.pathType].label + `${suffixUrl}`
+      this.$openPage(url, type)
     },
   },
 }

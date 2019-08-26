@@ -245,6 +245,7 @@ export default {
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].formRequestFn = joinRelationship
       this.$refs['DialogForm'].dialogShow = true
+      this.$refs['DialogForm'].methodName = '新增'
     },
     changeGroup (name, id, isOpen) {
       this.$refs['DialogForm'].form.name = name

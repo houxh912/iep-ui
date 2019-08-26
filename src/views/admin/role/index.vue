@@ -17,8 +17,8 @@
             <template slot-scope="scope">
               <div>{{scope.row.roleName}}
                 <a-tag v-if="scope.row.isCommon===1" color="orange">通用</a-tag>
-                <a-tag v-else-if="scope.row.unionId!==0" color="pink">联盟角色</a-tag>
-                <a-tag v-else color="red">组织角色</a-tag>
+                <a-tag v-else-if="scope.row.unionId!==0" color="red">联盟角色</a-tag>
+                <a-tag v-else color="pink">组织角色</a-tag>
               </div>
             </template>
           </el-table-column>

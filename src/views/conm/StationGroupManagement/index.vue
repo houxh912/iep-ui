@@ -6,11 +6,11 @@
         <template slot="left">
           <iep-button type="primary" plain @click="handleAdd" icon="el-icon-plus">新增</iep-button>
         </template>
-        <template slot="right">
+        <!-- <template slot="right">
           <operation-search>
-            <!-- <advance-search @search-page="searchPage"></advance-search> -->
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
-        </template>
+        </template> -->
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <template slot="before-columns">
@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column label="站名">
             <template slot-scope="scope">
-              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.siteName}}</iep-table-link>
+              <div>{{scope.row.siteName}}</div>
             </template>
           </el-table-column>
         </template>
@@ -29,8 +29,16 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleCulomn(scope.row)" type="primary" plain>栏目管理</iep-button>
-              <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button @click="handleAttribute(scope.row)">推荐位管理</iep-button>
+              <el-dropdown size="medium">
+                <iep-button type="default">
+                  <i class="el-icon-more-outline"></i>
+                </iep-button>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -80,6 +88,11 @@ export default {
     handleCulomn (row) {
       this.$router.push({
         path: `/comn/column_management/${row.id}`,
+      })
+    },
+    handleAttribute (row) {
+      this.$router.push({
+        path: `/comn/attribute_management/${row.id}`,
       })
     },
     async loadPage (param = this.searchForm) {

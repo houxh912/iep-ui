@@ -83,3 +83,13 @@ export function contractReview (obj) {
     data: obj,
   })
 }
+
+// 移交
+export function contractTransfer (obj) {
+  return request({
+    url: `${prefixUrl}/transfer`,
+    method: 'post',
+    data: obj.contractIds,
+    params: { userId: obj.userId },
+  })
+}

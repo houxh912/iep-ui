@@ -51,8 +51,8 @@ export default {
       this.$refs['DialogForm'].formRequestFn = putObj
       this.$refs['DialogForm'].dialogShow = true
     },
-    handleRemoveOrg (id) {
-      this._handleComfirm(id, removeOrgById, '移除组织')
+    handleRemoveOrg (row) {
+      this._handleComfirm(row.orgId, removeOrgById, '移除组织')
     },
     handleAddOrg () {
       this.$refs['AddOrgDialogForm'].formRequestFn = addOrgById

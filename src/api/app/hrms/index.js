@@ -106,6 +106,14 @@ export const getUserDetail = (id) => {
   })
 }
 
+// 频道页用户相似用户
+export const getSimilarUsers = (id) => {
+  return request({
+    url: `${prefixUrl}/user_detail/similar_users/${id}`,
+    method: 'get',
+  })
+}
+
 // 交流密切
 export const getCommunication = (id) => {
   return request({

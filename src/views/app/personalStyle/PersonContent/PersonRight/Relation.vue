@@ -23,7 +23,7 @@
 
 <script>
 import { getproductMentors } from '@/api/app/cpms/channel'
-import { getCommunication } from '@/api/app/hrms/'
+import { getCommunication, getSimilarUsers } from '@/api/app/hrms/'
 
 export default {
   props: {
@@ -69,6 +69,7 @@ export default {
     userId (newVal) {
       this.loadRelation(newVal)
       this.getCommunication(newVal)
+      this.getSimilarUsers(newVal)
     },
   },
   methods: {
@@ -88,6 +89,11 @@ export default {
     getCommunication (id) {
       getCommunication(id).then(({ data }) => {
         this.cooperationList = data.data
+      })
+    },
+    getSimilarUsers (id) {
+      getSimilarUsers(id).then(({ data }) => {
+        this.similarUser = data.data
       })
     },
   },

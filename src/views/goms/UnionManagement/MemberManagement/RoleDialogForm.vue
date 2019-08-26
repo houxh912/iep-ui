@@ -14,11 +14,11 @@
       <el-form-item label="资产所属：" prop="assetOrg">
         <el-input v-model="form.assetOrg" disabled></el-input>
       </el-form-item>
-      <el-form-item label="组织角色：" prop="roleOrg">
-        <iep-cascader v-model="form.roleOrg" placeholder="请填入组织角色" :props="{ multiple: true }" :prefixUrl="`admin/role/union/${form.userId}`"></iep-cascader>
+      <el-form-item label="关联组织：" prop="roleOrg">
+        <iep-cascader v-model="form.roleOrg" placeholder="请填入关联组织" :props="{ multiple: true }" :prefixUrl="`admin/role/union/${form.userId}`"></iep-cascader>
       </el-form-item>
-      <el-form-item label="联盟角色：" prop="role">
-        <iep-select v-model="form.role" placeholder="请填入联盟角色" prefixUrl="admin/role/union" multiple></iep-select>
+      <el-form-item label="关联联盟：" prop="role">
+        <iep-select v-model="form.role" placeholder="请填入关联联盟" prefixUrl="admin/role/union" multiple></iep-select>
       </el-form-item>
     </el-form>
     <template slot="footer">

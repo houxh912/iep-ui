@@ -1,7 +1,6 @@
 <template>
   <el-popover placement="bottom" width="336" trigger="click">
-    <!-- TODO: -->
-    <iep-img src="//183.131.134.242:10060/upload/iep/qrcode.jpg"></iep-img>
+    <iep-img src="/img/qrcode.webp"></iep-img>
     <el-tooltip slot="reference" effect="dark" content="手机版二维码" placement="bottom">
       <iep-button>
         <a-icon type="scan" />

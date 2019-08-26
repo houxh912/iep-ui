@@ -45,7 +45,23 @@ export default {
       moduleType: '',
       productId: 0,
       num: [18],
-      productList: [],
+      productList: [{
+        id: 1,
+        name: '数据体系',
+      },
+      {
+        id: 2,
+        name: '业务优化',
+      },
+      {
+        id: 3,
+        name: '组织进化',
+      },
+      {
+        id: 4,
+        name: '其他',
+      },
+      ],
       moduleList: [],
     }
   },
@@ -68,18 +84,18 @@ export default {
     async loadModuleList () {
       const { data } = await getModuleList({
         type: this.moduleType,
-        productId: this.productId || undefined,
+        serviceType: this.productId || undefined,
       })
       this.moduleList = data.data
     },
     async loadProductList () {
-      const { data } = await getProductList()
-      const productList = data.data
-      productList.unshift({
-        id: 0,
-        name: '全部',
-      })
-      this.productList = productList.slice(0, 4)
+      await getProductList()
+      // const productList = data.data
+      // productList.unshift({
+      //   id: 0,
+      //   name: '全部',
+      // })
+      // this.productList = productList.slice(0, 4)
     },
     tabModuleType (val) {
       this.moduleType = val

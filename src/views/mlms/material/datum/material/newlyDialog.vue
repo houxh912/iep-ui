@@ -77,7 +77,6 @@
 <script>
 import { initLocalForm, rules, dictsMap, tipContent2 } from './option'
 import { createData, updateData, getUnion } from '@/api/mlms/material/datum/material'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
 export default {
   components: {},
@@ -143,9 +142,7 @@ export default {
               this.dialogShow = false
             }
             if (this.methodName == 'create') {
-              addBellBalanceRuleByNumber('MATERIAL_ADD').then(({data}) => {
-                requestFn(`恭喜您成功上传了一篇材料，${data.msg}，继续努力`)
-              })
+              requestFn('恭喜您成功上传了一篇材料，继续努力')
             } else {
               requestFn('编辑成功')
             }

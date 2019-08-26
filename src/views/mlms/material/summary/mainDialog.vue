@@ -120,7 +120,6 @@ import { initFormData, dictsMap, rules, tipContent } from './options'
 import { mapGetters } from 'vuex'
 import { getCustomerPage } from '@/api/crms/customer'
 import { createData, updateData, getDataById, meetingSend } from '@/api/mlms/material/summary'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import projectDialog from './projectDialog'
 import previewDialog from './previewDialog'
 import { dateFormat } from '@/util/date'
@@ -258,23 +257,8 @@ export default {
             meetingSend(id).then(({ data }) => { // 保存后之后发送
               if (data.data) {
                 this.loadState = false
-                // 发送成功之后，判断是否是今天的纪要，若是访问财务接口
-                if (new Date(this.formData.meetingTime).toDateString() === new Date().toDateString()) {
-                  if (this.formData.meetingType == 6) {
-                    addBellBalanceRuleByNumber('VISIT_LOG').then(({data}) => {
-                      this.$message.success(`您成功发送一篇拜访纪要，${data.msg}，继续加油！`)
-                      this.goBack(true)
-                    })
-                  } else {
-                    addBellBalanceRuleByNumber('MEETING_SUMMARY').then(({data}) => {
-                      this.$message.success(`您成功发送一篇会议纪要，${data.msg}，继续加油！`)
-                      this.goBack(true)
-                    })
-                  }
-                } else {
-                  this.$message.success('您成功发送一篇会议纪要，继续加油！')
-                  this.goBack(true)
-                }
+                this.$message.success('您成功发送一篇会议纪要，继续加油！')
+                this.goBack(true)
               } else {
                 this.loadState = false
                 this.$message.error('当前网络异常，请稍后再试！')

@@ -109,7 +109,6 @@ import wrongDialog from '@/views/mlms/material/components/wrongDialog'
 // import wrongDialog from './wrongDialog'
 import { mapActions, mapGetters } from 'vuex'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
 function commentForm () {
   return {
@@ -173,11 +172,9 @@ export default {
       }
       this.comment.commentObjectId = this.formData.id
       commentMaterial(this.comment).then(() => {
-        addBellBalanceRuleByNumber('MATERIAL_COMMENT').then(({ data }) => {
-          this.getComment(this.formData.id)
-          this.comment = commentForm()
-          this.$message.success(`评论成功，${data.msg}！`)
-        })
+        this.getComment(this.formData.id)
+        this.comment = commentForm()
+        this.$message.success('评论成功！')
       })
     },
     // 领导批示

@@ -17,7 +17,9 @@ export const tipContent = {
     relatedClient:'请务必准确关联客户',
     projectBudget:'此处填写该项目预算计划，以“元”为单位',
     mktManagerList:'请准确选择负责该项目的签订合同市场经理',
+    projectManagerList:'项目总负责人',
     projectMentorList:'请务必为该项目寻找适合的指导人',
+    projectHandlesList:'项目协作部门的负责人',
     projectTagList:'1、项目标签要突出项目主题，合作项目/产品关联，其中合作项目简称，合作产品，客户简称等必须作为标签；<br/>' +
     '2、标签次序按照重要性排序；<br/>' +
     '3、标签数量必须三个以上。',

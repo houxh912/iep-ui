@@ -100,6 +100,7 @@ export default {
             type: 'success',
             message: res.data.msg,
           })
+          this.$emit('close', false)
         })
       }).catch(() => {
         this.$message({
@@ -126,6 +127,7 @@ export default {
             type: 'success',
             message: res.data.msg,
           })
+          this.$emit('close', false)
         })
       }).catch(() => {
         this.$message({
@@ -178,6 +180,7 @@ export default {
             type: 'success',
             message: res.data.msg,
           })
+          this.$emit('close', false)
         })
       }).catch(() => {
         this.$message({

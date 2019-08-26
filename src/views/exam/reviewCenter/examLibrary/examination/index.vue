@@ -31,8 +31,8 @@ export default {
       this.record = record
       this.currentComponet = 'Page'
     },
-    handleGoBack () {
-      this.record = ''
+    handleGoBack (record) {
+      this.record = record
       this.currentComponet = 'List'
     },
     handleGoPage (record) {

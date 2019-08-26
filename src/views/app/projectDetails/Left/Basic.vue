@@ -4,7 +4,10 @@
       <span class="sub-title">{{item.title}}</span>
       <div class="item-con">
         <span class="item-list" v-for="list in item.lists" :key="list.id">
-          <span class="title">
+          <span class="title" v-if="list.replace">
+            {{projectData[list.replace]?list.replaceLabel:list.post}}：
+          </span>
+          <span class="title" v-else-if="projectData[list.name]">
             {{list.post}}：
           </span>
           <span class="content" :class="list.show">
@@ -15,7 +18,9 @@
               {{ projectData[list.name].map(m => m[list.list]).join('、') }}
             </span>
             <span v-else-if="list.dict">{{dictMap[list.dict][projectData[list.name]]}}</span>
-            <span v-else>{{projectData[list.name]}}</span>
+            <span v-else-if="list.replace">{{projectData[list.replace]?projectData[list.replace]:projectData[list.name]}}</span>
+            <span v-else-if="projectData[list.name]">{{projectData[list.name]}}</span>
+            <span v-else>暂无</span>
           </span>
         </span>
       </div>
@@ -61,21 +66,20 @@ export default {
             }, {
               post: '客户名称',
               name: 'relatedClientName',
+              replace: 'attendeeByName',
+              replaceLabel: '委托组织',
             }, {
               post: '项目等级',
               name: 'projectLevel',
               dict: 'prms_project_level',
             }, {
-              post: '相关产品',
-              name: 'productList',
-              list: 'name',
-            }, {
               post: '项目预算',
               name: 'projectBudget',
+              replace: 'contractAmount',
+              replaceLabel: '合同金额',
             }, {
               post: '项目经理',
-              name: 'projectHandlesList',
-              list: 'name',
+              name: 'projectManagerName',
             }, {
               post: '项目督导',
               name: 'projectMentorList',

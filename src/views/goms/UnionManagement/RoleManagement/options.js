@@ -1,48 +1,5 @@
 ﻿// org config options
 //import { mergeByFirst } from '@/util/util'
-const dictsMap = {
-  dsType: {
-    0: '全部',
-    1: '自定义',
-    2: '本级及子级',
-    3: '本级',
-  },
-}
-
-const dsType = [
-  {
-    label: '全部',
-    value: 0,
-    disabled: false,
-  },
-  {
-    label: '本级及子级',
-    value: 2,
-    disabled: false,
-  },
-  {
-    label: '本级',
-    value: 3,
-    disabled: false,
-  },
-]
-const orgDsType = [
-  {
-    label: '全部',
-    value: 0,
-    disabled: true,
-  },
-  {
-    label: '本级及子级',
-    value: 2,
-    disabled: true,
-  },
-  {
-    label: '本级',
-    value: 3,
-    disabled: false,
-  },
-]
 
 const columnsMap = [
   {
@@ -55,9 +12,8 @@ const columnsMap = [
     width: '280px',
   },
   {
-    prop: 'dsType',
-    label: '数据权限',
-    type: 'dict',
+    prop: 'creatorName',
+    label: '创建者',
   },
   {
     prop: 'createTime',
@@ -76,4 +32,4 @@ const initForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, dsType, orgDsType }
+export { columnsMap, initForm }

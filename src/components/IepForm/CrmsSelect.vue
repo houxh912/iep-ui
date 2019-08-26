@@ -1,19 +1,8 @@
 <template>
   <div class="crms-select">
     <div class="crms-option">
-      <el-select
-        v-model="selectValue"
-        filterable
-        remote
-        placeholder="请输入关键词"
-        :remote-method="remoteMethod"
-        :loading="loading"
-        size="small">
-        <el-option
-          v-for="item in options"
-          :key="item.clientId"
-          :label="item.clientName"
-          :value="item.clientId">
+      <el-select v-model="selectValue" filterable remote placeholder="请输入关键词" :remote-method="remoteMethod" :loading="loading" size="small">
+        <el-option v-for="item in options" :key="item.clientId" :label="item.clientName" :value="item.clientId">
         </el-option>
       </el-select>
     </div>
@@ -38,7 +27,7 @@ export default {
       type: Array,
       required: true,
       default: () => {
-        return [{id: '', name: ''}]
+        return [{ id: '', name: '' }]
       },
     },
     value: {
@@ -65,27 +54,34 @@ export default {
       }
       this.params.clientName = val
       this.loading = true
-      getCommonPage(this.prefixUrl, this.params).then(({data}) => {
+      getCommonPage(this.prefixUrl, this.params).then(({ data }) => {
         this.options = data.data.records
         this.loading = false
       })
     },
     selectClose () {
       this.selectValue = ''
+      this.$emit('close', ' ')
     },
   },
   mounted () {
     this.selectValue = this.value
-    this.options = this.option.map((m) => {return {clientId: m.id, clientName: m.name}})
+    this.options = this.option.map((m) => { return { clientId: m.id, clientName: m.name } })
   },
   watch: {
     selectValue (newVal) {
       this.$emit('input', newVal)
-      this.$emit('change', newVal)
+      let name = ''
+      for (let item of this.options) {
+        if (item.clientId === newVal) {
+          name = item.clientName
+        }
+      }
+      this.$emit('change', newVal, name)
     },
     option (newVal) {
       if (newVal[0].name != undefined) {
-        this.options = newVal.map((m) => {return {clientId: m.id, clientName: m.name}})
+        this.options = newVal.map((m) => { return { clientId: m.id, clientName: m.name } })
       }
       this.$nextTick(() => { this.selectValue = this.value ? this.value : '' })
     },

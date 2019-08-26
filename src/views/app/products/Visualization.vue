@@ -22,13 +22,13 @@
       </div>
       <div class="piece">
         <div class="data">{{this.visualizationList.countProduct}}<span class="unit">个</span></div>
-        <div class="name">产品系列
+        <div class="name">组合系统
           <!-- i class="iconfont icon-wenhao"></i> -->
         </div>
       </div>
       <div class="piece">
         <div class="data">{{this.visualizationList.countModule}}<span class="unit">个</span></div>
-        <div class="name">模块清单
+        <div class="name">产品模块
           <!-- i class="iconfont icon-wenhao"></i> -->
         </div>
       </div>

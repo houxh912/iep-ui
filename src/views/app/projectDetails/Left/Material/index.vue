@@ -26,10 +26,22 @@ export default {
       title: '项目材料',
       itemList: [
         {
+          title: '关联项目',
+          icon: 'icon-guanlian',
+          listName: 'projectList',
+          path: '/app/resource/project_list/project_details/',
+        },
+        {
           title: '关联产品',
           icon: 'icon-guanlian',
           listName: 'productList',
-          href: 'http://www.datadnas.com/',
+          path: '/app/module_details/',
+        },
+        {
+          title: '关联合同',
+          icon: 'icon-guanlian',
+          listName: 'contractList',
+          path: '/mlms_spa/contract/detail/',
         },
         {
           title: '会议纪要',
@@ -52,6 +64,11 @@ export default {
         this.$router.push(`${item.path}${row.id}`)
       }
     },
+  },
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$router.replace(to.path)
+    })
   },
 }
 </script>
@@ -89,7 +106,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 10px;
-    i { 
+    i {
       margin-right: 3px;
     }
     &:last-child {

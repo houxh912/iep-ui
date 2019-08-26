@@ -1,26 +1,20 @@
 <template>
-  <el-card class="studyExponent-box" shadow="hover">
+  <el-card class="studyExponent-box" shadow="never">
     <div slot="header" class="clearfix">
       <span>学习指数</span>
     </div>
     <el-row>
       <el-col :span="8" class="tab">
-        <p>考试</p>
-        <p>28&nbsp;场</p>
-        <p>80%</p>
-        <p>及格率</p>
+        <p><label class="tabTxt">考&emsp;试</label><label class="tabNum">28</label><label class="tabUnit">场</label></p>
+        <p><label class="tabTxt">及格率</label><label class="tabNum">82</label><label class="tabUnit">%</label></p>
       </el-col>
       <el-col :span="8" class="tab">
-        <p>练习</p>
-        <p>28&nbsp;场</p>
-        <p>80%</p>
-        <p>及格率</p>
+        <p><label class="tabTxt">练&emsp;习</label><label class="tabNum">28</label><label class="tabUnit">次</label></p>
+        <p><label class="tabTxt">正确率</label><label class="tabNum">82</label><label class="tabUnit">%</label></p>
       </el-col>
       <el-col :span="8" class="tab">
-        <p>试题</p>
-        <p>28&nbsp;场</p>
-        <p>80%</p>
-        <p>及格率</p>
+        <p><label class="tabTxt">试&emsp;题</label><label class="tabNum">28</label><label class="tabUnit">道</label></p>
+        <p><label class="tabTxt">通过率</label><label class="tabNum">82</label><label class="tabUnit">%</label></p>
       </el-col>
     </el-row>
   </el-card>
@@ -30,9 +24,6 @@
 export default {
   data () {
     return {
-      infoList: {
-        num: 12,
-      },
     }
   },
 }
@@ -54,21 +45,19 @@ export default {
     align-items: center;
     font-size: 14px;
     color: #666;
-    p {
-      margin: 0px;
-      line-height: 40px;
-      &:first-child {
-        font-weight: 700px;
-        font-size: 30px;
-      }
+    .tabTxt {
+      color: rgb(136, 136, 136);
+      font-size: 16px;
+      padding: 0 18px;
     }
-    p:nth-child(2) {
-      color: #409eff;
-      font-size: 26px;
+    .tabUnit {
+      color: rgb(136, 136, 136);
+      font-size: 16px;
+      padding: 0 10px;
     }
-    p:nth-child(3) {
-      color: #409eff;
+    .tabNum {
       font-size: 26px;
+      font-weight: 600;
     }
   }
 }

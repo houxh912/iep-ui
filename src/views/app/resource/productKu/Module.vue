@@ -2,11 +2,11 @@
   <div>
     <search @search-page="searchData"></search>
     <div class="deletion-box">
-      <div class="codule-deletion">
+      <!-- <div class="codule-deletion">
         按分类：
         <div :class="moduleType==''?'color':''" class="piece-deletion" @click="tabModuleType('')">全部</div>
         <div v-for="(item) in cpmsModuleType" :key="item.value" :class="moduleType==item.value?'color':''" class="piece-deletion" @click="tabModuleType(item.value)">{{item.label}}</div>
-      </div>
+      </div> -->
       <div class="products-deletion">
         按业务分类：
         <div v-for="(item) in productList" :key="item.id" :class="productId==item.id?'color':''" class="piece-deletion" @click="tabProductId(item.id)">{{item.name}}</div>
@@ -148,11 +148,35 @@ export default {
 .clearfix:after {
   clear: both;
 }
+// .codule-deletion,
+// .products-deletion {
+//   width: 50%;
+//   text-align: left;
+//   display: inline-block;
+//   margin: 10px 0 20px;
+//   .piece-deletion {
+//     display: inline;
+//     padding: 2px 10px;
+//     border-radius: 12px;
+//     border: 1px solid #ffffff;
+//     margin: 0 10px;
+//     cursor: pointer;
+//     &:hover {
+//       background-color: #fef6f4;
+//       border: 1px solid #dc8687;
+//       color: #dc8687;
+//     }
+//   }
+
+//   .color {
+//     background-color: #fef6f4;
+//     border: 1px solid #dc8687;
+//     color: #dc8687;
+//   }
+// }
 .codule-deletion,
 .products-deletion {
-  width: 50%;
   text-align: left;
-  display: inline-block;
   margin: 10px 0 20px;
   .piece-deletion {
     display: inline;

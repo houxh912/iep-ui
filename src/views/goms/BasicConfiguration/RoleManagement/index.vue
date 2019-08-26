@@ -11,7 +11,7 @@
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
           <el-table-column label="角色名称">
             <template slot-scope="scope">
@@ -50,7 +50,7 @@ import {
 import { getModuleMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-import { dictsMap, columnsMap, initForm, orgDsType } from './options'
+import { columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
 import PermissionDialogForm from './PermissionDialogForm'
 function filterTree (arr, selectedKey) {
@@ -72,7 +72,6 @@ export default {
   data () {
     return {
       columnsMap,
-      dictsMap,
       dsScopeData: [],
       checkedDsScope: [],
       defaultProps: {
@@ -105,7 +104,6 @@ export default {
       this.$refs['DialogForm'].methodName = '创建'
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].formRequestFn = postOrgObj
-      this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = false
       this.$refs['DialogForm'].dialogShow = true
@@ -114,7 +112,6 @@ export default {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '编辑'
       this.$refs['DialogForm'].formRequestFn = putObj
-      this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = false
       this.$refs['DialogForm'].roleCodeDisabled = true
       this.$refs['DialogForm'].dialogShow = true
@@ -123,7 +120,6 @@ export default {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].methodName = '查看'
       this.$refs['DialogForm'].formRequestFn = getObj
-      this.$refs['DialogForm'].dsType = orgDsType
       this.$refs['DialogForm'].disabled = true
       this.$refs['DialogForm'].roleCodeDisabled = true
       this.$refs['DialogForm'].dialogShow = true

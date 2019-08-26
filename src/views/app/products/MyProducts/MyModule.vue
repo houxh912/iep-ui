@@ -43,7 +43,7 @@ export default {
   data () {
     return {
       moduleType: '',
-      productId: 0,
+      productId: 1,
       num: [18],
       productList: [{
         id: 1,
@@ -59,7 +59,7 @@ export default {
       },
       {
         id: 4,
-        name: '其他',
+        name: '公共服务',
       },
       ],
       moduleList: [],

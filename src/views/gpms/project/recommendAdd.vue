@@ -16,12 +16,13 @@
                 <el-checkbox v-model="formData.projectTypeBefore">内部项目</el-checkbox>
               </el-form-item>
             </el-col>
-            <el-col :span="12" v-if="formData.projectTypeBefore == false">
+            <el-col :span="12" v-if="formData.projectTypeBefore == false" style="position: relative;">
               <el-form-item label="客户名称：" prop="relatedClient">
                 <!-- <iep-select prefix-url="crm/customer" v-model="formData.relatedClient"></iep-select> -->
                 <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
                 </IepCrmsSelect>
               </el-form-item>
+              <iep-button style="position: absolute;right:-85px;top:0;" @click="addClient">新增客户</iep-button>
             </el-col>
             <el-col :span="12">
               <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
@@ -451,7 +452,7 @@ import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from '.
 import { createData, updateData, getRecommendedProjectList, getRecommendedHandlesList, getRecommendedMktManagerList, generationProject, getRecommendedMemberList, getRecommendedMentortList, getTimePerRequest, getAverageCostBudget, getAverageContractAmount } from '@/api/gpms/index'
 import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
-import { mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import { tipContent } from './option'
 import RelationDialog from './Total/relation'
 import ProductRelationDialog from './Total/productRelation'
@@ -571,6 +572,9 @@ export default {
     tagList () {
       return this.$route.query.allTagList
     },
+    ...mapState({
+      dialogShow: state => state.gpms.customerDialogShow,
+    }),
   },
   created () {
     this.tableData = []
@@ -891,6 +895,12 @@ export default {
       this.$router.push({
         path: `/gpms_spa/project/detail/${id}`,
       })
+    },
+    ...mapMutations({
+      setCustomerDialogShow: 'SET_CUSTOMER_DIALOG_SHOW',
+    }),
+    addClient () {
+      this.setCustomerDialogShow(true)
     },
   },
   watch: {

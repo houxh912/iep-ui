@@ -25,7 +25,7 @@
               <IepCrmsSelect v-model="formData.relatedClient" :option="[{id: formData.relatedClientList.id, name: formData.relatedClientList.name}]" prefixUrl="crm/customer/all/list">
               </IepCrmsSelect>
             </el-form-item>
-            <!-- <iep-button style="position: absolute;right:-100px;top:0;" @click="addClient">新增客户</iep-button> -->
+            <iep-button style="position: absolute;right:-100px;top:0;" @click="addClient">新增客户</iep-button>
           </el-col>
           <el-col :span="12">
             <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
@@ -337,7 +337,7 @@ import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from '.
 import { getDataDetail, createData, updateData } from '@/api/gpms/index'
 // import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
-import { mapGetters } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import { tipContent } from './option'
 import RelationDialog from './Total/relation'
 import ProductRelationDialog from './Total/productRelation'
@@ -414,6 +414,9 @@ export default {
     methodName () {
       return this.id ? '修改' : '新增'
     },
+    ...mapState({
+      dialogShow: state => state.gpms.customerDialogShow,
+    }),
   },
   created () {
     this.tableData = []
@@ -672,8 +675,11 @@ export default {
         this.shrink = '展开'
       }
     },
+    ...mapMutations({
+      setCustomerDialogShow: 'SET_CUSTOMER_DIALOG_SHOW',
+    }),
     addClient () {
-      this.$router.push('/crms/customer')
+      this.setCustomerDialogShow(true)
     },
   },
   watch: {

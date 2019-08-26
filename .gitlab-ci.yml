@@ -23,7 +23,7 @@ build_job:
     # - yarn lint
     - yarn build
   artifacts:
-    name: iep-ui-backstage-2.0
+    name: 'iep-ui-$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHA'
     expire_in: 1 week
     paths:
       - dist

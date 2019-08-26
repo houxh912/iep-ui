@@ -1,21 +1,21 @@
 const navList = [
   {
-    id: '//218.205.124.18:10056/',
+    id: '//www.icanvip.net/',
     name: '首页',
   }, {
-    id: '//218.205.124.18:10056/newsList',
+    id: '//www.icanvip.net/newsList',
     name: '头条新知',
   }, {
-    id: '//218.205.124.18:10056/businessList',
+    id: '//www.icanvip.net/businessList',
     name: '商机合作',
   }, {
-    id: '//218.205.124.18:10056/',
+    id: '//www.icanvip.net/dataAssets',
     name: '数据资产',
   }, {
-    id: '//218.205.124.18:10056/',
+    id: '//www.icanvip.net/masterList',
     name: '师傅专家',
   }, {
-    id: '//218.205.124.18:10056/thoughtsList',
+    id: '//www.icanvip.net/thoughtsList',
     name: '我要说说',
   },
 ]

@@ -55,7 +55,7 @@ module.exports = {
     // config.entry('index').add('babel-polyfill').end()
     config.plugin('html').tap(args => {
       args[0].title = '我能一站式数字化转型服务平台'
-      args[0].url = 'iep.govmade.com'
+      args[0].url = 'home.icanvip.net'
       if (isProduction) {
         args[0].cdn = cdn.build
       } else {

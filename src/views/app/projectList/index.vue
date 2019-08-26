@@ -1,18 +1,18 @@
 <template>
   <div>
-    <!-- <div class="breadcrumb-wrapper">
-      <el-breadcrumb class="breadcrumb-item" separator-class="el-icon-arrow-right">
-        <el-breadcrumb-item v-for="item in routerMatch" :key="item.path" :to="{ path: item.path }">{{item.name}}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div> -->
-    <div class="wealth">
-      <div class="library">
-        <librarys ref="librarys" class="librarys"></librarys>
-      </div>
-      <div class="piece">
-        <ranking></ranking>
+    <div class="material" v-if="'/app/resource/project_list'==routerMatch[routerMatch.length-1].path">
+      <div class="wealth">
+        <div class="library">
+          <librarys ref="librarys" class="librarys" @joinUpTwo="joinUpEnd"></librarys>
+        </div>
+        <div class="piece">
+          <ranking></ranking>
+          <!-- <div class="project-pk" @click="handlePKClick">项目PK</div> -->
+        </div>
+        <dialog-show class="dialog-show" ref="DialogShow"></dialog-show>
       </div>
     </div>
+    <router-view v-else></router-view>
   </div>
 </template>
 <script>
@@ -20,9 +20,10 @@ import Librarys from './Librarys/'
 import Ranking from './Ranking/'
 import { getRectagsList } from '@/api/app/tms/index'
 import { getGuessList } from '@/api/app/mlms/index'
+import DialogShow from './DialogShow'
 
 export default {
-  components: { Librarys, Ranking },
+  components: { Librarys, Ranking, DialogShow },
   data () {
     return {
       listList: [],
@@ -37,6 +38,9 @@ export default {
     changePage (val) {
       this.$refs['librarys'].loadPage({ projectName: val })
     },
+    // handlePKClick () {
+    //   this.$refs['DialogShow'].dialogShow = true
+    // },
     // 推荐主题
     getRectagsList () {
       getRectagsList().then(({ data }) => {
@@ -48,6 +52,10 @@ export default {
       getGuessList().then(({ data }) => {
         this.listList = data.data
       })
+    },
+    joinUpEnd (ids) {
+      this.$refs['DialogShow'].arrId = ids
+      this.$refs['DialogShow'].dialogShow = true
     },
   },
   created () {
@@ -85,5 +93,10 @@ export default {
 .library {
   padding-right: 30px;
   border-right: 1px solid #ebeef5;
+}
+.project-pk {
+  width: 100%;
+  text-align: center;
+  color: red;
 }
 </style>

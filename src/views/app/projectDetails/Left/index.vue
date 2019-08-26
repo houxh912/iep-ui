@@ -2,23 +2,17 @@
   <div class="project-details-con">
     <h3 class="title">{{projectData.projectName}}</h3>
     <div class="post-con">
-      <span class="post">市场经理：<span class="name">{{projectData.mktManagerName}}</span></span>
-      <span class="post">项目经理：<span class="name">{{projectData.projectManagerList.name}}</span></span>
+      <span class="post">市场经理：
+        <span v-if="projectData.mktManagerList.length==0">无</span>
+        <span v-for="(a,index) in projectData.mktManagerList" :key="a.id" class="people">{{a.name}}<span v-show="index!=projectData.mktManagerList.length-1">、</span></span>
+      </span>
+      <span class="post">项目经理：<span class="name">{{projectData.projectManagerName}}</span></span>
+      <span class="post">所属组织：<span class="name">{{projectData.orgName}}</span></span>
     </div>
     <div class="leaderBoard">
-      <IepAppTabsCard :linkName="linkName">
-        <iep-tabs v-model="activeTab" :tab-list="tabList">
-          <template v-if="activeTab ==='Basic'" v-slot:Basic>
-            <basic v-loading="activeTab !=='Basic'" :projectData="projectData"></basic>
-          </template>
-          <template v-if="activeTab ==='Approval'" v-slot:Approval>
-            <approval v-loading="activeTab !=='Approval'" :projectData="projectData"></approval>
-          </template>
-          <template v-if="activeTab ==='Material'" v-slot:Material>
-            <material v-loading="activeTab !=='Material'" :projectData="projectData"></material>
-          </template>
-        </iep-tabs>
-      </IepAppTabsCard>
+      <basic :projectData="projectData"></basic>
+      <approval :projectData="projectData"></approval>
+      <material :projectData="projectData"></material>
     </div>
   </div>
 </template>
@@ -30,6 +24,17 @@ import Material from './Material/'
 import { getDataDetail } from '@/api/gpms/'
 
 export default {
+  beforeRouteUpdate (to, from, next) {
+    // console.log(to, from)
+    this.$nextTick(() => {
+      this.getDataDetail()
+    })
+    next()
+    // 在当前路由改变，但是该组件被复用时调用
+    // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
+    // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
+    // 可以访问组件实例 `this`
+  },
   components: { Basic, Approval, Material },
   data () {
     return {
@@ -38,33 +43,26 @@ export default {
       post2: '项目经理',
       name1: '李凯',
       name2: '胡浩',
-      tabList: [{
-        label: '项目概况',
-        value: 'Basic',
-      }, {
-        label: '项目材料',
-        value: 'Material',
-      }],
-      activeTab: 'Basic',
-      linkName: '',
       projectData: {
         projectManagerList: { id: '', name: '' },
       },
     }
   },
   methods: {
-    getDataDetail (id) {
-      getDataDetail(id).then(({ data }) => {
+    getDataDetail () {
+      getDataDetail(this.$route.params.id).then(({ data }) => {
         let obj = data.data
         obj.publisherName = obj.publisherList ? obj.publisherList.name : ''
         obj.relatedClientName = obj.relatedClientList ? obj.relatedClientList.name : ''
-        console.log('projectData: ', obj)
+        obj.approverName = obj.approverList ? obj.approverList.name : ''
+        obj.projectManagerName = obj.projectManagerList ? obj.projectManagerList.name : ''
+        obj.applicantName = obj.applicantList ? obj.applicantList.name : ''
         this.projectData = obj
       })
     },
   },
   created () {
-    this.getDataDetail(this.$route.params.id)
+    this.getDataDetail()
   },
 }
 </script>
@@ -82,6 +80,8 @@ export default {
     justify-content: flex-start;
     align-items: center;
     margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
     .post {
       margin-right: 20px;
       color: #666;

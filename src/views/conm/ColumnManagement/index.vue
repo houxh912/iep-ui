@@ -23,11 +23,11 @@
               </el-dropdown-menu>
           </el-dropdown>-->
         </template>
-        <template slot="right">
+        <!-- <template slot="right">
           <operation-search>
-            <!-- <advance-search @search-page="searchPage"></advance-search> -->
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
-        </template>
+        </template> -->
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
         <template slot="before-columns">

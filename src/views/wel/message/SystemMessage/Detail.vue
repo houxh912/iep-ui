@@ -11,7 +11,7 @@
       </div>
       <div class="item-con">
         <div class="paragraph">
-          <msg-link :link="form" :ims-path-type="imsPathType"></msg-link>
+          <msg-link :form="form"></msg-link>
         </div>
       </div>
     </div>
@@ -19,10 +19,8 @@
 </template>
 <script>
 import { getSystemMessageById, markSystemMessageBatch } from '@/api/ims/system_message'
-import keyBy from 'lodash/keyBy'
 import { initForm } from './options'
 import MsgLink from './MsgLink'
-import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -54,11 +52,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['dictGroup']),
-    imsPathType () {
-      const imsPathType = this.dictGroup['ims_path_type']
-      return keyBy(imsPathType, 'value')[this.form.pathType]
-    },
     typeList () {
       return [false, this.form.isMark, false]
     },

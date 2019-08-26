@@ -25,9 +25,9 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
-              <iep-button v-if="goms_role_edit" @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="goms_role_del" @click="handleDeleteById(scope.row)">删除</iep-button>
-              <iep-button @click="handlePermission(scope.row, scope.index)" v-if="goms_role_perm">权限</iep-button>
+              <iep-button v-if="goms_role_edit && scope.row.unionId===0" @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="goms_role_del && scope.row.unionId===0" @click="handleDeleteById(scope.row)">删除</iep-button>
+              <iep-button v-if="goms_role_perm && scope.row.unionId===0" @click="handlePermission(scope.row, scope.index)">权限</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

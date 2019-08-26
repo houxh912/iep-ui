@@ -33,8 +33,14 @@
               <el-radio label="0">否</el-radio>
             </el-radio-group>
           </el-form-item>
+          <el-form-item label="是否典型项目应用：" prop="isCase" class="form-half">
+            <el-radio-group v-model="form.isCase">
+              <el-radio :label="1">是</el-radio>
+              <el-radio :label="0">否</el-radio>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item label="产品估值(元)：" prop="valuation" class="form-half">
-            <iep-input-number v-model="form.valuation"></iep-input-number>
+            <iep-input-amount v-model="form.valuation"></iep-input-amount>
           </el-form-item>
           <el-form-item label="估值说明：" prop="instructions">
             <iep-input-area v-model="form.instructions"></iep-input-area>

@@ -53,7 +53,6 @@
 import TimeLine from './timeline'
 import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import headTpl from '@/views/app/thoughtList/library/form'
 
 function initFormData () {
@@ -109,15 +108,8 @@ export default {
       this.loadState = true
       thoughtsCreate(this.formData).then(() => {
         // 判断是否公开，不公开(1)的说说没有奖励
-        if (this.formData.status === 1) {
-          this.$message.success('恭喜您发表了一篇说说，继续努力')
-          fn()
-        } else {
-          addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
-            this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
-            fn()
-          })
-        }
+        this.$message.success('恭喜您发表了一篇说说，继续努力')
+        fn()
       }).catch(() => {
         this.$message.error('网络出现问题，请稍后重试！')
         this.loadState = false

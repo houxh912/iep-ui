@@ -20,7 +20,6 @@
 <script>
 import { initForm } from './options'
 import TimeSelector from '@/views/crms/components/TimeSelector/'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 export default {
   components: { TimeSelector },
   data () {
@@ -63,15 +62,9 @@ export default {
         if (valid) {
           this.submitFn({ ...this.formData }).then(() => {
             if (this.methodName == '新增') {
-              if (new Date(this.formData.visitTime).toDateString() === new Date().toDateString()) {
-                addBellBalanceRuleByNumber('CONTACT_CUSTOMER').then(({ data }) => {
-                  this.$message.success(`您成功录入一条联系记录，${data.msg}，继续加油！`)
-                })
-              } else {
-                this.$message.success('您成功发送一篇联系记录，继续加油！')
-                this.$emit('load-page')
-                this.dialogShow = false
-              }
+              this.$message.success('您成功发送一篇联系记录，继续加油！')
+              this.$emit('load-page')
+              this.dialogShow = false
             } else {
               this.$message({
                 message: `${this.methodName}成功`,

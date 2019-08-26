@@ -89,7 +89,6 @@ import { initLocalForm, rules, dictsMap, tipContent } from './option'
 import { createData, updateData, getUnion } from '@/api/mlms/material/datum/material'
 import { downloadFile } from '@/api/common'
 import { mapGetters } from 'vuex'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 
 export default {
   props: {
@@ -162,9 +161,7 @@ export default {
               this.dialogShow = false
             }
             if (this.methodName == 'create') {
-              addBellBalanceRuleByNumber('MATERIAL_ADD').then(({ data }) => {
-                requestFn(`恭喜您成功上传了一篇材料，${data.msg}，继续努力`)
-              })
+              requestFn('恭喜您成功上传了一篇材料，继续努力')
             } else {
               requestFn('编辑成功')
             }

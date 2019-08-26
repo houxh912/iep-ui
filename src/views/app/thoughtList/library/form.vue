@@ -76,7 +76,6 @@
 
 <script>
 import { thoughtsCreate } from '@/api/cpms/thoughts'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import store from '@/store'
 import { getSubject, getName } from './util'
 import keyup from './keyup'
@@ -155,19 +154,10 @@ export default {
           }
           thoughtsCreate(this.formData).then(({ data }) => {
             if (data.data) {
-              // 判断是否公开，不公开(1)的说说没有奖励
-              if (this.formData.status === 1) {
-                this.resetForm()
-                this.loadState = false
-                this.$emit('load-page')
-              } else {
-                addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
-                  this.resetForm()
-                  this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
-                  this.loadState = false
-                  this.$emit('load-page')
-                })
-              }
+              this.resetForm()
+              this.$message.success('恭喜您发表了一篇说说，继续努力')
+              this.loadState = false
+              this.$emit('load-page')
             } else {
               this.loadState = false
               this.$message.error(data.msg)

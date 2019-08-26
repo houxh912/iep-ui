@@ -55,7 +55,6 @@
 <script>
 import TimeLine from './timeline'
 import { getTableData, createData, updateData } from '@/api/mlms/material/report/daily'
-import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import { getDays, formatYear } from '../util'
 
 export default {
@@ -138,9 +137,7 @@ export default {
           this.$message.error(res.data.msg)
           this.loadState = false
         } else if (state === 'create') { // 判断是否是新增日报，若是，访问财务接口
-          addBellBalanceRuleByNumber('USER_DAILY').then(({data}) => {
-            if (data.data) requsetFn(data.msg)
-          })
+          requsetFn()
         } else {
           requsetFn()
         }

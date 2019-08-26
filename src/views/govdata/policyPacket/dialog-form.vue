@@ -53,8 +53,8 @@
         <el-button @click="closePolicyList">选中</el-button>
       </div>
 
-      <el-table ref="multipleTable" :data="tableData" :row-key="getRowKeys" tooltip-effect="dark" style="width: 100%" @selection-change="handleChange">
-        <el-table-column type="selection" :selectable='selectable' :reserve-selection="true" width="40"></el-table-column>
+      <el-table ref="multipleTable" :data="tableData" :row-key="getRowKeys" tooltip-effect="dark" style="width: 100%" @select="select" @selection-change="handleChange">
+        <el-table-column type="selection" :reserve-selection="true" width="40"></el-table-column>
         <el-table-column prop="title" label="政策名称" align="left"></el-table-column>
         <el-table-column prop="publishTime" label="发布时间" :formatter="dateFormat" align="center" width="120"> </el-table-column>
         <el-table-column prop="mark" label="政策类型" align="center" width="120">
@@ -79,7 +79,7 @@
     </el-form-item>
 
     <el-form-item label="红包剩余数量" class="formWidth" prop="remainAmount">
-      <el-input-number v-model.number="model.remainAmount" style="width:100%" controls-position="right" :min="1" :max="100000"></el-input-number>
+      <el-input-number v-model.number="model.remainAmount" style="width:100%" controls-position="right" :min="0" :max="100000"></el-input-number>
     </el-form-item>
 
     <div class="code-container" v-if="!isAdd">
@@ -183,6 +183,7 @@ export default {
         effectiveDeadline: '',
         totalAmount: 0,
         remainAmount: 0,
+        relationList: [],
       },
       tableData: [],
       themeList: [],
@@ -230,39 +231,6 @@ export default {
   },
   methods: {
     /**
-     * 禁用已选的政策选项
-     */
-    selectable (row) {
-      if (this.isEdit) {
-        const list = this.model.relationList
-        if (list && list.length > 0) {
-          for (let i = 0; i < list.length; i++) {
-            if (list[i].policyId == row.id) {
-              return false
-            } else {
-              return true
-            }
-          }
-        } else {
-          return true
-        }
-      } else {
-        return true
-      }
-    },
-
-    /**
-     * 获取红包详情数据
-     */
-    getRedDetail () {
-      if (this.isEdit || this.isReadonly) {
-        getPacketById(this.formData.id).then(res => {
-          this.model = res.data.data
-        })
-      }
-    },
-
-    /**
      * 公用
      */
     common () {
@@ -276,6 +244,17 @@ export default {
       }).catch(() => {
         this.msg('保存失败，请检查你的网络链接。', 'error')
       })
+    },
+
+    /**
+     * 获取红包详情数据
+     */
+    getRedDetail () {
+      if (this.isEdit || this.isReadonly) {
+        getPacketById(this.formData.id).then(res => {
+          this.model = res.data.data
+        })
+      }
     },
 
     /**
@@ -305,7 +284,42 @@ export default {
     },
 
     /**
-     * 政策列表的多选
+      * 单选
+      */
+    select (selection, row) {
+      let status = this.isSelectNow(selection, row)
+      let hash = {}
+      if (status) {
+        let arr = { policyId: row.id, title: row.title, policyType: row.mark }
+        this.model.relationList.push(arr)
+        // if (this.model.relationList && this.model.relationList.length > 0) {
+        this.model.relationList.reduce(function (item, next) {
+          hash[next.policyId] ? '' : hash[next.policyId] = true && item.push(next)
+          return item
+        }, [])
+        // }
+      } else {
+        for (let index in this.model.relationList) {
+          if (this.model.relationList[index].policyId == row.id) {
+            this.model.relationList.splice(index, 1)
+            return
+          }
+        }
+      }
+    },
+
+    // 判断当前数据是否选中
+    isSelectNow (list, row) {
+      for (let item of list) {
+        if (item.id == row.id) {
+          return true
+        }
+      }
+      return false
+    },
+
+    /**
+     * 政策列表选择项发生变化时
      */
     handleChange (val) {
       this.mutipleSelection = val.map(m => {
@@ -318,8 +332,9 @@ export default {
           hash[next.policyId] ? '' : hash[next.policyId] = true && item.push(next)
           return item
         }, [])
+        this.model.relationList = this.policyValue
       } else {
-        this.policyValue = this.mutipleSelection
+        this.model.relationList = this.mutipleSelection
       }
     },
 
@@ -328,7 +343,7 @@ export default {
      */
     closePolicyList () {
       this.show = false
-      this.model.relationList = this.policyValue
+      // this.model.relationList = this.policyValue
       if (!this.isAdd) {
         this.common()
       }

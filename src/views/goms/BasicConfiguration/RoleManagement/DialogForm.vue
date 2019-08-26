@@ -17,7 +17,7 @@
         </el-select>
       </el-form-item>
     </el-form>
-    <template slot="footer">
+    <template v-if="!disabled" slot="footer">
       <operation-wrapper>
         <iep-button type="primary" @click="updateForm()">保存</iep-button>
         <iep-button @click="close">取消</iep-button>

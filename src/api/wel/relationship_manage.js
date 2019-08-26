@@ -33,12 +33,12 @@ export function getRelationshipList () {
   })
 }
 
-export function getCustomList () {
-  return request({
-    url: `${prefixUrl}/contacts/custom/list`,
-    method: 'get',
-  })
-}
+// export function getCustomList () {
+//   return request({
+//     url: `${prefixUrl}/contacts/custom/list`,
+//     method: 'get',
+//   })
+// }
 
 export function getTypeCountMap (query) {
   return request({

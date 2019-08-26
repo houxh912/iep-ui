@@ -10,7 +10,7 @@
   </iep-dialog>
 </template>
 <script>
-import { getRelationshipAddList } from '@/api/wel/relationship_manage'
+import { getRelationshipList } from '@/api/wel/relationship_manage'
 import { initGroupForm } from './options'
 import formMixins from '@/mixins/formMixins'
 export default {
@@ -36,7 +36,7 @@ export default {
       this.$emit('load-page')
     },
     loadTypeList () {
-      getRelationshipAddList().then(({ data }) => {
+      getRelationshipList().then(({ data }) => {
         this.relationship = data.data
         this.form.customId = this.relationship[0].id
       })

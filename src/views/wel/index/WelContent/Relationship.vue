@@ -41,8 +41,8 @@ export default {
     },
     loadTypeList () {
       getRelationshipList().then(({ data }) => {
-        this.relationship = data.data.splice(0, 3)
-        this.content = data.data
+        this.content = data.data.splice(0, 3)
+        this.relationship = this.content
       })
 
     },

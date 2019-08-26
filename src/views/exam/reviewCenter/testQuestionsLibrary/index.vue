@@ -24,8 +24,8 @@ export default {
       this.record = record
       this.currentComponet = 'Edit'
     },
-    handleGoBack () {
-      this.record = ''
+    handleGoBack (record) {
+      this.record = record
       this.currentComponet = 'List'
     },
   },

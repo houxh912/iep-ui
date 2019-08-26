@@ -3,7 +3,7 @@
     <basic-container>
       <iep-page-header :title="`${record.methodName}考试`" :backOption="backOption"></iep-page-header>
       <div class="withdraw-wrapper">
-        <a-steps :current="current">
+        <a-steps :current="current" v-if="!record.id">
           <a-step v-for="item in steps" :key="item.title" :title="item.title" />
         </a-steps>
         <keep-alive>
@@ -19,12 +19,9 @@ import FirstContent from './CreateExam/FirstContent'
 import SecondContent from './CreateExam/SecondContent'
 import ThirdContent from './CreateExam/ThirdContent'
 export default {
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+  props: [
+    'record',
+  ],
   components: {
     FirstContent, SecondContent, ThirdContent,
   },
@@ -73,7 +70,11 @@ export default {
       this.steps[this.current].data = data
     },
     handleBack () {
-      this.$emit('onGoBack')
+      this.$emit('onGoBack', {
+        currentPage: this.record.currentPage,
+        size: this.record.size,
+        search: this.record.search,
+      })
     },
     next () {
       this.current++
@@ -88,7 +89,11 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        this.$emit('onGoBack')
+        this.$emit('onGoBack', {
+        currentPage: this.record.currentPage,
+        size: this.record.size,
+        search: this.record.search,
+      })
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -102,7 +107,7 @@ export default {
 </script>
 <style scoped>
 .withdraw-wrapper {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   margin-left: 2%;
   margin-right: 2%;
 }

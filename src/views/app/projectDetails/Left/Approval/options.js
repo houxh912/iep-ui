@@ -1,4 +1,12 @@
 import { getStore } from '@/util/store'
+const dicData = getStore({ name: 'dictGroup' })
+function changeDict (list) {
+  let data = {}
+  for (let item of list) {
+    data[item.value] = item.label
+  }
+  return data
+}
 
 export const dictMap = {
   projectType: getStore({ name: 'dictGroup' }).prms_project_type,
@@ -7,12 +15,14 @@ export const dictMap = {
     { value: 1, label: '是' },
     { value: 2, label: '否' },
   ],
-  approvalStatus: [
-    { value: 1, label: '未提交' },
+  projectStatus: [
+    { value: 1, label: '待提交' },
     { value: 2, label: '待审核' },
-    { value: 3, label: '审核通过' },
-    { value: 4, label: '审核不通过' },
+    { value: 3, label: '已立项' },
+    { value: 4, label: '审核未通过' },
+    { value: 5, label: '锁定' },
   ],
+  projectStage: changeDict(dicData.prms_project_stage),
 }
 
 export const getDictLabel = (val, list) => {
@@ -26,11 +36,40 @@ export const getDictLabel = (val, list) => {
 
 export const setItOption = [
   {
+    title: '立项信息',
+    lists: [
+      {
+        post: '项目阶段',
+        name: 'projectStage',
+        dict: true,
+      },
+      {
+        post: '立项时间',
+        name: 'projectTime',
+      },
+      {
+        post: '结束时间',
+        name: 'endTime',
+      },
+      {
+        post: '签约时间',
+        name: 'estimatedSigntime',
+      },
+      {
+        post: '外部合作',
+        name: 'groupExternalCooperatePartner',
+      },
+    ],
+  },
+]
+
+export const setUpOption = [
+  {
     title: '审批信息',
     lists: [
       {
         post: '审批状态',
-        name: 'approvalStatus',
+        name: 'projectStatus',
         dict: true,
       },
       {
@@ -47,75 +86,7 @@ export const setItOption = [
       },
       {
         post: '审批不通过理由',
-        name: 'approvalFailReason',
-      },
-    ],
-  },
-]
-
-export const setUpOption = [
-  {
-    title: '立项信息',
-    lists: [
-      {
-        post: '编号',
-        name: 'serialNo',
-      },
-      {
-        post: '项目名称',
-        name: 'projectName',
-      },
-      {
-        post: '项目类型',
-        name: 'projectType',
-        dict: true,
-      },
-      {
-        post: '业务类型',
-        name: 'businessType',
-        dict: true,
-      },
-      {
-        post: '相关客户',
-        name: 'relatedClientName',
-      },
-      {
-        post: '项目预算',
-        name: 'projectBudget',
-      },
-      {
-        post: '项目标签',
-        name: 'projectTagList',
-        show: 'show',
-      },
-      {
-        post: '是否关联产品',
-        name: 'isRelevanceProduct',
-        dict: true,
-      },
-      {
-        post: '相关产品',
-        name: '海南政务信息资源目录管理项目',
-      },
-      {
-        post: '承接部门',
-        name: 'inChargeDeptName',
-      },
-      {
-        post: '合作部门',
-        name: 'coopDeptName',
-      },
-      {
-        post: '集团外部合作伙伴',
-        name: 'groupExternalCooperatePartnerName',
-      },
-      {
-        post: '发布人',
-        name: 'publisherName',
-      },
-      {
-        post: '发布时间',
-        name: 'publishTime',
+        name: 'content',
       },
     ],
   },

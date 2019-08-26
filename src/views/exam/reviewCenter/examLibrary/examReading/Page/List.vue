@@ -1,12 +1,12 @@
 <template>
   <div>
-    <operation-container>
+    <operation-container class="topBtn">
       <template slot="left">
-        <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
-        <iep-button type="danger" plain>导出</iep-button>
-        <iep-button @click="handleEdit">阅卷进度</iep-button>
-        <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button>
-        <iep-button class="empty" @click="handleEmpty">清空</iep-button>
+        <!-- <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button> -->
+        <!-- <iep-button type="danger" plain>导出</iep-button> -->
+        <iep-button @click="handleEdit" icon="el-icon-plus" type="primary" plain>阅卷进度</iep-button>
+        <!-- <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button> -->
+        <!-- <iep-button class="empty" @click="handleEmpty" v-show="Value != 0">清空</iep-button> -->
       </template>
       <template slot="right">
         <operation-search @search-page="searchPage" prop="username">
@@ -14,13 +14,13 @@
       </template>
     </operation-container>
 
-    <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
+    <iep-table ref="table" :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-index>
       <el-table-column prop="remainingTime" label="剩余时间">
         <template slot-scope="scope">
           {{scope.row.remainingTime | setTime}}
         </template>
       </el-table-column>
-      <el-table-column prop="paperStatus  " label="判分状态">
+      <el-table-column prop="paperStatus" label="判分状态">
         <template slot-scope="scope">
           <el-tag type="warning" size="medium" v-if="scope.row.paperStatus === 1">未阅卷</el-tag>
           <el-tag type="success" size="medium" v-if="scope.row.paperStatus === 2">正在阅卷</el-tag>
@@ -29,19 +29,21 @@
           <el-tag type="success" size="medium" v-if="scope.row.paperStatus === 5">完成阅卷</el-tag>
         </template>
       </el-table-column>
-      <el-table-column prop="operation" label="操作" width="160">
+      <el-table-column prop="operation" label="操作" width="190">
         <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="(scope.row.paperStatus === 5 && scope.row.isPass === 1) && (isCreator || permissionAll)">发放证书</iep-button>
-
-            <el-dropdown size="medium">
+          <operation-wrapper style="padding-top: 4px;">
+            <iep-button type="success" size="small" plain disabled v-if="scope.row.paperStatus === 5 && scope.row.isPass === 1 && scope.row.certificateId">已发证书</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleCertificate(scope.row)" v-if="(scope.row.paperStatus === 5 && scope.row.isPass === 1 && !scope.row.certificateId) && (isCreator || permissionAll)">发放证书</iep-button>
+            <iep-button type="warning" size="small" plain @click.native="handleWritten(scope.row)" v-if="permissionWritten || isCreator || permissionAll">笔试阅卷</iep-button>
+            <iep-button type="warning" size="small" plain @click.native="handleInterview(scope.row)" v-if="(permissionInterview || isCreator || permissionAll)  && addInterview === 1">面试判分</iep-button>
+            <!-- <el-dropdown size="medium">
               <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="handleWritten(scope.row)" v-if="permissionWritten || isCreator || permissionAll">笔试阅卷</el-dropdown-item>
                 <el-dropdown-item @click.native="handleInterview(scope.row)" v-if="(permissionInterview || isCreator || permissionAll)  && addInterview === 1">面试判分</el-dropdown-item>
                 <el-dropdown-item @click.native="handleDelete(scope.row)" v-if="isCreator || permissionAll">删除</el-dropdown-item>
               </el-dropdown-menu>
-            </el-dropdown>
+            </el-dropdown> -->
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -51,9 +53,9 @@
       <progress-form :formData="InterviewData" :isCreator="isCreator" :permissionAll="permissionAll" @close="loadPage()"></progress-form>
     </iep-dialog>
 
-    <el-dialog class="titleDialogs" title="笔试判分" :visible.sync="dialogWritten" width="90%" @close="loadPage()">
-      <writte-form :formData="InterviewData" v-if="dialogWritten" @close="loadPage()"></writte-form>
-    </el-dialog>
+    <iep-dialog :dialog-show="dialogWritten" title="笔试判分" width="90%" @close="loadPage()" class="writte-form">
+      <writte-form :formData="InterviewData" @close="loadPage()"></writte-form>
+    </iep-dialog>
 
     <iep-dialog :dialog-show="dialogInterview" title="面试判分" width="550px" @close="loadPage()" center>
       <interview-form :formData="InterviewData" @close="loadPage()"></interview-form>
@@ -139,9 +141,14 @@ export default {
   },
   filters: {
     setTime (val) {
-      var str = new Array()
-      str = val.split('-')
-      return str[0] + ' 分 ' + str[1] + ' 秒'
+      if (val === '-') {
+        return '0 分 0 秒'
+      }
+      else {
+        var str = new Array()
+        str = val.split('-')
+        return str[0] + ' 分 ' + str[1] + ' 秒'
+      }
     },
   },
   created () {
@@ -156,7 +163,7 @@ export default {
     /**
      * 获取列表分页数据
      */
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.addInterview = this.record.row.addInterview
       //console.log('mmm', this.addInterview)
       this.dialogProgress = false
@@ -249,6 +256,7 @@ export default {
             type: 'success',
             message: res.data.msg,
           })
+          this.loadPage()
         })
       }).catch(() => {
         this.$message({
@@ -287,28 +295,27 @@ export default {
     /**
      * 批量删除
      */
-    handleDeleteAll () {
-      if (this.selectValue == false) {
-        this.$message.error('请至少选择一项试题！')
-        return
-      }
-      if (this.selectValue == true) {
-        // deleteIdAll(this.selectionValue).then(() => {
-        //   this.$message({
-        //     message: '操作成功',
-        //     type: 'success',
-        //   })
-        //   this.loadPage()
-        // })
-      }
-    },
+    // handleDeleteAll () {
+    //   if (this.selectValue == false) {
+    //     this.$message.error('请至少选择一名考生！')
+    //     return
+    //   }
+    //   if (this.selectValue == true) {
+    //     deleteIdAll(this.selectionValue).then(() => {
+    //       this.$message({
+    //         message: '操作成功',
+    //         type: 'success',
+    //       })
+    //       this.loadPage()
+    //     })
+    //   }
+    // },
 
     /**
      * 清空选择
      */
     handleEmpty () {
-      this.Value = 0
-      console.log(22)
+      this.$refs.table.clearSelection()
     },
   },
 }
@@ -326,6 +333,7 @@ export default {
   }
 }
 .empty {
+  margin-top: 6px;
   border: 0px solid #ccc;
   color: #419fff;
   &:hover {
@@ -336,6 +344,17 @@ export default {
 <style scoped>
 .titleDialogs >>> .el-dialog__title {
   display: none;
+}
+.topBtn {
+  padding: 3px 0 3px 0;
+}
+</style>
+<style lang="css" scoped>
+.writte-form >>> .el-dialog {
+  margin-top: 8vh !important;
+}
+.writte-form >>> .wrap-dialog {
+  max-height: 72vh;
 }
 </style>
 

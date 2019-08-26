@@ -7,16 +7,17 @@
           <iep-button @click="handleAdd" icon="el-icon-plus" type="primary" plain>新增试题</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="title">
+          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title">
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
+        @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column prop="title" label="题目" width="250">
           <template slot-scope="scope">
             <span class="hiddenOverText" :title="scope.row.title">{{scope.row.title}}</span>
-            <span class="overText" v-if="JSON.stringify(scope.row.title).length > 45">......</span>
+            <span class="overText" v-if="JSON.stringify(scope.row.title).length > 87">......</span>
           </template>
         </el-table-column>
         <el-table-column prop="fieldName" label="科目">
@@ -39,22 +40,28 @@
             {{scope.row.title}}
           </template>
         </el-table-column> -->
-        <el-table-column prop="difficultyName" label="难度" min-width="70">
+        <el-table-column prop="difficultyName" label="难度">
           <template slot-scope="scope">
             {{scope.row.difficultyName}}
           </template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" min-width="70">
+        <el-table-column prop="associatedState" label="关联">
+            <template slot-scope="scope">
+              <el-tag type="success" size="medium" v-if="scope.row.associatedState === 0">不限</el-tag>
+              <el-tag type="warning" size="medium" v-if="scope.row.associatedState === 1">限考试</el-tag>
+            </template>
+          </el-table-column>
+        <el-table-column prop="status" label="状态">
           <template slot-scope="scope">
             <el-tag type="info" size="medium" v-if="scope.row.status === 0">审核中</el-tag>
             <el-tag type="success" size="medium" v-if="scope.row.status === 1">通过</el-tag>
-            <el-tooltip effect="dark" placement="top-start">
+            <el-tooltip effect="dark" placement="top-start" v-if="scope.row.status === 2">
               <div slot="content">未通过原因：<br />{{scope.row.reason}}</div>
-              <el-tag type="warning" size="medium" v-if="scope.row.status === 2">未通过</el-tag>
+              <el-tag type="warning" size="medium">未通过</el-tag>
             </el-tooltip>
           </template>
         </el-table-column>
-        <el-table-column prop="creatTime" label="提交时间" width="150px">
+        <el-table-column prop="creatTime" label="提交时间" width="150">
           <template slot-scope="scope">
             {{scope.row.creatTime}}
           </template>
@@ -63,7 +70,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleShow(scope.row)">查看</iep-button>
-              <iep-button plain @click="handleModify(scope.row)" :disabled="scope.row.status == 1">重新修改</iep-button>
+              <iep-button plain @click="handleModify(scope.row)">重新修改</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -79,12 +86,31 @@ import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
   components: { AdvanceSearch },
+  props: [
+    'record',
+  ],
   data () {
-    return {
-    }
+    return {}
   },
   created () {
-    this.loadPage()
+    /**
+     * 当没点击查看或修改
+     */
+    if (!this.record) {
+      this.loadPage()
+    }
+    /**
+     * 当点击查看或修改后返回
+     */
+    if (this.record) {
+      const param = {
+        title: this.record.search,
+      }
+      this.pageOption.current = this.record.current
+      this.pageOption.size = this.record.size
+      this.searchForm.title = param.title
+      this.loadTable({ ...param, ...this.pageOption }, getSubmissionRecordList)
+    }
   },
   methods: {
     loadPage (param = this.searchForm) {
@@ -109,6 +135,9 @@ export default {
         methodName: '修改',
         id: row.id,
         edit: false,
+        current: this.pageOption.current,
+        size: this.pageOption.size,
+        search: this.searchForm.title,
       })
     },
     /**
@@ -119,6 +148,9 @@ export default {
         methodName: '查看',
         id: row.id,
         edit: true,
+        current: this.pageOption.current,
+        size: this.pageOption.size,
+        search: this.searchForm.title,
       })
     },
   },

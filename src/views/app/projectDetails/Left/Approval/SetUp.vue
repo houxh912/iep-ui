@@ -4,7 +4,7 @@
       <span class="sub-title">{{item.title}}</span>
       <div class="item-con">
         <span class="item-list" v-for="list in item.lists" :key="list.id">
-          <span>
+          <span v-show="projectData[list.name]">
             {{list.post}}：
           </span>
           <span :class="list.show">
@@ -12,7 +12,7 @@
               <el-tag type="white" v-for="(item, index) in projectData[list.name]" :key="index">{{item}}</el-tag>
             </span>
             <span v-else-if="list.dict">{{getDictLabel(projectData[list.name], dictMap[list.name])}}</span>
-            <span v-else>{{projectData[list.name]}}</span>
+            <span v-else-if="projectData[list.name]">{{projectData[list.name]}}</span>
           </span>
         </span>
       </div>

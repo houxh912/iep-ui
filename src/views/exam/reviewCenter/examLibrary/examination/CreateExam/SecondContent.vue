@@ -6,7 +6,7 @@
       </div>
       <operation-container>
         <template slot="right">
-          <operation-search prop="title" @search-page="searchPage" advance-search>
+          <operation-search prop="title" @search-page="searchPage">
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>

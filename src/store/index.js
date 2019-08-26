@@ -6,6 +6,7 @@ import cache from './modules/cache'
 import common from './modules/common'
 import app from './modules/app'
 import tags from './modules/tags'
+import gpms from './modules/gpms'
 import fams from './modules/fams'
 import hrms from './modules/hrms'
 import notify from './modules/notify'
@@ -24,6 +25,7 @@ const store = new Vuex.Store({
     common,
     tags,
     fams,
+    gpms,
     hrms,
     notify,
     im,

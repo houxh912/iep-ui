@@ -37,7 +37,7 @@
     <iep-dialog :dialog-show="dialogShow" title="试题选择" width="50%" @close="dialogShow=false">
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="title" advance-search>
+          <operation-search @search-page="searchPage" prop="title">
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
@@ -148,7 +148,11 @@ export default {
     * 获取试题数据
     */
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param }, getPaperTest)
+      const params = {
+        questionType: this.questionType,
+        subject: this.fieldType,
+      }
+      this.loadTable({ ...param, ...params }, getPaperTest)
     },
 
     /**

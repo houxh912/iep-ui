@@ -13,21 +13,12 @@
       </template>
     </operation-container>
 
-    <iep-table
-      :columnsMap="columnsMap"
-      :isLoadTable="isLoadTable"
-      :pagination="pagination"
-      :pagedTable="pagedTable"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      @selection-change="selectionChange"
-      is-mutiple-selection
-      is-index>
+    <iep-table ref="table" :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection is-index>
       <el-table-column prop="remainingTime" label="剩余时间">
         <template slot-scope="scope">
-            {{scope.row.remainingTime | setTime}}
-          </template>
-        </el-table-column>
+          {{scope.row.remainingTime | setTime}}
+        </template>
+      </el-table-column>
       <el-table-column prop="state" label="状态">
         <template slot-scope="scope">
           <el-tag type="warning" size="medium" v-if="scope.row.state === 1">未交卷</el-tag>
@@ -37,9 +28,9 @@
       <el-table-column prop="operation" label="操作" width="240">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button @click="handleRollingTest(scope.row)" v-if="scope.row.state === 1">收卷</iep-button>
-            <iep-button @click="handlesetTest(scope.row)" v-if="scope.row.state === 2">设为可考</iep-button>
-            <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+            <iep-button type="warning" size="small" plain @click="handleRollingTest(scope.row)" v-if="scope.row.state === 1">收卷</iep-button>
+            <iep-button type="warning" size="small" plain @click="handlesetTest(scope.row)" v-if="scope.row.state === 2">设为可考</iep-button>
+            <iep-button size="small" plain @click="handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -48,7 +39,7 @@
   </div>
 </template>
 <script>
-import { getExamPaperList,RollingTestById,setTestById,deleteById } from '@/api/exam/examLibrary/examPaper/examPaper'
+import { getExamPaperList, RollingTestById, setTestById, deleteById } from '@/api/exam/examLibrary/examPaper/examPaper'
 import mixins from '@/mixins/mixins'
 const columnsMap = [
   {
@@ -90,11 +81,16 @@ export default {
     }
   },
   filters: {
-    setTime (val){
+    setTime (val) {
       // console.log('val => ',val)
-      var str = new Array()
-      str = val.split('-')
-      return str[0] + ' 分 ' + str[1] + ' 秒'
+      if (val === '-') {
+        return '0 分 0 秒'
+      }
+      else {
+        var str = new Array()
+        str = val.split('-')
+        return str[0] + ' 分 ' + str[1] + ' 秒'
+      }
     },
   },
   created () {
@@ -104,11 +100,11 @@ export default {
     /**
      * 获取列表分页数据
      */
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       const params = {
         examinationId: this.record.row.id,
       }
-      this.loadTable({...param, ...params}, getExamPaperList)
+      this.loadTable({ ...param, ...params }, getExamPaperList)
     },
 
     /**
@@ -120,12 +116,12 @@ export default {
         examId: val.examId,
         examinationId: val.examinationId,
       }
-      this.$confirm('此操作将对该考生进行收卷，是否继续？','提示',{
+      this.$confirm('此操作将对该考生进行收卷，是否继续？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        RollingTestById(param).then( res => {
+        RollingTestById(param).then(res => {
           if (res.data.data == true) {
             this.$message({
               type: 'success',
@@ -142,17 +138,17 @@ export default {
      * 设为可考
      */
     handlesetTest (val) {
-       const param = {
+      const param = {
         creatorId: val.creatorId,
         examId: val.examId,
         examinationId: val.examinationId,
       }
-      this.$confirm('此操作将对该考生设为可考状态，是否继续？','提示',{
+      this.$confirm('此操作将对该考生设为可考状态，是否继续？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        setTestById(param).then( res => {
+        setTestById(param).then(res => {
           if (res.data.data == true) {
             this.$message({
               type: 'success',
@@ -168,7 +164,7 @@ export default {
      * 删除
      */
     handleDelete (val) {
-      this._handleComfirm([val.examId], deleteById,'删除')
+      this._handleComfirm([val.examId], deleteById, '删除')
     },
 
     /**
@@ -176,7 +172,7 @@ export default {
      */
     selectionChange (val) {
       this.sumValue = val.length
-      if (val.map(item => item.id).length > 0){
+      if (val.map(item => item.id).length > 0) {
         this.selectValue = true
         this.selectionValue = val.map(item => item.examId)
       }
@@ -187,18 +183,18 @@ export default {
     /**
      * 批量删除
      */
-    handleDeleteAll (){
-      if (this.selectValue == false){
-        this.$message.error('请至少选择一项考试！')
+    handleDeleteAll () {
+      if (this.selectValue == false) {
+        this.$message.error('请至少选择一名考生！')
       }
 
       if (this.selectValue == true) {
-        this.$confirm('此操作将删除选中的考试，是否继续？','提示',{
+        this.$confirm('此操作将删除选中的考生，是否继续？', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
         }).then(() => {
-          deleteById(this.selectionValue).then( res => {
+          deleteById(this.selectionValue).then(res => {
             if (res.data.data == true) {
               this.$message({
                 message: '操作成功',
@@ -215,6 +211,7 @@ export default {
      * 清空选择
      */
     handleEmpty () {
+      this.$refs.table.clearSelection()
     },
   },
 }

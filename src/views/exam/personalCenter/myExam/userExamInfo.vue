@@ -1,12 +1,12 @@
 <template>
-  <el-card class="box-card" shadow="always">
+  <el-card class="box-card" shadow="never">
     <el-row>
       <el-col :span="4" class="dotted">
         <div class="left">
           <div class="img">
             <iep-img-avatar :size="110" :src="userInfo.avatar" alt="头像"></iep-img-avatar>
           </div>
-          <div class="iep-ellipsis">{{indexData.staffId}}</div>
+          <iep-div-detail class="iep-ellipsis" :value="indexData.staffId"></iep-div-detail>
         </div>
       </el-col>
 
@@ -17,16 +17,16 @@
               <p class="iep-ellipsis">{{indexData.name}}</p>
               <div class="user-right-info">
                 <div class="user-info">
-                  <span class="iep-ellipsis">数据咨询师</span>&nbsp;
-                  <span class="iep-ellipsis">DIPS产品中心</span>&nbsp;
-                  <span class="iep-ellipsis">产品与技术委员会</span>&nbsp;
+                  <iep-div-detail class="iep-ellipsis" :value="indexData.title" nullmsg="暂无职称"></iep-div-detail>
+                  <iep-div-detail class="iep-ellipsis" :value="indexData.job" nullmsg="暂无岗位"></iep-div-detail>
                 </div>
               </div>
             </div>
             <el-switch
               class="btnSwitch"
               v-model="reviewCenter"
-              active-color="#409EFF"
+              active-color="#D56268"
+              inactive-color="#EBEEF5"
               :active-text="switchText"
               @change="switchChange"
             ></el-switch>
@@ -67,8 +67,8 @@
                   class="iep-iellipsis"
                   :text-inside="true"
                   :stroke-width="18"
-                  :percentage="70"
-                  color="#409eff"
+                  :percentage="30"
+                  color="#D56268"
                 ></el-progress>
               </el-col>
               <el-col :span="3">
@@ -87,11 +87,10 @@ import { mapGetters } from 'vuex'
 import { getIndex } from '@/api/wel/index'
 const initIndexForm = () => {
   return {
-    name: '李舜生',//名字
-    staffId: 'GM0071',//工号
-    tagNum: 10,//标签
-    materialNum: 10,//材料
-    credit: 10,//信用
+    name: '',//名字
+    staffId: '',//工号
+    title: '',//职称
+    job: '',//职位
   }
 }
 export default {
@@ -104,7 +103,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['userInfo']),
+    ...mapGetters([
+      'userInfo',
+    ]),
+  },
+  created () {
+    this.loadPage()
   },
   methods: {
     //滑块滑动事件
@@ -114,10 +118,12 @@ export default {
       } else {
         this.switchText = '考试中心'
       }
+      this.$emit('showCard',status)
     },
-    loadPage () {
+    async loadPage () {
       this.pageLoading = true
-      getIndex().then(({ data }) => {
+      await getIndex().then(({data}) => {
+        // console.log(data)
         this.indexData = this.$mergeByFirst(initIndexForm(), data.data)
         this.pageLoading = false
       })
@@ -148,9 +154,8 @@ export default {
     .iep-ellipsis {
       width: 100%;
       text-align: center;
-      margin-top: 10px;
       color: rgb(136, 136, 136);
-      font-size: 17px;
+      font-size: 13px;
     }
   }
   .right {
@@ -165,15 +170,13 @@ export default {
       .user {
         display: flex;
         p {
-          font-size: 32px;
-          padding: 0px;
+          font-size: 24px;
           margin: 0px;
         }
         .user-right-info {
-          font-size: 14px;
-          margin-left: 15px;
-          margin-top: 25px;
+          margin: 16px 0 7px 15px;
           .iep-ellipsis {
+            font-size: 14px;
             color: rgb(136, 136, 136);
           }
         }
@@ -182,7 +185,10 @@ export default {
     .user-info {
       display: flex;
       justify-content: flex-start;
-      font-size: 15px;
+      .iep-ellipsis {
+        font-size: 15px;
+        margin-right: 8px;
+      }
     }
     hr {
       margin-top: 10px;
@@ -190,6 +196,14 @@ export default {
     }
     .examination-status {
       font-size: 14px;
+      > .el-row:last-child {
+        .iep-iellipsis:first-child {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          padding-right: 10px;
+        }
+      }
       .iep-ellipsis{
         padding: 6px 0;
         color: rgb(136, 136, 136);
@@ -214,6 +228,6 @@ export default {
   }
 }
 .btnSwitch {
-  padding-top: 38px;
+  padding-top: 27px;
 }
 </style>

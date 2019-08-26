@@ -43,7 +43,7 @@
       </el-table-column>
       <slot></slot>
     </el-table>
-    <iep-pagination v-if="isPagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="initPageSize" layout="total, sizes, prev, pager, next" prev-text="上一页" next-text="下一页" background></iep-pagination>
+    <iep-pagination v-if="isPagination" @size-change="handleSizeChange" @current-change="handleCurrentChange" :pagination-option="pagination" :page-sizes="initPageSize" :layout="layout" prev-text="上一页" next-text="下一页" background></iep-pagination>
   </div>
 </template>
 
@@ -118,6 +118,10 @@ export default {
     pageOptionSize: {
       type: Number,
       default: 10,
+    },
+    layout: {
+      type: String,
+      default: 'total, sizes, prev, pager, next',
     },
     cellClassName: {
       type: Function,
@@ -221,6 +225,10 @@ export default {
     // 切换某一行的选中状态
     toggleRowSelection (row, selected) {
       this.$refs['table'].toggleRowSelection(row, selected)
+    },
+    // 全部取消选择
+    clearSelection () {
+      this.$refs['table'].clearSelection()
     },
   },
 }

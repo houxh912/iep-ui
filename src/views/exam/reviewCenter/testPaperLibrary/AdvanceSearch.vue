@@ -1,17 +1,17 @@
 <template>
-  <el-form :form="searchForm" label-width="80px" size="mini">
-    <el-form-item label="试卷科目">
-      <el-select v-model="searchForm.field" placeholder="请选择试卷科目" clearable>
+  <el-form :model="searchForm" label-width="80px" size="mini">
+    <el-form-item label="试卷名称">
+      <el-input v-model="searchForm.title" placeholder="请输入试卷名称"></el-input>
+    </el-form-item>
+    <el-form-item label="试卷分类">
+      <el-select v-model="searchForm.field" placeholder="请选择试卷分类" clearable style="width:100%">
         <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
           :value="item.id"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="试卷名称">
-      <el-input v-model="searchForm.title" placeholder="请输入试卷名称"></el-input>
-    </el-form-item>
     <el-form-item>
-      <iep-button type="primary" @click="searchPage" style="margin:0 10px;">搜索</iep-button>
-      <iep-button style="margin:0 10px">取消</iep-button>
+      <iep-button type="primary" @click="searchPage" style="margin-right:6px;">搜索</iep-button>
+      <iep-button @click="handleClean">取消</iep-button>
     </el-form-item>
   </el-form>
 </template>
@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     searchPage () {
-      this.$emit('search-page', this.form)
+      this.$emit('search-page', this.searchForm)
     },
     /**
      * 获取试题数据
@@ -43,6 +43,12 @@ export default {
       }
       const { data } = await getTestOption(params)
       this.res = data
+    },
+    /**
+     * 清空按钮
+     */
+    handleClean () {
+      this.searchForm = {}
     },
   },
   watch: {

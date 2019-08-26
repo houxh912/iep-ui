@@ -4,7 +4,8 @@
       <iep-page-header title="考试库管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permissionAdd || permissionAll">新增</iep-button>
+          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd"
+            v-if="permissionAdd || permissionAll">新增</iep-button>
           <iep-button size="small" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
@@ -14,8 +15,9 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="title">
-            <!-- <advance-search @search-page="searchPage"></advance-search> -->
+          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title"
+            advanceSearch>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -70,9 +72,11 @@
         <el-table-column prop="operation" label="操作" min-width="200">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)" v-if="isCreator(scope.row) || permissionAll">编辑</iep-button>
+              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)"
+                v-if="isCreator(scope.row) || permissionAll">编辑</iep-button>
               <iep-button size="small" @click="handleDetail(scope.row)">查看</iep-button>
-              <el-dropdown size="medium" v-if="permissionReading(scope.row) || permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">
+              <el-dropdown size="medium"
+                v-if="permissionReading(scope.row) || permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && (isCreator(scope.row) || permissionAll)">启用</el-dropdown-item>
@@ -106,15 +110,18 @@
           <el-input v-model="reForm.creatTime" size="small" disabled></el-input>
         </el-form-item>
         <el-form-item label="开始时间： " prop="beginTime">
-          <el-date-picker v-model="reForm.beginTime" type="datetime" @change="handleChangeTime"></el-date-picker>
+          <el-date-picker v-model="reForm.beginTime" type="datetime" @change="handleChangeTime">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="结束时间： " prop="endTime">
-          <el-date-picker v-model="reForm.endTime" type="datetime" @change="handleChangeTime"></el-date-picker>
+          <el-date-picker v-model="reForm.endTime" type="datetime" @change="handleChangeTime">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <template slot="footer">
         <operation-wrapper>
-          <iep-button type="primary" :disabled="isChangeTime" @click="handleEditSave">保存</iep-button>
+          <iep-button type="primary" :disabled="isChangeTime" @click="handleEditSave">保存
+          </iep-button>
           <iep-button @click="handleEditCancel">取消</iep-button>
         </operation-wrapper>
       </template>
@@ -126,9 +133,11 @@
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import { getExamInationList, postExamForbidById, postExamPassById, deleteById } from '@/api/exam/examLibrary/examInation/examInation'
-
+import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins],
+  props: ['record'],
+  components: { AdvanceSearch },
   data () {
     return {
       isChangeTime: true,
@@ -153,7 +162,24 @@ export default {
     }
   },
   created () {
-    this.loadPage()
+    /**
+     * 当没点击查看或修改
+     */
+    if (!this.record) {
+      this.loadPage()
+    }
+    /**
+     * 当点击查看或修改后返回
+     */
+    if (this.record) {
+      const param = {
+        title: this.record.search,
+      }
+      this.pageOption.current = this.record.currentPage
+      this.pageOption.size = this.record.size
+      this.searchForm.title = param.title
+      this.loadTable({ ...param, ...this.pageOption }, getExamInationList)
+    }
     this.setPermission()
   },
   computed: {
@@ -186,7 +212,7 @@ export default {
       return row.creatorId === this.userInfo.userId
     },
 
-    loadPage (param) {
+    loadPage (param = this.searchForm) {
       this.loadTable(param, getExamInationList)
     },
     /**
@@ -258,6 +284,9 @@ export default {
         methodName: '编辑',
         current: 2,
         id: row.id,
+        currentPage: this.pageOption.current,
+        size: this.pageOption.size,
+        search: this.searchForm.title,
       }
       this.$emit('onEdit', record)
     },
@@ -270,6 +299,9 @@ export default {
         methodName: '查看',
         current: 2,
         id: row.id,
+        currentPage: this.pageOption.current,
+        size: this.pageOption.size,
+        search: this.searchForm.title,
       }
       this.$emit('onEdit', record)
     },
@@ -280,6 +312,9 @@ export default {
       this.$emit('onChange', {
         row,
         activeTab,
+        currentPage: this.pageOption.current,
+        size: this.pageOption.size,
+        search: this.searchForm.title,
       })
     },
     /**

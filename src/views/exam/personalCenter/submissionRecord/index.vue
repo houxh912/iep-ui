@@ -21,8 +21,8 @@ export default {
       this.record = record
       this.currentComponet = 'report'
     },
-    handleGoBack () {
-      this.record = ''
+    handleGoBack (record) {
+      this.record = record
       this.currentComponet = 'List'
     },
   },

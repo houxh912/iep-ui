@@ -26,7 +26,7 @@ export default {
     handleStart (record) {
       this.record = record
       this.currentComponet = 'Start'
-      console.log('record => ', record)
+      // console.log('record => ', record)
     },
     handleGoBack () {
       this.record = ''

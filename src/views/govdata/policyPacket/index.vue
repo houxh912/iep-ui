@@ -1,17 +1,23 @@
 <template>
   <page-dialog :page-show="editDialogShow" :title="infoFormTitle" @close="editDialogShow=false">
     <template slot="page">
-      <collapse-form ref="collapseForm" @clear="formInline=initFormInline()" @search="search()">
+      <collapse-form ref="collapseForm" @clear="formInline=initFormInline()" @search="search()" class="policy-container">
         <template slot="search-header">
-          <el-form-item label="政策标题:">
-            <el-input placeholder="请输入政策标题" v-model.trim="formInline.description" clearable></el-input>
+          <el-form-item label="红包简介:">
+            <el-input placeholder="请输入红包简介" v-model.trim="formInline.description" clearable></el-input>
+          </el-form-item>
+        </template>
+        <template slot="search-body">
+          <el-form-item label="发布时间">
+            <el-date-picker v-model="formInline.startTime" type="date" value-format="yyyy-MM-dd" placeholder="开始日期" class="block" clearable></el-date-picker> —
+            <el-date-picker v-model="formInline.endTime" type="date" value-format="yyyy-MM-dd" placeholder="结束日期" class="block" clearable></el-date-picker>
           </el-form-item>
         </template>
       </collapse-form>
 
       <el-form :inline="true" size="small">
         <el-form-item>
-          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
+          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">包红包</el-button>
         </el-form-item>
       </el-form>
 
@@ -24,9 +30,9 @@
         </el-table-column>
         <el-table-column prop="operation" align="center" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
+            <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">预览</el-button>
             <iep-divider type="vertical" />
-            <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit" v-if="scope.row.status === 0">修改</el-button>
+            <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit" v-if="scope.row.status === 0">更新</el-button>
             <iep-divider type="vertical" />
             <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete">删除</el-button>
           </template>
@@ -120,7 +126,7 @@ export default {
     ...mapGetters(['userInfo']),
 
     infoFormTitle () {
-      return this.isReadonly ? '查看政策红包' : this.isEdit ? '修改政策红包' : '新增政策红包'
+      return this.isReadonly ? '预览红包' : this.isEdit ? '更新红包' : '包政策红包'
     },
     params () {
       return this.formInline
@@ -209,13 +215,9 @@ export default {
       } else {
         this.isAdd = false
         this.isEdit = true
-        getPacketById(rows.id).then(res => {
-          const row = res.data.data
-          // this.row.modifiedUser = this.modifiedUser
-          this.form = this.readRelation(row)
-          this.isNeedConfirm = false
-          this.dialogShow = true
-        })
+        this.form = { ...rows }
+        this.isNeedConfirm = false
+        this.dialogShow = true
       }
     },
 
@@ -259,5 +261,12 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.policy-container >>> .search {
+  margin-left: -1px;
+  border-radius: 3px;
+  color: #fff;
+  background: #ba1b21;
+  border-color: #ba1b21;
 }
 </style>

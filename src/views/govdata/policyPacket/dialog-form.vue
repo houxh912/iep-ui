@@ -1,12 +1,12 @@
 <template>
-  <el-form :model="formData" label-width="120px" ref="form" :rules="rules" :class="isReadonly ? 'readonly-form' : ''">
+  <el-form :model="model" label-width="120px" ref="form" :rules="rules" :class="isReadonly ? 'readonly-form' : ''">
     <el-form-item label="红包简介" prop="description">
-      <el-input v-model="formData.description" maxlength="255" :readonly="isReadonly" clearable></el-input>
+      <el-input v-model="model.description" maxlength="255" :readonly="isReadonly" clearable></el-input>
     </el-form-item>
 
     <el-form-item label="关联政策">
       <div class="policyList">
-        <el-tag type="info" v-for="item in formData.relationList" :key="item.value" :label="item.label" closable :disable-transitions="false" @close="handleClose(item)">{{item.title}}</el-tag>
+        <el-tag type="info" v-for="item in model.relationList" :key="item.value" :label="item.label" closable :disable-transitions="false" @close="handleClose(item)">{{item.title}}</el-tag>
         <el-button class="open" type="primary" icon="el-icon-edit" circle @click="getPolicyList" :disabled="isReadonly"></el-button>
       </div>
 
@@ -49,12 +49,12 @@
       </collapse-form>
 
       <div class="tip">
-        已选择<span>{{formData.relationList.length}}</span>条数据
+        已选中<span>{{this.policyValue.length}}</span>条数据
         <el-button @click="closePolicyList">选中</el-button>
       </div>
 
       <el-table ref="multipleTable" :data="tableData" :row-key="getRowKeys" tooltip-effect="dark" style="width: 100%" @selection-change="handleChange">
-        <el-table-column type="selection" :reserve-selection="true" width="40"></el-table-column>
+        <el-table-column type="selection" :selectable='selectable' :reserve-selection="true" width="40"></el-table-column>
         <el-table-column prop="title" label="政策名称" align="left"></el-table-column>
         <el-table-column prop="publishTime" label="发布时间" :formatter="dateFormat" align="center" width="120"> </el-table-column>
         <el-table-column prop="mark" label="政策类型" align="center" width="120">
@@ -71,15 +71,15 @@
     </div>
 
     <el-form-item label="有效时间" class="formWidth" prop="effectiveDeadline">
-      <el-date-picker type="date" style="width:100%" placeholder="选择日期" v-model="formData.effectiveDeadline" value-format="yyyy-M-d HH:mm:ss" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" style="width:100%" placeholder="选择日期" v-model="model.effectiveDeadline" value-format="yyyy-M-d HH:mm:ss" :disabled="isReadonly"></el-date-picker>
     </el-form-item>
 
     <el-form-item label="红包总量" class="formWidth" prop="totalAmount">
-      <el-input-number v-model.number="formData.totalAmount" style="width:100%" controls-position="right" :min="1" :max="100000" :disabled="isReadonly"></el-input-number>
+      <el-input-number v-model.number="model.totalAmount" style="width:100%" controls-position="right" :min="1" :max="100000" :disabled="isReadonly"></el-input-number>
     </el-form-item>
 
-    <el-form-item label="红包剩余数量" class="formWidth" prop="remainAmount" v-if="isAdd">
-      <el-input-number v-model.number="formData.remainAmount" style="width:100%" controls-position="right" :min="1" :max="100000"></el-input-number>
+    <el-form-item label="红包剩余数量" class="formWidth" prop="remainAmount">
+      <el-input-number v-model.number="model.remainAmount" style="width:100%" controls-position="right" :min="1" :max="100000"></el-input-number>
     </el-form-item>
 
     <div class="code-container" v-if="!isAdd">
@@ -102,7 +102,7 @@
 </template>
 
 <script>
-import { postPacket, putPacket, getpolicyPage } from '@/api/govdata/policy_packet'
+import { getPacketById, postPacket, putPacket, getpolicyPage } from '@/api/govdata/policy_packet'
 import Qrcode from '@chenfengyuan/vue-qrcode'
 import mixins from '@/mixins/mixins'
 import multiplyMixin from '@/views/govdata/policyManage/multiply_mixin'
@@ -129,12 +129,11 @@ export default {
           callback(new Error('请输入数字值'))
         } else {
           if (this.isAdd) {
-            if (this.formData.totalAmount !== this.formData.remainAmount) {
+            if (this.model.totalAmount !== this.model.remainAmount) {
               callback(new Error('红包总数量必须等于剩余红包数量 !'))
             } else {
               callback()
             }
-
           } else {
             callback()
           }
@@ -150,12 +149,18 @@ export default {
           callback(new Error('请输入数字值'))
         } else {
           if (this.isAdd) {
-            if (this.formData.totalAmount !== this.formData.remainAmount) {
+            if (this.model.totalAmount !== this.model.remainAmount) {
               callback(new Error('红包总数量必须等于剩余红包数量 !'))
             } else {
               callback()
             }
-
+          }
+          if (this.isEdit) {
+            if (this.model.remainAmount > this.model.totalAmount) {
+              callback(new Error('剩余红包数量必须小于或等于红包总数量 !'))
+            } else {
+              callback()
+            }
           } else {
             callback()
           }
@@ -171,6 +176,13 @@ export default {
         description: [{ required: true, message: '请输入通用政策正文' }],
         totalAmount: [{ validator: checkTotalAmount, trigger: 'blur' }],
         remainAmount: [{ validator: checkRemainAmount, trigger: 'blur' }],
+      },
+      policyValue: [],
+      model: {
+        description: '',
+        effectiveDeadline: '',
+        totalAmount: 0,
+        remainAmount: 0,
       },
       tableData: [],
       themeList: [],
@@ -211,11 +223,61 @@ export default {
     }
   },
   created () {
+    this.getRedDetail()
     this.getCode()
     this.loadDict()
 
   },
   methods: {
+    /**
+     * 禁用已选的政策选项
+     */
+    selectable (row) {
+      if (this.isEdit) {
+        const list = this.model.relationList
+        if (list && list.length > 0) {
+          for (let i = 0; i < list.length; i++) {
+            if (list[i].policyId == row.id) {
+              return false
+            } else {
+              return true
+            }
+          }
+        } else {
+          return true
+        }
+      } else {
+        return true
+      }
+    },
+
+    /**
+     * 获取红包详情数据
+     */
+    getRedDetail () {
+      if (this.isEdit || this.isReadonly) {
+        getPacketById(this.formData.id).then(res => {
+          this.model = res.data.data
+        })
+      }
+    },
+
+    /**
+     * 公用
+     */
+    common () {
+      const submitForm = JSON.parse(JSON.stringify(this.model))
+      const requestFun = this.isEdit ? putPacket : postPacket
+      requestFun(submitForm).then(res => {
+        if (res.data.data) {
+          this.getRedDetail()
+          this.msg('提交成功!', 'success')
+        }
+      }).catch(() => {
+        this.msg('保存失败，请检查你的网络链接。', 'error')
+      })
+    },
+
     /**
      * 获取政策列表数据
      */
@@ -229,8 +291,9 @@ export default {
         this.paginationOption.total = data.total
         this.tableData = data.records
 
-        const list = this.formData.relationPolicyList
+        const list = this.model.relationPolicyList
         if (list && list.length > 0) {
+          console.log(22)
           for (let i = 0; i < list.length; i++) {
             for (let j = 0; j < this.tableData.length; j++) {
               if (list[i].id == this.tableData[j].id) {
@@ -243,34 +306,32 @@ export default {
     },
 
     /**
-     * 关闭政策列表界面
-     */
-    closePolicyList () {
-      this.show = false
-    },
-
-    /**
      * 政策列表的多选
      */
     handleChange (val) {
       this.mutipleSelection = val.map(m => {
         return { policyId: m.id, title: m.title, policyType: m.mark }
       })
-      let Arr = this.mutipleSelection
-      let newArr = []
-      if (Arr && Arr.length > 0) {
-        let flag = true
-        for (let i = 0; i < Arr.length; i++) {
-          for (let j = 0; j < newArr.length; j++) {
-            if (Arr[i].policyId == newArr[j].policyId) {
-              flag = false
-            }
-          }
-          if (flag) {
-            newArr.push(Arr[i])
-            this.formData.relationList = newArr
-          }
-        }
+      if (this.model.relationList && this.model.relationList.length > 0) {
+        let hash = {}
+        const value = [... this.mutipleSelection, ...this.model.relationList]
+        this.policyValue = value.reduce(function (item, next) {
+          hash[next.policyId] ? '' : hash[next.policyId] = true && item.push(next)
+          return item
+        }, [])
+      } else {
+        this.policyValue = this.mutipleSelection
+      }
+    },
+
+    /**
+     * 选中政策
+     */
+    closePolicyList () {
+      this.show = false
+      this.model.relationList = this.policyValue
+      if (!this.isAdd) {
+        this.common()
       }
     },
 
@@ -278,7 +339,14 @@ export default {
      * 动态关闭政策tag
      */
     handleClose (item) {
-      this.formData.relationList.splice(this.formData.relationList.indexOf(item), 1)
+      this.model.relationList.splice(this.model.relationList.indexOf(item), 1)
+      if (!this.isAdd) {
+        for (let items of this.tableData) {
+          if (item.policyId == items.id) {
+            this.$refs.multipleTable.toggleRowSelection(items, false)
+          }
+        }
+      }
     },
 
     /**
@@ -286,7 +354,7 @@ export default {
      */
     handleSubmit (formName) {
       this.loading = true
-      const submitForm = JSON.parse(JSON.stringify(this.formData))
+      const submitForm = JSON.parse(JSON.stringify(this.model))
 
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -425,6 +493,10 @@ export default {
       border: 1px solid #dcdfe6;
       .code {
         cursor: pointer;
+        transition: all 0.6s;
+        &:hover {
+          transform: scale(1.4);
+        }
       }
     }
   }

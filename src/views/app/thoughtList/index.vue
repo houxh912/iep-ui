@@ -28,7 +28,7 @@
         <rightTpl ref="contentRight"></rightTpl>
       </div>
     </div>
-    
+
   </iep-app-layout>
 </template>
 
@@ -103,7 +103,7 @@ export default {
       this.$refs['contentRight'].loadData()
     },
     loadPage () {
-      let fn = () => {}
+      let fn = () => { }
       if (this.tabName === 'allThougth') {
         fn = geTallPage
       } else {

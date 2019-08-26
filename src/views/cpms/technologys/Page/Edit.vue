@@ -40,7 +40,7 @@
             <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
-        <div class="title">应用模块：</div>
+        <div class="title">应用产品模块：</div>
         <el-row class="base">
           <iep-cpms-module-table v-model="form.moduleRelations"></iep-cpms-module-table>
         </el-row>

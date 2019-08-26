@@ -3,10 +3,10 @@
     <div v-show="pageState=='list'">
       <operation-container>
         <template slot="left">
-          <iep-button size="small" type="primary" icon="el-icon-plus" plain>新增</iep-button>
+          
         </template>
         <template slot="right">
-          <!-- <searchForm @searchPage="searchPage"></searchForm> -->
+          <operation-search @search-page="searchPage" :paramForm="paramForm" prop="content"></operation-search>
         </template>
       </operation-container>
       <iep-table 
@@ -53,6 +53,9 @@ export default {
       selectList: [],
       firstClass: [],
       getTableDataFn: getManagePage,
+      paramForm: {
+        content: '',
+      },
     }
   },
   created () {
@@ -83,6 +86,7 @@ export default {
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.topicId, thoughtsDelete)
     },
+    searchPage () {},
     // 清空搜索
     clearSearchParam () {},
   },

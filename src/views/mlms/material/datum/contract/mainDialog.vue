@@ -130,6 +130,7 @@ import { initFormData, rules, dictsMap } from './option'
 import { mapGetters } from 'vuex'
 import { getManeger, updateData, getDataById } from '@/api/mlms/material/datum/contract'
 import businessType from './businessType'
+import { DecimalDigits } from '@/util/util'
 
 export default {
   components: { businessType },
@@ -210,6 +211,7 @@ export default {
       // this.formData.underTakeDeptId = this.formData.underTakeDeptList.map(m => m.id) // 承接部门
       this.formData.contractFile = this.formData.contractFileList.length > 0 ? this.formData.contractFileList[0].url : ''
       this.formData.directorId = this.formData.directorList.id
+      this.formData.contractAmount = DecimalDigits(this.formData.contractAmount, 2)
       // 完结时间非必填
       // this.formData.finishTime = this.formData.finishTime ? this.formData.finishTime : '0000-01-01 00:00:00'
       this.$refs[formName].validate((valid) => {

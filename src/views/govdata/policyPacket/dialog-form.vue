@@ -271,7 +271,7 @@ export default {
       requestFun(submitForm).then(res => {
         if (res.data.data) {
           this.getRedDetail()
-          this.msg('提交成功!', 'success')
+          this.msg('操作成功!', 'success')
         }
       }).catch(() => {
         this.msg('保存失败，请检查你的网络链接。', 'error')
@@ -293,7 +293,6 @@ export default {
 
         const list = this.model.relationPolicyList
         if (list && list.length > 0) {
-          console.log(22)
           for (let i = 0; i < list.length; i++) {
             for (let j = 0; j < this.tableData.length; j++) {
               if (list[i].id == this.tableData[j].id) {
@@ -340,12 +339,15 @@ export default {
      */
     handleClose (item) {
       this.model.relationList.splice(this.model.relationList.indexOf(item), 1)
-      if (!this.isAdd) {
+      if (this.show) {
         for (let items of this.tableData) {
           if (item.policyId == items.id) {
             this.$refs.multipleTable.toggleRowSelection(items, false)
           }
         }
+      }
+      if (!this.isAdd) {
+        this.common()
       }
     },
 

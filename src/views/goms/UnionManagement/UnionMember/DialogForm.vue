@@ -42,7 +42,6 @@ export default {
       this.$emit('load-page')
     },
     async submitForm () {
-      this.form.orgId = this.form.id
       const { data } = await this.formRequestFn(this.form)
       if (data.data) {
         this.$message.success('操作成功')

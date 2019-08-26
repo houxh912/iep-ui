@@ -12,7 +12,7 @@
           <span class="sub-menu">{{item.name}}</span>
           <resource-con ref="resource" class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
         </el-menu-item>
-        <a-dropdown>
+        <a-dropdown v-if="navListEnd.length">
           <a-icon class="ant-dropdown-link" type="ellipsis" />
           <a-menu slot="overlay">
             <a-menu-item v-for="item in navListEnd" :key="item.id" @click="$openPage(item.id, 'url')">

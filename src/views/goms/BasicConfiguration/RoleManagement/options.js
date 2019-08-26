@@ -46,10 +46,6 @@ const orgDsType = [
 
 const columnsMap = [
   {
-    prop: 'roleName',
-    label: '角色名称',
-  },
-  {
     prop: 'roleCode',
     label: '角色标识',
   },

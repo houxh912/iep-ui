@@ -29,7 +29,7 @@
         </a-menu-item>
       </a-menu>
     </a-dropdown>
-    <select-org-dialog ref="selectOrgDialog"></select-org-dialog>
+    <select-org-dialog ref="SelectOrgDialog"></select-org-dialog>
     <about-dialog ref="AboutDialog"></about-dialog>
   </div>
 </template>
@@ -73,7 +73,7 @@ export default {
       if (type === 0) {
         this.$router.push({ name: '选择组织' })
       } else {
-        this.$refs['selectOrgDialog'].dialogShow = true
+        this.$refs['SelectOrgDialog'].dialogShow = true
       }
     },
     handleAbout () {

@@ -6,7 +6,7 @@
           <h4 class="title">总资产</h4>
           <div v-if="accountType === 0" class="total-wrapper">
             <div class="total-item" v-for="(item, index) in financialData" :key="index">
-              <el-tooltip v-if="index=='现金'" class="item" effect="dark" content="现金=提现现金+工资银行卡部分" placement="bottom">
+              <el-tooltip v-if="index=='已提现金'" class="item" effect="dark" content="已提现金=提现现金+工资银行卡部分" placement="top">
                 <div class="value">{{item}}</div>
               </el-tooltip>
               <div v-else class="value">{{item}}</div>
@@ -129,10 +129,10 @@ export default {
     async loadPage () {
       const { data } = await getTotal()
       if (data.data) {
+        this.financialData['已提现金'] = data.data.cash
         this.financialData['国脉贝'] = data.data.govmadeBell
         this.financialData['冻结金额'] = data.data.lockBell
         this.financialData['发票额度'] = data.data.withInvoice
-        this.financialData['现金'] = data.data.cash
         this.financialData['投资'] = data.data.stockRight
         this.financialData['其他'] = data.data.other
         this.accountType = 0

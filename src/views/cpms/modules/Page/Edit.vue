@@ -2,20 +2,20 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header :title="`${methodName}模块`" :backOption="backOption"></iep-page-header>
+      <iep-page-header :title="`${methodName}产品模块`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
-          <el-form-item label="模块logo：" prop="imageUrl">
+          <el-form-item label="产品模块logo：" prop="imageUrl">
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
-          <el-form-item label="模块编号：" prop="number" class="form-half">
+          <el-form-item label="产品模块编号：" prop="number" class="form-half">
             <el-input :maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
-          <el-form-item label="模块名称：" prop="name" class="form-half">
+          <el-form-item label="产品模块名称：" prop="name" class="form-half">
             <el-input :maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="模块分类：" prop="type" class="form-half">
+          <el-form-item label="产品模块分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_module_type"></iep-dict-select>
           </el-form-item>
           <el-form-item label="业务分类：" prop="serviceTypes">
@@ -24,19 +24,19 @@
           <el-form-item label="测试地址：" prop="website" class="form-half">
             <el-input :maxlength="110" v-model="form.website"></el-input>
           </el-form-item>
-          <el-form-item label="模块指导价(元)：" prop="guidePrice" class="form-half">
+          <el-form-item label="产品模块指导价(元)：" prop="guidePrice" class="form-half">
             <iep-input-number v-model="form.guidePrice"></iep-input-number>
           </el-form-item>
-          <el-form-item label="模块优惠价(元)：" prop="preferentialPrice" class="form-half">
+          <el-form-item label="产品模块优惠价(元)：" prop="preferentialPrice" class="form-half">
             <iep-input-number v-model="form.preferentialPrice"></iep-input-number>
           </el-form-item>
           <el-form-item label="标签：" prop="tagKeywords">
             <iep-tag v-model="form.tagKeywords"></iep-tag>
           </el-form-item>
-          <el-form-item label="模块简介：" prop="synopsis">
+          <el-form-item label="产品模块简介：" prop="synopsis">
             <el-input :maxlength="110" v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="模块介绍：" prop="description">
+          <el-form-item label="产品模块介绍：" prop="description">
             <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
@@ -73,7 +73,7 @@
             <iep-cpms-version-table :table-data="form.versions" :moduleId="form.id" @load-page="loadPage"></iep-cpms-version-table>
           </el-row>
         </template>
-        <div class="title">应用产品：</div>
+        <div class="title">应用组合系统：</div>
         <el-row class="base">
           <iep-cpms-product-table v-model="form.productRelations"></iep-cpms-product-table>
         </el-row>

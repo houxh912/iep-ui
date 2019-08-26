@@ -5,10 +5,10 @@
         <el-input v-model="siteId" disabled></el-input>
       </el-form-item>
       <el-form-item label="属性名称" prop="attributeName">
-        <el-input v-model="form.attributeName"></el-input>
+        <el-input v-model="form.attributeName" maxlength="100" show-word-limit></el-input>
       </el-form-item>
       <el-form-item label="属性编码" prop="attributeNumber">
-        <el-input v-model="form.attributeNumber"></el-input>
+        <el-input v-model="form.attributeNumber" maxlength="100" show-word-limit></el-input>
       </el-form-item>
     </el-form>
     <template slot="footer">
@@ -32,8 +32,8 @@ export default {
       methodName: '创建',
       form: initForm(),
       rules,
-      id: '',
-      siteId: '',
+      id: 0,
+      siteId: 0,
     }
   },
   // },
@@ -52,7 +52,7 @@ export default {
       })
     },
     async submitForm () {
-      this.formRequestFn({ siteId: this.siteId, ...this.form }).then(({ data }) => {
+      this.formRequestFn({ siteId: this.siteId, attributeId: this.id, ...this.form }).then(({ data }) => {
         if (data.data) {
           this.$message.success('操作成功')
           this.loadPage()

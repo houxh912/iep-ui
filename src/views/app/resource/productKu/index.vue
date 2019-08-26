@@ -36,10 +36,10 @@ export default {
       countValue: '',
       linkName: '',
       tabList: [{
-        label: '按模块',
+        label: '产品模块',
         value: 'Module',
       }, {
-        label: '按产品',
+        label: '组合系统',
         value: 'Customized',
       }],
       activeTab: 'Module',

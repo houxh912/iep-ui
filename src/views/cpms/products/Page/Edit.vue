@@ -2,23 +2,23 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header :title="`${methodName}产品`" :backOption="backOption"></iep-page-header>
+      <iep-page-header :title="`${methodName}组合系统`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" size="small" :rules="rules" label-width="150px" class="form-detail">
         <div class="title">基本信息：</div>
         <el-row class="base">
-          <el-form-item label="产品logo：" prop="imageUrl">
+          <el-form-item label="组合系统logo：" prop="imageUrl">
             <iep-avatar v-model="form.imageUrl"></iep-avatar>
           </el-form-item>
-          <el-form-item label="产品编号：" prop="number" class="form-half">
+          <el-form-item label="组合系统编号：" prop="number" class="form-half">
             <el-input :maxlength="110" v-model="form.number"></el-input>
           </el-form-item>
-          <el-form-item label="产品名称：" prop="name" class="form-half">
+          <el-form-item label="组合系统名称：" prop="name" class="form-half">
             <el-input :maxlength="110" v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="产品分类：" prop="type" class="form-half">
+          <el-form-item label="组合系统分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="PRODUCT_TYPE"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="产品网址：" prop="website" class="form-half">
+          <el-form-item label="组合系统网址：" prop="website" class="form-half">
             <el-input :maxlength="2010" v-model="form.website"></el-input>
           </el-form-item>
           <el-form-item label="上线时间：" prop="onlineTime" class="form-half">
@@ -33,16 +33,16 @@
               <el-radio label="0">否</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="产品估值(元)：" prop="valuation" class="form-half">
+          <el-form-item label="组合系统估值(元)：" prop="valuation" class="form-half">
             <iep-input-number v-model="form.valuation"></iep-input-number>
           </el-form-item>
           <el-form-item label="估值说明：" prop="instructions">
             <iep-input-area v-model="form.instructions"></iep-input-area>
           </el-form-item>
-          <el-form-item label="产品简介：" prop="synopsis">
+          <el-form-item label="组合系统简介：" prop="synopsis">
             <el-input :maxlength="110" v-model="form.synopsis"></el-input>
           </el-form-item>
-          <el-form-item label="产品介绍：" prop="description">
+          <el-form-item label="组合系统介绍：" prop="description">
             <iep-input-area v-model="form.description"></iep-input-area>
           </el-form-item>
         </el-row>
@@ -70,7 +70,7 @@
             <iep-cpms-version-table :table-data="form.versions" :productId="form.id" @load-page="loadPage"></iep-cpms-version-table>
           </el-row>
         </template>
-        <div class="title">包含模块：</div>
+        <div class="title">包含产品模块：</div>
         <el-row class="base">
           <iep-cpms-module-table v-model="form.moduleRelations"></iep-cpms-module-table>
         </el-row>

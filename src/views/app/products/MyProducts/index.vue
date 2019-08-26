@@ -3,11 +3,11 @@
     <IepAppTabsCard>
       <el-button class="publish" slot="left" type="text" @click="custom">产品定制</el-button>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='MyProdect'" v-slot:MyProdect>
-          <my-prodect v-loading="activeTab !=='MyProdect'"></my-prodect>
-        </template>
         <template v-if="activeTab ==='MyModule'" v-slot:MyModule>
           <my-module v-loading="activeTab !=='MyModule'"></my-module>
+        </template>
+        <template v-if="activeTab ==='MyProdect'" v-slot:MyProdect>
+          <my-prodect v-loading="activeTab !=='MyProdect'"></my-prodect>
         </template>
       </iep-tabs>
     </IepAppTabsCard>
@@ -25,14 +25,15 @@ export default {
     return {
       tabList: [
         {
-          label: '产品目录',
-          value: 'MyProdect',
-        }, {
-          label: '系统模块',
+          label: '产品模块',
           value: 'MyModule',
         },
+        {
+          label: '组合系统',
+          value: 'MyProdect',
+        },
       ],
-      activeTab: 'MyProdect',
+      activeTab: 'MyModule',
     }
   },
   methods: {

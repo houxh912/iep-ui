@@ -21,6 +21,7 @@ import Ranking from './Ranking/'
 import { getRectagsList } from '@/api/app/tms/index'
 import { getGuessList } from '@/api/app/mlms/index'
 import DialogShow from './DialogShow'
+import { mapMutations } from 'vuex'
 
 export default {
   components: { Librarys, Ranking, DialogShow },
@@ -35,6 +36,9 @@ export default {
     next()
   },
   methods: {
+    ...mapMutations({
+      setProjectPkDialogShow: 'SET_PROJECT_PK_DIALOG_SHOW',
+    }),
     changePage (val) {
       this.$refs['librarys'].loadPage({ projectName: val })
     },
@@ -55,7 +59,7 @@ export default {
     },
     joinUpEnd (ids) {
       this.$refs['DialogShow'].arrId = ids
-      this.$refs['DialogShow'].dialogShow = true
+      this.setProjectPkDialogShow(true)
     },
   },
   created () {

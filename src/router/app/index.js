@@ -331,7 +331,7 @@ export default [
       },
       {
         path: 'project_details/:id',
-        name: '项目详情',
+        name: '频道项目详情',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/projectDetails/'),
       },
       {

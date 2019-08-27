@@ -20,17 +20,13 @@ const user = {
   },
   actions: {
     // 根据之前保持登陆记录
-    LoginByLocalStorage ({ commit, state }) {
+    LoginByLocalStorage ({ commit, state, dispatch }) {
       const { keep_login_token } = state
       if (keep_login_token.is_keep_login) {
+        dispatch('ClearMenu')
         commit('SET_ACCESS_TOKEN', keep_login_token.access_token)
         commit('SET_REFRESH_TOKEN', keep_login_token.refresh_token)
         commit('SET_EXPIRES_IN', keep_login_token.expires_in)
-        commit('SET_MENU', [])
-        commit('SET_MAINMENU', {})
-        commit('SET_OTHERMENUS', [])
-        commit('SET_MENUSMAP', {})
-        commit('SET_MENUPATHLIST', [])
         commit('CLEAR_LOCK')
         return true
       } else {
@@ -38,7 +34,7 @@ const user = {
       }
     },
     // 根据用户名登录
-    LoginByUsername ({ commit }, userInfo) {
+    LoginByUsername ({ commit, dispatch }, userInfo) {
       const user = encryption({
         data: userInfo,
         key: 'gdscloudprisbest',
@@ -54,14 +50,10 @@ const user = {
               expires_in: data.expires_in,
             })
           }
+          dispatch('ClearMenu')
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
           commit('SET_EXPIRES_IN', data.expires_in)
-          commit('SET_MENU', [])
-          commit('SET_MAINMENU', {})
-          commit('SET_OTHERMENUS', [])
-          commit('SET_MENUSMAP', {})
-          commit('SET_MENUPATHLIST', [])
           commit('CLEAR_LOCK')
           resolve(data)
         }).catch(error => {
@@ -136,26 +128,26 @@ const user = {
           })
       })
     },
+    ClearUserInfo ({ commit }) {
+      commit('SET_PERMISSIONS', [])
+      commit('SET_ORGS', [])
+      commit('SET_USER_INFO', {})
+      commit('SET_ACCESS_TOKEN', '')
+      commit('SET_KEEP_LOGIN_TOKEN', {})
+      commit('SET_REFRESH_TOKEN', '')
+      commit('SET_EXPIRES_IN', '')
+      commit('SET_ROLES', [])
+      commit('DEL_ALL_TAG')
+      commit('CLEAR_LOCK')
+    },
     // 登出
-    LogOut ({ commit }) {
+    LogOut ({ dispatch }) {
       return new Promise((resolve, reject) => {
         logout()
           .then(() => {
-            commit('SET_MENU', [])
-            commit('SET_MAINMENU', {})
-            commit('SET_OTHERMENUS', [])
-            commit('SET_MENUSMAP', {})
-            commit('SET_MENUPATHLIST', [])
-            commit('SET_PERMISSIONS', [])
-            commit('SET_ORGS', [])
-            commit('SET_USER_INFO', {})
-            commit('SET_ACCESS_TOKEN', '')
-            commit('SET_KEEP_LOGIN_TOKEN', {})
-            commit('SET_REFRESH_TOKEN', '')
-            commit('SET_EXPIRES_IN', '')
-            commit('SET_ROLES', [])
-            commit('DEL_ALL_TAG')
-            commit('CLEAR_LOCK')
+            dispatch('ClearMenu')
+            dispatch('ClearUserInfo')
+            location.reload(false)
             resolve()
           })
           .catch(error => {
@@ -164,21 +156,11 @@ const user = {
       })
     },
     // 注销session
-    FedLogOut ({ commit }) {
+    FedLogOut ({ dispatch }) {
       return new Promise(resolve => {
-        commit('SET_PERMISSIONS', [])
-        commit('SET_ORGS', [])
-        commit('SET_USER_INFO', {})
-        commit('SET_ACCESS_TOKEN', '')
-        commit('SET_REFRESH_TOKEN', '')
-        commit('SET_ROLES', [])
-        commit('DEL_ALL_TAG')
-        commit('CLEAR_LOCK')
-        commit('SET_MENU', [])
-        commit('SET_MAINMENU', {})
-        commit('SET_OTHERMENUS', [])
-        commit('SET_MENUSMAP', {})
-        commit('SET_MENUPATHLIST', [])
+        dispatch('ClearMenu')
+        dispatch('ClearUserInfo')
+        location.reload(false)
         resolve()
       })
     },

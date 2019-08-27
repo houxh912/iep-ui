@@ -2,11 +2,15 @@ const gpms = {
   state: {
     dataList: [
     ],
+    projectPkDialogShow:false,
     customerDialogShow: false,
   },
   mutations: {
     SET_PROJECT_JOIN_PK: (state, joinObject) => {
       state.dataList.push(joinObject)
+    },
+    SET_PROJECT_PK_DIALOG_SHOW: (state, projectPkDialogShow) => {
+      state.projectPkDialogShow = projectPkDialogShow
     },
     SET_PROJECT_REMOVE_PK: (state, id) => {
       // state.dataList.remove(joinObject)

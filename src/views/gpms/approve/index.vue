@@ -7,7 +7,7 @@
           <iep-button type="primary" plain @click="handleReviewDialog">批量审核</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称">
+          <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称" prop="projectName">
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>

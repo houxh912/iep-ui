@@ -4,7 +4,6 @@
  */
 import Vue from 'vue'
 import router from './router/router'
-import PageRouter from './router/page/'
 import store from '@/store'
 import orderBy from 'lodash/orderBy'
 import { validatenull } from '@/util/validate'
@@ -13,8 +12,6 @@ import 'nprogress/nprogress.css'
 
 const eventBus = new Vue()
 Vue.prototype.$eventBus = eventBus
-
-const NotNeedScrollTopRouters = PageRouter.map(m => m.path)
 
 NProgress.configure({ showSpinner: false })
 
@@ -87,9 +84,9 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
-router.afterEach((to, from) => {
-  if (!NotNeedScrollTopRouters.includes(to.path) && !NotNeedScrollTopRouters.includes(from.path)) {
-    store.commit('SET_SCROLLTOTOP')
+router.afterEach((to) => {
+  if (to.matched[0].path === '/app') {
+    eventBus.$emit('SET_SCROLLTOTOP')
   }
   NProgress.done()
 })

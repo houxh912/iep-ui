@@ -32,7 +32,6 @@ import sidebar from './sidebar/'
 //import admin from '@/util/admin'
 import imUi from '@/views/imui'
 import { validatenull } from '@/util/validate'
-// import { calcDate } from '@/util/date.js'
 import { getStore } from '@/util/store.js'
 // import SockJS from 'sockjs-client'
 // import Stomp from 'stompjs'
@@ -62,7 +61,7 @@ export default {
       'userInfo',
       'isLock',
       'website',
-      // 'expires_in',
+      'expires_in',
     ]),
     asideDisplay () {
       if (this.$route.matched[0].path === '/app') {
@@ -76,7 +75,6 @@ export default {
     this.handleRefreshToken()
   },
   destroyed () {
-    // console.log("销毁")
     // console.log(this.refreshTime)
     clearInterval(this.refreshTime)
     // this.disconnect()
@@ -109,13 +107,14 @@ export default {
           // this.setScreen(admin.getScreen())
         }, 0)
       }
-      // 监听调转路由时Vuex操作
-      this.$store.subscribe((mutation) => {
-        if (mutation.type === 'SET_SCROLLTOTOP') {
-          const scrollBar = this.$refs['elscrollbar']
-          const wrap = scrollBar.$refs['wrap']
-          wrap.scrollTop = 0
-        }
+      // 监听调转路由时EventBus操作
+      this.$eventBus.$on('SET_SCROLLTOTOP', () => {
+        this.$nextTick(() => {
+          this.$refs['elscrollbar'].$refs['wrap'].scrollTop = 0
+          window.container = this
+          window.elscrollbar = this.$refs['elscrollbar']
+          window.wrap = this.$refs['elscrollbar'].$refs['wrap']
+        })
       })
     },
     // 实时检测刷新token

@@ -3,7 +3,7 @@
     <div class="title">我要创建</div>
     <div class="created-content">
       <div class="handelCreate" :class="item.disabled" v-for="(item,index) in dataList" :key="index" @click="item.callback">{{item.title}}</div>
-      <div class="add"><i class="el-icon-plus"></i></div>
+      <div v-show="false" class="add"><i class="el-icon-plus"></i></div>
     </div>
   </div>
 </template>
@@ -71,6 +71,12 @@ export default {
           title: '调研',
           callback: () => {
             this.$router.push('/wenjuan/questionnaire')
+          },
+        },
+        {
+          title: '评估',
+          callback: () => {
+            this.$openPage('//123.157.68.243:10090', 'url')
           },
         },
         {

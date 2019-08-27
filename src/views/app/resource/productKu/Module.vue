@@ -86,6 +86,9 @@ export default {
     cpmsModuleType () {
       return this.dictGroup['cpms_module_type']
     },
+    cpmsProductType () {
+      return this.dictGroup['MODULE_SERVICE_TYPE']
+    },
   },
   methods: {
     searchData (val) {

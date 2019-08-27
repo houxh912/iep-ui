@@ -1,5 +1,5 @@
 <template>
-  <el-form size="small" label-width="100px">
+  <el-form size="small" label-width="120px">
     <el-row>
       <el-col :span='12'>
         <el-form-item label="负责人：">
@@ -19,7 +19,7 @@
         </el-form-item>
       </el-col>
       <el-col :span='12'>
-        <el-form-item label="产品经理：">
+        <el-form-item label="组合系统经理：">
           <iep-contact-multiple-user v-model="form.userRelationProducts" disabled></iep-contact-multiple-user>
         </el-form-item>
       </el-col>

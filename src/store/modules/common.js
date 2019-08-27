@@ -19,7 +19,6 @@ const common = {
   },
   actions: {},
   mutations: {
-    SET_SCROLLTOTOP: () => { },
     SET_WELCOME: state => {
       state.isWelcome = !state.isWelcome
       setStore({

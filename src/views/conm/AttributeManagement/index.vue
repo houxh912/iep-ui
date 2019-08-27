@@ -4,7 +4,7 @@
       <iep-page-header title="推荐位管理" :backOption="backOption"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" plain @click="handleAdd" icon="el-icon-plus">新增</iep-button>
+          <iep-button v-if="info_attribute_add" type="primary" plain @click="handleAdd" icon="el-icon-plus">新增</iep-button>
         </template>
         <!-- <template slot="right">
           <operation-search>
@@ -15,8 +15,8 @@
         <el-table-column prop="operation" label="操作" width="250" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleEdit(scope.row)" type="primary" plain>编辑</iep-button>
-              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="info_attribute_edit" @click="handleEdit(scope.row)" type="primary" plain>编辑</iep-button>
+              <iep-button v-if="info_attribute_del" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -30,6 +30,7 @@ import { getPageById, postPage, updatePage, deleteAttributeById } from '@/api/co
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, dictsMap } from './options'
 import DialogForm from './DialogForm'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: { DialogForm },
@@ -45,11 +46,22 @@ export default {
       ],
       isLoadTable: false,
       siteId: '',
+      info_attribute_add: false,
+      info_attribute_edit: false,
+      info_attribute_del: false,
     }
   },
   created () {
+    this.info_attribute_add = this.permissions['info_attribute_add']
+    this.info_attribute_edit = this.permissions['info_attribute_edit']
+    this.info_attribute_del = this.permissions['info_attribute_del']
     this.siteId = this.$route.params.id
     this.loadPage()
+  },
+  computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
   },
   methods: {
     handleAdd () {

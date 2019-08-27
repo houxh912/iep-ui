@@ -7,7 +7,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="primary" plain @click="handleAdd">新增</iep-button>
+        <iep-button v-if="info_article_add" type="primary" plain @click="handleAdd">新增</iep-button>
         <!-- <iep-button>移动</iep-button> -->
         <!-- <el-dropdown size="medium">
             <iep-button type="default">
@@ -45,8 +45,8 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <!-- <iep-button>查看评论</iep-button> -->
-            <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-            <iep-button @click="handleFalseDelete(scope.row)">删除</iep-button>
+            <iep-button v-if="info_article_edit" @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button v-if="info_article_del" @click="handleFalseDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -62,6 +62,7 @@ import { addObj, getPage, logicDeleteNodeById, updateObj } from '@/api/conm/arti
 import { columnsMap, initSearchForm, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
+import { mapGetters } from 'vuex'
 export default {
   // components: { Menus },
   mixins: [mixins],
@@ -77,12 +78,23 @@ export default {
       siteId: '',
       nodeName: '',
       defaultValue: new Date(new Date().toLocaleDateString()).getTime(),
+      info_article_add: false,
+      info_article_edit: false,
+      info_article_del: false,
     }
   },
   created () {
+    this.info_article_add = this.permissions['info_article_add']
+    this.info_article_edit = this.permissions['info_article_edit']
+    this.info_article_del = this.permissions['info_article_del']
     this.id = this.$route.params.id
     this.siteId = this.$route.query.siteId
     this.loadPage()
+  },
+  computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
   },
   methods: {
     handleAdd () {

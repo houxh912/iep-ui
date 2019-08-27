@@ -16,6 +16,9 @@
           <el-radio :label="0">停用</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="优先级：">
+        <el-input-number v-model="form.priority" :min="1" :max="9"></el-input-number>
+      </el-form-item>
       <el-form-item label="推荐位选择：">
         <iep-select v-model="form.attributeId" :prefix-url="`cms/info_attribute/${siteId}`"></iep-select>
       </el-form-item>
@@ -156,5 +159,10 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+</style>
+<style scoped>
+.form-detail >>> .el-input-number {
+  width: 20%;
 }
 </style>

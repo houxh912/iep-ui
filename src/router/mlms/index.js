@@ -60,6 +60,12 @@ export default [
         component: () => import(/* webpackChunkName: "mlms" */'@/views/app/thoughtList/thoughtDetail/detail'),
         meta: noKeepAlive,
       },
+      {
+        path: 'subject/detail',
+        name: '说说话题详情',
+        component: () => import(/* webpackChunkName: "mlms" */'@/views/thought/admin/subject/detail'),
+        meta: noKeepAlive,
+      },
     ],
   },
 ]

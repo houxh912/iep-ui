@@ -52,7 +52,7 @@ export default {
         {
           title: '说说',
           callback: () => {
-            this.$router.push({ path: '/wel/material/report', query: { type: 'thoughts' } })
+            this.$router.push({ path: '/wel/thoughts/thought_mine' })
           },
         },
         {

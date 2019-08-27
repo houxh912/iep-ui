@@ -194,7 +194,7 @@ export default {
       this.searchPage()
     },
     handleRemove (row) {
-      this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
+      this.$confirm('此操作将永久移出该分组, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -220,7 +220,7 @@ export default {
         this.$message('请先选择需要移除的选项')
         return
       }
-      this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
+      this.$confirm('此操作将永久移出该分组, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -314,7 +314,7 @@ export default {
     handleApprenticeConfirm (row) {
       addMasterWorker({ masterWorker: [row.userId], refuseContent: '' }).then(({ data }) => {
         if (data.data) {
-          this.$message.success('拜师成功！')
+          this.$message.success('拜师申请已提交成功！')
         } else {
           this.$message.error(data.msg)
         }

@@ -76,8 +76,8 @@ export default {
       this.loadTable(param, this.getTableDataFn)
     },
     // 详情
-    handleDetail () {
-      
+    handleDetail (row) {
+      this.$router.push({ path: '/mlms_spa/subject/detail', query: { title: row.content, id: row.topicId } })
     },
     // 置顶
     handleTop (row) {

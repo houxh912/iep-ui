@@ -1,14 +1,5 @@
 <template>
   <div class="time-line">
-    <!-- <div class="item" v-if="upLoad">
-      <div class="middle up-load">
-        <div class="tail"></div>
-        <div>
-          <el-button size="small" type="primary" plain @click="getupMore">加载更多<i class="el-icon-arrow-up"></i></el-button>
-          <div class="content"></div>
-        </div>
-      </div>
-    </div> -->
     <div class="item" v-for="(item, index) in list" :key=index>
       <!-- 获取到第一条数据的月份 -->
       <div class="before" v-if="index == 0">{{formatYearMonth(item.createTime)}}</div>
@@ -38,7 +29,7 @@
 </template>
 
 <script>
-import { formatYear } from '../util'
+import { formatYear } from './util'
 
 export default {
   name: 'timeline',
@@ -169,7 +160,7 @@ export default {
           top: 8px;
           width: 29px;
           height: 18px;
-          background: #fafafa url(../img/sanjiao.jpg) no-repeat;
+          background: #fafafa url(./sanjiao.jpg) no-repeat;
         }
       }
     }

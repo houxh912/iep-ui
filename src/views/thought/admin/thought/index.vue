@@ -6,7 +6,7 @@
           
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :paramForm="paramForm" prop="content"></operation-search>
+          <operation-search @search-page="searchPage" :paramForm="searchForm" prop="content"></operation-search>
         </template>
       </operation-container>
       <iep-table 
@@ -53,7 +53,7 @@ export default {
       selectList: [],
       firstClass: [],
       getTableDataFn: getManagePage,
-      paramForm: {
+      searchForm: {
         content: '',
       },
     }
@@ -70,11 +70,11 @@ export default {
       if (!state) {
         this.pageState = 'list'
       }
-      this.loadTable(param, this.getTableDataFn)
+      this.loadTable(Object.assign({}, param, this.searchForm), this.getTableDataFn)
     },
     // 详情
-    handleDetail () {
-      
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/thought/detail/${row.thoughtsId}`)
     },
     // 置顶
     handleTop (row) {
@@ -86,7 +86,6 @@ export default {
     handleDeleteById (row) {
       this._handleGlobalDeleteById(row.topicId, thoughtsDelete)
     },
-    searchPage () {},
     // 清空搜索
     clearSearchParam () {},
   },

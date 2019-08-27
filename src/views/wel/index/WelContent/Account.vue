@@ -24,8 +24,8 @@
           <div class="user-operation-box">
             <div class="operation-box-con">
               <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
-              <iep-button class="leader-btn" type="primary" icon="el-icon-chat-dot-square" plain @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">联系客服</iep-button>
               <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
+              <iep-button class="leader-btn" icon="el-icon-chat-dot-square" plain @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">联系客服</iep-button>
             </div>
             <div class="user-tags-box">
               <div class="user-height">

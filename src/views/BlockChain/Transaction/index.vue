@@ -30,7 +30,7 @@ export default {
     return {
       columnsMap,
       isLoadTable: false,
-      replaceText: (data) => `（余额${data[0]}元）`,
+      replaceText: (data) => `（余额${data[0]}贝）`,
       statistics: [0],
     }
   },

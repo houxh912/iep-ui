@@ -73,6 +73,13 @@ const menu = {
         })
       })
     },
+    ClearMenu ({ commit }) {
+      commit('SET_MENU', [])
+      commit('SET_MAINMENU', {})
+      commit('SET_OTHERMENUS', [])
+      commit('SET_MENUSMAP', {})
+      commit('SET_MENUPATHLIST', [])
+    },
   },
   mutations: {
     SET_MENU: (state, menu) => {

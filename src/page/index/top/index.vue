@@ -10,7 +10,7 @@
       <top-search-icon v-if="!noOrg"></top-search-icon>
       <top-scan></top-scan>
       <top-guide></top-guide>
-      <top-chat></top-chat>
+      <top-chat v-if="!noOrg"></top-chat>
       <top-message></top-message>
       <top-email></top-email>
       <top-user></top-user>

@@ -14,21 +14,12 @@ const columnsMap = [
     width: 400,
   },
   {
-    prop: 'publisher',
+    prop: 'creator',
     label: '发布人',
   },
   {
-    prop: 'releaseTime',
+    prop: 'happenTime',
     label: '发布时间',
-  },
-  {
-    prop: 'priority',
-    label: '优先级',
-  },
-  {
-    prop: 'status',
-    label: '状态',
-    type: 'dict',
   },
 ]
 

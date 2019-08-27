@@ -69,7 +69,7 @@ export default {
         label: '全新版本',
         value: 'Versions',
       }, {
-        label: '应用产品',
+        label: '应用组合系统',
         value: 'Products',
       }, {
         label: '应用技术',

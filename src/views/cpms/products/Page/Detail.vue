@@ -64,7 +64,7 @@ export default {
         label: '全新版本',
         value: 'Versions',
       }, {
-        label: '包含模块',
+        label: '包含产品模块',
         value: 'Modules',
       }, {
         label: '相关材料',

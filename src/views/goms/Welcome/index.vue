@@ -41,7 +41,7 @@ export default {
   data () {
     return {
       tabsActive: 0,
-      keyword: '内网',
+      keyword: '我能',
     }
   },
   computed: {

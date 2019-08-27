@@ -51,8 +51,8 @@ export default {
   data () {
     return {
       orgName: '金融之家',
-      keyword: '内网',
-      moneyName: '国脉贝',
+      keyword: '我能',
+      moneyName: '能贝',
     }
   },
   computed: {

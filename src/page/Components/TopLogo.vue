@@ -1,6 +1,6 @@
 <template>
   <div class="logo-wrapper">
-    <div class="logo" @click="$openPage('/')"></div>
+    <div class="logo" @click="$openPage('//www.icanvip.net/', 'url')"></div>
     <div>一站式数字化转型服务平台</div>
     <!-- <a-dropdown>
       <a>

@@ -80,12 +80,13 @@ export function getOrgList (orgName, orgType) {
   })
 }
 
-export function getICanOrgList (name) {
+export function getICanOrgList (orgName, orgType) {
   return request({
     url: `${prefixUrl}/i_can/list`,
     method: 'get',
     params: {
-      name,
+      orgName,
+      orgType,
     },
   })
 }

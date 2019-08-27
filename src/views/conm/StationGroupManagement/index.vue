@@ -4,7 +4,7 @@
       <iep-page-header title="站群管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" plain @click="handleAdd" icon="el-icon-plus">新增</iep-button>
+          <iep-button v-if="info_site_add" type="primary" plain @click="handleAdd" icon="el-icon-plus">新增</iep-button>
         </template>
         <!-- <template slot="right">
           <operation-search>
@@ -35,8 +35,8 @@
                   <i class="el-icon-more-outline"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                  <el-dropdown-item v-if="info_site_edit" @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
+                  <el-dropdown-item v-if="info_site_del" @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -52,6 +52,7 @@ import { getStationManagementPage, postStationManagementCreate, deleteStationMan
 import mixins from '@/mixins/mixins'
 import { columnsMap, initSearchForm, dictsMap } from './options'
 import DialogForm from './DialogForm'
+import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
   components: { DialogForm },
@@ -64,10 +65,21 @@ export default {
       replaceText: (data) => `（共${data[0]}条）`,
       pagedTable: [
       ],
+      info_site_add: false,
+      info_site_edit: false,
+      info_site_del: false,
     }
   },
   created () {
+    this.info_site_add = this.permissions['info_site_add']
+    this.info_site_edit = this.permissions['info_site_edit']
+    this.info_site_del = this.permissions['info_site_del']
     this.loadPage()
+  },
+  computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
   },
   methods: {
     handleAdd () {

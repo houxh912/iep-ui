@@ -9,7 +9,7 @@
       <iep-page-header title="栏目管理" :replaceText="replaceText" :data="statistics" :backOption="backOption"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" plain @click="handleAdd">新增</iep-button>
+          <iep-button v-if="info_node_add" type="primary" plain @click="handleAdd">新增</iep-button>
           <!-- <el-dropdown size="medium">
               <iep-button type="default">
                 更多操作
@@ -49,8 +49,8 @@
                   <i class="el-icon-more-outline"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
-                  <el-dropdown-item @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
-                  <el-dropdown-item @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
+                  <el-dropdown-item v-if="info_node_edit" @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
+                  <el-dropdown-item v-if="info_node_del" @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
             </operation-wrapper>
@@ -71,6 +71,7 @@ import { columnsMap, initSearchForm, dictsMap, toNewParentForm } from './options
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import DialogMerge from './DialogMerge'
+import { mapGetters } from 'vuex'
 export default {
   components: { DialogForm, DialogMerge },
   mixins: [mixins],
@@ -87,11 +88,22 @@ export default {
       pagedTable: [
       ],
       siteId: '',
+      info_node_add: false,
+      info_node_edit: false,
+      info_node_del: false,
     }
   },
   created () {
+    this.info_node_add = this.permissions['info_node_add']
+    this.info_node_edit = this.permissions['info_node_edit']
+    this.info_node_del = this.permissions['info_node_del']
     this.siteId = this.$route.params.id
     this.loadPage()
+  },
+  computed: {
+    ...mapGetters([
+      'permissions',
+    ]),
   },
   methods: {
     handleAdd (row) {

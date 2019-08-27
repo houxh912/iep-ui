@@ -83,9 +83,6 @@ export default {
     listPage () {
       this.loadPage()
     },
-    searchPage (val) {
-      this.loadPage(val)
-    },
   },
 }
 </script>

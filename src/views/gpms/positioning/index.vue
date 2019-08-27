@@ -17,9 +17,7 @@
                 的
                 <span style="color:#000;">{{myData.dignity}}</span>
                 ，尤其擅长
-                <span style="color:#000;">{{firtTag}}</span>
-                、
-                <span style="color:#000;">{{secondTag}}</span>
+                <span style="color:#000;">{{myData.projectTagList}}</span>
                 主题的项目。</p>
               <p v-else style="font-size:24px;color:#ba1a22;">您还未参与任何项目</p>
               <p style="color:#666;">请继续努力，发挥自身价值，成为更优秀的国脉人！</p>
@@ -301,42 +299,42 @@ export default {
         this.$refs['marketManager'].seriesGauge3.axisLine.lineStyle.color[0][0] = data.data.commonlyMarketLevelCount == 0 ? 0 : data.data.commonlyLevelCount / data.data.commonlyMarketMaxCount
         this.$refs['marketManager'].seriesGauge4.axisLine.lineStyle.color[0][0] = data.data.marketExternalCount == 0 ? 0 : data.data.externalCount / data.data.marketTypeMaxCount
         this.projectTagList = data.data.projectTagList
-        var count = 1
-        var yuansu = new Array() //存放数组array的不重复的元素 
-        var sum = new Array() //存放数组array中每个不同元素的出现的次数  
-        for (var i = 0; i < this.projectTagList.length; i++) {
-          for (var j = i + 1; j < this.projectTagList.length; j++) {
-            if (this.projectTagList[i] == this.projectTagList[j]) {
-              count++ //用来计算与当前这个元素相同的个数  
-              this.projectTagList.splice(j, 1) //每找到一个相同的元素，就要把它移除掉，  
-              j--
-            }
-          }
-          // console.log(this.projectTagList[i])
-          // console.log(count)
-          yuansu[i] = this.projectTagList[i] //将当前的元素存入到yuansu数组中  
-          sum[i] = count //并且将有多少个当前这样的元素的个数存入sum数组中  
-          count = 1 //再将count重新赋值，进入下一个元素的判断  
-        }
+        // var count = 1
+        // var yuansu = new Array() //存放数组array的不重复的元素 
+        // var sum = new Array() //存放数组array中每个不同元素的出现的次数  
+        // for (var i = 0; i < this.projectTagList.length; i++) {
+        //   for (var j = i + 1; j < this.projectTagList.length; j++) {
+        //     if (this.projectTagList[i] == this.projectTagList[j]) {
+        //       count++ //用来计算与当前这个元素相同的个数  
+        //       this.projectTagList.splice(j, 1) //每找到一个相同的元素，就要把它移除掉，  
+        //       j--
+        //     }
+        //   }
+        //   // console.log(this.projectTagList[i])
+        //   // console.log(count)
+        //   yuansu[i] = this.projectTagList[i] //将当前的元素存入到yuansu数组中  
+        //   sum[i] = count //并且将有多少个当前这样的元素的个数存入sum数组中  
+        //   count = 1 //再将count重新赋值，进入下一个元素的判断  
+        // }
 
-        //算出array数组中出现次数最多的元素  
-        var newsum = new Array() //  sum;  
-        for (var item in sum) {
-          newsum[item] = sum[item]
-        }
-        newsum.sort()
-        var maxItem = 0
-        var twoItem = 0
-        for (var item1 in sum) {
-          if (sum[item1] == newsum[newsum.length - 1]) {
-            maxItem = item1
-          }
-          else if (sum[item1] == newsum[newsum.length - 2]) {
-            twoItem = item1
-          }
-        }
-        this.firtTag = yuansu[maxItem]
-        this.secondTag = yuansu[twoItem]
+        // //算出array数组中出现次数最多的元素  
+        // var newsum = new Array() //  sum;  
+        // for (var item in sum) {
+        //   newsum[item] = sum[item]
+        // }
+        // newsum.sort()
+        // var maxItem = 0
+        // var twoItem = 0
+        // for (var item1 in sum) {
+        //   if (sum[item1] == newsum[newsum.length - 1]) {
+        //     maxItem = item1
+        //   }
+        //   else if (sum[item1] == newsum[newsum.length - 2]) {
+        //     twoItem = item1
+        //   }
+        // }
+        // this.firtTag = yuansu[maxItem]
+        // this.secondTag = yuansu[twoItem]
       })
     },
   },

@@ -35,7 +35,7 @@
       </div>
       <!-- 评论表单 -->
       <div class="comment-comment" v-if="commontActiveIndex == 1">
-        <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
+        <el-input type="textarea" rows="4" v-model="form.replyMsg" maxlength="1000"></el-input>
         <iep-button class="comment-submit" @click="() => {commontActiveIndex = -1}">取消</iep-button>
         <iep-button type="primary" class="comment-submit" @click="comCommentSubmit">发送</iep-button>
       </div>

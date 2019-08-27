@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-collapse v-model="activeName" accordion>
-      <el-collapse-item v-for="(item, index) in weeklyList" :key="index" :title="`${item.projectName} （${formatYear(item.updateTime)}）`" :name="index">
+      <el-collapse-item v-for="(item, index) in weeklyList" :key="index" :title="`${item.projectName} （${formatYear(item.createTime)}）`" :name="index">
         <div class="content">
           <div class="form">
             <!-- <div class="title">项目预计签订时间</div>

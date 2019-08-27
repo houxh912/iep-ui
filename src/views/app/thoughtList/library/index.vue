@@ -42,7 +42,7 @@
         </div>
         <!-- 说说评论 -->
         <div class="comment" v-if="activeIndex == index">
-          <el-input type="textarea" rows="4" v-model="form.replyMsg"></el-input>
+          <el-input type="textarea" rows="4" v-model="form.replyMsg" maxlength="1000"></el-input>
           <iep-button class="comment-submit" @click="() => {activeIndex = -1}">取消</iep-button>
           <iep-button type="primary" class="comment-submit" @click="commentSubmit">提交</iep-button>
         </div>

@@ -371,3 +371,40 @@ export function calculateSign (num, isNative = true) {
   }
   return Math.sign(-(num)) * Math.abs(num)
 }
+
+/**
+ * 监听数字长度，并进行截取
+ */
+export function sliceNumber (num, length) {
+  if (typeof num === 'number') {
+    num = '' + num
+  }
+  let len = 0
+  if (num.toString().indexOf('.') > 0) {
+    len = num.toString().split('.')[1].length
+  }
+  if (len > length) {
+    num = num.slice(0, num.length - 1)
+  }
+  return num
+}
+
+/**
+ * 小数位补全
+ */
+export function DecimalDigits (num, length) {
+  if (typeof num === 'number') {
+    num = '' + num
+  }
+  let len = 0
+  if (num.toString().indexOf('.') > 0) {
+    len = num.toString().split('.')[1].length
+  }
+  if (len === 0) {
+    num = num + '.'
+  }
+  for (let i = 0; i < length - len; ++i) {
+    num += '0'
+  }
+  return num
+}

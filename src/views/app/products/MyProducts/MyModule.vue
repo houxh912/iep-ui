@@ -10,11 +10,11 @@
       <!-- <el-button size="small" @click="()=>{this.$router.push('/app/resource/product_ku')}">产品定制</el-button> -->
     </div>
     <div class="deletion-box">
-      <div class="codule-deletion">
+      <!-- <div class="codule-deletion">
         按分类：
         <div :class="moduleType==''?'color':''" class="piece-deletion" @click="tabModuleType('')">全部</div>
         <div v-for="(item) in cpmsModuleType" :key="item.value" :class="moduleType==item.value?'color':''" class="piece-deletion" @click="tabModuleType(item.value)">{{item.label}}</div>
-      </div>
+      </div> -->
       <div class="products-deletion">
         按业务分类：
         <div v-for="(item) in productList" :key="item.id" :class="productId==item.id?'color':''" class="piece-deletion" @click="tabProductId(item.id)">{{item.name}}</div>
@@ -43,9 +43,25 @@ export default {
   data () {
     return {
       moduleType: '',
-      productId: 0,
+      productId: 1,
       num: [18],
-      productList: [],
+      productList: [{
+        id: 1,
+        name: '数据体系',
+      },
+      {
+        id: 2,
+        name: '业务优化',
+      },
+      {
+        id: 3,
+        name: '组织进化',
+      },
+      {
+        id: 4,
+        name: '公共服务',
+      },
+      ],
       moduleList: [],
     }
   },
@@ -68,18 +84,18 @@ export default {
     async loadModuleList () {
       const { data } = await getModuleList({
         type: this.moduleType,
-        productId: this.productId || undefined,
+        serviceType: this.productId || undefined,
       })
       this.moduleList = data.data
     },
     async loadProductList () {
-      const { data } = await getProductList()
-      const productList = data.data
-      productList.unshift({
-        id: 0,
-        name: '全部',
-      })
-      this.productList = productList.slice(0, 4)
+      await getProductList()
+      // const productList = data.data
+      // productList.unshift({
+      //   id: 0,
+      //   name: '全部',
+      // })
+      // this.productList = productList.slice(0, 4)
     },
     tabModuleType (val) {
       this.moduleType = val
@@ -118,9 +134,7 @@ export default {
   }
   .codule-deletion,
   .products-deletion {
-    width: 50%;
     text-align: left;
-    display: inline-block;
     margin: 10px 0 20px;
     .piece-deletion {
       display: inline;

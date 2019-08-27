@@ -488,7 +488,6 @@ export default {
         if (this.changeData.projectName != this.formData.projectName || this.changeData.projectAmount != this.formData.projectAmount || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId || this.isObjectValueEqual(this.changeTableData, this.tableData[0])) {
           this.formData.projectStatus = '2'
         }//立项的项目特定字段改变时项目状态为'2'
-        console.log(this.changeTableData, this.tableData[0], this.isObjectValueEqual(this.changeTableData, this.tableData[0]))
       }
       this.$refs['form'].validate((valid) => {
         if (valid) {

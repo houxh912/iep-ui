@@ -28,7 +28,6 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      dialogShow: false,
       checkAll: true,
       checkedCities: [],
       isIndeterminate: true,
@@ -40,11 +39,12 @@ export default {
   computed: {
     ...mapState({
       cities: state => state.gpms.dataList,
+      dialogShow: state => state.gpms.projectPkDialogShow,
     }),
   },
   methods: {
     close () {
-      this.dialogShow = false
+      this.setProjectPkDialogShow(false)
     },
     handleCheckAllChange () {
       this.checkAll = !!this.checkAll
@@ -83,6 +83,7 @@ export default {
     },
     ...mapMutations({
       setProjectRemovePk: 'SET_PROJECT_REMOVE_PK',
+      setProjectPkDialogShow: 'SET_PROJECT_PK_DIALOG_SHOW',
     }),
     handleDelete (val) {
       // const removeObject = { id: val.id, projectName: val.projectName }

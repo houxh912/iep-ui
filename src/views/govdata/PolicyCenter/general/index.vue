@@ -134,7 +134,7 @@
                 {{item.summary}}
               </div>
               <div class="detail">
-                <div :class="{'distance-right':item.dispatchList.length>0}"><i class="el-icon-setting" v-for="(item, index) in item.dispatchList" :key="index">{{item.dispatchName}}</i></div>
+                <div :class="{'distance-right':item.dispatchList.length>0}"><i class="el-icon-setting" v-if="item.dispatchList.length>0">{{DeptJoint(item.dispatchList)}}</i></div>
                 <div :class="{'distance-right':item.publishTime}"><i class="el-icon-time"></i>{{item.publishTime | dateFormat}}</div>
                 <div v-if="item.views">浏览次数: {{item.views}}</div>
               </div>
@@ -242,6 +242,15 @@ export default {
     this.hotPolicy()
   },
   methods: {
+    /**
+     * 拼接发文单位字段
+     */
+    DeptJoint (item) {
+      let data = item
+      let datas = data.map(i => i.dispatchName).join(',')
+      return datas
+    },
+
     /**
      * 获取层级、适用对象、主题、规模、行业数据
      */

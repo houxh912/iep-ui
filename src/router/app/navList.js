@@ -13,7 +13,7 @@ const navList = [
     name: '数据资产',
   }, {
     id: '//www.icanvip.net/masterList',
-    name: '师傅专家',
+    name: '师父专家',
   }, {
     id: '//www.icanvip.net/thoughtsList',
     name: '我要说说',

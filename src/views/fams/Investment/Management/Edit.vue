@@ -24,7 +24,6 @@
         <el-form-item label="">
           <operation-wrapper>
             <iep-button @click="handleSubmit" type="primary">保存</iep-button>
-            <iep-button @click="onGoBack">取消</iep-button>
           </operation-wrapper>
         </el-form-item>
       </el-form>

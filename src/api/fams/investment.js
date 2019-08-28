@@ -47,6 +47,13 @@ export function downInvestmentById (id) {
   })
 }
 
+export function rollbackInvestmentById (id) {
+  return request({
+    url: `${prefixUrl}/recall/${id}`,
+    method: 'post',
+  })
+}
+
 export function postInvestment (obj) {
   return request({
     url: `${prefixUrl}/create`,

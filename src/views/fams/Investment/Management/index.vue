@@ -21,9 +21,10 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1 || scope.row.status===5" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button v-if="scope.row.status===2 || scope.row.status===5" @click="handleUp(scope.row)">上架</iep-button>
-              <iep-button v-if="scope.row.status===4" type="warning" @click="handleDown(scope.row)" plain>下架</iep-button>
+              <iep-button v-if="scope.row.status===1" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="scope.row.status===1" @click="handleUp(scope.row)">上架</iep-button>
+              <iep-button v-if="scope.row.status===2" @click="handleRollback(scope.row)">撤回</iep-button>
+              <iep-button v-if="scope.row.status===3" type="warning" @click="handleDown(scope.row)" plain>下架</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -32,7 +33,7 @@
   </div>
 </template>
 <script>
-import { getInvestmentPage, upInvestmentById, downInvestmentById } from '@/api/fams/investment'
+import { getInvestmentPage, upInvestmentById, downInvestmentById, rollbackInvestmentById } from '@/api/fams/investment'
 import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 export default {
@@ -47,6 +48,15 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleRollback (row) {
+      rollbackInvestmentById(row.id).then(({ data }) => {
+        if (data.data) {
+          this.loadPage()
+        } else {
+          this.$message(data.msg)
+        }
+      })
+    },
     handleUp (row) {
       upInvestmentById(row.id).then(({ data }) => {
         if (data.data) {

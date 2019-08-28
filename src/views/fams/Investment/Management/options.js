@@ -1,8 +1,8 @@
 // import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
-  status: { // （1待审核,2审核中,3已发布）
-    1: '待审核',
+  status: { // （1待发布,2审核中,3已发布）
+    1: '待发布',
     2: '审核中',
     3: '已发布',
   },

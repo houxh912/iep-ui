@@ -51,7 +51,6 @@ export default {
             background: 'rgba(0, 0, 0, 0.7)',
           })
           setTimeout(async () => {
-            location.reload(false)
             const data = await this.GetMenu()
             this.$router.$avueRouter.formatRoutes(data, true)
             loading.close()

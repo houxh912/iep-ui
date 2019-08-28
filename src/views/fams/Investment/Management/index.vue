@@ -4,18 +4,9 @@
       <iep-page-header title="投资管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button type="primary" icon="el-icon-plus" plain @click="handleAdd">
-            新增
-          </iep-button>
-          <iep-button @click="handleDelete()" plain>
-            删除
-          </iep-button>
+          <iep-button type="primary" icon="el-icon-plus" plain @click="handleAdd">新增</iep-button>
         </template>
         <template slot="right">
-          <el-radio-group v-model="status" size="small" @change="handleChange">
-            <el-radio-button v-for="(v,k) in dictsMap.status" :label="k" :key="k">{{v}}</el-radio-button>
-            <el-radio-button label="">全部</el-radio-button>
-          </el-radio-group>
           <operation-search @search-page="searchPage" prop="orgName"></operation-search>
         </template>
       </operation-container>
@@ -41,7 +32,7 @@
   </div>
 </template>
 <script>
-import { getInvestmentPage, deleteInvestmentBatch, upInvestmentById, downInvestmentById } from '@/api/fams/investment'
+import { getInvestmentPage, upInvestmentById, downInvestmentById } from '@/api/fams/investment'
 import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 export default {
@@ -50,7 +41,6 @@ export default {
     return {
       columnsMap,
       dictsMap,
-      status: '',
     }
   },
   created () {
@@ -78,9 +68,6 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)
     },
-    handleDelete () {
-      this._handleGlobalDeleteAll(deleteInvestmentBatch)
-    },
     handleChange () {
       this.loadPage()
     },
@@ -100,7 +87,7 @@ export default {
       })
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ status: this.status, ...param }, getInvestmentPage)
+      this.loadTable(param, getInvestmentPage)
     },
   },
 }

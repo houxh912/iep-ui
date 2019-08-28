@@ -1,13 +1,10 @@
 // import { mergeByFirst } from '@/util/util'
 
 const dictsMap = {
-  status: { // （待核准—通过—上架—下架—结束）
-    1: '待核准',
-    2: '通过',
-    3: '拒绝',
-    4: '上架',
-    5: '下架',
-    6: '结束',
+  status: { // （1待审核,2审核中,3已发布）
+    1: '待审核',
+    2: '审核中',
+    3: '已发布',
   },
 }
 const columnsMap = [
@@ -16,12 +13,8 @@ const columnsMap = [
     label: '总股本',
   },
   {
-    prop: 'targetAmount',
-    label: '目标金额',
-  },
-  {
-    prop: 'hadMoney',
-    label: '已投金额',
+    prop: 'sharesUnivalent',
+    label: '今日股价',
   },
   {
     prop: 'status',

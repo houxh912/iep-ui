@@ -1,26 +1,21 @@
 ﻿// org config options
 const dictsMap = {
-  taskStatus: {
-    0: '接收任务',
+  status: {
     1: '进行中',
     2: '已完成',
+    3: '已确认',
   },
 }
 
 const columnsMap = [
   {
-    prop: 'taskDate',
-    label: '日期',
-    width:'150',
-  },
-  {
-    prop: 'taskName',
+    prop: 'name',
     label: '任务名称',
+    width:'250',
   },
   {
-    prop: 'taskStatus',
-    label: '状态',
-    type: 'dict',
+    prop: 'parentName',
+    label: '所属任务',
   },
 ]
 
@@ -29,6 +24,10 @@ const initForm = () => {
     name: '',
     isOpen: false,
     intro: '',
+    hasBegun:'',//是否待办
+    childrenCount:'',//是否包含子任务
+    creatorId:'',
+    principalId:'',
   }
 }
 

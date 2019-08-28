@@ -17,14 +17,14 @@
       <template slot="before-columns">
       </template>
       <el-table-column prop="operation" label="操作" width="260">
-          <template slot-scope="scope">
-            <operation-wrapper>
-              <iep-button type="warning" v-if="scope.row.taskStatus!=='2'" plain>标记完成</iep-button>
-              <iep-button>共享</iep-button>
-              <iep-button>关注</iep-button>
-            </operation-wrapper>
-          </template>
-        </el-table-column>
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button type="warning" v-if="scope.row.taskStatus!=='2'" plain>标记完成</iep-button>
+            <iep-button>共享</iep-button>
+            <iep-button>关注</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
     </iep-table>
   </div>
 </template>
@@ -37,19 +37,19 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      pagedTable:[
-          {taskDate:'2019-02-02',taskName:'修改合同的签署部门字段',taskStatus:'0'},
-          {taskDate:'2019-02-02',taskName:'修改合同的签署部门字段',taskStatus:'1'},
-          {taskDate:'2019-02-02',taskName:'修改合同的签署部门字段',taskStatus:'2'},
-          {taskDate:'2019-02-02',taskName:'修改合同的签署部门字段',taskStatus:'0'},
-          {taskDate:'2019-02-02',taskName:'修改合同的签署部门字段',taskStatus:'2'},
-          {taskDate:'2019-02-02',taskName:'修改合同的签署部门字段',taskStatus:'2'},
+      pagedTable: [
+        { taskDate: '2019-02-02', taskName: '修改合同的签署部门字段', taskStatus: '0' },
+        { taskDate: '2019-02-02', taskName: '修改合同的签署部门字段', taskStatus: '1' },
+        { taskDate: '2019-02-02', taskName: '修改合同的签署部门字段', taskStatus: '2' },
+        { taskDate: '2019-02-02', taskName: '修改合同的签署部门字段', taskStatus: '0' },
+        { taskDate: '2019-02-02', taskName: '修改合同的签署部门字段', taskStatus: '2' },
+        { taskDate: '2019-02-02', taskName: '修改合同的签署部门字段', taskStatus: '2' },
       ],
     }
   },
-//   created () {
-//     this.loadPage()
-//   },
+  //   created () {
+  //     this.loadPage()
+  //   },
   methods: {
     handleSelectionChange () {
     },
@@ -64,11 +64,11 @@ export default {
 }
 </script>
 <style scoped>
-.all-tasks >>> .el-checkbox__label{
-    padding-left:5px;
-    font-size: 12px;
+.all-tasks >>> .el-checkbox__label {
+  padding-left: 5px;
+  font-size: 12px;
 }
-.all-tasks >>> .el-checkbox{
-    margin-left: 10px;
+.all-tasks >>> .el-checkbox {
+  margin-left: 10px;
 }
 </style>

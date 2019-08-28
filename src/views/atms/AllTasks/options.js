@@ -1,26 +1,39 @@
 ﻿// org config options
 const dictsMap = {
-  taskStatus: {
-    0: '接收任务',
-    1: '进行中',
+  status: {
+    1: '未完成',
     2: '已完成',
+    3: '已确认',
+  },
+  isOverDue: {
+    0: '未逾期',
+    1: '已逾期',
   },
 }
 
 const columnsMap = [
   {
-    prop: 'taskDate',
-    label: '日期',
-    width:'150',
-  },
-  {
-    prop: 'taskName',
+    prop: 'name',
     label: '任务名称',
+    width:'250',
   },
   {
-    prop: 'taskStatus',
+    prop: 'status',
     label: '状态',
     type: 'dict',
+  },
+  {
+    prop: 'isOverDue',
+    label: '是否逾期',
+    type: 'dict',
+  },
+  {
+    prop: 'creatorName',
+    label: '创建人',
+  },
+  {
+    prop: 'principalName',
+    label: '负责人',
   },
 ]
 

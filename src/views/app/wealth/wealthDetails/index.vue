@@ -6,25 +6,27 @@
           <el-card shadow="always" class="box-card" :body-style="bodyStyle">
             <div class="title-wrapper">
               <div class="left">
-                <iep-img style="width: 194px;height:124px;" :src="form.orgLogo" alt=""></iep-img>
                 <div class="main">
-                  <h4 class="investmentName">{{form.orgName}}</h4>
-                  <div class="way">
-                    <span>投资方式：国脉贝</span>
-                    <span>投资人次：{{form.investmentNumber}}</span>
-                  </div>
+                  <h4 class="investmentName">{{form.orgName}}<span class="number">（参与人数：{{form.investmentNumber}}）</span></h4>
                   <div class="span-list">
                     <span v-for="(item,index) in form.abilityTag" :key="index">{{item}}</span>
                   </div>
+                  <div class="share-price">
+                    <span style="font-size:16px;">今日股价：</span>
+                    <span style="font-size:30px;color:#ba1b20;margin:0 20px 0 5px;">138.8</span>
+                    <span style="font-size:14px;">日涨幅：</span>
+                    <span style="font-size:14px;color:#ba1b20">3.88+0.25%</span>
+                  </div>
+                  <div class="release-bottom">
+                    <span><span class="schedule-title-sub">当前金额：</span>{{form.hadMoney}}（元）</span>
+                    <span><span class="schedule-title-sub">目标金额：</span>{{form.targetAmount}}（元）</span></div>
+                  <el-progress :text-inside="true" :stroke-width="8" :percentage="form.percentage" status="success" style="margin-top:10px;"></el-progress>
+                  <iep-button style="width: 140px;height: 44px;font-size: 15px;color: #fff;background-color: #ba1b20;border-radius: 4px;margin-top: 30px;">马上参与</iep-button>
                 </div>
               </div>
               <div class="right">
-                <div>目标金额</div>
-                <div>{{form.targetAmount}}</div>
-                <el-button @click="handleAdd()" type="primary" v-show="form.status==4" plain>马上参与</el-button>
-                <el-button type="warning" disabled plain v-show="form.status==1">待审核</el-button>
-                <el-button type="info" disabled plain v-show="form.status==6">已结束</el-button>
-                <el-button type="info" disabled plain v-show="form.status==5 || form.status==2">待上架</el-button>
+                <div class="title">股价走势图<span class="right-tab">年</span><span class="right-tab">月</span><span class="right-tab tab-active">周</span></div>
+                <ve-line :colors="colors" :data="chartData" :settings="chartSettings" height="300px"></ve-line>
               </div>
             </div>
           </el-card>
@@ -60,17 +62,12 @@
             <div class="schedule">
               <div class="schedule-title">投资进度</div>
               <div class="release"><span class="schedule-title-sub">正式发布：</span>2019-06-03</div>
-              <el-progress :text-inside="true" :stroke-width="8" :percentage="form.percentage" status="success" style="margin-top:10px;"></el-progress>
-              <div class="release release-bottom">
-                <span><span class="schedule-title-sub">目标金额：</span>￥{{form.targetAmount}}</span>
-                <span><span class="schedule-title-sub">当前金额：</span>￥{{form.hadMoney}}</span></div>
+
             </div>
           </IepAppTabCard>
         </div>
         <div class="basic-info-achievement">
-          <IepAppTabCard title="业绩趋势">
-            <ve-line :colors="colors" :data="chartData" :settings="chartSettings" height="350px"></ve-line>
-          </IepAppTabCard>
+
         </div>
         <div>
           <financial-report></financial-report>
@@ -206,10 +203,10 @@ export default {
   .title {
     grid-column-start: 1;
     grid-column-end: 3;
-    display: grid;
     .title-wrapper {
-      display: flex;
-      align-items: center;
+      display: grid;
+      grid-auto-flow: row dense;
+      grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
       .left {
         display: flex;
         flex-grow: 1;
@@ -224,25 +221,28 @@ export default {
           height: 124px;
         }
         .main {
-          padding-left: 20px;
+          width: 100%;
+          border-right: 1px solid #ebeef5;
+          padding: 0 40px 20px 20px;
           .investmentName {
             margin-bottom: 5px;
-            height: 50px;
-            line-height: 50px;
-            font-size: 20px;
-          }
-          .way > span {
-            border: 1px solid #dcdfe6;
-            margin-right: 10px;
-            padding: 4px 10px;
-            color: #666;
+            height: 40px;
+            line-height: 40px;
+            font-size: 24px;
+            .number {
+              font-size: 14px;
+              color: #999;
+              margin-left: 10px;
+            }
           }
           .span-list {
             width: 630px;
             display: inline-block;
-            height: 70px;
-            line-height: 70px;
-            overflow : hidden;text-overflow: ellipsis;white-space: nowrap;
+            height: 40px;
+            line-height: 40px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
             :after {
               content: "/";
               width: 30px;
@@ -256,29 +256,57 @@ export default {
               color: #666;
             }
           }
+          .share-price {
+            height: 60px;
+            line-height: 60px;
+            margin-bottom: 20px;
+          }
+          .release-bottom {
+            height: 30x;
+            line-height: 30x;
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+            align-items: center;
+            .schedule-title-sub {
+              font-size: 14px;
+              color: #666;
+            }
+          }
         }
       }
       .right {
-        width: 250px;
-        text-align: right;
-        > div:first-child {
-          height: 30px;
-          line-height: 30px;
-          color: #666;
-        }
-        > div:nth-child(2) {
-          height: 40px;
-          line-height: 40px;
-          font-size: 22px;
-          margin-bottom: 10px;
-          &:before {
-            content: "￥";
-            font-size: 16px;
-            line-height: 30px;
-            color: #999;
-            margin-left: -20px;
-            text-align: center;
-            display: inline-block;
+        flex-grow: 1;
+        padding-left: 20px;
+        .title {
+          font-size: 16px;
+          .right-tab {
+            float: right;
+            margin: 0 15px;
+            cursor: pointer;
+            &:nth-child(2) {
+              position: relative;
+              &:after {
+                content: "|";
+                position: absolute;
+                right: -16px;
+                top: -1px;
+                color: #999;
+              }
+            }
+            &:nth-child(3) {
+              position: relative;
+              &:after {
+                content: "|";
+                position: absolute;
+                right: -16px;
+                top: -1px;
+                color: #999;
+              }
+            }
+          }
+          .tab-active {
+            color: #ba1b20;
           }
         }
       }
@@ -313,21 +341,6 @@ export default {
       font-size: 14px;
       height: 50px;
       line-height: 50px;
-    }
-    .release {
-      padding-left: 10px;
-      height: 35px;
-      line-height: 35px;
-    }
-    .release-bottom {
-      display: flex;
-      justify-content: space-between;
-      font-size: 16px;
-      align-items: center;
-    }
-    .schedule-title-sub {
-      font-size: 14px;
-      color: #666;
     }
   }
   .shareholder-inform {
@@ -412,7 +425,7 @@ export default {
   height: 416px;
 }
 .title >>> .el-card__body {
-  padding: 20px 30px;
+  padding: 20px 10px;
 }
 .financial-investment >>> .el-table__body-wrapper {
   height: 290px;

@@ -64,7 +64,7 @@ export default {
         label: '团队信息',
         value: 'TeamInfo',
       }, {
-        label: '应用模块',
+        label: '应用产品模块',
         value: 'Modules',
       }, {
         label: '相关技术',

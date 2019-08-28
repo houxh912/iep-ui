@@ -1,64 +1,26 @@
 <template>
-  <div>
+  <div class="iep-page-form">
     <basic-container>
-      <iep-page-header :title="`投资管理 - ${methodName}`" :backOption="backOption"></iep-page-header>
-      <el-form ref="form" :model="form" :rules="rules" label-width="190px" size="small">
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="投资组织" prop="orgId">
-              <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择投资组织"></iep-select>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="股份数量" prop="allSharesNumber" tip="股份数量">
-              <iep-input-number v-model="form.allSharesNumber"></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="每股单价" prop="sharesUnivalent" tip="每股单价">
-              <iep-input-amount v-model="form.sharesUnivalent"></iep-input-amount>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="目标金额" prop="targetAmount" tip="目标金额">
-              <iep-input-number v-model="form.targetAmount" disabled></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="开始日期" prop="startTime">
-              <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="结束日期" prop="endTime">
-              <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="最低认购数量" prop="minimumBuy" tip="最低认购数量">
-              <iep-input-number v-model="form.minimumBuy" :max="form.allSharesNumber"></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="投资人最低信用评分" prop="minimumCredit" tip="投资人最低信用评分">
-              <iep-input-number v-model="form.minimumCredit"></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
+      <iep-page-header :title="`投资 - ${methodName}`" :backOption="backOption"></iep-page-header>
+      <el-form class="form-detail" ref="form" :model="form" :rules="rules" label-width="190px" size="small">
+        <iep-form-item label-name="组织" prop="orgId">
+          <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+        </iep-form-item>
+        <iep-form-item label-name="总股本" prop="allSharesNumber">
+          <iep-input-number v-model="form.allSharesNumber" step-strictly></iep-input-number>
+        </iep-form-item>
+        <iep-form-item label-name="发行价" prop="sharesUnivalent">
+          <iep-input-amount v-model="form.sharesUnivalent" disabled></iep-input-amount>
+        </iep-form-item>
+        <iep-form-item label-name="持有类型" prop="holdType">
+          <iep-dict-select v-model="form.holdType" dict-name="FAMS_HOLD_TYPE" disabled></iep-dict-select>
+        </iep-form-item>
+        <iep-form-item label-name="持有比例">
+          100%
+        </iep-form-item>
+        <iep-form-item label-name="股本类型" prop="equityType">
+          <iep-dict-select v-model="form.equityType" dict-name="FAMS_EQUITY_TYPE" disabled></iep-dict-select>
+        </iep-form-item>
         <el-form-item label="">
           <operation-wrapper>
             <iep-button @click="handleSubmit" type="primary">保存</iep-button>
@@ -127,14 +89,6 @@ export default {
     },
     onGoBack () {
       this.$router.history.go(-1)
-    },
-  },
-  watch: {
-    'form.allSharesNumber': function (n) {
-      this.form.targetAmount = this.form.sharesUnivalent * n
-    },
-    'form.sharesUnivalent': function (n) {
-      this.form.targetAmount = this.form.allSharesNumber * n
     },
   },
 }

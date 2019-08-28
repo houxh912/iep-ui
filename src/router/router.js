@@ -8,7 +8,7 @@ import imsRouter from './ims/'
 import componentsRouter from './components/'
 import welRouter from './wel/'
 import crmsRouter from './crms/'
-import appRouter from './app/'
+// import appRouter from './app/'
 import cpmsRouter from './cpms/'
 import famsRouter from './fams/'
 import conmRouter from './conm/'
@@ -34,7 +34,7 @@ Router.addRoutes([
   ...welRouter,
   ...gpmsRouter,
   ...crmsRouter,
-  ...appRouter,
+  // ...appRouter,
   ...cpmsRouter,
   ...famsRouter,
   ...conmRouter,

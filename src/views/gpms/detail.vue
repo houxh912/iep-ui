@@ -253,7 +253,7 @@
           </el-row>
         </div>
         <!-- 审批意见 -->
-        <div class="contianBox">
+        <div class="contianBox" v-show="projectStatus!='1'&&projectStatus!='2'">
           <el-row class="title">
             <el-col :span="20" class="data">审批意见</el-col>
           </el-row>

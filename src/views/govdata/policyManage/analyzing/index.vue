@@ -39,19 +39,19 @@
           </el-dropdown>
         </el-form-item> -->
 
-        <el-form-item>
-          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus" plain>新增</el-button>
-        </el-form-item>
+        <!-- <el-form-item>
+          <el-button type="primary" @click="handleClickMotify()" icon="el-icon-plus">新增</el-button>
+        </el-form-item> -->
       </el-form>
 
       <crud-table class="table-con" :is-load-table="isLoadTable" align="left" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
         <el-table-column prop="operation" align="left" label="操作" width="220">
           <template slot-scope="scope">
-            <el-button class="btn" @click="handleView(scope.row)" size="small" type="warning" plain>查看</el-button>
-            <!-- <iep-divider type="vertical" /> -->
-            <el-button class="btn" @click="handleClickMotify(scope.row)" size="small" type="default">修改</el-button>
-            <!-- <iep-divider type="vertical" /> -->
-            <el-button class="btn" @click="handleDelete(scope.row)" size="small" type="default">删除</el-button>
+            <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">查看</el-button>
+            <iep-divider type="vertical" />
+            <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit">修改</el-button>
+            <iep-divider type="vertical" />
+            <el-button @click="handleDelete(scope.row)" type="text" size="small" icon="el-icon-delete" v-if="permissionDelete">删除</el-button>
           </template>
         </el-table-column>
       </crud-table>
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import _ from 'lodash'
 import mixins from '@/mixins/mixins'
 import { validatenull } from '@/util/validate'
@@ -208,9 +209,12 @@ export default {
       isNeedConfirm: true,
       commadOptions,
       btnTxt: '',
+      permissionDelete: false,
     }
   },
   computed: {
+    ...mapGetters(['userInfo', 'permissions']),
+
     infoFormTitle () {
       return this.isReadonly ? '查看政策解读' : this.isEdit ? '修改政策解读' : '新增政策解读'
     },
@@ -221,6 +225,7 @@ export default {
   created () {
     this.load()
     this.loadDict()
+    this.permissionDelete = this.permissions['manage_explain_del']
   },
   methods: {
     /**

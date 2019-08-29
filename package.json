@@ -20,6 +20,7 @@
     "echarts": "^4.2.1",
     "element-ui": "^2.11.1",
     "enquire.js": "^2.1.6",
+    "exif-js": "^2.3.0",
     "file-saver": "^2.0.0",
     "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.4.0",

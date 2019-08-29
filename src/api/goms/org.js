@@ -130,3 +130,10 @@ export function passJoins (obj) {
     data: obj,
   })
 }
+
+export function getOrgCard (id) {
+  return request({
+    url: `/admin/channel_admin/org/card/${id}`,
+    method: 'get',
+  })
+}

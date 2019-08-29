@@ -34,12 +34,22 @@
       </div>
       <div class="button-list">
         <div class="func" @click="handleImage" v-if="formData.images.length === 0 && transmitId === -1">
+          <!-- <el-upload
+            action="/api/admin/file/upload/avatar"
+            :show-file-list="false"
+            :headers="headers"
+            :on-success="handleAvatarSuccess"
+            accept="image/*"
+            ref="upload">
+            <div class="func"><i class="icon-tupian"></i><p>图片</p></div>
+          </el-upload> -->
           <el-upload
             action="/api/admin/file/upload/avatar"
             :show-file-list="false"
             :headers="headers"
             :on-success="handleAvatarSuccess"
             accept="image/*"
+            :before-upload="beforeUpload"
             ref="upload">
             <div class="func"><i class="icon-tupian"></i><p>图片</p></div>
           </el-upload>
@@ -79,6 +89,8 @@ import { thoughtsCreate } from '@/api/cpms/thoughts'
 import store from '@/store'
 import { getSubject, getName } from './util'
 import keyup from './keyup'
+import { uploadIdCard } from '@/api/file'
+import image from '@/mixins/image'
 
 var initForm = () => {
   return {
@@ -94,7 +106,7 @@ const rules = {
 }
 
 export default {
-  mixins: [ keyup ],
+  mixins: [ keyup, image ],
   props: {
     subject: {
       type: String,
@@ -185,6 +197,24 @@ export default {
         }
       }
       this.formData = initForm()
+    },
+    // 图片上传前回调
+    beforeUpload (file) {
+      this.imgPreview(file)
+      return false
+    },
+    // 图片的真正上传
+    imageUpload (file) {
+      // 此时可以自行将文件上传至服务器
+      let config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+      uploadIdCard(file, config).then(({ data }) => {
+        console.log('data: ', data)
+        this.formData.images.push(data.data.url)
+      })
     },
   },
   created () {

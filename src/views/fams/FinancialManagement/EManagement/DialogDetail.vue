@@ -75,14 +75,12 @@
           </template>
         </el-table-column>
       </el-table>
-
       <template v-if="form.parentType==='17'">
-        <el-form-item label="">
-          <operation-wrapper>
-            <iep-button @click="handleIncome()">新增其他应收款收入</iep-button>
-            <iep-button @click="handleShow()">查看其他应收款收入</iep-button>
-          </operation-wrapper>
-        </el-form-item>
+        <el-divider>回款状态</el-divider>
+        <operation-wrapper>
+          <iep-button type="primary" @click="handleIncome()">新增其他应收款收入</iep-button>
+          <iep-button @click="handleShow()">查看其他应收款收入</iep-button>
+        </operation-wrapper>
       </template>
 
     </el-form>

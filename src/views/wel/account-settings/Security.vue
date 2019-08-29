@@ -28,8 +28,8 @@ export default {
       data: [
         {
           title: '账户密码',
-          description: '当前密码强度',
-          value: '强',
+          description: '如当前密码为初始密码',
+          value: '请即使修改为强密码',
           actions: {
             title: '修改',
             callback: () => {

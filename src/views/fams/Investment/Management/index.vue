@@ -30,13 +30,16 @@
         </el-table-column>
       </iep-table>
     </basic-container>
+    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
-import { getInvestmentPage, upInvestmentById, downInvestmentById, rollbackInvestmentById } from '@/api/fams/investment'
-import { columnsMap, dictsMap } from './options'
+import { getInvestmentPage, upInvestmentById, downInvestmentById, rollbackInvestmentById, postInvestment } from '@/api/fams/investment'
+import { columnsMap, dictsMap, initForm } from './options'
+import DialogForm from './DialogForm'
 import mixins from '@/mixins/mixins'
 export default {
+  components: { DialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -82,9 +85,9 @@ export default {
       this.loadPage()
     },
     handleAdd () {
-      this.$router.push({
-        path: '/fams_spa/management_edit/0',
-      })
+      this.$refs['DialogForm'].form = initForm()
+      this.$refs['DialogForm'].formRequestFn = postInvestment
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleEdit (row) {
       this.$router.push({

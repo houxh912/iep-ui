@@ -5,7 +5,7 @@
         <template slot="right">
           <operation-wrapper>
             <iep-button type="primary" @click="handleChangeRelease" plain>变更发行</iep-button>
-            <iep-button @click="$openPage(`/fams_spa/change_shareholder/${id}`)">变更股东</iep-button>
+            <iep-button @click="$openPage(`/fams_spa/business_indicator`)">变更股东</iep-button>
             <iep-button @click="onGoBack">返回</iep-button>
           </operation-wrapper>
         </template>

@@ -101,6 +101,11 @@ export default [
         component: () => import(/* webpackChunkName: "fams" */'@/views/fams/Investment/Management/Edit.vue'),
       },
       {
+        path: 'change_shareholder/:id',
+        name: '变更股东',
+        component: () => import(/* webpackChunkName: "fams" */'@/views/fams/Investment/Management/ChangeShareholderPage.vue'),
+      },
+      {
         path: 'management_detail/:id',
         name: '投资管理详情',
         component: () => import(/* webpackChunkName: "fams" */'@/views/fams/Investment/ManagementDetail/index.vue'),

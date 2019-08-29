@@ -32,6 +32,30 @@ const initForm = () => {
     equityType: '1',//股本类型
   }
 }
+
+const initInvestmentForm = () => {
+  return {
+    abilityTag: [],
+    allSharesNumber: 0,
+    currentShareholding: '',
+    equityType: 0,
+    hadMoney: 0,
+    holdType: 0,
+    id: 0,
+    investmentNumber: 0,
+    issuePrice: 0,
+    orgId: 0,
+    orgLogo: '',
+    orgName: '',
+    performanceTrend: [],
+    record: [],
+    residualShareholding: '',
+    shareholderInformation: [],
+    sharesUnivalent: 1,
+    status: 1,
+    targetAmount: 1,
+  }
+}
 const rules = {
   orgId: [
     { required: true, message: '请填写投资组织', trigger: 'blur' },
@@ -48,4 +72,5 @@ export {
   initForm,
   dictsMap,
   columnsMap,
+  initInvestmentForm,
 }

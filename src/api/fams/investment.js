@@ -108,3 +108,42 @@ export function PersonInvestmentBatch (obj) {
     data: obj,
   })
 }
+
+export function getShareStatistics (id) {
+  return request({
+    url: `${prefixUrl}/share/statistics/${id}`,
+    method: 'get',
+  })
+}
+
+export function getReleaseRecordPage (query) {
+  return request({
+    url: `${prefixUrl}/release/record/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getRelationPage (query) {
+  return request({
+    url: `${prefixUrl}/relation/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getReleasePage (query) {
+  return request({
+    url: `${prefixUrl}/release/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function changeRelease (obj) {
+  return request({
+    url: `${prefixUrl}/change/release`,
+    method: 'post',
+    data: obj,
+  })
+}

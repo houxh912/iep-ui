@@ -1,6 +1,6 @@
 <template>
   <div class="no-data">
-    <i class="icon-gmlogo"></i>{{message}}</div>
+    <i class="icon-logo-woneng"></i>{{message}}</div>
 </template>
 <script>
 export default {

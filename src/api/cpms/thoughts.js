@@ -53,6 +53,15 @@ export function getFollowPage (obj) {
   })
 }
 
+// 说说中@人联想接口
+export function getUserNameList (obj) {
+  return request({
+    url: `${prefixUrl}/user/name/list`,
+    method: 'get',
+    params: obj,
+  })
+}
+
 // 说说点赞
 export function addThumbsUpByRecord (id) {
   return request({

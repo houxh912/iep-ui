@@ -351,12 +351,12 @@ export function pickDeep (collection) {
     return []
   }
 }
-export function fillStatisticsArray (oldData, newData) {
+export function fillStatisticsArray (oldData, newData, force = false) {
   const newStatistics = []
   for (let i = 0; i < oldData.length; i++) {
     const element = oldData[i]
     const newElement = newData[i]
-    if (newElement) {
+    if (force || newElement) {
       newStatistics.push(newElement)
     } else {
       newStatistics.push(element)

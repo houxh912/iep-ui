@@ -10,7 +10,7 @@
           <iep-cascader v-model="form.dept" prefix-url="admin/dept" change-on-select></iep-cascader>
         </iep-form-item>
         <el-form-item class="form-half" label="招聘人数：" prop="recruitsCount">
-          <iep-input-number v-model="form.recruitsCount"></iep-input-number>
+          <iep-input-number v-model="form.recruitsCount" :min="1"></iep-input-number>
         </el-form-item>
         <el-form-item class="form-half" label="是否紧缺：" prop="targetCount">
           <el-radio-group v-model="form.targetCount">

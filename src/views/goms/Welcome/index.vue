@@ -3,7 +3,7 @@
     <div class="bg-top">
       <div class="desc">欢迎来到
         <span class="keyword">{{keyword}}</span>
-        ，你可以在这里加入组织或创建组织，你可以通过<span class="keyword">{{keyword}}</span>进行协同办公、学习成长何财富增值，在这里大家都在登记个人资源、管理个人财富、共享<span class="keyword">{{keyword}}</span>资源、上报工作计划、自主学习考试、信息查收推送、在线沟通聊天。</div>
+        ，你可以在这里加入组织或创建组织，你可以通过<span class="keyword">{{keyword}}</span>进行协同办公、学习成长和财富增值，在这里大家都在登记个人资源、管理个人财富、共享<span class="keyword">{{keyword}}</span>资源、上报工作计划、自主学习考试、信息查收推送、在线沟通聊天。</div>
       <div class="title-wrapper">
         <div class="title">加入{{keyword}}</div>
         <div class="slogan">--为你的组织无限赋能</div>

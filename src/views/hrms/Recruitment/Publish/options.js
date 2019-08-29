@@ -18,23 +18,23 @@ const columnsMap = [
   {
     prop: 'recruitsCount',
     label: '招聘人数',
-    width:'100',
+    width: '100',
   },
   {
     prop: 'jobType',
     label: '工作类型',
-    width:'100',
+    width: '100',
   },
   {
     prop: 'applicationTime',
     label: '招聘发布时间',
-    width:'170',
+    width: '170',
   },
   {
     prop: 'status',
     label: '招聘状态',
     type: 'dict',
-    width:'100',
+    width: '100',
   },
 ]
 
@@ -48,8 +48,8 @@ const initForm = () => {
     // positionName: '', // 岗位 positionName
     // deptId: '', // 所属部门 deptnName
     deptName: '', // 所属部门 deptnName
-    recruitsCount: 0, // 招聘人数
-    targetCount: 0, // 目标人数
+    recruitsCount: 1, // 招聘人数
+    targetCount: 0, // 是否紧缺
     academicId: '', // 学历要求(dict) hrms_highest_educational
     jobTypeId: '', // 工作类型(dict) hrms_work_type
     years: '', // 工作年限
@@ -178,7 +178,7 @@ const rules = {
     { required: true, message: '请填写招聘期限', trigger: 'blur' },
   ],
   welfare: [
-    { type:'array', required: true, message: '请填写福利待遇', trigger: 'blur' },
+    { type: 'array', required: true, message: '请填写福利待遇', trigger: 'blur' },
   ],
   duties: [
     { required: true, message: '请填写岗位职责', trigger: 'blur' },

@@ -1,13 +1,6 @@
 
 <template>
   <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable">
-    <template slot="before-columns">
-      <el-table-column label="时间">
-        <template slot-scope="scope">
-          {{scope.row.time|parseToDay}}
-        </template>
-      </el-table-column>
-    </template>
   </iep-table>
 </template>
 <script>

@@ -162,3 +162,11 @@ export function changeRelease (obj) {
     data: obj,
   })
 }
+
+export function postShareholder (obj) {
+  return request({
+    url: `${prefixUrl}/create/shareholder`,
+    method: 'post',
+    data: obj,
+  })
+}

@@ -140,6 +140,21 @@ export function getReleasePage (query) {
   })
 }
 
+export function getShareholderPage (query) {
+  return request({
+    url: `${prefixUrl}/shareholder/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getShareList (id) {
+  return request({
+    url: `${prefixUrl}/share/list/${id}`,
+    method: 'get',
+  })
+}
+
 export function changeRelease (obj) {
   return request({
     url: `${prefixUrl}/change/release`,

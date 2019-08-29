@@ -12,36 +12,41 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getReleasePage } from '@/api/fams/investment'
+import { getShareholderPage } from '@/api/fams/investment'
 export default {
   mixins: [mixins],
   data () {
     return {
       columnsMap: [
         {
-          prop: 'issueNumber',
-          label: '发行数量',
+          prop: 'userName',
+          label: '股东',
         },
         {
-          prop: 'groupNumber',
-          label: '发行后集团持有股份数量',
+          prop: 'sharesNumber',
+          label: '总持股数量',
         },
         {
-          prop: 'releaseType',
-          label: '发行类型',
-          type: 'dict',
+          prop: 'shareRatio',
+          label: '持股比例',
         },
         {
-          prop: 'userId',
-          label: '操作人',
+          prop: 'holdType',
+          label: '持股类型',
+          type: 'dictGroup',
+          dictName: 'FAMS_HOLD_TYPE',
         },
         {
-          prop: 'reviewUserId',
-          label: '审核人',
+          prop: 'nonCirculationNumber',
+          label: '非流通股本',
+        },
+        {
+          prop: 'circulationNumber',
+          label: '流通股本',
         },
         {
           prop: 'updateTime',
-          label: '变更时间',
+          label: '最近变更日期',
         },
       ],
     }
@@ -56,7 +61,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param, investmentId: this.id }, getReleasePage)
+      this.loadTable({ ...param, investmentId: this.id }, getShareholderPage)
     },
   },
 }

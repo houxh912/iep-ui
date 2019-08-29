@@ -1,44 +1,35 @@
 <template>
-  <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable">
+  <iep-table :isLoadTable="isLoadTable" :is-pagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" show-summary>
   </iep-table>
 </template>
        
 <script>
-import { getProjectPaymentPlanList } from '@/api/gpms/fas'
+import { getShareList } from '@/api/fams/investment'
 export default {
   data () {
     return {
-      dictsMap: {
-        paymentStatus: {
-          0: '未到',
-          1: '已到',
-          2: '逾期',
-          3: '逾期已到',
-        },
-      },
       columnsMap: [
         {
-          prop: 'paymentAmount',
-          label: '预计项目回款金额',
+          prop: 'holdType',
+          label: '持股类型',
+          type: 'dictGroup',
+          dictName: 'FAMS_HOLD_TYPE',
         },
         {
-          prop: 'projectPaymentTime',
-          label: '预计项目回款时间',
-          type: 'date',
-          formatString: 'YYYY-MM-DD',
+          prop: 'nonCirculationNumber',
+          label: '非流通股本',
         },
         {
-          prop: 'actualRepayment',
-          label: '实际项目回款金额',
+          prop: 'nonCirculatingRatio',
+          label: '比例',
         },
         {
-          prop: 'dateCash',
-          label: '实际回款日期',
+          prop: 'circulationNumber',
+          label: '流通股本',
         },
         {
-          prop: 'paymentStatus',
-          label: '回款状态',
-          type: 'dict',
+          prop: 'totalRatio',
+          label: '累计',
         },
       ],
       isLoadTable: true,
@@ -56,7 +47,7 @@ export default {
   methods: {
     loadPage () {
       this.isLoadTable = true
-      getProjectPaymentPlanList(this.id).then(({ data }) => {
+      getShareList(this.id).then(({ data }) => {
         this.isLoadTable = false
         this.pagedTable = data.data
       })

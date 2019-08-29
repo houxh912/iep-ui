@@ -21,62 +21,75 @@
                     <span><span class="schedule-title-sub">当前金额：</span>{{form.hadMoney}}（元）</span>
                     <span><span class="schedule-title-sub">目标金额：</span>{{form.targetAmount}}（元）</span></div>
                   <el-progress :text-inside="true" :stroke-width="8" :percentage="form.percentage" status="success" style="margin-top:10px;"></el-progress>
-                  <iep-button style="width: 140px;height: 44px;font-size: 15px;color: #fff;background-color: #ba1b20;border-radius: 4px;margin-top: 30px;">马上参与</iep-button>
+                  <iep-button style="width: 140px;height: 44px;font-size: 15px;color: #fff;background-color: #ba1b20;border-radius: 4px;margin-top: 30px;" @click="handleAdd">马上参与</iep-button>
                 </div>
               </div>
               <div class="right">
-                <div class="title">股价走势图<span class="right-tab">年</span><span class="right-tab">月</span><span class="right-tab tab-active">周</span></div>
-                <ve-line :colors="colors" :data="chartData" :settings="chartSettings" height="300px"></ve-line>
+                <div class="title">股价走势图
+                  <span class="right-tab" :class="trendActive=='year'?'tab-active':''" @click="trendTab('year')">年</span>
+                  <span class="right-tab" :class="trendActive=='month'?'tab-active':''" @click="trendTab('month')">月</span>
+                  <span class="right-tab" :class="trendActive=='week'?'tab-active':''" @click="trendTab('week')">周</span></div>
+                <ve-line :colors="colors" :data="chartData" :grid="grid" :settings="chartSettings" height="300px"></ve-line>
               </div>
             </div>
           </el-card>
         </div>
-        <div class="basic-info-achievement">
-          <IepAppTabCard title="基本信息">
-            <div class="information-wrapper">
-              <div>
-                <div class="label">当前释放股权数量</div>
-                <div class="num">{{form.allSharesNumber}}</div>
-              </div>
-              <div>
-                <div class="label">当前股权单价</div>
-                <div class="num">{{form.sharesUnivalent}}<span style="font-size:12px;">（贝）</span></div>
-              </div>
-              <!-- <div>
-                <div class="label">预计年化收益率</div>
-                <div class="num" style="color:#c53b3e">{{form.returnRate}}%</div>
-              </div> -->
-              <div>
-                <div class="label">最低起投金额</div>
-                <div class="num">{{form.minimumAmount}}<span style="font-size:12px;">（元）</span></div>
-              </div>
-              <div>
-                <div class="label">投资人最低信用评分</div>
-                <div class="num">{{form.minimumCredit}}</div>
-              </div>
-              <div>
-                <div class="label">组织排行</div>
-                <div class="num">--</div>
-              </div>
-            </div>
-            <div class="schedule">
-              <div class="schedule-title">投资进度</div>
-              <div class="release"><span class="schedule-title-sub">正式发布：</span>2019-06-03</div>
-
-            </div>
-          </IepAppTabCard>
+        <div class="main-tab">
+          <description :org="{orgId:form.orgId,orgName:form.orgName}"></description>
         </div>
-        <div class="basic-info-achievement">
-
+        <div class="main-tab-right">
+          <div class="basic-info-achievement">
+            <IepAppTabCard title="基本信息">
+              <div class="information-wrapper">
+                <div>
+                  <div class="num">444</div>
+                  <div class="label">总股本</div>
+                </div>
+                <div>
+                  <div class="num">444</div>
+                  <div class="label">发行股份数量</div>
+                </div>
+                <div>
+                  <div class="num">444</div>
+                  <div class="label">投资人最低信用分</div>
+                </div>
+                <div>
+                  <div class="num">444</div>
+                  <div class="label">发行价</div>
+                </div>
+                <div>
+                  <div class="num">444</div>
+                  <div class="label">股东人数</div>
+                </div>
+                <div>
+                  <div class="num">啊啊啊</div>
+                  <div class="label">审核人</div>
+                </div>
+              </div>
+            </IepAppTabCard>
+          </div>
+          <div class="top-ten-shareholders">
+            <IepAppTabCard title="十大股东">
+              <div class="top">
+                <span>股东姓名</span>
+                <span>持股数量</span>
+                <span>持股比例</span>
+              </div>
+              <el-scrollbar style="height:280px">
+                <div class="shareholders-wrapper" v-for="(item,index) in shareholdersList" :key="index">
+                  <span>{{item.name}}</span>
+                  <span>{{item.number}}</span>
+                  <span>{{item.bili}}</span>
+                </div>
+              </el-scrollbar>
+            </IepAppTabCard>
+          </div>
         </div>
-        <div>
-          <financial-report></financial-report>
-        </div>
-        <div>
-          <investment-record></investment-record>
+        <div class="risks-rules">
+          <notification></notification>
         </div>
         <div class="last-grid">
-          <IepAppTabCard title="股东信息" :tip="`当前持股${form.currentShareholding}  还有${form.residualShareholding}股份未认购`">
+          <IepAppTabCard title="历史访客" :tip="`累计访客${form.currentShareholding}，访问人次${form.residualShareholding}次`">
             <div class="shareholder-inform" v-for="(item, index) in form.shareholderInformation" :key="index">
               <div class="img">
                 <iep-img class="avatar" :src="item.avatar" alt=""></iep-img>
@@ -100,16 +113,20 @@ import { getInvestmentById, joinInvestment } from '@/api/fams/investment'
 import mixins from '@/mixins/mixins'
 import { initForm } from './options'
 import DialogForm from './DialogForm'
-import InvestmentRecord from './InvestmentRecord'
-import FinancialReport from './FinancialReport'
+import description from './description'
+import notification from './notification'
 export default {
   mixins: [mixins],
-  components: { DialogForm, InvestmentRecord, FinancialReport },
+  components: { DialogForm, description, notification },
   data () {
     this.colors = ['#d66368', '#eebc7d']
     this.chartSettings = {
       metrics: ['本组织'],
       dimension: ['time'],
+    }
+
+    this.grid = {
+      y2: 20,
     }
     return {
       bodyStyle: {
@@ -149,6 +166,22 @@ export default {
       reportData: [
         { type: '类型' },
       ],
+      shareholdersList: [
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+        { name: '安三个', number: 11, bili: 22 },
+      ],
+      trendActive: 'week',
+      trendWeek: [],
+      trendMonth: [],
+      trendYear: [],
     }
   },
   computed: {
@@ -164,8 +197,8 @@ export default {
       getInvestmentById(this.id).then(({ data }) => {
         this.form = data.data
         this.form.percentage = this.form.hadMoney / this.form.targetAmount * 100
-        let list = data.data.performanceTrend.map(m => { return { time: m.name, '本组织': m.amount } })
-        this.$set(this.chartData, 'rows', list)
+        this.trendWeek = data.data.performanceTrend.map(m => { return { time: m.name, '本组织': m.amount } })
+        this.$set(this.chartData, 'rows', this.trendWeek)
       })
     },
     handleAdd () {
@@ -174,10 +207,23 @@ export default {
       this.$refs['DialogForm'].form.investmentId = this.id
       this.$refs['DialogForm'].form.orgId = this.form.orgId
       this.$refs['DialogForm'].form.orgName = this.form.orgName
-      this.$refs['DialogForm'].form.minimumBuy = this.form.minimumBuy
+      // this.$refs['DialogForm'].form.minimumBuy = this.form.minimumBuy
       this.$refs['DialogForm'].form.remainSharesNumber = this.form.remainSharesNumber
       this.$refs['DialogForm'].form.sharesUnivalent = this.form.sharesUnivalent
       this.$refs['DialogForm'].dialogShow = true
+    },
+    trendTab (val) {
+      this.trendActive = val
+      if (val == 'week') {
+        this.$set(this.chartData, 'rows', this.trendWeek)
+      }
+      else if (val == 'month') {
+        this.$set(this.chartData, 'rows', this.trendMonth)
+      }
+      else {
+        this.$set(this.chartData, 'rows', this.trendYear)
+      }
+
     },
   },
 }
@@ -199,7 +245,7 @@ export default {
   grid-auto-flow: row dense;
   grid-row-gap: 20px;
   grid-column-gap: 25px;
-  grid-template-columns: minmax(100px, 1fr) minmax(100px, 1fr);
+  grid-template-columns: minmax(100px, 1fr) minmax(100px, 300px);
   .title {
     grid-column-start: 1;
     grid-column-end: 3;
@@ -312,37 +358,6 @@ export default {
       }
     }
   }
-  .information-wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    align-content: flex-start;
-    > div {
-      width: 33%;
-      flex: 0 0 33%;
-      padding-left: 10px;
-      margin-bottom: 20px;
-      > .label {
-        font-size: 14px;
-        color: #666;
-        height: 30px;
-        line-height: 30px;
-      }
-      > .num {
-        display: flex;
-        align-items: flex-end;
-        font-size: 20px;
-        height: 40px;
-        line-height: 40px;
-      }
-    }
-  }
-  .schedule {
-    .schedule-title {
-      font-size: 14px;
-      height: 50px;
-      line-height: 50px;
-    }
-  }
   .shareholder-inform {
     width: 16%;
     float: left;
@@ -395,7 +410,55 @@ export default {
       text-align: center;
     }
   }
-  .last-grid {
+  .main-tab {
+  }
+  .main-tab-right {
+    .basic-info-achievement {
+      .information-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        align-content: flex-start;
+        > div {
+          width: 50%;
+          margin-bottom: 20px;
+          text-align: center;
+          > .label {
+            font-size: 14px;
+            color: #666;
+            height: 30px;
+            line-height: 30px;
+          }
+          > .num {
+            font-size: 20px;
+            height: 30px;
+            line-height: 30px;
+            color: #c53b3e;
+          }
+        }
+      }
+    }
+    .top-ten-shareholders {
+      margin-top: 20px;
+      .top,
+      .shareholders-wrapper {
+        display: flex;
+        height: 40px;
+        line-height: 40px;
+        > span {
+          width: 33%;
+          text-align: center;
+        }
+        &:hover {
+          background-color: #fafafa;
+        }
+      }
+      .top {
+        background-color: #fafafa;
+      }
+    }
+  }
+  .last-grid,
+  .risks-rules {
     grid-column-start: 1;
     grid-column-end: 3;
     display: grid;
@@ -422,7 +485,7 @@ export default {
 }
 .basic-info-achievement >>> .el-card,
 .financial-investment >>> .el-card {
-  height: 416px;
+  height: 320px;
 }
 .title >>> .el-card__body {
   padding: 20px 10px;

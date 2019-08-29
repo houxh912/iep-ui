@@ -1,35 +1,32 @@
 <template>
-    <IepAppTabCard title="投资记录">
-        <iep-table :isLoadTable="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false">
-          
-        </iep-table>
-    </IepAppTabCard>
+  <div>
+    <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable">
+
+    </iep-table>
+  </div>
 </template>
 <script>
 
 import { getInvestmentById } from '@/api/fams/investment'
 
 const dictsMap = {
-    status: {
-        '1': '现金',
-        '2': '国脉贝',
-    },
+  status: {
+    '1': '现金',
+    '2': '国脉贝',
+  },
 }
 const columnsMap = [
   {
     prop: 'id',
     label: '序号',
-    width:60,
   },
   {
     prop: 'userName',
     label: '投资人',
-    width:80,
   },
   {
     prop: 'totalAmount',
     label: '投资金额（元）',
-    width:120,
   },
   {
     prop: 'status',
@@ -39,7 +36,6 @@ const columnsMap = [
   {
     prop: 'updateTime',
     label: '投资时间',
-    width:160,
   },
 ]
 export default {

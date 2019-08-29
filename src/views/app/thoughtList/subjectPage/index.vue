@@ -32,6 +32,9 @@ export default {
       total: 0,
       params: initParams(),
       list: [],
+      searchForm: {
+        content: '',
+      },
     }
   },
   methods: {
@@ -40,7 +43,7 @@ export default {
       this.getTableData()
     },
     getTableData () {
-      getTableData(this.params).then(({ data }) => {
+      getTableData(Object.assign({}, this.params, this.searchForm)).then(({ data }) => {
         this.list = data.data.records
         this.total = data.data.total
       })
@@ -58,6 +61,11 @@ export default {
           id: row.topicId,
         },
       })
+    },
+    // 搜索
+    search (params) {
+      this.searchForm = Object.assign({}, this.searchForm, params)
+      this.getTableData()
     },
   },
   created () {

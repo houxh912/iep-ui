@@ -70,3 +70,10 @@ export function postTransfer (obj) {
     data: obj,
   })
 }
+
+export function getUserCard (id) {
+  return request({
+    url: `${prefixUrl}/userCard/${id}`,
+    method: 'get',
+  })
+}

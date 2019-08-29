@@ -17,29 +17,43 @@
           <iep-div-detail v-else class="user-org" :value="`所属组织：${cardData.orgList.join('、')}`"></iep-div-detail>
         </template>
         <template>
-          <iep-div-detail v-if="!cardData.projectTag.length" class="user-tags" :value="`专业标签：暂无`"></iep-div-detail>
-          <iep-div-detail v-else class="user-tags" :value="`专业标签：${cardData.projectTag.join(' / ')}`"></iep-div-detail>
+          <iep-div-detail v-if="!cardData.abilityTag.length" class="user-tags" :value="`卓越标签：暂无`"></iep-div-detail>
+          <iep-div-detail v-else class="user-tags" :value="`卓越标签：${cardData.abilityTag.join(' / ')}`"></iep-div-detail>
         </template>
       </div>
     </div>
-    <!-- <div class="user-operation">
+    <div class="user-operation">
       <div class="item">
-        <div class="count">670</div>
+        <div class="count">{{cardData.rankMap.xyz}}</div>
         <div class="label">信用值</div>
       </div>
       <div class="item">
-        <div class="count">11</div>
-        <div class="label">活跃度</div>
+        <div class="count">{{cardData.rankMap.hydpm}}</div>
+        <div class="label">活跃度排名</div>
       </div>
       <div class="item">
-        <div class="count">1</div>
-        <div class="label">财富排名</div>
+        <div class="count">{{cardData.rankMap.gmbpm}}</div>
+        <div class="label">国脉贝排名</div>
       </div>
       <div class="item">
-        <div class="count">1</div>
+        <div class="count">{{cardData.rankMap.sjzc}}</div>
         <div class="label">数据资产</div>
       </div>
-    </div> -->
+    </div>
+    <div class="contact-wrapper">
+      <div>
+        电话：{{cardData.phone}}
+      </div>
+      <div>
+        QQ：{{cardData.qq}}
+      </div>
+      <div>
+        微信：{{cardData.wechat}}
+      </div>
+      <div>
+        邮箱：{{cardData.email}}
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -54,6 +68,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.contact-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 5px 50px;
+  > div {
+    padding: 5px;
+  }
+}
 .user-card-wrapper {
   width: 470px;
   display: flex;

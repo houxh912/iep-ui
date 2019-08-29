@@ -17,15 +17,15 @@
     <el-table v-loading="loading" :data="budgetTable" style="width: 100%" :height="tableHeight">
       <el-table-column prop="orgName" label="组织名称">
       </el-table-column>
-      <el-table-column v-for="item in budgetTableRelation" :key="item.id" :label="getLabel(item)">
+      <el-table-column v-for="(item, idx) in budgetTableRelation" :key="idx" :label="getLabel(item)">
         <el-table-column prop="totalBudget" label="预算(元)">
           <template slot-scope="scope">
-            <div>{{getValue(item, scope, 'totalBudget') | parseToMoney}}</div>
+            <div>{{getValue(idx, scope, 'totalBudget') | parseToMoney}}</div>
           </template>
         </el-table-column>
         <el-table-column prop="actualTotal" label="实际(元)">
           <template slot-scope="scope">
-            <div>{{getValue(item, scope, 'actualTotal') | parseToMoney}}</div>
+            <div>{{getValue(idx, scope, 'actualTotal') | parseToMoney}}</div>
           </template>
         </el-table-column>
       </el-table-column>
@@ -69,8 +69,8 @@ export default {
     getLabel (item) {
       return item.flag ? this.year + '年度' : item.budgetTime + ((this.quarter - 1) * 3) + '月份'
     },
-    getValue (item, scope, tName) {
-      return this.budgetMap[item.budgetId][tName]
+    getValue (idx, scope, tName) {
+      return scope.row.orgRelation[idx][tName]
     },
     handleChange () {
       this.loadPage()

@@ -7,7 +7,7 @@
           <iep-button @click="handleReject(form, false)">驳回</iep-button>
           <iep-button @click="handleTrans(form)">转交</iep-button>
         </template>
-        <template v-if="form.primaryAudit===1&&form.financialAudit===0 && isApproval">
+        <template v-if="form.primaryAudit===1&&form.financialAudit===0 && isFinancialApproval">
           <iep-button @click="handlePass(form, true)">通过</iep-button>
           <iep-button @click="handleReject(form, true)">驳回</iep-button>
         </template>
@@ -116,6 +116,9 @@ export default {
     },
     isApproval () {
       return this.$route.query.isApproval || false
+    },
+    isFinancialApproval () {
+      return this.$route.query.isFinancialApproval || false
     },
     projectOption () {
       return this.form.referType === 1

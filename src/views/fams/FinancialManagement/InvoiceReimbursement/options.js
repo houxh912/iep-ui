@@ -33,6 +33,7 @@ const columnsMap = [
 	{
 		prop: 'companyName',
 		label: '发票抬头',
+		type: 'detail',
 	},
 	{
 		prop: 'totalAmount',
@@ -63,6 +64,7 @@ const columnsMap = [
 	{
 		prop: 'remarks',
 		label: '备注',
+		type: 'detail',
 	},
 ]
 

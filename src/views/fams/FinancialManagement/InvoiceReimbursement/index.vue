@@ -13,7 +13,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
-              <iep-button v-if="isQichizhi && scope.row.financialAudit===1&&scope.row.referType === 1" @click="handleEditProject(scope.row)" plain>修改</iep-button>
+              <iep-button v-if="qichuzhi_edit && scope.row.financialAudit===1&&scope.row.referType === 1" @click="handleEditProject(scope.row)" plain>修改</iep-button>
               <iep-button v-if="scope.row.financialAudit===0" @click="handlePass(scope.row)" plain>通过</iep-button>
               <iep-button v-if="scope.row.financialAudit===0" @click="handleReject(scope.row)">驳回</iep-button>
             </operation-wrapper>
@@ -44,17 +44,17 @@ export default {
       columnsMap,
       statistics: [0, 0, 0, 0],
       replaceText: (data) => `（待核准：${data[0]}笔，总计：${data[1]}，已确认：${data[2]}笔，总计：${data[3]}）`,
+      qichuzhi_edit: false,
     }
   },
   computed: {
-    isQichizhi () {
-      return [207, 1].includes(this.userInfo.userId)
-    },
     ...mapGetters([
       'userInfo',
+      'permissions',
     ]),
   },
   created () {
+    this.qichuzhi_edit = this.permissions['qichuzhi_edit']
     this.loadPage()
   },
   methods: {

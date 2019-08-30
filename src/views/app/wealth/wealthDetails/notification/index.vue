@@ -23,10 +23,10 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '风险与规则',
+        label: '风险说明',
         value: 'Rules',
       }, {
-        label: '管理办法',
+        label: '投资规则',
         value: 'Management',
       }],
       activeTab: 'Rules',

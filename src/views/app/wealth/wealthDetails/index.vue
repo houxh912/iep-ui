@@ -18,15 +18,15 @@
                     <span style="font-size:14px;color:#ba1b20">3.88+0.25%</span>
                   </div>
                   <div class="release-bottom">
-                    <span><span class="schedule-title-sub">当前金额：</span>{{form.hadMoney}}（元）</span>
-                    <span><span class="schedule-title-sub">目标金额：</span>{{form.targetAmount}}（元）</span></div>
+                    <span class="schedule-title-sub">已购数量：{{form.hadMoney}}（股）</span>
+                    <span class="schedule-title-sub">发行数量：{{form.targetAmount}}（股）</span></div>
                   <el-progress :text-inside="true" :stroke-width="8" :percentage="form.percentage" status="success" style="margin-top:10px;"></el-progress>
-                  <iep-button style="width: 140px;height: 44px;font-size: 15px;color: #fff;background-color: #ba1b20;border-radius: 4px;margin-top: 30px;" @click="handleAdd">马上参与</iep-button>
+                  <iep-button type="danger" style="width: 140px;height: 44px;font-size: 15px;border-radius: 4px;margin-top: 30px;" @click="handleAdd">马上参与</iep-button>
                 </div>
               </div>
               <div class="right">
                 <div class="title">股价走势图
-                  <span class="right-tab" :class="trendActive=='year'?'tab-active':''" @click="trendTab('year')">年</span>
+                  <!-- <span class="right-tab" :class="trendActive=='year'?'tab-active':''" @click="trendTab('year')">年</span> -->
                   <span class="right-tab" :class="trendActive=='month'?'tab-active':''" @click="trendTab('month')">月</span>
                   <span class="right-tab" :class="trendActive=='week'?'tab-active':''" @click="trendTab('week')">周</span></div>
                 <ve-line :colors="colors" :data="chartData" :grid="grid" :settings="chartSettings" height="300px"></ve-line>
@@ -49,14 +49,14 @@
                   <div class="num">444</div>
                   <div class="label">发行股份数量</div>
                 </div>
-                <div>
+                <!-- <div>
                   <div class="num">444</div>
                   <div class="label">投资人最低信用分</div>
-                </div>
-                <div>
+                </div> -->
+                <!-- <div>
                   <div class="num">444</div>
                   <div class="label">发行价</div>
-                </div>
+                </div> -->
                 <div>
                   <div class="num">444</div>
                   <div class="label">股东人数</div>
@@ -75,11 +75,11 @@
                 <span>持股数量</span>
                 <span>持股比例</span>
               </div>
-              <el-scrollbar style="height:280px">
-                <div class="shareholders-wrapper" v-for="(item,index) in shareholdersList" :key="index">
+              <el-scrollbar style="height:360px">
+                <div class="shareholders-wrapper" v-for="(item,index) in form.shareholderInformation" :key="index">
                   <span>{{item.name}}</span>
-                  <span>{{item.number}}</span>
-                  <span>{{item.bili}}</span>
+                  <span>{{item.proportion}}</span>
+                  <span>{{item.proportion/item.allSharesNumber*100}}%</span>
                 </div>
               </el-scrollbar>
             </IepAppTabCard>
@@ -93,13 +93,8 @@
             <div class="shareholder-inform" v-for="(item, index) in form.shareholderInformation" :key="index">
               <div class="img">
                 <iep-img class="avatar" :src="item.avatar" alt=""></iep-img>
-                <!-- <span v-show="item.type" class="type">{{item.type}}</span> -->
               </div>
-              <div class="row"><span class="name">股东：</span>{{item.name}}</div>
-              <div class="row">
-                <span><span class="name">持股数量：</span>{{item.proportion}}</span>
-                <!-- <span style="float:right;font-size:12px;color:#999;">{{item.time}}</span> -->
-              </div>
+              <span class="name">{{item.name}}</span>
             </div>
           </IepAppTabCard>
         </div>
@@ -121,7 +116,7 @@ export default {
   data () {
     this.colors = ['#d66368', '#eebc7d']
     this.chartSettings = {
-      metrics: ['本组织'],
+      metrics: ['股价走势', '涨跌额'],
       dimension: ['time'],
     }
 
@@ -160,7 +155,7 @@ export default {
         shareholderInformation: [],
       },
       chartData: {
-        columns: ['time', '本组织'],
+        columns: ['time', '股价走势', '涨跌额'],
         rows: [],
       },
       reportData: [
@@ -197,7 +192,7 @@ export default {
       getInvestmentById(this.id).then(({ data }) => {
         this.form = data.data
         this.form.percentage = this.form.hadMoney / this.form.targetAmount * 100
-        this.trendWeek = data.data.performanceTrend.map(m => { return { time: m.name, '本组织': m.amount } })
+        this.trendWeek = data.data.performanceTrend.map(m => { return { time: m.name, '股价走势': m.amount } })
         this.$set(this.chartData, 'rows', this.trendWeek)
       })
     },
@@ -359,55 +354,28 @@ export default {
     }
   }
   .shareholder-inform {
-    width: 16%;
+    width: 5%;
     float: left;
     margin: 0 22px;
     cursor: pointer;
+    text-align: center;
     .img {
-      width: 180px;
-      height: 120px;
+      width: 50px;
+      height: 50px;
       position: relative;
-      margin-bottom: 10px;
+      margin: 0 auto 10px;
       overflow: hidden;
       text-align: center;
       .avatar {
-        height: 100px !important;
-        width: 100px !important;
+        height: 50px !important;
+        width: 50px !important;
         border-radius: 50%;
         overflow: hidden;
         margin: auto;
       }
-      .el-image {
-        width: 100%;
-        height: 100%;
-        transition: 0.5s;
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-      > img {
-        width: 180px;
-        height: 120px;
-      }
       .name {
         color: #999;
       }
-      .type {
-        position: absolute;
-        top: 10px;
-        right: 5px;
-        padding: 0 5px;
-        border: 1px solid #c53b3e;
-        border-radius: 4px;
-        background-color: #ecebe9;
-        color: #c53b3e;
-      }
-    }
-    .row {
-      color: #666;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
     }
   }
   .main-tab {
@@ -485,7 +453,7 @@ export default {
 }
 .basic-info-achievement >>> .el-card,
 .financial-investment >>> .el-card {
-  height: 320px;
+  height: 240px;
 }
 .title >>> .el-card__body {
   padding: 20px 10px;

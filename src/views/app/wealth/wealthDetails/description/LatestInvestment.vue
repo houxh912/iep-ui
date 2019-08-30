@@ -1,8 +1,9 @@
 <template>
   <div>
-    <iep-table :isLoadTable="false" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable">
+    <iep-table :isLoadTable="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false">
 
     </iep-table>
+
   </div>
 </template>
 <script>

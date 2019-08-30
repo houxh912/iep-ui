@@ -15,7 +15,7 @@
       <span>{{item.name}}</span>
       <span>{{item.yesterday}}%</span>
       <span>{{item.month}}%</span>
-      <span>{{item.season}}%</span>
+      <!-- <span>{{item.season}}%</span> -->
     </div>
   </div>
 </template>
@@ -25,19 +25,19 @@ export default {
   data () {
     return {
       businessYear: new Date(),
-      titleList: ['数据项', '昨日变动', '上月变动', '上季变动'],
+      titleList: ['数据项', '昨日变动', '上月变动'],
       dataList: [
-        { name: '总估值', yesterday: '505505', month: '10', season: '5' },
-        { name: '账户余额', yesterday: '505505', month: '10', season: '5' },
-        { name: '待签合同', yesterday: '505505', month: '10', season: '5' },
-        { name: '应收账款', yesterday: '505505', month: '10', season: '5' },
-        { name: '负资产', yesterday: '505505', month: '10', season: '5' },
-        { name: '合同金额', yesterday: '505505', month: '10', season: '5' },
-        { name: '项目收入', yesterday: '505505', month: '10', season: '5' },
-        { name: '其他收入', yesterday: '505505', month: '10', season: '5' },
-        { name: '费用', yesterday: '505505', month: '10', season: '5' },
-        { name: '营业利润', yesterday: '505505', month: '10', season: '5' },
-        { name: '净利润', yesterday: '505505', month: '10', season: '5' },
+        { name: '总估值', yesterday: '505505', month: '10' },
+        { name: '账户余额', yesterday: '505505', month: '10' },
+        { name: '待签合同', yesterday: '505505', month: '10' },
+        { name: '应收账款', yesterday: '505505', month: '10' },
+        { name: '负资产', yesterday: '505505', month: '10' },
+        { name: '合同金额', yesterday: '505505', month: '10' },
+        { name: '项目收入', yesterday: '505505', month: '10' },
+        { name: '其他收入', yesterday: '505505', month: '10' },
+        { name: '费用', yesterday: '505505', month: '10' },
+        { name: '营业利润', yesterday: '505505', month: '10' },
+        { name: '净利润', yesterday: '505505', month: '10' },
       ],
     }
   },
@@ -72,7 +72,7 @@ export default {
     display: grid;
     grid-auto-flow: row dense;
     grid-template-columns:
-      minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
+      minmax(100px, 1fr) minmax(100px, 1fr)
       minmax(100px, 1fr);
     > span {
       text-align: center;

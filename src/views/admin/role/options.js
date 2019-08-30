@@ -5,6 +5,11 @@ const dictsMap = {
     0: '全部',
     3: '本级',
   },
+  type: {
+    1: '通用',
+    2: '组织',
+    3: '联盟',
+  },
 }
 
 const dsType = [
@@ -66,4 +71,10 @@ const initForm = () => {
   }
 }
 
-export { dictsMap, columnsMap, initForm, dsType, orgDsType }
+const initSearchForm = () => {
+  return {
+    type: '',
+  }
+}
+
+export { dictsMap, columnsMap, initForm, dsType, orgDsType, initSearchForm }

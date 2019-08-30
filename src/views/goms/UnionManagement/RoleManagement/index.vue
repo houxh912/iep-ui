@@ -132,7 +132,7 @@ export default {
         })
         .then(response => {
           const treeData = response.data.data
-          this.$refs['PermissionDialogForm'].treeData = filterTree(treeData, [8230, 8300, 8400, 10000])
+          this.$refs['PermissionDialogForm'].treeData = filterTree(treeData, [10000])
           // 解析出所有的节点
           this.$refs['PermissionDialogForm'].checkedKeys = this.resolveAllEunuchNodeId(
             this.$refs['PermissionDialogForm'].treeData,

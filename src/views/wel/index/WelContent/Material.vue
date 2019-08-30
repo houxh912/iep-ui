@@ -42,7 +42,7 @@ export default {
     },
     loadPage () {
       getMaterials().then(({ data }) => {
-        this.dataList = data.data
+        this.dataList = data.data || []
       })
     },
   },

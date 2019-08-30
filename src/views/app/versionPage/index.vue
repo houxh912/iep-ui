@@ -91,6 +91,7 @@ export default {
 .version-con-list {
   padding-top: 25px;
   padding-left: 15px;
+  padding-bottom: 100px;
   .piece {
     position: relative;
     padding-left: 15px;

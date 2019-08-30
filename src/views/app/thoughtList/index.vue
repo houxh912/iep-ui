@@ -4,24 +4,28 @@
     <headTpl class="head" @load-page="loadPage"></headTpl>
     <div class="content">
       <tabsTpl v-model="tabName" :tab-list="tabList" class="content-left">
+        <!-- 说说列表 -->
         <template v-if="tabName ==='allThougth'" v-slot:allThougth>
           <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
           <div style="text-align: center;margin: 20px 0;">
             <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
           </div>
         </template>
+        <!-- 关注列表 -->
         <template v-if="tabName ==='followThougth'" v-slot:followThougth>
           <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
           <div style="text-align: center;margin: 20px 0;">
             <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
           </div>
         </template>
+        <!-- 话题列表 -->
         <template v-if="tabName ==='subject'" v-slot:subject>
           <subjectPage ref="subject"></subjectPage>
         </template>
         <!-- 搜索 -->
         <template v-slot:search>
-          <searchTpl @load-page="searchPage" ref="search" v-if="isSearchShow"></searchTpl>
+          <searchThought @load-page="searchPage" ref="search" v-if="isSearchShow === 'thought'"></searchThought>
+          <searchSubject @load-page="searchPage" ref="search" v-if="isSearchShow === 'subject'"></searchSubject>
         </template>
       </tabsTpl>
       <div class="content-right">
@@ -39,7 +43,8 @@ import rightTpl from './right'
 import library from './library'
 import subjectPage from './subjectPage/'
 import tabsTpl from './tabsTpl'
-import searchTpl from './search'
+import searchThought from './search/thought'
+import searchSubject from './search/subject'
 
 const initParams = () => {
   return {
@@ -49,7 +54,7 @@ const initParams = () => {
 }
 
 export default {
-  components: { headTpl, rightTpl, library, subjectPage, tabsTpl, searchTpl },
+  components: { headTpl, rightTpl, library, subjectPage, tabsTpl, searchThought, searchSubject },
   data () {
     return {
       isShow: true,
@@ -86,7 +91,7 @@ export default {
         },
       ],
       tabName: 'allThougth',
-      isSearchShow: true,
+      isSearchShow: 'thought',
     }
   },
   methods: {
@@ -116,11 +121,15 @@ export default {
       })
     },
     // 搜素
-    searchPage (params) {
-      if (params) {
-        this.paramData = Object.assign({}, this.paramData, params)
+    searchPage (params, state) {
+      if (state === 'thought') {
+        if (params) {
+          this.paramData = Object.assign({}, this.paramData, params)
+        }
+        this.loadPage()
+      } else if (state === 'subject') {
+        this.$refs['subject'].search(params)
       }
-      this.loadPage()
     },
   },
   beforeRouteUpdate (to, from, next) {
@@ -153,12 +162,12 @@ export default {
       }
       if (newVal === 'allThougth') {
         loadPage()
-        this.isSearchShow = true
+        this.isSearchShow = 'thought'
       } else if (newVal === 'followThougth') {
         loadPage()
-        this.isSearchShow = false
+        this.isSearchShow = 'follow'
       } else if (newVal === 'subject') {
-        this.isSearchShow = false
+        this.isSearchShow = 'subject'
       }
     },
   },

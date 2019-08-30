@@ -6,7 +6,7 @@
           <iep-button size="small" type="primary" icon="el-icon-plus" plain>新增</iep-button>
         </template>
         <template slot="right">
-          <!-- <searchForm @searchPage="searchPage"></searchForm> -->
+          <operation-search @search-page="searchPage" :paramForm="searchForm" prop="content"></operation-search>
         </template>
       </operation-container>
       <iep-table 

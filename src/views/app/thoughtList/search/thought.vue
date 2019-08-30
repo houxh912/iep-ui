@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     searchPage (val) {
-      this.$emit('load-page', val)
+      this.$emit('load-page', val, 'thought')
     },
     clearSearchParam () {
       this.paramForm = initParmas()

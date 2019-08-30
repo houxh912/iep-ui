@@ -77,6 +77,7 @@ export default {
   methods: {
     handleAddUsers () {
       this.$refs['AddUserDialogForm'].selectUserList = []
+      this.$refs['AddUserDialogForm'].searchForm = {}
       this.$refs['AddUserDialogForm'].loadPage()
       this.$refs['AddUserDialogForm'].dialogShow = true
     },
@@ -192,7 +193,8 @@ export default {
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, gomsUserPage)
-      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
+      console.log(this.statistics, data.statistics)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics, true)
     },
   },
 }

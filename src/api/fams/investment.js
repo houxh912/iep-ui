@@ -170,3 +170,18 @@ export function postShareholder (obj) {
     data: obj,
   })
 }
+
+export function putShareholder (obj) {
+  return request({
+    url: `${prefixUrl}/update/shareholder`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+export function delShareholder (id) {
+  return request({
+    url: `${prefixUrl}/delete/shareholder/${id}`,
+    method: 'post',
+  })
+}

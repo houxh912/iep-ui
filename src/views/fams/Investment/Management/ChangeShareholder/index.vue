@@ -4,8 +4,6 @@
       <iep-statistics-header title="变更股东" :dataMap="financialData">
         <template slot="right">
           <operation-wrapper>
-            <iep-button type="primary" @click="handleChangeRelease" plain>变更发行</iep-button>
-            <iep-button @click="$openPage(`/fams_spa/business_indicator`)">变更股东</iep-button>
             <iep-button @click="onGoBack">返回</iep-button>
           </operation-wrapper>
         </template>
@@ -20,11 +18,25 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable">
-        <el-table-column prop="operation" label="操作">
+        <template slot="before-columns">
+          <el-table-column label="股东">
+            <template slot-scope="scope">
+              <iep-div-detail v-if="scope.row.holdType === '2'" :value="scope.row.orgName"></iep-div-detail>
+              <iep-div-detail v-if="scope.row.holdType === '3'" :value="scope.row.userName"></iep-div-detail>
+              <iep-div-detail v-if="scope.row.holdType === '4'" :value="scope.row.externalShareholder"></iep-div-detail>
+            </template>
+          </el-table-column>
+          <el-table-column label="持股比例" width="90px">
+            <template slot-scope="scope">
+              <iep-div-detail :value="scope.row.investmentNumber / scope.row.allSharesNumber * 100 + '%'"></iep-div-detail>
+            </template>
+          </el-table-column>
+        </template>
+        <el-table-column prop="operation" label="操作" width="230px">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleDelelte(scope.row)">编辑</iep-button>
+              <iep-button @click="handleDelelte(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -35,9 +47,9 @@
 </template>
 <script>
 import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
-import { getInvestmentById, getReleasePage, postShareholder } from '@/api/fams/investment'
+import { getInvestmentById, getReleasePage, postShareholder, putShareholder, delShareholder } from '@/api/fams/investment'
 import DialogForm from './DialogForm'
-import { initForm } from '../options'
+import { initForm } from './options'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -53,21 +65,13 @@ export default {
       form: initForm(),
       columnsMap: [
         {
-          prop: 'userName',
-          label: '股东',
-        },
-        {
-          prop: 'shareRatio',
-          label: '持股比例',
-        },
-        {
           prop: 'holdType',
           label: '持股类型',
           type: 'dictGroup',
           dictName: 'FAMS_HOLD_TYPE',
         },
         {
-          prop: 'nonCirculationNumber',
+          prop: 'investmentNumber',
           label: '非流通股本',
         },
       ],
@@ -83,10 +87,10 @@ export default {
     },
     financialData () {
       return {
-        '发行股份': this.statistics[0],
-        '已认购股份': this.statistics[1],
-        '股东人数': this.statistics[2],
-        '今日股价': this.statistics[3],
+        '集团持有股份数量': this.statistics[0],
+        '集团持有股份比例': this.statistics[1],
+        '已发行股份数量': this.statistics[2],
+        '已发行股份比例': this.statistics[3],
       }
     },
   },
@@ -94,15 +98,24 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleDelelte () {
-
+    handleDelelte (row) {
+      this._handleGlobalDeleteById(row.id, delShareholder)
     },
-    handleEdit () {
-
+    handleEdit (row) {
+      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
+      this.$refs['DialogForm'].form.user = {
+        id: row.userId,
+        name: row.userName,
+      }
+      this.$refs['DialogForm'].form.investmentId = this.id
+      this.$refs['DialogForm'].isEdit = true
+      this.$refs['DialogForm'].formRequestFn = putShareholder
+      this.$refs['DialogForm'].dialogShow = true
     },
     handleAdd () {
       this.$refs['DialogForm'].form = initForm()
       this.$refs['DialogForm'].form.investmentId = this.id
+      this.$refs['DialogForm'].isEdit = false
       this.$refs['DialogForm'].formRequestFn = postShareholder
       this.$refs['DialogForm'].dialogShow = true
     },

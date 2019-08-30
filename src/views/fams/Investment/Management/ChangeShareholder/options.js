@@ -12,7 +12,7 @@ const rules = {
   externalShareholder: [
     { required: true, message: '请填写外部股东', trigger: 'blur' },
   ],
-  allSharesNumber: [
+  investmentNumber: [
     { required: true, message: '请填写股份数量', trigger: 'blur', type: 'number', min: 1 },
   ],
   equityType: [
@@ -28,7 +28,7 @@ const initForm = () => {
       name: '',
     },
     orgId: '',//投资组织
-    allSharesNumber: 1,//股份数量
+    investmentNumber: 1,//股份数量
     holdType: '1',//持有类型
     equityType: '1',//股本类型
   }

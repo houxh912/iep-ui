@@ -84,7 +84,7 @@ export default {
     },
     // 删除
     handleDeleteById (row) {
-      this._handleGlobalDeleteById(row.topicId, thoughtsDelete)
+      this._handleGlobalDeleteById([row.thoughtsId], thoughtsDelete)
     },
     // 清空搜索
     clearSearchParam () {},

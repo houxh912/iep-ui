@@ -21,11 +21,13 @@ const commonCss = [
   '/cdn/froala-editor/css/froala_editor.pkgd.min.css',
   '/cdn/froala-editor/css/froala_style.min.css',
   '/cdn/froala-editor/css/themes/gray.min.css',
+  '//at.alicdn.com/t/font_1036949_tgksbnnfv8b.css'
 ]
 const commonJs = [
   '/cdn/jquery.min.js',
   '/cdn/froala-editor/froala_editor.pkgd.min.js',
   '/cdn/froala-editor/zh_cn.js',
+  '//at.alicdn.com/t/font_1184303_mhqvids4u2k.js'
 ]
 // CDN外链，会插入到index.html中
 const cdn = {
@@ -65,8 +67,8 @@ module.exports = {
     })
     if (isProduction) {
       // 删除预加载
-      // config.plugins.delete('preload')
-      // config.plugins.delete('prefetch')
+      config.plugins.delete('preload')
+      config.plugins.delete('prefetch')
     }
     config
       .plugin('webpack-context-replacement')

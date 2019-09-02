@@ -64,30 +64,6 @@
             </div>
           </div>
           <business-layout></business-layout>
-          <div class="opex">
-            <span class="details-title">联盟客服人员</span>
-            <div class="con">
-              <div class="opex-item" v-for="opex in opexList" :key="opex.id">
-                <div class="img">
-                  <span class="bgb">{{opex.name1}}</span>
-                  <iep-img :src="opex.img" alt=""></iep-img>
-                </div>
-                <span class="name">{{opex.name}}</span>
-              </div>
-            </div>
-          </div>
-          <div class="opex">
-            <span class="details-title">系统联络人员</span>
-            <div class="con">
-              <div class="opex-item" v-for="opex2 in opexList2" :key="opex2.id">
-                <div class="img">
-                  <span class="bgb">{{opex2.name1}}</span>
-                  <iep-img :src="opex2.img" alt=""></iep-img>
-                </div>
-                <span class="name">{{opex2.name}}</span>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </basic-container>
@@ -120,35 +96,6 @@ export default {
         {
           data: '1',
           labTitle: '业绩排名',
-        },
-      ],
-      opexList: [
-        {
-          img: require('./img/people1.png'),
-          name1: '陈珊',
-          name: '客服一',
-        },
-        {
-          img: require('./img/people2.jpg'),
-          name1: '邵佳欢',
-          name: '客服二',
-        },
-        {
-          img: require('./img/people3.jpg'),
-          name1: '章佩瑜',
-          name: '客服三',
-        },
-      ],
-      opexList2: [
-        {
-          img: require('./img/people1.png'),
-          name1: '邵佳欢',
-          name: '业务产品',
-        },
-        {
-          img: require('./img/people2.jpg'),
-          name1: '章佩瑜',
-          name: '技术支持',
         },
       ],
     }

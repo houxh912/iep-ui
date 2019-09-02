@@ -37,7 +37,7 @@
     "vue": "^2.6.10",
     "vue-cron": "^1.0.9",
     "vue-froala-wysiwyg": "2.9.5",
-    "vue-router": "^3.0.1",
+    "vue-router": "3.0.7",
     "vuedraggable": "^2.17.0",
     "vuex": "^3.0.1"
   },
@@ -54,7 +54,7 @@
     "conventional-changelog-cli": "^2.0.22",
     "cz-conventional-changelog": "^3.0.2",
     "element-theme-chalk": "^2.11.0",
-    "eslint": "6.1.0",
+    "eslint": "^6.3.0",
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-vue": "^5.0.0",
     "husky": "^3.0.0",

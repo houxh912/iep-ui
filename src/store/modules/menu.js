@@ -71,8 +71,8 @@ const menu = {
             commit('SET_OTHERMENUS', otherMenus)
             commit('SET_MENUSMAP', menusMap)
             commit('SET_MENUPATHLIST', menuPathList)
-            Router.$avueRouter.formatRoutes(menu, true)
           }
+          Router.$avueRouter.formatRoutes(menu, true)
           resolve(menu)
         })
       })

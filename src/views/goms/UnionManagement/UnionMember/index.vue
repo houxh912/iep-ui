@@ -4,7 +4,7 @@
       <iep-page-header title="联盟组织"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAddOrg" type="primary" plain>批量添加组织</iep-button>
+          <iep-button @click="handleAddOrg" type="primary" icon="el-icon-plus" plain>批量添加组织</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="orgName">

@@ -1,6 +1,7 @@
 import { getStore, setStore } from '@/util/store'
 import { getUserInfo, loginByMobile, loginBySocial, loginByUsername, logout, refreshToken } from '@/api/login'
 import { encryption } from '@/util/util'
+import { resetRouter } from '@/router/router'
 
 const user = {
   state: {
@@ -147,7 +148,7 @@ const user = {
           .then(() => {
             dispatch('ClearMenu')
             dispatch('ClearUserInfo')
-            location.reload(false)
+            resetRouter()
             resolve()
           })
           .catch(error => {
@@ -160,7 +161,7 @@ const user = {
       return new Promise(resolve => {
         dispatch('ClearMenu')
         dispatch('ClearUserInfo')
-        location.reload(false)
+        resetRouter()
         resolve()
       })
     },

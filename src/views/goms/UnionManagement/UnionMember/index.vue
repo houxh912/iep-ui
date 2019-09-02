@@ -4,7 +4,7 @@
       <iep-page-header title="联盟组织"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button @click="handleAddOrg" type="primary" plain>添加组织</iep-button>
+          <iep-button @click="handleAddOrg" type="primary" plain>批量添加组织</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="orgName">
@@ -22,19 +22,19 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-org-dialog-form ref="AddOrgDialogForm" @load-page="loadPage"></add-org-dialog-form>
+    <multiple-form ref="MultipleForm" @load-page="loadPage"></multiple-form>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
-import { getUnionOrgPage, removeOrgById, addOrgById } from '@/api/goms/union'
-import { putObj } from '@/api/admin/org'
-import AddOrgDialogForm from './AddOrgDialogForm'
-import DialogForm from './DialogForm'
 import mixins from '@/mixins/mixins'
+import { putObj } from '@/api/admin/org'
+import { getUnionOrgPage, removeOrgById, getNotInUnionOrgPage, addOrgByIds } from '@/api/goms/union'
+import MultipleForm from '@/views/goms/Components/MultipleForm.vue'
+import DialogForm from './DialogForm'
 import { columnsMap, initForm } from './options'
 export default {
-  components: { AddOrgDialogForm, DialogForm },
+  components: { MultipleForm, DialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -55,8 +55,12 @@ export default {
       this._handleComfirm(row.orgId, removeOrgById, '移除组织')
     },
     handleAddOrg () {
-      this.$refs['AddOrgDialogForm'].formRequestFn = addOrgById
-      this.$refs['AddOrgDialogForm'].dialogShow = true
+      this.$refs['MultipleForm'].selectList = []
+      this.$refs['MultipleForm'].searchForm = {}
+      this.$refs['MultipleForm'].putRequestFunction = addOrgByIds
+      this.$refs['MultipleForm'].getRequestFunction = getNotInUnionOrgPage
+      this.$refs['MultipleForm'].loadPage()
+      this.$refs['MultipleForm'].dialogShow = true
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getUnionOrgPage)

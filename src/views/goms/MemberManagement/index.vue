@@ -37,7 +37,7 @@
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
-    <add-user-dialog-form ref="AddUserDialogForm" @load-page="loadPage"></add-user-dialog-form>
+    <multiple-form ref="MultipleForm" @load-page="loadPage"></multiple-form>
     <iep-review-confirm ref="IepReviewForm" @load-page="loadPage" :is-content="false"></iep-review-confirm>
   </div>
 </template>
@@ -45,14 +45,14 @@
 import { mapState } from 'vuex'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
-import AddUserDialogForm from './AddUserDialogForm'
+import MultipleForm from '@/views/goms/Components/MultipleForm.vue'
 import { dictsMap, columnsMap, initSearchForm, initForm } from './options'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, updateGomsUser, gomsPass, gomsReject } from '@/api/admin/org'
-import { passJoins } from '@/api/goms/org'
-import { resetPassByUserId } from '@/api/admin/user'
+import { passJoins, pullUser } from '@/api/goms/org'
+import { resetPassByUserId, gomsNoJoinUserPage } from '@/api/admin/user'
 export default {
   components: {
-    DialogForm, AddUserDialogForm,
+    DialogForm, MultipleForm,
   },
   mixins: [mixins],
   data () {
@@ -76,10 +76,12 @@ export default {
   },
   methods: {
     handleAddUsers () {
-      this.$refs['AddUserDialogForm'].selectUserList = []
-      this.$refs['AddUserDialogForm'].searchForm = {}
-      this.$refs['AddUserDialogForm'].loadPage()
-      this.$refs['AddUserDialogForm'].dialogShow = true
+      this.$refs['MultipleForm'].selectList = []
+      this.$refs['MultipleForm'].searchForm = {}
+      this.$refs['MultipleForm'].putRequestFunction = pullUser
+      this.$refs['MultipleForm'].getRequestFunction = gomsNoJoinUserPage
+      this.$refs['MultipleForm'].loadPage()
+      this.$refs['MultipleForm'].dialogShow = true
     },
     isMine (row) {
       return row.userId === this.userInfo.userId
@@ -193,7 +195,6 @@ export default {
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, gomsUserPage)
-      console.log(this.statistics, data.statistics)
       this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics, true)
     },
   },

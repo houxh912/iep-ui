@@ -4,7 +4,7 @@
       <span class="name">财务报表</span>
       <div class="right">
         <span>选择年份：</span>
-        <iep-date-picker v-model="businessYear" type="year" placeholder="请选择年份">
+        <iep-date-picker v-model="businessDate" type="year" placeholder="请选择年份">
         </iep-date-picker>
       </div>
     </div>
@@ -13,39 +13,77 @@
     </div>
     <div class="bottom" v-for="(item,index) in dataList" :key="index">
       <span>{{item.name}}</span>
-      <span>{{item.yesterday}}%</span>
-      <span>{{item.month}}%</span>
+      <span>{{item.amount}}</span>
+      <span>{{item.yesterdayAmount}}</span>
+      <span>{{item.lastMonthAmount}}</span>
       <!-- <span>{{item.season}}%</span> -->
     </div>
   </div>
 </template>
 
 <script>
+import { getStatements } from '@/api/fams/investment'
 export default {
   data () {
     return {
-      businessYear: new Date(),
-      titleList: ['数据项', '昨日变动', '上月变动'],
+      businessDate: new Date(),
+      businessYear: new Date().getFullYear(),
+      titleList: ['数据项', '金额', '昨日变动', '上月变动'],
       dataList: [
-        { name: '总估值', yesterday: '505505', month: '10' },
-        { name: '账户余额', yesterday: '505505', month: '10' },
-        { name: '待签合同', yesterday: '505505', month: '10' },
-        { name: '应收账款', yesterday: '505505', month: '10' },
-        { name: '负资产', yesterday: '505505', month: '10' },
-        { name: '合同金额', yesterday: '505505', month: '10' },
-        { name: '项目收入', yesterday: '505505', month: '10' },
-        { name: '其他收入', yesterday: '505505', month: '10' },
-        { name: '费用', yesterday: '505505', month: '10' },
-        { name: '营业利润', yesterday: '505505', month: '10' },
-        { name: '净利润', yesterday: '505505', month: '10' },
+        // { name: '总估值', yesterdayAmount: '505505', lastMonthAmount: '10' },
+        // { name: '账户余额', yesterdayAmount: '505505', lastMonthAmount: '10' },
+        { name: '合同金额', sign: 'signedProject', amount: '-', yesterdayAmount: '-', lastMonthAmount: '-' },
+        { name: '待签合同', sign: 'pendingProject', amount: '-', yesterdayAmount: '-', lastMonthAmount: '-' },
+        { name: '应收账款', sign: 'accountsReceivable', amount: '-', yesterdayAmount: '-', lastMonthAmount: '-' },
+        // { name: '负资产', amount:'',yesterdayAmount: '-', lastMonthAmount: '-' },
+        { name: '项目收入', sign: 'projectIncome', amount: '-', yesterdayAmount: '-', lastMonthAmount: '-' },
+        { name: '其他收入', sign: 'otherIncome', amount: '-', yesterdayAmount: '-', lastMonthAmount: '-' },
+        { name: '费用总额', sign: 'totalCost', amount: '-', yesterdayAmount: '-', lastMonthAmount: '-' },
+        { name: '营业利润', sign: 'operatingProfit', amount: '-', yesterdayAmount: '-', lastMonthAmount: '-' },
+        { name: '净利润', sign: 'netProfit', amount: '-', yesterdayAmount: '-', lastMonthAmount: '-' },
       ],
     }
   },
   computed: {
+    id () {
+      return this.$route.params.id ? +this.$route.params.id : null
+    },
   },
   methods: {
+    loadPage () {
+      this.loading = true
+      getStatements({ year: this.businessYear, investmentId: this.id }).then(({ data }) => {
+        for (let i in this.dataList) {
+          let sign = this.dataList[i].sign
+          this.dataList[i].amount = data.data.data[sign].amount
+          if (data.data.data[sign].yesterdayAmount == 0) {
+            this.dataList[i].yesterdayAmount = '-'
+          }
+          else {
+            this.dataList[i].yesterdayAmount = (data.data.data[sign].amount - data.data.data[sign].yesterdayAmount) / data.data.data[sign].yesterdayAmount
+            this.dataList[i].yesterdayAmount = Math.round(this.dataList[i].yesterdayAmount * 10000) / 100 + '%'
+          }
+          if (data.data.data[sign].lastMonthAmount == 0) {
+            this.dataList[i].lastMonthAmount = '-'
+          }
+          else {
+            this.dataList[i].lastMonthAmount = (data.data.data[sign].amount - data.data.data[sign].lastMonthAmount) / data.data.data[sign].lastMonthAmount
+            this.dataList[i].lastMonthAmount = Math.round(this.dataList[i].lastMonthAmount * 10000) / 100 + '%'
+          }
+
+        }
+
+        this.loading = false
+      })
+    },
   },
   created () {
+    this.loadPage()
+  },
+  watch: {
+    businessDate () {
+      this.loadPage()
+    },
   },
 }
 </script>
@@ -72,7 +110,7 @@ export default {
     display: grid;
     grid-auto-flow: row dense;
     grid-template-columns:
-      minmax(100px, 1fr) minmax(100px, 1fr)
+      minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr)
       minmax(100px, 1fr);
     > span {
       text-align: center;

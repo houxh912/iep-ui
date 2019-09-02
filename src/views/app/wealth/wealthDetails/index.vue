@@ -7,19 +7,19 @@
             <div class="title-wrapper">
               <div class="left">
                 <div class="main">
-                  <h4 class="investmentName">{{form.orgName}}<span class="number">（参与人数：{{form.investmentNumber}}）</span></h4>
+                  <h4 class="investmentName">{{form.orgName}}<span class="number">（参与人次：{{form.investmentNumber}}）</span></h4>
                   <div class="span-list">
                     <span v-for="(item,index) in form.abilityTag" :key="index">{{item}}</span>
                   </div>
                   <div class="share-price">
                     <span style="font-size:16px;">今日股价：</span>
-                    <span style="font-size:30px;color:#ba1b20;margin:0 20px 0 5px;">138.8</span>
+                    <span style="font-size:32px;color:#ba1b20;margin:0 20px 0 5px;">{{form.sharesUnivalent}}</span>
                     <span style="font-size:14px;">日涨幅：</span>
-                    <span style="font-size:14px;color:#ba1b20">3.88+0.25%</span>
+                    <span style="font-size:14px;color:#ba1b20">{{form.dailyGain}}</span>
                   </div>
                   <div class="release-bottom">
-                    <span class="schedule-title-sub">已购数量：{{form.hadMoney}}（股）</span>
-                    <span class="schedule-title-sub">发行数量：{{form.targetAmount}}（股）</span></div>
+                    <span class="schedule-title-sub">已购数量：{{form.purchasedNumber}}（股）</span>
+                    <span class="schedule-title-sub">发行数量：{{form.circulationNumber}}（股）</span></div>
                   <el-progress :text-inside="true" :stroke-width="8" :percentage="form.percentage" status="success" style="margin-top:10px;"></el-progress>
                   <iep-button type="danger" style="width: 140px;height: 44px;font-size: 15px;border-radius: 4px;margin-top: 30px;" @click="handleAdd">马上参与</iep-button>
                 </div>
@@ -35,18 +35,18 @@
           </el-card>
         </div>
         <div class="main-tab">
-          <description :org="{orgId:form.orgId,orgName:form.orgName}"></description>
+          <description :org="{orgId:form.orgId,orgName:form.orgName}" :record='form.record'></description>
         </div>
         <div class="main-tab-right">
           <div class="basic-info-achievement">
             <IepAppTabCard title="基本信息">
               <div class="information-wrapper">
                 <div>
-                  <div class="num">444</div>
+                  <div class="num">{{form.allSharesNumber}}</div>
                   <div class="label">总股本</div>
                 </div>
                 <div>
-                  <div class="num">444</div>
+                  <div class="num">{{form.circulationNumber}}</div>
                   <div class="label">发行股份数量</div>
                 </div>
                 <!-- <div>
@@ -58,11 +58,11 @@
                   <div class="label">发行价</div>
                 </div> -->
                 <div>
-                  <div class="num">444</div>
+                  <div class="num">{{form.investmentNumber}}</div>
                   <div class="label">股东人数</div>
                 </div>
                 <div>
-                  <div class="num">啊啊啊</div>
+                  <div class="num">{{form.realName}}</div>
                   <div class="label">审核人</div>
                 </div>
               </div>
@@ -75,11 +75,11 @@
                 <span>持股数量</span>
                 <span>持股比例</span>
               </div>
-              <el-scrollbar style="height:360px">
+              <el-scrollbar style="height:204px">
                 <div class="shareholders-wrapper" v-for="(item,index) in form.shareholderInformation" :key="index">
                   <span>{{item.name}}</span>
                   <span>{{item.proportion}}</span>
-                  <span>{{item.proportion/item.allSharesNumber*100}}%</span>
+                  <span>{{item.proportion/form.allSharesNumber*100}}%</span>
                 </div>
               </el-scrollbar>
             </IepAppTabCard>
@@ -88,7 +88,7 @@
         <div class="risks-rules">
           <notification></notification>
         </div>
-        <div class="last-grid">
+        <!-- <div class="last-grid">
           <IepAppTabCard title="历史访客" :tip="`累计访客${form.currentShareholding}，访问人次${form.residualShareholding}次`">
             <div class="shareholder-inform" v-for="(item, index) in form.shareholderInformation" :key="index">
               <div class="img">
@@ -97,14 +97,14 @@
               <span class="name">{{item.name}}</span>
             </div>
           </IepAppTabCard>
-        </div>
+        </div> -->
       </div>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
-import { getInvestmentById, joinInvestment } from '@/api/fams/investment'
+import { getInvestmentById, joinInvestment, getChartData } from '@/api/fams/investment'
 import mixins from '@/mixins/mixins'
 import { initForm } from './options'
 import DialogForm from './DialogForm'
@@ -141,7 +141,6 @@ export default {
         targetAmount: '',
         hadMoney: '',
         allSharesNumber: '',
-        sharesUnivalent: '',
         returnRate: '',
         minimumAmount: '',
         minimumCredit: '',
@@ -150,9 +149,13 @@ export default {
         record: [
           { id: '', userName: '', totalAmount: '', status: '', updateTime: '' },
         ],//投资记录
-        currentShareholding: '0%',
-        residualShareholding: '0%',
         shareholderInformation: [],
+        purchasedNumber: 0,//已购股数
+        circulationNumber: 0,//发现数量
+        sharesUnivalent: 0,//每股单价
+        yesterDayPrice: 0,//昨日单价
+        dailyGain: '-',//日涨幅
+        realName: '暂无',//审核人
       },
       chartData: {
         columns: ['time', '股价走势', '涨跌额'],
@@ -174,9 +177,8 @@ export default {
         { name: '安三个', number: 11, bili: 22 },
       ],
       trendActive: 'week',
-      trendWeek: [],
-      trendMonth: [],
-      trendYear: [],
+      trendCharts: [],
+      trendType: 1,
     }
   },
   computed: {
@@ -186,14 +188,34 @@ export default {
   },
   created () {
     this.loadPage()
+    this.getChart()
   },
   methods: {
     loadPage () {
       getInvestmentById(this.id).then(({ data }) => {
         this.form = data.data
-        this.form.percentage = this.form.hadMoney / this.form.targetAmount * 100
-        this.trendWeek = data.data.performanceTrend.map(m => { return { time: m.name, '股价走势': m.amount } })
-        this.$set(this.chartData, 'rows', this.trendWeek)
+        this.form.percentage = this.form.purchasedNumber / this.form.circulationNumber * 100
+        const chazhi = this.form.sharesUnivalent - this.form.yesterDayPrice
+        if (this.form.yesterDayPrice) {
+          this.form.dailyGain = chazhi.toString() + '+' + Math.round(chazhi / this.form.yesterDayPrice * 10000) / 100 + '%'
+        }
+        else {
+          this.form.dailyGain = '-'
+        }
+        if (!this.form.realName) {
+          this.form.realName = '暂无'
+        }
+      })
+    },
+    getChart () {
+      getChartData({ type: this.trendType, investmentId: this.id }).then(({ data }) => {
+        this.trendCharts = data.data.map(m => { return { time: m.createTime, '股价走势': m.currentPrice, '涨跌额': 0 } })
+        for (let i in this.trendCharts) {
+          if (i > 0) {
+            this.trendCharts[i]['涨跌额'] = this.trendCharts[i]['股价走势'] - this.trendCharts[i - 1]['股价走势']
+          }
+        }
+        this.$set(this.chartData, 'rows', this.trendCharts)
       })
     },
     handleAdd () {
@@ -210,15 +232,13 @@ export default {
     trendTab (val) {
       this.trendActive = val
       if (val == 'week') {
-        this.$set(this.chartData, 'rows', this.trendWeek)
+        this.trendType = 1
       }
       else if (val == 'month') {
-        this.$set(this.chartData, 'rows', this.trendMonth)
+        this.trendType = 2
       }
-      else {
-        this.$set(this.chartData, 'rows', this.trendYear)
-      }
-
+      this.getChart()
+      this.$set(this.chartData, 'rows', this.trendCharts)
     },
   },
 }

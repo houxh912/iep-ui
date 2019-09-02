@@ -87,7 +87,7 @@ export default {
       params: {
         current: 1,
         size: 10,
-        status: 4,
+        status: 3,
         type: 1,
       },
       titleList: ['组织名称', '今日股价', '日涨幅', '近一周涨幅', '近一月涨幅', '近三月涨幅', '近半年涨幅'],

@@ -8,7 +8,6 @@
 </template>
 <script>
 
-import { getInvestmentById } from '@/api/fams/investment'
 
 const dictsMap = {
   status: {
@@ -40,6 +39,13 @@ const columnsMap = [
   },
 ]
 export default {
+  props: {
+    dataList: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
+  },
   data () {
     return {
       columnsMap,
@@ -48,9 +54,6 @@ export default {
     }
   },
   computed: {
-    id () {
-      return +this.$route.params.id
-    },
   },
   created () {
     this.isLoadTable = true
@@ -58,15 +61,13 @@ export default {
   },
   methods: {
     loadPage () {
-      getInvestmentById(this.id).then(({ data }) => {
-        this.pagedTable = data.data.record
-        this.isLoadTable = false
-        var recordLen = this.pagedTable.length
-        for (var i = 0; i < recordLen; i++) {
-          var surname = this.pagedTable[i].userName.substring(0, 1)
-          this.pagedTable[i].userName = surname + '**'
-        }
-      })
+      this.pagedTable = this.dataList
+      this.isLoadTable = false
+      var recordLen = this.pagedTable.length
+      for (var i = 0; i < recordLen; i++) {
+        var surname = this.pagedTable[i].userName.substring(0, 1)
+        this.pagedTable[i].userName = surname + '**'
+      }
     },
   },
 }

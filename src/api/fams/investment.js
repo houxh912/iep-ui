@@ -185,3 +185,19 @@ export function delShareholder (id) {
     method: 'post',
   })
 }
+//财务报表
+export function getStatements (query) {
+  return request({
+    url: `${prefixUrl}/org/statements`,
+    method: 'get',
+    params: query,
+  })
+}
+//图表数据
+export function getChartData (query) {
+  return request({
+    url: `${prefixUrl}/stock/price/list`,
+    method: 'get',
+    params: query,
+  })
+}

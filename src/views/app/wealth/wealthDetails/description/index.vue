@@ -9,7 +9,7 @@
           <assets v-loading="activeTab !=='Assets'"></assets>
         </template>
         <template v-if="activeTab ==='LatestInvestment'" v-slot:LatestInvestment>
-          <latest-investment v-loading="activeTab !=='LatestInvestment'"></latest-investment>
+          <latest-investment v-loading="activeTab !=='LatestInvestment'" :dataList='record'></latest-investment>
         </template>
         <template v-if="activeTab ==='LatestTransfer'" v-slot:LatestTransfer :disabled="disabled">
           <latest-transfer v-loading="activeTab !=='LatestTransfer'"></latest-transfer>
@@ -38,6 +38,11 @@ export default {
       require: true,
       default: () => { },
     },
+    record: {
+      type: Array,
+      required: false,
+      default: () => [],
+    },
   },
   components: {
     Introduction,
@@ -65,9 +70,11 @@ export default {
       }, {
         label: '最新资讯',
         value: 'LatestNews',
+        disabled: true,
       }, {
         label: '最新公告',
         value: 'LatestAnnouncement',
+        disabled: true,
       }],
       activeTab: 'Introduction',
     }
@@ -83,7 +90,7 @@ export default {
 </script>
 <style scoped>
 .resources >>> .el-card {
-  height: 751px;
+  height: 595px;
 }
 </style>
 

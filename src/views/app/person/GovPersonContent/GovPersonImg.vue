@@ -13,7 +13,7 @@ export default {
   data () {
     return {
       bannerList: [],
-      image: '../img/app/person/image.jpg',
+      image: '/img/app/detail/image.webp',
     }
   },
   methods: {

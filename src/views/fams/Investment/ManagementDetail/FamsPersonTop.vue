@@ -4,7 +4,9 @@
     <div class="fams-person-top">
       <el-card shadow="hover">
         <div class="fams-top-con">
-          <div class="img"><iep-img :src="img" alt=""></iep-img></div>
+          <div class="img">
+            <iep-img src="/img/app/logo01.jpg" alt=""></iep-img>
+          </div>
           <div class="text">
             <span class="title">{{title}}</span>
             <span class="detail">
@@ -35,7 +37,6 @@ export default {
         backPath: null,
         backFunction: this.handleGoBack,
       },
-      img: require('./img/logo01.jpg'),
       title: '舟山研发中心',
       founder: '杨冰之',
       auditor: '王俊辉',

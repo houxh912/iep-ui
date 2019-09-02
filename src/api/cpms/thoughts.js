@@ -231,3 +231,12 @@ export function getManagePage (params) {
     params: params,
   })
 }
+
+// 批量修改说说公开状态
+export function postStatusBatch (data) {
+  return request({
+    url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: data,
+  })
+}

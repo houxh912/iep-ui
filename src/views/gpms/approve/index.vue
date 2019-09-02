@@ -87,10 +87,6 @@ export default {
     close () {
       this.$router.history.go(-1)
     },
-    searchPage (val) {
-      this.searchForm = Object.assign({}, this.searchForm, val)
-      this.loadPage()
-    },
     loadPage (param = this.searchForm) {
       this.loadTable({ approvalStatus: 0, ...param }, getApprovalList)
     },

@@ -4,6 +4,8 @@ import website from '@/const/website'
 import { isURL } from '@/util/validate'
 import keyBy from 'lodash/keyBy'
 import { deepClone } from '@/util/util'
+import Router from '@/router/router'
+import { resetRouter } from '@/router/router'
 
 function addPath (ele, first) {
   const propsConfig = website.menu.props
@@ -56,6 +58,7 @@ const menu = {
     GetMenu ({ commit, state }) {
       commit('SET_MENUPATHLIST', [])
       return new Promise(resolve => {
+        resetRouter()
         GetMenu().then(({ data }) => {
           let menu = deepClone(data.data)
           menu.forEach(ele => {
@@ -68,6 +71,7 @@ const menu = {
             commit('SET_OTHERMENUS', otherMenus)
             commit('SET_MENUSMAP', menusMap)
             commit('SET_MENUPATHLIST', menuPathList)
+            Router.$avueRouter.formatRoutes(menu, true)
           }
           resolve(menu)
         })

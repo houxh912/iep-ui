@@ -270,7 +270,7 @@
                     </iep-input-area>
                   </el-form-item>
                 </el-col>
-                <el-col :span="20" class="data">
+                <el-col :span="20" class="data" v-show="isApprove.isApprove==true">
                   <el-form-item>
                     <iep-button type="primary" @click="handleSubmit" :disabled="isApprove.isApprove!=true">提交</iep-button>
                   </el-form-item>

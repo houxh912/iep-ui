@@ -39,6 +39,7 @@ export default {
     ...mapActions([
       'GetUserInfo',
       'GetMenu',
+      'ClearMenu',
     ]),
     submitForm () {
       setOrg(this.orgForm.orgId).then(() => {
@@ -50,9 +51,10 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.7)',
           })
+          this.ClearMenu()
           setTimeout(async () => {
-            const data = await this.GetMenu()
-            this.$router.$avueRouter.formatRoutes(data, true)
+            await this.GetMenu()
+            // this.$router.$avueRouter.formatRoutes(data, true)
             loading.close()
             this.$message({
               message: '组织切换成功！',

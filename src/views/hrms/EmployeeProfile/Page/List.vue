@@ -28,11 +28,6 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="入职时间">
-          <template slot-scope="scope">
-            <div>{{scope.row.entryTime | parseToDay}}</div>
-          </template>
-        </el-table-column>
         <el-table-column prop="operation" label="操作" width="250" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>

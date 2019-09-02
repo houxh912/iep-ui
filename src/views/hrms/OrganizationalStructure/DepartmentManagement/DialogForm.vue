@@ -27,11 +27,25 @@
 </template>
 <script>
 import formMixins from '@/mixins/formMixins'
+import { validDeptCode } from '@/api/hrms/department_management'
 import { initForm, toDtoForm } from './options'
 import { checkContactUser } from '@/util/rules'
 export default {
   mixins: [formMixins],
   data () {
+    const validateDeptCode = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('部门编号不能为空'))
+      } else {
+        validDeptCode(value).then(({ data }) => {
+          if (!data.data) {
+            callback(new Error('该部门编号已存在。'))
+          } else {
+            callback()
+          }
+        })
+      }
+    }
     return {
       dialogShow: false,
       formRequestFn: () => { },
@@ -39,7 +53,7 @@ export default {
       form: initForm(),
       rules: {
         number: [
-          { required: true, message: '请输入部门编号', trigger: 'blur' },
+          { required: true, validator: validateDeptCode, trigger: 'change' },
         ],
         name: [
           { required: true, message: '请输入部门名称', trigger: 'blur' },

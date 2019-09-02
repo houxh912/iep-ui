@@ -17,7 +17,7 @@
       <iep-tag-detail v-model="data.tags" v-if="data.tags && data.tags.length > 0"></iep-tag-detail>
     </div>
     <div class="image-list" v-if="data.images.length > 0">
-      <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img" :preview-src-list="dealImage(data.images, index)"></iep-img>
+      <iep-img :src="item" v-for="(item, index) in data.images" :key="index" class="img" :preview-src-list="dealImage(data.images, index)" fit="cover"></iep-img>
     </div>
   </div>
 </template>
@@ -86,7 +86,7 @@ export default {
     .img {
       width: 30%;
       margin: 10px;
-      max-height: 175px;
+      height: 175px;
     }
   }
   .tags {

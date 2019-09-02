@@ -15,31 +15,45 @@ import conmRouter from './conm/'
 import exceptionRouter from './exception/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
-const originalPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push (location, onResolve, onReject) {
-  if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
-  return originalPush.call(this, location).catch(err => err)
-}
-const Router = new VueRouter({
+// const originalPush = VueRouter.prototype.push
+// VueRouter.prototype.push = function push (location, onResolve, onReject) {
+//   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+//   return originalPush.call(this, location).catch(err => err)
+// }
+const createRouter = () => new VueRouter({
   mode: 'history',
-  routes: [].concat([]),
+  routes: [],
 })
-AvueRouter.install(Router, Store)
-Router.$avueRouter.formatRoutes(Store.state.menu.menu, true)
-Router.addRoutes([
-  ...hrmsRouter,
-  ...imsRouter,
-  ...componentsRouter,
-  ...mlmsRouter,
-  ...welRouter,
-  ...gpmsRouter,
-  ...crmsRouter,
-  ...appRouter,
-  ...cpmsRouter,
-  ...famsRouter,
-  ...conmRouter,
-  ...exceptionRouter,
-  ...ViewsRouter,
-  ...PageRouter,
-])
+
+let Router = createRouter()
+
+function initRouter (router, store) {
+  AvueRouter.install(router, store)
+  router.$avueRouter.formatRoutes(store.state.menu.menu, true)
+  router.addRoutes([
+    ...hrmsRouter,
+    ...imsRouter,
+    ...componentsRouter,
+    ...mlmsRouter,
+    ...welRouter,
+    ...gpmsRouter,
+    ...crmsRouter,
+    ...appRouter,
+    ...cpmsRouter,
+    ...famsRouter,
+    ...conmRouter,
+    ...exceptionRouter,
+    ...ViewsRouter,
+    ...PageRouter,
+  ])
+}
+
+initRouter(Router, Store)
+
+export function resetRouter () {
+  const newRouter = createRouter()
+  initRouter(newRouter, Store)
+  Router = newRouter // the relevant part
+}
+
 export default Router

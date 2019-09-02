@@ -4,7 +4,6 @@ echo "Start Build New Release Branch!"
 git reset --hard origin/develop \
 && git merge origin/feature/atms/back \
 && git merge origin/feature/govdata/dev \
-&& git merge origin/feature/pg-big-data/dev \
-&& git merge origin/element-ui-2.12.0
+&& git merge origin/feature/pg-big-data/dev
 
 echo "Success!"

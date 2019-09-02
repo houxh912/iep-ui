@@ -1,7 +1,7 @@
 import request from '@/router/axios'
-
 const prefixUrl = '/admin/dept'
 // @/api/hrms/department_management
+
 export function getDeptPage (query) {
   return request({
     url: `${prefixUrl}/page`,
@@ -9,6 +9,7 @@ export function getDeptPage (query) {
     params: query,
   })
 }
+
 export function postDept (obj) {
   return request({
     url: `${prefixUrl}/create`,
@@ -16,6 +17,7 @@ export function postDept (obj) {
     data: obj,
   })
 }
+
 export function putDept (obj) {
   return request({
     url: `${prefixUrl}/update`,
@@ -23,6 +25,7 @@ export function putDept (obj) {
     data: obj,
   })
 }
+
 export function deleteDeptById (id) {
   return request({
     url: `${prefixUrl}/delete/batch`,
@@ -30,10 +33,18 @@ export function deleteDeptById (id) {
     data: [id],
   })
 }
+
 export function deleteDeptBatch (ids) {
   return request({
     url: `${prefixUrl}/delete/batch`,
     method: 'post',
     data: ids,
+  })
+}
+
+export function validDeptCode (code) {
+  return request({
+    url: `/admin/dept/repeat/number/${code}`,
+    method: 'get',
   })
 }

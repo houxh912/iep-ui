@@ -31,7 +31,7 @@
               <el-menu-item index="603" class="menu-item" @click.native="handleSelectAttention()">
                 <span>我的关注</span>
               </el-menu-item>
-              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="item.userId==userInfo.userId?changeGroup(item.name,item.id,item.isOpen):''">
+              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id,item.userId==userInfo.userId)" @dblclick.native="item.userId==userInfo.userId?changeGroup(item.name,item.id,item.isOpen):''">
                 <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start" v-if="item.userId==userInfo.userId">
                   <span>{{item.name}}</span>
                 </el-tooltip>
@@ -72,7 +72,7 @@
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
           </template>
-          <el-table-column prop="operation" label="操作" width="160px">
+          <el-table-column prop="operation" label="操作" width="160px" v-if="isremove == true">
             <template slot-scope="scope">
               <operation-wrapper>
                 <iep-button type="warning" v-show="mark==''" plain @click="handleadd(scope.row)">添加</iep-button>
@@ -139,6 +139,7 @@ export default {
         { value: 2, label: '资产所属为本组织' },
       ],
       orgId: '',
+      isremove: false,
     }
   },
   computed: {
@@ -267,8 +268,9 @@ export default {
     handleSelectAttention () {
       this.mark = 'attention'
     },//我关注的分页
-    handleSelectType (k) {
+    handleSelectType (k, isremove) {
       this.groupType = k
+      this.isremove = isremove
       this.mark = 'group'
       if (typeof this.$refs['OperationSearch'] != 'undefined') {
         this.$refs['OperationSearch'].input = ''

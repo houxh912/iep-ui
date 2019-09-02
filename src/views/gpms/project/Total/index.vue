@@ -8,12 +8,12 @@
       </template>
       <template slot="right">
         <el-checkbox v-model="onlyResponsible" @change="changeResponsible()">查看我参与的项目</el-checkbox>
-        <operation-search @search-page="searchPage" advance-search placeHolder="请输入项目名称" prop="projectName">
+        <operation-search placeHolder="请输入项目名称" prop="projectName" @search-page="searchPage" advance-search>
           <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange" :dictsMap="dictMap">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" :dictsMap="dictMap" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @selection-change="selectionChange">
       <el-table-column label="项目名称" slot="before-columns">
         <template slot-scope="scope">
           <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
@@ -33,7 +33,7 @@
       </el-table-column>
       <el-table-column label="项目经理" width="120px">
         <template slot-scope="scope">
-          <span>{{ scope.row.projectManagerList.name }}</span>
+          <span>{{ judgeValue(scope.row.projectManagerList, 'name') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="立项时间" width="160px">
@@ -52,10 +52,10 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" plain @click="handleAccounting(scope.row.id)" v-if="scope.row.projectStatus=='3' || scope.row.isHistory=='2'">项目核算</iep-button>
-            <iep-button type="warning" plain @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='2'&&scope.row.isHistory=='1'">撤回</iep-button>
-            <iep-button @click.native="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'" type="warning" plain>立项</iep-button>
-            <iep-button @click.native="handleUpdate(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus!=='5'||scope.row.isHistory === '2'">编辑</iep-button>
-            <iep-button @click.native="handleDelete(scope.row)" v-if="userInfo.userId==scope.row.projectManagerList.id && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">删除</iep-button>
+            <iep-button type="warning" plain @click="handleWithdraw(scope.row.id,1,'撤回')" v-if="userInfo.userId==judgeValue(scope.row.projectManagerList, 'id') && scope.row.projectStatus=='2'&&scope.row.isHistory=='1'">撤回</iep-button>
+            <iep-button @click.native="handleWithdraw(scope.row.id,2,'立项')" v-if="userInfo.userId==judgeValue(scope.row.projectManagerList, 'id')  && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'" type="warning" plain>立项</iep-button>
+            <iep-button @click.native="handleUpdate(scope.row)" v-if="userInfo.userId==judgeValue(scope.row.projectManagerList, 'id')  && scope.row.projectStatus!=='5'||scope.row.isHistory === '2'">编辑</iep-button>
+            <iep-button @click.native="handleDelete(scope.row)" v-if="userInfo.userId==judgeValue(scope.row.projectManagerList, 'id')  && scope.row.projectStatus=='1'||scope.row.projectStatus=='4'&&scope.row.isHistory=='1'">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -65,38 +65,38 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
-import { dictMap, columnsMap, paramForm } from './const.js'
 import { getTableData, deleteData, withdrawById } from '@/api/gpms/index'
+import { dictMap, columnsMap } from './const.js'
 // import { statusCancel } from '@/api/gpms/fas'
 import AdvanceSearch from './AdvanceSearch'
-import { mapGetters } from 'vuex'
 import TransferDialogForm from '../TransferDialogForm'
 export default {
   components: { AdvanceSearch, TransferDialogForm },
-  props: {
-    tabType: {
-      type: String,
-    },
-  },
-  computed: {
-    ...mapGetters(['permissions', 'userInfo']),
-  },
+  mixins: [mixins],
   data () {
     return {
       isLoadTable: false,
       dictMap,
       columnsMap,
       dialogIsShow: true,
-      paramForm: paramForm(),
       value: '',
-      searchForm: {},
+      listType: 1,
       onlyResponsible: false,
       statistics: '',
     }
   },
-  mixins: [mixins],
+  computed: {
+    ...mapGetters(['permissions', 'userInfo']),
+  },
+  mounted () {
+    this.loadPage()
+  },
   methods: {
+    judgeValue (value, key) {
+      return value ? value[key] : '暂无'
+    },
     项目状态 (row) {
       if (row.isHistory === 2 && row.projectStatus !== '5') {
         return '已完结'
@@ -108,14 +108,10 @@ export default {
         return dictMap.projectStatus[row.projectStatus]
       }
     },
-    async loadPage (params = {}) {
-      const data = await this.loadTable(Object.assign({}, params, this.searchForm), getTableData)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable({ ...param, listType: this.listType }, getTableData)
       this.statistics = data.total
       this.$emit('statistics', this.statistics)
-    },
-    searchPage (val) {
-      this.searchForm = Object.assign({}, this.searchForm, val)
-      this.loadPage()
     },
     //勾选行执行
     selectionChange (val) {
@@ -173,11 +169,11 @@ export default {
     },
     changeResponsible () {
       if (this.onlyResponsible) {
-        this.searchForm.listType = 2
+        this.listType = 2
         this.loadPage()
       }
       else {
-        this.searchForm.listType = 1
+        this.listType = 1
         this.loadPage()
       }
       this.onlyResponsible != this.onlyResponsible
@@ -186,12 +182,6 @@ export default {
     handleAccounting (val) {
       this.$router.push(`/fams_spa/project_accounting/${val}`)
     },
-  },
-  mounted () {
-    this.searchForm.listType = this.tabType
-    this.loadPage()
-  },
-  created () {
   },
 }
 </script>

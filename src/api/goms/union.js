@@ -63,6 +63,14 @@ export function addOrgById (id) {
   })
 }
 
+export function addOrgByIds (ids) {
+  return request({
+    url: `${prefixUrl}/org/pull`,
+    method: 'post',
+    data: ids,
+  })
+}
+
 export function putUnion (obj) {
   return request({
     url: `${prefixUrl}/update`,
@@ -214,5 +222,13 @@ export function getUnionRoleByUserId (id) {
   return request({
     url: `${prefixUrl}/user/role/${id}`,
     method: 'get',
+  })
+}
+
+export function getNotInUnionOrgPage (query) {
+  return request({
+    url: `${prefixUrl}/no_union_org/page`,
+    method: 'get',
+    params: query,
   })
 }

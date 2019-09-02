@@ -15,6 +15,9 @@
             <div class="content">
               <div class="left">
                 <pre>{{row.content}}</pre>
+                <div class="img-list">
+                  <iep-img class="img" v-for="(item, imgIndex) in row.images" :key="imgIndex" :src="item" fit="cover" :preview-src-list="dealImage(row.images, imgIndex)"></iep-img>
+                </div>
               </div>
               <div class="right">
                 <i class="el-icon-delete" @click="handleDelete(row, index)"></i>
@@ -169,6 +172,11 @@ export default {
         })
       })
     },
+    dealImage (data, index) {
+      let list = []
+      list = data.slice(index).concat(data.slice(0, index))
+      return list
+    },
   },
   created () {
     this.params.id = this.userInfo.userId
@@ -227,6 +235,16 @@ export default {
       padding: 20px 5px 20px 20px;
       .left {
         width: calc(100% - 50px);
+        .img-list {
+          display: flex;
+          flex-wrap: wrap;
+          .img {
+            width: 200px;
+            height: 200px;
+            margin: 0 15px 15px 0;
+            cursor: pointer;
+          }
+        }
       }
       .right {
         text-align: right;

@@ -89,8 +89,8 @@ export default {
       return {
         '集团持有股份数量': this.statistics[0],
         '集团持有股份比例': this.statistics[1],
-        '已发行股份数量': this.statistics[2],
-        '已发行股份比例': this.statistics[3],
+        '已发行股份比例': this.statistics[2],
+        '已发行股份数量': this.statistics[3],
       }
     },
   },
@@ -121,7 +121,7 @@ export default {
     },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable({ ...param, investmentId: this.id }, getReleasePage)
-      this.statistics = data.data.statistics
+      this.statistics = data.statistics
       getInvestmentById(this.id).then(({ data }) => {
         this.form = data.data
       })

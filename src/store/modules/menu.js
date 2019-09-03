@@ -5,7 +5,6 @@ import { isURL } from '@/util/validate'
 import keyBy from 'lodash/keyBy'
 import { deepClone } from '@/util/util'
 import Router from '@/router/router'
-import { resetRouter } from '@/router/router'
 
 function addPath (ele, first) {
   const propsConfig = website.menu.props
@@ -58,9 +57,8 @@ const menu = {
     GetMenu ({ commit, state }) {
       commit('SET_MENUPATHLIST', [])
       return new Promise(resolve => {
-        resetRouter()
         GetMenu().then(({ data }) => {
-          let menu = deepClone(data.data)
+          const menu = deepClone(data.data)
           menu.forEach(ele => {
             addPath(ele)
           })

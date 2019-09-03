@@ -21,8 +21,7 @@
               </div>
               <div class="right">
                 <i class="el-icon-delete" @click="handleDelete(row, index)"></i>
-                <i class="icon-suoding suoding" v-if="row.status == 1" @click="handleOpen(row, index, 0)"></i>
-                <i class="icon-weisuoding weisuoding" v-else @click="handleOpen(row, index, 1)"></i>
+                <i class="icon-suoding" v-if="row.status == 1"></i>
               </div>
             </div>
           </template>
@@ -34,7 +33,7 @@
 
 <script>
 import TimeLine from './timeline'
-import { thoughtsCreate, getThoughtsPage, thoughtsDelete, postStatusBatch } from '@/api/cpms/thoughts'
+import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import headTpl from '@/views/app/thoughtList/library/form'
@@ -143,26 +142,6 @@ export default {
         type: 'warning',
       }).then(() => {
         thoughtsDelete([row.thoughtsId]).then(() => {
-          // 判断删除的是第几页的数据，重新开始获取
-          let page = parseInt(index / this.params.size)
-          this.list = this.list.splice(0, page*10)
-          this.params.current = page+1
-          this.loadPage()
-          this.$message.success('删除成功')
-        })
-      })
-    },
-    // 更改公开状态
-    handleOpen (row, index, status) {
-      this.$confirm('是否更改此条数据状态', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        postStatusBatch({
-          status: status,
-          ids: [row.thoughtsId],
-        }).then(() => {
           // 判断删除的是第几页的数据，重新开始获取
           let page = parseInt(index / this.params.size)
           this.list = this.list.splice(0, page*10)

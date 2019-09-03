@@ -27,7 +27,7 @@ const createRouter = () => new VueRouter({
 
 let Router = createRouter()
 
-function initRouter (router, store) {
+export function initRouter (router, store) {
   AvueRouter.install(router, store)
   router.$avueRouter.formatRoutes(store.state.menu.menu, true)
   router.addRoutes([

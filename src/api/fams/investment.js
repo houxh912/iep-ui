@@ -209,3 +209,25 @@ export function getChartData (query) {
     params: query,
   })
 }
+/**
+ * 我的持仓分页
+ * @param {*} query 
+ */
+export function getMyPositionPage (query) {
+  return request({
+    url: `${prefixUrl}/my/page`,
+    method: 'get',
+    params: query,
+  })
+}
+/**
+ * 我的交易记录分页
+ * @param {*} query 
+ */
+export function getMyTransactionPage (query) {
+  return request({
+    url: `${prefixUrl}/my/transaction`,
+    method: 'get',
+    params: query,
+  })
+}

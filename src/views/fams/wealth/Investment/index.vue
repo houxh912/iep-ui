@@ -4,7 +4,7 @@
       <iep-statistics-header title="我的投资" :dataMap="financialData">
         <template slot="right">
           <operation-wrapper>
-            <iep-button v-if="form.status === 1" @click="$openPage(`/fams_spa/change_shareholder/${id}`)">变更股东</iep-button>
+            <iep-button @click="$openPage(`/fams_spa/change_shareholder/${id}`)">变更股东</iep-button>
           </operation-wrapper>
         </template>
       </iep-statistics-header>
@@ -19,7 +19,6 @@
 <script>
 import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 // import { getShareStatistics } from '@/api/fams/investment'
-import { initInvestmentForm } from './options'
 import Position from './Position/'
 import TransactionRecord from './TransactionRecord/'
 export default {
@@ -30,11 +29,7 @@ export default {
   },
   data () {
     return {
-      backOption: {
-        isBack: true,
-      },
-      form: initInvestmentForm(),
-      statistics: [0, 0, 0, 0],
+      statistics: [0, 0, 0, 0, 0, 0],
       tabList: [
         {
           label: '持仓',
@@ -49,18 +44,14 @@ export default {
     }
   },
   computed: {
-    id () {
-      return +this.$route.params.id
-    },
-    methodName () {
-      return this.id ? '编辑' : '新增'
-    },
     financialData () {
       return {
-        '发行股份': this.statistics[0],
-        '已认购股份': this.statistics[1],
-        '股东人数': this.statistics[2],
-        '今日股价': this.statistics[3],
+        '总市值': this.statistics[0],
+        '今日盈亏': this.statistics[1],
+        '累计盈亏': this.statistics[2],
+        '本金': this.statistics[3],
+        '持有流通股本': this.statistics[4],
+        '持有非流通股本': this.statistics[5],
       }
     },
   },

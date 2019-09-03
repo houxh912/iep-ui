@@ -32,7 +32,7 @@ export default {
           label: '交易后持有流通股份数量',
         },
         {
-          prop: 'updateTime',
+          prop: 'createTime',
           label: '买入时间',
         },
       ],

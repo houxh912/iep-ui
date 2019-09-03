@@ -170,9 +170,9 @@ export default {
           try {
             this.loginLoading = true
             await this.LoginByUsername(this.form)
-            await this.GetMenu()
-            await this.LoadAllDictMap()
-            // this.$router.$avueRouter.formatRoutes(data, true)
+            const data = await this.GetMenu()
+            this.LoadAllDictMap()
+            this.$router.$avueRouter.formatRoutes(data, true)
             if (this.$route.query.redirect) {
               this.$router.push({ path: this.$route.query.redirect })
             } else {

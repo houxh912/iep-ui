@@ -172,3 +172,11 @@ export const getExternalProjectPage = (params) => {
     params: params,
   })
 }
+// 推荐项目成员
+export function checkProjectName (obj) {
+  return request({
+    url: `${prefixUrl}/verifyName`,
+    method: 'post',
+    data: obj,
+  })
+}

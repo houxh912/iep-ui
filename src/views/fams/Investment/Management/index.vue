@@ -21,7 +21,7 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button type="warning" plain @click="handleEdit(scope.row)">{{scope.row.status===1? '编辑': '查看'}}</iep-button>
               <iep-button v-if="scope.row.status===1" @click="handleUp(scope.row)">上架</iep-button>
               <iep-button v-if="scope.row.status===2" @click="handleRollback(scope.row)">撤回</iep-button>
               <iep-button v-if="scope.row.status===3" type="warning" @click="handleDown(scope.row)" plain>下架</iep-button>

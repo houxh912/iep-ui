@@ -52,7 +52,7 @@ const initInvestmentForm = () => {
     residualShareholding: '',
     shareholderInformation: [],
     sharesUnivalent: 1,
-    status: 1,
+    status: 0,
     targetAmount: 1,
   }
 }

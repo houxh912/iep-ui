@@ -50,7 +50,7 @@
   </div>
 </template>
 <script>
-import { getInvestmentPage } from '@/api/fams/investment'
+import { getJoinInvestmentPage } from '@/api/fams/investment'
 function initDataItem () {
   return {
     orgName: '',
@@ -98,7 +98,7 @@ export default {
     },
     loadPage () {
       this.loading = true
-      getInvestmentPage(Object.assign({}, this.paramForm, this.params)).then(({ data }) => {
+      getJoinInvestmentPage(Object.assign({}, this.paramForm, this.params)).then(({ data }) => {
         this.dataList = data.data.records.map(m => {
           return {
             ...m,

@@ -5,7 +5,15 @@ const prefixUrl = '/fams/investment'
 
 export function getInvestmentPage (query) {
   return request({
-    url: `${prefixUrl}/page/list`,
+    url: `${prefixUrl}/list/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getJoinInvestmentPage (query) {
+  return request({
+    url: `${prefixUrl}/join/page`,
     method: 'get',
     params: query,
   })

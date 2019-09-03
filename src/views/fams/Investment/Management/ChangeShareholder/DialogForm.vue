@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" :title="`股东 - ${methodName}`" width="600px" @close="close">
     <el-form class="form-detail" ref="form" :model="form" :rules="rules" label-width="150px" size="small">
       <iep-form-item label-name="持有类型" prop="holdType">
-        <iep-dict-select v-model="form.holdType" dict-name="FAMS_HOLD_TYPE" :disabled="isEdit"></iep-dict-select>
+        <iep-dict-select v-model="form.holdType" dict-name="FAMS_HOLD_TYPE" :disabled="isEdit" :disabled-ids="['1']"></iep-dict-select>
       </iep-form-item>
       <iep-form-item v-if="form.holdType==='2'" label-name="股东（组织）" prop="orgId">
         <iep-select v-model="form.orgId" prefix-url="admin/org/all" placeholder="请选择组织" :disabled="isEdit"></iep-select>

@@ -89,8 +89,8 @@ export default {
       return {
         '集团持有股份数量': this.statistics[0],
         '集团持有股份比例': this.statistics[1],
-        '已发行股份比例': this.statistics[2],
-        '已发行股份数量': this.statistics[3],
+        '已发行股份数量': this.statistics[2],
+        '已发行股份比例': this.statistics[3],
       }
     },
   },

@@ -4,28 +4,19 @@
       <iep-statistics-header :title="form.orgName" :dataMap="financialData">
         <template slot="right">
           <operation-wrapper>
-            <iep-button type="primary" @click="handleChangeRelease" plain>变更发行</iep-button>
-            <iep-button @click="$openPage(`/fams_spa/change_shareholder/${id}`)">变更股东</iep-button>
+            <iep-button v-if="form.status === 1" type="primary" @click="handleChangeRelease" plain>变更发行</iep-button>
+            <iep-button v-if="form.status === 1" @click="$openPage(`/fams_spa/change_shareholder/${id}`)">变更股东</iep-button>
             <iep-button @click="onGoBack">返回</iep-button>
           </operation-wrapper>
         </template>
       </iep-statistics-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList" style="margin-top:20px;">
-        <template v-if="activeTab ==='ReleaseRecord'" v-slot:ReleaseRecord>
-          <release-record v-loading="activeTab !=='ReleaseRecord'"></release-record>
-        </template>
-        <template v-if="activeTab ==='TransactionRecord'" v-slot:TransactionRecord>
-          <transaction-record v-loading="activeTab !=='TransactionRecord'"></transaction-record>
-        </template>
-        <template v-if="activeTab ==='ShareholderInformation'" v-slot:ShareholderInformation>
-          <shareholder-information v-loading="activeTab !=='ShareholderInformation'"></shareholder-information>
-        </template>
-        <template v-if="activeTab ==='EquityStructure'" v-slot:EquityStructure>
-          <equity-structure v-loading="activeTab !=='EquityStructure'"></equity-structure>
+        <template v-slot:[activeTab]>
+          <component ref="tabList" :is="activeTab"></component>
         </template>
       </iep-tabs>
     </basic-container>
-    <change-release-form ref="ChangeReleaseForm" @load-page="loadPage"></change-release-form>
+    <change-release-form ref="ChangeReleaseForm" @load-page="syncRefresh"></change-release-form>
   </div>
 </template>
 <script>
@@ -98,6 +89,10 @@ export default {
       this.$refs['ChangeReleaseForm'].form = this.$refs['ChangeReleaseForm'].initForm(this.id)
       this.$refs['ChangeReleaseForm'].formRequestFn = changeRelease
       this.$refs['ChangeReleaseForm'].dialogShow = true
+    },
+    syncRefresh () {
+      this.loadPage()
+      this.$refs['tabList'].loadPage()
     },
     loadPage () {
       getInvestmentById(this.id).then(({ data }) => {

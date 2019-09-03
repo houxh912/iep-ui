@@ -65,15 +65,9 @@ export default {
         content: this.content,
       }).then(({ data }) => {
         if (data.data) {
-          this.$message({
-            message: '成功',
-            type: 'success',
-          })
+          this.$message.success('操作成功')
         } else {
-          this.$message({
-            message: data.msg,
-            type: 'warning',
-          })
+          this.$message(data.msg)
         }
         this.loadPage()
       })

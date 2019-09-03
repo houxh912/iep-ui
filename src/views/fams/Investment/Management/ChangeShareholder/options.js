@@ -29,7 +29,7 @@ const initForm = () => {
     },
     orgId: '',//投资组织
     investmentNumber: 1,//股份数量
-    holdType: '1',//持有类型
+    holdType: '2',//持有类型
     equityType: '1',//股本类型
   }
 }

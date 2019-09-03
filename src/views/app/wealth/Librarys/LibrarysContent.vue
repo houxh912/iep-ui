@@ -9,44 +9,36 @@
         <div v-for="(item,index) in dataList" :key="index" class="piece">
           <a-skeleton :loading="loading" active />
           <div v-if="!loading" class="lie" @click="handleOpen(item)">
-            <!-- <div class="title">
-              <h4 class="name">{{item.orgName}}</h4>
-            </div>
-            <div class="box">
-              <span>目标金额：{{item.targetAmount}}</span>
-              <span>已投人数：{{item.investmentNumber}}</span>
-              <span><i class="iconfont icon-shijian"></i>{{item.createTime}}</span>
-            </div> -->
             <div class="box">
               <iep-img style="width: 50px;height:50px;float:left;" :src="item.orgLogo" alt=""></iep-img>
               <span style="float:left;margin-left:10px;">{{item.orgName}}</span>
             </div>
-            <div class="box">{{item.targetAmount}}</div>
+            <div class="box">{{item.todayPrice}}</div>
             <div class="box">
-              <span :class="item.dailyGain>0?'red':'green'">{{item.dailyGain}}%</span>
-              <i v-if="item.dailyGain<0" class="iconfont icon-xiadie"></i>
-              <i v-else-if="item.dailyGain>0" class="iconfont icon-shangzhang"></i>
+              <span :class="item.dailyGain>0&&!item.dailyGainInitial?'red':'green'">{{item.dailyGain==0||item.dailyGainInitial?'-':Math.round(item.dailyGain/item.yesterdayPrice * 10000) / 100 + '%'}}</span>
+              <i v-if="item.dailyGain<0&&!item.dailyGainInitial" class="iconfont icon-xiadie green"></i>
+              <i v-else-if="item.dailyGain>0&&!item.dailyGainInitial" class="iconfont icon-shangzhang red"></i>
             </div>
             <div class="box">
-              <span class="">{{item.weekGain}}%</span>
+              <span :class="item.weekGain>0&&!item.weekGainInitial?'red':'green'">{{item.weekGain==0||item.weekGainInitial?'-':Math.round(item.weekGain/item.lastWeekPrice * 10000) / 100 + '%'}}</span>
+              <i v-if="item.weekGain<0&&!item.weekGainInitial" class="iconfont icon-xiadie green"></i>
+              <i v-else-if="item.weekGain>0&&!item.weekGainInitial" class="iconfont icon-shangzhang red"></i>
+            </div>
+            <div class="box">
+              <span :class="item.monthGain>0&&!item.monthGainInitial?'red':'green'">{{item.monthGain==0||item.monthGainInitial?'-':Math.round(item.monthGain/item.lastMonthPrice * 10000) / 100 + '%'}}</span>
+              <i v-if="item.monthGain<0&&!item.monthGainInitial" class="iconfont icon-xiadie green"></i>
+              <i v-else-if="item.monthGain>0&&!item.monthGainInitial" class="iconfont icon-shangzhang red"></i>
+            </div>
+            <div class="box">
+              <span :class="item.marchGain>0&&!item.marchGainInitial?'red':'green'">{{item.marchGain==0||item.marchGainInitial?'-':Math.round(item.marchGain/item.threeMonthPrice * 10000) / 100 + '%'}}</span>
+              <i v-if="item.marchGain<0&&!item.marchGainInitial" class="iconfont icon-xiadie green"></i>
+              <i v-else-if="item.marchGain>0&&!item.marchGainInitial" class="iconfont icon-shangzhang red"></i>
+            </div>
+            <!-- <div class="box">
+              <span class="">{{item.yearGain}}</span>
               <i class="iconfont icon-xiadie"></i>
               <i class="iconfont icon-shangzhang"></i>
-            </div>
-            <div class="box">
-              <span class="">{{item.monthGain}}%</span>
-              <i class="iconfont icon-xiadie"></i>
-              <i class="iconfont icon-shangzhang"></i>
-            </div>
-            <div class="box">
-              <span class="">{{item.marchGain}}%</span>
-              <i class="iconfont icon-xiadie"></i>
-              <i class="iconfont icon-shangzhang"></i>
-            </div>
-            <div class="box">
-              <span class="">{{item.yearGain}}%</span>
-              <i class="iconfont icon-xiadie"></i>
-              <i class="iconfont icon-shangzhang"></i>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -62,14 +54,14 @@ import { getInvestmentPage } from '@/api/fams/investment'
 function initDataItem () {
   return {
     orgName: '',
-    targetAmount: '',
+    todayPrice: '',
     investmentNumber: '',
     createTime: '',
     dailyGain: '-',
     weekGain: '-',
     monthGain: '-',
     marchGain: '-',
-    yearGain: '-',
+    // yearGain: '-',
   }
 }
 export default {
@@ -90,7 +82,7 @@ export default {
         status: 3,
         type: 1,
       },
-      titleList: ['组织名称', '今日股价', '日涨幅', '近一周涨幅', '近一月涨幅', '近三月涨幅', '近半年涨幅'],
+      titleList: ['组织名称', '今日股价', '日涨幅', '近一周涨幅', '近一月涨幅', '近三月涨幅'],
     }
   },
   methods: {
@@ -107,7 +99,25 @@ export default {
     loadPage () {
       this.loading = true
       getInvestmentPage(Object.assign({}, this.paramForm, this.params)).then(({ data }) => {
-        this.dataList = data.data.records
+        this.dataList = data.data.records.map(m => {
+          return {
+            ...m,
+            dailyGain: m.todayPrice - m.yesterdayPrice,
+            dailyGainInitial: m.yesterdayPrice == 0 ? true : false,
+            weekGain: m.todayPrice - m.lastWeekPrice,
+            weekGainInitial: m.lastWeekPrice == 0 ? true : false,
+            monthGain: m.todayPrice - m.lastMonthPrice,
+            monthGainInitial: m.lastMonthPrice == 0 ? true : false,
+            marchGain: m.todayPrice - m.threeMonthPrice,
+            marchGainInitial: m.threeMonthPrice == 0 ? true : false,
+          }
+        })
+        console.log(this.dataList)
+        // for (let i in this.dataList) {
+        //   if (i > 0) {
+        //     this.trendCharts[i]['涨跌额'] = this.trendCharts[i]['股价走势'] - this.trendCharts[i - 1]['股价走势']
+        //   }
+        // }
         this.total = data.data.total
         this.loading = false
       })
@@ -138,7 +148,7 @@ export default {
   // grid-column-gap: 10px;
   grid-template-columns:
     minmax(100px, 3fr) minmax(100px, 1fr) minmax(100px, 1fr)
-    minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
+    minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
   > span {
     text-align: center;
   }
@@ -157,7 +167,7 @@ export default {
     // grid-column-gap: 10px;
     grid-template-columns:
       minmax(100px, 3fr) minmax(100px, 1fr) minmax(100px, 1fr)
-      minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
+      minmax(100px, 1fr) minmax(100px, 1fr) minmax(100px, 1fr);
     .box {
       text-align: center;
       height: 50px;

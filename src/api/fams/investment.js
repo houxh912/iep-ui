@@ -5,7 +5,7 @@ const prefixUrl = '/fams/investment'
 
 export function getInvestmentPage (query) {
   return request({
-    url: `${prefixUrl}/page`,
+    url: `${prefixUrl}/page/list`,
     method: 'get',
     params: query,
   })

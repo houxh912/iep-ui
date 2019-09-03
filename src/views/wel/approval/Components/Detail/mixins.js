@@ -1,12 +1,12 @@
 
 import { mapGetters } from 'vuex'
-// import keyBy from 'lodash/keyBy'
+import FileMakeUp from './FileMakeUp'
 import { dictsMap } from './options'
 import { getEmployeeProfileSelf } from '@/api/hrms/employee_profile'
 import { deliverApprovaBatch, reviewApprovaBatch } from '@/api/hrms/wel'
 import DeliverDialog from '@/views/wel/approval/approval/ExaminApproval/Page/DeliverDialog'
 export default {
-  components: { DeliverDialog },
+  components: { DeliverDialog, FileMakeUp },
   props: {
     type: {
       type: String,

@@ -1157,6 +1157,9 @@ export default {
 .abs >>> .el-input-number--small {
   width: 100%;
 }
+.abs >>> .el-input__prefix {
+  display: none;
+}
 .abs >>> .el-input-number.is-controls-right .el-input__inner {
   text-align: left;
 }

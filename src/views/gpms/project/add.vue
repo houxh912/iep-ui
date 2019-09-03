@@ -752,6 +752,9 @@ export default {
   padding: 0;
   border: 0;
 }
+.abs >>> .el-input__prefix {
+  display: none;
+}
 .column-header {
   color: #f00;
 }

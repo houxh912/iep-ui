@@ -19,6 +19,10 @@ export default {
       type: Object,
       required: true,
     },
+    orgId: {
+      type: String,
+      required: true,
+    },
   },
   data () {
     return {
@@ -42,17 +46,25 @@ export default {
     },
   },
   created () {
-    getCommonList('admin/dept').then(({ data }) => {
-      this.deptData = data.data
-    })
+    this.load()
   },
   methods: {
+    load () {
+      getCommonList(`admin/dept/${this.orgId}`).then(({ data }) => {
+        this.deptData = data.data
+      })
+    },
     selectDept (data) {
       this.dept = {
         id: data.value,
         name: data.label,
       }
       this.dialogShow = false
+    },
+  },
+  watch: {
+    'orgId': function () {
+      this.load()
     },
   },
 }

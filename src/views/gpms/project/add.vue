@@ -31,7 +31,7 @@
             <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
               <el-button @click="handleAddExternalProject">添加关联</el-button>
               <div class="relevance-list-after" v-if="formData.projectList.length > 0">
-                <span class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></span>
+                <span class="item" v-for="(t, i) in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></span>
               </div>
             </el-form-item>
           </el-col>
@@ -185,7 +185,7 @@
         <el-form-item label="添加关联产品：" v-if="formData.isRelevanceProduct === 1">
           <el-button @click="handleAddProduct">添加关联</el-button>
           <ul class="relevance-list" v-if="formData.productList.length > 0">
-            <li class="item" v-for="t in formData.productList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'productList', 'productIds')"></i></li>
+            <li class="item" v-for="(t, i) in formData.productList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'productList', 'productIds')"></i></li>
           </ul>
         </el-form-item>
         <el-form-item label="未关联产品理由：" prop="notRelevanceProductReason" v-if="formData.isRelevanceProduct === 2">

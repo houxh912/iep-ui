@@ -46,6 +46,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .footer-box {
+  z-index: 10;
   width: 100%;
   height: 65px;
   border-top: 1px solid #ddd;

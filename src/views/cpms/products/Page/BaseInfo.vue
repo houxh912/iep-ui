@@ -37,7 +37,7 @@
     <el-row>
       <el-col>
         <el-form-item label="组合系统介绍：">
-          <div>{{form.description}}</div>
+          <iep-html v-model="form.description"></iep-html>
         </el-form-item>
       </el-col>
     </el-row>

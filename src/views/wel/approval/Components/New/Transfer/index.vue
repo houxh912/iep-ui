@@ -20,8 +20,11 @@
         </el-select>
       </iep-form-item>
 
+      <iep-form-item class="form-half" prop="orgId" label-name="调入组织" tip="请选择想要调入组织">
+        <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调入组织"></iep-select>
+      </iep-form-item>
       <iep-form-item class="form-half" prop="transferDeptList" label-name="调入部门" tip="请选择想要调入的部门">
-        <iep-dept-select v-model="form.transferDeptList"></iep-dept-select>
+        <iep-dept-select v-model="form.transferDeptList" :org-id="form.orgId"></iep-dept-select>
       </iep-form-item>
 
       <iep-form-item class="form-half" prop="transferPosition" label-name="调入岗位" tip="请选择想要调整的对应岗位">
@@ -64,6 +67,7 @@ export default {
     loadSelf () {
       this.fnSelf().then(({ data }) => {
         this.form = this.selfToVo(data.data)
+        this.form.orgId = this.userInfo.orgId
         if (!this.form.positionName) {
           this.$message('请找人力管理员申请岗位名')
           this.$router.history.go(-1)

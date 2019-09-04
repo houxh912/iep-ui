@@ -7,6 +7,7 @@ import gpmsRouter from './gpms/'
 import imsRouter from './ims/'
 import componentsRouter from './components/'
 import welRouter from './wel/'
+import atmsRouter from './atms/'
 import crmsRouter from './crms/'
 import appRouter from './app/'
 import cpmsRouter from './cpms/'
@@ -27,7 +28,7 @@ const createRouter = () => new VueRouter({
 
 let Router = createRouter()
 
-function initRouter (router, store) {
+export function initRouter (router, store) {
   AvueRouter.install(router, store)
   router.$avueRouter.formatRoutes(store.state.menu.menu, true)
   router.addRoutes([
@@ -45,6 +46,7 @@ function initRouter (router, store) {
     ...exceptionRouter,
     ...ViewsRouter,
     ...PageRouter,
+    ...atmsRouter,
   ])
 }
 

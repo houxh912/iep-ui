@@ -97,7 +97,7 @@ export default {
       this.loadPage()
     },
     isEditDelPermissions (row) {
-      return !(this.cpms_products_edit_del || this.userInfo.userId === row.creatorId)
+      return !(this.cpms_products_edit_del || this.userInfo.userId === row.creatorId || row.userRelationCharges.map(m => m.id).includes(this.userInfo.userId))
     },
     handleProductClick (productId) {
       putProductById(productId).then(() => {

@@ -29,7 +29,7 @@ export default {
         {
           title: '账户密码',
           description: '如当前密码为初始密码',
-          value: '请即使修改为强密码',
+          value: '请及时修改为强密码',
           actions: {
             title: '修改',
             callback: () => {

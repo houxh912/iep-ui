@@ -59,7 +59,7 @@
 <script>
 // import Menus from './Menus'
 import { addObj, getPage, logicDeleteNodeById, updateObj } from '@/api/conm/article_controller'
-import { columnsMap, initSearchForm, dictsMap } from './options'
+import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import { mapGetters } from 'vuex'
@@ -71,7 +71,6 @@ export default {
     return {
       dictsMap,
       columnsMap,
-      paramForm: initSearchForm(),
       pagedTable: [
       ],
       id: '',
@@ -84,7 +83,8 @@ export default {
     }
   },
   created () {
-    this.info_article_add = this.permissions['info_article_add']
+    // TODO: next time
+    this.info_article_add = this.permissions['info_article_edit']
     this.info_article_edit = this.permissions['info_article_edit']
     this.info_article_del = this.permissions['info_article_del']
     this.id = this.$route.params.id

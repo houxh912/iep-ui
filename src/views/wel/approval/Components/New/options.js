@@ -4,6 +4,7 @@ const initForm = () => {
 	return {
 		id: '', // ID
 		userId: '', // 申请人ID
+		orgId: '', // 申请人ID
 		avatar: '', // 申请人avatar
 		name: '',
 		positionName: '',

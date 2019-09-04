@@ -100,10 +100,10 @@ export default {
       this.loadPage()
     },
     isEditDelPermissions (row) {
-      return !(this.cpms_modules_edit_del || this.userInfo.userId === row.creatorId)
+      return !(this.cpms_modules_edit_del || this.userInfo.userId === row.creatorId || row.userRelationCharges.map(m => m.id).includes(this.userInfo.userId))
     },
     isViewPermissions (row) {
-      return this.cpms_modules_view || this.userInfo.userId === row.creatorId
+      return this.cpms_modules_view || this.userInfo.userId === row.creatorId || row.userRelationCharges.map(m => m.id).includes(this.userInfo.userId)
     },
     handleAdd () {
       this.$router.push({

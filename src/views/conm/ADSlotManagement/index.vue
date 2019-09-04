@@ -59,14 +59,14 @@ export default {
     },
     handleEdit (row) {
       this.$refs['DialogForm'].siteId = this.siteId
-      this.$refs['DialogForm'].id = row.adslotId
+      this.$refs['DialogForm'].id = row.value
       this.$refs['DialogForm'].formRequestFn = updatePage
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].loadTypeList()
       this.$refs['DialogForm'].methodName = '编辑'
     },
     handleDelete (row) {
-      this._handleGlobalDeleteById(row.adslotId, deleteADSlotById)
+      this._handleGlobalDeleteById(row.value, deleteADSlotById)
     },
     async loadPage () {
       getPageById(this.siteId).then((data) => {

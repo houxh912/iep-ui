@@ -16,16 +16,12 @@ const initForm = () => {
 }
 const columnsMap = [
   {
-    prop: 'adslotId',
+    prop: 'value',
     label: '广告位id',
   },
   {
-    prop: 'name',
+    prop: 'label',
     label: '广告位名称',
-  },
-  {
-    prop: 'adslotNumber',
-    label: '广告位编码',
   },
 ]
 

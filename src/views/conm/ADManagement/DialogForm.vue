@@ -37,7 +37,7 @@
         </el-upload>
       </el-form-item>
       <el-form-item label="排序：">
-        <el-input-number v-model="form.seq" :step="2" :min="1"></el-input-number>
+        <el-input-number v-model="form.seq" :min="1"></el-input-number>
       </el-form-item>
     </el-form>
     <template slot="footer">

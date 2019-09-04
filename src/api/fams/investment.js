@@ -26,10 +26,12 @@ export function getInvestmentPersonPage (query) {
     params: query,
   })
 }
-
-export function getMyPerson () {
+/**
+ * 我的统计
+ */
+export function getMySharesValue () {
   return request({
-    url: `${prefixUrl}/my`,
+    url: `${prefixUrl}/my/shares/value`,
     method: 'get',
   })
 }

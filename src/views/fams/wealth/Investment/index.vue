@@ -18,7 +18,7 @@
 </template>
 <script>
 import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
-// import { getShareStatistics } from '@/api/fams/investment'
+import { getMySharesValue } from '@/api/fams/investment'
 import Position from './Position/'
 import TransactionRecord from './TransactionRecord/'
 export default {
@@ -64,9 +64,9 @@ export default {
       this.$refs['tabList'].loadPage()
     },
     loadPage () {
-      // getShareStatistics(this.id).then(({ data }) => {
-      //   this.statistics = data.data
-      // })
+      getMySharesValue(this.id).then(({ data }) => {
+        this.statistics = data.data
+      })
     },
   },
 }

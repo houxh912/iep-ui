@@ -21,7 +21,7 @@
                     <span class="schedule-title-sub">已购数量：{{form.purchasedNumber}}（股）</span>
                     <span class="schedule-title-sub">发行数量：{{form.circulationNumber}}（股）</span></div>
                   <el-progress :text-inside="true" :stroke-width="8" :percentage="form.percentage" status="success" style="margin-top:10px;"></el-progress>
-                  <iep-button type="danger" style="width: 140px;height: 44px;font-size: 15px;border-radius: 4px;margin-top: 30px;" @click="handleAdd">马上参与</iep-button>
+                  <iep-button type="danger" style="width: 140px;height: 44px;font-size: 15px;border-radius: 4px;margin-top: 30px;" @click="handleAdd" :disabled="!form.circulationNumber">马上参与</iep-button>
                 </div>
               </div>
               <div class="right">

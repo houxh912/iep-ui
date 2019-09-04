@@ -233,3 +233,24 @@ export function getMyTransactionPage (query) {
     params: query,
   })
 }
+/**
+ * 我的退股记录分页
+ * @param {*} query 
+ */
+export function getWithdrawPage (query) {
+  return request({
+    url: `${prefixUrl}/withdraw/page`,
+    method: 'get',
+    params: query,
+  })
+}
+/**
+ * 退股
+ * @param {*} id 
+ */
+export function getWithdrawById (id) {
+  return request({
+    url: `${prefixUrl}/withdraw/share/${id}`,
+    method: 'get',
+  })
+}

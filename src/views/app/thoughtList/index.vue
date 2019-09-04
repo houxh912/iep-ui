@@ -6,7 +6,11 @@
       <tabsTpl v-model="tabName" :tab-list="tabList" class="content-left">
         <!-- 说说列表 -->
         <template v-if="tabName ==='allThougth'" v-slot:allThougth>
-          <pageTpl ref="allThougth" :requestFn="geTallPage" :paramData="paramData" @fresh-right="freshRight"></pageTpl>
+          <div class="content-top" v-if="!paramData.userId">
+            <libraryTop :dataList="topDataList" @fresh-right="freshRight" @load-page="getToppedThoughts" isTop @fresh-all="freshAll"></libraryTop>
+            <!-- <libraryTop ref="libraryTop" @load-page="submitCallBack" :dataList="topDataList" :params="params" @fresh-right="freshRight"></libraryTop> -->
+          </div>
+          <pageTpl ref="allThougth" :requestFn="geTallPage" :paramData="paramData" @fresh-right="freshRight" @fresh-all="getToppedThoughts"></pageTpl>
         </template>
         <!-- 关注列表 -->
         <template v-if="tabName ==='followThougth'" v-slot:followThougth>
@@ -31,7 +35,7 @@
 </template>
 
 <script>
-import { geTallPage, getFollowPage } from '@/api/cpms/thoughts'
+import { geTallPage, getFollowPage, getToppedThoughts } from '@/api/cpms/thoughts'
 import headTpl from './library/form'
 import rightTpl from './right'
 import subjectPage from './subjectPage/'
@@ -39,9 +43,10 @@ import tabsTpl from './tabsTpl'
 import searchThought from './search/thought'
 import searchSubject from './search/subject'
 import pageTpl from './page/'
+import libraryTop from './page/library'
 
 export default {
-  components: { headTpl, rightTpl, subjectPage, tabsTpl, searchThought, searchSubject, pageTpl },
+  components: { headTpl, rightTpl, subjectPage, tabsTpl, searchThought, searchSubject, pageTpl, libraryTop },
   data () {
     return {
       isShow: true,
@@ -79,6 +84,7 @@ export default {
       isSearchShow: 'thought',
       geTallPage,
       getFollowPage,
+      topDataList: [],
     }
   },
   methods: {
@@ -91,6 +97,13 @@ export default {
         this.$refs['allThougth'].loadPage()
       }
       this.$refs['contentRight'].loadData()
+      this.getToppedThoughts()
+    },
+    // 获取置顶说说
+    getToppedThoughts () {
+      getToppedThoughts().then(({ data }) => {
+        this.$set(this, 'topDataList', data.data)
+      })
     },
     // 搜素
     searchPage (params, state) {
@@ -107,6 +120,9 @@ export default {
     },
     freshRight () {
       this.$refs['contentRight'].loadData()
+    },
+    freshAll () {
+      this.$refs['allThougth'].loadPage()
     },
   },
   beforeRouteUpdate (to, from, next) {
@@ -129,12 +145,14 @@ export default {
     if (this.$route.query.id) {
       this.paramData.userId = this.$route.query.id
     }
+    this.getToppedThoughts()
   },
   watch: {
     tabName (newVal) {
       if (newVal === 'allThougth') {
         this.isSearchShow = 'thought'
         this.paramData.userId = ''
+        this.getToppedThoughts()
       } else if (newVal === 'followThougth') {
         this.isSearchShow = 'follow'
         this.paramData.userId = ''
@@ -167,6 +185,9 @@ h3.title {
   .content-left {
     flex: 1;
     border-bottom: 1px solid #ddd;
+    .content-top {
+      border-bottom: 2px solid #ddd;
+    }
     .explain {
       display: flex;
       border-bottom: 1px solid #ddd;

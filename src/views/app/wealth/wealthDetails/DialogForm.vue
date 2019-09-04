@@ -6,8 +6,8 @@
           <iep-form-item label-name="投资组织" prop="orgId">
             <iep-select disabled v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织投资"></iep-select>
           </iep-form-item>
-          <iep-form-item label-name="今日股权单价" prop="investmentNumber">
-            <span>{{form.sharesUnivalent}}</span>
+          <iep-form-item label-name="今日股权单价" prop="tradingPrice">
+            <span>{{form.tradingPrice}}</span>
           </iep-form-item>
           <iep-form-item label-name="股份数量" prop="investmentNumber">
             <iep-input-number v-model="form.investmentNumber" :min="form.minimumBuy" :max="form.remainSharesNumber" :precision="0"></iep-input-number>

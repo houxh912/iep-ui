@@ -226,7 +226,7 @@ export default {
       this.$refs['DialogForm'].form.orgName = this.form.orgName
       // this.$refs['DialogForm'].form.minimumBuy = this.form.minimumBuy
       this.$refs['DialogForm'].form.remainSharesNumber = this.form.remainSharesNumber
-      this.$refs['DialogForm'].form.sharesUnivalent = this.form.sharesUnivalent
+      this.$refs['DialogForm'].form.tradingPrice = this.form.sharesUnivalent
       this.$refs['DialogForm'].dialogShow = true
     },
     trendTab (val) {

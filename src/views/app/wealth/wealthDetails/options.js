@@ -21,7 +21,7 @@ const dictsMap = {
 		orgId: '',//投资组织
 		orgName: '',//投资组织名
 		targetAmount: 0,//目标金额
-		sharesUnivalent: 0,//每股单价
+		tradingPrice: 0,//每股单价
 	}
   }
   

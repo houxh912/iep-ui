@@ -1,7 +1,6 @@
 <template>
   <div class="piece">
     <IepAppTabCard title="相关标签">
-      <iep-no-data v-if="!form.tagList.length"></iep-no-data>
       <IepAppLabelCard :dataList="form.tagList.map(m => m.commonName)"></IepAppLabelCard>
     </IepAppTabCard>
     <IepAppTabCard title="标签统计">

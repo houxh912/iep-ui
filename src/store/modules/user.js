@@ -1,4 +1,4 @@
-import { getStore, setStore } from '@/util/store'
+import { getStore, setStore, setCookies, getCookies } from '@/util/store'
 import { getUserInfo, loginByMobile, loginBySocial, loginByUsername, logout, refreshToken } from '@/api/login'
 import { encryption } from '@/util/util'
 import { resetRouter } from '@/router/router'
@@ -16,7 +16,7 @@ const user = {
       expires_in: '',
     },
     expires_in: getStore({ name: 'expires_in' }) || '',
-    access_token: getStore({ name: 'access_token' }) || '',
+    access_token: getStore({ name: 'access_token' }) || getCookies('access_token') || '',
     refresh_token: getStore({ name: 'refresh_token' }) || '',
   },
   actions: {
@@ -176,6 +176,7 @@ const user = {
     },
     SET_ACCESS_TOKEN: (state, access_token) => {
       state.access_token = access_token
+      setCookies('access_token', access_token)
       setStore({
         name: 'access_token',
         content: state.access_token,

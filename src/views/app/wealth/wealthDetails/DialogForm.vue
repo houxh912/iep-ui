@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`参与投资（当前剩余股权数：${form.remainSharesNumber}）`" width="1000px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`参与投资（当前剩余股权数：${form.remainingShares}）`" width="1000px" @close="loadPage">
     <div class="main">
       <div class="left">
         <el-form :model="form" size="small" ref="form" :rules="rules" label-width="140px">
@@ -7,10 +7,10 @@
             <iep-select disabled v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织投资"></iep-select>
           </iep-form-item>
           <iep-form-item label-name="今日股权单价" prop="tradingPrice">
-            <span>{{form.tradingPrice}}</span>
+            <span>{{form.tradingPrice}}（贝）</span>
           </iep-form-item>
           <iep-form-item label-name="股份数量" prop="investmentNumber">
-            <iep-input-number v-model="form.investmentNumber" :min="form.minimumBuy" :max="form.remainSharesNumber" :precision="0"></iep-input-number>
+            <iep-input-number v-model="form.investmentNumber" :min="form.minimumBuy" :max="form.remainingShares" :precision="0"></iep-input-number>
           </iep-form-item>
           <iep-form-item label-name="投资金额" prop="totalAmount">
             <iep-input-number disabled v-model="form.totalAmount"></iep-input-number>
@@ -132,10 +132,10 @@ export default {
   },
   watch: {
     // 'form.totalAmount': function (n) {
-    //   this.form.investmentNumber = Math.round( n / this.form.sharesUnivalent *100)/100
+    //   this.form.investmentNumber = Math.round( n / this.form.tradingPrice *100)/100
     // },
     'form.investmentNumber': function (n) {
-      this.form.totalAmount = this.form.sharesUnivalent * n
+      this.form.totalAmount = this.form.tradingPrice * n
     },
   },
 }

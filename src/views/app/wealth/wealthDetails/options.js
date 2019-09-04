@@ -22,6 +22,7 @@ const dictsMap = {
 		orgName: '',//投资组织名
 		targetAmount: 0,//目标金额
 		tradingPrice: 0,//每股单价
+		remainingShares: 0,//剩余股数
 	}
   }
   

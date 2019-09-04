@@ -79,7 +79,7 @@
                 <div class="shareholders-wrapper" v-for="(item,index) in form.shareholderInformation" :key="index">
                   <span>{{item.name}}</span>
                   <span>{{item.proportion}}</span>
-                  <span>{{item.proportion/form.allSharesNumber*100}}%</span>
+                  <span>{{Math.round(item.proportion/form.allSharesNumber * 10000) / 100}} %</span>
                 </div>
               </el-scrollbar>
             </IepAppTabCard>
@@ -224,8 +224,7 @@ export default {
       this.$refs['DialogForm'].form.investmentId = this.id
       this.$refs['DialogForm'].form.orgId = this.form.orgId
       this.$refs['DialogForm'].form.orgName = this.form.orgName
-      // this.$refs['DialogForm'].form.minimumBuy = this.form.minimumBuy
-      this.$refs['DialogForm'].form.remainSharesNumber = this.form.remainSharesNumber
+      this.$refs['DialogForm'].form.remainingShares = this.form.circulationNumber - this.form.purchasedNumber
       this.$refs['DialogForm'].form.tradingPrice = this.form.sharesUnivalent
       this.$refs['DialogForm'].dialogShow = true
     },

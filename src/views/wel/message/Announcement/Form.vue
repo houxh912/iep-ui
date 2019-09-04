@@ -4,7 +4,7 @@
       <iep-page-header :title="`${methodName}公告`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
         <iep-form-item prop="name" label-name="主题" tip="主题请务必包含关于+事由+通知类型，如关于学习内网2.0相关功能操作的通知。">
-          <el-input v-model="form.name" :disabled="disabled"></el-input>
+          <el-input v-model="form.name" :disabled="disabled && form.status==='已发布'"></el-input>
         </iep-form-item>
 
         <iep-form-item prop="type" label-name="类型" tip="日常公告：关于学习、传达会议精神/要求、放假等日常的通知；<br/>公司制度：制度规范类征集意见或实施等公布的通知；<br/>培训通知：关于培训而发布的通知；<br/>人事调动：关于人事任免而发布的通知；<br/>其他通知：除上述提到的以外的通知。">

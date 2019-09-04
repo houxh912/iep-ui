@@ -37,6 +37,7 @@ const initInvestmentForm = () => {
   return {
     abilityTag: [],
     allSharesNumber: 0,
+    cAllSharesNumber: 0,
     currentShareholding: '',
     equityType: 0,
     hadMoney: 0,

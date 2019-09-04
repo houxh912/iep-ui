@@ -74,10 +74,11 @@ export default {
     },
     financialData () {
       return {
-        '发行股份': this.statistics[0],
-        '已认购股份': this.statistics[1],
-        '股东人数': this.statistics[2],
-        '今日股价': this.statistics[3],
+        '总股本': this.statistics[0],
+        '发行股份': this.statistics[1],
+        '已认购股份': this.statistics[2],
+        '股东人数': this.statistics[3],
+        '今日股价': this.statistics[4],
       }
     },
   },

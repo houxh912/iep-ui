@@ -7,6 +7,9 @@
       <iep-form-item label-name="总股本" prop="allSharesNumber">
         <iep-input-number v-model="form.allSharesNumber" step-strictly></iep-input-number>
       </iep-form-item>
+      <iep-form-item label-name="确认总股本" prop="cAllSharesNumber">
+        <iep-input-number v-model="form.cAllSharesNumber" step-strictly></iep-input-number>
+      </iep-form-item>
       <iep-form-item label-name="发行价" prop="sharesUnivalent">
         <iep-input-amount v-model="form.sharesUnivalent" disabled></iep-input-amount>
       </iep-form-item>
@@ -47,6 +50,10 @@ export default {
       this.$emit('load-page')
     },
     async handleSubmit () {
+      if (this.form.allSharesNumber !== this.form.cAllSharesNumber) {
+        this.$message('请确认总数本一致！')
+        return
+      }
       try {
         await this.mixinsValidate()
         this.formRequestFn(this.form).then(({ data }) => {

@@ -70,57 +70,6 @@ export function addThumbsUpByRecord (id) {
   })
 }
 
-// 评论
-export function CommentThoughts (obj) {
-  return request({
-    url: `${commentUrl}/create`,
-    method: 'post',
-    data: obj,
-  })
-}
-
-// 评论点赞
-export function addcCommentThumbsByRecord (id) {
-  return request({
-    url: `${commentUrl}/commentThumbsByRecord/${id}`,
-    method: 'get',
-  })
-}
-
-// 评论删除
-export function deleteCommentThumbsById (id) {
-  return request({
-    url: `${commentUrl}/${id}`,
-    method: 'post',
-  })
-}
-
-
-// 回复评论
-export function CommentReply (obj) {
-  return request({
-    url: `${replyUrl}/create`,
-    method: 'post',
-    data: obj,
-  })
-}
-
-// 回复评论
-export function deleteCommentById (id) {
-  return request({
-    url: `${replyUrl}/${id}`,
-    method: 'post',
-  })
-}
-
-// 回复点赞
-export function addReplyThumbsByRecord (id) {
-  return request({
-    url: `${replyUrl}/replyThumbsByRecord/${id}`,
-    method: 'get',
-  })
-}
-
 // 说说总数榜 - 总
 export function getMostThoughts () {
   return request({
@@ -238,5 +187,68 @@ export function postStatusBatch (data) {
     url: `${prefixUrl}/status/batch`,
     method: 'post',
     data: data,
+  })
+}
+
+/******************************************************************* 评论  commentUrl */
+
+// 评论
+export function CommentThoughts (obj) {
+  return request({
+    url: `${commentUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+// 评论点赞
+export function addcCommentThumbsByRecord (id) {
+  return request({
+    url: `${commentUrl}/commentThumbsByRecord/${id}`,
+    method: 'get',
+  })
+}
+
+// 评论删除
+export function deleteCommentThumbsById (id) {
+  return request({
+    url: `${commentUrl}/${id}`,
+    method: 'post',
+  })
+}
+
+// 评论的分页
+export function getCommentsByThoughtsId (params) {
+  return request({
+    url: `${commentUrl}/getCommentsByThoughtsId`,
+    method: 'get',
+    params: params,
+  })
+}
+
+/******************************************************************* 回复  replyUrl */
+
+// 回复评论
+export function CommentReply (obj) {
+  return request({
+    url: `${replyUrl}/create`,
+    method: 'post',
+    data: obj,
+  })
+}
+
+// 回复评论
+export function deleteCommentById (id) {
+  return request({
+    url: `${replyUrl}/${id}`,
+    method: 'post',
+  })
+}
+
+// 回复点赞
+export function addReplyThumbsByRecord (id) {
+  return request({
+    url: `${replyUrl}/replyThumbsByRecord/${id}`,
+    method: 'get',
   })
 }

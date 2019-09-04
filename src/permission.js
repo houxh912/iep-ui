@@ -75,8 +75,8 @@ router.beforeEach(async (to, from, next) => {
     if (meta.isAuth === false) {
       next()
     } else if (result) {
-      const data = await store.dispatch('GetMenu')
-      router.$avueRouter.formatRoutes(data, true)
+      await store.dispatch('GetMenu')
+      // router.$avueRouter.formatRoutes(data, true)
       router.push({ path: tagWel.value })
     } else {
       next(`/login?redirect=${to.path}`)

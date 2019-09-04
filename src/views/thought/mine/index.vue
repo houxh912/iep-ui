@@ -15,11 +15,13 @@
             <div class="content">
               <div class="left">
                 <pre>{{row.content}}</pre>
+                <div class="img-list">
+                  <iep-img class="img" v-for="(item, imgIndex) in row.images" :key="imgIndex" :src="item" fit="cover" :preview-src-list="dealImage(row.images, imgIndex)"></iep-img>
+                </div>
               </div>
               <div class="right">
                 <i class="el-icon-delete" @click="handleDelete(row, index)"></i>
-                <i class="icon-suoding suoding" v-if="row.status == 1" @click="handleOpen(row, index, 0)"></i>
-                <i class="icon-weisuoding weisuoding" v-else @click="handleOpen(row, index, 1)"></i>
+                <i class="icon-suoding" v-if="row.status == 1"></i>
               </div>
             </div>
           </template>
@@ -31,7 +33,7 @@
 
 <script>
 import TimeLine from './timeline'
-import { thoughtsCreate, getThoughtsPage, thoughtsDelete, postStatusBatch } from '@/api/cpms/thoughts'
+import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import headTpl from '@/views/app/thoughtList/library/form'
@@ -149,25 +151,10 @@ export default {
         })
       })
     },
-    // 更改公开状态
-    handleOpen (row, index, status) {
-      this.$confirm('是否更改此条数据状态', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        postStatusBatch({
-          status: status,
-          ids: [row.thoughtsId],
-        }).then(() => {
-          // 判断删除的是第几页的数据，重新开始获取
-          let page = parseInt(index / this.params.size)
-          this.list = this.list.splice(0, page*10)
-          this.params.current = page+1
-          this.loadPage()
-          this.$message.success('删除成功')
-        })
-      })
+    dealImage (data, index) {
+      let list = []
+      list = data.slice(index).concat(data.slice(0, index))
+      return list
     },
   },
   created () {
@@ -227,6 +214,16 @@ export default {
       padding: 20px 5px 20px 20px;
       .left {
         width: calc(100% - 50px);
+        .img-list {
+          display: flex;
+          flex-wrap: wrap;
+          .img {
+            width: 200px;
+            height: 200px;
+            margin: 0 15px 15px 0;
+            cursor: pointer;
+          }
+        }
       }
       .right {
         text-align: right;

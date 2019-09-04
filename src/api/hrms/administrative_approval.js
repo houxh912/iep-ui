@@ -15,6 +15,10 @@ export function getAdministrativeApprovalById (id) {
     method: 'get',
   })
 }
-export function postExcelExport () {
-  
+export function postFileMakeUp (obj) {
+  return request({
+    url: `${prefixUrl}/completionFile`,
+    method: 'post',
+    data: obj,
+  })
 }

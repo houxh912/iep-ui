@@ -1,5 +1,5 @@
 <template>
-  <el-image :src="src" :preview-src-list="previewSrcList">
+  <el-image :src="src" :preview-src-list="previewSrcList" v-bind="$attrs">
     <div slot="placeholder" class="image-slot">
       加载中<span class="dot">...</span>
     </div>

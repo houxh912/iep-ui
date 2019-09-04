@@ -1,6 +1,6 @@
 <template>
   <div class="library">
-    <div class="items" v-for="(item, index) in dataList" :key="index">
+    <div class="items" v-for="(item, index) in thoughtList" :key="index">
       <div class="avatar">
         <iep-img :src="item.avatar" @click.native="handleDetail(item.userId)" alt="" class="img"></iep-img>
       </div>
@@ -27,35 +27,33 @@
         <!-- 按钮组 -->
         <div class="footer">
           <el-popover
-            placement="right-start"
+            placement="left-start"
             title=""
             width="200"
             trigger="hover"
             :content="reference">
-            <div slot="reference" class="button" @click="hadnleAddUp(item)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp" :class="item.praiseStatus > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
+            <div slot="reference" class="button" @click="hadnleAddUp(item, index)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp" :class="item.praiseStatus > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           </el-popover>
-          <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{ item.commentNum }}）</div>
+          <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i>
+            <span v-if="item.activeIndex === index"> 收起</span>
+            <span v-else> 评论（{{ item.commentNum }}）</span>
+          </div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
           <div class="button" @click="handleForward(item)" v-if="item.transmitId === 0"><i class="icon-zhuanfa1"></i> 转发</div>
           <div class="button" @click="handleCollect(item)" v-if="item.isCollected === 0"><i class="icon-heart"></i> 收藏</div>
           <div class="button" @click="handleNoCollect(item)" v-else><i class="icon-aixin"></i> 已收藏</div>
         </div>
         <!-- 说说评论 -->
-        <div class="comment" v-if="activeIndex == index">
-          <el-input type="textarea" rows="4" v-model="form.replyMsg" maxlength="1000"></el-input>
-          <iep-button class="comment-submit" @click="() => {activeIndex = -1}">取消</iep-button>
-          <iep-button type="primary" class="comment-submit" @click="commentSubmit">提交</iep-button>
+        <div class="comment" v-if="item.activeIndex === index">
+          <el-input type="textarea" rows="4" v-model="item.replyMsg" maxlength="1000"></el-input>
+          <iep-button class="comment-submit" @click="() => {item.activeIndex = -1}">取消</iep-button>
+          <iep-button type="primary" class="comment-submit" @click="commentSubmit(item, index)">提交</iep-button>
         </div>
         <!-- 评论列表 -->
-        <div class="comment-list" v-if="item.commentNum > 0">
+        <div class="comment-list" v-if="item.commentNum > 0 && item.activeIndex === index">
+          <div class="comment-head">评论（{{ item.commentNum }}）</div>
           <commentPage ref="comment" :data="item"></commentPage>
         </div>
-        <!-- <div class="comment-list" v-if="item.commentNum > 0">
-          <div v-for="(t, i) in item.thoughtsCommentList" :key="i">
-            <commentTpl :item="t" :userData="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
-            <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userData="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" type="reply"></commentTpl>
-          </div>
-        </div> -->
       </div>
     </div>
     <!-- 转发 -->
@@ -66,15 +64,15 @@
 </template>
 
 <script>
-import { addThumbsUpByRecord, getThumbMembers, CommentThoughts } from '@/api/cpms/thoughts'
+import { addThumbsUpByRecord, getThumbMembers, CommentThoughts, getDetailById } from '@/api/cpms/thoughts'
 import { mapActions, mapGetters } from 'vuex'
-import forwardContent from './forwardContent'
-import commentPage from './commentPage'
-import contentTpl from './content'
+import forwardContent from '../library/forwardContent'
+import commentPage from '../library/commentPage'
+import contentTpl from '../library/content'
 import forwardDialog from '../forwardDialog'
 import CollectDialog from '@/views/mlms/material/components/collectDialog'
 import { followById, unfollowById } from '@/api/cpms/iepuserfollow'
-import { getName } from './util'
+import { getName } from '../library/util'
 
 const initFormData = () => {
   return {
@@ -102,6 +100,7 @@ export default {
       activeIndex: -1,
       form: initFormData(),
       reference: '加载中...',
+      thoughtList: [],
     }
   },
   methods: {
@@ -114,10 +113,10 @@ export default {
       })
     },
     // 点赞
-    hadnleAddUp (row) {
+    hadnleAddUp (row, index) {
       addThumbsUpByRecord(row.thoughtsId).then(({ data }) => {
         if (data.data) {
-          this.loadPage()
+          this.freshComment(row.thoughtsId, index)
         } else {
           this.$message.error(data.msg)
         }
@@ -143,28 +142,37 @@ export default {
       }, 300)
     },
     hadnleComment (item, index) {
-      this.activeIndex = index
+      console.log('index: ', index, this.thoughtList[index].activeIndex)
+      if (this.thoughtList[index].activeIndex === index) {
+        this.thoughtList[index].activeIndex = -1
+        return
+      }
+      this.$set(this.thoughtList[index], 'activeIndex', index)
       this.form = {
         replyMsg: '',
-        thoughtsId: item.thoughtsId,
+        // thoughtsId: item.thoughtsId,
         nameList: [],
       }
     },
     // 评论
-    commentSubmit () {
-      if (this.form.replyMsg == '') return
+    commentSubmit (item, index) {
+      let form = initFormData()
+      if (item.replyMsg == '') return
       // 判断说说中是否存在人名
-      let nameObj = getName(this.form.replyMsg)
+      let nameObj = getName(item.replyMsg)
       if (nameObj.type) {
-        this.form.nameList = nameObj.list.map(m => m.name)
+        form.nameList = nameObj.list.map(m => m.name)
       }
-      CommentThoughts(this.form).then(({ data }) => {
+      form.thoughtsId = this.thoughtList[index].thoughtsId
+      form.replyMsg = item.replyMsg
+      console.log('form: ', form)
+      CommentThoughts(form).then(({ data }) => {
         if (!data.data) {
           this.$message.error(data.msg)
           return
         }
-        this.activeIndex = -1
-        this.loadPage()
+        // this.activeIndex = -1
+        this.freshComment(item.thoughtsId, index)
       })
     },
     // 打赏
@@ -198,6 +206,23 @@ export default {
         this.loadPage()
       })
     },
+    // 刷新单条数据
+    freshComment (id, index) {
+      getDetailById(id).then(({ data }) => {
+        if (data.data) {
+          data.data.activeIndex = this.thoughtList[index].activeIndex
+          this.thoughtList[index] = { ...data.data }
+        }
+      })
+    },
+  },
+  watch: {
+    dataList: {
+      handler (val) {
+        this.thoughtList = { ...val }
+      },
+      deep: true,
+    },
   },
 }
 </script>
@@ -227,6 +252,7 @@ export default {
     .content-list {
       flex: 1;
       margin-top: 5px;
+      
       .top {
         display: flex;
         justify-content: space-between;
@@ -239,6 +265,15 @@ export default {
         .comment-submit {
           margin-top: 10px;
           margin-left: 10px;
+        }
+      }
+      .comment-list {
+        background-color: #fafafa;
+        margin-top: 15px;
+        .comment-head {
+          font-weight: 700;
+          padding: 15px 0 0 25px;
+          margin-bottom: -15px;
         }
       }
       .title {

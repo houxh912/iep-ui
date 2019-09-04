@@ -47,7 +47,7 @@
     </el-form-item>
     <el-form-item label="员工状态：" prop="status" class="form-half">
       <el-select v-model="form.status" placeholder="请选择" :disabled="form.status===1" clearable>
-        <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k">
+        <el-option v-for="(v,k) in dictsMap.status" :key="k" :label="v" :value="+k" :disabled="+k === 1">
         </el-option>
       </el-select>
     </el-form-item>

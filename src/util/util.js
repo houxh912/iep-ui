@@ -261,28 +261,6 @@ export const openWindow = (url, title, w, h) => {
   }
 }
 
-/**
- *  <img> <a> src 处理
- * @returns {PromiseLike<T | never> | Promise<T | never>}
- */
-// export function handleImg (fileName, id) {
-//   return validatenull(fileName)
-//     ? null
-//     : request({
-//       url: '/admin/file/' + fileName,
-//       method: 'get',
-//       responseType: 'blob',
-//     }).then(response => {
-//       // 处理返回的文件流
-//       let blob = response.data
-//       let img = document.getElementById(id)
-//       img.src = URL.createObjectURL(blob)
-//       window.setTimeout(function () {
-//         window.URL.revokeObjectURL(blob)
-//       }, 0)
-//     })
-// }
-
 export function mergeByFirst (distObject, srcObject) {
   const distPropList = _.keys(distObject)
   const srcPropList = _.keys(_.omitBy(srcObject, _.isNil))

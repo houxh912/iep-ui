@@ -6,11 +6,11 @@
       <tabsTpl v-model="tabName" :tab-list="tabList" class="content-left">
         <!-- 说说列表 -->
         <template v-if="tabName ==='allThougth'" v-slot:allThougth>
-          <pageTpl ref="allThougth" :requestFn="geTallPage" :paramData="paramData"></pageTpl>
+          <pageTpl ref="allThougth" :requestFn="geTallPage" :paramData="paramData" @fresh-right="freshRight"></pageTpl>
         </template>
         <!-- 关注列表 -->
         <template v-if="tabName ==='followThougth'" v-slot:followThougth>
-          <pageTpl :requestFn="getFollowPage" :paramData="paramData"></pageTpl>
+          <pageTpl :requestFn="getFollowPage" :paramData="paramData" @fresh-right="freshRight"></pageTpl>
         </template>
         <!-- 话题列表 -->
         <template v-if="tabName ==='subject'" v-slot:subject>
@@ -105,6 +105,9 @@ export default {
         this.$refs['subject'].search(params)
       }
     },
+    freshRight () {
+      this.$refs['contentRight'].loadData()
+    },
   },
   beforeRouteUpdate (to, from, next) {
     this.$nextTick(() => {
@@ -116,7 +119,9 @@ export default {
       } else {
         this.paramData.userId = ''
       }
-      this.loadPage()
+      this.$nextTick(() => {
+        this.loadPage()
+      })
     })
     next()
   },
@@ -129,8 +134,10 @@ export default {
     tabName (newVal) {
       if (newVal === 'allThougth') {
         this.isSearchShow = 'thought'
+        this.paramData.userId = ''
       } else if (newVal === 'followThougth') {
         this.isSearchShow = 'follow'
+        this.paramData.userId = ''
       } else if (newVal === 'subject') {
         this.isSearchShow = 'subject'
       }

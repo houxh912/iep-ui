@@ -212,6 +212,7 @@ export default {
         if (data.data) {
           data.data.activeIndex = this.thoughtList[index].activeIndex
           this.thoughtList[index] = { ...data.data }
+          this.$emit('fresh-right', true)
         }
       })
     },

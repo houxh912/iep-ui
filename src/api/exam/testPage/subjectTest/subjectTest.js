@@ -25,6 +25,19 @@ export function getTestList (params) {
         params: params,
     })
 }
+
+/**
+ * 获取试题列表
+ * @param {Object} params 参数
+ */
+export function getPracticeTestList (params) {
+    return request({
+        url: 'exms/iepexamination/findimiexamrecord',
+        method: 'get',
+        params: params,
+    })
+}
+
 /**
  * 报名提交
  * @param {Object} params 参数

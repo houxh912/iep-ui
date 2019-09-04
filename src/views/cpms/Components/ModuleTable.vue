@@ -2,7 +2,7 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增模块</iep-button>
+        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增产品模块</iep-button>
       </template>
     </operation-container>
     <iep-no-data v-if="!tableData.length" message="暂无关联模块"></iep-no-data>

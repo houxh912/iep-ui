@@ -1,126 +1,154 @@
 <template>
   <div>
-    <div class="header">
-      <!-- <img src="../img/IG.png"> -->
-      <span class="title-one"><b>在线考试系统</b></span>
-      <span class="line"></span>
-      <span class="title-two">{{resdata.fieldName}}</span>
-    </div>
+    <basic-container>
+      <iep-page-header title="在线考试系统"></iep-page-header>
+      <div class="examShow" v-loading="loading">
+        <el-row :gutter="30">
+          <el-col class="left" :span="18">
+            <div class="tasks-info" v-if="resdata.description">
+              <p>{{resdata.description}}</p>
+            </div>
 
-    <div class="examShow" v-loading="loading">
-      <div class="left">
-        <span style="font-size: 20px;"><b>{{resdata.questionTypeName}}</b></span>
-        <span class="title">共 {{resdata.kindTotalNum}} 题，合计 {{resdata.kindMark}} 分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
-        <hr>
-        <span style="font-size: 15px;"><b>说明：</b></span>
-        <span style="font-size: 15px;">{{questionExplain}}</span>
-        <div class="question">
-          <div style="margin-bottom: 10px;">
-            <span>{{resdata.questionNum}}、 </span>
-            <span>{{resdata.title}}</span>
-            <span> （ {{resdata.single}} 分）</span>
-          </div>
+            <el-card class="box-card" shadow="never">
+              <div slot="header" class="clearfix">
+                <strong>{{resdata.questionTypeName}}</strong>
+                <span class="fieldName">（科目: {{resdata.fieldName}}）</span>
+                <span class="title" style="float: right;">合计{{resdata.kindMark}}
+                  分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
+              </div>
+              <div class="question">
+                <div style="margin-bottom: 10px;">
+                  <span>{{resdata.questionNum}}）</span>
+                  <span>{{resdata.title}}</span>
+                  <span> （ {{resdata.single}} 分）</span>
+                </div>
 
-          <div v-if="resdata.questionTypeName ==='单选题'">
-            <li v-for="(item,index) in resdata.titleOptions" :key="index">
-              <el-radio v-model="answerRadio" :label="item.key"></el-radio>
-              <span>{{item.value}}</span>
-            </li>
-          </div>
+                <div v-if="resdata.questionTypeName ==='单选题'">
+                  <li v-for="(item,index) in resdata.titleOptions" :key="index">
+                    <el-radio v-model="answerRadio" :label="item.key"></el-radio>
+                    <span>{{item.value}}</span>
+                  </li>
+                </div>
 
-          <div v-if="resdata.questionTypeName ==='复选题'">
-            <el-checkbox-group v-model="checksList" style="margin-left: 28px;">
-              <el-checkbox style="margin-right: 100%;" v-for="item in resdata.titleOptions" :label="item.key" :key="item.key">
-                <span>{{item.key}} . {{item.value}}</span>
-              </el-checkbox>
-            </el-checkbox-group>
-          </div>
+                <div v-if="resdata.questionTypeName ==='复选题'">
+                  <el-checkbox-group v-model="checksList" style="margin-left: 28px;">
+                    <el-checkbox style="margin-right: 100%;" v-for="item in resdata.titleOptions" :label="item.key" :key="item.key">
+                      <span>{{item.key}} . {{item.value}}</span>
+                    </el-checkbox>
+                  </el-checkbox-group>
+                </div>
 
-          <!-- <div v-if="resdata.questionTypeName ==='判断题'">
-            <li v-for="(item,index) in resdata.titleOptions" :key="index">
-              <el-radio v-model="trueOrFalseRadio" :label="item.value"></el-radio>
-            </li>
-          </div> -->
+                <div v-if="resdata.questionTypeName ==='判断题'">
+                  <li v-for="(item,index) in trueOrFalseList" :key="index">
+                    <el-radio v-model="trueOrFalseRadio" :label="item" @change="handleTrueOrFalse ()">
+                    </el-radio>
+                  </li>
+                </div>
 
-          <div v-if="resdata.questionTypeName ==='判断题'">
-            <li v-for="(item,index) in trueOrFalseList" :key="index">
-              <el-radio v-model="trueOrFalseRadio" :label="item" @change="handleTrueOrFalse ()"></el-radio>
-            </li>
-          </div>
+                <div v-if="resdata.questionTypeName ==='简答题'">
+                  <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
+                    <iep-froala-editor v-model="freeInput" placeholder=""></iep-froala-editor>
+                  </li>
+                </div>
 
-          <!-- <div v-if="resdata.questionType ==='填空题'">
-            <li v-for="(item,index) in inputList" :key="index" style="list-style-type:none;margin-left:28px;">
-              <span>{{index + 1}}、</span>
-              <el-input style="width: 79%;"></el-input>
-            </li>
-          </div> -->
+                <div v-if="resdata.questionTypeName ==='操作题'">
+                  <li v-for="(item,index) in operAreaList" :key="index" style="margin-left:28px;">
+                    <iep-froala-editor v-model="operInput" placeholder=""></iep-froala-editor>
+                  </li>
+                </div>
+              </div>
+            </el-card>
 
-          <div v-if="resdata.questionTypeName ==='简答题'">
-            <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="freeInput" style="width: 79%;" :rows="4"></el-input>
-            </li>
-          </div>
-        </div>
+            <div class="center" align="center">
+              <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">
+                上一题
+              </iep-button>
+              <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.questionNum === resdata.questionTotalNum">下一题</iep-button>
+            </div>
+          </el-col>
 
-        <div class="center" align="center">
-          <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.questionNum === 1">上一题</iep-button>
-          <iep-button style="margin:0 10px;" @click="next" :disabled="resdata.questionNum === resdata.questionTotalNum">下一题</iep-button>
-        </div>
+          <el-col class="right" v-if="resdata.title" :span="6">
+
+            <div class="container">
+              <div class="explain">
+                <span style="color: #595959;">当前进度</span><br>
+                <span class="count">{{count}}</span>
+                <span class="line"> / </span>
+                <span class="TotalNum">{{resdata.questionTotalNum}}</span>
+              </div>
+
+              <ve-ring class="ring" height="200px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+
+              <div class="card">
+                <div v-if="resdata.radioMap.length > 0">
+                  <span class="answerSheet">{{resdata.radioMap[0].questionType}}</span>
+                  <div class="answerSheetTop">
+                    <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                      {{item.questionNum}}</iep-button>
+                  </div><br>
+                </div>
+
+                <div v-if="resdata.checkboxMap.length > 0">
+                  <span class="answerSheet">{{resdata.checkboxMap[0].questionType}}</span>
+                  <div class="answerSheetTop">
+                    <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                      {{item.questionNum}}</iep-button>
+                  </div><br>
+                </div>
+
+                <div v-if="resdata.checkedMap.length > 0">
+                  <span class="answerSheet">{{resdata.checkedMap[0].questionType}}</span>
+                  <div class="answerSheetTop">
+                    <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                      {{item.questionNum}}</iep-button>
+                  </div><br>
+                </div>
+
+                <div v-if="resdata.operationMap.length > 0">
+                  <span class="answerSheet">{{resdata.operationMap[0].questionType}}</span>
+                  <div class="answerSheetTop">
+                    <iep-button class="choices" v-for="(item,index) in resdata.operationMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                      {{item.questionNum}}</iep-button>
+                  </div><br>
+                </div>
+
+                <div v-if="resdata.textMap.length > 0">
+                  <span class="answerSheet">{{resdata.textMap[0].questionType}}</span>
+                  <div class="answerSheetTop">
+                    <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                      {{item.questionNum}}</iep-button>
+                  </div><br>
+                </div>
+              </div>
+            </div>
+
+          </el-col>
+        </el-row>
       </div>
 
-      <div class="right" v-if="resdata.title">
-        <div class="container">
-          <div class="explain">
-            <span style="color: #595959;">当前进度</span><br>
-            <span class="count">{{count}}</span>
-            <span class="line"> / </span>
-            <span class="TotalNum">{{resdata.questionTotalNum}}</span>
-          </div>
-
-          <ve-ring class="ring" height="200px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
-
-          <div class="card">
-            <div v-if="resdata.radioMap.length > 0">
-              <span class="answerSheet">单选题</span>
-              <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.radioMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
-              </div><br>
-            </div>
-
-            <div v-if="resdata.checkboxMap.length > 0">
-              <span class="answerSheet">复选题</span>
-              <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkboxMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
-              </div><br>
-            </div>
-
-            <div v-if="resdata.checkedMap.length > 0">
-              <span class="answerSheet">判断题</span>
-              <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
-              </div><br>
-            </div>
-
-            <div v-if="resdata.textMap.length > 0">
-              <span class="answerSheet">简答题</span>
-              <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
-              </div><br>
-            </div>
-
-          </div>
+      <iep-dialog :dialog-show="dialogShow" title="" class="success-box" width="420px" @close="handleCancel" center>
+        <div class="center-box">
+          <p class="success-title"><i class="el-icon-success"></i>交卷成功！</p>
+          <p style="margin-bottom: 10px">很感谢你参加本场考试</p>
+          <p>预祝考试成功！</p>
         </div>
-      </div>
-    </div>
+        <template slot="footer">
+          <iep-button @click="handleCancel" style="margin-bottom: 10px">关闭</iep-button>
+        </template>
+      </iep-dialog>
 
-    <footer-tool-bar>
-      <span class="headerTxt">准考证号：{{examNo}}</span>
-      <span class="headerTxt">剩余时间：{{min}} 分：{{sec}} 秒</span>
-      <!-- <iep-button @click="handleSave">暂停</iep-button> -->
-      <iep-button @click="backhome">返回</iep-button>
-      <iep-button @click="saveAndGoBack">保存并退出</iep-button>
-      <iep-button type="primary" @click="handleExamination">交卷</iep-button>
-    </footer-tool-bar>
+      <footer-tool-bar>
+        <template slot="extra">
+          <span style="padding-right: 30px;">考试名称：{{record.title}}</span>
+          <span>准考证号：{{resdata.examinationNumber}}</span>
+        </template>
+        <span class="headerTxt">剩余时间：{{min}} 分：{{sec}} 秒</span>
+        <!-- <iep-button @click="handleSave">暂停</iep-button> -->
+        <iep-button @click="backhome">返回</iep-button>
+        <iep-button @click="saveAndGoBack">保存并退出</iep-button>
+        <iep-button type="primary" @click="handleExamination">交卷</iep-button>
+      </footer-tool-bar>
+    </basic-container>
   </div>
 </template>
 
@@ -137,18 +165,21 @@ export default {
       offsetY: 100,
     }
     return {
-      loading: true,      //加载圈圈
+      dialogShow: false,
+      loading: false,      //加载圈圈
       answerRadio: '',        //单选(v-model绑定的值)
       checksList: [],         //复选(v-model绑定的值)
       trueOrFalseRadio: '',   //判断(v-model绑定的值)
       freeInput: '',          //简答(v-model绑定的值)
+      operInput: '',          //操作(v-model绑定的值)
       trueOrFalseList: ['正确', '错误'],
       inputAreaList: [''],
-      questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
+      operAreaList: [''],
+      // questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
       mins: '',
       secs: '',
       time: '',   //定义定时器
-      examNo: '2019052568969',
+      // examNo: '2019052568969',
       chartData: {
         columns: ['是否完成', '进度'],
         rows: '',
@@ -170,6 +201,7 @@ export default {
         checkboxMap: [],     //答题卡片的复选题数组集合，从数组中遍历题目出来
         checkedMap: [],      //答题卡片的判断题数组集合，从数组中遍历题目出来
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
+        operationMap: [],    //答题卡片的操作题数组集合，从数组中遍历题目出来
       },
     }
   },
@@ -203,6 +235,7 @@ export default {
     // this.timer()
   },
   created () {
+    // console.log('record => ', this.record)
     this.loadPage()
   },
   beforeDestroy () {
@@ -243,15 +276,18 @@ export default {
       if (type === '简答题') {
         params.userAnswer = this.freeInput
       }
+      if (type === '操作题') {
+        params.userAnswer = this.operInput
+      }
     },
 
     /**
      * 获取题目的详细数据(公用请求方法)
      */
     getSubjectById (params, times) {
+      this.loading = true
       getTestPageById(params).then(res => {
         if (res.data.code === 0) {
-          this.loading = false
           const record = res.data.data
           if (times === true) {
             const timeAll = record.remainingTime ? record.remainingTime.split('-') : []
@@ -265,12 +301,13 @@ export default {
             this.chartData.rows = record.questionStatus
             this.resdata = record
             this.resdata.questionOffNum = record.questionNumList
-            this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length
+            this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length + record.questionNumList.operationMap.length
             this.resdata.titleOptions = record.titleOptions ? JSON.parse(record.titleOptions) : []
             this.resdata.radioMap = record.questionNumList.radioMap
             this.resdata.checkboxMap = record.questionNumList.checkboxMap
             this.resdata.checkedMap = record.questionNumList.checkedMap
             this.resdata.textMap = record.questionNumList.textMap
+            this.resdata.operationMap = record.questionNumList.operationMap
             if (record.questionTypeName === '单选题') {
               this.answerRadio = record.userAnswer
               this.resdata.kindTotalNum = record.questionNumList.radioMap.length
@@ -290,11 +327,17 @@ export default {
               this.resdata.kindMark = record.questionNumList.checkedMap[0].grade * this.resdata.kindTotalNum
             }
             if (record.questionTypeName === '简答题') {
-              this.freeInput = record.userAnswer
+              this.freeInput = record.userAnswer || ''
               this.resdata.kindTotalNum = record.questionNumList.textMap.length
               this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
             }
+            if (record.questionTypeName === '操作题') {
+              this.operInput = record.userAnswer || ''
+              this.resdata.kindTotalNum = record.questionNumList.operationMap.length
+              this.resdata.kindMark = record.questionNumList.operationMap[0].grade * this.resdata.kindTotalNum
+            }
           }
+          this.loading = false
         } else {
           this.$message({
             type: 'error',
@@ -373,6 +416,13 @@ export default {
       if (type === '简答题') {
         for (let i = 0; i < this.resdata.textMap.length; i++) {
           if (this.resdata.textMap[i].answerOrNot > 0) {
+            kindcount++
+          }
+        }
+      }
+      if (type === '操作题') {
+        for (let i = 0; i < this.resdata.operationMap.length; i++) {
+          if (this.resdata.operationMap[i].answerOrNot > 0) {
             kindcount++
           }
         }
@@ -507,14 +557,11 @@ export default {
           remainingTime: this.mins + '-' + this.secs,
         }
         this.judgeType(params)
+        this.loading = true
         getTestPageById(params).then(res => {
           if (res.data.code === 0) {
-            // console.log('success go back')
-            this.$message({
-              type: 'success',
-              message: '交卷成功!',
-            })
-            this.$emit('onGoBack')
+            this.loading = false
+            this.dialogShow = true
           }
         })
       }).catch(() => {
@@ -525,7 +572,11 @@ export default {
       })
     },
 
-    /**f
+    handleCancel () {
+      this.$emit('onGoBack')
+    },
+
+    /**
      * 小于10自动补零
      */
     num (n) {
@@ -559,7 +610,7 @@ export default {
               })
               _this.$emit('onGoBack')
             }
-            console.log('时间到啦')
+            // console.log('时间到啦')
           })
         }
         else {
@@ -571,70 +622,70 @@ export default {
 }
 </script>
 
+<style lang="css" scoped>
+.success-box >>> .el-dialog__header {
+  display: none;
+}
+</style>
+
+
 <style lang="scss" scoped>
-.header {
-  background-color: #fafafa;
-  // background: -webkit-linear-gradient(left, #012f52, #35495e);
-  // background: -moz-linear-gradient(right, #012f52, #35495e);
-  // background: -o-linear-gradient(right, #012f52, #35495e);
-  // background: linear-gradient(to right, #012f52, #35495e);
-  padding: 15px 20px;
-  width: 100%;
-  height: 60px;
-  img {
-    margin-top: -2px;
-    float: left;
+.tasks-info {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ffdbc1;
+  background-color: #fffbf6;
+
+  p {
+    margin-bottom: 0;
   }
-  .title-one {
-    font-size: 19px;
-    float: left;
-    color: #595959;
+}
+
+.center-box {
+  text-align: center;
+  p {
+    margin: 0;
   }
-  .line {
-    height: 20px;
-    width: 2px;
-    background: #595959;
-    margin: 6px 15px 0 15px;
-    float: left;
-  }
-  .title-two {
-    font-size: 17px;
-    float: left;
-    color: #595959;
-    margin-top: 3px;
+  .success-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin: 10px 0 20px;
+
+    i {
+      color: #67c23a;
+      font-size: 2em;
+      margin: 0 10px 0 0;
+    }
   }
 }
 .examShow {
   margin: 20px auto;
-  width: 89%;
   .left {
-    float: left;
-    width: 70%;
-    .title {
-      font-size: 15px;
-      margin-left: 25px;
+    .fieldName {
+      padding-left: 10px;
+      color: #999;
     }
     .question {
-      margin-top: 15px;
       font-size: 15px;
+      line-height: 2;
       li {
         list-style-type: none;
       }
     }
     .center {
       width: 100%;
-      margin: 50px 0 100px 0;
+      margin: 30px 0 45px;
     }
   }
   .right {
-    float: right;
-    width: 28%;
+    // float: right;
+    // width: 28%;
     border-left: 0px solid #eee;
-    padding-top: 30px;
+    // padding-top: 30px;
     padding-bottom: 75px;
     .container {
-      float: right;
-      width: 280px;
       background: #fffbf6;
       border: 1px solid #ffdbc1;
       // background: linear-gradient(
@@ -681,6 +732,8 @@ export default {
   }
 }
 .headerTxt {
+  // display: inline-block;
+  // vertical-align: middle;
   padding: 0 20px;
 }
 </style>

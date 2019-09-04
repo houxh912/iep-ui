@@ -1,6 +1,17 @@
 <template>
   <div>
     <search @search-page="searchData"></search>
+    <div class="deletion-box">
+      <!-- <div class="codule-deletion">
+        按分类：
+        <div :class="moduleType==''?'color':''" class="piece-deletion" @click="tabModuleType('')">全部</div>
+        <div v-for="(item) in cpmsModuleType" :key="item.value" :class="moduleType==item.value?'color':''" class="piece-deletion" @click="tabModuleType(item.value)">{{item.label}}</div>
+      </div> -->
+      <div class="products-deletion">
+        按业务分类：
+        <div v-for="(item) in productList" :key="item.id" :class="productId==item.id?'color':''" class="piece-deletion" @click="tabProductId(item.id)">{{item.name}}</div>
+      </div>
+    </div>
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover" @click.native="handleDetail(item)">
         <div class="content">
@@ -29,6 +40,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Search from './Search'
 import { getModulePage } from '@/api/app/cpms/channel'
 import { putModuleById } from '@/api/app/cpms/custom_module'
@@ -36,17 +48,47 @@ import { putModuleById } from '@/api/app/cpms/custom_module'
 export default {
   data () {
     return {
+      moduleType: '',
+      productId: 1,
       moduleList: [],
       paramForm: {},
       params: {
         current: 1,
         size: 12,
       },
+      productList: [{
+        id: 1,
+        name: '数据体系',
+      },
+      {
+        id: 2,
+        name: '业务优化',
+      },
+      {
+        id: 3,
+        name: '组织进化',
+      },
+      {
+        id: 4,
+        name: '公共服务',
+      },
+      ],
       total: 0,
     }
   },
   components: {
     Search,
+  },
+  computed: {
+    ...mapGetters([
+      'dictGroup',
+    ]),
+    cpmsModuleType () {
+      return this.dictGroup['cpms_module_type']
+    },
+    cpmsProductType () {
+      return this.dictGroup['MODULE_SERVICE_TYPE']
+    },
   },
   methods: {
     searchData (val) {
@@ -72,10 +114,19 @@ export default {
       })
     },
     getModulePage () {
-      getModulePage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {
+      getModulePage(Object.assign({        type: this.moduleType,
+        serviceType: this.productId || undefined      }, this.params, this.paramForm)).then(({ data }) => {
         this.moduleList = data.data.records
         this.total = data.data.total
       })
+    },
+    tabModuleType (val) {
+      this.moduleType = val
+      this.getModulePage()
+    },
+    tabProductId (val) {
+      this.productId = val
+      this.getModulePage()
     },
     currentChange (val) {
       this.params.current = val
@@ -99,6 +150,55 @@ export default {
 }
 .clearfix:after {
   clear: both;
+}
+// .codule-deletion,
+// .products-deletion {
+//   width: 50%;
+//   text-align: left;
+//   display: inline-block;
+//   margin: 10px 0 20px;
+//   .piece-deletion {
+//     display: inline;
+//     padding: 2px 10px;
+//     border-radius: 12px;
+//     border: 1px solid #ffffff;
+//     margin: 0 10px;
+//     cursor: pointer;
+//     &:hover {
+//       background-color: #fef6f4;
+//       border: 1px solid #dc8687;
+//       color: #dc8687;
+//     }
+//   }
+
+//   .color {
+//     background-color: #fef6f4;
+//     border: 1px solid #dc8687;
+//     color: #dc8687;
+//   }
+// }
+.codule-deletion,
+.products-deletion {
+  text-align: left;
+  margin: 10px 0 20px;
+  .piece-deletion {
+    display: inline;
+    padding: 2px 10px;
+    border-radius: 12px;
+    border: 1px solid #ffffff;
+    margin: 0 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: #fef6f4;
+      border: 1px solid #dc8687;
+      color: #dc8687;
+    }
+  }
+  .color {
+    background-color: #fef6f4;
+    border: 1px solid #dc8687;
+    color: #dc8687;
+  }
 }
 .module {
   display: grid;

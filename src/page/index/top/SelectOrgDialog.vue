@@ -1,7 +1,7 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="选择组织切换" width="520px" @close="loadPage">
-    <el-form :model="orgForm" ref="orgForm" label-width="100px">
-      <el-form-item label="组织名称" prop="name">
+    <el-form class="form-detail" :model="orgForm" ref="orgForm" size="small" label-width="100px">
+      <el-form-item label="组织名称：" prop="name">
         <el-select v-model="orgForm.orgId" placeholder="请选择">
           <el-option v-for="item in orgList" :key="item.orgId" :label="item.name" :value="item.orgId">
           </el-option>
@@ -39,6 +39,7 @@ export default {
     ...mapActions([
       'GetUserInfo',
       'GetMenu',
+      'ClearMenu',
     ]),
     submitForm () {
       setOrg(this.orgForm.orgId).then(() => {
@@ -50,12 +51,13 @@ export default {
             spinner: 'el-icon-loading',
             background: 'rgba(0, 0, 0, 0.7)',
           })
+          this.ClearMenu()
           setTimeout(async () => {
-            const data = await this.GetMenu()
-            this.$router.$avueRouter.formatRoutes(data, true)
+            await this.GetMenu()
+            // this.$router.$avueRouter.formatRoutes(data, true)
             loading.close()
             this.$message({
-              message: '组织切换成功!',
+              message: '组织切换成功！',
               type: 'success',
             })
             this.$router.push({

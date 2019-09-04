@@ -31,7 +31,7 @@
               <el-menu-item index="603" class="menu-item" @click.native="handleSelectAttention()">
                 <span>我的关注</span>
               </el-menu-item>
-              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id)" @dblclick.native="item.userId==userInfo.userId?changeGroup(item.name,item.id,item.isOpen):''">
+              <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id,item.userId==userInfo.userId)" @dblclick.native="item.userId==userInfo.userId?changeGroup(item.name,item.id,item.isOpen):''">
                 <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start" v-if="item.userId==userInfo.userId">
                   <span>{{item.name}}</span>
                 </el-tooltip>
@@ -60,7 +60,7 @@
             <iep-button type="primary" @click="handleRemoveBatch" plain v-show="mark=='group'">批量移除</iep-button>
           </template>
           <template slot="right">
-            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" size="small"></iep-select>
+            <iep-select v-model="orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" size="small" clearable></iep-select>
             <el-radio-group size="small">
               <!-- <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button> -->
             </el-radio-group>
@@ -72,7 +72,7 @@
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
           <template slot="before-columns">
           </template>
-          <el-table-column prop="operation" label="操作" width="160px">
+          <el-table-column prop="operation" label="操作" width="160px" v-if="isremove == true">
             <template slot-scope="scope">
               <operation-wrapper>
                 <iep-button type="warning" v-show="mark==''" plain @click="handleadd(scope.row)">添加</iep-button>
@@ -139,6 +139,7 @@ export default {
         { value: 2, label: '资产所属为本组织' },
       ],
       orgId: '',
+      isremove: false,
     }
   },
   computed: {
@@ -190,10 +191,11 @@ export default {
       if (typeof this.$refs['OperationSearch'] != 'undefined') {
         this.$refs['OperationSearch'].input = ''
       }
+      this.orgId = ''
       this.searchPage()
     },
     handleRemove (row) {
-      this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
+      this.$confirm('此操作将永久移出该分组, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -219,7 +221,7 @@ export default {
         this.$message('请先选择需要移除的选项')
         return
       }
-      this.$confirm('此操作将永久移除该数据, 是否继续?', '提示', {
+      this.$confirm('此操作将永久移出该分组, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -266,12 +268,14 @@ export default {
     handleSelectAttention () {
       this.mark = 'attention'
     },//我关注的分页
-    handleSelectType (k) {
+    handleSelectType (k, isremove) {
       this.groupType = k
+      this.isremove = isremove
       this.mark = 'group'
       if (typeof this.$refs['OperationSearch'] != 'undefined') {
         this.$refs['OperationSearch'].input = ''
       }
+      this.orgId = ''
       this.searchPage()
     },
     loadTypeList () {
@@ -312,7 +316,7 @@ export default {
     handleApprenticeConfirm (row) {
       addMasterWorker({ masterWorker: [row.userId], refuseContent: '' }).then(({ data }) => {
         if (data.data) {
-          this.$message.success('拜师成功！')
+          this.$message.success('拜师申请已提交成功！')
         } else {
           this.$message.error(data.msg)
         }

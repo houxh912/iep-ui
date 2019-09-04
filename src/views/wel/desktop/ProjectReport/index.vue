@@ -85,9 +85,6 @@ export default {
       this.realName = ''
       this.loadPage()
     },
-    searchPage (val) {
-      this.loadPage(val)
-    },
     handleClick (row) {
       this.$router.push({
         path: `/wel/project_report_detail/${row.reportId}`,

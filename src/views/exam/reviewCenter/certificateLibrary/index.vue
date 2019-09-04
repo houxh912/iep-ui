@@ -5,17 +5,17 @@
       <operation-container>
         <template slot="left">
           <iep-button size="small" type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
-          <iep-button @click="handleDeleteAll">批量删除</iep-button>
+          <!-- <iep-button @click="handleDeleteAll">批量删除</iep-button> -->
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage">
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
         @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange"
-        is-mutiple-selection is-index>
+        is-index>
         <el-table-column prop="subject" label="科目" width="120">
           <template slot-scope="scope">
             {{scope.row.subject}}
@@ -51,7 +51,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleDelete(scope.row)">删除</iep-button>
+              <iep-button v-if="scope.row.associatedState === 0" @click="handleDelete(scope.row)">删除</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -112,14 +112,14 @@ export default {
      */
     handleDelete (row) {
       this._handleComfirm([row.id], deleteById, '删除')
-      console.log(row.id)
+      // console.log(row.id)
     },
 
     /**
      * 选择证书选项，判断是否选择
      */
     selectionChange (val) {
-      console.log(val.map(m => m.id))
+      // console.log(val.map(m => m.id))
       if (val.map(m => m.id) == '') {
         this.selectValue = false
         return

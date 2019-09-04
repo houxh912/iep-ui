@@ -58,14 +58,16 @@
             <div class="content">{{form.sexName}}</div>
           </div>
           <div class="info-item">
+            <label>招聘期限：</label>
+            <div class="content">{{form.term}}</div>
+          </div>
+        </div>
+        <div class="info welfare">
+          <div class="info-item">
             <label>福利待遇：</label>
             <div class="content">
               <iep-tag-detail :value="form.welfareTreatmentList"></iep-tag-detail>
             </div>
-          </div>
-          <div class="info-item">
-            <label>招聘期限：</label>
-            <div class="content">{{form.term}}</div>
           </div>
         </div>
       </el-card>
@@ -203,5 +205,8 @@ export default {
       font-size: 14px;
     }
   }
+}
+.welfare {
+  display: flex;
 }
 </style>

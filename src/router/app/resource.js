@@ -97,6 +97,13 @@ export default [
     count: 0,
     countName: 'countProject',
     component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/projectList/'),
+    children: [
+      {
+        path: 'project_details/:id',
+        name: '项目详情',
+        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/projectDetails/'),
+      },
+    ],
   },
     {
       path: 'policy_center',

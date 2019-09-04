@@ -340,13 +340,18 @@ export default [
       },
       {
         path: 'project_details/:id',
-        name: '项目详情',
+        name: '频道项目详情',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/projectDetails/'),
       },
       {
         path: 'project_list',
         name: '项目列表',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/projectList/'),
+      },
+      {
+        path: 'project_pk',
+        name: '项目PK',
+        component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/projectList/projectPK/'),
       },
       {
         path: 'organizational_list',

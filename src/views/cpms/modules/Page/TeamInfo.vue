@@ -17,7 +17,7 @@
         </el-form-item>
       </el-col>
       <el-col :span='8'>
-        <el-form-item label="产品经理：">
+        <el-form-item label="组合系统经理：">
           <iep-contact-multiple-user v-model="form.userRelationProducts" disabled></iep-contact-multiple-user>
         </el-form-item>
       </el-col>

@@ -1,6 +1,13 @@
 <template>
   <div class="product-ku">
     <search @search-page="searchData"></search>
+    <div class="deletion-box">
+      <div class="codule-deletion">
+        按分类：
+        <div :class="productType==''?'color':''" class="piece-deletion" @click="tabProductType('')">全部</div>
+        <div v-for="(item) in cpmsProductType" :key="item.value" :class="productType==item.value?'color':''" class="piece-deletion" @click="tabProductType(item.value)">{{item.label}}</div>
+      </div>
+    </div>
     <div class="module">
       <el-card class="module-item" v-for="(item,index) in moduleList" :key="index" shadow="hover" @click.native="handleleDetail(item)">
         <div class="content">
@@ -25,6 +32,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Search from './Search'
 import { getDetailsPage } from '@/api/app/cpms/channel'
 import { putProductById } from '@/api/app/cpms/custom_module'
@@ -39,7 +47,16 @@ export default {
         size: 12,
       },
       total: 0,
+      productType: '',
     }
+  },
+  computed: {
+    ...mapGetters([
+      'dictGroup',
+    ]),
+    cpmsProductType () {
+      return this.dictGroup['PRODUCT_TYPE']
+    },
   },
   components: {
     Search,
@@ -51,10 +68,14 @@ export default {
       this.getDetailsPage()
     },
     getDetailsPage () {
-      getDetailsPage(Object.assign({}, this.params, this.paramForm)).then(({ data }) => {
+      getDetailsPage(Object.assign({}, this.params, { type: this.productType }, this.paramForm)).then(({ data }) => {
         this.moduleList = data.data.records
         this.total = data.data.total
       })
+    },
+    tabProductType (val) {
+      this.productType = val
+      this.getDetailsPage()
     },
     handleProductClick (productId) {
       putProductById(productId).then(() => {
@@ -83,6 +104,29 @@ export default {
 }
 .clearfix:after {
   clear: both;
+}
+.codule-deletion,
+.products-deletion {
+  text-align: left;
+  margin: 10px 0 20px;
+  .piece-deletion {
+    display: inline;
+    padding: 2px 10px;
+    border-radius: 12px;
+    border: 1px solid #ffffff;
+    margin: 0 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: #fef6f4;
+      border: 1px solid #dc8687;
+      color: #dc8687;
+    }
+  }
+  .color {
+    background-color: #fef6f4;
+    border: 1px solid #dc8687;
+    color: #dc8687;
+  }
 }
 .module {
   display: grid;

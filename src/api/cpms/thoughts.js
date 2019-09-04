@@ -53,6 +53,15 @@ export function getFollowPage (obj) {
   })
 }
 
+// 说说中@人联想接口
+export function getUserNameList (obj) {
+  return request({
+    url: `${prefixUrl}/user/name/list`,
+    method: 'get',
+    params: obj,
+  })
+}
+
 // 说说点赞
 export function addThumbsUpByRecord (id) {
   return request({
@@ -220,5 +229,14 @@ export function getManagePage (params) {
     url: `${prefixUrl}/manage/page`,
     method: 'get',
     params: params,
+  })
+}
+
+// 批量修改说说公开状态
+export function postStatusBatch (data) {
+  return request({
+    url: `${prefixUrl}/status/batch`,
+    method: 'post',
+    data: data,
   })
 }

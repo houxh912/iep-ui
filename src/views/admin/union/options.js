@@ -13,15 +13,15 @@ const dictsMap = {
 
 const columnsMap = [
   {
+    prop: 'name',
+    label: '联盟名称',
+    width: '200px',
+  },
+  {
     prop: 'intro',
     label: '联盟描述',
     type: 'detail',
   },
-  // {
-  //   prop: 'isOpen',
-  //   label: '允许加入',
-  //   type: 'dict',
-  // },
   {
     prop: 'status',
     label: '状态',
@@ -39,9 +39,23 @@ const columnsMap = [
 
 const initForm = () => {
   return {
-    name: '',
-    logo: '',
+    abrName: '',
+    contactMethod: '',
+    coreAdvantage: '',
+    createTime: '',
+    establishTime: '',
     intro: '',
+    logo: '',
+    modules: [],
+    name: '',
+    orgId: 0,
+    orgName: '',
+    status: 0,
+    structure: '',
+    unionCulture: '',
+    unionId: 1,
+    updateTime: '',
+    userId: 1,
   }
 }
 

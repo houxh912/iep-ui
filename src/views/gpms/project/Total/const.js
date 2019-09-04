@@ -1,4 +1,5 @@
 import { getStore } from '@/util/store'
+import { checkProjectName } from '@/api/gpms/index'
 const dicData = getStore({ name: 'dictGroup' })
 function changeDict (list) {
   let data = {}
@@ -13,12 +14,9 @@ export const dictMap = {
     { value: 1, label: '是' },
     { value: 2, label: '否' },
   ],
-  status: [
-    { value: 1, label: '未提交' },
-    { value: 2, label: '待审核' },
-    { value: 3, label: '审核通过' },
-    { value: 4, label: '审核不通过' },
-  ],
+  projectStatus: {
+    1:'待提交',2:'待审核',3:'已立项',4:'审核未通过',5:'锁定',
+  },
   projectStage: changeDict(dicData.prms_project_stage),
   stageOptions: [],
   typeOptions: [
@@ -33,23 +31,6 @@ export const dictMap = {
 }
 
 export const columnsMap = [
-  {
-    prop: 'projectBudget',
-    label: '项目预算',
-  },
-  {
-    prop: 'contractAmount',
-    label: '合同金额',
-  },
-  {
-    prop: 'projectStage',
-    label: '项目阶段',
-    type: 'dict',
-  },
-  {
-    prop: 'publisherName',
-    label: '发布人',
-  },
   // {
   //   prop: 'projectTime',
   //   label: '立项时间',
@@ -63,13 +44,32 @@ let intValidate = (rule, value, callback) => {
     callback(new Error())
   }
 }
+var timeout = null
+var checkName = (rule, value, callback) => {
+  if (!value) {
+    return callback(new Error('项目名称不能为空'))
+  }
+  if(timeout !== null) 
+          clearTimeout(timeout)
+  timeout = setTimeout(() => {
+    checkProjectName({projectName:value}).then(res => {
+      if (res.data.data === false) {
+        console.log(0)
+        return callback(new Error(res.data.msg))
+      } 
+    })
+  }, 1000)
+}
 
 export const rules = {
   projectType: [
     { required: true, message: '请选择项目类型', trigger: 'blur' },
   ],
   projectName: [
-    { required: true, message: '请输入项目名称', trigger: 'blur' },
+    { validator: checkName, required: true, trigger: 'change' },
+  ],
+  projectTime: [
+    { required: true, message: '请选择立项时间', trigger: 'blur' },
   ],
   relatedClient: [
     { required: true, message: '请输入相关客户', trigger: 'change' },
@@ -77,8 +77,8 @@ export const rules = {
   projectTagList: [
     { required: true, message: '请输入项目标签', trigger: 'change' },
   ],
-  projectTime: [
-    { required: true, message: '请选择立项时间', trigger: 'change' },
+  projectStage: [
+    { required: true, message: '请选择项目阶段', trigger: 'change' },
   ],
   projectBudget: [
     { validator: intValidate, message: '请输入正整数', trigger: 'change' },
@@ -118,37 +118,44 @@ export function paramForm () {
   }
 }
 
-export function initFormData () {
+export function initFormData (obj) {
+  const name = obj ? obj.realName : ''
+  const id = obj ? obj.userId : ''
   return {
+    projectTime:'',//立项时间
+    projectStatus:'',//项目状态
     projectName: '', // 项目名称
+    projectExplain: '',//项目说明
+    projectTypeBefore: '', // 项目类型
     projectType: '', // 项目类型
     businessType: '', // 业务类型
     businessTypeSec: '', // 其他
+    projectLevel: '',//项目等级
+    attendeeId:'',//委托组织
     relatedClient: '', // 相关客户
     relatedClientList: {
       id: '',
       name: '',
     },
     projectBudget: '', // 项目预算
-    projectTime:'',
+    approvalTime:'',//立项时间
+    applyTime:'',//审批时间
     endTime:'',
     projectManager:'',// 项目经理
     projectManagerList:{
-      id: '',
-      name: '',
+      id,
+      name,
     },// 项目经理
-    projectMembersList: [], // 项目成员
+    projectHandles:'',// 协作负责人
+    projectHandlesList:[],
+    memberList: [], // 项目成员
     membersList: [],
     mktManager: '', // 市场经理
-    mktManagerList: {
-      id: '',
-      name: '',
-    },
+    marketManagerList:[],
+    mktManagerList: [],
     projectMentor: '', // 项目指导人
-    projectMentorList: {
-      id: '',
-      name: '',
-    },
+    mentorList:[],
+    projectMentorList: [],
     projectTagList: [], // 项目标签
     isRelevanceProduct: '', // 是否关联产品
     notRelevanceProductReason: '', // 不关联理由
@@ -166,6 +173,7 @@ export function initFormData () {
     materialIds: [], // 材料
     materialList: [],
     contractIds: [], // 合同
+    contractAmount: '',//合同金额
     contractList: [],
     projectIds: [], // 项目
     projectList: [],
@@ -174,7 +182,7 @@ export function initFormData () {
     paymentRelations: [], // 预计回款时间,
     estimatedSigntime: '', // 预计签订时间
     projectBudgetList: {},
-    projectAmount: '',
+    projectAmount: 0,
     projectStage: '',
     orgId:'',
     isClaim: 1,
@@ -189,16 +197,16 @@ export const relatedFormList = [{
     name: '关联的材料',
     ids: 'materialIds',
     list: 'materialList',
+  // }, {
+  //   name: '关联的合同',
+  //   ids: 'contractIds',
+  //   list: 'contractList',
+  // }, {
+  //   name: '关联的项目',
+  //   ids: 'projectIds',
+  //   list: 'projectList',
   }, {
-    name: '关联的合同',
-    ids: 'contractIds',
-    list: 'contractList',
-  }, {
-    name: '关联的项目',
-    ids: 'projectIds',
-    list: 'projectList',
-  }, {
-    name: '关联的周报',
+    name: '关联的项目周报',
     ids: 'reportIds',
     list: 'reportList',
   },
@@ -209,7 +217,7 @@ export const initSearchForm = () => {
     orgId:'',//所属组织
     projectStage: [],//项目阶段
     projectLevel: [],//项目等级
-    associatedProducts: false,//是否项目关联
+    isRelevanceProduct: 2,//是否项目关联
     manager: '',//项目经理
   }
 }
@@ -230,5 +238,16 @@ export const initBudgetForm = () => {
     travelFee: '', // 差旅费
     projectBudget: '', // 项目总预算(必填)
     forecastProfits: '', // 预估利润
+  }
+}
+
+export function initTransferForm () {
+  return {
+    name:'',
+    projectManagerList:{
+      id: '',
+      name: '',
+    },
+    pubilsh:false,
   }
 }

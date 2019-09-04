@@ -63,6 +63,14 @@ export function addOrgById (id) {
   })
 }
 
+export function addOrgByIds (ids) {
+  return request({
+    url: `${prefixUrl}/org/pull`,
+    method: 'post',
+    data: ids,
+  })
+}
+
 export function putUnion (obj) {
   return request({
     url: `${prefixUrl}/update`,
@@ -213,6 +221,24 @@ export function putUnionRoleUpdate (obj) {
 export function getUnionRoleByUserId (id) {
   return request({
     url: `${prefixUrl}/user/role/${id}`,
+    method: 'get',
+  })
+}
+
+export function getNotInUnionOrgPage (query) {
+  return request({
+    url: `${prefixUrl}/no_union_org/page`,
+    method: 'get',
+    params: query,
+  })
+}
+/**
+ * 获得联盟详情通过ID获取联盟的所属组织与拥有模块
+ * @param {*} id 
+ */
+export function getUnionModuleOrgById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
     method: 'get',
   })
 }

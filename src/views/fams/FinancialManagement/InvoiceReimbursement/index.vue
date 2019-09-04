@@ -9,7 +9,7 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column label="操作" width="300" fixed="right">
+        <el-table-column label="操作" width="200" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
@@ -77,7 +77,7 @@ export default {
       this.$router.push({
         path: `/fams_spa/invoice_detail/${row.id}`,
         query: {
-          isApproval: true,
+          isFinancialApproval: true,
         },
       })
     },

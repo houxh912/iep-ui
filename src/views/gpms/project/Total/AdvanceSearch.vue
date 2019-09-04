@@ -14,7 +14,7 @@
         <iep-dict-select v-model="form.projectLevel" dict-name="prms_project_level" style="width: 100%"></iep-dict-select>
       </el-form-item>
       <el-form-item label="是否产品关联">
-        <el-radio-group v-model="form.associatedProducts">
+        <el-radio-group v-model="form.isRelevanceProduct">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { initSearchForm,dictMap,rules} from './const'
+import { initSearchForm, dictMap, rules } from './const'
 // import { getContactAssociate } from '@/api/crms/contact'
 // import { getPageData } from '@/api/crms/customer'
 import { mapGetters, mapState } from 'vuex'
@@ -65,9 +65,7 @@ export default {
     },
     clearSearchParam () {
       this.form = initSearchForm()
-    },
-    handleSelect (item) {
-      console.log(item)
+      this.$emit('clear-search-param')
     },
   },
 }

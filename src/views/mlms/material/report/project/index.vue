@@ -95,6 +95,7 @@ export default {
         getTableData(this.currentDate).then(({data}) => {
           this.$refs['detail'].weeklyList = data.data
           this.$refs['detail'].activeName = -1
+          this.$refs['form'].loadState = false
         })
       })
     },
@@ -106,6 +107,7 @@ export default {
         this.$refs['form'].formData.startTime = this.currentDate.startTime
         this.$refs['form'].formData.endTime = this.currentDate.endTime
         this.$refs['form'].formData = row
+        this.$refs['form'].loadState = false
       })
     },
     handleCreate () {

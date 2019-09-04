@@ -15,6 +15,7 @@ const initForm = () => {
     tagKeyWords: [],
     content: '',
     image: '',
+    priority: 1, //优先级
     attributeId: '',
   }
 }

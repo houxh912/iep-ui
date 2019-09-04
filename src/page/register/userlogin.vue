@@ -30,11 +30,11 @@
         <a-icon v-if="form.phone" slot="suffix" type="close-circle" @click="emitEmpty('phone')" />
       </a-input>
     </el-form-item>
-    <el-form-item prop="code">
+    <!-- <el-form-item prop="code">
       <a-input-search :maxlength="4" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" @search="handleSend" size="large">
         <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
       </a-input-search>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item>
       <el-checkbox v-model="checked">同意并遵守<span class="agreement">《用户守则》</span></el-checkbox>
     </el-form-item>

@@ -30,7 +30,7 @@ export default {
   },
   created () {
     getProjectList().then((res) => {
-      this.tableData = res.data.data
+      this.tableData = res.data.data || []
     })
   },
   methods: {

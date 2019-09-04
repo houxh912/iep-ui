@@ -1,5 +1,28 @@
 import { validatenull } from '@/util/validate'
+import { getLocation } from '@/util/url'
+import Cookies from 'js-cookie'
 
+/**
+ * 设置根域名Cookie
+ * @param {*} key 
+ * @param {*} value 
+ * @param {*} option 
+ */
+export const setCookies = (key, value, option = {
+  expires: 2147483647,
+  domain: '.' + getLocation(),
+}) => {
+  Cookies.set(key, value, option)
+}
+/**
+ * 获得根域名Cookie
+ * @param {*} key 
+ * @param {*} value 
+ * @param {*} option 
+ */
+export const getCookies = (key) => {
+  Cookies.get(key)
+}
 /**
  * 存储localStorage
  */

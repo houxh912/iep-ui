@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     loadList () {
-      getMaterialList().then(({data}) => {
+      getMaterialList().then(({ data }) => {
         this.dataList = data.data.gzzd ? data.data.gzzd : []
       })
     },

@@ -21,22 +21,22 @@ export default {
         childList: [
           {
             id: '1',
-            img: '../../img/department/d1.jpg',
+            img: '/img/department/d1.webp',
             subtitle: '集团平台运营中心',
           },
           {
             id: '2',
-            img: '../../img/department/d2.jpg',
+            img: '/img/department/d2.webp',
             subtitle: '集团平台运营中心',
           },
           {
             id: '3',
-            img: '../../img/department/d3.jpg',
+            img: '/img/department/d3.webp',
             subtitle: '集团平台运营中心',
           },
           {
             id: '4',
-            img: '../../img/department/d4.jpg',
+            img: '/img/department/d4.webp',
             subtitle: '集团平台运营中心',
           }],
       },
@@ -44,22 +44,22 @@ export default {
         childList: [
           {
             id: '5',
-            img: '../../img/department/d5.jpg',
+            img: '/img/department/d5.webp',
             subtitle: '集团平台运营中心',
           },
           {
             id: '6',
-            img: '../../img/department/d2.jpg',
+            img: '/img/department/d2.webp',
             subtitle: '集团平台运营中心',
           },
           {
             id: '7',
-            img: '../../img/department/d3.jpg',
+            img: '/img/department/d3.webp',
             subtitle: '集团平台运营中心',
           },
           {
             id: '8',
-            img: '../../img/department/d4.jpg',
+            img: '/img/department/d4.webp',
             subtitle: '集团平台运营中心',
           },
         ],

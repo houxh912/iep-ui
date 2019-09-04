@@ -7,7 +7,8 @@
           <iep-button v-if="sys_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="roleName">
+          <operation-search @search-page="searchPage" prop="roleName" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -49,6 +50,7 @@ import {
   fetchRoleTree,
   putObj,
 } from '@/api/admin/role'
+import AdvanceSearch from './AdvanceSearch'
 import { fetchMenuTree } from '@/api/admin/menu'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
@@ -62,6 +64,7 @@ export default {
   components: {
     DialogForm,
     PermissionDialogForm,
+    AdvanceSearch,
   },
   data () {
     return {

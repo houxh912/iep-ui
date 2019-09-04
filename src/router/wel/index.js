@@ -51,9 +51,9 @@ export default [
         component: () => import(/* webpackChunkName: "wel" */'@/views/goms/Welcome/index.vue'),
       },
       {
-        path: 'finishorg',
+        path: 'orgwelcome',
         name: '欢迎组织',
-        component: () => import(/* webpackChunkName: "wel" */'@/views/goms/Welcome/FinishOrg.vue'),
+        component: () => import(/* webpackChunkName: "wel" */'@/views/goms/Welcome/Welcome.vue'),
       },
       {
         path: 'desktop',

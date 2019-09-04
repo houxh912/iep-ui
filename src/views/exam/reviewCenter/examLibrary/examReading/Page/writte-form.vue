@@ -1,11 +1,14 @@
 <template>
-  <div>
+  <!-- <el-dialog :visible.sync="dialogVisible" title="阅卷进度" width="90%" :before-close="saveAndGoBack"> -->
+  <div v-loading="loading">
     <div class="header">
       <span class="title1"><b>在线考试系统</b></span>
       <span class="title2"></span>
       <span class="title3">{{resdata.fieldName}}</span>
       <span class="title4">
-        评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}</span>
+        评分进度<span class="title5">{{count}}</span> / {{resdata.questionTotalNum}}
+      </span>
+      <iep-button class="button" @click="giveZero">一键零分</iep-button>
     </div>
 
     <div class="examShowss" style="background-color:#fff">
@@ -22,29 +25,33 @@
           </div>
 
           <!-- <div>
-            <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="userByAnswer" style="width: 70%;margin-top:10px" :rows="2"></el-input>
-            </li>
-          </div> -->
+              <li v-for="(item,index) in fillAreaList" :key="index" style="margin-left:28px;">
+                <el-input type="textarea" v-model="userByAnswer" style="width: 70%;margin-top:10px" :rows="2"></el-input>
+              </li>
+            </div> -->
 
           <div>
-            <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-              <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6" :disabled="disabled" @focus="inputClose"></el-input>
-            </li>
+            <!-- <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;"> -->
+            <!-- <el-input type="textarea" v-model="userByAnswer" style="width: 80%;margin-top:10px" :rows="6" :disabled="disabled" @focus="inputClose"></!-->
+            <!-- <iep-html v-model="userByAnswer"></!-->
+            <!-- </li> -->
             <div class="setScore">
-              <el-form :model="ruleForm" :rules="rules" ref="form" label-width="100px">
-                <el-form-item label="本题打分 :" prop="single">
-                  <el-input class="giveinput" v-model.number="ruleForm.single"></el-input>
+              <el-form :model="ruleForm" :rules="rules" ref="form" label-width="56px">
+                <el-form-item label="答案 :">
+                  <iep-html v-model="userByAnswer"></iep-html>
+                </el-form-item>
+                <el-form-item label="打分 :" prop="single">
+                  <el-input-number v-model="ruleForm.single" controls-position="right" :min="0" :max="resdata.single"></el-input-number>
                 </el-form-item>
               </el-form>
             </div>
           </div>
 
           <!-- <div>
-            <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
-              <iep-froala-editor v-model="userByAnswer" style="width:80%"></iep-froala-editor>
-            </li>
-          </div> -->
+              <li v-for="(item,index) in operationList" :key="index" style="margin-left:28px;display:flex">
+                <iep-froala-editor v-model="userByAnswer" style="width:80%"></iep-froala-editor>
+              </li>
+            </div> -->
 
           <div class="center" align="center">
             <iep-button style="margin:0 10px;" @click="prv" :disabled="resdata.firstOrLastQuestion === 0">上一题</iep-button>
@@ -57,46 +64,58 @@
       <div class="right" v-if="resdata.title">
         <div class="container">
           <div class="top">
-            <span class="titleone">本题得分</span><br>
-            <span class="titletwoss">
+            <p class="titleone">本题得分</p>
+            <span class="fen"><em>{{showScore}}</em> / {{resdata.single}}</span>
+            <!-- <span class="titletwoss">
               <el-input class="fen" v-model="showScore"></el-input>
             </span>
             <span class="titlethree"> / </span>
-            <span class="titlefour">{{resdata.single}}</span>
+            <span class="titlefour">{{resdata.single}}</span> -->
           </div>
 
-          <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData" :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring>
+          <!-- <ve-ring style="padding-top: 15px;margin-top: -75px;" height="160px" :data="chartData"
+            :settings="chartSettings" :tooltip-visible="false" :legend-visible="false" :colors="colors"></ve-ring> -->
 
           <div class="card">
             <!-- <div v-if="resdata.textMap.length > 0">
-              <span class="answerSheet">填空题</span>
+                <span class="answerSheet">填空题</span>
+                <div class="answerSheetTop">
+                  <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                </div><br>
+              </div> -->
+
+            <div v-if="resdata.operationMap.length > 0">
+              <span class="answerSheet">{{resdata.operationMap[0].questionType}}</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.operationMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                  {{item.questionNum}}</iep-button>
               </div><br>
-            </div> -->
+            </div>
 
             <div v-if="resdata.textMap.length > 0">
-              <span class="answerSheet">简答题</span>
+              <span class="answerSheet">{{resdata.textMap[0].questionType}}</span>
               <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                <iep-button class="choices" v-for="(item,index) in resdata.textMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                  {{item.questionNum}}</iep-button>
               </div><br>
             </div>
 
             <!-- <div v-if="resdata.Map.length > 0">
-              <span class="answerSheet">实操题</span>
-              <div class="answerSheetTop">
-                <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
-              </div><br>
-            </div> -->
+                <span class="answerSheet">实操题</span>
+                <div class="answerSheetTop">
+                  <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">{{item.questionNum}}</iep-button>
+                </div><br>
+              </div> -->
           </div>
         </div>
       </div>
     </div>
 
   </div>
+  <!-- </el-dialog> -->
 </template>
 <script>
-import { passWrittenById } from '@/api/exam/examLibrary/examReading/examReading'
+import { passWrittenById, setZeroAll } from '@/api/exam/examLibrary/examReading/examReading'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -124,9 +143,11 @@ export default {
       offsetY: 80,
     }
     return {
+      loading: false,
+      dialogVisible: true,
       disabled: false,
       userByAnswer: '',        //显示用户答案的输入框(v-model绑定的值)
-      showScore: '',           //答题卡上显示的分数(v-model绑定的值)
+      showScore: 0,           //答题卡上显示的分数(v-model绑定的值)
       fillInput: '',           //填空(v-model绑定的值)
       freeInput: '',           //简答(v-model绑定的值)
       operation: '',           //实操(v-model绑定的值)
@@ -147,6 +168,7 @@ export default {
         questionTotalNum: '',//题目总数
         titleOptions: [],    //答案选项数组
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
+        operationMap: [],    //答题卡片的操作题数组集合，从数组中遍历题目出来
       },
       ruleForm: {
         single: '',
@@ -196,7 +218,15 @@ export default {
         }
       }
       if (type === '简答题') {
-        if (this.ruleForm.single > 0) {
+        if (this.ruleForm.single >= 0) {
+          params.score = this.ruleForm.single
+          params.judgeId = this.formData.judgeId
+        } else {
+          params.score = ''
+        }
+      }
+      if (type === '操作题') {
+        if (this.ruleForm.single >= 0) {
           params.score = this.ruleForm.single
           params.judgeId = this.formData.judgeId
         } else {
@@ -217,19 +247,29 @@ export default {
      * 获取题目的详细数据(公用请求方法)
      */
     getSubjectById (params) {
+      this.loading = true
       passWrittenById(params).then(res => {
         const record = res.data.data
         this.userByAnswer = record.userAnswer
-        this.showScore = record.score
+        this.showScore = record.score || 0
         this.resdata = record
         this.resdata.questionOffNum = record.questionNumList
-        this.resdata.questionTotalNum = record.questionNumList.textMap.length
+        // this.resdata.questionTotalNum = record.questionNumList.textMap.length
         this.resdata.textMap = record.questionNumList.textMap
+        this.resdata.questionTotalNum = record.questionNumList.textMap.length + record.questionNumList.operationMap.length
+        this.resdata.operationMap = record.questionNumList.operationMap
+
         if (this.resdata.questionTypeName === '简答题') {
           this.ruleForm.single = record.score
           this.resdata.kindTotalNum = record.questionNumList.textMap.length
           this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
         }
+        if (this.resdata.questionTypeName === '操作题') {
+          this.ruleForm.single = record.score
+          this.resdata.kindTotalNum = record.questionNumList.operationMap.length
+          this.resdata.kindMark = record.questionNumList.operationMap[0].grade * this.resdata.kindTotalNum
+        }
+        this.loading = false
         //console.log('hhh', this.resdata.questionTotalNum)
       })
     },
@@ -253,6 +293,33 @@ export default {
     },
 
     /**
+     *一键零分
+     */
+    giveZero () {
+      const params = {
+        examId: this.formData.examId,
+      }
+      this.$confirm('此操作将一键设置为零分, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        setZeroAll(params).then(res => {
+          this.$message({
+            type: 'success',
+            message: res.data.msg,
+          })
+          this.loadPage()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消设置',
+        })
+      })
+    },
+
+    /**
      *计算每种题型已完成的题数
      */
     kindOffNum () {
@@ -261,6 +328,13 @@ export default {
       if (type === '简答题') {
         for (let i = 0; i < this.resdata.textMap.length; i++) {
           if (this.resdata.textMap[i].answerOrNot > 0) {
+            kindcount++
+          }
+        }
+      }
+      if (type === '操作题') {
+        for (let i = 0; i < this.resdata.operationMap.length; i++) {
+          if (this.resdata.operationMap[i].answerOrNot > 0) {
             kindcount++
           }
         }
@@ -291,45 +365,43 @@ export default {
      * 上一题
      */
     prv () {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          const params = {
-            questionNum: this.resdata.questionNum - 1,
-          }
-          this.judgeType(params)
-          this.getSubjectById(params)
-        }
-      })
+      // this.$refs.form.validate((valid) => {
+      //   if (valid) {
+      const params = {
+        questionNum: this.resdata.questionNum - 1,
+      }
+      this.judgeType(params)
+      this.getSubjectById(params)
+      //   }
+      // })
     },
 
     /** 
      * 下一题
      */
     next () {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          const params = {
-            questionNum: this.resdata.questionNum + 1,
-          }
-          this.judgeType(params)
-          this.getSubjectById(params)
-        }
-      })
+      // this.$refs.form.validate((valid) => {
+      //   if (valid) {
+      const params = {
+        questionNum: this.resdata.questionNum + 1,
+      }
+      this.judgeType(params)
+      this.getSubjectById(params)
+      //   }
+      // })
     },
 
     /**
      * 点击答题卡
      */
     handleCard (item) {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          const params = {
-            questionNum: item.questionNum,
-          }
-          this.judgeType(params)
-          this.getSubjectById(params)
-        }
-      })
+      // this.$refs.form.validate(() => {
+      const params = {
+        questionNum: item.questionNum,
+      }
+      this.judgeType(params)
+      this.getSubjectById(params)
+      // })
     },
 
     /**
@@ -338,21 +410,23 @@ export default {
     saveAndGoBack () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.$confirm('此操作将保存试卷，是否继续?', '提示', {
+          this.$confirm('此操作将保存得分，是否继续?', '提示', {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning',
-          }).then(() => {
+          }).then(async () => {
             const params = {
               ifCommit: 1,
             }
             this.judgeType(params)
-            this.getSubjectById(params)
+            // const isSuccess = this.getSubjectById(params)
+            await passWrittenById(params)
             this.$message({
               type: 'success',
               message: '保存成功!',
             })
             this.$emit('close', false)
+
           }).catch(() => {
             this.$message({
               type: 'info',
@@ -409,6 +483,12 @@ export default {
       margin-left: 15px;
     }
   }
+  .button {
+    margin-left: 50px;
+    background: #f8e8e9;
+    border-color: #e3a4a6;
+    color: #ba1b21;
+  }
 }
 .examShowss {
   margin: 20px auto;
@@ -447,16 +527,23 @@ export default {
     .container {
       float: right;
       width: 280px;
-      margin-top: 30px;
+      padding: 15px 0 0;
       background: #fffbf6;
       border: 1px solid #ffdbc1;
       .top {
         text-align: center;
-        position: relative;
-        top: 40px;
+        margin: 0 0 15px;
         .titleone {
-          color: #595959;
-          font-size: 30px;
+          font-size: 20px;
+          margin-bottom: 0;
+        }
+        .fen {
+          font-size: 20px;
+          em {
+            color: #ba1b21;
+            font-style: normal;
+            font-size: 36px;
+          }
         }
         .titletwoss {
           color: #e6a23c;
@@ -507,11 +594,17 @@ export default {
 </style>
 <style  scoped>
 .giveinput >>> .el-input__inner {
-  width: 50px;
+  width: 80px;
   height: 40px;
   line-height: 40px;
   color: #e6a23c;
   font-size: 18px;
+}
+.fr-view {
+  border: 1px solid #dcdfe6;
+  padding: 6px 15px;
+  border-radius: 4px;
+  min-height: 40px;
 }
 </style>
 <style lang="scss">

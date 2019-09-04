@@ -1,88 +1,108 @@
 <template>
   <div class="report">
-    <iep-page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption"></iep-page-header>
-    <el-form :model="form" ref="form" label-width="110px" :rules="rules">
+    <iep-page-header :title="`${record.methodName}试题`" :data="[10, 5]" :backOption="backOption">
+    </iep-page-header>
+    <el-form :model="form" ref="form" label-width="120px" :rules="rules" size="small">
       <div class="select">
         <el-form-item class="item" label="题型：" prop="questionType">
-          <el-select v-model="form.questionType" size="small" clearable @change="handleChangeQuestionType"
-            :disabled="questionTypeDisabled">
-            <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+          <el-select clearable :disabled="questionTypeDisabled" class="selectItem" :value="form.questionType" @input="updateValue(arguments[0])">
+            <el-option v-for="(item, index) in res.exms_question_type" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:20%;">
-          <el-select v-model="form.difficulty" size="small" clearable :disabled="btnDisabled">
-            <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+        <el-form-item class="item" label="难度：" prop="difficulty" style="margin-left:4%">
+          <el-select v-model="form.difficulty" clearable :disabled="btnDisabled" class="selectItem">
+            <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="科目：" prop="field">
-          <el-select v-model="form.field" size="small" clearable :disabled="btnDisabled">
-            <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+          <el-select v-model="form.field" clearable :disabled="btnDisabled" class="selectItem">
+            <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item class="item" label="题类：" prop="kind" style="margin-left:20%;">
-          <el-select v-model="form.kind" size="small" clearable :disabled="btnDisabled">
-            <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+        <el-form-item class="item" label="题类：" prop="kind" style="margin-left:4%">
+          <el-select v-model="form.kind" clearable :disabled="btnDisabled" class="selectItem">
+            <el-option v-for="(item, index) in res.exms_question_category" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item class="item" label="关联：" prop="associatedState">
-          <el-select v-model="form.associatedState" size="small" clearable :disabled="btnDisabled">
-            <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label"
-              :value="item.id"></el-option>
+          <el-select v-model="form.associatedState" clearable :disabled="btnDisabled" class="selectItem">
+            <el-option v-for="(item, index) in associatedStateList" :key="index" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
 
-        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" style="margin-left:20%;">
-          <mutiply-tag-select v-if="btnDisabled == false" v-model="form.tagKeyWords" :select-objs="form.tagKeyWords" width="906px" ></mutiply-tag-select>
-          <el-tag v-else class="relatedTag" type="info" :key="tag" v-for="tag in tagsShow" size="medium">{{tag}}</el-tag>
+        <el-form-item class="item" label="关联标签：" prop="tagKeyWords" v-if="tabName ==='single'" style="margin-left:4%">
+          <iep-tag v-if="!btnDisabled" v-model="form.tagKeyWords"></iep-tag>
+          <iep-tag-detail v-else :value="form.tagKeyWords"></iep-tag-detail>
         </el-form-item>
       </div>
     </el-form>
 
-    <div align="center" style="width:100%;margin-top:250px;">
+    <div align="center" style="width:100%;">
       <hr>
     </div>
 
-    <iep-tabs v-model="tabName" :tab-list="tabList">
-      <template v-if="tabName ==='Single'" v-slot:Single>
+    <el-tabs v-model="tabName">
+      <el-tab-pane label=单题输入 name="single">
         <single-dialog ref="single" :postAnswer="postAnswer"></single-dialog>
         <div align="center" style="margin-top:2%;">
+          <iep-button v-if="record.examine === true" type="primary" @click="handleExamine">审核
+          </iep-button>
           <iep-button v-if="btnSave == 0" type="primary" @click="submitSingle">保存</iep-button>
-          <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">保存</iep-button>
+          <iep-button v-if="btnSave == 1" type="primary" @click="saveSingle" v-show="!btnDisabled">
+            保存</iep-button>
         </div>
+      </el-tab-pane>
+      <el-tab-pane label=批量导入 name="batch" v-if="record.id===''">
+        <batch-dialog ref="batch" v-model="form.questionType" @submit-batch="submitBatch">
+        </batch-dialog>
+      </el-tab-pane>
+    </el-tabs>
+
+    <iep-dialog :dialog-show="dialogExamine" title="审核试题" width="520px" @close="handleExamineCancel" center>
+      <div style="margin-bottom:16px">
+        <span class="explain">说明： </span>
+        <span class="explainTxt">每过审入库 1 题，奖励出题人 5 贝 !</span>
+      </div>
+      <div>
+        <el-radio-group v-model="states">
+          <el-radio :label="0">审核通过</el-radio>
+          <el-radio :label="1">审核不通过</el-radio>
+        </el-radio-group>
+        <el-input v-if="states === 1" v-model="content" type="textarea" maxlength="250" rows="4" style="margin-top:25px;" placeholder="请输入理由，字数不超过 250 ！" show-word-limit>
+        </el-input>
+      </div>
+      <template slot="footer">
+        <operation-wrapper>
+          <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+          <iep-button @click="handleExamineCancel">取消</iep-button>
+        </operation-wrapper>
       </template>
-      <!-- <template v-if="tabName ==='Batch'" v-slot:Batch>
-        <batch-dialog ref="batch"></batch-dialog>
-      </template> -->
-    </iep-tabs>
+    </iep-dialog>
+
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import SingleDialog from './Single.vue'
-// import BatchDialog from './Batch.vue'
-import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
-import { getTestOption, postNewTest, getExamMsg, postModify } from '@/api/exam/createExam/newTest/newTest'
+import BatchDialog from './Batch.vue'
+import { getTestOption, getExamMsg, postModify, postExaminePass, postExamineFalse, postBatchIteamBank } from '@/api/exam/createExam/newTest/newTest'
 export default {
   name: 'report',
   mixins: [mixins],
   components: {
     SingleDialog,
-    // BatchDialog,
-    MutiplyTagSelect,
+    BatchDialog,
   },
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+  props: [
+    'record',
+  ],
   data () {
     return {
+      dialogExamine: false,
+      content: '',
+      states: 0,
+      btnExamine: false,
       tagsShow: [],
       btnDisabled: false,
       btnSave: '',
@@ -104,21 +124,13 @@ export default {
         kind: '',
         difficulty: '',
         associatedState: '',
+        tagKeyWords: [],
+        tag: '', // 标签
       },
-      tabName: 'Single',
+      tabName: 'single',
       associatedStateList: [
         { id: 0, label: '不限' },
         { id: 1, label: '限考试' },
-      ],
-      tabList: [
-        {
-          label: '单题输入',
-          value: 'Single',
-        },
-        // {
-        //   label: '批量导入',
-        //   value: 'Batch',
-        // },
       ],
       rules: {
         field: [
@@ -136,6 +148,9 @@ export default {
         associatedState: [
           { required: true, message: '请选择关联', trigger: 'change' },
         ],
+        tagKeyWords: [
+          { type: 'array', required: true, message: '请选择关联标签', trigger: 'change' },
+        ],
       },
     }
   },
@@ -147,20 +162,66 @@ export default {
       // this.getTestPaper ()
     },
   },
+  computed: {
+    isEdit () {
+      return this.record.id ? true : false
+    },
+  },
   methods: {
+    /**
+     * 选择题型
+     */
+    updateValue (value) {
+      if (this.form.questionType && this.tabName === 'batch') {
+        this.$confirm('输入区试题内容会清空，请确认', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          this.form.questionType = value
+          this.postAnswer = value
+          this.$refs.batch.testQuestions = ''
+          this.$refs.batch.itemBankList = []
+        })
+      } else {
+        this.$refs.single.clearValidate()
+        this.form.questionType = value
+        this.postAnswer = value
+      }
+    },
+
     /**
      * 获取试题
      */
     getTestPaper () {
       const { id } = this.record
+      /**
+       * 审核
+       */
+      // if (this.record.examine === true) {
+      //   this.btnExamine = true
+      //   this.$confirm('每过审入库 1 题，奖励出题人 5 贝', '提示', {
+      //     confirmButtonText: '确定',
+      //     type: 'warning',
+      //   })
+      // }
+      /**
+       * 查看
+       */
       if (this.record.edit == true) {
         this.btnDisabled = this.record.edit
-        this.$refs.single.inputDisabled ()
+        this.$refs.single.inputDisabled()
       }
+      /**
+       * 修改试题
+       */
       if (this.record.edit == false) {
         this.btnDisabled = this.record.edit
-        this.$refs.single.inputUndisabled ()
+        this.$refs.single.inputUndisabled()
       }
+      /**
+       * 修改试题
+       */
       if (id) {
         this.btnSave = 1
         const param = {
@@ -168,34 +229,42 @@ export default {
         }
         getExamMsg(param).then(res => {
           this.questionTypeDisabled = true
-          this.form = res.data.data
-          this.$refs.single.ruleForm.title = res.data.data.title
-          this.$refs.single.ruleForm.analysis = res.data.data.analysis
-          this.postAnswer = res.data.data.questionType
-          this.tagsShow = res.data.data.tagKeyWords
-          if (res.data.data.questionType == 13) {
-            var arrRadio = JSON.parse(res.data.data.titleOptions)
+          // console.log(res.data.data.tagKeyWords)
+          // this.form.tag = res.data.data.tagKeyWords
+          // console.log(this.form.tag)
+          const { data } = res.data
+          this.form = data
+          this.form.tagKeyWords = data.tagKeyWords ? data.tagKeyWords : []
+          this.$refs.single.ruleForm.title = data.title
+          this.$refs.single.ruleForm.analysis = data.analysis
+          this.postAnswer = data.questionType
+          this.tagsShow = data.tagKeyWords
+          if (data.questionType == 13) {
+            var arrRadio = JSON.parse(data.titleOptions)
             // console.log(arrRadio)
             this.$refs.single.ruleForm.radioOptions = arrRadio
             this.$refs.single.ruleForm.radioOption = arrRadio.map(i => i.value)
-            this.$refs.single.ruleForm.inputRadioAnswer = res.data.data.answer
+            this.$refs.single.ruleForm.inputRadioAnswer = data.answer
           }
-          if (res.data.data.questionType == 12) {
-            var arrCheckbox = JSON.parse(res.data.data.titleOptions)
+          if (data.questionType == 12) {
+            var arrCheckbox = JSON.parse(data.titleOptions)
             // console.log(arrCheckbox)
             this.$refs.single.ruleForm.checkboxOptions = arrCheckbox
             this.$refs.single.ruleForm.checkboxOption = arrCheckbox.map(i => i.value)
-            this.$refs.single.ruleForm.inputCheckboxAnswer = JSON.parse(res.data.data.answer)
+            this.$refs.single.ruleForm.inputCheckboxAnswer = JSON.parse(data.answer)
           }
-          if (res.data.data.questionType == 11) {
-            this.$refs.single.ruleForm.inputJudgeAnswer = res.data.data.answer
+          if (data.questionType == 11) {
+            this.$refs.single.ruleForm.inputJudgeAnswer = data.answer
           }
-          if (res.data.data.questionType == 10) {
-            this.$refs.single.ruleForm.inputShortAnswer = res.data.data.answer
+          if (data.questionType == 10 || data.questionType == 10000) {
+            this.$refs.single.ruleForm.inputShortAnswer = data.answer
           }
-          // console.log('res.data.data => ',res.data.data)
+          // console.log('data => ',data)
         })
       }
+      /**
+       * 提交试题
+       */
       if (!id) {
         this.btnSave = 0
       }
@@ -204,24 +273,27 @@ export default {
      *判断题型
      */
     handleChangeQuestionType (val) {
-      // this.$refs.single.$refs['ruleForm'].resetFields ()
       this.postAnswer = val
     },
     /**
      * 返回
      */
     handleGoBack () {
-      this.$emit('onGoBack')
+      this.$emit('onGoBack', {
+        current: this.record.current,
+        size: this.record.size,
+        search: this.record.search,
+      })
     },
     /**
      * 修改保存试题
      */
-    saveSingle (){
+    saveSingle () {
       this.$refs.form.validate((valid) => {
         if (valid) {
           if (this.$refs.single.submitForm() == true) {
             // this.$refs.single.submitForm ()
-            this.form.tag = this.form.tagKeyWords
+            this.form.tag = this.form.tagKeyWords.toString()
             let form = this.form
             let ruleForm = this.$refs.single.ruleForm
             let singleBothForm = Object.assign(form, ruleForm)
@@ -232,7 +304,11 @@ export default {
                   type: 'success',
                   message: '修改成功!',
                 })
-                this.$emit('onGoBack')
+                this.$emit('onGoBack', {
+                  current: this.record.current,
+                  size: this.record.size,
+                  search: this.record.search,
+                })
               }
             })
           }
@@ -247,20 +323,20 @@ export default {
         if (valid) {
           if (this.$refs.single.submitForm() == true) {
             // this.$refs.single.submitForm ()
-            this.form.tag = this.form.tagKeyWords
+            // this.form.tags = this.form.tagKeyWords
+            var tag = this.form.tagKeyWords.toString()
+            this.form.tag = tag
             let form = this.form
             let ruleForm = this.$refs.single.ruleForm
             let singleBothForm = Object.assign(form, ruleForm)
             delete singleBothForm.options
-            delete singleBothForm.tagKeyWords
+            // delete singleBothForm.tagKeyWords
             let postSingleBothForm = {
               itemBankList: [],
-              tag: [],
             }
             postSingleBothForm.itemBankList.push(singleBothForm)
-            postSingleBothForm.tag = this.form.tag
             postSingleBothForm = JSON.stringify(postSingleBothForm)
-            postNewTest(postSingleBothForm).then(res => {
+            postBatchIteamBank(postSingleBothForm).then(res => {
               if (res.data.data == true) {
                 this.$message({
                   type: 'success',
@@ -301,6 +377,103 @@ export default {
       // this.res.exms_difficulty = this.res.exms_difficulty.map(i => i.label)
       // console.log(this.res.data.map(i => i.label))
     },
+    /**
+     * 审核按钮
+     */
+    handleExamine () {
+      this.dialogExamine = true
+      this.examine = this.record.id
+    },
+    /**
+     * 审核取消
+     */
+    handleExamineCancel () {
+      this.dialogExamine = false
+      this.states = 0
+      this.content = ''
+    },
+    /**
+     * 审核提交
+     */
+    handleSubmit () {
+      if (this.states === 0) {
+        let postExaminePassList = {
+          id: null,
+        }
+        postExaminePassList.id = this.examine
+        postExaminePass(postExaminePassList).then(res => {
+          if (res.data.data == true) {
+            this.dialogExamine = false,
+              this.$message({
+                message: '该试题审核通过',
+                type: 'success',
+              }),
+              this.$emit('onGoBack', {
+                current: this.record.current,
+                size: this.record.size,
+                search: this.record.search,
+              })
+          }
+        })
+      }
+      if (this.states === 1 && this.content != '') {
+        let postExamineFalseList = {
+          id: null,
+          reason: '',
+        }
+        postExamineFalseList.id = this.examine
+        postExamineFalseList.reason = this.content
+        postExamineFalseList = JSON.stringify(postExamineFalseList)
+        postExamineFalse(postExamineFalseList).then(res => {
+          if (res.data.data == true) {
+            this.dialogExamine = false,
+              this.$message({
+                message: '该试题审核不通过',
+                type: 'success',
+              }),
+              this.$emit('onGoBack', {
+                current: this.record.current,
+                size: this.record.size,
+                search: this.record.search,
+              })
+          }
+        })
+      }
+      if (this.states === 1 && this.content == '') {
+        this.$message({
+          message: '请填写理由！',
+          type: 'warning',
+        })
+      }
+    },
+    /**
+    * 提交批量试题
+    */
+    submitBatch (value) {
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          let postBatchBothForm = {
+            itemBankList: [],
+          }
+          for (let i = 0; i < value.length; i++) {
+            let itemBank = Object.assign({}, this.form, value[i])
+            itemBank.titleOptions = JSON.stringify(itemBank.titleOptions)
+            itemBank.answer = itemBank.answer instanceof Array ? JSON.stringify(itemBank.answer) : itemBank.answer
+            postBatchBothForm.itemBankList.push(itemBank)
+          }
+          postBatchBothForm = JSON.stringify(postBatchBothForm)
+          postBatchIteamBank(postBatchBothForm).then(res => {
+            if (res.data.data == true) {
+              this.$message({
+                type: 'success',
+                message: '提交成功!',
+              })
+              this.$emit('onGoBack')
+            }
+          })
+        }
+      })
+    },
   },
 }
 </script>
@@ -310,16 +483,39 @@ export default {
   padding: 20px;
   background-color: #fff;
 }
+.select {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 .item {
-  width: 35%;
-  float: left;
+  width: 45%;
 }
 </style>
 <style scoped>
+hr {
+  margin: 0 0 10px 0;
+}
+.select >>> .el-form-item {
+  margin-bottom: 16px;
+}
 .select >>> .el-input .el-select__caret {
-  line-height: 2.9;
+  /* line-height: 32px; */
+}
+.selectItem {
+  /* height: 32px; */
+  width: 100%;
+  /* line-height: 32px; */
 }
 .relatedTag {
   margin-right: 10px;
+}
+.explain {
+  font-weight: 600;
+  font-size: 14px;
+}
+.explainTxt {
+  font-weight: 100;
+  font-size: 14px;
 }
 </style>

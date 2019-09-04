@@ -261,28 +261,6 @@ export const openWindow = (url, title, w, h) => {
   }
 }
 
-/**
- *  <img> <a> src 处理
- * @returns {PromiseLike<T | never> | Promise<T | never>}
- */
-// export function handleImg (fileName, id) {
-//   return validatenull(fileName)
-//     ? null
-//     : request({
-//       url: '/admin/file/' + fileName,
-//       method: 'get',
-//       responseType: 'blob',
-//     }).then(response => {
-//       // 处理返回的文件流
-//       let blob = response.data
-//       let img = document.getElementById(id)
-//       img.src = URL.createObjectURL(blob)
-//       window.setTimeout(function () {
-//         window.URL.revokeObjectURL(blob)
-//       }, 0)
-//     })
-// }
-
 export function mergeByFirst (distObject, srcObject) {
   const distPropList = _.keys(distObject)
   const srcPropList = _.keys(_.omitBy(srcObject, _.isNil))
@@ -351,12 +329,12 @@ export function pickDeep (collection) {
     return []
   }
 }
-export function fillStatisticsArray (oldData, newData) {
+export function fillStatisticsArray (oldData, newData, force = false) {
   const newStatistics = []
   for (let i = 0; i < oldData.length; i++) {
     const element = oldData[i]
     const newElement = newData[i]
-    if (newElement) {
+    if (force || newElement) {
       newStatistics.push(newElement)
     } else {
       newStatistics.push(element)
@@ -370,4 +348,41 @@ export function calculateSign (num, isNative = true) {
     return Math.sign(num) * Math.abs(num)
   }
   return Math.sign(-(num)) * Math.abs(num)
+}
+
+/**
+ * 监听数字长度，并进行截取
+ */
+export function sliceNumber (num, length) {
+  if (typeof num === 'number') {
+    num = '' + num
+  }
+  let len = 0
+  if (num.toString().indexOf('.') > 0) {
+    len = num.toString().split('.')[1].length
+  }
+  if (len > length) {
+    num = num.slice(0, num.length - 1)
+  }
+  return num
+}
+
+/**
+ * 小数位补全
+ */
+export function DecimalDigits (num, length) {
+  if (typeof num === 'number') {
+    num = '' + num
+  }
+  let len = 0
+  if (num.toString().indexOf('.') > 0) {
+    len = num.toString().split('.')[1].length
+  }
+  if (len === 0) {
+    num = num + '.'
+  }
+  for (let i = 0; i < length - len; ++i) {
+    num += '0'
+  }
+  return num
 }

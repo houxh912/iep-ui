@@ -8,22 +8,47 @@
   </el-popover>
 </template>
 <script>
-import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
+import { getUserCard } from '@/api/hrms/employee_profile'
+import { getOrgCard } from '@/api/goms/org'
 const filterUser = (data) => {
   return {
     avatar: data.avatar,
     name: data.name,
     job: data.job,
     identityMarks: data.identityMarks,
-    orgList: data.orgList,
-    projectTag: data.projectTag,
+    orgList: data.orgList || [],
+    abilityTag: data.abilityTag || [],
+    email: data.email,
+    externalTitle: data.externalTitle,
+    phone: data.phone,
+    qq: data.qq,
+    rankMap: data.rankMap,
+    wechat: data.wechat,
+  }
+}
+const filterOrg = (data) => {
+  return {
+    avatar: data.avatar,
+    name: data.name,
+    job: data.job,
+    identityMarks: data.identityMarks,
+    orgList: data.orgList || [],
+    abilityTag: data.abilityTag || [],
+    email: data.email,
+    externalTitle: data.externalTitle,
+    phone: data.phone,
+    qq: data.qq,
+    rankMap: data.rankMap,
+    wechat: data.wechat,
   }
 }
 const functionMap = {
-  user: getEmployeeProfileById,
+  user: getUserCard,
+  org: getOrgCard,
 }
 const dataFilterMap = {
   user: filterUser,
+  org: filterOrg,
 }
 export default {
   name: 'IepHoverCard',
@@ -50,7 +75,6 @@ export default {
       cardData: {
         avatar: '',
         name: '',
-        job: '',
         identityMarks: [],
         orgList: [],
         projectTag: [],

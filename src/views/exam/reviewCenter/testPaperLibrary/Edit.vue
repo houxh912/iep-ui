@@ -18,12 +18,9 @@
 import FirstContent from './testPaper/FirstContent'
 import SecondContent from './testPaper/SecondContent'
 export default {
-  props: {
-    record: {
-      type: Object,
-      default: () => { },
-    },
-  },
+  props: [
+    'record',
+  ],
   components: {
     FirstContent, SecondContent,
   },
@@ -63,7 +60,11 @@ export default {
       this.current--
     },
     back () {
-      this.$emit('onGoBack')
+      this.$emit('onGoBack', {
+        current: this.record.current,
+        size: this.record.size,
+        search: this.record.search,
+      })
     },
     handleGoBack () {
       this.$confirm('此操作将不会自动保存试卷,是否继续？', '提示', {
@@ -71,7 +72,11 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        this.$emit('onGoBack')
+        this.$emit('onGoBack', {
+        current: this.record.current,
+        size: this.record.size,
+        search: this.record.search,
+      })
       }).catch(() => {
         this.$message({
           type: 'info',

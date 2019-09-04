@@ -238,7 +238,7 @@ export default {
         orgIds: data.receiverList.orgs.map(m => m.id),
         userIds: data.receiverList.users.map(m => m.id),
       }
-      if (data.projectList.length > 0) {
+      if (data.projectList && data.projectList.length > 0) {
         data.projectIds = data.projectList.map(m => m.id)
       } else {
         data.projectIds = []

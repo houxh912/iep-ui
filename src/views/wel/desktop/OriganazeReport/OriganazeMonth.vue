@@ -83,9 +83,6 @@ export default {
       this.realName = ''
       this.loadPage()
     },
-    searchPage (val) {
-      this.loadPage(val)
-    },
   },
 }
 </script>

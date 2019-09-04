@@ -1,4 +1,5 @@
 <template>
+  <!-- 工作台的详情页 -->
   <div>
     <div class="breadcrumb-wrapper">
       <div class="back">

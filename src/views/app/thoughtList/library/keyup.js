@@ -1,5 +1,6 @@
 
-import { loadContactsPyList } from '@/api/admin/contacts'
+// import { loadContactsPyList } from '@/api/admin/contacts'
+import { getUserNameList } from '@/api/cpms/thoughts'
 
 export default {
   data () {
@@ -47,7 +48,7 @@ export default {
         cb([defaultObj])
         this.handleEnd()
       } else {
-        loadContactsPyList({ name: this.state }).then(({ data }) => {
+        getUserNameList({ name: this.state }).then(({ data }) => {
           let list = [defaultObj].concat(data.data.map(m => {
             return {
               value: m.name,

@@ -60,4 +60,123 @@ export function getApprovalList (obj) {
     params: obj,
   })
 }
-
+// 推荐项目名字
+export function getRecommendedProjectList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendProjectName`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 推荐项目督导
+export function getRecommendedMentortList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendMentorByTag`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 推荐项目经理
+export function getRecommendedHandlesList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendManagerByTag`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 推荐市场经理
+export function getRecommendedMktManagerList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendMarketByTag`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 推荐项目成员
+export function getRecommendedMemberList (obj) {
+  return request({
+    url: `${prefixUrl}/recommendMemberByTag`,
+    method: 'post',
+    data: obj,
+  })
+}
+// 项目平均耗时
+export function getTimePerRequest  (obj) {
+  return request({
+    url: `${prefixUrl}/timePerRequest `,
+    method: 'post',
+    data: obj,
+  })
+}
+// 平均成本预算
+export function getAverageCostBudget  (obj) {
+  return request({
+    url: `${prefixUrl}/averageCostBudget `,
+    method: 'post',
+    data: obj,
+  })
+}
+// 平均合同金额
+export function getAverageContractAmount  (obj) {
+  return request({
+    url: `${prefixUrl}/averageContractAmount `,
+    method: 'post',
+    data: obj,
+  })
+}
+// //变更
+export function transferManagerList (obj) {
+  return request({
+    url: `${prefixUrl}/change/handle`,
+    method: 'post',
+    data: obj,
+  })
+}
+//审核
+export function approvalById (obj) {
+  return request({
+    url: `${prefixUrl}/updateApproval`,
+    method: 'post',
+    data: obj,
+  })
+}
+//撤回
+export function withdrawById (obj) {
+  return request({
+    url: `${prefixUrl}/batch/withdrawal`,
+    method: 'post',
+    data: obj,
+  })
+}
+//统计页面
+export function getMyPosition (obj) {
+  return request({
+    url: 'prms/iep-project-myposition/getDetail',
+    method: 'get',
+    params: obj,
+  })
+}
+//自动生成项目名称
+export function generationProject (obj) {
+  return request({
+    url: `${prefixUrl}/generationProject`,
+    method: 'post',
+    data: obj,
+  })
+}
+//取外部项目分页
+export const getExternalProjectPage = (params) => {
+  return request({
+    url: `${prefixUrl}/getProjectTypePage`,
+    method: 'get',
+    params: params,
+  })
+}
+// 推荐项目成员
+export function checkProjectName (obj) {
+  return request({
+    url: `${prefixUrl}/verifyName`,
+    method: 'post',
+    data: obj,
+  })
+}

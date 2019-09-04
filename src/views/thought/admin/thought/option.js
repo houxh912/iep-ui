@@ -10,7 +10,7 @@ export const tableOption = [
     prop: 'createTime',
   }, {
     label: '所属组织',
-    prop: 'creatorName',
+    prop: 'orgName',
   },
 ]
 

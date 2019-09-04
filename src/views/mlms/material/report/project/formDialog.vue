@@ -5,68 +5,6 @@
       <div class="cancel"><iep-button @click="cancel" type="small">返回</iep-button></div>
     </div>
     <el-form ref="form" :model="formData" :rules="rules">
-      <!-- <el-row>
-        <el-col :span=12>
-          <el-form-item prop="estimateSignTime">
-            <div class="title validate">
-                项目预计签订时间
-                <iep-tip :content="tipContent.estimateSignTime"></iep-tip>
-            </div>
-            <el-col :span=20>
-              <IepDatePicker v-model="formData.estimateSignTime"></IepDatePicker>
-            </el-col>
-          </el-form-item>
-        </el-col>
-        <el-col :span=12>
-          <el-form-item prop="contractSignTime">
-            <div class="title validate">
-                合同签订时间
-                <iep-tip :content="tipContent.contractSignTime"></iep-tip>
-            </div>
-            <el-col :span=24>
-              <IepDatePicker v-model="formData.contractSignTime"></IepDatePicker>
-            </el-col>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <div class="title">
-          预计回款时间
-          <iep-tip :content="tipContent.paymentRelations"></iep-tip>
-      </div>
-      <el-form-item class="table">
-        <el-table :data="formData.paymentRelations" style="width: 100%">
-          <el-table-column prop="projectPaymentTime" label="月份">
-            <template slot-scope="scope">
-              <el-date-picker
-                v-model="formData.paymentRelations[scope.$index].projectPaymentTime"
-                type="month"
-                placeholder="选择时间"
-                format="yyyy-MM"
-                value-format="yyyy-MM">
-              </el-date-picker>
-            </template>
-          </el-table-column>
-          <el-table-column prop="paymentAmount" label="回款金额">
-            <template slot-scope="scope">
-              <el-input 
-                v-if="selectIndex==scope.$index" 
-                v-model="formData.paymentRelations[scope.$index].paymentAmount" 
-                @blur="()=>{changeNumber(scope.$index);selectIndex=-1}" 
-                maxlength="10" 
-                type="number" 
-                min=0
-                placeholder="请正确输入非负回款金额"></el-input>
-              <el-input v-else v-model="scope.row.paymentAmount" @focus="selectIndex=scope.$index" style="min-height: 20px;"></el-input>
-            </template>
-          </el-table-column>
-          <el-table-column prop="menu" label="操作" width="200px">
-            <template slot-scope="scope">
-              <iep-button size="small" @click="handleDelete(scope.$index)">删除</iep-button>
-            </template>
-          </el-table-column>
-        </el-table>
-        <div class="create" @click="handleCreate"><i class="el-icon-plus"></i> 新增</div>
-      </el-form-item> -->
       <div class="title">
           客户需求
           <iep-tip :content="tipContent.clientRqmt"></iep-tip>

@@ -4,12 +4,8 @@ const env = process.env
 
 const baseUrl = ''
 
-const iconfontVersion = ['1036949_aza0i8923yp']
-const multicolorIconfontUrl = '//at.alicdn.com/t/font_1184303_mhqvids4u2k.js'
-const iconfontUrl = '//at.alicdn.com/t/font_$key.css'
-
 const codeUrl = '/api/code'
 const actUrl = `${window.location.origin}/act/modeler.html?modelId=`
 const wsUrl = '/api/ims/ws'
 
-export { baseUrl, actUrl, iconfontUrl, iconfontVersion, codeUrl, env, multicolorIconfontUrl, wsUrl }
+export { baseUrl, actUrl, codeUrl, env, wsUrl }

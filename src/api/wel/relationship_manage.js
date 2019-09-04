@@ -135,17 +135,17 @@ export function joinGroup (obj) {
   })
 }
 
-export function removeRelationshipById (customId,useId) {
+export function removeRelationshipById (customId, useId) {
   return request({
     url: `${prefixUrl}/custom/relation/delete/batch`,
     method: 'post',
-    data: { 
-      userId:useId,
-      customId:customId,
+    data: {
+      userId: useId,
+      customId: customId,
     },
   })
 }
-export function removeRelationshipBatch (customId,userId) {
+export function removeRelationshipBatch (customId, userId) {
   return request({
     url: `${prefixUrl}/custom/relation/delete/batch`,
     method: 'post',
@@ -173,7 +173,7 @@ export function deleteReleaseMentorById (mentorId) {
 
 export function getRelationList () {
   return request({
-    url: `${prefixUrl}/contacts/custom/list`,
+    url: `${prefixUrl}/contacts/custom/contacts/list`,
     method: 'get',
   })
 }

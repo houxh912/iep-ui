@@ -26,7 +26,7 @@ export default {
   },
   data () {
     return {
-      imgList: ['../img/app/detail/img_001.png', '../img/app/detail/img_002.png', '../img/app/detail/img_003.jpg'],
+      imgList: ['/img/app/detail/img_001.webp', '/img/app/detail/img_002.webp', '/img/app/detail/img_003.webp'],
     }
   },
 }

@@ -88,8 +88,9 @@ export default {
     dataList: {
       type: Array,
     },
-    params: {
-      type: Object,
+    isTop: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {
@@ -198,6 +199,7 @@ export default {
     handleFollow (row) {
       followById(row.userId).then(() => {
         this.loadPage()
+        this.$emit('fresh-all', true)
       })
     },
     // 取消关注

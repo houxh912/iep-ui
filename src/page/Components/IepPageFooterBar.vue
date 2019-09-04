@@ -34,7 +34,7 @@ export default {
       this.$openPage('/app/resource/material/material_detail/7985')
     },
     handleOpen6 () {
-      this.$openPage('', '新人培训', 800, 600)
+      this.$openPage('/app/newComers/guidelines')
     },
     getTag () {
       this.$router.push({
@@ -46,6 +46,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .footer-box {
+  z-index: 10;
   width: 100%;
   height: 65px;
   border-top: 1px solid #ddd;

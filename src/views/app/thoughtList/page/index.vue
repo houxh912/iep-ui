@@ -1,6 +1,6 @@
 <template>
   <div class="thought-page">
-    <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
+    <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params" @fresh-right="freshRight" @fresh-all="freshAll"></library>
     <div style="text-align: center;margin: 20px 0;">
       <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
     </div>
@@ -61,6 +61,12 @@ export default {
     currentChange (val) {
       this.params.current = val
       this.loadPage()
+    },
+    freshRight (val) {
+      this.$emit('fresh-right', val)
+    },
+    freshAll () {
+      this.$emit('fresh-all', true)
     },
   },
   created () {

@@ -19,6 +19,7 @@ export default {
 
 <style lang="scss" scoped>
 .top {
+  z-index: 10;
   position: relative;
   background-color: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);

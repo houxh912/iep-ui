@@ -15,6 +15,16 @@ export default [
         component: () => import('@/views/conm/AttributeManagement/index'),
       },
       {
+        path: 'a_d_slot_management/:id',
+        name: '广告位管理',
+        component: () => import('@/views/conm/ADSlotManagement/index'),
+      },
+      {
+        path: 'a_d_management/:id',
+        name: '广告管理',
+        component: () => import('@/views/conm/ADManagement/index'),
+      },
+      {
         path: 'document_management/:id',
         name: '文档管理',
         component: () => import('@/views/conm/DocumentManagement/index'),

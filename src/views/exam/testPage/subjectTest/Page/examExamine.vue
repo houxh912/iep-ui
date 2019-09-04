@@ -187,10 +187,10 @@
             <div class="response-card">
               <div class="response-header">
                 <h2 style="text-align: center">答题卡</h2>
-                <el-checkbox-group>
+                <!-- <el-checkbox-group>
                   <el-checkbox label="正确"></el-checkbox>
                   <el-checkbox label="错误"></el-checkbox>
-                </el-checkbox-group>
+                </el-checkbox-group> -->
               </div>
 
               <div class="response-content" v-if="radioMap.length>0">
@@ -350,7 +350,12 @@ export default {
      * 返回
      */
     handleBack () {
-      this.$emit('onGoBack')
+      this.$emit('onGoBack',{
+         field:  this.record.field,
+         state:  this.record.state,
+         current:  this.record.current,
+         size:  this.record.size,
+      })
     },
   },
 }

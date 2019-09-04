@@ -181,6 +181,15 @@ export function getManagePage (params) {
   })
 }
 
+// 获取置顶说说的列表
+export function getToppedThoughts (params) {
+  return request({
+    url: `${prefixUrl}/getToppedThoughts`,
+    method: 'get',
+    params: params,
+  })
+}
+
 // 批量修改说说公开状态
 export function postStatusBatch (data) {
   return request({

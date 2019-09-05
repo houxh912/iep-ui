@@ -58,7 +58,7 @@
                   <div class="label">发行价</div>
                 </div> -->
                 <div>
-                  <div class="num">{{form.investmentNumber}}</div>
+                  <div class="num">{{form.shareholder}}</div>
                   <div class="label">股东人数</div>
                 </div>
                 <div>
@@ -77,7 +77,9 @@
               </div>
               <el-scrollbar style="height:204px">
                 <div class="shareholders-wrapper" v-for="(item,index) in form.shareholderInformation" :key="index">
-                  <span>{{item.name}}</span>
+                  <span v-if="item.holdType==2">{{item.orgName}}</span>
+                  <span v-else-if="item.holdType==4">{{item.other}}</span>
+                  <span v-else>{{item.name}}</span>
                   <span>{{item.proportion}}</span>
                   <span>{{Math.round(item.proportion/form.allSharesNumber * 10000) / 100}} %</span>
                 </div>
@@ -147,9 +149,10 @@ export default {
         ranking: '9/15',
         officialRelease: '2019-04-22',
         record: [
-          { id: '', userName: '', totalAmount: '', status: '', updateTime: '' },
+          { id: '', name: '', orgName: '', holdType: 0, totalAmount: '', status: '', updateTime: '' },
         ],//投资记录
         shareholderInformation: [],
+        shareholder: 0,//股东人数
         purchasedNumber: 0,//已购股数
         circulationNumber: 0,//发现数量
         sharesUnivalent: 0,//每股单价

@@ -4,22 +4,26 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getPersonnelChangePageByUserId } from '@/api/hrms/user_record'
+import { getWealthFlowPageByUserId } from '@/api/fams/wealth_flow'
 export default {
   mixins: [mixins],
   data () {
     return {
       columnsMap: [
         {
-          prop: 'id',
+          prop: 'flowId',
           label: 'ID',
         },
         {
-          prop: 'msg',
-          label: '变更信息',
+          prop: 'creatorName',
+          label: '操作者',
         },
         {
-          prop: 'date',
+          prop: 'amount',
+          label: '金额',
+        },
+        {
+          prop: 'createTime',
           label: '操作时间',
         },
       ],
@@ -35,7 +39,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param, userId: this.id }, getPersonnelChangePageByUserId)
+      this.loadTable({ ...param, userId: this.id }, getWealthFlowPageByUserId)
     },
   },
 }

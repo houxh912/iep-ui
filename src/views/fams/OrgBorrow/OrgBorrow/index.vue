@@ -36,7 +36,7 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      type: this.$route.query.type || 'outOrgId',
+      type: this.$route.query.type || 'inOrgId',
       tabList,
       dictsMap,
     }

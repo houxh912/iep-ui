@@ -70,7 +70,6 @@ export default {
       }, {
         label: '最新资讯',
         value: 'LatestNews',
-        disabled: true,
       }, {
         label: '最新公告',
         value: 'LatestAnnouncement',

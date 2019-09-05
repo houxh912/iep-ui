@@ -54,9 +54,11 @@ var checkName = (rule, value, callback) => {
   timeout = setTimeout(() => {
     checkProjectName({projectName:value}).then(res => {
       if (res.data.data === false) {
-        console.log(0)
         return callback(new Error(res.data.msg))
       } 
+      else {
+        callback()
+      }
     })
   }, 1000)
 }

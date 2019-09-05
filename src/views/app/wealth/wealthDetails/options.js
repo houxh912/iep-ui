@@ -30,10 +30,10 @@ const dictsMap = {
 	const newForm = {...row}
 	return newForm
   }
-  
+	
   const rules = {
-		investmentNumber: [
-		{ type:'number', required: true, message: '输入的股份数量至少大于最低投资股份数', trigger: 'blur' },
+	investmentNumber: [
+		{ type:'number', required: true, message: '投资股数至少大于 0 ', trigger: 'blur', min: 1 },
 	],
 	totalAmount: [
 	  { required: true, message: '输入的金额至少大于或等于每股单价', trigger: 'blur' },

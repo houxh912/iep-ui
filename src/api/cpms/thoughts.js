@@ -199,6 +199,15 @@ export function postStatusBatch (data) {
   })
 }
 
+// 批量修改说说公开状态
+export function getMostComments (params) {
+  return request({
+    url: `${prefixUrl}/mostComments/page`,
+    method: 'get',
+    params: params,
+  })
+}
+
 /******************************************************************* 评论  commentUrl */
 
 // 评论

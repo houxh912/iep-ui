@@ -35,6 +35,8 @@
                   <i class="el-icon-more-outline"></i>
                 </iep-button>
                 <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="handleADSlot(scope.row)">广告位管理</el-dropdown-item>
+                  <el-dropdown-item @click.native="handleAD(scope.row)">广告管理</el-dropdown-item>
                   <el-dropdown-item v-if="info_site_edit" @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
                   <el-dropdown-item v-if="info_site_del" @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
                 </el-dropdown-menu>
@@ -70,10 +72,11 @@ export default {
       info_site_del: false,
     }
   },
+  //TODU next time
   created () {
     this.info_site_add = this.permissions['info_site_add']
     this.info_site_edit = this.permissions['info_site_edit']
-    this.info_site_del = this.permissions['info_site_del']
+    this.info_site_del = this.permissions['info_site_edit']
     this.loadPage()
   },
   computed: {
@@ -105,6 +108,16 @@ export default {
     handleAttribute (row) {
       this.$router.push({
         path: `/comn/attribute_management/${row.id}`,
+      })
+    },
+    handleADSlot (row) {
+      this.$router.push({
+        path: `/comn/a_d_slot_management/${row.id}`,
+      })
+    },
+    handleAD (row) {
+      this.$router.push({
+        path: `/comn/a_d_management/${row.id}`,
       })
     },
     async loadPage (param = this.searchForm) {

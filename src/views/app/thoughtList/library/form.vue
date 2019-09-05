@@ -87,7 +87,7 @@
 <script>
 import { thoughtsCreate } from '@/api/cpms/thoughts'
 import store from '@/store'
-import { getSubject, getName } from './util'
+import { getSubjectList, getName } from './util'
 import keyup from './keyup'
 import { uploadIdCard } from '@/api/file'
 import image from '@/mixins/image'
@@ -155,9 +155,9 @@ export default {
             this.formData.transmitId = this.transmitId
           }
           // 判断说说中是否存在话题
-          let subjectObj = getSubject(this.formData.content)
+          let subjectObj = getSubjectList(this.formData.content)
           if (subjectObj.type) {
-            this.formData.topics = [subjectObj.data]
+            this.formData.topics = subjectObj.list.map(m => m.name)
           }
           // 判断说说中是否存在人名
           let nameObj = getName(this.formData.content)

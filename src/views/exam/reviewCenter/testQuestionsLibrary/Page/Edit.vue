@@ -397,11 +397,11 @@ export default {
      */
     handleSubmit () {
       if (this.states === 0) {
-        let postExaminePassList = {
-          id: null,
-        }
-        postExaminePassList.id = this.examine
-        postExaminePass(postExaminePassList).then(res => {
+        // let postExaminePassList = {
+        //   id: null,
+        // }
+        // postExaminePassList.id = this.examine
+        postExaminePass([this.record.id]).then(res => {
           if (res.data.data == true) {
             this.dialogExamine = false,
               this.$message({

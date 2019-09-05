@@ -4,8 +4,7 @@
       <el-card shadow="never" class="content-wrapper">
         <div slot="header">
           <span>试卷信息</span>
-          <iep-button type="primary" @click="handleEdit(testPaper.id)" v-if="readOnly===false"
-            style="float:right; margin-top: -5px;">编辑试卷</iep-button>
+          <iep-button type="primary" @click="handleEdit(testPaper.id)" v-if="readOnly===false" style="float:right; margin-top: -5px;">编辑试卷</iep-button>
         </div>
         <el-form :model="data" label-width="100px">
           <el-row :gutter="40">
@@ -74,20 +73,28 @@
             </el-col>
             <el-col :span="12">
               <el-form-item label="所属科目" prop="field">
-                <el-select placeholder="请选择所属科目" v-model="examForm.field" :disabled="readOnly"
-                  style="width:100%">
-                  <el-option v-for="(item, index) in res.exms_subjects" :key="index"
-                    :label="item.label" :value="item.id"></el-option>
+                <el-select placeholder="请选择所属科目" v-model="examForm.field" :disabled="readOnly" style="width:100%">
+                  <el-option v-for="(item, index) in res.exms_subjects" :key="index" :label="item.label" :value="item.id"></el-option>
                 </el-select>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row :gutter="40">
             <el-col :span="12">
-              <el-form-item label="考卷模式" prop="title">
-                <el-radio-group>
-                  <el-radio :label="3" :disabled="readOnly">考试模式</el-radio>
-                  <el-radio :label="6" :disabled="readOnly">练习模式</el-radio>
+              <el-form-item label="考卷模式" prop="examType">
+                <el-radio-group v-model="examForm.examType">
+                  <el-radio :label="0" :disabled="readOnly">考试模式</el-radio>
+                  <el-radio :label="1" :disabled="readOnly">练习模式</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="40" v-if="showsubmitPaper">
+            <el-col :span="12">
+              <el-form-item label="提交答案" prop="showResult">
+                <el-radio-group v-model="examForm.showResult">
+                  <el-radio :label="1" :disabled="readOnly">考后显示成绩</el-radio>
+                  <el-radio :label="0" :disabled="readOnly">批改后显示成绩</el-radio>
                 </el-radio-group>
               </el-form-item>
             </el-col>
@@ -98,18 +105,14 @@
                 <el-row>
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signBeginTime">
-                      <iep-date-picker v-model="examForm.signBeginTime" type="datetime"
-                        placeholder="开始时间" style="width:100%" :readonly="readOnly"
-                        :picker-options="pickerOptionsSignBegin" value-format="yyyy-MM-dd HH:mm:ss">
+                      <iep-date-picker v-model="examForm.signBeginTime" type="datetime" placeholder="开始时间" style="width:100%" :readonly="readOnly" :picker-options="pickerOptionsSignBegin" value-format="yyyy-MM-dd HH:mm:ss">
                       </iep-date-picker>
                     </el-form-item>
                   </el-col>
                   <el-col class="line" :span="2">-</el-col>
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signEndTime">
-                      <iep-date-picker v-model="examForm.signEndTime" type="datetime"
-                        placeholder="结束时间" style="width:100%" :readonly="readOnly"
-                        :picker-options="pickerOptionsSignEnd" value-format="yyyy-MM-dd HH:mm:ss">
+                      <iep-date-picker v-model="examForm.signEndTime" type="datetime" placeholder="结束时间" style="width:100%" :readonly="readOnly" :picker-options="pickerOptionsSignEnd" value-format="yyyy-MM-dd HH:mm:ss">
                       </iep-date-picker>
                     </el-form-item>
                   </el-col>
@@ -130,17 +133,14 @@
                 <el-row>
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="signBeginTime">
-                      <iep-date-picker v-model="examForm.beginTime" type="datetime"
-                        placeholder="开始时间" style="width:100%" :picker-options="pickerOptionsBegin"
-                        :readonly="readOnly"></iep-date-picker>
+                      <iep-date-picker v-model="examForm.beginTime" type="datetime" placeholder="开始时间" style="width:100%" :picker-options="pickerOptionsBegin" :readonly="readOnly"></iep-date-picker>
                     </el-form-item>
 
                   </el-col>
                   <el-col class="line" :span="2">-</el-col>
                   <el-col :span="11" style="padding:0">
                     <el-form-item prop="endTime">
-                      <iep-date-picker v-model="examForm.endTime" type="datetime" placeholder="结束时间"
-                        style="width:100%" :picker-options="pickerOptionsEnd" :readonly="readOnly">
+                      <iep-date-picker v-model="examForm.endTime" type="datetime" placeholder="结束时间" style="width:100%" :picker-options="pickerOptionsEnd" :readonly="readOnly">
                       </iep-date-picker>
                     </el-form-item>
                   </el-col>
@@ -162,8 +162,7 @@
               <el-form-item label="及格线" prop="passScore">
                 <el-input :value="examForm.passScore" v-if="readOnly" :readonly="readOnly">
                 </el-input>
-                <iep-input-number controls-position="right" :min="0" :max="testPaper.score-1"
-                  v-model="examForm.passScore" v-else style="width:100%">
+                <iep-input-number controls-position="right" :min="0" :max="testPaper.score-1" v-model="examForm.passScore" v-else style="width:100%">
                 </iep-input-number>
               </el-form-item>
             </el-col>
@@ -173,8 +172,7 @@
                   <el-form-item label="优秀线" prop="excellentLine">
                     <el-input :value="examForm.passScore" v-if="readOnly" :readonly="readOnly">
                     </el-input>
-                    <iep-input-number controls-position="right" :min="0" :max="testPaper.score-1"
-                      v-model="examForm.excellentLine" v-else style="width:100%">
+                    <iep-input-number controls-position="right" :min="0" :max="testPaper.score-1" v-model="examForm.excellentLine" v-else style="width:100%">
                     </iep-input-number>
                   </el-form-item>
                 </el-col>
@@ -192,8 +190,7 @@
           </el-row>
           <el-form-item label="考试说明" prop="description">
             <!-- <iep-input-area v-model="examForm.description" :readonly="readOnly"></iep-input-area> -->
-            <el-input type="textarea" rows="4" v-model="examForm.description" :readonly="readOnly"
-              maxlength="200" show-word-limit></el-input>
+            <el-input type="textarea" rows="4" v-model="examForm.description" :readonly="readOnly" maxlength="200" show-word-limit></el-input>
           </el-form-item>
           <hr>
           <el-form-item>
@@ -211,14 +208,12 @@
             </el-col> -->
             <el-col :span="12">
               <el-form-item prop="addInterview">
-                <el-switch active-text="添加面试判分" v-model="examForm.addInterview" :active-value="1"
-                  :inactive-value="0" :disabled="readOnly"></el-switch>
+                <el-switch active-text="添加面试判分" v-model="examForm.addInterview" :active-value="1" :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item prop="registrationState">
-                <el-switch active-text="报名自动审核通过" v-model="examForm.registrationState"
-                  :active-value="1" :inactive-value="0" :disabled="readOnly"></el-switch>
+                <el-switch active-text="报名自动审核通过" v-model="examForm.registrationState" :active-value="1" :inactive-value="0" :disabled="readOnly"></el-switch>
               </el-form-item>
             </el-col>
 
@@ -229,8 +224,7 @@
           </el-form-item>
           <el-form-item label="结束语" prop="oncludingRemarks">
             <!-- <iep-input-area v-model="examForm.oncludingRemarks" :readonly="readOnly"></iep-input-area> -->
-            <el-input type="textarea" rows="4" v-model="examForm.oncludingRemarks"
-              placeholder="感谢您的作答！" :readonly="readOnly" maxlength="200" show-word-limit></el-input>
+            <el-input type="textarea" rows="4" v-model="examForm.oncludingRemarks" placeholder="感谢您的作答！" :readonly="readOnly" maxlength="200" show-word-limit></el-input>
           </el-form-item>
           <hr>
           <el-form-item label="权限设置" required>
@@ -241,22 +235,16 @@
                   <el-radio :label="6">按部门/人员参与</el-radio>
                 </el-radio-group>
               </el-form-item>
-              <el-form-item prop="operateUserids" label="报名管理&考卷管理" label-width="150px"
-                :class="readOnly ? 'readOnly' : ''">
-                <iep-contact-multiple-user v-model="examForm.operateUserids"
-                  :filter-user-list="filterUserList" :disabled="readOnly">
+              <el-form-item prop="operateUserids" label="报名管理&考卷管理" label-width="150px" :class="readOnly ? 'readOnly' : ''">
+                <iep-contact-multiple-user v-model="examForm.operateUserids" :filter-user-list="filterUserList" :disabled="readOnly">
                 </iep-contact-multiple-user>
               </el-form-item>
-              <el-form-item prop="writeUserids" label="试卷审阅权限" label-width="150px"
-                :class="readOnly ? 'readOnly' : ''">
-                <iep-contact-multiple-user v-model="examForm.writeUserids"
-                  :filter-user-list="filterUserList" :disabled="readOnly">
+              <el-form-item prop="writeUserids" label="试卷审阅权限" label-width="150px" :class="readOnly ? 'readOnly' : ''">
+                <iep-contact-multiple-user v-model="examForm.writeUserids" :filter-user-list="filterUserList" :disabled="readOnly">
                 </iep-contact-multiple-user>
               </el-form-item>
-              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="150px"
-                :class="readOnly ? 'readOnly' : ''" v-if="examForm.addInterview===1">
-                <iep-contact-multiple-user v-model="examForm.faceUserIds"
-                  :filter-user-list="filterUserList" :disabled="readOnly">
+              <el-form-item prop="faceUserIds" label="面试判分权限" label-width="150px" :class="readOnly ? 'readOnly' : ''" v-if="examForm.addInterview===1">
+                <iep-contact-multiple-user v-model="examForm.faceUserIds" :filter-user-list="filterUserList" :disabled="readOnly">
                 </iep-contact-multiple-user>
               </el-form-item>
             </div>
@@ -266,12 +254,10 @@
       </el-card>
     </div>
     <div class="steps-action">
-      <el-button style="margin-left: 8px" :loading="saveLoading" @click="handleSave()"
-        v-if="data.methodName != '查看'">
+      <el-button style="margin-left: 8px" :loading="saveLoading" @click="handleSave()" v-if="data.methodName != '查看'">
         保存
       </el-button>
-      <el-button type="primary" :loading="submitLoading" @click="handleRelease()"
-        v-if="data.methodName != '查看'">
+      <el-button type="primary" :loading="submitLoading" @click="handleRelease()" v-if="data.methodName != '查看'">
         发布
       </el-button>
     </div>
@@ -305,6 +291,7 @@ export default {
       pickerOptionsSignEnd: this.signEndDate(),
       pickerOptionsBegin: this.beginDate(),
       pickerOptionsEnd: this.endDate(),
+      showsubmitPaper: false,
     }
   },
   computed: {
@@ -334,6 +321,13 @@ export default {
         this.getTestOption()
       },
       immediate: true,
+    },
+    'examForm.examType' () {
+      if (this.examForm.examType == 1) {
+        this.showsubmitPaper = true
+      } else {
+        this.showsubmitPaper = false
+      }
     },
   },
   methods: {
@@ -449,6 +443,7 @@ export default {
       this.saveLoading = true
       this.$refs['examForm'].validate((valid) => {
         if (valid) {
+          this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
           this.examForm.testPaperId = this.testPaper.id
           if (this.isEdit) {
             this.formRequestFn = updateSave
@@ -476,6 +471,7 @@ export default {
       this.$refs['examForm'].validate((valid) => {
         if (valid) {
           this.examForm.testPaperId = this.testPaper.id
+       this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
           if (this.isEdit) {
             this.formRequestFn = updateRelease
           } else {

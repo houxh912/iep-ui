@@ -122,6 +122,7 @@ import SignDialog from './SignDialog'
 import Status from './status'
 export default {
   mixins: [mixins],
+   props: ['record'],
   components: { SignDialog, Status },
   data () {
     return {
@@ -178,9 +179,50 @@ export default {
   },
   created () {
     this.getTestOption()
-    this.getList()
+    if(this.record){
+      this.getListByRecord()
+      }else{
+       this.getList()
+    }
   },
   methods: {
+    /**
+     * 从当前跳到查看成绩返回时保持原来的翻页记录
+     */
+    getListByRecord () {
+      let  status =  [
+        { value: 0, label: '已报名' },
+        { value: 1, label: '进行中' },
+        { value: 8, label: '已完成' },
+        { value: 3, label: '批卷中' },
+        { value: 4, label: '已结束' },
+        { value: 5, label: '未报名' },
+      ]
+      let field = [
+        { value: 10001, label: '政策类' },
+        { value: 24, label: '人力资源类' },
+        { value: 23, label: '公司常识类' },
+        { value: 22, label: '项目管理类' },
+        { value: 21, label: '基本能力类' },
+        { value: 20, label: '数据能力类' },
+        { value: 19, label: '知识类' },
+        { value: 18, label: '技能类' },
+        { value: 17, label: '数据基因' },
+        { value: 2, label: '水巢' },
+        { value: 1, label: '国脉内网' },
+      ]
+
+      let i = status.find(item=>item.value === this.record.state) 
+      let j = field.find(item=>item.value === this.record.field)  
+      this.searchForm.states = i ? i.label :'全部'  
+      this.searchForm.field = j ? j.label :'全部'    
+      this.pageOption.field = this.record.field
+      this.pageOption.state =  this.record.state
+      this.paginationOption.current =  this.record.current
+      this.paginationOption.size =  this.record.size
+      this.getList()
+    },
+
     /**
      * 报名时间
      */
@@ -311,7 +353,15 @@ export default {
      * 查看成绩
      */
     handleExamine (item) {
-      this.$emit('onExamine', item)
+      // this.$emit('onExamine', item)
+       this.$emit('onExamine', {
+         title:item.title,
+         id:item.id,
+         field: this.pageOption.field,
+         state: this.pageOption.state,
+         current: this.paginationOption.current,
+         size: this.paginationOption.size,
+       })
     },
     /**
      * 报名成功重新加载

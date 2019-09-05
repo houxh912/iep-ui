@@ -1,7 +1,7 @@
 <template>
   <div class="content-tpl">
     <div class="content">
-      <span v-for="(item, index) in transfSubject(data.content)" :key="index">
+      <span v-for="(item, index) in transfSubjectList(data.content)" :key="index">
         <span v-if="item.type" class="subject" @click="handleSubject(item)">{{item.html}}</span>
         <span v-else>
           <span v-for="(t, i) in transfPerson(item.html)" :key="i">
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { transfSubject, transfPerson, dealImage } from './util'
+import { transfSubjectList, transfPerson, dealImage } from './util'
 export default {
   props: {
     data: {
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       dealImage,
-      transfSubject,
+      transfSubjectList,
       transfPerson,
     }
   },

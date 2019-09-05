@@ -54,9 +54,11 @@ var checkName = (rule, value, callback) => {
   timeout = setTimeout(() => {
     checkProjectName({projectName:value}).then(res => {
       if (res.data.data === false) {
-        console.log(0)
         return callback(new Error(res.data.msg))
       } 
+      else {
+        callback()
+      }
     })
   }, 1000)
 }
@@ -217,7 +219,7 @@ export const initSearchForm = () => {
     orgId:'',//所属组织
     projectStage: [],//项目阶段
     projectLevel: [],//项目等级
-    isRelevanceProduct: 2,//是否项目关联
+    isRelevanceProduct: '',//是否项目关联
     manager: '',//项目经理
   }
 }

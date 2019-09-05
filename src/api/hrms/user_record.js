@@ -8,3 +8,11 @@ export function getUserRecordOvertimeListById (id) {
     method: 'get',
   })
 }
+
+export function getPersonnelChangePageByUserId (query) {
+  return request({
+    url: `${prefixUrl}/user/page`,
+    method: 'get',
+    params: query,
+  })
+}

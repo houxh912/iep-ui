@@ -4,7 +4,7 @@
       <iep-img-avatar :size="128" :src="form.avatar"></iep-img-avatar>
     </div>
     <el-alert :title="`申请理由：${form.message}`" type="error" style="margin-bottom: 10px;"></el-alert>
-    <el-form :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
+    <el-form class="form-detail" :model="form" ref="form" size="small" label-width="100px" :disabled="disabled">
       <el-form-item label="用户名：" prop="username">
         <el-input v-model="form.username" disabled></el-input>
       </el-form-item>

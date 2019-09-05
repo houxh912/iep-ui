@@ -17,9 +17,9 @@
             <span>部门：国脉集团、国脉先锋队</span>
           </div> -->
           <div class="list">
-            <span>岗位：{{form.position}}</span>
-            <span>职务：{{form.job}}</span>
-            <span>职称：{{form.title}}</span>
+            <span>岗位：{{form.position || '暂无'}}</span>
+            <span>职务：{{form.job || '暂无'}}</span>
+            <span>职称：{{form.title || '暂无'}}</span>
           </div>
           <div class="list">
             <span>卓越标签：</span>
@@ -35,43 +35,62 @@
           </div>
         </div>
       </el-card>
-      <el-checkbox-group class="check-group" v-model="checkList">
-        <el-checkbox v-for="(item) in recordType" :label="item.value" :key="item.value">{{item.label}}</el-checkbox>
-      </el-checkbox-group>
-      <iep-no-data v-if="!timeLineList.length" message="暂无成长时间线数据"></iep-no-data>
-      <div class="block">
-        <el-timeline>
-          <el-timeline-item v-for="item in timeLineList" :timestamp="item.date" placement="top" :key="item.id">
-            <el-card>
-              <h4>{{item.msg}}</h4>
-              <p>时间：{{item.time}}</p>
-            </el-card>
-          </el-timeline-item>
-        </el-timeline>
-      </div>
+      <iep-tabs v-model="activeTab" :tab-list="tabList" style="margin-top:20px;">
+        <template v-slot:[activeTab]>
+          <component ref="tabList" :is="activeTab"></component>
+        </template>
+      </iep-tabs>
     </basic-container>
   </div>
 </template>
 <script>
-import { simpleEmployeeStatus, recordType, initForm } from './options'
+import { simpleEmployeeStatus, initForm } from './options'
 import { getGrowthFile } from '@/api/hrms/employee_profile'
+import PersonnelChange from './PersonnelChange/index'
+import EvaluationRecord from './EvaluationRecord/index'
+import ExaminationSituation from './ExaminationSituation/index'
+import RewardPunishment from './RewardPunishment/index'
+import TrainingRecord from './TrainingRecord/index'
 export default {
+  components: {
+    PersonnelChange,
+    EvaluationRecord,
+    ExaminationSituation,
+    RewardPunishment,
+    TrainingRecord,
+  },
   data () {
     return {
-      recordType,
+      activeTab: 'PersonnelChange',
+      tabList: [
+        {
+          label: '人事变动',
+          value: 'PersonnelChange',
+        },
+        {
+          label: '评价记录',
+          value: 'EvaluationRecord',
+        },
+        {
+          label: '考试情况',
+          value: 'ExaminationSituation',
+        },
+        {
+          label: '奖惩信息',
+          value: 'RewardPunishment',
+        },
+        {
+          label: '培训记录',
+          value: 'TrainingRecord',
+        },
+      ],
       simpleEmployeeStatus,
       form: initForm(),
-      checkList: [1, 2, 3, 4, 5],
       backOption: {
         isBack: true,
         backPath: this.$route.query.redirect,
       },
     }
-  },
-  computed: {
-    timeLineList () {
-      return this.form.timeLineList.filter(m => this.checkList.includes(m.type))
-    },
   },
   created () {
     this.loadPage()
@@ -86,13 +105,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.check-group {
-  padding: 20px 50px;
-}
-.block {
-  padding: 0 50px;
-  margin-top: 20px;
-}
 .staff-headers {
   margin: 0 20px;
   .left {

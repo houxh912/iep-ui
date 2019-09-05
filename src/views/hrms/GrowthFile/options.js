@@ -7,28 +7,6 @@ const simpleEmployeeStatus = {
   5: '其他',
   6: '离职',
 }
-const recordType = [
-  {
-    label: '人事变动',
-    value: 1,
-  },
-  {
-    label: '评价记录',
-    value: 2,
-  },
-  {
-    label: '考试情况',
-    value: 3,
-  },
-  {
-    label: '奖惩信息',
-    value: 4,
-  },
-  {
-    label: '培训记录',
-    value: 5,
-  },
-]
 
 const initForm = () => {
   return {
@@ -55,4 +33,4 @@ const initForm = () => {
   }
 }
 
-export { simpleEmployeeStatus, recordType, initForm }
+export { simpleEmployeeStatus, initForm }

@@ -28,8 +28,8 @@ export default {
       this.currentComponet = 'Start'
       // console.log('record => ', record)
     },
-    handleGoBack () {
-      this.record = ''
+    handleGoBack (record) {
+      this.record = record
       this.currentComponet = 'Show'
     },
     handleExamine (record) {

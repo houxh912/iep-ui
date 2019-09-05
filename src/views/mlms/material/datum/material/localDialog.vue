@@ -10,7 +10,7 @@
       </el-form-item>
       <el-form-item label="介绍：" prop="intro">
         <!-- <el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200" :placeholder="tipContent.intro"></el-input> -->
-<el-input type="textarea" v-model="formData.intro" rows="5" maxlength="200" placeholder="1、材料内容主旨说明，如选取文中重要的段落；
+<el-input type="textarea" v-model="formData.intro" rows="5" maxlength="500" placeholder="1、材料内容主旨说明，如选取文中重要的段落；
 2、字数控制在200字以内。"></el-input>
       </el-form-item>
       <el-row>

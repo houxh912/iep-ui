@@ -20,14 +20,14 @@
               <iep-tip :content="tipContent2.workSummary"></iep-tip>
           </div>
           <el-form-item prop="workSummary">
-            <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本月工作总结" maxlength="1000"></el-input>
+            <el-input type="textarea" v-model="formData.workSummary" rows=5 placeholder="此处填写本月工作总结" maxlength="5000"></el-input>
           </el-form-item>
           <div class="title validate">
               下月工作计划
               <iep-tip :content="tipContent2.workPlan"></iep-tip>
           </div>
           <el-form-item prop="workPlan">
-            <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下月工作计划" maxlength="1000"></el-input>
+            <el-input type="textarea" v-model="formData.workPlan" rows=5 placeholder="此处填写下月工作计划" maxlength="5000"></el-input>
           </el-form-item>
           <div class="title">
               总结与感悟

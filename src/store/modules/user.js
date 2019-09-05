@@ -9,33 +9,18 @@ const user = {
     permissions: {},
     roles: [],
     orgs: [],
-    keep_login_token: getStore({ name: 'keep_login_token' }) || {
-      is_keep_login: false,
-      access_token: '',
-      refresh_token: '',
-      expires_in: '',
-    },
-    expires_in: getStore({ name: 'expires_in' }) || '',
+    expires_in: getStore({ name: 'expires_in' }) || getCookies('expires_in') || '',
     access_token: getStore({ name: 'access_token' }) || getCookies('access_token') || '',
-    refresh_token: getStore({ name: 'refresh_token' }) || '',
+    refresh_token: getStore({ name: 'refresh_token' }) || getCookies('refresh_token') || '',
   },
   actions: {
     // 根据之前保持登陆记录
-    LoginByLocalStorage ({ commit, state, dispatch }) {
-      const { keep_login_token } = state
-      if (keep_login_token.is_keep_login) {
-        dispatch('ClearMenu')
-        commit('SET_ACCESS_TOKEN', keep_login_token.access_token)
-        commit('SET_REFRESH_TOKEN', keep_login_token.refresh_token)
-        commit('SET_EXPIRES_IN', keep_login_token.expires_in)
-        commit('CLEAR_LOCK')
-        return true
-      } else {
-        return false
-      }
+    LoginByLocalStorage ({ state }) {
+      console.log(state.refresh_token, state.expires_in, state.access_token)
+      return false
     },
     // 根据用户名登录
-    LoginByUsername ({ commit, dispatch }, userInfo) {
+    LoginByUsername ({ commit }, userInfo) {
       const user = encryption({
         data: userInfo,
         key: 'gdscloudprisbest',
@@ -43,15 +28,6 @@ const user = {
       })
       return new Promise((resolve, reject) => {
         loginByUsername(user.username, user.password, user.code, user.randomStr).then(({ data }) => {
-          if (user.isKeepLogin) {
-            commit('SET_KEEP_LOGIN_TOKEN', {
-              is_keep_login: true,
-              access_token: data.access_token,
-              refresh_token: data.refresh_token,
-              expires_in: data.expires_in,
-            })
-          }
-          dispatch('ClearMenu')
           commit('SET_ACCESS_TOKEN', data.access_token)
           commit('SET_REFRESH_TOKEN', data.refresh_token)
           commit('SET_EXPIRES_IN', data.expires_in)
@@ -96,21 +72,18 @@ const user = {
           })
       })
     },
-    GetUserInfo ({ commit }) {
-      return new Promise((resolve, reject) => {
-        getUserInfo()
-          .then(({ data }) => {
-            const realData = data.data || {}
-            commit('SET_USERIFNO', realData.sysUser)
-            commit('SET_ROLES', realData.roles || [])
-            commit('SET_PERMISSIONS', realData.permissions || [])
-            commit('SET_ORGS', realData.orgs || [])
-            resolve(realData)
-          })
-          .catch(() => {
-            reject()
-          })
-      })
+    async GetUserInfo ({ commit }) {
+      try {
+        const { data } = await getUserInfo()
+        const data1 = data.data || {}
+        commit('SET_USERIFNO', data1.sysUser)
+        commit('SET_ROLES', data1.roles || [])
+        commit('SET_PERMISSIONS', data1.permissions || [])
+        commit('SET_ORGS', data1.orgs || [])
+        return data1
+      } catch (error) {
+        console.log(error)
+      }
     },
     // 刷新token
     RefreshToken ({ commit, state }) {
@@ -134,7 +107,6 @@ const user = {
       commit('SET_ORGS', [])
       commit('SET_USER_INFO', {})
       commit('SET_ACCESS_TOKEN', '')
-      commit('SET_KEEP_LOGIN_TOKEN', {})
       commit('SET_REFRESH_TOKEN', '')
       commit('SET_EXPIRES_IN', '')
       commit('SET_ROLES', [])
@@ -142,38 +114,24 @@ const user = {
       commit('CLEAR_LOCK')
     },
     // 登出
-    LogOut ({ dispatch }) {
-      return new Promise((resolve, reject) => {
-        logout()
-          .then(() => {
-            dispatch('ClearMenu')
-            dispatch('ClearUserInfo')
-            resetRouter()
-            resolve()
-          })
-          .catch(error => {
-            reject(error)
-          })
-      })
+    async LogOut ({ dispatch }) {
+      try {
+        await logout()
+        await dispatch('ClearUserInfo')
+        resetRouter()
+      } catch (error) {
+        console.log(error)
+      }
     },
     // 注销session
-    FedLogOut ({ dispatch }) {
+    FedLogOut () {
       return new Promise(resolve => {
-        dispatch('ClearMenu')
-        dispatch('ClearUserInfo')
         resetRouter()
         resolve()
       })
     },
   },
   mutations: {
-    SET_KEEP_LOGIN_TOKEN: (state, keep_login_token) => {
-      state.keep_login_token = keep_login_token
-      setStore({
-        name: 'keep_login_token',
-        content: state.keep_login_token,
-      })
-    },
     SET_ACCESS_TOKEN: (state, access_token) => {
       state.access_token = access_token
       setCookies('access_token', access_token)
@@ -185,6 +143,7 @@ const user = {
     },
     SET_EXPIRES_IN: (state, expires_in) => {
       state.expires_in = expires_in
+      setCookies('expires_in', expires_in)
       setStore({
         name: 'expires_in',
         content: state.expires_in,
@@ -193,6 +152,7 @@ const user = {
     },
     SET_REFRESH_TOKEN: (state, rfToken) => {
       state.refresh_token = rfToken
+      setCookies('refresh_token', rfToken)
       setStore({
         name: 'refresh_token',
         content: state.refresh_token,

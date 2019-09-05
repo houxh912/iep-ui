@@ -39,32 +39,25 @@ export default {
     ...mapActions([
       'GetUserInfo',
       'GetMenu',
-      'ClearMenu',
     ]),
-    submitForm () {
-      setOrg(this.orgForm.orgId).then(() => {
-        this.GetUserInfo().then(() => {
-          this.dialogShow = false
-          const loading = this.$loading({
-            lock: true,
-            text: '组织切换中....',
-            spinner: 'el-icon-loading',
-            background: 'rgba(0, 0, 0, 0.7)',
-          })
-          this.ClearMenu()
-          setTimeout(async () => {
-            await this.GetMenu()
-            // this.$router.$avueRouter.formatRoutes(data, true)
-            loading.close()
-            this.$message({
-              message: '组织切换成功！',
-              type: 'success',
-            })
-            this.$router.push({
-              path: '/',
-            })
-          }, 1000)
-        })
+    async submitForm () {
+      this.dialogShow = false
+      const loading = this.$loading({
+        lock: true,
+        text: '组织切换中....',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)',
+      })
+      await setOrg(this.orgForm.orgId)
+      await this.GetUserInfo()
+      await this.GetMenu()
+      loading.close()
+      this.$message({
+        message: '组织切换成功！',
+        type: 'success',
+      })
+      this.$router.push({
+        path: '/',
       })
     },
     loadPage () {

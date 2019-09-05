@@ -28,6 +28,7 @@
         <div @click="$openPage('/fams/group_finance/budget')">集团预算</div>
         <div @click="$openPage('/fams_spa/union_payment_plan')">回款计划</div>
         <div @click="$openPage('/app/data_assets?type=1')">组织资产</div>
+        <div @click="$openPage('/fams_spa/iep_fee')">内网使用费</div>
       </iep-card-btn>
     </iep-fams-card>
   </div>

@@ -1,5 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增支出" width="700px" @close="close">
+    <el-alert style="margin-bottom: 10px;" :title="warningText" type="warning" :closable="false" show-icon></el-alert>
     <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
       <el-form-item label="支出类型：" prop="type">
         <iep-dict-cascader dictName="fams_expenditure_type" v-model="form.type"></iep-dict-cascader>
@@ -86,7 +87,7 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap, rules } from './options'
+import { initForm, dictsMap, rules, warningText } from './options'
 import formMixins from '@/mixins/formMixins'
 import ConfirmForm from './ConfirmForm'
 import { mapGetters } from 'vuex'
@@ -101,6 +102,7 @@ export default {
   mixins: [formMixins],
   data () {
     return {
+      warningText,
       dictsMap,
       dialogShow: false,
       isCollection: false,

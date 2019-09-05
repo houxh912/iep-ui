@@ -107,10 +107,13 @@ const rules = {
 	],
 }
 
+const warningText = '和项目相关的收入/费用，请关联具体项目（未审核项目无法关联财务数据）'
+
 export {
 	dictsMap,
 	columnsMap,
 	initForm,
 	toDtoForm,
 	rules,
+	warningText,
 }

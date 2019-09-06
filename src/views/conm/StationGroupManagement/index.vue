@@ -28,7 +28,7 @@
         <el-table-column prop="operation" label="操作" width="250" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleCulomn(scope.row)" type="primary" plain>栏目管理</iep-button>
+              <!-- <iep-button @click="handleCulomn(scope.row)" type="primary" plain>栏目管理</iep-button> -->
               <iep-button v-if="info_site_edit" @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button v-if="info_site_del" @click="handleDelete(scope.row)">删除</iep-button>
               <!-- <iep-button @click="handleAttribute(scope.row)">推荐位管理</iep-button> -->

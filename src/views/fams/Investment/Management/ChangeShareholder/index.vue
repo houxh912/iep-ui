@@ -87,10 +87,10 @@ export default {
     },
     financialData () {
       return {
-        '集团持有股份数量': this.statistics[0],
-        '已发行股份数量': this.statistics[1],
-        '集团持有股份比例': this.statistics[2],
-        '已发行股份比例': this.statistics[3],
+        '集团非流通股份': this.statistics[0],
+        '集团流通股份': this.statistics[1],
+        '集团非流通股份比例': this.statistics[2],
+        '集团流通股份比例': this.statistics[3],
       }
     },
   },

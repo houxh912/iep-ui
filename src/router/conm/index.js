@@ -5,6 +5,11 @@ export default [
     component: Layout,
     children: [
       {
+        path: 'station_management_detail/:id',
+        name: '站点管理详情',
+        component: () => import('@/views/conm/StationGroupManagement/Detail'),
+      },
+      {
         path: 'column_management/:id',
         name: '栏目管理',
         component: () => import('@/views/conm/ColumnManagement/index'),

@@ -7,6 +7,9 @@
       <el-form-item label="标签：" prop="tagKeyWords">
         <iep-tag v-model="form.tagKeyWords"></iep-tag>
       </el-form-item>
+      <el-form-item label="关键词：">
+        <el-input v-model="form.keyWords"></el-input>
+      </el-form-item>
       <el-form-item label="发布时间：" prop="updateTime" v-show="methodName==='新增'">
         <iep-date-picker v-model="form.updateTime" type="datetime" placeholder="请选择发布时间"></iep-date-picker>
       </el-form-item>

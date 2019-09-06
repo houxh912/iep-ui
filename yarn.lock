@@ -2033,30 +2033,30 @@ bluebird@^3.1.1, bluebird@^3.5.1, bluebird@^3.5.5:
 
 bmaplib.curveline@^1.0.0:
   version "1.0.0"
-  resolved "https://registry.yarnpkg.com/bmaplib.curveline/-/bmaplib.curveline-1.0.0.tgz#826eb0bf1c59fad1b23142be66fc360cf009aea2"
-  integrity sha512-9wcFMVhiYxNPqpvsLDAADn3qDhNzXp2mA6VyHSHg2XOAgSooC7ZiujdFhy0sp+0QYjTfJ/MjmLuNoUg2HHxH4Q==
+  resolved "https://registry.npm.taobao.org/bmaplib.curveline/download/bmaplib.curveline-1.0.0.tgz#826eb0bf1c59fad1b23142be66fc360cf009aea2"
+  integrity sha1-gm6wvxxZ+tGyMUK+Zvw2DPAJrqI=
 
 bmaplib.heatmap@^1.0.4:
   version "1.0.4"
-  resolved "https://registry.yarnpkg.com/bmaplib.heatmap/-/bmaplib.heatmap-1.0.4.tgz#30161262771fe78af35705ff92457725de5d9850"
-  integrity sha512-rmhqUARBpUSJ9jXzUI2j7dIOqnc38bqubkx/8a349U2qtw/ulLUwyzRD535OrA8G7w5cz4aPKm6/rNvUAarg/Q==
+  resolved "https://registry.npm.taobao.org/bmaplib.heatmap/download/bmaplib.heatmap-1.0.4.tgz#30161262771fe78af35705ff92457725de5d9850"
+  integrity sha1-MBYSYncf54rzVwX/kkV3Jd5dmFA=
 
 bmaplib.lushu@^1.0.7:
   version "1.0.7"
-  resolved "https://registry.yarnpkg.com/bmaplib.lushu/-/bmaplib.lushu-1.0.7.tgz#77c17dcf7148d30c46e8430c7ff86b20e418b8b8"
-  integrity sha512-LVvgpESPii6xGxyjnQjq8u+ic4NjvhdCPV/RiSS/PGTUdZKeTDS7prSpleJLZH3ES0+oc0gYn8bw0LtPYUSz2w==
+  resolved "https://registry.npm.taobao.org/bmaplib.lushu/download/bmaplib.lushu-1.0.7.tgz#77c17dcf7148d30c46e8430c7ff86b20e418b8b8"
+  integrity sha1-d8F9z3FI0wxG6EMMf/hrIOQYuLg=
 
 bmaplib.markerclusterer@^1.0.13:
   version "1.0.13"
-  resolved "https://registry.yarnpkg.com/bmaplib.markerclusterer/-/bmaplib.markerclusterer-1.0.13.tgz#442d71a6c40844ee47d01f6db2166b54530b5bd1"
-  integrity sha512-VrLyWSiuDEVNi0yUfwOhFQ6z1oEEHS4w36GNu3iASu6p52QIx9uAXMUkuSCHReNR0bj2Cp9SA1dSx5RpojXajQ==
+  resolved "https://registry.npm.taobao.org/bmaplib.markerclusterer/download/bmaplib.markerclusterer-1.0.13.tgz#442d71a6c40844ee47d01f6db2166b54530b5bd1"
+  integrity sha1-RC1xpsQIRO5H0B9tshZrVFMLW9E=
   dependencies:
     bmaplib.texticonoverlay "^1.0.2"
 
 bmaplib.texticonoverlay@^1.0.2:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/bmaplib.texticonoverlay/-/bmaplib.texticonoverlay-1.0.2.tgz#d78546ea0f036d9fe964983796315b6c112a05bf"
-  integrity sha512-4ZTWr4ZP3B6qEWput5Tut16CfZgII38YwM3bpyb4gFTQyORlKYryFp9WHWrwZZaHlOyYDAXG9SX0hka43jTADg==
+  resolved "https://registry.npm.taobao.org/bmaplib.texticonoverlay/download/bmaplib.texticonoverlay-1.0.2.tgz#d78546ea0f036d9fe964983796315b6c112a05bf"
+  integrity sha1-14VG6g8DbZ/pZJg3ljFbbBEqBb8=
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.8"
@@ -3997,8 +3997,8 @@ enquire.js@^2.1.6:
 
 entities@^1.1.1, entities@~1.1.1:
   version "1.1.2"
-  resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
-  integrity sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==
+  resolved "https://registry.npm.taobao.org/entities/download/entities-1.1.2.tgz?cache=0&sync_timestamp=1563403318326&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fentities%2Fdownload%2Fentities-1.1.2.tgz#bdfa735299664dfafd34529ed4f8522a275fea56"
+  integrity sha1-vfpzUplmTfr9NFKe1PhSKidf6lY=
 
 entities@^2.0.0:
   version "2.0.0"
@@ -6580,8 +6580,8 @@ lines-and-columns@^1.1.6:
 
 linkify-it@^2.0.0:
   version "2.2.0"
-  resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-2.2.0.tgz#e3b54697e78bf915c70a38acd78fd09e0058b1cf"
-  integrity sha512-GnAl/knGn+i1U/wjBz3akz2stz+HrHLsxMwHQGofCDfPvlf+gDKN58UtfmUquTY4/MXeE2x7k19KQmeoZi94Iw==
+  resolved "https://registry.npm.taobao.org/linkify-it/download/linkify-it-2.2.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flinkify-it%2Fdownload%2Flinkify-it-2.2.0.tgz#e3b54697e78bf915c70a38acd78fd09e0058b1cf"
+  integrity sha1-47VGl+eL+RXHCjis14/QngBYsc8=
   dependencies:
     uc.micro "^1.0.1"
 
@@ -6846,8 +6846,8 @@ map-visit@^1.0.0:
 
 markdown-it@^8.4.0:
   version "8.4.2"
-  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.2.tgz#386f98998dc15a37722aa7722084f4020bdd9b54"
-  integrity sha512-GcRz3AWTqSUphY3vsUqQSFMbgR38a4Lh3GWlHRh/7MRwz8mcu9n2IO7HOh+bXHrR9kOPDl5RNCaEsrneb+xhHQ==
+  resolved "https://registry.npm.taobao.org/markdown-it/download/markdown-it-8.4.2.tgz#386f98998dc15a37722aa7722084f4020bdd9b54"
+  integrity sha1-OG+YmY3BWjdyKqdyIIT0Agvdm1Q=
   dependencies:
     argparse "^1.0.7"
     entities "~1.1.1"
@@ -6886,7 +6886,7 @@ mdn-data@~1.1.0:
 
 mdurl@^1.0.1:
   version "1.0.1"
-  resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
+  resolved "https://registry.npm.taobao.org/mdurl/download/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
   integrity sha1-/oWy7HWlkDfyrf7BAP1sYBdhFS4=
 
 media-typer@0.3.0:
@@ -10404,8 +10404,8 @@ typedarray@^0.0.6:
 
 uc.micro@^1.0.1, uc.micro@^1.0.5:
   version "1.0.6"
-  resolved "https://registry.yarnpkg.com/uc.micro/-/uc.micro-1.0.6.tgz#9c411a802a409a91fc6cf74081baba34b24499ac"
-  integrity sha512-8Y75pvTYkLJW2hWQHXxoqRgV7qb9B+9vFEtidML+7koHUFapnVJAZ6cKs+Qjz5Aw3aZWHMC6u0wJE3At+nSGwA==
+  resolved "https://registry.npm.taobao.org/uc.micro/download/uc.micro-1.0.6.tgz#9c411a802a409a91fc6cf74081baba34b24499ac"
+  integrity sha1-nEEagCpAmpH8bPdAgbq6NLJEmaw=
 
 uglify-js@3.4.x:
   version "3.4.10"
@@ -10760,8 +10760,8 @@ vm-browserify@^1.0.1:
 
 vue-baidu-map@^0.21.22:
   version "0.21.22"
-  resolved "https://registry.yarnpkg.com/vue-baidu-map/-/vue-baidu-map-0.21.22.tgz#6b76a91ef34f18a782d732ab0f541a1a3aa069e0"
-  integrity sha512-WQMPCih4UTh0AZCKKH/OVOYnyAWjfRNeK6BIeoLmscyY5aF8zzlJhz/NOHLb3mdztIpB0Z6aohn4Jd9mfCSjQw==
+  resolved "https://registry.npm.taobao.org/vue-baidu-map/download/vue-baidu-map-0.21.22.tgz?cache=0&sync_timestamp=1561346453057&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-baidu-map%2Fdownload%2Fvue-baidu-map-0.21.22.tgz#6b76a91ef34f18a782d732ab0f541a1a3aa069e0"
+  integrity sha1-a3apHvNPGKeC1zKrD1QaGjqgaeA=
   dependencies:
     bmaplib.curveline "^1.0.0"
     bmaplib.heatmap "^1.0.4"

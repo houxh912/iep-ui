@@ -11,6 +11,7 @@ import atmsRouter from './atms/'
 import crmsRouter from './crms/'
 import appRouter from './app/'
 import cpmsRouter from './cpms/'
+import pgbdRouter from './pgbd/'
 import famsRouter from './fams/'
 import conmRouter from './conm/'
 import exceptionRouter from './exception/'
@@ -47,6 +48,7 @@ export function initRouter (router, store) {
     ...ViewsRouter,
     ...PageRouter,
     ...atmsRouter,
+    ...pgbdRouter,
   ])
 }
 

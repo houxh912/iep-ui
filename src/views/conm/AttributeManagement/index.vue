@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="推荐位管理" :backOption="backOption"></iep-page-header>
+      <iep-page-header title="推荐位管理"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="info_attribute_add" type="primary" plain @click="handleAdd" icon="el-icon-plus">新增</iep-button>
@@ -36,9 +36,6 @@ export default {
   components: { DialogForm },
   data () {
     return {
-      backOption: {
-        isBack: true,
-      },
       dictsMap,
       columnsMap,
       paramForm: initSearchForm(),

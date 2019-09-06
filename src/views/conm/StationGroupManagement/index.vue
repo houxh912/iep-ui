@@ -29,8 +29,10 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleCulomn(scope.row)" type="primary" plain>栏目管理</iep-button>
-              <iep-button @click="handleAttribute(scope.row)">推荐位管理</iep-button>
-              <el-dropdown size="medium">
+              <iep-button v-if="info_site_edit" @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="info_site_del" @click="handleDelete(scope.row)">删除</iep-button>
+              <!-- <iep-button @click="handleAttribute(scope.row)">推荐位管理</iep-button> -->
+              <!-- <el-dropdown size="medium">
                 <iep-button type="default">
                   <i class="el-icon-more-outline"></i>
                 </iep-button>
@@ -40,7 +42,7 @@
                   <el-dropdown-item v-if="info_site_edit" @click.native="handleEdit(scope.row)">编辑</el-dropdown-item>
                   <el-dropdown-item v-if="info_site_del" @click.native="handleDelete(scope.row)">删除</el-dropdown-item>
                 </el-dropdown-menu>
-              </el-dropdown>
+              </el-dropdown> -->
             </operation-wrapper>
           </template>
         </el-table-column>

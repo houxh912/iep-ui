@@ -78,7 +78,7 @@ export default {
   created () {
     this.info_site_add = this.permissions['info_site_add']
     this.info_site_edit = this.permissions['info_site_edit']
-    this.info_site_del = this.permissions['info_site_edit']
+    this.info_site_del = this.permissions['info_site_del']
     this.loadPage()
   },
   computed: {

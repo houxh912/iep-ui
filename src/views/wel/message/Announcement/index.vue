@@ -33,8 +33,8 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
+              <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
               <template v-if="scope.row.status==='草稿'">
-                <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
                 <iep-button @click="handlePublish(scope.row)">发布</iep-button>
               </template>
             </operation-wrapper>

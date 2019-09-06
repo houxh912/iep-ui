@@ -82,7 +82,7 @@ li {
 }
 .relationshipContent {
   padding: 18px 0;
-  height: 120px;
+  min-height: 120px;
   .relationship-item {
     display: flex;
     margin-bottom: 10px;

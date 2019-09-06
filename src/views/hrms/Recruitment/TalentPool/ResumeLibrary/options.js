@@ -23,6 +23,8 @@ const columnsMap = [
   {
     prop: 'education',
     label: '学历',
+    type: 'dictGroup',
+    dictName: 'hrms_highest_educational',
     width: '100',
   },
   {
@@ -36,6 +38,8 @@ const columnsMap = [
   {
     prop: 'source',
     label: '来源',
+    type: 'dictGroup',
+    dictName: 'hrms_resume_source',
     width: '100',
   },
   {

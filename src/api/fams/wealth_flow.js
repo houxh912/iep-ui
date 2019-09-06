@@ -17,3 +17,12 @@ export function getWealthFlowListById (id) {
     method: 'get',
   })
 }
+
+// 频道页获取奖惩记录
+export function getWealthFlowPageByUserId (query) {
+  return request({
+    url: `${prefixUrl}/hr/page`,
+    method: 'get',
+    params: query,
+  })
+}

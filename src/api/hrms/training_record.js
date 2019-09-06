@@ -10,6 +10,14 @@ export function getTrainingRecordPage (query) {
   })
 }
 
+export function getTrainingRecordPageByUserId (query) {
+  return request({
+    url: `${prefixUrl}/user/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
 export function postTrainingRecord (obj) {
   return request({
     url: `${prefixUrl}/create`,

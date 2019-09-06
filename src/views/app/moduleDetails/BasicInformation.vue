@@ -14,7 +14,10 @@
       <el-col :span="8"><span>模块优惠价：</span>{{form.preferentialPrice}}</el-col>
     </el-row>
     <el-row>
-      <el-col :span="24"><span>详情介绍：</span>{{form.description}}</el-col>
+      <el-col :span="24">
+        <span>详情介绍：</span>
+        <iep-html style="display: inline-block;" v-model="form.description"></iep-html>
+      </el-col>
     </el-row>
   </div>
 </template>

@@ -75,6 +75,8 @@ export const questionForm = () => {
     total: '', //试题总数
     iepItemBankList: [], //固定试题
     questionList: '', //试题id
+    middleSingle: 5, //一般题分数
+    hardSingle: 5, //困难题分数
   }
 }
 

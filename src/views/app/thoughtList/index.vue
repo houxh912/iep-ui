@@ -6,17 +6,15 @@
       <tabsTpl v-model="tabName" :tab-list="tabList" class="content-left">
         <!-- 说说列表 -->
         <template v-if="tabName ==='allThougth'" v-slot:allThougth>
-          <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
-          <div style="text-align: center;margin: 20px 0;">
-            <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+          <div class="content-top" v-if="!paramData.userId">
+            <libraryTop :dataList="topDataList" @fresh-right="freshRight" @load-page="getToppedThoughts" isTop @fresh-all="freshAll"></libraryTop>
+            <!-- <libraryTop ref="libraryTop" @load-page="submitCallBack" :dataList="topDataList" :params="params" @fresh-right="freshRight"></libraryTop> -->
           </div>
+          <pageTpl ref="allThougth" :requestFn="geTallPage" :paramData="paramData" @fresh-right="freshRight" @fresh-all="getToppedThoughts"></pageTpl>
         </template>
         <!-- 关注列表 -->
         <template v-if="tabName ==='followThougth'" v-slot:followThougth>
-          <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params"></library>
-          <div style="text-align: center;margin: 20px 0;">
-            <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
-          </div>
+          <pageTpl :requestFn="getFollowPage" :paramData="paramData" @fresh-right="freshRight"></pageTpl>
         </template>
         <!-- 话题列表 -->
         <template v-if="tabName ==='subject'" v-slot:subject>
@@ -37,24 +35,18 @@
 </template>
 
 <script>
-import { geTallPage, getFollowPage } from '@/api/cpms/thoughts'
+import { geTallPage, getFollowPage, getToppedThoughts } from '@/api/cpms/thoughts'
 import headTpl from './library/form'
 import rightTpl from './right'
-import library from './library'
 import subjectPage from './subjectPage/'
 import tabsTpl from './tabsTpl'
 import searchThought from './search/thought'
 import searchSubject from './search/subject'
-
-const initParams = () => {
-  return {
-    current: 1,
-    size: 10,
-  }
-}
+import pageTpl from './page/'
+import libraryTop from './page/library'
 
 export default {
-  components: { headTpl, rightTpl, library, subjectPage, tabsTpl, searchThought, searchSubject },
+  components: { headTpl, rightTpl, subjectPage, tabsTpl, searchThought, searchSubject, pageTpl, libraryTop },
   data () {
     return {
       isShow: true,
@@ -76,8 +68,6 @@ export default {
       paramData: {},
       total: 0,
       activeIndex: -1,
-      params: initParams(),
-      dataList: [],
       tabList: [
         {
           label: '全部',
@@ -92,32 +82,27 @@ export default {
       ],
       tabName: 'allThougth',
       isSearchShow: 'thought',
+      geTallPage,
+      getFollowPage,
+      topDataList: [],
     }
   },
   methods: {
-    currentChange (val) {
-      this.params.current = val
-      this.loadPage()
-    },
     // 我要发布
     handlePublish () {
       this.$refs['publish'].open()
     },
-    submitCallBack () {
-      this.loadPage()
-      this.$refs['contentRight'].loadData()
-    },
     loadPage () {
-      let fn = () => { }
       if (this.tabName === 'allThougth') {
-        fn = geTallPage
-      } else {
-        fn = getFollowPage
+        this.$refs['allThougth'].loadPage()
       }
-      fn(Object.assign({}, this.params, this.paramData)).then(({ data }) => {
-        this.dataList = data.data.records
-        this.total = data.data.total
-        this.activeIndex = -1
+      this.$refs['contentRight'].loadData()
+      this.getToppedThoughts()
+    },
+    // 获取置顶说说
+    getToppedThoughts () {
+      getToppedThoughts().then(({ data }) => {
+        this.$set(this, 'topDataList', data.data)
       })
     },
     // 搜素
@@ -126,46 +111,51 @@ export default {
         if (params) {
           this.paramData = Object.assign({}, this.paramData, params)
         }
-        this.loadPage()
+        this.$nextTick(() => {
+          this.loadPage()
+        })
       } else if (state === 'subject') {
         this.$refs['subject'].search(params)
       }
     },
+    freshRight () {
+      this.$refs['contentRight'].loadData()
+    },
+    freshAll () {
+      this.$refs['allThougth'].loadPage()
+    },
   },
   beforeRouteUpdate (to, from, next) {
     this.$nextTick(() => {
-      this.params = initParams()
       this.paramData = {}
       this.$refs['search'].clearSearchParam()
       this.tabName = 'allThougth'
       if (this.$route.query.id) {
-        this.params.userId = this.$route.query.id
+        this.paramData.userId = this.$route.query.id
       } else {
-        this.params.userId = ''
+        this.paramData.userId = ''
       }
-      this.loadPage()
+      this.$nextTick(() => {
+        this.loadPage()
+      })
     })
     next()
   },
   created () {
     if (this.$route.query.id) {
-      this.params.userId = this.$route.query.id
+      this.paramData.userId = this.$route.query.id
     }
-    this.loadPage()
+    this.getToppedThoughts()
   },
   watch: {
     tabName (newVal) {
-      let loadPage = () => {
-        this.dataList = []
-        this.params = initParams()
-        this.loadPage()
-      }
       if (newVal === 'allThougth') {
-        loadPage()
         this.isSearchShow = 'thought'
+        this.paramData.userId = ''
+        this.getToppedThoughts()
       } else if (newVal === 'followThougth') {
-        loadPage()
         this.isSearchShow = 'follow'
+        this.paramData.userId = ''
       } else if (newVal === 'subject') {
         this.isSearchShow = 'subject'
       }
@@ -195,6 +185,9 @@ h3.title {
   .content-left {
     flex: 1;
     border-bottom: 1px solid #ddd;
+    .content-top {
+      border-bottom: 2px solid #ddd;
+    }
     .explain {
       display: flex;
       border-bottom: 1px solid #ddd;

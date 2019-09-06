@@ -206,7 +206,13 @@ export default {
     // 自动保存
     autosave () {
       // 首先判断下是否为未发送状态，已发送纪要不做自动保存功能
-      if (this.formData.id && this.formData.isSend === 0 && this.formData.status === 2) {
+      console.log('1111111111: ', this.formData.id)
+      console.log('2222222222: ', this.formData.isSend === 0)
+      console.log('3333333333: ', this.formData.status !== 1)
+      console.log('4444444444: ', !this.loadState)
+      console.log('5555555555: ', (this.formData.id && this.formData.isSend === 0 && this.formData.status !== 1 && !this.loadState))
+      if (this.formData.id && this.formData.isSend === 0 && this.formData.status !== 1 && !this.loadState) {
+        console.log('已保存或正在保存纪要中，不执行自动保存功能')
         return
       }
       let data = {...this.formData}

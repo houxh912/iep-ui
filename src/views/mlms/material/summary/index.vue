@@ -198,6 +198,6 @@ export default {
 }
 </script>
 <style scoped>
-.backstage-tabs >>> .el-tabs__item {
-}
+/* .backstage-tabs >>> .el-tabs__item {
+} */
 </style>

@@ -9,6 +9,7 @@ import componentsRouter from './components/'
 import welRouter from './wel/'
 import atmsRouter from './atms/'
 import crmsRouter from './crms/'
+import cfmsRouter from './cfms/'
 import appRouter from './app/'
 import cpmsRouter from './cpms/'
 import famsRouter from './fams/'
@@ -47,6 +48,7 @@ export function initRouter (router, store) {
     ...ViewsRouter,
     ...PageRouter,
     ...atmsRouter,
+    ...cfmsRouter,
   ])
 }
 

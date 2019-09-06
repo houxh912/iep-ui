@@ -77,9 +77,15 @@
               </div>
               <el-scrollbar style="height:204px">
                 <div class="shareholders-wrapper" v-for="(item,index) in form.shareholderInformation" :key="index">
-                  <span v-if="item.holdType==2">{{item.orgName}}</span>
-                  <span v-else-if="item.holdType==4">{{item.other}}</span>
-                  <span v-else>{{item.name}}</span>
+                  <el-popover placement="top-start" trigger="hover" :content="item.orgName" v-if="item.holdType==2">
+                    <span slot="reference">{{item.orgName}}</span>
+                  </el-popover>
+                  <el-popover placement="top-start" trigger="hover" :content="item.other" v-else-if="item.holdType==4">
+                    <span slot="reference">{{item.other}}</span>
+                  </el-popover>
+                  <el-popover placement="top-start" trigger="hover" :content="item.name" v-else>
+                    <span slot="reference">{{item.name}}</span>
+                  </el-popover>
                   <span>{{item.proportion}}</span>
                   <span>{{Math.round(item.proportion/form.allSharesNumber * 10000) / 100}} %</span>
                 </div>
@@ -434,9 +440,13 @@ export default {
         display: flex;
         height: 40px;
         line-height: 40px;
-        > span {
+        > span,
+        > el-popover {
           width: 33%;
           text-align: center;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         &:hover {
           background-color: #fafafa;

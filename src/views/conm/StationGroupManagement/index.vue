@@ -21,7 +21,7 @@
           </el-table-column>
           <el-table-column label="站名">
             <template slot-scope="scope">
-              <div>{{scope.row.siteName}}</div>
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.siteName}}</iep-table-link>
             </template>
           </el-table-column>
         </template>
@@ -96,6 +96,11 @@ export default {
       this.$refs['DialogForm'].dialogShow = true
       this.$refs['DialogForm'].loadTypeList()
       this.$refs['DialogForm'].methodName = '编辑'
+    },
+    handleDetail (row) {
+      this.$router.push({
+        path: `/comn/station_management_detail/${row.id}`,
+      })
     },
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteStationManagement)

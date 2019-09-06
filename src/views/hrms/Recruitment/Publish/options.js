@@ -23,6 +23,8 @@ const columnsMap = [
   {
     prop: 'jobType',
     label: '工作类型',
+    type: 'dictGroup',
+    dictName: 'hrms_work_type',
     width: '100',
   },
   {

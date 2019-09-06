@@ -107,26 +107,26 @@ export default {
     handleDelete (row) {
       this._handleGlobalDeleteById(row.id, deleteStationManagement)
     },
-    handleCulomn (row) {
-      this.$router.push({
-        path: `/comn/column_management/${row.id}`,
-      })
-    },
-    handleAttribute (row) {
-      this.$router.push({
-        path: `/comn/attribute_management/${row.id}`,
-      })
-    },
-    handleADSlot (row) {
-      this.$router.push({
-        path: `/comn/a_d_slot_management/${row.id}`,
-      })
-    },
-    handleAD (row) {
-      this.$router.push({
-        path: `/comn/a_d_management/${row.id}`,
-      })
-    },
+    // handleCulomn (row) {
+    //   this.$router.push({
+    //     path: `/comn/column_management/${row.id}`,
+    //   })
+    // },
+    // handleAttribute (row) {
+    //   this.$router.push({
+    //     path: `/comn/attribute_management/${row.id}`,
+    //   })
+    // },
+    // handleADSlot (row) {
+    //   this.$router.push({
+    //     path: `/comn/a_d_slot_management/${row.id}`,
+    //   })
+    // },
+    // handleAD (row) {
+    //   this.$router.push({
+    //     path: `/comn/a_d_management/${row.id}`,
+    //   })
+    // },
     async loadPage (param = this.searchForm) {
       const data = await this.loadTable(param, getStationManagementPage)
       this.$set(this.statistics, 0, data.total)

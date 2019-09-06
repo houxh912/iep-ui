@@ -11,10 +11,10 @@
     </el-col>
     <el-col :span="20">
       <iep-page-header title="站点管理详情" :backOption="backOption"></iep-page-header>
-      <column-management v-if="selectType=='4'"></column-management>
-      <ad v-if="selectType=='3'"></Ad>
-      <ad-slot v-if="selectType=='2'"></ad-slot>
-      <attribute-management v-if="selectType=='1'"></attribute-management>
+      <column-management v-if="selectType=='1'"></column-management>
+      <ad v-if="selectType=='4'"></Ad>
+      <ad-slot v-if="selectType=='3'"></ad-slot>
+      <attribute-management v-if="selectType=='2'"></attribute-management>
     </el-col>
   </el-row>
 </template>
@@ -30,10 +30,10 @@ export default {
         padding: 0,
       },
       Type: [
-        { type: '1', name: '推荐位管理' },
-        { type: '2', name: '广告位管理' },
-        { type: '3', name: '广告管理' },
-        { type: '4', name: '栏目管理' },
+        { type: '1', name: '栏目管理' },
+        { type: '2', name: '推荐位管理' },
+        { type: '3', name: '广告位管理' },
+        { type: '4', name: '广告管理' },
       ],
       backOption: {
         isBack: true,

@@ -28,7 +28,7 @@
           </el-table-column>
           <el-table-column label="持股比例" width="90px">
             <template slot-scope="scope">
-              <iep-div-detail :value="scope.row.investmentNumber / scope.row.allSharesNumber * 100 + '%'"></iep-div-detail>
+              <iep-div-detail :value="parseToPercent(scope.row.investmentNumber / scope.row.allSharesNumber, 2)"></iep-div-detail>
             </template>
           </el-table-column>
         </template>
@@ -75,7 +75,8 @@ export default {
           label: '非流通股本',
         },
       ],
-      statistics: [],
+      statistics: [0, 0, 0, 0],
+      parseToPercent: this.$options.filters.parseToPercent,
     }
   },
   computed: {
@@ -88,9 +89,9 @@ export default {
     financialData () {
       return {
         '集团非流通股份': this.statistics[0],
-        '集团流通股份': this.statistics[1],
-        '集团非流通股份比例': this.statistics[2],
-        '集团流通股份比例': this.statistics[3],
+        '已发行流通股份': this.statistics[1],
+        '集团非流通股份比例': this.parseToPercent(this.statistics[2], 2),
+        '已发行流通股份比例': this.parseToPercent(this.statistics[3], 2),
       }
     },
   },
@@ -110,6 +111,7 @@ export default {
       this.$refs['DialogForm'].form.investmentId = this.id
       this.$refs['DialogForm'].isEdit = true
       this.$refs['DialogForm'].formRequestFn = putShareholder
+      this.$refs['DialogForm'].allSharesNumber = this.form.allSharesNumber
       this.$refs['DialogForm'].dialogShow = true
     },
     handleAdd () {
@@ -117,6 +119,7 @@ export default {
       this.$refs['DialogForm'].form.investmentId = this.id
       this.$refs['DialogForm'].isEdit = false
       this.$refs['DialogForm'].formRequestFn = postShareholder
+      this.$refs['DialogForm'].allSharesNumber = this.form.allSharesNumber
       this.$refs['DialogForm'].dialogShow = true
     },
     async loadPage (param = this.searchForm) {

@@ -38,13 +38,19 @@ export function formatTime (time) {
 export function parseToMoney (money) {
   return new Intl.NumberFormat().format(money)
 }
+
 export function parseToHanZiMoney (money) {
   return Nzh.cn.encodeB(money)
 }
+
 export function parseToM (v) {
   if (v === '-') {
     return v
   } else {
     return parseToMoney(v)
   }
+}
+
+export function parseToPercent (v, n = 2) {
+  return (v * 100).toFixed(n) + '%'
 }

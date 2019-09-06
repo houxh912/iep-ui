@@ -34,10 +34,10 @@ export default {
           prop: 'realName',
           label: '操作人',
         },
-        {
-          prop: 'reviewName',
-          label: '审核人',
-        },
+        // {
+        //   prop: 'reviewName',
+        //   label: '审核人',
+        // },
         {
           prop: 'updateTime',
           label: '变更时间',

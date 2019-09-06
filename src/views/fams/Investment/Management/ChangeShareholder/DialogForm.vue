@@ -4,13 +4,13 @@
       <iep-form-item label-name="持有类型" prop="holdType">
         <iep-dict-select v-model="form.holdType" dict-name="FAMS_HOLD_TYPE" :disabled="isEdit" :disabled-ids="['1']"></iep-dict-select>
       </iep-form-item>
-      <iep-form-item v-if="form.holdType==='2'" label-name="股东（组织）" prop="orgId">
+      <iep-form-item v-if="form.holdType==='2'" label-name="股东(组织)" prop="orgId">
         <iep-select v-model="form.orgId" prefix-url="admin/org/all" placeholder="请选择组织" :disabled="isEdit"></iep-select>
       </iep-form-item>
-      <iep-form-item v-if="form.holdType==='3'" label-name="股东（个人）" prop="user">
+      <iep-form-item v-if="form.holdType==='3'" label-name="股东(个人)" prop="user">
         <iep-contact-select v-model="form.user" :disabled="isEdit"></iep-contact-select>
       </iep-form-item>
-      <iep-form-item v-if="form.holdType==='4'" label-name="股东（外部）" prop="externalShareholder">
+      <iep-form-item v-if="form.holdType==='4'" label-name="股东(外部)" prop="externalShareholder">
         <el-input v-model="form.externalShareholder" placeholder="请填写外部股东" :disabled="isEdit" />
       </iep-form-item>
       <iep-form-item label-name="股份数量" prop="investmentNumber">
@@ -20,7 +20,7 @@
         <iep-dict-select v-model="form.equityType" dict-name="FAMS_EQUITY_TYPE" disabled></iep-dict-select>
       </iep-form-item>
       <iep-form-item label-name="股份比例">
-        2.5%
+        {{radioData}}%
       </iep-form-item>
     </el-form>
     <template slot="footer">
@@ -36,6 +36,7 @@ export default {
   mixins: [formMixins],
   data () {
     return {
+      allSharesNumber: 0,
       isEdit: false,
       form: initForm(),
       methodName: '新增',
@@ -43,6 +44,12 @@ export default {
       dialogShow: false,
       formRequestFn: () => { },
     }
+  },
+  computed: {
+    radioData () {
+      const data = (this.form.investmentNumber / this.allSharesNumber * 100).toFixed(2)
+      return data
+    },
   },
   methods: {
     close () {

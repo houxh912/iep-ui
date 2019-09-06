@@ -2,11 +2,6 @@
   <div>
     <basic-container>
       <iep-statistics-header title="我的投资" :dataMap="financialData">
-        <template slot="right">
-          <operation-wrapper>
-            <iep-button @click="$openPage(`/fams_spa/change_shareholder/${id}`)">变更股东</iep-button>
-          </operation-wrapper>
-        </template>
       </iep-statistics-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList" style="margin-top:20px;">
         <template v-slot:[activeTab]>
@@ -65,7 +60,7 @@ export default {
     },
     loadPage () {
       getMySharesValue(this.id).then(({ data }) => {
-        this.statistics = data.data
+        this.statistics = this.$fillStatisticsArray(this.statistics, data.data)
       })
     },
   },

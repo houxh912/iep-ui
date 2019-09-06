@@ -5,8 +5,15 @@
        
 <script>
 import { getShareList } from '@/api/fams/investment'
+
 export default {
   data () {
+    const parseToPercent1 = (row) => {
+      return this.$options.filters.parseToPercent(row.nonCirculatingRatio)
+    }
+    const parseToPercent2 = (row) => {
+      return this.$options.filters.parseToPercent(row.circulationRatio)
+    }
     return {
       columnsMap: [
         {
@@ -21,11 +28,19 @@ export default {
         },
         {
           prop: 'nonCirculatingRatio',
-          label: '比例',
+          label: '非流通股本比例',
+          type: 'custom',
+          customFunction: parseToPercent1,
         },
         {
           prop: 'circulationNumber',
           label: '流通股本',
+        },
+        {
+          prop: 'circulationRatio',
+          label: '流通股本比例',
+          type: 'custom',
+          customFunction: parseToPercent2,
         },
         {
           prop: 'totalRatio',

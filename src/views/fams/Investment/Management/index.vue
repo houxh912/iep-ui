@@ -24,7 +24,7 @@
               <iep-button type="warning" plain @click="handleEdit(scope.row)">{{scope.row.status===1? '编辑': '查看'}}</iep-button>
               <iep-button v-if="scope.row.status===1" @click="handleUp(scope.row)">上架</iep-button>
               <iep-button v-if="scope.row.status===2" @click="handleRollback(scope.row)">撤回</iep-button>
-              <iep-button v-if="scope.row.status===3" type="warning" @click="handleDown(scope.row)" plain>下架</iep-button>
+              <iep-button v-if="scope.row.status===3" @click="handleDown(scope.row)" plain>下架</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

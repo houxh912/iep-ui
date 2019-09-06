@@ -1,6 +1,20 @@
 
 <template>
   <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable">
+    <template slot="before-columns">
+      <el-table-column label="股东">
+        <template slot-scope="scope">
+          <iep-div-detail v-if="scope.row.holdType === '2'" :value="scope.row.orgName"></iep-div-detail>
+          <iep-div-detail v-if="scope.row.holdType === '3'" :value="scope.row.userName"></iep-div-detail>
+          <iep-div-detail v-if="scope.row.holdType === '4'" :value="scope.row.externalShareholder"></iep-div-detail>
+        </template>
+      </el-table-column>
+      <el-table-column label="持股比例" width="90px">
+        <template slot-scope="scope">
+          <iep-div-detail :value="parseToPercent(scope.row.sharesNumber / scope.row.allSharesNumber, 2)"></iep-div-detail>
+        </template>
+      </el-table-column>
+    </template>
   </iep-table>
 </template>
 <script>
@@ -12,16 +26,8 @@ export default {
     return {
       columnsMap: [
         {
-          prop: 'userName',
-          label: '股东',
-        },
-        {
           prop: 'sharesNumber',
           label: '总持股数量',
-        },
-        {
-          prop: 'shareRatio',
-          label: '持股比例',
         },
         {
           prop: 'holdType',
@@ -37,11 +43,8 @@ export default {
           prop: 'circulationNumber',
           label: '流通股本',
         },
-        {
-          prop: 'updateTime',
-          label: '最近变更日期',
-        },
       ],
+      parseToPercent: this.$options.filters.parseToPercent,
     }
   },
   computed: {

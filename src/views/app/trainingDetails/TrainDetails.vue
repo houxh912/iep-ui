@@ -10,7 +10,7 @@
           <span>{{data.creatorName}}</span>
           <span class="time">{{data.createTime}}</span>
           <span class="opt"><i class="iconfont icon-yanjing"></i>{{data.views}}</span>
-          <span class="opt"><i class="iconfont icon-download1"></i>{{downloads}}</span>
+          <!-- <span class="opt"><i class="iconfont icon-download1"></i>{{downloads}}</span> -->
         </div>
         <div class="btn-con">
           <!-- <div class="btn" v-for="item in itemList" :key="item.id"><i class="iconfont" :class="item.icon"></i>{{item.operate}}</div> -->
@@ -25,6 +25,12 @@
           <span>培训主题：{{data.trainingTheme}}</span>
           <span>培训地点：{{data.place}}</span>
         </div>
+        <el-row class="down-load" v-if="data.attachFile">
+          相关附件：
+          <div class="file" v-for="(item, index) in data.attachFile" :key="index">
+            <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}</div>
+          </div>
+        </el-row>
         <div class="classTag">
           <el-tag type="white" v-for="(tag, index) in data.trainingTags" :key="index" @click="$openTagDetail(tag)">{{tag}}</el-tag>
         </div>
@@ -33,6 +39,7 @@
   </div>
 </template>
 <script>
+import { downloadFile } from '@/api/common'
 export default {
   props: {
     data: {
@@ -59,6 +66,11 @@ export default {
       ],
       subTitle: '培训信息',
     }
+  },
+  methods: {
+    downLoad (obj) {
+      downloadFile(obj)
+    },
   },
 }
 </script>
@@ -166,6 +178,12 @@ export default {
         &:nth-child(4) {
           width: 100%;
         }
+      }
+    }
+    .down-load {
+      margin-bottom: 20px;
+      .file {
+        cursor: pointer;
       }
     }
     .classTag {

@@ -3,6 +3,7 @@
     <subjectTpl class="subject" ref="subject"></subjectTpl>
     <mostTpl class="most" ref="most"></mostTpl>
     <praiseTpl class="praise" ref="praise"></praiseTpl>
+    <commentTpl class="praise" ref="commentTpl"></commentTpl>
   </div>
 </template>
 
@@ -10,8 +11,9 @@
 import mostTpl from './Most'
 import praiseTpl from './praise'
 import subjectTpl from './subject'
+import commentTpl from './comment'
 export default {
-  components: { mostTpl, praiseTpl, subjectTpl },
+  components: { mostTpl, praiseTpl, subjectTpl, commentTpl },
   methods: {
     loadData () {
       this.$refs['most'].loadData()

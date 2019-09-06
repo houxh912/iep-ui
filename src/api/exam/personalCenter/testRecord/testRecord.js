@@ -9,7 +9,7 @@ import request from '@/router/axios'
  */
 export function getTestRecordList (params) {
   return request({
-    url: '/exms/iepexamination/selectById',
+    url: '/exms/iepexamination/selectById/page',
     method: 'get',
     params: params,
   })

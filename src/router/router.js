@@ -9,6 +9,7 @@ import componentsRouter from './components/'
 import welRouter from './wel/'
 import atmsRouter from './atms/'
 import crmsRouter from './crms/'
+import cfmsRouter from './cfms/'
 import appRouter from './app/'
 import cpmsRouter from './cpms/'
 import pgbdRouter from './pgbd/'
@@ -49,6 +50,7 @@ export function initRouter (router, store) {
     ...PageRouter,
     ...atmsRouter,
     ...pgbdRouter,
+    ...cfmsRouter,
   ])
 }
 

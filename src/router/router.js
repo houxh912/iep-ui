@@ -45,12 +45,12 @@ export function initRouter (router, store) {
     ...cpmsRouter,
     ...famsRouter,
     ...conmRouter,
-    ...exceptionRouter,
     ...ViewsRouter,
     ...PageRouter,
     ...atmsRouter,
     ...pgbdRouter,
     ...cfmsRouter,
+    ...exceptionRouter,
   ])
 }
 

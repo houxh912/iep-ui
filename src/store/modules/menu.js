@@ -5,6 +5,7 @@ import { isURL } from '@/util/validate'
 import keyBy from 'lodash/keyBy'
 import { deepClone } from '@/util/util'
 import Router from '@/router/router'
+import { resetRouter } from '@/router/router'
 
 function addPath (ele, first) {
   const propsConfig = website.menu.props
@@ -78,6 +79,7 @@ const menu = {
       commit('SET_OTHERMENUS', [])
       commit('SET_MENUSMAP', {})
       commit('SET_MENUPATHLIST', [])
+      resetRouter()
     },
   },
   mutations: {

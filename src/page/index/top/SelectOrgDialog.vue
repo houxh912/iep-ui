@@ -39,8 +39,10 @@ export default {
     ...mapActions([
       'GetUserInfo',
       'GetMenu',
+      'ClearMenu',
     ]),
     async submitForm () {
+      await this.ClearMenu()
       this.dialogShow = false
       const loading = this.$loading({
         lock: true,

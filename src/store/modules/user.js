@@ -1,7 +1,6 @@
 import { getStore, setStore, setCookies, getCookies } from '@/util/store'
 import { getUserInfo, loginByMobile, loginBySocial, loginByUsername, logout, refreshToken } from '@/api/login'
 import { encryption } from '@/util/util'
-import { resetRouter } from '@/router/router'
 
 const user = {
   state: {
@@ -14,11 +13,6 @@ const user = {
     refresh_token: getStore({ name: 'refresh_token' }) || getCookies('refresh_token') || '',
   },
   actions: {
-    // 根据之前保持登陆记录
-    LoginByLocalStorage ({ state }) {
-      console.log(state.refresh_token, state.expires_in, state.access_token)
-      return false
-    },
     // 根据用户名登录
     LoginByUsername ({ commit }, userInfo) {
       const user = encryption({
@@ -123,17 +117,20 @@ const user = {
       try {
         await logout()
         await dispatch('ClearUserInfo')
-        resetRouter()
+        await dispatch('ClearMenu')
       } catch (error) {
         console.log(error)
       }
     },
     // 注销session
-    FedLogOut () {
-      return new Promise(resolve => {
-        resetRouter()
-        resolve()
-      })
+    async FedLogOut ({ dispatch }) {
+      try {
+        await logout()
+        await dispatch('ClearUserInfo')
+        await dispatch('ClearMenu')
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
   mutations: {

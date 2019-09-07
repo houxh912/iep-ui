@@ -33,7 +33,7 @@
             <operation-wrapper>
               <iep-button v-if="_isNeedApproval(scope.row)" @click="handlePass(scope.row)">通过</iep-button>
               <iep-button v-if="_isNeedApproval(scope.row)" @click="handleReject(scope.row)">驳回</iep-button>
-              <iep-button :disabled="isEditDelPermissions(scope.row)" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+              <iep-button v-if="scope.row.status!==2" :disabled="isEditDelPermissions(scope.row)" type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
               <iep-button :disabled="isEditDelPermissions(scope.row)" @click="handleDelete(scope.row)">删除</iep-button>
               <iep-button v-if="scope.row.status===1" @click="handleProductClick(scope.row.id)">加入定制</iep-button>
             </operation-wrapper>
@@ -97,7 +97,7 @@ export default {
       this.loadPage()
     },
     isEditDelPermissions (row) {
-      return !(this.cpms_products_edit_del || this.userInfo.userId === row.creatorId)
+      return !(this.cpms_products_edit_del || this.userInfo.userId === row.creatorId || row.userRelationCharges.map(m => m.id).includes(this.userInfo.userId))
     },
     handleProductClick (productId) {
       putProductById(productId).then(() => {

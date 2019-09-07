@@ -49,7 +49,7 @@
             <el-input :maxlength="110" v-model="form.synopsis"></el-input>
           </el-form-item>
           <el-form-item label="组合系统介绍：" prop="description">
-            <iep-input-area v-model="form.description"></iep-input-area>
+            <iep-froala-editor v-model="form.description"></iep-froala-editor>
           </el-form-item>
         </el-row>
         <div class="title">团队信息：</div>

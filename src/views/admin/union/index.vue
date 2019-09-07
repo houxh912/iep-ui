@@ -7,18 +7,11 @@
           <iep-button @click="handleReviewDialog" type="primary" plain>批量审核</iep-button>
         </template>
         <template slot="right">
-          <!-- <operation-search @search-page="searchPage">
-          </operation-search> -->
+          <operation-search @search-page="searchPage">
+          </operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" :checkbox-init="checkboxInit" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection is-index>
-        <template slot="before-columns">
-          <el-table-column label="联盟名称" width="200px">
-            <template slot-scope="scope">
-              <span>{{scope.row.name}}</span>
-            </template>
-          </el-table-column>
-        </template>
         <el-table-column prop="operation" label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -34,7 +27,7 @@
   </div>
 </template>
 <script>
-import { getUnionPage, reviewById } from '@/api/goms/union'
+import { getUnionPage, reviewById, getUnionModuleOrgById } from '@/api/goms/union'
 import { dictsMap, columnsMap, checkboxInit } from './options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
@@ -52,8 +45,9 @@ export default {
     this.loadPage()
   },
   methods: {
-    handleDetail (row) {
-      this.$refs['DialogForm'].form = { ...row }
+    async handleDetail (row) {
+      const { data } = await getUnionModuleOrgById(row.unionId)
+      this.$refs['DialogForm'].form = { ...data.data }
       this.$refs['DialogForm'].dialogShow = true
     },
     handleReviewDialog (row) {

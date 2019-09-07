@@ -40,6 +40,10 @@
             <label>职称：</label>
             <div class="content">{{form.title}}</div>
           </div>
+          <div class="info-item">
+            <label>出差地址：</label>
+            <div class="content">{{form.busTripDistrict}}</div>
+          </div>
         </div>
       </el-card>
       <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
@@ -52,7 +56,7 @@
       </el-card>
       <el-card class="middle-card" :body-style="middleBodyStyle" shadow="never">
         <div slot="header" class="clearfix">
-          <span>附件</span>
+          <file-make-up :form="form" @load-page="loadPage"></file-make-up>
         </div>
         <iep-no-data v-if="!form.attachFile.length"></iep-no-data>
         <pre v-else>

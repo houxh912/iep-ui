@@ -1,4 +1,5 @@
 import { getStore } from '@/util/store'
+import { checkProjectName } from '@/api/gpms/index'
 const dicData = getStore({ name: 'dictGroup' })
 function changeDict (list) {
   let data = {}
@@ -43,13 +44,31 @@ let intValidate = (rule, value, callback) => {
     callback(new Error())
   }
 }
+var timeout = null
+var checkName = (rule, value, callback) => {
+  if (!value) {
+    return callback(new Error('项目名称不能为空'))
+  }
+  if(timeout !== null) 
+          clearTimeout(timeout)
+  timeout = setTimeout(() => {
+    checkProjectName({projectName:value}).then(res => {
+      if (res.data.data === false) {
+        return callback(new Error(res.data.msg))
+      } 
+      else {
+        callback()
+      }
+    })
+  }, 1000)
+}
 
 export const rules = {
   projectType: [
     { required: true, message: '请选择项目类型', trigger: 'blur' },
   ],
   projectName: [
-    { required: true, message: '请输入项目名称', trigger: 'blur' },
+    { validator: checkName, required: true, trigger: 'change' },
   ],
   projectTime: [
     { required: true, message: '请选择立项时间', trigger: 'blur' },
@@ -200,7 +219,7 @@ export const initSearchForm = () => {
     orgId:'',//所属组织
     projectStage: [],//项目阶段
     projectLevel: [],//项目等级
-    isRelevanceProduct: 2,//是否项目关联
+    isRelevanceProduct: '',//是否项目关联
     manager: '',//项目经理
   }
 }

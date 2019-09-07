@@ -232,7 +232,7 @@ export function examForm () {
     excellentLine: '',//优秀线
     reward: '',//奖励国脉贝
     description: '',//考试说明
-    showResult: '',//考完后是否显示成绩
+    showResult: 1,//考完后是否显示成绩
     showAnswer: '',//考完后是否显示答案和解析
     showComment: '',//是否显示面试评语
     oncludingRemarks: '',//考试结束语
@@ -243,8 +243,8 @@ export function examForm () {
     operateUserids: [],//报名管理&考卷管理列表
     writeUserids: [],//试卷审阅权限列表
     faceUserIds: [],//面试判分权限列表
+    examType: null,
   }
-
 }
 
 /**
@@ -315,6 +315,9 @@ export const examFormRules = {
   ],
   faceUserIds: [
     { required: true, message: '请选择面试判分权限的阅卷老师', trigger: 'change' },
+  ],
+  examType: [
+    { required: true, message: '请选择考卷模式', trigger: 'change' },    
   ],
 }
 

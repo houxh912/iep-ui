@@ -17,6 +17,7 @@ const initForm = () => {
     image: '',
     priority: 1, //优先级
     attributeId: '',
+    keyWords: '',
   }
 }
 const columnsMap = [

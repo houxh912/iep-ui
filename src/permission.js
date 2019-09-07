@@ -25,7 +25,6 @@ router.beforeEach(async (to, from, next) => {
     menu,
     mainMenu,
     otherMenus,
-    tagWel,
   } = store.getters
   NProgress.start()
   const meta = to.meta || {}
@@ -36,13 +35,22 @@ router.beforeEach(async (to, from, next) => {
       next('/')
     } else {
       if (roles.length === 0) {
-        store.dispatch('GetUserInfo').then(() => {
-          next({ ...to, replace: true })
-        }).catch(() => {
+        try {
+          const userInfo = await store.dispatch('GetUserInfo')
+          if (userInfo.roles.length === 0) {
+            await store.dispatch('ClearUserInfo')
+            next({ path: '/login' })
+          } else {
+            await store.dispatch('GetMenu')
+            await store.dispatch('LoadAllDictMap')
+            next({ ...to, replace: true })
+          }
+        } catch (error) {
+          console.log(error)
           store.dispatch('FedLogOut').then(() => {
             next({ path: '/login' })
           })
-        })
+        }
       } else {
         if (to.matched.length) {
           const parentPath = to.matched[0].path
@@ -71,13 +79,8 @@ router.beforeEach(async (to, from, next) => {
       }
     }
   } else {
-    const result = await store.dispatch('LoginByLocalStorage')
     if (meta.isAuth === false) {
       next()
-    } else if (result) {
-      await store.dispatch('GetMenu')
-      // router.$avueRouter.formatRoutes(data, true)
-      router.push({ path: tagWel.value })
     } else {
       next(`/login?redirect=${to.path}`)
     }

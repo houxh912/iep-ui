@@ -65,7 +65,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(['GetUserInfo', 'LogOut']),
+    ...mapActions(['LogOut']),
     loadPage () {
       this.form = initForm()
       this.dialogShow = false
@@ -83,17 +83,16 @@ export default {
             method: 'put',
             data: newForm,
           })
-            .then(response => {
+            .then(async (response) => {
               if (response.data.data) {
                 this.$message({
                   message: '密码修改成功，请重新登陆',
                   type: 'success',
                 })
-                this.GetUserInfo()
                 // 修改密码之后强制重新登录
-                this.LogOut().then(() => {
-                  location.reload() // 为了重新实例化vue-router对象 避免bug
-                })
+                await this.LogOut()
+                this.$eventBus.$emit('logout')
+                this.$router.push({ path: '/login' })
               } else {
                 this.$message({
                   message: response.data.msg,

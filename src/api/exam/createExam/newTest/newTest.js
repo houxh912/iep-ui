@@ -61,7 +61,7 @@ export function postExaminePass (params) {
     return request({
         url: 'exms/iepitembank/examine',
         method: 'post',
-        params: params,
+        data: params,
     })
 }
 

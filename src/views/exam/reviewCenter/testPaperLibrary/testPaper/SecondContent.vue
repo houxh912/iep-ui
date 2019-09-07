@@ -50,30 +50,40 @@
                 </el-form-item>
               </div>
               <div class="dt_div">
-                <el-form-item label="简单:">
+                <el-form-item label="简单:" style="margin-right:20px">
                   <el-input v-model="item.simpleNum" size="mini" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="普通:">
+                <el-form-item label="普通:" style="margin-right:20px">
                   <el-input v-model="item.middleNum" size="mini" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="困难:">
+                <el-form-item label="困难:" style="margin-right:20px">
                   <el-input v-model="item.hardNum" size="mini" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="共">
-                  <el-input v-model="item.total" size="mini" readonly>
+                <el-form-item label="共:">
+                  <el-input v-model="item.total" size="mini" readonly style="margin-top:6px">
                     <template slot="append">道</template>
                   </el-input>
                 </el-form-item>
               </div>
               <div class="dt_div">
-                <el-form-item label="每题:">
-                  <el-input v-model="item.single" size="mini" readonly style="width:150px">
+                <el-form-item label="简单:" style="margin-right:20px">
+                  <el-input v-model="item.single" size="mini" readonly style="width:100px;margin-top:6px">
+                    <template slot="append">分</template>
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="一般:" style="margin-right:20px">
+                  <el-input v-model="item.middleSingle" size="mini" readonly style="width:100px;;margin-top:6px">
+                    <template slot="append">分</template>
+                  </el-input>
+                </el-form-item>
+                <el-form-item label="困难:" style="margin-right:20px">
+                  <el-input v-model="item.hardSingle" size="mini" readonly style="width:100px;margin-top:6px">
                     <template slot="append">分</template>
                   </el-input>
                 </el-form-item>
                 <el-form-item label="共:">
-                  <el-input size="mini" readonly :value="item.total * item.single"
-                    style="width:160px">
+                  <el-input size="mini" readonly :value="item.simpleNum * item.single + item.middleNum * item.middleSingle +item.hardNum * item.hardSingle"
+                    style="width:100px;margin-top:6px">
                     <template slot="append">分</template>
                   </el-input>
                 </el-form-item>
@@ -147,7 +157,7 @@
           <li>
             困难：<span>{{assessmentPaper.hardNum || 0}}</span>道
           </li>
-          <li>共{{assessmentPaper.choiceNum || 0}}道</li>
+          <li>共：{{assessmentPaper.choiceNum || 0}} 道</li>
         </ul>
         <!-- <span>难度系数：{{assessmentPaper.difficulty || 0}} <span>中等</span></p> -->
       </div>
@@ -214,7 +224,7 @@
             </iep-input-number>
           </el-col>
           <el-col :span="8">
-            <iep-input-number controls-position="right" :min="1" v-model="form.single"
+            <iep-input-number controls-position="right" :min="1" v-model="form.middleSingle"
               style="width:70%;margin-left:20px;"></iep-input-number>
             <span>分</span>
           </el-col>
@@ -229,7 +239,7 @@
             </iep-input-number>
           </el-col>
           <el-col :span="8">
-            <iep-input-number controls-position="right" :min="1" v-model="form.single"
+            <iep-input-number controls-position="right" :min="1" v-model="form.hardSingle"
               style="width:70%;margin-left:20px;"></iep-input-number>
             <span>分</span>
           </el-col>
@@ -361,7 +371,8 @@ export default {
   computed: {
     //试题总分
     totalScore: function () {
-      return this.totalCount * this.form.single
+      // return this.totalCount * this.form.single
+      return this.form.simpleNum*this.form.single+this.form.middleNum*this.form.middleSingle+this.form.hardNum*this.form.hardSingle
     },
     //试题数目
     totalCount: function () {
@@ -393,7 +404,8 @@ export default {
         simpleNum += parseInt(item.simpleNum)
         middleNum += parseInt(item.middleNum)
         hardNum += parseInt(item.hardNum)
-        score += parseInt(item.total) * parseInt(item.single)
+        // score += parseInt(item.total) * parseInt(item.single)
+        score += parseInt(item.simpleNum) * parseInt(item.single) + parseInt(item.middleNum) * parseInt(item.middleSingle) +parseInt(item.hardNum) * parseInt(item.hardSingle)
       })
       let paperNum = {}
       paperNum.simpleNum = simpleNum

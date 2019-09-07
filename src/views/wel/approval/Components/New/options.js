@@ -4,6 +4,7 @@ const initForm = () => {
 	return {
 		id: '', // ID
 		userId: '', // 申请人ID
+		orgId: '', // 申请人ID
 		avatar: '', // 申请人avatar
 		name: '',
 		positionName: '',
@@ -12,6 +13,7 @@ const initForm = () => {
 		nowTime: initNow(),
 		positiveTime: '',
 		transferTime: '',
+		deptQm: '',
 		deptList: [],
 		dept: [], // 所属部门不可编辑
 		type: 1, // 审批类型（字典：1-请假申请；2-出差申请；3-加班申请；4-请假申请；5-离职申请；6-调岗申请；7-招聘申请）

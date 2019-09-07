@@ -31,7 +31,7 @@
             <el-form-item label="关联外部项目：" v-if="formData.projectTypeBefore == true">
               <el-button @click="handleAddExternalProject">添加关联</el-button>
               <div class="relevance-list-after" v-if="formData.projectList.length > 0">
-                <span class="item" v-for="t in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></span>
+                <span class="item" v-for="(t, i) in formData.projectList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'projectList', 'projectIds')"></i></span>
               </div>
             </el-form-item>
           </el-col>
@@ -185,7 +185,7 @@
         <el-form-item label="添加关联产品：" v-if="formData.isRelevanceProduct === 1">
           <el-button @click="handleAddProduct">添加关联</el-button>
           <ul class="relevance-list" v-if="formData.productList.length > 0">
-            <li class="item" v-for="t in formData.productList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'productList', 'productIds')"></i></li>
+            <li class="item" v-for="(t, i) in formData.productList" :key="t.id">{{t.name}} <i class="el-icon-close" @click="closeRelation(i, 'productList', 'productIds')"></i></li>
           </ul>
         </el-form-item>
         <el-form-item label="未关联产品理由：" prop="notRelevanceProductReason" v-if="formData.isRelevanceProduct === 2">
@@ -333,8 +333,9 @@
 </template>
 
 <script>
-import { dictMap, rules, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
+import { dictMap, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
 import { getDataDetail, createData, updateData } from '@/api/gpms/index'
+import { checkProjectName } from '@/api/gpms/index'
 // import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapState, mapMutations, mapGetters } from 'vuex'
@@ -342,12 +343,72 @@ import { tipContent } from './option'
 import RelationDialog from './Total/relation'
 import ProductRelationDialog from './Total/productRelation'
 import projectRelationDialog from './Total/projectRelation'
-
+var oldProjectName//验证名称是否被修改
+let intValidate = (rule, value, callback) => {
+  if (/^[1-9]*[1-9][0-9]*$/.test(value) || value === '') {
+    callback()
+  } else {
+    callback(new Error())
+  }
+}
+var timeout = null
+var checkName = (rule, value, callback) => {
+  if (!value) {
+    return callback(new Error('项目名称不能为空'))
+  }
+  if(timeout !== null) 
+          clearTimeout(timeout)
+  if(oldProjectName!=value){
+    timeout = setTimeout(() => {
+      checkProjectName({projectName:value}).then(res => {
+        if (res.data.data === false) {
+          return callback(new Error(res.data.msg))
+        } 
+        else {
+          callback()
+        }
+      })
+    }, 1000)
+  }
+  else{
+    callback()
+  }
+}
+const rules = {
+  projectType: [
+    { required: true, message: '请选择项目类型', trigger: 'blur' },
+  ],
+  projectName: [
+    { validator: checkName, required: true, trigger: 'change' },
+  ],
+  projectTime: [
+    { required: true, message: '请选择立项时间', trigger: 'blur' },
+  ],
+  relatedClient: [
+    { required: true, message: '请输入相关客户', trigger: 'change' },
+  ],
+  projectTagList: [
+    { required: true, message: '请输入项目标签', trigger: 'change' },
+  ],
+  projectStage: [
+    { required: true, message: '请选择项目阶段', trigger: 'change' },
+  ],
+  projectBudget: [
+    { validator: intValidate, message: '请输入正整数', trigger: 'change' },
+  ],
+  isRelevanceProduct: [
+    { required: true, message: '请选择是否关联产品', trigger: 'change' },
+  ],
+  notRelevanceProductReason: [
+    { required: true, message: '请输入未关联产品理由', trigger: 'blur' },
+  ],
+}
 export default {
   name: 'add-dialog',
   components: { RelationDialog, ProductRelationDialog, projectRelationDialog },
 
   data () {
+    
     return {
       projectTime: '',
       endTime: '',
@@ -427,6 +488,7 @@ export default {
     if (this.id) {
       getDataDetail(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initFormData(), data.data)
+        oldProjectName=this.formData.projectName
         this.changeData = this.$mergeByFirst(initFormData(), data.data)
         this.tableData = [this.formData.projectBudgetList]
         if (this.formData.projectType == '1') {
@@ -478,12 +540,13 @@ export default {
       }
     },
     async save (val) {
-      await getDataDetail(this.id).then(({ data }) => {
-        const changeData = this.$mergeByFirst(initFormData(), data.data)
-        this.changeTableData = changeData.projectBudgetList
-      })
-      this.formData.projectStatus = val
-
+      if(this.id){
+        await getDataDetail(this.id).then(({ data }) => {
+          const changeData = this.$mergeByFirst(initFormData(), data.data)
+          this.changeTableData = changeData.projectBudgetList
+        })
+      }
+        this.formData.projectStatus = val
       if (val == '3') {
         if (this.changeData.projectName != this.formData.projectName || this.changeData.projectAmount != this.formData.projectAmount || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId || this.isObjectValueEqual(this.changeTableData, this.tableData[0])) {
           this.formData.projectStatus = '2'
@@ -751,6 +814,9 @@ export default {
 .table >>> .el-input__inner {
   padding: 0;
   border: 0;
+}
+.abs >>> .el-input__prefix {
+  display: none;
 }
 .column-header {
   color: #f00;

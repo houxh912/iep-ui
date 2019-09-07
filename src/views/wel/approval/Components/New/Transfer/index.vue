@@ -1,6 +1,6 @@
 <template>
   <div class="iep-page-form">
-    <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="120px" size="small">
+    <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
       <el-form-item label="申请人：" class="form-half">
         <span>{{form.name}}</span>
       </el-form-item>
@@ -13,15 +13,19 @@
         <span>{{form.positionName}}</span>
       </el-form-item>
 
-      <iep-form-item class="form-half" prop="transferFormerDept" label-name="原先部门" tip="请选择原先部门">
-        <el-select v-model="form.transferFormerDept" placeholder="请选择原先部门">
-          <el-option v-for="item in form.dept" :key="item.id" :label="item.name" :value="item.id">
-          </el-option>
-        </el-select>
+      <iep-form-item class="form-half" label-name="原先组织(资产)">
+        <span>{{form.deptQm}}</span>
       </iep-form-item>
 
+      <iep-form-item class="form-half" label-name="原先部门">
+        <iep-tag-detail :value="form.deptList"></iep-tag-detail>
+      </iep-form-item>
+
+      <iep-form-item class="form-half" prop="orgId" label-name="调入组织" tip="请选择想要调入组织">
+        <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择调入组织"></iep-select>
+      </iep-form-item>
       <iep-form-item class="form-half" prop="transferDeptList" label-name="调入部门" tip="请选择想要调入的部门">
-        <iep-dept-select v-model="form.transferDeptList"></iep-dept-select>
+        <iep-dept-select v-model="form.transferDeptList" :org-id="form.orgId"></iep-dept-select>
       </iep-form-item>
 
       <iep-form-item class="form-half" prop="transferPosition" label-name="调入岗位" tip="请选择想要调整的对应岗位">
@@ -64,6 +68,7 @@ export default {
     loadSelf () {
       this.fnSelf().then(({ data }) => {
         this.form = this.selfToVo(data.data)
+        this.form.orgId = this.userInfo.orgId
         if (!this.form.positionName) {
           this.$message('请找人力管理员申请岗位名')
           this.$router.history.go(-1)

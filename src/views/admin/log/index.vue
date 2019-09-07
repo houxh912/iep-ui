@@ -4,8 +4,8 @@
       <iep-page-header title="日志管理"></iep-page-header>
       <operation-container>
         <template slot="right">
-          <!-- <iep-button icon="el-icon-refresh" circle @refresh-change="refreshChange"></iep-button>
-          <iep-button icon="el-icon-menu" circle @click="handleCheckbox" :option="tableOption"></iep-button> -->
+          <operation-search @search-page="searchPage" prop="title">
+          </operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">

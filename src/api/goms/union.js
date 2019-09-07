@@ -232,3 +232,13 @@ export function getNotInUnionOrgPage (query) {
     params: query,
   })
 }
+/**
+ * 获得联盟详情通过ID获取联盟的所属组织与拥有模块
+ * @param {*} id 
+ */
+export function getUnionModuleOrgById (id) {
+  return request({
+    url: `${prefixUrl}/${id}`,
+    method: 'get',
+  })
+}

@@ -13,7 +13,7 @@
               <div slot="header" class="clearfix">
                 <strong>{{resdata.questionTypeName}}</strong>
                 <span class="fieldName">（科目: {{resdata.fieldName}}）</span>
-                <span class="title" style="float: right;">合计{{resdata.kindMark}}
+                <span class="title" style="float: right;">合计{{resdata.typeScore}}
                   分，已完成 {{kindOffCount}} / {{resdata.kindTotalNum}}</span>
               </div>
               <div class="question">

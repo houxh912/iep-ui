@@ -2,6 +2,7 @@ const subjectLength = 15 // 话题的长度
 const nameLength = 10 // 人名的长度
 
 /**
+ *  单个话题
  *  type: 是否存在话题
  *  first: 话题起始的位置
  *  second: 话题终止的位置
@@ -26,6 +27,75 @@ export const getSubject = (data) => {
       first,
       second: first + second + 2,
       data: data.slice(first + 1, first + second + 1),
+    }
+  }
+}
+
+/**
+ *  多个话题
+ *  type: 是否存在人名
+ *  list: 人名出现的起始和终结集合
+ *    first: 起始
+ *    second: 终止
+ *    name: 人名    
+ */
+export const getSubjectList = (val) => {
+  let arr = [] // 话题数组
+  let string = val // 当前的字符串
+  let code = 0 // 当前话题在原始字符串中的位置s
+  // let reg = /[~!@#$%^&*/|,.，。！￥<>?";:_=[\]{}]/ // 人名中不允许出现符号，即提高人名判断的准确性
+  
+  let fn = (value) => {
+    let first = value.indexOf('#') + 1 // 从 # 开始
+    let second = value.slice(first).indexOf('#') // 到下一个 # 为止
+    if (first === 0) { // 不存在起始符号 - 结束
+      string = ''
+    } else if (second === -1) { // 不存在终止符号 - 结束
+      string = ''
+    } else if (second > subjectLength) { // 字符长度超过限定
+      // 直接跳转到下一个 # 开始的地方 
+      let next = value.slice(first).indexOf('#')
+      if (next > -1) {
+        code = code + first + next
+        string = value.slice(code)
+      } else { // 若无 - 结束
+        string = ''
+      }
+    } else {
+      let name = {
+        first: code + first - 1,
+        second: code + first + second + 1,
+        name: string.slice(first, first + second),
+      }
+      arr.push(name)
+      code = code + first + second + 1
+      string = string.slice(first + second + 1)
+    }
+  }
+
+  // 判断是否存在多个
+  let isTransf = (value) => {
+    fn(value)
+    if (string.indexOf('#') > -1) {
+      isTransf(string)
+    }
+  }
+
+  if (string.indexOf('#') > -1) {
+    isTransf(string)
+    if (arr.length > 0) {
+      return {
+        type: true,
+        list: arr,
+      }
+    } else {
+      return {
+        type: false,
+      }
+    }
+  } else {
+    return {
+      type: false,
     }
   }
 }
@@ -128,6 +198,37 @@ export const transfSubject = (val) => {
       html: val,
     }]
   }
+}
+
+// 话题转换 - 可存在多个
+export const transfSubjectList = (val) => {
+  if (getSubjectList(val).type) {
+    let list = []
+    let code = 0
+    for (let item of getSubjectList(val).list) {
+      list.push({
+        type: false,
+        html: val.slice(code, item.first),
+      })
+      list.push({
+        type: true,
+        html: val.slice(item.first, item.second),
+      })
+      code = item.second
+    }
+    list.push({
+      type: false,
+      html: val.slice(code),
+    })
+    return list
+  } else {
+    return [
+      {
+        type: false,
+        html: val,
+      },
+    ]
+  } 
 }
 
 // 人名转换 - 可存在多个

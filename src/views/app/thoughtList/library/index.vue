@@ -34,7 +34,7 @@
             :content="reference">
             <div slot="reference" class="button" @click="hadnleAddUp(item)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp" :class="item.praiseStatus > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           </el-popover>
-          <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{item.thoughtsCommentList.length}}）</div>
+          <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{ item.commentNum }}）</div>
           <div class="button" @click="handleReward(item)"><i class="icon-yuanbao"></i> 打赏</div>
           <div class="button" @click="handleForward(item)" v-if="item.transmitId === 0"><i class="icon-zhuanfa1"></i> 转发</div>
           <div class="button" @click="handleCollect(item)" v-if="item.isCollected === 0"><i class="icon-heart"></i> 收藏</div>
@@ -47,12 +47,15 @@
           <iep-button type="primary" class="comment-submit" @click="commentSubmit">提交</iep-button>
         </div>
         <!-- 评论列表 -->
-        <div class="comment-list" v-if="item.thoughtsCommentList.length > 0">
+        <div class="comment-list" v-if="item.commentNum > 0">
+          <commentPage ref="comment" :data="item"></commentPage>
+        </div>
+        <!-- <div class="comment-list" v-if="item.commentNum > 0">
           <div v-for="(t, i) in item.thoughtsCommentList" :key="i">
             <commentTpl :item="t" :userData="{id: item.userId, name: item.userName}" @load-page="loadPage"></commentTpl>
             <commentTpl v-for="(comItem, comIndex) in t.thoughtsReplyList" :key="`${i}-${comIndex}`" :item="comItem" :userData="{id: t.commentUserId, name: t.realName}" @load-page="loadPage" type="reply"></commentTpl>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- 转发 -->
@@ -66,7 +69,7 @@
 import { addThumbsUpByRecord, getThumbMembers, CommentThoughts } from '@/api/cpms/thoughts'
 import { mapActions, mapGetters } from 'vuex'
 import forwardContent from './forwardContent'
-import commentTpl from './commentTpl'
+import commentPage from './commentPage'
 import contentTpl from './content'
 import forwardDialog from '../forwardDialog'
 import CollectDialog from '@/views/mlms/material/components/collectDialog'
@@ -82,7 +85,7 @@ const initFormData = () => {
 }
 
 export default {
-  components: { forwardContent, commentTpl, contentTpl, forwardDialog, CollectDialog },
+  components: { forwardContent, commentPage, contentTpl, forwardDialog, CollectDialog },
   props: {
     dataList: {
       type: Array,
@@ -109,16 +112,6 @@ export default {
       this.$router.push({
         path:`/app/personal_style/${id}`,
       })
-    },
-    // 获取编号
-    getNumber (index) {
-      let number = this.total
-      number = number - ((this.params.current - 1) * this.params.size) - index
-      let length = (this.total + '').length - (number + '').length + 1
-      for (let i = 0; i < length; ++i) {
-        number = '0' + number
-      }
-      return number
     },
     // 点赞
     hadnleAddUp (row) {
@@ -165,7 +158,11 @@ export default {
       if (nameObj.type) {
         this.form.nameList = nameObj.list.map(m => m.name)
       }
-      CommentThoughts(this.form).then(() => {
+      CommentThoughts(this.form).then(({ data }) => {
+        if (!data.data) {
+          this.$message.error(data.msg)
+          return
+        }
         this.activeIndex = -1
         this.loadPage()
       })
@@ -242,16 +239,6 @@ export default {
         .comment-submit {
           margin-top: 10px;
           margin-left: 10px;
-        }
-      }
-      .comment-list {
-        padding: 15px;
-        background-color: #fafafa;
-        margin-top: 15px;
-        border-radius: 3px;
-        .comment {
-          margin: 0 10px;
-          border-bottom: 1px solid #eee;
         }
       }
       .title {

@@ -279,3 +279,12 @@ export const getOrgAccountList = () => {
     method: 'get',
   })
 }
+
+// 费用明细
+export const getCostListByOrgId = (query) => {
+  return request({
+    url: `${prefixUrl}/org/cost/list`,
+    method: 'get',
+    params: query,
+  })
+}

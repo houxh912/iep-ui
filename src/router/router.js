@@ -59,7 +59,8 @@ initRouter(Router, Store)
 export function resetRouter () {
   const newRouter = createRouter()
   initRouter(newRouter, Store)
-  Router = newRouter // the relevant part
+  console.log(Router.matcher, newRouter.matcher)
+  Router.matcher = newRouter.matcher
 }
 
 export default Router

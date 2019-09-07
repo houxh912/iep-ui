@@ -29,13 +29,10 @@ import DialogGroup from './DialogGroup'
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import top from './top/'
 import sidebar from './sidebar/'
-//import admin from '@/util/admin'
 import imUi from '@/views/imui'
 import { validatenull } from '@/util/validate'
-import { getStore } from '@/util/store.js'
 // import SockJS from 'sockjs-client'
 // import Stomp from 'stompjs'
-// import store from '@/store'
 
 export default {
   components: {
@@ -62,6 +59,7 @@ export default {
       'isLock',
       'website',
       'expires_in',
+      'access_token',
     ]),
     asideDisplay () {
       if (this.$route.matched[0].path === '/app') {
@@ -75,7 +73,6 @@ export default {
     this.handleRefreshToken()
   },
   destroyed () {
-    // console.log(this.refreshTime)
     clearInterval(this.refreshTime)
     // this.disconnect()
   },
@@ -97,14 +94,12 @@ export default {
         width: document.body.clientWidth,
         height: document.body.clientHeight,
       })
-      // this.setScreen(admin.getScreen())
       window.onresize = () => {
         setTimeout(() => {
           this.setWindowSize({
             width: document.body.clientWidth,
             height: document.body.clientHeight,
           })
-          // this.setScreen(admin.getScreen())
         }, 0)
       }
       // 监听调转路由时EventBus操作
@@ -120,10 +115,7 @@ export default {
     // 实时检测刷新token
     handleRefreshToken () {
       this.refreshTime = setInterval(() => {
-        const token = getStore({
-          name: 'access_token',
-          debug: true,
-        })
+        const token = this.access_token
         if (validatenull(token)) {
           return
         }

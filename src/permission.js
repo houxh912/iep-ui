@@ -36,8 +36,8 @@ router.beforeEach(async (to, from, next) => {
     } else {
       if (roles.length === 0) {
         try {
-          const { userInfoRoles } = await store.dispatch('GetUserInfo')
-          if (userInfoRoles.length === 0) {
+          const userInfo = await store.dispatch('GetUserInfo')
+          if (userInfo.roles.length === 0) {
             await store.dispatch('ClearUserInfo')
             next({ path: '/login' })
           } else {

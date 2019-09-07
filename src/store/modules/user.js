@@ -75,12 +75,17 @@ const user = {
     async GetUserInfo ({ commit }) {
       try {
         const { data } = await getUserInfo()
-        const data1 = data.data || {}
-        commit('SET_USERIFNO', data1.sysUser)
-        commit('SET_ROLES', data1.roles || [])
-        commit('SET_PERMISSIONS', data1.permissions || [])
-        commit('SET_ORGS', data1.orgs || [])
-        return data1
+        const userInfo = data.data || {
+          sysUser: {},
+          roles: [],
+          permissions: [],
+          orgs: [],
+        }
+        commit('SET_USERIFNO', userInfo.sysUser)
+        commit('SET_ROLES', userInfo.roles)
+        commit('SET_PERMISSIONS', userInfo.permissions)
+        commit('SET_ORGS', userInfo.orgs)
+        return userInfo
       } catch (error) {
         console.log(error)
       }

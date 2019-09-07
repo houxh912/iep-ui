@@ -36,10 +36,15 @@ router.beforeEach(async (to, from, next) => {
     } else {
       if (roles.length === 0) {
         try {
-          await store.dispatch('GetUserInfo')
-          await store.dispatch('GetMenu')
-          await store.dispatch('LoadAllDictMap')
-          next({ ...to, replace: true })
+          const { userInfoRoles } = await store.dispatch('GetUserInfo')
+          if (userInfoRoles.length === 0) {
+            await store.dispatch('ClearUserInfo')
+            next({ path: '/login' })
+          } else {
+            await store.dispatch('GetMenu')
+            await store.dispatch('LoadAllDictMap')
+            next({ ...to, replace: true })
+          }
         } catch (error) {
           console.log(error)
           store.dispatch('FedLogOut').then(() => {

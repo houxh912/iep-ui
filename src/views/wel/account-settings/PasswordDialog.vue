@@ -65,7 +65,7 @@ export default {
     }),
   },
   methods: {
-    ...mapActions(['GetUserInfo', 'LogOut']),
+    ...mapActions(['LogOut']),
     loadPage () {
       this.form = initForm()
       this.dialogShow = false

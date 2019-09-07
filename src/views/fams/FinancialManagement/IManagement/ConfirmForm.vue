@@ -1,5 +1,8 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="详情" width="700px" @close="close">
+
+    <el-alert style="margin-bottom: 10px;" :title="warningText" type="warning" :closable="false" show-icon></el-alert>
+
     <el-form class="form-detail" :model="form" size="small" ref="form" label-width="120px">
 
       <el-form-item label="收入类型：">
@@ -78,10 +81,11 @@
   </iep-dialog>
 </template>
 <script>
-import { initForm, dictsMap, toDtoForm } from './options'
+import { initForm, dictsMap, toDtoForm, warningText } from './options'
 export default {
   data () {
     return {
+      warningText,
       dictsMap,
       dialogShow: false,
       form: initForm(),

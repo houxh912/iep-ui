@@ -175,6 +175,11 @@ export default [
         name: '集团月份盈亏',
         component: () => import(/* webpackChunkName: "fams" */'@/views/fams/GroupFinance/UnionProfitAndLoss/MonthDetail/index.vue'),
       },
+      {
+        path: 'iep_fee',
+        name: '内网使用费',
+        component: () => import(/* webpackChunkName: "fams" */'@/views/fams/GroupFinance/IepFee/index.vue'),
+      },
     ],
   },
 ]

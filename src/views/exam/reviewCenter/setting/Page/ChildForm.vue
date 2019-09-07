@@ -6,7 +6,7 @@
       :is-pagination="false" is-tree>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-link icon="el-icon-edit" @click="handleEdit(scope.row, scope.index)">编辑</el-link>
+          <el-link icon="el-icon-edit" @click="handleEdit(scope.row, scope.index)" style="margin-right:20px">编辑</el-link>
           <el-link icon="el-icon-delete" @click="handleDel(scope.row, scope.index)">删除</el-link>
         </template>
       </el-table-column>

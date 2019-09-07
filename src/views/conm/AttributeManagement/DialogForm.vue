@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`站点${methodName}`" width="500px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`推荐位${methodName}`" width="500px" @close="loadPage">
     <el-form class="form-detail" :model="form" size="small" :rules="rules" label-width="120px">
       <el-form-item label="上级站点">
         <el-input v-model="siteId" disabled></el-input>

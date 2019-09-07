@@ -74,7 +74,7 @@
         </iep-form-item>
 
         <iep-form-item label-name="备注">
-          <iep-div-detail-switch :value="form.remarks"></iep-div-detail-switch>
+          <iep-div-detail :value="form.remarks" tag="pre"></iep-div-detail>
         </iep-form-item>
 
         <iep-divider />

@@ -7,7 +7,6 @@
   {
     label: '名称',
     prop: 'title',
-    width:'100px',
   },
   // {
   //   label: '难度',
@@ -18,11 +17,12 @@
   {
     label: '题数',
     prop: 'choiceNum',
-    width: '150px',
+    width: '110px',
   },
   {
     label: '总分',
     prop: 'score',
+    width: '110px',
   },
   // {
   //   label: '状态',

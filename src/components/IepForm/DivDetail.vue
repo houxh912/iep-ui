@@ -1,7 +1,7 @@
 <template>
   <div :class="{'iep-ellipsis':issimgle}" :title="content">
     <slot name="prefix"></slot>
-    <span>{{content}}</span>
+    <component :is="tag">{{content}}</component>
     <slot></slot>
   </div>
 </template>
@@ -21,6 +21,10 @@ export default {
       type: Boolean,
       require: false,
       default: true,
+    },
+    tag: {
+      type: String,
+      default: 'span',
     },
   },
   computed: {

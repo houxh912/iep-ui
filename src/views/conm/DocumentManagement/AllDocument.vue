@@ -53,20 +53,17 @@
     </iep-table>
     <!-- </el-col>
     </el-row>-->
-    <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
   </div>
 </template>
 <script>
 // import Menus from './Menus'
-import { addObj, getPage, logicDeleteNodeById, updateObj } from '@/api/conm/article_controller'
+import { getPage, logicDeleteNodeById } from '@/api/conm/article_controller'
 import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
-import DialogForm from './DialogForm'
 import { mapGetters } from 'vuex'
 export default {
   // components: { Menus },
   mixins: [mixins],
-  components: { DialogForm },
   data () {
     return {
       dictsMap,
@@ -83,8 +80,7 @@ export default {
     }
   },
   created () {
-    // TODO: next time
-    this.info_article_add = this.permissions['info_article_edit']
+    this.info_article_add = this.permissions['info_article_add']
     this.info_article_edit = this.permissions['info_article_edit']
     this.info_article_del = this.permissions['info_article_del']
     this.id = this.$route.params.id
@@ -97,25 +93,21 @@ export default {
     ]),
   },
   methods: {
+
     handleAdd () {
-      this.$refs['DialogForm'].form.updateTime = this.$refs['DialogForm'].createTimeDefault()
-      this.$refs['DialogForm'].nodeId = this.id
-      this.$refs['DialogForm'].siteId = this.siteId
-      this.$refs['DialogForm'].formRequestFn = addObj
-      this.$refs['DialogForm'].dialogShow = true
-      this.$refs['DialogForm'].methodName = '新增'
+      this.$router.push({
+        path: '/comn/document_management_edit/0',
+        query: { nodeId: this.id, siteId: this.siteId },
+      })
+    },
+    handleEdit (row) {
+      this.$router.push({
+        path: `/comn/document_management_edit/${row.id}`,
+        query: { nodeId: this.id, siteId: this.siteId },
+      })
     },
     handleFalseDelete (row) {
       this._handleGlobalDeleteById(row.id, logicDeleteNodeById)
-    },
-    handleEdit (row) {
-      this.$refs['DialogForm'].id = row.id
-      this.$refs['DialogForm'].nodeId = this.id
-      this.$refs['DialogForm'].siteId = this.siteId
-      this.$refs['DialogForm'].dialogShow = true
-      this.$refs['DialogForm'].formRequestFn = updateObj
-      this.$refs['DialogForm'].loadTypeList()
-      this.$refs['DialogForm'].methodName = '编辑'
     },
     handleDetail (row) {
       this.$router.push(`/comn/document_management_detail/${row.id}`)

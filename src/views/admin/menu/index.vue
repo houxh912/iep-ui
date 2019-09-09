@@ -33,13 +33,13 @@
                 <el-input v-model="form.menuId" :disabled="formEdit" placeholder="请输入节点ID"></el-input>
               </el-form-item>
               <el-form-item label="标题" prop="name">
-                <el-input v-model="form.name" :disabled="formEdit" placeholder="请输入标题"></el-input>
+                <el-input v-model.trim="form.name" :disabled="formEdit" placeholder="请输入标题"></el-input>
               </el-form-item>
               <el-form-item label="权限标识" prop="permission">
-                <el-input v-model="form.permission" :disabled="formEdit" placeholder="请输入权限标识"></el-input>
+                <el-input v-model.trim="form.permission" :disabled="formEdit" placeholder="请输入权限标识"></el-input>
               </el-form-item>
               <el-form-item label="图标" prop="icon">
-                <el-input v-model="form.icon" :disabled="formEdit" placeholder="请输入图标"></el-input>
+                <el-input v-model.trim="form.icon" :disabled="formEdit" placeholder="请输入图标"></el-input>
               </el-form-item>
               <el-form-item label="类型" prop="type">
                 <el-select class="filter-item" v-model="form.type" :disabled="formEdit" placeholder="请输入资源请求类型">
@@ -55,10 +55,10 @@
                 <el-input type="number" v-model="form.sort" :disabled="formEdit" placeholder="请输入排序"></el-input>
               </el-form-item>
               <el-form-item label="前端组件" prop="component">
-                <el-input v-model="form.component" :disabled="formEdit" placeholder="请输入描述"></el-input>
+                <el-input v-model.trim="form.component" :disabled="formEdit" placeholder="请输入描述"></el-input>
               </el-form-item>
               <el-form-item label="前端地址" prop="path">
-                <el-input v-model="form.path" :disabled="formEdit" placeholder="iframe嵌套地址"></el-input>
+                <el-input v-model.trim="form.path" :disabled="formEdit" placeholder="iframe嵌套地址"></el-input>
               </el-form-item>
               <el-form-item label="路由缓冲" prop="keepAlive">
                 <el-switch v-model="form.keepAlive" :disabled="formEdit" active-color="#13ce66" inactive-color="#ff4949" :active-value="'1'" :inactive-value="'0'" active-text="缓存（该页面不需要实时数据更新）" inactive-text="不缓存（该页面需要实时数据更新）">

@@ -159,6 +159,7 @@ module.exports = {
   },
   // 配置转发代理
   devServer: {
+    disableHostCheck: true,
     host: devServer.host, // can be overwritten by process.env.HOST
     open: false,
     port: devServer.port, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined

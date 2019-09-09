@@ -37,7 +37,7 @@
 
     <div class="bottom">
       <iep-button type="primary" class="button" v-if="isCreator || permissionAll" @click="handleRollingPaper">一键收卷</iep-button>
-      <iep-button type="success" class="button" v-if="isCreator || permissionAll" @click="handlePaper">完成阅卷</iep-button>
+      <iep-button type="success" class="button" v-if="isCreator || permissionAll" @click="handlePaper" :loading="loading">完成阅卷</iep-button>
       <iep-button type="warning" plain class="button" @click="sendCertificate" v-if="isCreator|| permissionAll">放送证书</iep-button>
 
       <!-- <iep-button class="button" @click="sendResult">发送成绩</iep-button> -->
@@ -67,6 +67,7 @@ export default {
       inputVisible: false,
       inputValue: '',
       switchValue: true,
+      loading: false,
     }
   },
   created () {
@@ -122,12 +123,21 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
+        this.loading = true
         overPapersById(param).then(res => {
-          this.$message({
-            type: 'success',
-            message: res.data.msg,
-          })
-          this.$emit('close', false)
+          if (res.data.data == true) {
+            this.loading = false
+            this.$message({
+              type: 'success',
+              message: res.data.msg,
+            })
+            this.$emit('close', false)
+          } else {
+            this.$message({
+              type: 'error',
+              message: res.data.msg,
+            })
+          }
         })
       }).catch(() => {
         this.$message({

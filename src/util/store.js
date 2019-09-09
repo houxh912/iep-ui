@@ -21,7 +21,7 @@ export const setCookies = (key, value, option = {
  * @param {*} option 
  */
 export const getCookies = (key) => {
-  Cookies.get(key)
+  return Cookies.get(key)
 }
 /**
  * 存储localStorage

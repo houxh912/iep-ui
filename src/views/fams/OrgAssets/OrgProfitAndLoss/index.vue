@@ -52,21 +52,30 @@
             {{`${isQichizhi ? `(${calculateSign(scope.row.projectInitialValue)}) (${calculateSign(scope.row.costInitialValue, false)})` : ''}`}}
           </template>
         </el-table-column>
+        <el-table-column prop="operation" label="操作">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button type="warning" plain @click="handleFee(scope.row)">查看费用明细</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
       </iep-table>
     </basic-container>
     <qichuzhi-dialog ref="QichuzhiDialog" @load-page="loadPage"></qichuzhi-dialog>
+    <fee-dialog-form ref="FeeDialogForm" @load-page="loadPage"></fee-dialog-form>
   </div>
 </template>
 <script>
-import { getOrgProfits } from '@/api/fams/statistics'
+import { getOrgProfits, getCostListByOrgId } from '@/api/fams/statistics'
 import { getYear } from '@/util/date'
 import { calculateSign } from '@/util/util'
 import { mapGetters } from 'vuex'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options.js'
 import QichuzhiDialog from './QichuzhiDialog'
+import FeeDialogForm from './FeeDialogForm'
 export default {
-  components: { QichuzhiDialog },
+  components: { QichuzhiDialog, FeeDialogForm },
   mixins: [mixins],
   data () {
     return {
@@ -104,6 +113,13 @@ export default {
     this.loadPage()
   },
   methods: {
+    async handleFee (row) {
+      const { data } = await getCostListByOrgId({ year: this.year, orgId: this.orgId, month: row.month })
+      this.$refs['FeeDialogForm'].expenditureList = [...data.data.expenditureList, ...data.data.otherList]
+      this.$refs['FeeDialogForm'].orgName = row.orgName
+      this.$refs['FeeDialogForm'].date = `${this.year} - ${row.month}`
+      this.$refs['FeeDialogForm'].dialogShow = true
+    },
     calculateSign,
     handleQichizhi () {
       this.$refs['QichuzhiDialog'].dialogShow = true

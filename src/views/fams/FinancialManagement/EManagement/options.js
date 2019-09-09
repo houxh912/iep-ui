@@ -74,6 +74,7 @@ const initForm = () => {
 		interestRate: '',
 		estimatedRefundTime: '',
 		relations: [],
+		relationId: '',
 	}
 }
 

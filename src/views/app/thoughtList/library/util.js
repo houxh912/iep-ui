@@ -1,4 +1,4 @@
-const subjectLength = 15 // 话题的长度
+const subjectLength = 30 // 话题的长度
 const nameLength = 10 // 人名的长度
 
 /**

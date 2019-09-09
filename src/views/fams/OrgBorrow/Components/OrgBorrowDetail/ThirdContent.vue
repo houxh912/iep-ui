@@ -1,14 +1,14 @@
 <template>
   <steps-content>
     <el-form class="form-detail" ref="form" size="small" :model="data" label-width="150px" disabled>
-      <el-alert style="margin-bottom: 24px;" title="借出方组织核准通过后，将无法撤回！" type="warning" show-icon></el-alert>
+      <el-alert style="margin-bottom: 24px;" title="借出方组织核准通过后，将无法撤回！" type="warning" show-icon :closable="false"></el-alert>
       <iep-form-item label-name="借出组织">
         <iep-div-detail :value="data.outOrgName"></iep-div-detail>
       </iep-form-item>
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item label-name="收款公司">
+      <iep-form-item v-if="data.borrowMoneyType==='1'" label-name="收款公司">
         <iep-div-detail :value="data.borrowInCompany"></iep-div-detail>
       </iep-form-item>
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">

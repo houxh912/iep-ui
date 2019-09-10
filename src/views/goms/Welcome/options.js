@@ -4,7 +4,7 @@ const initForm = () => {
     logo: '',
     intro: '',
     orgType: '1',
-    iCanJoin: true,
+    isICan: 1,
   }
 }
 

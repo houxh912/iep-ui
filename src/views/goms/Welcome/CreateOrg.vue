@@ -14,8 +14,8 @@
         <iep-form-item label-name="组织简介" prop="intro">
           <iep-input-area v-model="form.intro"></iep-input-area>
         </iep-form-item>
-        <iep-form-item label-name="是否默认加入我能联盟" prop="iCanJoin">
-          <el-switch v-model="form.iCanJoin"></el-switch>
+        <iep-form-item label-name="是否默认加入我能联盟" prop="isICan">
+          <el-switch v-model="form.isICan" :active-value="1" :inactive-value="0"></el-switch>
         </iep-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>

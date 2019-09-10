@@ -103,7 +103,7 @@ export default {
       const res = await this.mixinsSubmitFormGen()
       if (res) {
         this.$message({
-          message: '修改成功',
+          message: '操作成功',
           type: 'success',
         })
         this.handleGoBack()

@@ -4,7 +4,7 @@
       <el-input v-model="form.name" placeholder="请输入申请人姓名"></el-input>
     </el-form-item>
     <el-form-item label="申请类型：">
-      <iep-dict-select dict-name="hrms_applic_type" v-model="form.type" placeholder="选择申请类型"></iep-dict-select>
+      <iep-dict-select dict-name="hrms_applic_type" :disabled-ids="disabledIds" v-model="form.type" placeholder="选择申请类型"></iep-dict-select>
     </el-form-item>
     <el-form-item label="审核状态：">
       <el-select v-model="form.status" placeholder="请选择" clearable>
@@ -27,11 +27,26 @@
 <script>
 import { dictsMap, initSearchForm, toDtoSearchForm } from './options'
 export default {
+  props: {
+    isDefault: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data () {
     return {
       dictsMap,
       form: initSearchForm(),
     }
+  },
+  computed: {
+    disabledIds () {
+      if (this.isDefault) {
+        return ['1', '2', '3']
+      } else {
+        return ['4', '5', '6']
+      }
+    },
   },
   methods: {
     searchPage () {

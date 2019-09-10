@@ -9,6 +9,18 @@
         </template>
       </operation-container>
       <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <template slot="before-columns">
+          <el-table-column label="序号">
+            <template slot-scope="scope">
+              {{scope.row.id}}
+            </template>
+          </el-table-column>
+          <el-table-column label="姓名">
+            <template slot-scope="scope">
+              {{scope.row.userName}}<a-tag v-if="scope.row.sortNumber" color="orange">即将到期</a-tag>
+            </template>
+          </el-table-column>
+        </template>
       </iep-table>
     </basic-container>
   </div>
@@ -22,14 +34,6 @@ export default {
   data () {
     return {
       columnsMap: [
-        {
-          prop: 'id',
-          label: '序号',
-        },
-        {
-          prop: 'userName',
-          label: '姓名',
-        },
         {
           prop: 'startTime',
           label: '开始时间',

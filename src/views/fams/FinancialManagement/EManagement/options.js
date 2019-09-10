@@ -50,18 +50,6 @@ const columnsMap = [
 	},
 ]
 
-const initSearchForm = () => {
-	return {
-		rangeTime: [],
-		type: [],
-		orgId: '',
-		companyName: '',
-		expenditureMode: '',
-		bankAccount: '',
-		remarks: '',
-	}
-}
-
 const initForm = () => {
 	return {
 		incomeIds: [],
@@ -90,6 +78,18 @@ const initForm = () => {
 	}
 }
 
+const initSearchForm = () => {
+	return {
+		rangeTime: [],
+		type: [],
+		orgId: '',
+		companyName: '',
+		expenditureMode: '',
+		bankAccount: '',
+		remarks: '',
+	}
+}
+
 const toDtoForm = (row) => {
 	const newForm = { ...row }
 	newForm.type = newForm.type[1]
@@ -101,6 +101,7 @@ const toDtoSearchForm = (row) => {
 	newForm.startTime = row.rangeTime[0]
 	newForm.endTime = row.rangeTime[1]
 	delete newForm.rangeTime
+	newForm.type = newForm.type[1]
 	return newForm
 }
 

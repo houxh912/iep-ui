@@ -77,6 +77,7 @@
             正文
             <iep-tip :content="tipContent.content"></iep-tip>：
           </span>
+          <el-button>选择模板</el-button>
           <!-- <el-input type="textarea" rows=5 v-model="formData.content" :maxlength="2000"></el-input> -->
           <iep-froala-editor v-model="formData.content"></iep-froala-editor>
         </el-form-item>
@@ -270,7 +271,9 @@ export default {
           }
         }
       }
-      .el-form-item{margin-bottom: 0;}
+      .el-form-item {
+        margin-bottom: 0;
+      }
     }
   }
 }

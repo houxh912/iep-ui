@@ -5,6 +5,7 @@ import { isURL } from '@/util/validate'
 import keyBy from 'lodash/keyBy'
 import { deepClone } from '@/util/util'
 import Router from '@/router/router'
+import { resetRouter } from '@/router/router'
 
 function addPath (ele, first) {
   const propsConfig = website.menu.props
@@ -54,26 +55,23 @@ const menu = {
   },
   actions: {
     // 获取系统菜单
-    GetMenu ({ commit, state }) {
-      commit('SET_MENUPATHLIST', [])
-      return new Promise(resolve => {
-        GetMenu().then(({ data }) => {
-          const menu = deepClone(data.data)
-          menu.forEach(ele => {
-            addPath(ele)
-          })
-          commit('SET_MENU', menu)
-          if (state.menuPathList.length === 0) {
-            const { mainMenu, otherMenus, menusMap, menuPathList } = detachMenu(menu)
-            commit('SET_MAINMENU', mainMenu)
-            commit('SET_OTHERMENUS', otherMenus)
-            commit('SET_MENUSMAP', menusMap)
-            commit('SET_MENUPATHLIST', menuPathList)
-          }
-          Router.$avueRouter.formatRoutes(menu, true)
-          resolve(menu)
-        })
+    async GetMenu ({ commit, state, dispatch }) {
+      await dispatch('ClearMenu')
+      const { data } = await GetMenu()
+      const menu = deepClone(data.data)
+      menu.forEach(ele => {
+        addPath(ele)
       })
+      commit('SET_MENU', menu)
+      if (state.menuPathList.length === 0) {
+        const { mainMenu, otherMenus, menusMap, menuPathList } = detachMenu(menu)
+        commit('SET_MAINMENU', mainMenu)
+        commit('SET_OTHERMENUS', otherMenus)
+        commit('SET_MENUSMAP', menusMap)
+        commit('SET_MENUPATHLIST', menuPathList)
+      }
+      Router.$avueRouter.formatRoutes(menu, true)
+      return menu
     },
     ClearMenu ({ commit }) {
       commit('SET_MENU', [])
@@ -81,6 +79,7 @@ const menu = {
       commit('SET_OTHERMENUS', [])
       commit('SET_MENUSMAP', {})
       commit('SET_MENUPATHLIST', [])
+      resetRouter()
     },
   },
   mutations: {

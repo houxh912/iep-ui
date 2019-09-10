@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="审批记录" :replaceText="replaceText" :data="statistics"></iep-page-header>
+      <iep-page-header title="请假调休" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button @click="handleDownload" icon="el-icon-download" type="primary" plain>导出全部</iep-button>

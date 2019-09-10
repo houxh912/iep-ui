@@ -13,6 +13,11 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <el-table-column label="状态">
+          <template slot-scope="scope">
+            {{scope.row.payAmount === 0 ? '已收' : '未收'}}
+          </template>
+        </el-table-column>
         <el-table-column prop="operation" label="操作" width="200" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -24,22 +29,20 @@
       </iep-table>
     </basic-container>
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
-    <incomes ref="Incomes" :forms="forms" @load-page="loadPage"></incomes>
+    <expenditure ref="Expenditure" :forms="forms" @load-page="loadPage"></expenditure>
   </div>
 </template>
 
 <script>
-import { postIncome } from '@/api/fams/income'
-import { mapGetters } from 'vuex'
-import { getExpenditurePage } from '@/api/fams/expenditure'
-import { getIncomeById } from '@/api/fams/income'
 import mixins from '@/mixins/mixins'
+import { mapGetters } from 'vuex'
+import { getExpenditurePage, postExpenditure, getExpenditureById } from '@/api/fams/expenditure'
 import { columnsMap, dictsMap } from '../../EManagement/options'
-import DialogForm from '../../IManagement/DialogForm'
-import Incomes from '../../EManagement/Incomes'
+import DialogForm from '../../EManagement/DialogForm'
+import Expenditure from '../../EManagement/Expenditure'
 import { initForm } from '../../EManagement/options'
 export default {
-  components: { DialogForm, Incomes },
+  components: { DialogForm, Expenditure },
   mixins: [mixins],
   data () {
     return {
@@ -65,19 +68,21 @@ export default {
   methods: {
     handleShow (row) {
       // TODO: 给后端待完善
-      row.incomeIds.map(async (idx) => {
-        const data = (await getIncomeById(idx)).data.data
+      row.expenditureIds.map(async (idx) => {
+        const data = (await getExpenditureById(idx)).data.data
         this.forms.push(data)
       })
-      this.$refs['Incomes'].dialogShow = true
+      this.$refs['Expenditure'].dialogShow = true
     },
     handleIncome (row) {
       this.$refs['DialogForm'].form = initForm()
-      this.$refs['DialogForm'].formRequestFn = postIncome
-      this.$refs['DialogForm'].form.expenditureId = row.expenditureId
+      this.$refs['DialogForm'].formRequestFn = postExpenditure
+      this.$refs['DialogForm'].form.type = ['17', this.type]
+      this.$refs['DialogForm'].form.relationId = row.expenditureId
       this.$refs['DialogForm'].form.orgId = this.userInfo.orgId
       this.$refs['DialogForm'].form.invoiceOrgId = this.userInfo.orgId
       this.$refs['DialogForm'].form.orgName = this.userInfo.orgName
+      this.$refs['DialogForm'].payAmount = row.payAmount
       this.$refs['DialogForm'].dialogShow = true
     },
     hanldeChange () {

@@ -88,13 +88,14 @@ export default {
       this.$antConfirm({
         title: '提示',
         content: '真的要注销登录吗 ?',
-        onOk: () => {
-          return this.LogOut().then(() => {
+        onOk: async () => {
+          try {
+            await this.LogOut()
             this.$eventBus.$emit('logout')
             this.$router.push({ path: '/login' })
-          }).catch(err => {
+          } catch (err) {
             this.$message.error(err.message)
-          })
+          }
         },
       })
     },

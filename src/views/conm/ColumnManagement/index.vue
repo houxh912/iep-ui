@@ -6,7 +6,7 @@
   <el-col :span="20">-->
   <div class="column-management">
     <basic-container>
-      <iep-page-header title="栏目管理" :replaceText="replaceText" :data="statistics" :backOption="backOption"></iep-page-header>
+      <iep-page-header title="栏目管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="info_node_add" type="primary" plain @click="handleAdd">新增</iep-button>
@@ -77,9 +77,6 @@ export default {
   mixins: [mixins],
   data () {
     return {
-      backOption: {
-        isBack: true,
-      },
       dictsMap,
       columnsMap,
       paramForm: initSearchForm(),

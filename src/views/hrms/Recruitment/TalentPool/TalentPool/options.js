@@ -23,7 +23,9 @@ const columnsMap = [
   {
     prop: 'education',
     label: '学历',
-    width:'100',
+    type: 'dictGroup',
+    dictName: 'hrms_highest_educational',
+    width: '100',
   },
   {
     prop: 'applyPosition',
@@ -32,12 +34,14 @@ const columnsMap = [
   {
     prop: 'receptionTime',
     label: '简历接受时间',
-    width:'170',
+    width: '170',
   },
   {
     prop: 'source',
     label: '来源',
-    width:'100',
+    type: 'dictGroup',
+    dictName: 'hrms_resume_source',
+    width: '100',
   },
 ]
 

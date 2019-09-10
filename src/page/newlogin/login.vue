@@ -24,7 +24,7 @@
         </el-form-item>
         <el-form-item>
           <div class="login-text">
-            <el-checkbox v-model="form.isKeepLogin">保持登录</el-checkbox>
+            将保持登陆状态
             <div class="check-text">
               <el-button type="text" @click.prevent="handleRetrieve">忘记密码?</el-button>
               <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
@@ -82,7 +82,6 @@ export default {
         password: '',
         code: '',
         redomStr: '',
-        isKeepLogin: false,
       },
       code: {
         src: '/code',
@@ -132,7 +131,7 @@ export default {
     ...mapGetters(['tagWel']),
   },
   methods: {
-    ...mapActions(['LoginBySocial', 'LoginByUsername', 'GetMenu', 'LoadAllDictMap']),
+    ...mapActions(['LoginBySocial', 'LoginByUsername']),
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
@@ -171,9 +170,6 @@ export default {
           try {
             this.loginLoading = true
             await this.LoginByUsername(this.form)
-            const data = await this.GetMenu()
-            this.LoadAllDictMap()
-            this.$router.$avueRouter.formatRoutes(data, true)
             if (this.$route.query.redirect) {
               this.$router.push({ path: this.$route.query.redirect })
             } else {
@@ -227,9 +223,6 @@ export default {
   padding: 1px 0;
   height: 100%;
   box-sizing: border-box;
-}
-.login-text {
-  color: red;
 }
 .visitor {
   background-color: #e4e4e4;

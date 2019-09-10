@@ -12,19 +12,23 @@ export default {
       columnsMap: [
         {
           prop: 'id',
-          label: 'ID',
+          label: '序号',
+        },
+        {
+          prop: 'startTime',
+          label: '日期',
+        },
+        {
+          prop: 'type',
+          label: '类型',
         },
         {
           prop: 'trainingTheme',
-          label: '培训主题',
+          label: '主题',
         },
         {
           prop: 'method',
           label: '培训方式',
-        },
-        {
-          prop: 'type',
-          label: '培训类型',
         },
       ],
     }

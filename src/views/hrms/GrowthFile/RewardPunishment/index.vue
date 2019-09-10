@@ -25,7 +25,7 @@ export default {
       columnsMap: [
         {
           prop: 'flowId',
-          label: 'ID',
+          label: '序号',
         },
         {
           prop: 'createTime',

@@ -11,6 +11,8 @@ const initForm = () => {
     // orgId: '',//组织
     siteName: '',//名称
     url: '',//域名
+    manageList: [],//管理员
+    // manageVoList: [],
     mobileUrl: '',//手机端域名
     status: 1,//状态
   }

@@ -27,6 +27,9 @@
           <el-radio :label="0">停用</el-radio>
         </el-radio-group>
       </el-form-item>
+      <iep-form-item label-name="管理员">
+        <iep-contact-multiple-user v-model="form.manageList"></iep-contact-multiple-user>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm()">提交</iep-button>
@@ -68,6 +71,7 @@ export default {
       })
     },
     async submitForm () {
+      this.form.manageList = this.form.manageList.map(a => a.id)
       this.formRequestFn({ id: this.id, ...this.form }).then(({ data }) => {
         if (data.data) {
           this.$message.success('操作成功')

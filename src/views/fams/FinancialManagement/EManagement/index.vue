@@ -7,7 +7,9 @@
           <iep-button @click="handleExpenditure()" type="primary" icon="el-icon-plus" plain>添加支出</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="remarks"></operation-search>
+          <operation-search @search-page="searchPage" prop="remarks" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
+          </operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
@@ -32,11 +34,17 @@ import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
 import RelationDialogForm from './RelationDialogForm'
+import AdvanceSearch from './AdvanceSearch'
 import DialogDetail from './DialogDetail'
 import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
-  components: { DialogForm, DialogDetail, RelationDialogForm },
+  components: {
+    DialogForm,
+    DialogDetail,
+    RelationDialogForm,
+    AdvanceSearch,
+  },
   data () {
     return {
       dictsMap,

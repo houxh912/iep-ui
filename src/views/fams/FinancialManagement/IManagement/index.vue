@@ -7,7 +7,8 @@
           <iep-button @click="handleIncome()" type="primary" icon="el-icon-plus" plain>添加收入</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" prop="remarks" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
@@ -38,12 +39,20 @@ import { dictsMap, columnsMap, initForm } from './options'
 import DialogForm from './DialogForm'
 import ProjectForm from './ProjectForm'
 import RelationDialogForm from './RelationDialogForm'
+import AdvanceSearch from './AdvanceSearch'
 import IssuedForm from './IssuedForm'
 import DialogDetail from './DialogDetail'
 import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
-  components: { DialogForm, DialogDetail, ProjectForm, IssuedForm, RelationDialogForm },
+  components: {
+    DialogForm,
+    DialogDetail,
+    ProjectForm,
+    IssuedForm,
+    RelationDialogForm,
+    AdvanceSearch,
+  },
   data () {
     return {
       dictsMap,

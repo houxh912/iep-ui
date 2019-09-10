@@ -1,40 +1,67 @@
 <template>
-  <keep-alive include="List">
-    <component @onDetail="handleDetail" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
-  </keep-alive>
+  <div>
+    <basic-container>
+      <iep-page-header title="审批记录" :replaceText="replaceText" :data="statistics"></iep-page-header>
+      <operation-container>
+        <template slot="left">
+          <iep-button @click="handleDownload" icon="el-icon-download" type="primary" plain>导出全部</iep-button>
+        </template>
+        <template slot="right">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage"></advance-search>
+          </operation-search>
+        </template>
+      </operation-container>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+        <template slot="before-columns">
+          <el-table-column label="申请人" width="90px">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+            </template>
+          </el-table-column>
+        </template>
+        <el-table-column label="操作" width="90px">
+          <template>
+            <iep-button type="warning" plain size="small" :disabled="true">分享</iep-button>
+          </template>
+        </el-table-column>
+      </iep-table>
+    </basic-container>
+  </div>
 </template>
 
 <script>
-// 动态切换组件
-import List from './List'
-import Detail from '@/views/wel/approval/Components/Detail/index.vue'
-
+import { getAdministrativeApprovalPage } from '@/api/hrms/administrative_approval'
+import { postAppprovalExcelExport } from '@/api/hrms/excel'
+import mixins from '@/mixins/mixins'
+import AdvanceSearch from './AdvanceSearch'
+import { dictsMap, columnsMap } from './options'
 export default {
-  name: 'AdminApprovalList',
   components: {
-    List,
-    Detail,
+    AdvanceSearch,
   },
+  mixins: [mixins],
   data () {
     return {
-      currentComponet: 'List',
-      record: '',
+      dictsMap,
+      columnsMap,
+      statistics: [0, 0, 0, 0, 0, 0],
+      replaceText: (data) => `（本周新增${data[0]}条请假申请，${data[1]}条出差申请，${data[2]}条转正申请，${data[3]}条加班申请，${data[4]}条调岗申请，${data[5]}条调离职申请）`,
     }
   },
-  methods: {
-    handleDetail (record) {
-      this.record = record
-      this.currentComponet = 'Detail'
-    },
-    handleGoBack () {
-      this.record = ''
-      this.currentComponet = 'List'
-    },
+  created () {
+    this.loadPage()
   },
-  watch: {
-    '$route.path' () {
-      this.record = ''
-      this.currentComponet = 'List'
+  methods: {
+    handleDetail (row) {
+      this.$emit('onDetail', row)
+    },
+    handleDownload () {
+      postAppprovalExcelExport(this.searchForm)
+    },
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getAdministrativeApprovalPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

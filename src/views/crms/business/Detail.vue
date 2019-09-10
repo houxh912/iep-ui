@@ -35,7 +35,7 @@
           <span v-if="formData.isCreate==0">未创建</span>
           <span v-if="formData.isCreate==1">已创建</span>
         </el-form-item>
-        <el-form-item label="认领人：" v-if="formData.statusKey == 1">
+        <el-form-item label="认领人：" v-if="formData.status[0].commonId == 1">
           <span>{{formData.reciver}}</span>
         </el-form-item>
       </el-form>

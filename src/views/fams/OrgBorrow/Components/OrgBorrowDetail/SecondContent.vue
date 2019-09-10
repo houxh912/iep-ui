@@ -1,7 +1,7 @@
 <template>
   <steps-content>
     <el-form class="form-detail" ref="form" size="small" :model="data" label-width="150px" disabled>
-      <el-alert style="margin-bottom: 24px;" title="确认借款申请后，将向借出方组织发出借款申请。" type="warning" show-icon></el-alert>
+      <el-alert style="margin-bottom: 24px;" title="确认借款申请后，将向借出方组织发出借款申请。" type="warning" show-icon :closable="false"></el-alert>
       <iep-form-item label-name="借出组织">
         <iep-select v-model="data.borrowOutOrgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择向哪个组织借款"></iep-select>
       </iep-form-item>
@@ -10,7 +10,7 @@
           <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
         </el-radio-group>
       </iep-form-item>
-      <iep-form-item label-name="收款公司">
+      <iep-form-item v-if="data.borrowMoneyType==='1'" label-name="收款公司">
         <iep-select v-model="data.borrowInCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
       </iep-form-item>
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">

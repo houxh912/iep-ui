@@ -6,7 +6,7 @@
       <tabsTpl v-model="tabName" :tab-list="tabList" class="content-left">
         <!-- 说说列表 -->
         <template v-if="tabName ==='allThougth'" v-slot:allThougth>
-          <div class="content-top" v-if="!paramData.userId">
+          <div :class="topDataList.length ? 'content-top' : ''" v-if="!paramData.userId">
             <libraryTop :dataList="topDataList" @fresh-right="freshRight" @load-page="getToppedThoughts" isTop @fresh-all="freshAll"></libraryTop>
             <!-- <libraryTop ref="libraryTop" @load-page="submitCallBack" :dataList="topDataList" :params="params" @fresh-right="freshRight"></libraryTop> -->
           </div>
@@ -150,6 +150,7 @@ export default {
   watch: {
     tabName (newVal) {
       if (newVal === 'allThougth') {
+        this.topDataList = []
         this.isSearchShow = 'thought'
         this.paramData.userId = ''
         this.getToppedThoughts()

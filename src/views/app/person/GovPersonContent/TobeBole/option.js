@@ -42,6 +42,7 @@ export const initFormData = () => {
     weight: '',
     workExperience: [],
     workPlace: '',
+    resumeType: 2,
   }
 }
 

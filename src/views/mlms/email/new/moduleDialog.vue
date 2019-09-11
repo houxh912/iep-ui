@@ -17,13 +17,13 @@
         <el-table-column prop="operation" label="操作" width="120" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleSelect(scope.row)">选择</iep-button>
+              <iep-button @click="handleDetail(scope.row)">选择</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </basic-container>
-    <module-detail ref="modeleDetail"></module-detail>
+    <module-detail ref="modeleDetail" @confirm-select="ConfirmSelect"></module-detail>
   </iep-dialog>
 </template>
 <script>
@@ -55,6 +55,10 @@ export default {
     },
     async loadPage (param = this.searchForm) {
       await this.loadTable(param, getPage)
+    },
+    ConfirmSelect (val) {
+      this.$emit('confirm-select',val)
+      this.dialogShow = false
     },
   },
 }

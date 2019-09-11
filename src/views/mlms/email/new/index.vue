@@ -91,7 +91,7 @@
       </el-form>
     </basic-container>
     <main-dialog ref="relation" @relativeSubmit="relativeSubmit"></main-dialog>
-    <module-dialog ref="moduleDialog"></module-dialog>
+    <module-dialog ref="moduleDialog"  @confirm-select="ConfirmSelect"></module-dialog>
   </div>
 </template>
 
@@ -235,6 +235,9 @@ export default {
     // 删除关联
     deleteRelatios (key, index) {
       this.formData.transferList[key].splice(index, 1)
+    },
+    ConfirmSelect (val) {
+      this.formData.content=val
     },
   },
   created () {

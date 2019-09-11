@@ -38,6 +38,10 @@ export default {
         this.form = this.$mergeByFirst(this.form, data.data)
       })
     },
+    handleSelect () {
+      this.$emit('confirm-select',this.form.content)
+      this.dialogShow = false
+    },
   },
 }
 </script>

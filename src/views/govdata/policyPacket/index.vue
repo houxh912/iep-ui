@@ -57,7 +57,7 @@ import collapseForm from '@/components/deprecated/collapse-form'
 import dialogMixins from '@/mixins/deprecated/dialog_mixins'
 import paginationMixins from '@/mixins/deprecated/pagination_mixins'
 import dialogForm from './dialog-form'
-import { getPacketPage, getPacketById, deletePacket } from '@/api/govdata/policy_packet'
+import { getPacketPage, deletePacket } from '@/api/govdata/policy_packet'
 const columnMap = [
   {
     prop: 'description',

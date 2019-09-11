@@ -2,6 +2,11 @@
   <div>
     <basic-container>
       <iep-statistics-header title="我的投资" :dataMap="financialData">
+        <template slot="right">
+          <operation-wrapper>
+            <iep-button @click="$openPage(`/app/wealth`)">去投资</iep-button>
+          </operation-wrapper>
+        </template>
       </iep-statistics-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList" style="margin-top:20px;">
         <template v-slot:[activeTab]>
@@ -27,11 +32,11 @@ export default {
       statistics: [0, 0, 0, 0, 0, 0],
       tabList: [
         {
-          label: '持仓',
+          label: '持有股份数量',
           value: 'Position',
         },
         {
-          label: '交易记录',
+          label: '认购记录',
           value: 'TransactionRecord',
         },
       ],

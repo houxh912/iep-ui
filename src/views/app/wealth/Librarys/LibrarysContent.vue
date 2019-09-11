@@ -11,7 +11,7 @@
           <div v-if="!loading" class="lie" @click="handleOpen(item)">
             <div class="box">
               <iep-img style="width: 50px;height:50px;float:left;" :src="item.orgLogo" alt=""></iep-img>
-              <span style="float:left;margin-left:10px;">{{item.orgName}}</span>
+              <span style="float:left;margin-left:10px;width: 240px;overflow : hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;">{{item.orgName}}</span>
             </div>
             <div class="box">{{item.todayPrice}}</div>
             <div class="box">

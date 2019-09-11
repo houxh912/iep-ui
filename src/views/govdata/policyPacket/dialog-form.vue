@@ -353,7 +353,7 @@ export default {
      * 动态关闭政策tag
      */
     handleClose (item) {
-      if(!this.isReadonly){
+      if (!this.isReadonly) {
         this.model.relationList.splice(this.model.relationList.indexOf(item), 1)
       }
       if (this.show) {
@@ -426,7 +426,7 @@ export default {
      * 生成二维码
      */
     getCode () {
-      this.url = `https://gc.govmade.cn/policy-red-envelope-detail/${this.formData.id}`
+      this.url = `http://hb.govmade.cn/?id=${this.formData.id}`
     },
 
     /**

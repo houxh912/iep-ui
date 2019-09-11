@@ -193,12 +193,12 @@ export default {
       this.isAdd = false
       this.isReadonly = true
       this.isNeedConfirm = false
-      getPacketById(rows.id).then(res => {
-        const row = res.data.data
-        this.readRelation(row)
-        this.form = { ...row }
-        this.dialogShow = true
-      })
+      // getPacketById(rows.id).then(res => {
+      //   const row = res.data.data
+      // this.readRelation(rows)
+      this.form = { ...rows }
+      this.dialogShow = true
+      // })
     },
 
     /**

@@ -79,7 +79,7 @@
     </el-form-item>
 
     <el-form-item label="红包剩余数量" class="formWidth" prop="remainAmount">
-      <el-input-number v-model.number="model.remainAmount" style="width:100%" controls-position="right" :min="0" :max="100000"></el-input-number>
+      <el-input-number v-model.number="model.remainAmount" style="width:100%" controls-position="right" :min="0" :max="100000" :disabled="isReadonly"></el-input-number>
     </el-form-item>
 
     <div class="code-container" v-if="!isAdd">
@@ -353,7 +353,9 @@ export default {
      * 动态关闭政策tag
      */
     handleClose (item) {
-      this.model.relationList.splice(this.model.relationList.indexOf(item), 1)
+      if(!this.isReadonly){
+        this.model.relationList.splice(this.model.relationList.indexOf(item), 1)
+      }
       if (this.show) {
         for (let items of this.tableData) {
           if (item.policyId == items.id) {
@@ -361,7 +363,7 @@ export default {
           }
         }
       }
-      if (!this.isAdd) {
+      if (!this.isAdd && !this.isReadonly) {
         this.common()
       }
     },

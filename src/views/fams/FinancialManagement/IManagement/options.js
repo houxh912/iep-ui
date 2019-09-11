@@ -77,9 +77,31 @@ const initForm = () => {
 	}
 }
 
+const initSearchForm = () => {
+	return {
+		rangeTime: [],
+		type: [],
+		orgId: '',
+		companyName: '',
+		incomeMode: '',
+		bankAccount: '',
+		remarks: '',
+	}
+}
+
+
 const toDtoForm = (row) => {
 	const newForm = { ...row }
 	newForm.parentType = newForm.type[0]
+	newForm.type = newForm.type[1]
+	return newForm
+}
+
+const toDtoSearchForm = (row) => {
+	const newForm = { ...row }
+	newForm.startTime = row.rangeTime[0]
+	newForm.endTime = row.rangeTime[1]
+	delete newForm.rangeTime
 	newForm.type = newForm.type[1]
 	return newForm
 }
@@ -117,4 +139,6 @@ export {
 	toDtoForm,
 	rules,
 	warningText,
+	initSearchForm,
+	toDtoSearchForm,
 }

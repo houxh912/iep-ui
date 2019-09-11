@@ -4,19 +4,23 @@
       <iep-page-header :title="`${methodName}公告`" :backOption="backOption"></iep-page-header>
       <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="small">
         <iep-form-item prop="name" label-name="主题" tip="主题请务必包含关于+事由+通知类型，如关于学习内网2.0相关功能操作的通知。">
-          <el-input v-model="form.name" :disabled="disabled && form.status==='已发布'"></el-input>
+          <el-input v-model="form.name" :disabled="ReleaseDisabled"></el-input>
         </iep-form-item>
 
         <iep-form-item prop="type" label-name="类型" tip="日常公告：关于学习、传达会议精神/要求、放假等日常的通知；<br/>公司制度：制度规范类征集意见或实施等公布的通知；<br/>培训通知：关于培训而发布的通知；<br/>人事调动：关于人事任免而发布的通知；<br/>其他通知：除上述提到的以外的通知。">
-          <iep-dict-select :disabled="disabled" v-model="form.type" dict-name="ims_notify_type"></iep-dict-select>
+          <iep-dict-select v-model="form.type" dict-name="ims_notify_type"></iep-dict-select>
         </iep-form-item>
 
         <iep-form-item prop="content" label-name="内容" tip="1、包含称呼、通知缘由、事项、要求和发文单位等内容；<br/>2、分段陈述，默认字体与字号，带格式的文字粘贴请使用“格式清除”工具；">
           <iep-froala-editor v-model="form.content"></iep-froala-editor>
         </iep-form-item>
 
+        <iep-form-item label-name="选择模板">
+          <iep-button @click="handleSelectTemplate">选择模板</iep-button>
+        </iep-form-item>
+
         <iep-form-item prop="receivers" label-name="发布范围" tip="为该通知接收对象，一般以某个组织或群体为单位。">
-          <iep-contact-multiple v-model="form.receivers" :disabled="disabled"></iep-contact-multiple>
+          <iep-contact-multiple v-model="form.receivers" :disabled="ReleaseDisabled"></iep-contact-multiple>
         </iep-form-item>
 
         <el-form-item label="">
@@ -26,14 +30,17 @@
         </el-form-item>
       </el-form>
     </basic-container>
+    <template-dialog ref="TemplateDialog" @fill-content="fillContent(data)"></template-dialog>
   </div>
 </template>
 <script>
 import { getAnnouncementById, postAnnouncement, putAnnouncement } from '@/api/ims/announcement'
 import { initForm, formToDto, formToVo } from './options'
+import TemplateDialog from './TemplateDialog'
 import { checkContact } from '@/util/rules'
 import formMixins from '@/mixins/formMixins'
 export default {
+  components: { TemplateDialog },
   mixins: [formMixins],
   data () {
     return {
@@ -63,8 +70,8 @@ export default {
     id () {
       return +this.$route.params.id
     },
-    disabled () {
-      return !!this.id
+    ReleaseDisabled () {
+      return this.form.status === '1'
     },
     formRequestFn () {
       if (this.id) {
@@ -77,7 +84,7 @@ export default {
       if (this.id) {
         return '修改'
       } else {
-        return '保存为草稿'
+        return '新增'
       }
     },
   },
@@ -89,6 +96,12 @@ export default {
     }
   },
   methods: {
+    fillContent (data) {
+      this.form.content = data
+    },
+    handleSelectTemplate () {
+      this.$refs['TemplateDialog'].dialogShow = true
+    },
     async submitForm () {
       const publish = this.isPublish
       const { data } = await this.formRequestFn(formToDto(this.form), publish)

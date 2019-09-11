@@ -5,8 +5,11 @@
         <span class="title">{{effect}}</span>
       </div>
       <div class="classTags">
-        <div class="classTag" v-for="(tag, index) in tagList" :key="index">
-          <el-tag type="white">{{tag.peopleImpression}}</el-tag>
+        <div class="classTag" v-for="(tag, index) in tagList" :key="index" @click="handleUpCount(tag)">
+          <el-badge :value="`+${tag.thumbsUpCount}`" class="classTag-item" :hidden="!tag.thumbsUpCount">
+            <el-tag class="classTag-tag" type="white">{{tag.peopleImpression}}</el-tag>
+            <div class="hover"> +1 </div>
+          </el-badge>
         </div>
       </div>
       <div class="append" style="margin-top: 15px;">
@@ -35,7 +38,7 @@
 </template>
 
 <script>
-import { getImpressionByUserId, impressionCreate } from '@/api/cpms/commonpeopleimpression'
+import { getImpressionByUserId, impressionCreate, impressionUpCount } from '@/api/cpms/commonpeopleimpression'
 export default {
   props: {
     userInfo: {
@@ -60,7 +63,7 @@ export default {
       this.$router.push(`/app/personal_style/${row.visitorId}`)
     },
     getImpressionById () {
-      getImpressionByUserId({userId: this.$route.params.id}).then(({ data }) => {
+      getImpressionByUserId({userId: this.$route.params.id, size: 30}).then(({ data }) => {
         this.tagList = data.records
       })
     },
@@ -78,6 +81,18 @@ export default {
           this.input3 = ''
         } else {
           this.$message.error(data.data.msg)
+        }
+      })
+    },
+    handleUpCount (row) {
+      impressionUpCount({
+        impressionId: row.peopleImpressionId,
+        userId: this.userInfo.id,
+      }).then(({ data }) => {
+        if (data.data) {
+          this.getImpressionById()
+        } else {
+          this.$message.error(data.msg)
         }
       })
     },
@@ -114,12 +129,36 @@ export default {
     flex-wrap: wrap;
   }
   .classTag {
+    margin: 15px 30px 0 0;
+    cursor: pointer;
     .el-tag {
-      margin: 0 5px 5px 0;
       &:hover {
         color: #cb3737;
         background: #fef0f0;
         border-color: #cb3737;
+      }
+    }
+    .classTag-item {
+      position: relative;
+      &:hover .hover {
+        opacity: 1;
+      }
+      .hover {
+        width: calc(100% - 2px);
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-align: center;
+        background-color: rgba(248, 232, 233, 0.9);
+        z-index: 2;
+        opacity: 0;
+        -webkit-transition: all 0.5s;
+        transition: all 0.5s;
+        margin: 1px;
+        border-radius: 3px;
+        line-height: 24px;
+        height: calc(100% - 2px);
+        color: #BA1B21;
       }
     }
   }

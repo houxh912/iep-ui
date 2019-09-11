@@ -101,7 +101,7 @@ export default {
       this.row.beginTime = this.row.beginTime
       this.row.endTime = this.row.endTime
       this.dataList[0].count = this.row.examType == 0 ? '考试模式' : '练习模式'
-      this.dataList[1].count = this.row.isPassTotal + '%'
+      this.dataList[1].count = this.row.passRateView
       this.dataList[2].count = this.row.avgPenScore
       this.dataList[3].count = this.row.maxPenScore
       this.dataList[4].count = this.row.minPenScore

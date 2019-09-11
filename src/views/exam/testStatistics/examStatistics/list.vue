@@ -16,7 +16,7 @@
         <el-table-column prop="operation" label="操作" width="120">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button size="mini" type="warning" plain @click="handleView(scope.row)">考试详情</iep-button>
+              <iep-button size="mini" type="warning" plain @click="handleView(scope.row)" :disabled="scope.row.markingState == 1">考试详情</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

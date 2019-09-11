@@ -211,6 +211,14 @@ export function getChartData (query) {
     params: query,
   })
 }
+//项目新增请求接口
+export function getProjectAnnouncement (query) {
+  return request({
+    url: `${prefixUrl}/notification/create`,
+    method: 'get',
+    params: query,
+  })
+}
 /**
  * 我的持仓分页
  * @param {*} query 

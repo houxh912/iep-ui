@@ -286,6 +286,7 @@
 
 <script>
 import { getDataDetail, approvalById } from '@/api/gpms/index'
+// import { getProjectAnnouncement } from '@/api/fams/investment'
 import collectionTable from './collectionTable'
 import materialTable from './materialTable'
 import paybackTable from './paybackTable'
@@ -384,6 +385,13 @@ export default {
             message: '成功',
             type: 'success',
           })
+          // if (this.projectStatus == 2) {
+          //   this.announcement = '公司公告：' + this.formData.orgName + '与' + this.formData.relatedClientName + '签订了' + this.formData.projectName + '，签订时间为'
+          //   console.log(this.announcement)
+          //   getProjectAnnouncement({ content: this.announcement, orgId: this.formData.orgId }).then(({ data }) => {
+          //     console.log(data)
+          //   })
+          // }
         } else {
           this.$message({
             message: data.msg,

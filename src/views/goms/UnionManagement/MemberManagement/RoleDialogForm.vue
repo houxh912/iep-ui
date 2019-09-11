@@ -48,7 +48,7 @@ export default {
     updateForm () {
       this.formRequestFn(toDtoForm(this.form)).then(({ data }) => {
         if (data.data) {
-          this.$message.success('修改成功')
+          this.$message.success('操作成功')
           this.close()
         } else {
           this.$message(data.msg)

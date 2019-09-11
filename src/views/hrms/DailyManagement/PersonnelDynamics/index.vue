@@ -4,11 +4,12 @@
       <iep-page-header title="人事动态"></iep-page-header>
       <operation-container>
         <template slot="right">
-          <operation-search @search-page="searchPage">
+          <operation-search @search-page="searchPage" advance-search>
+            <advance-search @search-page="searchPage" :is-default="false"></advance-search>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       </iep-table>
     </basic-container>
   </div>
@@ -17,7 +18,11 @@
 <script>
 import { getPersonnelDynamicsPage } from '@/api/hrms/daily_management'
 import mixins from '@/mixins/mixins'
+import AdvanceSearch from '../LeaveHoliday/AdvanceSearch'
 export default {
+  components: {
+    AdvanceSearch,
+  },
   mixins: [mixins],
   data () {
     return {

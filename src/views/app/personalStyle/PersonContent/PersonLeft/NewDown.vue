@@ -88,8 +88,12 @@ export default {
       impressionUpCount({
         impressionId: row.peopleImpressionId,
         userId: this.userInfo.id,
-      }).then(() => {
-        this.getImpressionById()
+      }).then(({ data }) => {
+        if (data.data) {
+          this.getImpressionById()
+        } else {
+          this.$message.error(data.msg)
+        }
       })
     },
   },
@@ -125,7 +129,7 @@ export default {
     flex-wrap: wrap;
   }
   .classTag {
-    margin: 15px 25px 0 0;
+    margin: 15px 30px 0 0;
     cursor: pointer;
     .el-tag {
       &:hover {

@@ -77,7 +77,7 @@
             正文
             <iep-tip :content="tipContent.content"></iep-tip>：
           </span>
-          <el-button>选择模板</el-button>
+          <el-button class="select-module" @click="handleSelectModule">选择模板</el-button>
           <!-- <el-input type="textarea" rows=5 v-model="formData.content" :maxlength="2000"></el-input> -->
           <iep-froala-editor v-model="formData.content"></iep-froala-editor>
         </el-form-item>
@@ -91,17 +91,19 @@
       </el-form>
     </basic-container>
     <main-dialog ref="relation" @relativeSubmit="relativeSubmit"></main-dialog>
+    <module-dialog ref="moduleDialog"  @confirm-select="ConfirmSelect"></module-dialog>
   </div>
 </template>
 
 <script>
 // import MainDialog from './mainDialog'
 import MainDialog from './relationDialog'
+import ModuleDialog from './moduleDialog'
 import { createEmail, updateEmail } from '@/api/mlms/email/index'
 import { initFormData, rules, tipContent } from './option'
 
 export default {
-  components: { MainDialog },
+  components: { MainDialog, ModuleDialog },
   data () {
     return {
       formData: initFormData(),
@@ -142,6 +144,10 @@ export default {
       row.attachmentList = this.dealWithList(row.attachmentRelatios, [{ O: 'url', X: 'attachmentUrl' }, { O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }])
       this.formData = row
       this.relativeSubmit(row.transferList)
+    },
+    //选择模板
+    handleSelectModule () {
+      this.$refs['moduleDialog'].dialogShow = true
     },
     dealWithList (row, field) {
       let list = []
@@ -230,6 +236,9 @@ export default {
     deleteRelatios (key, index) {
       this.formData.transferList[key].splice(index, 1)
     },
+    ConfirmSelect (val) {
+      this.formData.content=val
+    },
   },
   created () {
     this.formData = initFormData()
@@ -238,6 +247,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.select-module {
+  margin-bottom: 10px;
+}
 .form {
   width: 80%;
   .material {

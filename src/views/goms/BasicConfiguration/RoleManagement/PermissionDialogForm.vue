@@ -46,7 +46,7 @@ export default {
             this.checkedKeys = response.data
             this.$notify({
               title: '成功',
-              message: '修改成功',
+              message: '操作成功',
               type: 'success',
               duration: 2000,
             })

@@ -15,6 +15,10 @@
           <iep-froala-editor v-model="form.content"></iep-froala-editor>
         </iep-form-item>
 
+        <iep-form-item label-name="选择模板">
+          <iep-button @click="handleSelectTemplate">选择模板</iep-button>
+        </iep-form-item>
+
         <iep-form-item prop="receivers" label-name="发布范围" tip="为该通知接收对象，一般以某个组织或群体为单位。">
           <iep-contact-multiple v-model="form.receivers" :disabled="ReleaseDisabled"></iep-contact-multiple>
         </iep-form-item>
@@ -26,14 +30,17 @@
         </el-form-item>
       </el-form>
     </basic-container>
+    <template-dialog ref="TemplateDialog" @fill-content="fillContent(data)"></template-dialog>
   </div>
 </template>
 <script>
 import { getAnnouncementById, postAnnouncement, putAnnouncement } from '@/api/ims/announcement'
 import { initForm, formToDto, formToVo } from './options'
+import TemplateDialog from './TemplateDialog'
 import { checkContact } from '@/util/rules'
 import formMixins from '@/mixins/formMixins'
 export default {
+  components: { TemplateDialog },
   mixins: [formMixins],
   data () {
     return {
@@ -77,7 +84,7 @@ export default {
       if (this.id) {
         return '修改'
       } else {
-        return '保存为草稿'
+        return '新增'
       }
     },
   },
@@ -89,6 +96,12 @@ export default {
     }
   },
   methods: {
+    fillContent (data) {
+      this.form.content = data
+    },
+    handleSelectTemplate () {
+      this.$refs['TemplateDialog'].dialogShow = true
+    },
     async submitForm () {
       const publish = this.isPublish
       const { data } = await this.formRequestFn(formToDto(this.form), publish)

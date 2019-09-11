@@ -71,7 +71,7 @@ export default {
     claimBusiness () {
       let claim = {
         opportunityId: this.formData.opportunityId,
-        status: this.formData.statusKey,
+        status: this.formData.status[0].commonId,
         creatorId: this.formData.creatorId,
       }
       this.$confirm('此操作将认领该条商机, 是否继续?', '提示', {

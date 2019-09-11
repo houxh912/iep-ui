@@ -158,7 +158,7 @@ export default {
     // 加载
     loadPage (param = this.searchForm) {
       this.loadTable({ ...param, type: this.type }, getBusinessList, m => {
-        return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，'),intentionLevelKey:m.intentionLevel.map(m=>m.commonName).join('，'),statusKey:m.status.map(m=>m.commonName).join('，') })
+        return Object.assign(m, { businessTypeKey: m.businessType.map(m => m.commonName).join('，'), intentionLevelKey: m.intentionLevel.map(m => m.commonName).join('，'), statusKey: m.status.map(m => m.commonName).join('，') })
       })
       this.getWeekincrease()
     },
@@ -201,7 +201,7 @@ export default {
         type: 'warning',
       }).then(() => {
         getBusinessById(row.opportunityId).then(res => {
-          let state = res.data.data.data.statusKey
+          let state = res.data.data.data.status[0].commonId
           let id = res.data.data.data.opportunityId
           let claim = {
             opportunityId: id,

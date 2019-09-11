@@ -6,7 +6,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="项目名称：" prop="projectName">
-              <el-input v-model="formData.projectName" :placeholder="tipContent.projectName"></el-input>
+              <el-input v-model="formData.projectName" :placeholder="tipContent.projectName" maxlength="20"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -759,6 +759,14 @@ export default {
         }
       },
 
+    },
+    'formData.isRelevanceProduct':{
+      deep: true,
+      handler: function (val) {
+        if (val==2) {
+          this.formData.productList=[]
+        }
+      },
     },
   },
 }

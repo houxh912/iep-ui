@@ -426,7 +426,7 @@ export default {
                           content: this.userInfo.orgName + '与' + this.formData.clientName + '客户成立了战略合作伙伴关系',
                           orgId: this.userInfo.orgId,
                         }
-                        notificationCreate(form)
+                        notificationCreate({ list: [form] })
                       }
                     }
                     if (this.flag) {
@@ -467,7 +467,7 @@ export default {
                     content: this.userInfo.orgName + '与' + this.formData.clientName + '客户成立了战略合作伙伴关系',
                     orgId: this.userInfo.orgId,
                   }
-                  notificationCreate(form)
+                  notificationCreate({ list: [form] })
                 }
               }
               if (this.flag) {

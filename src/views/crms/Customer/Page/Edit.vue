@@ -130,6 +130,7 @@
 <script>
 import { initForm } from '../options'
 import { getCustomerById } from '@/api/crms/customer'
+import { notificationCreate } from '@/api/fams/investment'
 import { mapGetters } from 'vuex'
 import { createById } from '@/api/crms/business'
 import { getObj } from '@/api/admin/user'
@@ -419,6 +420,15 @@ export default {
                       message: `客户${this.methodName}成功`,
                       type: 'success',
                     })
+                    if (this.methodName == '新增') {
+                      if (this.formData.clientTypeKey.includes('0')) {
+                        let form = {
+                          content: this.userInfo.orgName + '与' + this.formData.clientName + '客户成立了战略合作伙伴关系',
+                          orgId: this.userInfo.orgId,
+                        }
+                        notificationCreate({ list: [form] })
+                      }
+                    }
                     if (this.flag) {
                       createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
                       })
@@ -451,6 +461,15 @@ export default {
                 message: `客户${this.methodName}成功`,
                 type: 'success',
               })
+              if (this.methodName == '新增') {
+                if (this.formData.clientTypeKey.includes('0')) {
+                  let form = {
+                    content: this.userInfo.orgName + '与' + this.formData.clientName + '客户成立了战略合作伙伴关系',
+                    orgId: this.userInfo.orgId,
+                  }
+                  notificationCreate({ list: [form] })
+                }
+              }
               if (this.flag) {
                 createById({ iepOpportunityInputId: this.record.data.opportunityId }).then(() => {
                 })

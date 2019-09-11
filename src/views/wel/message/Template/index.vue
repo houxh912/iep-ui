@@ -43,7 +43,7 @@ export default {
         },
         {
           prop: 'name',
-          label: '姓名',
+          label: '模板名称',
         },
         {
           prop: 'createTime',

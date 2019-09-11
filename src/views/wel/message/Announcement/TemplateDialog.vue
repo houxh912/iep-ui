@@ -72,7 +72,9 @@ export default {
     },
     async handleSelect (row) {
       const { data } = await getTemplateById(row.templateId)
+      console.log(data)
       this.$emit('fill-content', data.data.content)
+      this.close()
     },
     close () {
       this.dialogShow = false

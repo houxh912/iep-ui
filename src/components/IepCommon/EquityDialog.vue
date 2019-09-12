@@ -3,13 +3,13 @@
     <el-dialog :visible.sync="dialogShow" width="600px" :before-close="loadPage">
       <div class="main">
         <div style="padding:60px;">
-          <p class="header-title">{{information.orgName}}</p>
-          <p>公司依据本公司股东会于 年 月 日决议通过的《有限公司股权激励计划》（“股权激励计划”）及您阅读同意的<span style="text-decoration:underline;margin:0 10px;font-weight: normal;">{{information.orgName}}</span>股权激励认购说明，对您的股权授予情况确认如下：
+          <p class="header-title">{{form.orgName}}</p>
+          <p>公司依据本公司股东会于 年 月 日决议通过的《有限公司股权激励计划》（“股权激励计划”）及您阅读同意的<span style="text-decoration:underline;margin:0 10px;font-weight: normal;">{{form.orgName}}</span>股权激励认购说明，对您的股权授予情况确认如下：
           </p>
           <p> </p>
-          <p>授予价格：<span>{{information.tradingPrice}} </span>贝／股（对应公司每1元人民币注册资本）的价格认购激励股权。</p>
-          <p>授予股权数量：<span>{{information.investmentNumber}}</span>；</p>
-          <p>授予的日期：<span>{{information.createTime | parseDate('YYYY 年 MM 月 DD 日')}}</span>；</p>
+          <p>授予价格：<span>{{form.tradingPrice}} </span>贝／股（对应公司每1元人民币注册资本）的价格认购激励股权。</p>
+          <p>授予股权数量：<span>{{form.investmentNumber}}</span>；</p>
+          <p>授予的日期：<span>{{form.createTime | parseDate('YYYY 年 MM 月 DD 日')}}</span>；</p>
           <p>授予方式：虚拟股；</p>
           <p>授予期限： 年。</p>
           <p> </p>
@@ -22,21 +22,22 @@
   </div>
 </template>
 <script>
+const initForm = () => {
+  return {
+    investmentNumber: '', //股份数量
+    orgName: '',//投资组织名
+    tradingPrice: 0,//每股单价
+    remainingShares: 0,//剩余股数
+    createTime: '',
+  }
+}
 export default {
   name: 'IepEquityDialog',
-  props: {
-    information: {
-      type: Object,
-      require: true,
-      default: () => { },
-    },
-  },
   data () {
     return {
+      form: initForm(),
       dialogShow: false,
     }
-  },
-  computed: {
   },
   methods: {
     loadPage () {
@@ -44,15 +45,13 @@ export default {
       this.$emit('load-page')
     },
   },
-  watch: {
-  },
 }
 </script>
 <style lang="scss" scoped>
 .main {
   width: 100%;
   height: 100%;
-  background: url(/img/bg/EquityCertificate.webp) no-repeat center center;
+  background: url("/img/bg/EquityCertificate.webp") no-repeat center center;
   background-size: 100% 100%;
   .header-title {
     padding: 64px 0 140px;
@@ -69,13 +68,10 @@ export default {
     }
   }
 }
-</style>
-<style scoped>
-.equity >>> .el-dialog__body {
+.equity ::v-deep .el-dialog__body {
   padding: 0;
 }
-.equity >>> .el-dialog__header {
+.equity ::v-deep .el-dialog__header {
   padding: 0;
 }
 </style>
-

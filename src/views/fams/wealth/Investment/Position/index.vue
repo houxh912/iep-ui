@@ -19,12 +19,11 @@
           </template>
         </el-table-column>
       </template>
-      <el-table-column label="操作" width="300">
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" plain @click="handleBuy(scope.row)">买入</iep-button>
             <iep-button @click="handleWithdrawal(scope.row)">退股</iep-button>
-            <iep-button @click="handleGrant(scope.row)">股权授予书</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>

@@ -21,11 +21,13 @@ import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import { getMySharesValue } from '@/api/fams/investment'
 import Position from './Position/'
 import TransactionRecord from './TransactionRecord/'
+import MyBook from './MyBook/'
 export default {
   components: {
     IepStatisticsHeader,
     Position,
     TransactionRecord,
+    MyBook,
   },
   data () {
     return {
@@ -38,6 +40,10 @@ export default {
         {
           label: '认购记录',
           value: 'TransactionRecord',
+        },
+        {
+          label: '我的股权书',
+          value: 'MyBook',
         },
       ],
       activeTab: 'Position',

@@ -75,7 +75,7 @@
         </div>
       </div>
     </iep-dialog>
-    <iep-equity-dialog ref="EquityDialog" @load-page="loadPage" :information="information"></iep-equity-dialog>
+    <iep-equity-dialog ref="EquityDialog" @load-page="loadPage"></iep-equity-dialog>
   </div>
 </template>
 <script>
@@ -93,7 +93,6 @@ export default {
       form: initForm(),
       rules,
       choose: 'one',
-      information: initForm(),
     }
   },
   computed: {
@@ -116,7 +115,7 @@ export default {
               message: `感谢您投资${this.form.orgName}公司。未来，请让我们一起继续携手相伴，披荆斩棘，共闯前路！`,
               type: 'success',
             })
-            this.information = data.data
+            this.$refs['EquityDialog'].form = data.data
             this.$refs['EquityDialog'].dialogShow = true
             this.loadPage()
           } else {

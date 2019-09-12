@@ -253,6 +253,17 @@ export function getWithdrawPage (query) {
   })
 }
 /**
+ * 我的股权书
+ * @param {} query 
+ */
+export function getMyBookPage (query) {
+  return request({
+    url: `${prefixUrl}/my/book/page`,
+    method: 'get',
+    params: query,
+  })
+}
+/**
  * 退股
  * @param {*} id 
  */

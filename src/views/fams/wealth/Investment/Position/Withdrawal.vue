@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="新增支出" width="700px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="当前可退股份（持有时间超过三个月可退股）" width="700px" @close="close">
     <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable">
       <el-table-column label="操作" width="100">
         <template slot-scope="scope">

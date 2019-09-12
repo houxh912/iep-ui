@@ -338,10 +338,12 @@
               <div class="grade" v-show="r.projectLevel==1">重</div>
               <div class="grade" v-show="r.projectLevel==2">中</div>
               <div class="grade" v-show="r.projectLevel==3">一</div>
-              <div class="stage" v-show="r.projectStage==1">初</div>
-              <div class="stage" v-show="r.projectStage==2">方</div>
-              <div class="stage" v-show="r.projectStage==3">正</div>
-              <div class="stage" v-show="r.projectStage==4">项</div>
+              <div class="stage" v-show="r.projectStage==1">意向</div>
+              <div class="stage" v-show="r.projectStage==2">方案</div>
+              <div class="stage" v-show="r.projectStage==3">执行</div>
+              <div class="stage" v-show="r.projectStage==4">完结</div>
+              <div class="stage" v-show="r.projectStage==5">搁置</div>
+              <div class="stage" v-show="r.projectStage==6">失败</div>
               项目经理：{{r.projectManagerName}}
             </span>
             <span class="sign">
@@ -919,11 +921,11 @@ export default {
       },
 
     },
-    'formData.isRelevanceProduct':{
+    'formData.isRelevanceProduct': {
       deep: true,
       handler: function (val) {
-        if (val==2) {
-          this.formData.productList=[]
+        if (val == 2) {
+          this.formData.productList = []
         }
       },
     },

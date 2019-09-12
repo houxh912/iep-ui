@@ -8,7 +8,8 @@
         <iep-button @click="handleBack">返回</iep-button>
       </div>
     </div>
-    <list ref="list" class="list" :dataList="dataList" @load-page="loadPage"></list>
+    <list ref="list" class="list" :dataList="dataList" @load-page="loadPage" v-if="state"></list>
+    <div class="no-data" v-else>{{response.msg}}</div>
   </iep-app-layout>
 </template>
 
@@ -29,6 +30,8 @@ export default {
         },
       ],
       dataList: [],
+      state: true,
+      response: {},
     }
   },
   beforeRouteUpdate (to, from, next) {
@@ -38,7 +41,13 @@ export default {
   methods: {
     loadData (id) {
       getDetailById(id).then(({ data }) => {
-        this.dataList = [data.data]
+        if (data.data) {
+          this.state = true
+          this.dataList = [data.data]
+        } else {
+          this.state = false
+          this.response = data
+        }
       })
     },
     loadPage () {
@@ -65,9 +74,15 @@ export default {
     padding: 0 0 20px 0;
   }
 }
-.list {
+.list, .no-data {
   margin: auto;
   width: 1200px;
+}
+.no-data {
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  font-size: 20px;
 }
 </style>
 <style scoped>

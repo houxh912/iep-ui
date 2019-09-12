@@ -262,3 +262,11 @@ export function getWithdrawById (id) {
     method: 'get',
   })
 }
+
+export function notificationCreate (obj) {
+  return request({
+    url: `${prefixUrl}/notification/create`,
+    method: 'post',
+    data: obj,
+  })
+}

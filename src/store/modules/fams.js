@@ -37,9 +37,12 @@ const fams = {
   actions: {
     async famsGetTotal ({ commit }) {
       const { data } = await getTotal()
-      commit('SET_WITHDRAWABLECASH', data.withdrawableCash || 0)
-      commit('SET_TOTALASSET', data.govmadeBell || 0 + data.lockBell || 0)
-      commit('SET_DAYBELL', data.dayBell || 0)
+      const withdrawableCash = data.data.withdrawableCash || 0
+      const totalasset = (data.data.govmadeBell || 0) + (data.data.lockBell || 0)
+      const dayBell = data.data.dayBell || 0
+      commit('SET_WITHDRAWABLECASH', withdrawableCash)
+      commit('SET_TOTALASSET', totalasset)
+      commit('SET_DAYBELL', dayBell)
       return data
     },
     async famsReward ({ commit, dispatch }, aperson = null) {

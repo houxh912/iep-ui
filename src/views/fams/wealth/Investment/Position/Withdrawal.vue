@@ -17,6 +17,15 @@ import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
   data () {
+    const parseMethod = (prop) => {
+      return (row) => {
+        if (row[prop] >= 1) {
+          return 1
+        } else {
+          return row[prop]
+        }
+      }
+    }
     return {
       dialogShow: false,
       investmentId: null,
@@ -32,10 +41,13 @@ export default {
         {
           prop: 'createTime',
           label: '买入时间',
+          width: '200px',
         },
         {
           prop: 'tradingPrice',
           label: '退股价格',
+          type: 'custom',
+          customFunction: parseMethod('tradingPrice'),
         },
       ],
     }

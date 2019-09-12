@@ -14,7 +14,7 @@
               <iep-input-number v-model="form.investmentNumber" :min="form.minimumBuy" :max="form.remainingShares" :precision="0"></iep-input-number>
             </iep-form-item>
             <iep-form-item label-name="投资金额" prop="totalAmount">
-              <iep-input-number disabled v-model="form.totalAmount"></iep-input-number>
+              <iep-input-amount disabled v-model="form.totalAmount"></iep-input-amount>
             </iep-form-item>
             <iep-form-item label-name="支付方式" prop="investmentMoneyType">
               <el-radio-group v-model="form.investmentMoneyType" disabled>
@@ -31,7 +31,7 @@
             </div>
           </el-form>
           <div class="footer">
-            <iep-button type="primary" @click="submitForm()" :disabled="!checked">提交</iep-button>
+            <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen" :disabled="!checked">提交</iep-button>
             <iep-button @click="loadPage">取消</iep-button>
           </div>
         </div>
@@ -106,32 +106,17 @@ export default {
       this.$emit('load-page')
     },
     async submitForm () {
-      try {
-        await this.mixinsValidate()
-        try {
-          const { data } = await this.formRequestFn(formToDto(this.form))
-          if (data.data) {
-            this.$message({
-              message: `感谢您投资${this.form.orgName}公司。未来，请让我们一起继续携手相伴，披荆斩棘，共闯前路！`,
-              type: 'success',
-            })
-            this.$refs['EquityDialog'].form = data.data
-            this.$refs['EquityDialog'].dialogShow = true
-            this.loadPage()
-          } else {
-            this.$message({
-              message: data.msg,
-              type: 'error',
-            })
-          }
-        } catch (error) {
-          this.$message({
-            message: error.message,
-            type: 'error',
-          })
-        }
-      } catch (object) {
-        this.mixinsMessage(object)
+      const { data } = await this.formRequestFn(formToDto(this.form))
+      if (data.data) {
+        this.$message({
+          message: `感谢您投资${this.form.orgName}公司。未来，请让我们一起继续携手相伴，披荆斩棘，共闯前路！`,
+          type: 'success',
+        })
+        this.$refs['EquityDialog'].form = data.data
+        this.$refs['EquityDialog'].dialogShow = true
+        this.loadPage()
+      } else {
+        this.$message(data.msg)
       }
     },
   },

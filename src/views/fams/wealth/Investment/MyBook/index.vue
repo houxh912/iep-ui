@@ -11,7 +11,7 @@
       </el-table-column>
     </iep-table>
 
-    <iep-equity-dialog ref="EquityDialog" @load-page="loadPage" :information="information"></iep-equity-dialog>
+    <iep-equity-dialog ref="EquityDialog" @load-page="loadPage"></iep-equity-dialog>
   </div>
 </template>
 <script>

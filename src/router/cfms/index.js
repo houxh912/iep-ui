@@ -10,8 +10,15 @@ export default [
         name: '会议详情',
         component: () => import('@/views/cfms/MeetingDetail/index.vue'),
         meta: {
+          keepAlive: false,
+          isTab: false,
           isAuth: true,
         },
+      },
+      {
+        path: 'meeting_detail',
+        name: '会议预览',
+        component: () => import('@/views/cfms/MeetingDetail/index.vue'),
       },
     ],
   },

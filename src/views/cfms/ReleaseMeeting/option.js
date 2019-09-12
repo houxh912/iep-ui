@@ -14,6 +14,8 @@ const initForm = () => {
     content: '', //会议详情
     attachs: '', //会议海报
     meetingUrl: '',//链接地址
+    meetingFlag: 6, //会议状态
+    sendDraft: 2, //发送/草稿
   }
 }
 export { initForm }

@@ -5,25 +5,26 @@
       <el-form :model="formData" label-width="120px" ref="formName">
         <el-row>
           <el-col>
-            <el-form-item label="请选择会议类型">
+            <el-form-item label="会议标题：">
+              <el-input v-model="formData.meetingTitle"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="会议类型：">
               <el-select v-model="formData.meetingType">
                 <el-option v-for="item in meetingTypeOption" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
               </el-select>
             </el-form-item>
           </el-col>
-          <el-col :span="16">
-            <el-form-item label="会议标题：">
-              <el-input v-model="formData.meetingTitle"></el-input>
-            </el-form-item>
-          </el-col>
 
-          <el-col :span="8">
+          <el-col :span="12">
             <el-form-item label="会议规模：">
-              <el-select v-model="formData.meetingScale">
+              <!-- <el-select v-model="formData.meetingScale">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
-              </el-select>
+              </el-select> -->
+              <el-input v-model="formData.meetingScale" placeholder="请输入规模人数"></el-input>
             </el-form-item>
           </el-col>
 
@@ -54,7 +55,7 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="会议分类：">
-              <el-checkbox-group v-model="formData.meetingClasses">
+              <!-- <el-checkbox-group v-model="formData.meetingClasses">
                 <el-checkbox label="科技网络"></el-checkbox>
                 <el-checkbox label="财经金融"></el-checkbox>
                 <el-checkbox label="工业制造"></el-checkbox>
@@ -65,17 +66,23 @@
                 <el-checkbox label="学术研讨"></el-checkbox>
                 <el-checkbox label="社群活动"></el-checkbox>
                 <el-checkbox label=其他></el-checkbox>
-              </el-checkbox-group>
-              <!-- <el-checkbox-group v-model="formData.clientTypeKey">
-                <el-checkbox v-for="item in dictGroup['meeting_marketing_type']" :key="item.value" :label="item.value" name="leixing">{{item.label}}</el-checkbox>
               </el-checkbox-group> -->
+              <el-checkbox-group v-model="formData.meetingClasses">
+                <el-checkbox v-for="item in this.arr" :key="item.tagId" :label="item.tagId" name="leixing">{{item.name}}</el-checkbox>
+              </el-checkbox-group>
             </el-form-item>
           </el-col>
-          <!-- <el-col>
+          <el-col>
             <el-form-item label="会议标签：">
-              <iep-tag v-model="formData.tags"></iep-tag>
+              <!-- <iep-tag v-model="formData.tags"></iep-tag> -->
+              <div class="tag">
+                <iep-button @click="AddTags">添加标签</iep-button>
+                <el-tag v-for="tag in tags" :key="tag.tagId" :value="tag.tagId" closable @close="closeTag(tag)" class="allTag">
+                  {{tag.name}}
+                </el-tag>
+              </div>
             </el-form-item>
-          </el-col> -->
+          </el-col>
           <el-col>
             <el-form-item label="会议亮点：">
               <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="formData.meetingHighlights" placeholder="请填写几句会议核心亮点"></el-input>
@@ -95,24 +102,34 @@
         </el-row>
       </el-form>
       <el-row>
-        <el-col :offset="11">
-          <iep-button type="primary" @click="submitForm('formName')">发布</iep-button>
+        <el-col :offset="9">
+          <iep-button class="button" type="primary" @click="draft('formName')">草稿</iep-button>
+          <iep-button class="button" type="primary" @click="preview('formName')">预览 </iep-button>
+          <iep-button class="button" type="primary" @click="submitForm('formName')">发布</iep-button>
         </el-col>
       </el-row>
+      <tag-dialog ref="TagDialog" @tag="tag"></tag-dialog>
     </basic-container>
   </div>
 </template>
 <script>
 import { initForm } from './option'
 import { mapGetters } from 'vuex'
-import { postMeetingmarketing } from '@/api/mcms/meeting'
+import { postMeetingmarketing, getMeetingtagAlltag, getMeetingtagSontag, getCodeName } from '@/api/mcms/meeting'
 import AvatarImg from './IepAvatar.vue'
+import TagDialog from './TagDialog.vue'
 export default {
-  components: { AvatarImg },
+  components: { AvatarImg, TagDialog },
   data () {
     return {
       // formData: { biaoti: '', area: [], address: '', clientTypeKey: [], tags: [], meetingContent: '', avatar: '' },
       formData: initForm(),
+      arr: [],
+      tagId: [],
+      tagLabel: [],
+      oneAddress: '',
+      twoAddress: '',
+      allAddress: '',
       // form: initForm(),
       options: [{
         value: '100',
@@ -131,6 +148,13 @@ export default {
         label: '500',
       }],
 
+      tags: [
+        { name: '标签一', type: '' },
+        { name: '标签二', type: 'success' },
+        { name: '标签三', type: 'info' },
+        { name: '标签四', type: 'warning' },
+        { name: '标签五', type: 'danger' },
+      ],
       meetingTypeOption: [{
         value: '会议',
         label: '会议',
@@ -170,16 +194,68 @@ export default {
     ]),
   },
   created () {
-    // console.log(this.dicGroup, this.userInfo)
+
+    this.tag()
+  },
+  mounted () {
+    this.load()
   },
   methods: {
-    submitForm (formName) {
-      this.formData.meetingUrl = window.location.host + '/cfms_spa/meeting_detail'
+    //草稿
+    draft (formName) {
+      this.formData.meetingFlag = 4
+      this.formData.sendDraft = 1
+      this.submitForm(formName)
+    },
+    //预览
+    preview (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          postMeetingmarketing(this.formData).then(() => {
+          let arr = this.formData.cityAdrss.map(m => Number(m))
+          getCodeName({ codes: arr }).then((res) => {
+            console.log(res)
+          })
+          this.$router.push({
+            path: '/cfms_spa/meeting_detail',
+            query: {
+              preview: true,
+              data: this.formData,
+              orgVo: { url: this.userInfo.avatar, name: this.userInfo.orgName },
+            },
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    load () {
+      //一级标签
+      getMeetingtagAlltag().then((res) => {
+        this.arr = res.data
+      })
+    },
+    //添加标签
+    AddTags () {
+      this.$refs['TagDialog'].dialogShow = true
+      getMeetingtagSontag({ id: this.formData.meetingClasses }).then((res) => {
+        this.$refs['TagDialog'].cities = res.data
+      })
+    },
+    closeTag (tag) {
+      const tags = this.tags.filter(m => m.tagId != tag.tagId)
+      this.tags = tags
+    },
+    tag (val) {
+      this.tags = val
+    },
+    submitForm (formName) {
+      this.formData.meetingUrl = window.location.host + '/cfms_spa/meeting_detail'
+      this.formData.tags = this.tags.map(m => m.tagId)
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          postMeetingmarketing(this.formData).then((res) => {
             this.$message({
-              message: '会议增加成功！',
+              message: res.data.msg,
               type: 'success',
             })
           })
@@ -197,5 +273,14 @@ export default {
 }
 .time {
   width: 100%;
+}
+.tag {
+  display: flex;
+}
+.button {
+  margin: 0 10px;
+}
+.allTag {
+  margin: 0 10px;
 }
 </style>

@@ -9,15 +9,25 @@
           </template>
         </el-table-column>
       </template>
+      <el-table-column prop="operation" label="操作" width="250">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button type="warning" plain @click=" handleName(scope.row)">名单管理</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
     </iep-table>
+    <name-dialog ref="NameDialog"></name-dialog>
   </basic-container>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { columns } from './option'
 import { getMeetingmarketingList } from '@/api/mcms/meeting'
+import NameDialog from './NameDialog'
 export default {
   mixins: [mixins],
+  components: { NameDialog },
   data () {
     return {
       columns,
@@ -33,6 +43,10 @@ export default {
   methods: {
     loadPage (param = {}) {
       this.loadTable(param, getMeetingmarketingList)
+    },
+    handleName (row) {
+      this.$refs['NameDialog'].dialogShow = true
+      this.$refs['NameDialog'].id = row.id
     },
   },
 }

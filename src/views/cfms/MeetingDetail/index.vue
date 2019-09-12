@@ -25,8 +25,13 @@
                     <!-- <el-image :src="form.orgVo.url" class="avater"></el-image> -->
                     <iep-img-avatar :size="50" :src="form.orgVo.url" alt="头像"></iep-img-avatar>
                   </el-col>
-                  <el-col :span="20">
+                  <el-col :span="4">
                     <div class="userName">{{form.orgVo.name}}</div>
+                  </el-col>
+                  <el-col :span="16">
+                    <div class="userName">
+                      <iep-button type="primary" @click="handleSignUp">我要报名</iep-button>
+                    </div>
                   </el-col>
                 </el-row>
               </el-col>
@@ -35,49 +40,58 @@
         </el-row>
 
         <!-- 报名 -->
-        <div class="form">
-          <el-form label-width="120px" :model="formData" label-position="top" ref="formName">
+        <el-row class="numberTop" v-if="isShow">
+          <el-col :span="2">
+            <div class="selectNumber">选择数量</div>
+          </el-col>
+          <el-col :span="22">
+            <el-input-number v-model="ticketNumber" :min="1" :max="5" label="描述文字" @change="handleChange"></el-input-number>
+          </el-col>
+        </el-row>
+
+        <el-row class="formTitle" v-if="isShow">
+          <h3>请填写公司信息</h3>
+        </el-row>
+
+        <div class="form" v-if="isShow">
+          <el-form label-width="120px" :model="formData" label-position="top" :ref="'ValidateForm'" v-for="(formData,index) in formData" :key="index" :rules="rules">
             <el-row>
               <el-col>
-                <h3>请填写公司信息</h3>
-                <el-col>
-                  <div class="Line"></div>
-                </el-col>
+                <div class="Line"></div>
               </el-col>
               <el-col>
-                <el-form-item label="公司:">
+                <el-form-item label="公司:" prop="companyName">
                   <el-input v-model="formData.companyName"></el-input>
                 </el-form-item>
               </el-col>
               <el-col>
-                <el-form-item label="职位:">
+                <el-form-item label="职位:" prop="position">
                   <el-input v-model="formData.position"></el-input>
                 </el-form-item>
               </el-col>
               <el-col>
-                <el-form-item label="姓名:">
+                <el-form-item label="姓名:" prop="name">
                   <el-input v-model="formData.name"></el-input>
                 </el-form-item>
               </el-col>
               <el-col>
-                <el-form-item label="联系电话:">
+                <el-form-item label="联系电话:" prop="phoneNumber">
                   <el-input v-model="formData.phoneNumber"></el-input>
                 </el-form-item>
               </el-col>
               <el-col>
-                <el-form-item label="电子邮箱:">
+                <el-form-item label="电子邮箱:" prop="email">
                   <el-input v-model="formData.email"></el-input>
                 </el-form-item>
               </el-col>
-              <el-col>
+              <!-- <el-col>
                 <el-form-item label="选择数量:">
-                  <!-- <el-input v-model="formData.ticketNumber"></el-input> -->
                   <el-input-number v-model="formData.ticketNumber" :min="1" :max="10" label="描述文字"></el-input-number>
                 </el-form-item>
-              </el-col>
+              </el-col> -->
             </el-row>
           </el-form>
-          <iep-button type="primary" @click="submitForm('formName')">报名</iep-button>
+          <iep-button type="primary" @click="submitForm('ValidateForm')">报名</iep-button>
         </div>
         <!-- 标签 -->
         <!-- <iep-page-header title="会议标签"></iep-page-header>
@@ -102,15 +116,29 @@
 </template>
 <script>
 import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
-import { initForm } from './option'
+// import { initForm, initFormTwo, initFormThree, initFormFour, initFormFive } from './option'
+import { initForm, rules } from './option'
 import { postMeetingsignup, getmeetingmarketing } from '@/api/mcms/meeting'
 export default {
   components: { BaiduMap },
   data () {
     return {
       formData: initForm(),
-      form: { urls: '', orgVo: { url: '' } },
+      form: { urls: '', orgVo: { url: '', name: '' }, content: '', meetingTitle: '', meetingTimeStart: '', meetingTimeEnd: '', address: '' },
       address: '',
+      isShow: false,
+      one: '',
+      two: '',
+      ticketNumber: '',
+      subFrom: {
+        companyName: '', // 公司
+        position: '', // 职位
+        name: '', // 姓名
+        phoneNumber: '', // 联系电话
+        email: '', // 电子邮箱
+      },
+      flag: false,
+      rules,
     }
   },
   created () {
@@ -119,34 +147,87 @@ export default {
   },
   methods: {
     loadPage () {
+      //链接
       if (this.$route.params.id) {
         getmeetingmarketing(this.$route.params.id).then(res => {
+          console.log(res)
           this.form = res.data.data
+          console.log(this.form)
           this.address = res.data.data.province
         })
       }
+      //预览
+      console.log(this.$route)
+      if (this.$route.query.preview) {
+        this.form = this.$route.query.data
+        this.form.orgVo = { url: '', name: '' }
+        this.form.urls = this.$route.query.data.attachs
+        this.form.orgVo = this.$route.query.orgVo
+      }
+    },
+    //报名
+    handleSignUp () {
+      this.$router.push({
+        path: '/login',
+      })
+      this.isShow = true
+    },
+    handleChange (value) {
+      if (value > this.formData.length) {
+        this.formData.push(this.subFrom)
+      } else if (value < this.formData.length) {
+        this.formData.pop(this.subFrom)
+      }
+      // if (value == 1) {
+      //   this.formData = initForm()
+      // } else if (value == 2) {
+      //   this.formData = initFormTwo()
+      // } else if (value == 3) {
+      //   this.formData = initFormThree()
+      // } else if (value == 4) {
+      //   this.formData = initFormFour()
+      // } else if (value == 5) {
+      //   this.formData = initFormFive()
+      // }
     },
     submitForm (formName) {
-      this.formData.meetingId = this.$route.params.id
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          if (this.$route.params.id) {
-            postMeetingsignup(this.formData).then(() => {
-              this.$message({
-                message: '报名成功',
-                type: 'success',
-              })
-            })
+      let submitForm = {
+        list: this.formData,
+        mid: this.$route.params.id,
+        number: this.ticketNumber,
+      }
+      for (let i = 0; i < this.formData.length; i++) {
+        this.$refs[formName][i].validate((valid) => {
+          if (valid) {
+            this.flag = true
           } else {
-            this.$message({
-              message: '请从链接地址跳转报名！',
-              type: 'warning',
-            })
+            this.flag = false
           }
+        })
+      }
+      if (this.flag) {
+        if (this.$route.params.id) {
+          postMeetingsignup(submitForm).then((res) => {
+            this.$message({
+              message: res.data.msg,
+              type: 'success',
+            })
+          })
         } else {
-          return false
+          this.$message({
+            message: '请从链接地址跳转报名！',
+            type: 'warning',
+          })
         }
-      })
+      }
+
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+
+      //   } else {
+
+      //   }
+      // })
     },
   },
 }
@@ -221,6 +302,19 @@ export default {
   width: 100%;
   height: 300px;
   border: 1px solid #ccc;
+}
+.selectNumber {
+  height: 40px;
+  line-height: 40px;
+}
+.numberTop {
+  margin-top: 20px;
+}
+.formTitle {
+  width: 100%;
+  padding: 0 20%;
+  margin-top: 20px;
+  margin-bottom: -20px;
 }
 .bm-view {
   width: 100%;

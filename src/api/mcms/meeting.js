@@ -31,4 +31,51 @@ export function getMeetingmarketingList (query) {
     params: query,
   })
 }
-
+//查看会议名单列表
+export function geTmeetingsignup (query) {
+  return request({
+    url: '/mcms/meetingsignup/page',
+    method: 'get',
+    params: query,
+  })
+}
+//修改报名会议名单人员状态
+export function postMeetingsignupStatus (obj) {
+  return request({
+    url: '/mcms/meetingsignup/update/status',
+    method: 'post',
+    data: obj,
+  })
+}
+//报名会议人员名单删除
+export function deleteMeetingsignup (id) {
+  return request({
+    url: '/mcms/meetingsignup/delete/batch',
+    method: 'post',
+    data: id,
+  })
+}
+//查询一级标签
+export function getMeetingtagAlltag (query) {
+  return request({
+    url: '/mcms/meetingtag/alltag',
+    method: 'get',
+    params: query,
+  })
+}
+//查询二级标签
+export function getMeetingtagSontag (obj) {
+  return request({
+    url: '/mcms/meetingtag/sontag',
+    method: 'post',
+    data: obj,
+  })
+}
+//根据code获取城市名称
+export function getCodeName (query) {
+  return request({
+    url: '/crm/customer/code/namelist',
+    method: 'post',
+    data: query,
+  })
+}

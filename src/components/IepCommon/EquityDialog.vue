@@ -4,7 +4,7 @@
       <div class="main">
         <div style="padding:60px;">
           <p class="header-title">{{form.orgName}}</p>
-          <p>公司依据本公司股东会于 年 月 日决议通过的《有限公司股权激励计划》（“股权激励计划”）及您阅读同意的<span style="text-decoration:underline;margin:0 10px;font-weight: normal;">{{form.orgName}}</span>股权激励认购说明，对您的股权授予情况确认如下：
+          <p>公司依据本公司股东会决议通过的《有限公司股权激励计划》（“股权激励计划”）及您阅读同意的<span style="text-decoration:underline;margin:0 10px;font-weight: normal;">{{form.orgName}}</span>股权激励认购说明，对您的股权授予情况确认如下：
           </p>
           <p> </p>
           <p>授予价格：<span>{{form.tradingPrice}} </span>贝／股（对应公司每1元人民币注册资本）的价格认购激励股权。</p>

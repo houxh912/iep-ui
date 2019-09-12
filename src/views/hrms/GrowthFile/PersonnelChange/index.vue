@@ -12,15 +12,15 @@ export default {
       columnsMap: [
         {
           prop: 'id',
-          label: 'ID',
+          label: '序号',
+        },
+        {
+          prop: 'date',
+          label: '生效时间',
         },
         {
           prop: 'msg',
           label: '变更信息',
-        },
-        {
-          prop: 'date',
-          label: '操作时间',
         },
       ],
     }

@@ -86,7 +86,7 @@ export default {
             .then(async (response) => {
               if (response.data.data) {
                 this.$message({
-                  message: '密码修改成功，请重新登陆',
+                  message: '密码操作成功，请重新登陆',
                   type: 'success',
                 })
                 // 修改密码之后强制重新登录

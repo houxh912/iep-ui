@@ -5,7 +5,7 @@
       <iep-tabs v-model="type" :tab-list="announcementTypeList" @tab-click="changeType"></iep-tabs>
       <operation-container>
         <template slot="left">
-          <iep-button v-if="ims_announcement_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
+          <iep-button v-if="ims_announcement_add && type==='1'" @click="handleAdd" type="primary" icon="el-icon-plus" plain>发布公告</iep-button>
           <iep-read-mark-del :enableList="[type==='2', type==='2', false]" @on-view-batch="handleViewBatch" @on-mark-batch="onMarkBatch"></iep-read-mark-del>
         </template>
         <template slot="right">

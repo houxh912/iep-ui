@@ -60,7 +60,7 @@ export default {
         if (name !== prename) {
           this.$store.dispatch('updateCustomGroup', { id, name }).then(() => {
             this.optionId = ''
-            this.$message.success('修改成功！')
+            this.$message.success('操作成功！')
           }, error => {
             this.$message.error(error)
           })

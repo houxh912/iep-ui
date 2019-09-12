@@ -101,3 +101,11 @@ export function PersonInvestmentBatch (obj) {
     data: obj,
   })
 }
+
+export function notificationCreate (obj) {
+  return request({
+    url: `${prefixUrl}/notification/create`,
+    method: 'post',
+    data: obj,
+  })
+}

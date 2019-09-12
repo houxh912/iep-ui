@@ -10,18 +10,19 @@ const columnsMap = [
   },
   {
     prop: 'userName',
-    label: '负责人', 
-    width:'100', 
+    label: '负责人',
+    width: '100',
   },
   {
     prop: 'people',
     label: '部门人数',
-    width:'100', 
+    width: '100',
   },
   {
     prop: 'establishedTime',
     label: '成立时间',
-    width:'170', 
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
   },
 ]
 

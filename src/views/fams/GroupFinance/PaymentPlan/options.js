@@ -1,10 +1,6 @@
 
 const columnsMap = [
 	{
-		prop: 'orgId',
-		label: '组织ID',
-	},
-	{
 		prop: 'orgName',
 		label: '组织名称',
 	},
@@ -23,16 +19,16 @@ const columnsMap = [
 ]
 
 const initForm = () => {
-  return {
-    projectName: '',
-    contractAmount: 0,
-    publisher: '',
-    serialNo: '',
-    publisherList: {id:'',name:''},
-    projectManagerList: {id:'',name:''},
-    mktManagerList: {id:'',name:''},
-    projectTime: '',
-    endTime: '',
-  }
+	return {
+		projectName: '',
+		contractAmount: 0,
+		publisher: '',
+		serialNo: '',
+		publisherList: { id: '', name: '' },
+		projectManagerList: { id: '', name: '' },
+		mktManagerList: { id: '', name: '' },
+		projectTime: '',
+		endTime: '',
+	}
 }
 export { columnsMap, initForm }

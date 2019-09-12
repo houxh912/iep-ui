@@ -266,7 +266,7 @@
                       <el-radio :label="'3'">审核通过</el-radio>
                       <el-radio :label="'4'">审核不通过</el-radio>
                     </el-radio-group>
-                    <iep-input-area v-if="projectStatus === '4'" class="content" v-model="content" :disabled="isApprove.isApprove!=true">
+                    <iep-input-area v-if="projectStatus === '4'" class="content" v-model="content" :disabled="isApprove.isApprove!=true" maxlength="254">
                     </iep-input-area>
                   </el-form-item>
                 </el-col>

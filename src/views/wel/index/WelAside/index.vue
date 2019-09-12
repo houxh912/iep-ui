@@ -1,8 +1,5 @@
 <template>
   <div class="wel-aside-wrapper">
-    <div class="adv-money-btn" @click="handleSome1()">
-      <img src="/img/adv-money.png" alt="/img/adv-money.png">
-    </div>
     <!-- 我要创建 -->
     <my-created />
     <!-- 我要找 -->
@@ -52,13 +49,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .wel-aside-wrapper {
-  .adv-money-btn {
-    cursor: pointer;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   & > div {
     padding: 10px 10px 20px 10px;
     border-bottom: 1px solid #ececec;

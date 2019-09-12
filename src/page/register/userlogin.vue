@@ -201,7 +201,7 @@ export default {
                 message: '恭喜你，注册成功',
                 type: 'success',
               })
-              this.$router.push('/login')
+              this.$router.push({ path: '/login', query: this.$route.query })
             } else {
               this.$message({
                 message: data.msg,

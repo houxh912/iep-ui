@@ -35,17 +35,19 @@
 </template>
 <script>
 // import { addBellBalanceRule } from '@/api/fams/balance_rule'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-import { getTotal, openAccount } from '@/api/fams/total'
+import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
+import { openAccount } from '@/api/fams/total'
 export default {
   data () {
     return {
       accountType: 0,
-      totalAsset: 0,
-      todayChange: 0,
     }
   },
   computed: {
+    ...mapState({
+      totalAsset: state => state.fams.totalAsset,
+      dayBell: state => state.fams.dayBell,
+    }),
     ...mapGetters(['showMoney']),
     displayTotalAsset () {
       let { totalAsset } = this
@@ -53,9 +55,9 @@ export default {
       return this.showMoney ? totalAsset : '****'
     },
     displayTodayChange () {
-      let { todayChange } = this
-      todayChange = todayChange.toFixed(2)
-      return this.showMoney ? todayChange : '****'
+      let { dayBell } = this
+      dayBell = dayBell.toFixed(2)
+      return this.showMoney ? dayBell : '****'
     },
     showMoneyIcon () {
       return this.showMoney ? 'eye' : 'eye-invisible'
@@ -66,13 +68,13 @@ export default {
   },
   methods: {
     ...mapMutations({
+      setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
       setShowMoney: 'SET_SHOWMONEY',
     }),
+    ...mapActions(['famsReward', 'famsGetTotal']),
     async loadPage () {
-      const { data } = await getTotal()
+      const data = await this.famsGetTotal()
       if (data.data) {
-        this.totalAsset = data.data.govmadeBell + data.data.lockBell
-        this.todayChange = data.data.dayBell
         this.accountType = 0
       } else {
         this.accountType = +data.msg
@@ -108,10 +110,6 @@ export default {
     handleShowMoney () {
       this.setShowMoney(!this.showMoney)
     },
-    ...mapMutations({
-      setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
-    }),
-    ...mapActions(['famsReward']),
     handleOpen () {
       this.$openPage('/app/resource/material/material_detail/7971')
     },

@@ -45,6 +45,7 @@ const initForm = () => {
     reason: '', // 申请理由
     annex: '', // 附件
     status: 0,
+    orgName: '',
     processList: [], // 申请流程
     cc: '', // 抄送人
     ccList: [], // 抄送人

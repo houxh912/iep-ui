@@ -78,6 +78,7 @@ export default {
     return {
       columnsMap,
       dictsMap,
+      announcementSelection: [],
     }
   },
   created () {
@@ -113,6 +114,8 @@ export default {
       this.$refs['ReviewForm'].title = '审核'
       this.$refs['ReviewForm'].formRequestFn = approvalById
       this.$refs['ReviewForm'].dialogShow = true
+      this.$refs['ReviewForm'].projectInformation = row
+      this.$refs['ReviewForm'].announcementSelection = this.announcementSelection
     },
     //锁定启用
     lockingEnable (id, val, name) {
@@ -141,7 +144,9 @@ export default {
       })
     },
     handleSelectionChange (val) {
+      console.log(val)
       this.multipleSelection = val.map(m => m.id)
+      this.announcementSelection = val
     },
   },
 }

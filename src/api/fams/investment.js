@@ -212,11 +212,11 @@ export function getChartData (query) {
   })
 }
 //项目新增请求接口
-export function getProjectAnnouncement (query) {
+export function getProjectAnnouncement (obj) {
   return request({
     url: `${prefixUrl}/notification/create`,
-    method: 'get',
-    params: query,
+    method: 'post',
+    data: obj,
   })
 }
 /**

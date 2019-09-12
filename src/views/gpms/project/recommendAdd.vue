@@ -7,7 +7,7 @@
           <el-row>
             <el-col :span="12">
               <el-form-item label="项目名称：" prop="projectName">
-                <el-input v-model="formData.projectName" :placeholder="tipContent.projectName"></el-input>
+                <el-input v-model="formData.projectName" :placeholder="tipContent.projectName" maxlength="99"></el-input>
               </el-form-item>
               <iep-button class="recom-btn" @click="cRecommendType('project')">荐</iep-button>
             </el-col>
@@ -97,7 +97,7 @@
             </el-col>
             <el-col :span="24">
               <el-form-item label="项目说明：" prop="projectExplain">
-                <el-input v-model="formData.projectExplain"></el-input>
+                <el-input v-model="formData.projectExplain" maxlength="254"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -197,7 +197,7 @@
             </ul>
           </el-form-item>
           <el-form-item label="未关联产品理由：" prop="notRelevanceProductReason" v-if="formData.isRelevanceProduct === 2">
-            <el-input type="textarea" rows="5" v-model="formData.notRelevanceProductReason"></el-input>
+            <el-input type="textarea" rows="5" v-model="formData.notRelevanceProductReason" maxlength="254"></el-input>
           </el-form-item>
           <el-form-item label="添加其他关联：">
             <el-button @click="handleAdd">添加关联</el-button>
@@ -338,10 +338,12 @@
               <div class="grade" v-show="r.projectLevel==1">重</div>
               <div class="grade" v-show="r.projectLevel==2">中</div>
               <div class="grade" v-show="r.projectLevel==3">一</div>
-              <div class="stage" v-show="r.projectStage==1">初</div>
-              <div class="stage" v-show="r.projectStage==2">方</div>
-              <div class="stage" v-show="r.projectStage==3">正</div>
-              <div class="stage" v-show="r.projectStage==4">项</div>
+              <div class="stage" v-show="r.projectStage==1">意向</div>
+              <div class="stage" v-show="r.projectStage==2">方案</div>
+              <div class="stage" v-show="r.projectStage==3">执行</div>
+              <div class="stage" v-show="r.projectStage==4">完结</div>
+              <div class="stage" v-show="r.projectStage==5">搁置</div>
+              <div class="stage" v-show="r.projectStage==6">失败</div>
               项目经理：{{r.projectManagerName}}
             </span>
             <span class="sign">
@@ -918,6 +920,14 @@ export default {
         }
       },
 
+    },
+    'formData.isRelevanceProduct': {
+      deep: true,
+      handler: function (val) {
+        if (val == 2) {
+          this.formData.productList = []
+        }
+      },
     },
   },
 }

@@ -32,7 +32,7 @@
         <iep-div-detail :value="form.serialNo"></iep-div-detail>
       </el-form-item>
       <el-form-item label="支出金额(元)：" prop="amount">
-        <iep-input-amount v-model="form.amount" :min="-99999999"></iep-input-amount>
+        <iep-input-amount v-model="form.amount" :max="payAmount" :min="-99999999"></iep-input-amount>
       </el-form-item>
       <!-- <el-form-item label="税率：">
         <el-select v-model="form.taxRate">
@@ -102,6 +102,8 @@ export default {
   mixins: [formMixins],
   data () {
     return {
+      // 设置可还最大值
+      payAmount: 999999999,
       warningText,
       dictsMap,
       dialogShow: false,

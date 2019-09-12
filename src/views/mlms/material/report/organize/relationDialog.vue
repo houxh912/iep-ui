@@ -1,6 +1,10 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="关联" width="50%" @close="resetForm">
     
+    <el-input placeholder="请输入内容" v-model="searchData" class="input-with-select">
+      <el-button slot="append" icon="el-icon-search" @click="handleSearch"></el-button>
+    </el-input>
+
     <div class="select-tag">
       <el-tag type="info" v-for="(item, index) in selectList" :key="index">{{item.name}} <i class="el-icon-close" style="cursor: pointer;" @click="deleteSelect(item, index)"></i></el-tag>
     </div>
@@ -65,6 +69,7 @@ export default {
       },
       selectList: [],
       tableData: [],
+      searchData: '',
     }
   },
   props: {
@@ -80,6 +85,8 @@ export default {
   },
   methods: {
     resetForm () {
+      this.searchForm = {}
+      this.searchData = ''
       this.dialogShow = false
     },
     open (list) {
@@ -92,7 +99,7 @@ export default {
       this.dialogShow = false
     },
     loadPage (param) {
-      let data = this.loadTable(param, this.tableObj[this.type].request)
+      let data = this.loadTable(Object.assign({}, param, this.searchForm), this.tableObj[this.type].request)
       data.then(({records}) => {
         this.tableData = records
         // 每次获取完数据之后就要进行当前数据是否选中的判断
@@ -160,6 +167,13 @@ export default {
           this.$refs['table'].toggleRowSelection(item, false)
         }
       }
+    },
+    // 搜索
+    handleSearch () {
+      let search = this.tableObj[this.type].prop
+      this.pageOption.current = 1
+      this.searchForm[search] = this.searchData
+      this.loadPage()
     },
   },
 }

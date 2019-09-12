@@ -8,6 +8,7 @@ import store from '@/store'
 import orderBy from 'lodash/orderBy'
 import { validatenull } from '@/util/validate'
 import NProgress from 'nprogress'
+import { Message } from 'element-ui'
 import 'nprogress/nprogress.css'
 
 const eventBus = new Vue()
@@ -38,6 +39,7 @@ router.beforeEach(async (to, from, next) => {
         try {
           const userInfo = await store.dispatch('GetUserInfo')
           if (userInfo.roles.length === 0) {
+            Message('请检查你的角色权限')
             await store.dispatch('ClearUserInfo')
             next({ path: '/login' })
           } else {

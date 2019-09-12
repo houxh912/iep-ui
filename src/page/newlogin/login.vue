@@ -26,8 +26,8 @@
           <div class="login-text">
             将保持登陆状态
             <div class="check-text">
-              <el-button type="text" @click.prevent="handleRetrieve">忘记密码?</el-button>
-              <el-button type="text" @click.prevent="handleRegister">立即注册</el-button>
+              <el-button type="text" @click="handleRetrieve">忘记密码?</el-button>
+              <el-button type="text" @click="handleRegister">立即注册</el-button>
             </div>
           </div>
         </el-form-item>
@@ -142,7 +142,7 @@ export default {
       this.$emit('tab-active', 'retrieve')
     },
     handleRegister () {
-      this.$router.push('/register')
+      this.$router.push({ path: '/register', query: this.$route.query })
     },
     refreshCode () {
       this.form.code = ''

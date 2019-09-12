@@ -98,4 +98,7 @@ export default {
 .image-list >>> img {
   min-height: 175px;
 }
+.img >>> .el-image-viewer__close {
+  color: #fff;
+}
 </style>

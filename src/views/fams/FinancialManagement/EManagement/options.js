@@ -74,11 +74,33 @@ const initForm = () => {
 		interestRate: '',
 		estimatedRefundTime: '',
 		relations: [],
+		relationId: '',
+	}
+}
+
+const initSearchForm = () => {
+	return {
+		rangeTime: [],
+		type: [],
+		orgId: '',
+		companyName: '',
+		expenditureMode: '',
+		bankAccount: '',
+		remarks: '',
 	}
 }
 
 const toDtoForm = (row) => {
 	const newForm = { ...row }
+	newForm.type = newForm.type[1]
+	return newForm
+}
+
+const toDtoSearchForm = (row) => {
+	const newForm = { ...row }
+	newForm.startTime = row.rangeTime[0]
+	newForm.endTime = row.rangeTime[1]
+	delete newForm.rangeTime
 	newForm.type = newForm.type[1]
 	return newForm
 }
@@ -116,4 +138,6 @@ export {
 	toDtoForm,
 	rules,
 	warningText,
+	initSearchForm,
+	toDtoSearchForm,
 }

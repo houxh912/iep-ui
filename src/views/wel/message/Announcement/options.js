@@ -17,6 +17,7 @@ const initForm = () => {
 		id: 0,  // 通知公告id
 		name: '',  // 通知公告Title
 		time: '', // 通知公告时间
+		status: '',
 		sender: {
 			id: 0,
 			name: '',
@@ -36,6 +37,7 @@ const initDtoForm = () => {
 		id: 0,  // 通知公告id
 		name: '',  // 通知公告Title
 		time: '', // 通知公告时间
+		status: '',
 		receivers: {
 			unionIds: [],
 			orgIds: [],

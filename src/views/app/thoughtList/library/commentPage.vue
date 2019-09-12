@@ -1,7 +1,7 @@
 <template>
   <div class="comment-page">
     <div class="comment-list">
-      <div v-for="(item, index) in commentList" :key="index">
+      <div v-for="(item, index) in commentList" :key="index" :name="item.thoughtsId">
         <commentTpl :item="item" :userData="{id: data.userId, name: data.userName}" @load-page="loadPage"></commentTpl>
         <commentTpl v-for="(comItem, comIndex) in item.thoughtsReplyList" :key="`${index}-${comIndex}`" :item="comItem" :userData="{id: item.commentUserId, name: item.realName}" @load-page="loadPage" type="reply"></commentTpl>
       </div>
@@ -43,8 +43,9 @@ export default {
   },
   methods: {
     loadPage () {
+      this.commentList = []
       getCommentsByThoughtsId(this.params).then(({ data }) => {
-        this.commentList = data.data.records
+        this.$set(this, 'commentList', data.data.records)
         this.total = data.data.total
       })
     },
@@ -58,8 +59,15 @@ export default {
     this.loadPage()
   },
   watch: {
-    'data.commentNum' () {
-      this.loadPage()
+    // 'data.commentNum' () {
+    //   this.loadPage()
+    // },
+    data: {
+      handler () {
+        this.params.thoughtsId = this.data.thoughtsId
+        this.loadPage()
+      },
+      deep: true,
     },
   },
 }

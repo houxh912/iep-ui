@@ -7,13 +7,13 @@ const navList = [
     name: '头条新知',
   }, {
     id: '//www.icanvip.net/businessList/',
-    name: '商机合作',
+    name: '任务协作',
   }, {
     id: '//www.icanvip.net/dataAssets/',
     name: '数据资产',
   }, {
     id: '//www.icanvip.net/masterList/',
-    name: '师父专家',
+    name: '人脉资本',
   }, {
     id: '//www.icanvip.net/thoughtsList/',
     name: '我要说说',

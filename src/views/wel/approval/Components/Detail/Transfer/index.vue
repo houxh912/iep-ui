@@ -11,6 +11,10 @@
             <div class="content">{{form.name}}</div>
           </div>
           <div class="info-item">
+            <label>原先组织(资产)：</label>
+            <div class="content">{{form.orgName}}</div>
+          </div>
+          <div class="info-item">
             <label>所属部门：</label>
             <div class="content">
               <iep-tag-detail :value="form.deptList"></iep-tag-detail>

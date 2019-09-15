@@ -30,7 +30,7 @@
         </el-form-item>
       </el-form>
     </basic-container>
-    <template-dialog ref="TemplateDialog" @fill-content="fillContent(data)"></template-dialog>
+    <template-dialog ref="TemplateDialog" @fill-content="fillContent"></template-dialog>
   </div>
 </template>
 <script>

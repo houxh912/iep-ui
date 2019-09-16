@@ -1,5 +1,14 @@
 <template>
   <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable">
+    <el-table-column prop="examStatus" label="考试状态" width="150">
+      <template slot-scope="scope">
+        <el-tag type="success" size="medium" v-if="scope.row.examStatus === 0">已报名</el-tag>
+        <el-tag type="warning" size="medium" v-if="scope.row.examStatus === 1">进行中</el-tag>
+        <el-tag type="warning" size="medium" v-if="scope.row.examStatus === 3">批卷中</el-tag>
+        <el-tag type="info" size="medium" v-if="scope.row.examStatus === 4">已结束</el-tag>
+        <el-tag type="success" size="medium" v-if="scope.row.examStatus === 8">已完成</el-tag>
+      </template>
+    </el-table-column>
   </iep-table>
 </template>
 <script>

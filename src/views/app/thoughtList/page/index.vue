@@ -23,7 +23,7 @@ export default {
   components: { library },
   props: {
     requestFn: {
-      default: () => {},
+      default: () => { },
     },
     paramData: {
       type: Object,

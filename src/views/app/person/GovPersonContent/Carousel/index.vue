@@ -56,4 +56,7 @@ export default {
 .leaderBoard >>> .el-carousel__indicators--horizontal {
   display: none;
 }
+.leaderBoard >>> .el-carousel__arrow {
+  top: 40%;
+}
 </style>

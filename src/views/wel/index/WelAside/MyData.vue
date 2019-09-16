@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <div class="title">我的指数</div>
+  <my-content class="my-content" title-name="我的指数">
     <ve-radar width="220px" height="220px" :data="chartData" :settings="chartSettings" :legendVisible="isTrue"></ve-radar>
     <h4 style="text-align:center;">内网综合指数：{{sum}}</h4>
-  </div>
+  </my-content>
 </template>
-
 <script>
+import MyContent from './MyContent'
 import { getUserDetail } from '@/api/app/hrms/index'
 import { mapGetters } from 'vuex'
 export default {
+  components: { MyContent },
   data () {
     this.chartSettings = {
       labelMap: {
@@ -97,11 +97,6 @@ export default {
 }
 </script>
 <style  lang="scss" scoped>
-.title {
-  padding: 0 10px 10px;
-  font-size: 16px;
-  font-weight: 500;
-}
 .ve-radar {
   margin: 0 auto;
 }

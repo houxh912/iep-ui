@@ -24,7 +24,7 @@
     <IepAppTabCard class="bottom mutual-card" :title="titleStar" :linkName="linkName">
       <!-- <el-button class="important" type="text" slot="right">申请互助基金</el-button> -->
       <div class="star-list">
-        <div v-if="starList.length > 0">
+        <div class="has-data" v-if="starList.length > 0">
           <div v-for="(item, index) in starList" :key="index" class="piece">
             <div class="img-con" @click="handleDetail(item.id)">
               <iep-img :src="item.avatar" class="img"></iep-img>
@@ -101,8 +101,8 @@ export default {
 .title-right {
   display: inline-block;
   width: 244px;
-  height: 22px;
-  line-height: 22px;
+  height: 24px;
+  line-height: 24px;
   > .publish {
     margin-right: 10px;
     color: #cb3737 !important;
@@ -112,17 +112,22 @@ export default {
   }
 }
 .star-list {
-  padding: 0 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 100%;
   overflow-y: scroll;
+  .has-data {
+    margin-top: 60px;
+  }
   .piece {
-     .piece-title{
+    .piece-title {
       margin-bottom: 7px;
       line-height: 14px;
     }
   }
   .no-data {
-    padding: 20px 0 0;
+    margin-left: 15px;
     text-align: center;
     font-size: 16px;
     color: #cb3737;
@@ -242,8 +247,9 @@ export default {
 }
 .thoughts >>> .el-button {
   float: right;
-  padding: 5px 0;
+  padding: 0;
   color: #999;
+  height: 24px;
   transition: all 0.5s;
 }
 .thoughts >>> .el-button:hover {

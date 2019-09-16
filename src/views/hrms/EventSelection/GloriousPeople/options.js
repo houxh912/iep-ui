@@ -37,6 +37,10 @@ const columnsMap = [
     label: '类别',
   },
   {
+    prop: 'realName',
+    label: '显示对象',
+  },
+  {
     prop: 'status',
     label: '状态',
     type: 'dict',

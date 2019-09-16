@@ -139,7 +139,7 @@ export default {
                 message: `${this.methodName}成功`,
                 type: 'success',
               })
-              this.back()
+              this.dialogShow = false
             }
           })
         }

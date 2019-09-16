@@ -48,7 +48,6 @@ export default {
     }
   },
   created () {
-    this.loadPage()
   },
   methods: {
     handleAdd () {

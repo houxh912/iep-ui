@@ -386,8 +386,8 @@ export default {
             type: 'success',
           })
           if (this.projectStatus == '3') {
-            const announcement = `公司公告：${this.projectInformation.applicantName}与xxx签订了${this.projectInformation.projectName}，签订时间为${new Date().toLocaleDateString()}`
-            getProjectAnnouncement([{ content: announcement, orgId: this.projectInformation.orgId }]).then(({ data }) => {
+            const announcement = `公司公告：${this.formData.applicantName}与${this.formData.attendeeByName ? this.formData.attendeeByName : ''}${this.formData.relatedClientName ? this.formData.relatedClientName : ''}签订了${this.formData.projectName}，签订时间为${new Date().toLocaleDateString()}`
+            getProjectAnnouncement([{ content: announcement, orgId: this.formData.orgId }]).then(({ data }) => {
               console.log(data)
             })
           }

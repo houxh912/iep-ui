@@ -12,23 +12,20 @@ export default {
       columnsMap: [
         {
           prop: 'id',
-          label: 'ID',
+          label: '序号',
+          width: '55',
+        },
+        {
+          prop: 'fieldName',
+          label: '科目',
         },
         {
           prop: 'title',
           label: '考试名称',
         },
         {
-          prop: 'fieldName',
-          label: '类型',
-        },
-        {
-          prop: 'description',
-          label: '描述',
-        },
-        {
           prop: 'beginTime',
-          label: '开始时间',
+          label: '参与考试时间',
         },
       ],
     }

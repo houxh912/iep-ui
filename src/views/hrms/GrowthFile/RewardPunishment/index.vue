@@ -10,13 +10,6 @@ export default {
   data () {
     return {
       dictsMap: {
-        action: {
-          'reward': '个人打赏',
-          'orgReward': '组织打赏',
-          'orgReduce': '扣减',
-          'groupReward': '集团打赏',
-          'groupReduce': '集团扣减',
-        },
         type: {
           'A': '奖赏',
           'L': '惩罚',
@@ -30,11 +23,6 @@ export default {
         {
           prop: 'createTime',
           label: '奖惩时间',
-        },
-        {
-          prop: 'action',
-          label: '动作',
-          type: 'dict',
         },
         {
           prop: 'creatorName',

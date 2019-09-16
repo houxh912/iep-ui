@@ -5,6 +5,7 @@
         <div class="left">
           <p class="title">{{form.name}}</p>
           <span class="sign" v-for="typeName in form.typeNames" :key="typeName">{{typeName}}</span>
+          <div class="edit" @click="handleEdit"><i class="icon-bianji"></i> 添加介绍</div>
         </div>
         <span class="explain">
           <i class="icon-wenhao"></i>
@@ -15,16 +16,57 @@
         <iep-no-data v-if="!form.description.length"></iep-no-data>
         {{form.description}}
       </p>
+      <div class="introduce">
+        <div class="introduce-item" v-for="(item, index) in introduceList" :key="index">
+          {{item.description}} —— {{item.creatorRealName}}
+        </div>
+      </div>
       <!-- <span class="more fr">
         <span>查看更多</span>
         <i class="icon-jiantouxiangyou"></i>
       </span> -->
     </div>
+    <describe ref="describe" @load-page="getIntroduce"></describe>
   </div>
 </template>
+
 <script>
+import describe from './describe/index'
+import { getTagDesc } from '@/api/tms/description'
+
 export default {
+  components: { describe },
   props: ['form'],
+  data () {
+    return {
+      introduceList: [],
+    }
+  },
+  methods: {
+    handleEdit () {
+      this.$refs['describe'].open({
+        tagId: this.form.tagId,
+        name: this.form.name,
+      })
+    },
+    getIntroduce (row) {
+      getTagDesc({
+        id: row.tagId ? row.tagId : this.form.tagId,
+        size: 999,
+      }).then(({ data }) => {
+        this.introduceList = data.records
+      })
+    },
+  },
+  watch: {
+    form: {
+      handler (val) {
+        this.introduceList = []
+        this.getIntroduce(val)
+      },
+      deep: true,
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>
@@ -43,6 +85,10 @@ export default {
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    .edit {
+      font-size: 12px;
+      cursor: pointer;
+    }
   }
 }
 .title {
@@ -54,6 +100,7 @@ export default {
 }
 .sign {
   padding: 0 5px;
+  margin-right: 5px;
   border: 1px solid #c73e3e;
   color: #c73e3e;
   font-size: 12px;
@@ -82,6 +129,12 @@ export default {
   font-size: 14px;
   color: #666;
   line-height: 28px;
+}
+.introduce {
+  .introduce-item {
+    margin-bottom: 5px;
+    display: flex;
+  }
 }
 .more {
   padding: 0 5px;

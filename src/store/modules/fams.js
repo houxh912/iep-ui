@@ -3,6 +3,8 @@ const fams = {
   state: {
     rewardDialogShow: false,
     withdrawableCash: 0,
+    totalAsset: 0,
+    dayBell: 0,
     ARewardedPerson: [],
     invoiceDialogShow: false,
     billingDialogShow: false,
@@ -11,6 +13,15 @@ const fams = {
   mutations: {
     SET_REWARD_DIALOG_SHOW: (state, rewardDialogShow) => {
       state.rewardDialogShow = rewardDialogShow
+    },
+    SET_WITHDRAWABLECASH: (state, withdrawableCash) => {
+      state.withdrawableCash = withdrawableCash
+    },
+    SET_TOTALASSET: (state, totalAsset) => {
+      state.totalAsset = totalAsset
+    },
+    SET_DAYBELL: (state, dayBell) => {
+      state.dayBell = dayBell
     },
     SET_INVOICE_DIALOG_SHOW: (state, invoiceDialogShow) => {
       state.invoiceDialogShow = invoiceDialogShow
@@ -24,16 +35,23 @@ const fams = {
     },
   },
   actions: {
-    famsReward ({ commit }, aperson = null) {
-      getTotal().then(({ data }) => {
-        if (data.data) {
-          commit('SET_WITHDRAWABLE_CASH', {
-            withdrawableCash: data.data.withdrawableCash,
-            person: aperson ? [aperson] : [],
-          })
-          commit('SET_REWARD_DIALOG_SHOW', true)
-        }
+    async famsGetTotal ({ commit }) {
+      const { data } = await getTotal()
+      const withdrawableCash = data.data.withdrawableCash || 0
+      const totalasset = (data.data.govmadeBell || 0) + (data.data.lockBell || 0)
+      const dayBell = data.data.dayBell || 0
+      commit('SET_WITHDRAWABLECASH', withdrawableCash)
+      commit('SET_TOTALASSET', totalasset)
+      commit('SET_DAYBELL', dayBell)
+      return data
+    },
+    async famsReward ({ commit, dispatch }, aperson = null) {
+      const { data } = await dispatch('famsGetTotal')
+      commit('SET_WITHDRAWABLE_CASH', {
+        withdrawableCash: data.withdrawableCash,
+        person: aperson ? [aperson] : [],
       })
+      commit('SET_REWARD_DIALOG_SHOW', true)
     },
   },
 }

@@ -11,25 +11,38 @@ import Vue from 'vue'
 import Echarts from 'echarts'
 Vue.prototype.echarts = Echarts
 Vue.use(Echarts)
+import { getStatisticsById } from '@/api/exam/testStatistics/examStatistics'
 export default {
   props: ['recordData'],
   data () {
     return {
-
+      resdata: {},
+      echartsList: [],
     }
   },
   created () {
     this.load()
   },
-  mounted () {
-    this.charts()
-  },
+  // mounted () {
+  //   this.charts()
+  // },
   methods: {
     /**
     * 获取echarts数据
     */
     load () {
-      console.log('recordData22', this.recordData)
+      const params = {
+        examId: this.recordData.row.id,
+      }
+      getStatisticsById(params).then(res => {
+        this.resdata = res.data.data
+        this.echartsList[0] = this.resdata.failTotal
+        this.echartsList[1] = this.resdata.passTotal
+        this.echartsList[2] = this.resdata.secondaryTotal
+        this.echartsList[3] = this.resdata.yueXiuTotal
+        this.echartsList[4] = this.resdata.marksTotal
+        this.charts()
+      })
       // this.charts()
     },
 
@@ -88,7 +101,7 @@ export default {
         },
         series: [
           {
-            name: '直接访问',
+            name: '人数',
             type: 'bar',
             barWidth: '30%',
             itemStyle: {
@@ -104,7 +117,8 @@ export default {
                 },
               },
             },
-            data: [10, 42, 36, 30, 10, 7, 5],
+            // data: [10, 42, 36, 30, 10, 7, 5],
+            data: this.echartsList,
           },
         ],
       })

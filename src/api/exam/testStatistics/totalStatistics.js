@@ -9,7 +9,7 @@ import request from '@/router/axios'
  */
 export function getTotal (params) {
     return request({
-        url: 'exms/statistics/general',
+        url: 'exms/iepexaminationstatistics/general',
         method: 'get',
         params: params,
     })

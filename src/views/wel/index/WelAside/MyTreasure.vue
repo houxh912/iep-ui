@@ -1,11 +1,12 @@
 <template>
-  <div class="treasure">
-    <div class="title">
-      <div class="flex">我的财富</div>
-      <div class="flex small" @click="handleOpen()">挖贝攻略<span><i class="el-icon-question"></i></span></div>
-      <div class="line">|</div>
-      <div class="flex small">投资宝典<span><i class="el-icon-question"></i></span></div>
-    </div>
+  <my-content class="my-content" title-name="我的财富">
+    <template v-slot:stitle>
+      <div class="tip-wrapper">
+        <div class="tip-line" @click="handleOpen()">挖贝攻略<span><i class="el-icon-question"></i></span></div>
+        <iep-divider type="vertical"></iep-divider>
+        <div class="tip-line">投资宝典<span><i class="el-icon-question"></i></span></div>
+      </div>
+    </template>
     <div v-if="accountType === 0" class="treasure-data">
       <div class="total">
         <div class="little-title">总资产</div>
@@ -31,13 +32,14 @@
       <iep-button @click="$openPage('/wel/wealth/investment')" plain>投资</iep-button>
       <iep-button @click="$openPage('/wel/wealth/mutual_fund')" plain>互助基金</iep-button>
     </el-button-group>
-  </div>
+  </my-content>
 </template>
 <script>
-// import { addBellBalanceRule } from '@/api/fams/balance_rule'
+import MyContent from './MyContent'
 import { mapActions, mapGetters, mapState, mapMutations } from 'vuex'
 import { openAccount } from '@/api/fams/total'
 export default {
+  components: { MyContent },
   data () {
     return {
       accountType: 0,
@@ -123,47 +125,25 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.treasure {
+.tip-wrapper {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  box-sizing: border-box;
-  margin: 10px 5px;
+}
+.tip-line {
+  font-size: 13px;
+  color: #686868;
+  cursor: pointer;
+  position: relative;
   .el-icon-question {
     &:hover {
       opacity: 0.7;
     }
   }
-}
-.title {
-  width: 100%;
-  display: flex;
-  padding: 10px 0;
-  font-size: 16px;
-  font-weight: 500;
-  .flex {
-    flex-grow: 1;
-    margin-right: 5px;
-    width: auto;
+  &:hover {
+    color: $--menu-color-primary;
   }
-  .line {
-    padding-right: 5px;
-    color: #e0e0e0;
-  }
-  .small {
-    font-size: 13px;
-    padding-top: 4px;
-    color: #686868;
-    line-height: 16px;
-    cursor: pointer;
-    position: relative;
-    &:hover {
-      color: $--menu-color-primary;
-    }
-    span {
-      color: #bbb;
-    }
+  span {
+    color: #bbb;
   }
 }
 .operation-btn-group {
@@ -237,9 +217,6 @@ export default {
     color: #cb132d;
     font-size: 20px;
   }
-}
-.cursor {
-  cursor: pointer;
 }
 </style>
 <style scoped>

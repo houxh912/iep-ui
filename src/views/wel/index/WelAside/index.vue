@@ -54,7 +54,6 @@ export default {
     border-bottom: 1px solid #ececec;
     &:first-child {
       border: none;
-      padding: 0;
     }
   }
 }

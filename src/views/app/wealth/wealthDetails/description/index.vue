@@ -15,7 +15,7 @@
           <latest-transfer v-loading="activeTab !=='LatestTransfer'"></latest-transfer>
         </template>
         <template v-if="activeTab ==='LatestNews'" v-slot:LatestNews>
-          <latest-news v-loading="activeTab !=='LatestNews'"></latest-news>
+          <latest-news v-loading="activeTab !=='LatestNews'" :org="org"></latest-news>
         </template>
         <template v-if="activeTab ==='LatestAnnouncement'" v-slot:LatestAnnouncement>
           <latest-announcement v-loading="activeTab !=='LatestAnnouncement'"></latest-announcement>
@@ -73,7 +73,6 @@ export default {
       }, {
         label: '最新公告',
         value: 'LatestAnnouncement',
-        disabled: true,
       }],
       activeTab: 'Introduction',
     }

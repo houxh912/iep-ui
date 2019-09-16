@@ -41,6 +41,13 @@ function initDataItem () {
   }
 }
 export default {
+  props: {
+    org: {
+      type: Object,
+      require: true,
+      default: () => { },
+    },
+  },
   data () {
     const dataList = []
     for (let i = 0; i < 10; i++) {
@@ -70,7 +77,7 @@ export default {
     },
     getBusinessPage () {
       this.loading = true
-      getIndexPage(Object.assign({ siteId: 1, orgId: this.id }, this.paramForm, this.params)).then(({ data }) => {
+      getIndexPage(Object.assign({ siteId: 1, orgId: this.org.orgId }, this.paramForm, this.params)).then(({ data }) => {
         this.total = data.data.total
         this.dataList = data.data.records
         this.total = data.data.total

@@ -281,3 +281,11 @@ export function notificationCreate (obj) {
     data: obj,
   })
 }
+//公告分页
+export function getNotificationPage (query) {
+  return request({
+    url: `${prefixUrl}/notification/page`,
+    method: 'get',
+    params: query,
+  })
+}

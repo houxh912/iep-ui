@@ -24,14 +24,13 @@
         </div>
       </div>
     </div>
-    <el-popover ref="popover" placement="left" width="100" trigger="click" v-model="popoverShow">
-      <el-link :underline="false" icon="el-icon-link" @click="copyText()">复制链接</el-link>
+    <el-popover ref="popover" placement="left" width="100" trigger="hover" v-model="popoverShow">
+      <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
     </el-popover>
   </my-content>
 </template>
 
 <script>
-import * as clipboard from 'clipboard-polyfill'
 import { mapGetters, mapState, mapActions } from 'vuex'
 import { setOrg } from '@/api/admin/user'
 import MyContent from './MyContent'
@@ -48,6 +47,9 @@ export default {
       orgs: state => state.user.orgs,
       identity: state => state.user.identity,
     }),
+    copyUrlText () {
+      return `${window.location.origin}/wel/org?orgId=${this.userInfo.orgId}&type=0`
+    },
   },
   methods: {
     ...mapActions([
@@ -55,11 +57,6 @@ export default {
       'GetMenu',
       'ClearMenu',
     ]),
-    async copyText () {
-      await clipboard.writeText(`${window.location.origin}/wel/org?orgId=${this.userInfo.orgId}&type=0`)
-      this.$message.success('链接复制成功')
-      this.popoverShow = false
-    },
     handleCreate () {
       this.$openPage('/wel/org?type=1')
     },

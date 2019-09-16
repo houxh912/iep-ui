@@ -63,8 +63,8 @@ export default {
     handleGrant () {
 
     },
-    handleBuy () {
-
+    handleBuy (row) {
+      this.$openPage(`/app/wealth/wealth_details/${row.investmentId}`)
     },
     handleWithdrawal (row) {
       this.$refs['Withdrawal'].investmentId = row.investmentId

@@ -79,6 +79,7 @@ export default {
         '已认购股份': this.statistics[2],
         '股东人数': this.statistics[3],
         '今日股价': this.statistics[4],
+        '募集金额': this.statistics[5],
       }
     },
   },

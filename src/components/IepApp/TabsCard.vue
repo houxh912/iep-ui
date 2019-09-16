@@ -40,7 +40,7 @@ export default {
   position: absolute;
   top: 0px;
   right: 5px;
-  line-height: 50px;
+  line-height: 59px;
   padding: 0;
   color: #999;
   z-index: 3;

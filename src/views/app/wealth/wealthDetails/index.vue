@@ -87,7 +87,7 @@
                     <span slot="reference">{{item.name}}</span>
                   </el-popover>
                   <span>{{item.proportion}}</span>
-                  <span>{{Math.round(item.proportion/form.allSharesNumber * 10000) / 100}} %</span>
+                  <span>{{Math.round(item.proportion/form.allSharesNumber * 10000) / 100 >1?Math.round(item.proportion/form.allSharesNumber * 10000) / 100:'&lt;1'}} %</span>
                 </div>
               </el-scrollbar>
             </IepAppTabCard>

@@ -8,7 +8,8 @@
           </p>
           <p> </p>
           <p>授予价格：<span>{{form.tradingPrice}} </span>贝／股（对应公司每1元人民币注册资本）的价格认购激励股权。</p>
-          <p>授予股权数量：<span>{{form.investmentNumber}}</span>；</p>
+          <p>授予股权数量：<span>{{form.investmentNumber}}</span>股；</p>
+          <p>授予股权总金额：<span>{{form.investmentNumber*form.tradingPrice}}</span>贝；</p>
           <p>授予的日期：<span>{{form.createTime | parseDate('YYYY 年 MM 月 DD 日')}}</span>；</p>
           <p>授予方式：虚拟股；</p>
           <p>授予期限：长期（最低三个月）。</p>
@@ -54,7 +55,7 @@ export default {
   background: url("/img/bg/EquityCertificate.webp") no-repeat center center;
   background-size: 100% 100%;
   .header-title {
-    padding: 64px 0 140px;
+    padding: 78px 0 140px;
     font-size: 24px;
     font-weight: bold;
     color: #333;

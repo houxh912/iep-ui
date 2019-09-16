@@ -15,6 +15,7 @@
         <span class="updateTime">更新时间：{{form.updateTime}}</span>
         <el-button class="join" @click.stop="handleModuleClick">加入定制</el-button>
         <el-button class="use">立即使用</el-button>
+        <el-button class="text">模块考试</el-button>
       </div>
     </el-card>
   </div>
@@ -110,12 +111,13 @@ export default {
       color: #999;
     }
     .join,
-    .use {
+    .use,
+    .text {
       position: absolute;
       top: 0;
     }
     .join {
-      right: 110px;
+      right: 220px;
       background-color: #ba1b21;
       border: 1px solid #ba1b21;
       color: #fff;
@@ -126,8 +128,20 @@ export default {
         color: #ba1b21;
       }
     }
-    .use {
+    .text {
       right: 0;
+      background-color: #fff;
+      border: 1px solid #ba1b21;
+      color: #ba1b21;
+      transition: all 0.5s;
+      &:hover {
+        background-color: #ba1b21;
+        border: 1px solid #ba1b21;
+        color: #fff;
+      }
+    }
+    .use {
+      right: 110px;
       background-color: #fff;
       border: 1px solid #ba1b21;
       color: #ba1b21;

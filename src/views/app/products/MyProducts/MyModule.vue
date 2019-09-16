@@ -59,7 +59,7 @@ export default {
       },
       {
         id: 4,
-        name: '公共服务',
+        name: '通用服务',
       },
       ],
       moduleList: [],

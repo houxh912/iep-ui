@@ -130,8 +130,8 @@ export default {
       }).then(() => {
         contractReview([row.id]).then(({ data }) => {
           console.log('data: ', data)
+          this.loadPage()
         })
-        this.loadPage()
       })
     },
     // 移交

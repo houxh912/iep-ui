@@ -18,9 +18,9 @@ export default {
   data () {
     return {
       dictsMap: {
-        type: {
-          1: '增加',
-          2: '减少',
+        transactionType: {
+          1: '买入',
+          2: '卖出',
         },
       },
       columnsMap: [
@@ -37,8 +37,8 @@ export default {
           label: '交易股数',
         },
         {
-          prop: 'type',
-          label: '类型',
+          prop: 'transactionType',
+          label: '交易类型',
           type: 'dict',
         },
         {

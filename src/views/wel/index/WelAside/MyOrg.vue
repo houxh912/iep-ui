@@ -9,6 +9,13 @@
       <span class="current-label">当前</span>
       <span class="current-name">{{userInfo.orgName}}</span>
     </div>
+    <div class="current-role">
+      <div>
+        <span>组织角色：</span>
+        <span>{{identity}}</span>
+      </div>
+      <iep-button type="primary" v-popover:popover plain>组织邀请</iep-button>
+    </div>
     <div class="org-list">
       <div class="org-item" v-for="org in orgs" :key="org.orgId" @click="handleSwitch(org)">
         <div class="org-name">{{org.name}}</div>
@@ -17,19 +24,29 @@
         </div>
       </div>
     </div>
+    <el-popover ref="popover" placement="left" width="100" trigger="click" v-model="popoverShow">
+      <el-link :underline="false" icon="el-icon-link" @click="copyText()">复制链接</el-link>
+    </el-popover>
   </my-content>
 </template>
 
 <script>
+import * as clipboard from 'clipboard-polyfill'
 import { mapGetters, mapState, mapActions } from 'vuex'
 import { setOrg } from '@/api/admin/user'
 import MyContent from './MyContent'
 export default {
   components: { MyContent },
+  data () {
+    return {
+      popoverShow: false,
+    }
+  },
   computed: {
     ...mapGetters(['userInfo']),
     ...mapState({
       orgs: state => state.user.orgs,
+      identity: state => state.user.identity,
     }),
   },
   methods: {
@@ -38,6 +55,11 @@ export default {
       'GetMenu',
       'ClearMenu',
     ]),
+    async copyText () {
+      await clipboard.writeText(`${window.location.origin}/wel/org?orgId=${this.userInfo.orgId}&type=0`)
+      this.$message.success('链接复制成功')
+      this.popoverShow = false
+    },
     handleCreate () {
       this.$openPage('/wel/org?type=1')
     },
@@ -100,6 +122,12 @@ export default {
       max-width: 150px;
     }
   }
+}
+.current-role {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 .current-label {
   border: 1px solid;

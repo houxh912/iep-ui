@@ -4,6 +4,7 @@ import { encryption } from '@/util/util'
 
 const user = {
   state: {
+    identity: '',
     userInfo: {},
     permissions: {},
     roles: [],
@@ -70,11 +71,13 @@ const user = {
       try {
         const { data } = await getUserInfo()
         const userInfo = data.data || {
+          identity: '',
           sysUser: {},
           roles: [],
           permissions: [],
           orgs: [],
         }
+        commit('SET_IDENTITY', userInfo.identity)
         commit('SET_USERIFNO', userInfo.sysUser)
         commit('SET_ROLES', userInfo.roles)
         commit('SET_PERMISSIONS', userInfo.permissions)
@@ -163,6 +166,9 @@ const user = {
     },
     SET_USERIFNO: (state, userInfo) => {
       state.userInfo = userInfo
+    },
+    SET_IDENTITY: (state, identity) => {
+      state.identity = identity
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles

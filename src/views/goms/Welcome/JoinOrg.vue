@@ -1,7 +1,8 @@
 <template>
   <div class="join-org-wrapper">
     <a-input-group class="search-box" compact>
-      <a-select defaultValue="1" style="width: 120px" @change="handleChange">
+      <a-select :defaultValue="null" style="width: 120px" @change="handleChange">
+        <a-select-option :key="null" :value="null">全部</a-select-option>
         <a-select-option v-for="item in GOMS_ORG_TYPE" :key="item.value" :value="item.value">{{item.label}}</a-select-option>
       </a-select>
       <a-input-search style="width: 50%" placeholder="请输入组织名进行搜索" @search="onSearch" enterButton />
@@ -33,12 +34,11 @@ export default {
       return this.dictGroup['GOMS_ORG_TYPE']
     },
   },
-  created () {
+  async created () {
     this.loadPage()
   },
   methods: {
     handleChange (value) {
-      console.log(value)
       this.orgType = '' + value
     },
     handleApplyJoin (row) {
@@ -51,10 +51,9 @@ export default {
     onSearch (orgName) {
       this.loadPage(orgName, this.orgType)
     },
-    loadPage (orgName = null, orgType = null) {
-      getOrgList(orgName, orgType).then(({ data }) => {
-        this.orgList = data.data
-      })
+    async loadPage (orgName = null, orgType = null) {
+      const { data } = await getOrgList(orgName, orgType)
+      this.orgList = data.data
     },
   },
 }

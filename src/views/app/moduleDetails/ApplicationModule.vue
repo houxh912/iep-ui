@@ -17,7 +17,7 @@ export default {
   props: ['form'],
   data () {
     return {
-      title: '应用产品',
+      title: '应用系统',
     }
   },
 }

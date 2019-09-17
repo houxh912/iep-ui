@@ -19,7 +19,7 @@
         </div>
         <!-- 分页 -->
         <div style="text-align: center;margin: 20px 0;">
-          <el-pagination background layout="prev, pager, next, total" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+          <el-pagination background layout="prev, pager, next, total" :total="total" :current-page="params.current" :page-size="params.size" @current-change="currentChange"></el-pagination>
         </div>
       </div>
       <div class="content-right">
@@ -57,6 +57,7 @@ export default {
       this.title = this.$route.query.title
       this.subjectTitle = `#${this.title}#`
       this.params.topicId = this.$route.query.id
+      this.params.current = 1
       this.loadPage()
     })
     next()

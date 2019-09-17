@@ -9,7 +9,7 @@
         </template>
       </operation-container>
       <iep-table :columnsMap="columnsMap" :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-index>
-        <el-table-column prop="operation" label="操作" width="150">
+        <el-table-column prop="operation" label="操作" width="110">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleView(scope.row)">查看</iep-button>
@@ -43,7 +43,7 @@ const columnsMap = [
   {
     label: '科目',
     prop: 'subject',
-    width: 150,
+    // width: 150,
   },
   {
     label: '证书名称',
@@ -52,12 +52,14 @@ const columnsMap = [
   {
     label: '级别',
     prop: 'levelName',
-    width: 150,
+  },
+  {
+    label: '是否关联考试',
+    prop: 'connect',
   },
   {
     label: '颁发机构',
     prop: 'deptName',
-    width: 200,
   },
 ]
 export default {

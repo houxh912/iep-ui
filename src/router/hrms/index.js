@@ -7,6 +7,12 @@ export default [
     redirect: '/hrms_spa/growth_file/:id',
     children: [
       {
+        path: 'employee_profile_edit/:id',
+        name: '员工信息编辑',
+        component: () => import(/* webpackChunkName: "hrms" */'@/views/hrms/EmployeeProfile/Page/Edit.vue'),
+        meta: noKeepAlive,
+      },
+      {
         path: 'growth_file/:id',
         name: '成长档案',
         component: () => import(/* webpackChunkName: "hrms" */'@/views/hrms/GrowthFile/index.vue'),

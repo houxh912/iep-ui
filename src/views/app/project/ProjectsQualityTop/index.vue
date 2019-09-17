@@ -4,7 +4,7 @@
       <h3><span>国脉人，</span>人人都要成为项目经理</h3>
       <template>
         <div class="search-con">
-          <operation-search>
+          <operation-search @search-page="handleSearch">
             <advance-search></advance-search>
           </operation-search>
           <el-button type="danger" plain>高级搜索</el-button>
@@ -21,6 +21,16 @@ export default {
   data () {
     return {
     }
+  },
+  methods: {
+    handleSearch (val) {
+      this.$router.push({
+        path: '/app/search_detail',
+        query: {
+          title: val.name,
+        },
+      })
+    },
   },
 }
 </script>

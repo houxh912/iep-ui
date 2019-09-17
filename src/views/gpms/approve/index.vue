@@ -19,10 +19,7 @@
               <span class="grade" v-show="scope.row.projectLevel==1">重要</span>
               <span class="grade" v-show="scope.row.projectLevel==2">中级</span>
               <span class="grade" v-show="scope.row.projectLevel==3">一般</span>
-              <span class="stage" v-show="scope.row.projectStage==1">初</span>
-              <span class="stage" v-show="scope.row.projectStage==2">方</span>
-              <span class="stage" v-show="scope.row.projectStage==3">正</span>
-              <span class="stage" v-show="scope.row.projectStage==4">项</span>
+              <span class="stage">{{dictsMap.projectStage[scope.row.projectStage]}}</span>
               <span>{{ scope.row.projectName }}</span>
             </div>
           </template>

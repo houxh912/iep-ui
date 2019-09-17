@@ -7,7 +7,7 @@
             <el-col :span="4" class="img">
               <iep-img :src="form.imageUrl" alt=""></iep-img>
             </el-col>
-            <el-col :span="14" class="title">
+            <el-col :span="12" class="title">
               <div>
                 <div class="tags"><span class="weight">{{form.name}}</span>
                 </div>
@@ -18,13 +18,15 @@
                 </div>
               </div>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="6">
               <el-button size="small" class="join" @click.stop="handleProductClick">加入定制</el-button>
+              <el-button size="small" @click.stop="handleGWClick">系统官网</el-button>
+              <el-button size="small" @click.stop="handleTestClick">系统考试</el-button>
             </el-col>
           </el-row>
         </template>
       </iep-page-header>
-      <iep-tab-scroll :tab-list="tabList">
+      <iep-tab-scroll :tab-list="tabList" :height="270">
         <div>
           <div class="base" :id="item.value" v-for="item in tabList" :key="item.value">
             <div class="title">{{item.label}}</div>
@@ -68,10 +70,10 @@ export default {
         label: '团队信息',
         value: 'TeamInfo',
       }, {
-        label: '全新版本',
+        label: '全部版本',
         value: 'Versions',
       }, {
-        label: '包含模块',
+        label: '包含产品模块',
         value: 'Modules',
       }, {
         label: '相关材料',
@@ -94,6 +96,12 @@ export default {
       putProductById(this.id).then(() => {
         this.$router.push('/app/resource/product_ku')
       })
+    },
+    handleGWClick () {
+      this.$router.push('/cpms_spa/product_edit/0')
+    },
+    handleTestClick () {
+      // this.$router.push('/app/resource/product_ku')
     },
     handleGoBack () {
       this.$router.push('/app/resource/product_ku')
@@ -119,7 +127,6 @@ export default {
   }
 }
 .join {
-  float: right;
   background-color: #ba1b21;
   border: 1px solid #ba1b21;
   color: #fff;

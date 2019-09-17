@@ -10,7 +10,7 @@
       </operation-container>
       <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
-          <el-table-column label="序号">
+          <el-table-column label="序号" width="55">
             <template slot-scope="scope">
               {{scope.row.id}}
             </template>
@@ -21,6 +21,11 @@
             </template>
           </el-table-column>
         </template>
+        <el-table-column label="操作" width="100">
+          <template slot-scope="scope">
+            <iep-button type="warning" @click="openEmployeeProfile(scope.row)" plain>编辑</iep-button>
+          </template>
+        </el-table-column>
       </iep-table>
     </basic-container>
   </div>
@@ -49,6 +54,7 @@ export default {
         {
           prop: 'companyName',
           label: '劳动合同公司',
+          type: 'detail',
         },
       ],
     }
@@ -57,6 +63,9 @@ export default {
     this.loadPage()
   },
   methods: {
+    openEmployeeProfile (row) {
+      this.$openPage(`/hrms_spa/employee_profile_edit/${row.userId}`)
+    },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getLaborContractPage)
     },

@@ -1,18 +1,19 @@
 <template>
-  <div class="chance">
-    <div class="title">我的机会</div>
+  <my-content class="my-content" title-name="我的机会">
     <iep-no-data v-if="!opportunity.length"></iep-no-data>
-    <div class="treasure-content" v-for="item in opportunity" :key="item.id">
+    <div v-for="item in opportunity" :key="item.id">
       <div class="subtitle cursor" @click="chanceDetail(item.id)">{{item.name}}</div>
       <div class="text">
         <span class="date">{{item.time | formatTime}}</span>
         <span class="author">{{item.author}}</span>
       </div>
     </div>
-  </div>
+  </my-content>
 </template>
 <script>
+import MyContent from './MyContent'
 export default {
+  components: { MyContent },
   props: {
     opportunity: {
       type: Array,
@@ -27,9 +28,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.chance {
-  box-sizing: border-box;
-  margin: 10px 5px;
+.my-content {
   .text {
     padding-bottom: 5px;
     color: #999;
@@ -38,19 +37,12 @@ export default {
     }
   }
   .subtitle {
+    cursor: pointer;
     padding: 5px 0;
     font-size: 14px;
     &:hover {
       color: #cb132d;
     }
   }
-}
-.title {
-  padding: 0 0 10px;
-  font-size: 16px;
-  font-weight: 500;
-}
-.cursor {
-  cursor: pointer;
 }
 </style>

@@ -355,21 +355,21 @@ var checkName = (rule, value, callback) => {
   if (!value) {
     return callback(new Error('项目名称不能为空'))
   }
-  if(timeout !== null) 
-          clearTimeout(timeout)
-  if(oldProjectName!=value){
+  if (timeout !== null)
+    clearTimeout(timeout)
+  if (oldProjectName != value) {
     timeout = setTimeout(() => {
-      checkProjectName({projectName:value}).then(res => {
+      checkProjectName({ projectName: value }).then(res => {
         if (res.data.data === false) {
           return callback(new Error(res.data.msg))
-        } 
+        }
         else {
           callback()
         }
       })
     }, 1000)
   }
-  else{
+  else {
     callback()
   }
 }
@@ -407,7 +407,7 @@ export default {
   components: { RelationDialog, ProductRelationDialog, projectRelationDialog },
 
   data () {
-    
+
     return {
       projectTime: '',
       endTime: '',
@@ -487,7 +487,7 @@ export default {
     if (this.id) {
       getDataDetail(this.id).then(({ data }) => {
         this.formData = this.$mergeByFirst(initFormData(), data.data)
-        oldProjectName=this.formData.projectName
+        oldProjectName = this.formData.projectName
         this.changeData = this.$mergeByFirst(initFormData(), data.data)
         this.tableData = [this.formData.projectBudgetList]
         if (this.formData.projectType == '1') {
@@ -539,13 +539,13 @@ export default {
       }
     },
     async save (val) {
-      if(this.id){
+      if (this.id) {
         await getDataDetail(this.id).then(({ data }) => {
           const changeData = this.$mergeByFirst(initFormData(), data.data)
           this.changeTableData = changeData.projectBudgetList
         })
       }
-        this.formData.projectStatus = val
+      this.formData.projectStatus = val
       if (val == '3') {
         if (this.changeData.projectName != this.formData.projectName || this.changeData.projectAmount != this.formData.projectAmount || this.changeData.projectTypeBefore != this.formData.projectTypeBefore || this.changeData.relatedClient != this.formData.relatedClient || this.changeData.attendeeId != this.formData.attendeeId || this.isObjectValueEqual(this.changeTableData, this.tableData[0])) {
           this.formData.projectStatus = '2'
@@ -625,9 +625,12 @@ export default {
           form.projectBudget = this.tableData[0].projectBudget
           if (form.projectTypeBefore == true) {
             form.projectType = '1'
+            form.relatedClient = 0
+            form.relatedClientList = {}
           }
           else {
             form.projectType = '2'
+            form.attendeeId = 0
           }
           if (form.groupExternalCooperatePartner == '') {
             form.groupExternalCooperatePartner = 0
@@ -759,11 +762,11 @@ export default {
       },
 
     },
-    'formData.isRelevanceProduct':{
+    'formData.isRelevanceProduct': {
       deep: true,
       handler: function (val) {
-        if (val==2) {
-          this.formData.productList=[]
+        if (val == 2) {
+          this.formData.productList = []
         }
       },
     },

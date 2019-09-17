@@ -58,7 +58,7 @@ export function deleteMeetingsignup (id) {
 //查询一级标签
 export function getMeetingtagAlltag (query) {
   return request({
-    url: '/mcms/meetingtag/alltag',
+    url: '/admin/dict/getDictValue',
     method: 'get',
     params: query,
   })
@@ -77,5 +77,13 @@ export function getCodeName (query) {
     url: '/crm/customer/code/namelist',
     method: 'post',
     data: query,
+  })
+}
+
+export function getdic (obj) {
+  return request({
+    url: '/crm/customer/dictvo',
+    method: 'post',
+    data: obj,
   })
 }

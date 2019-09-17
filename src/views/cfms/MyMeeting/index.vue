@@ -47,6 +47,7 @@ export default {
     handleName (row) {
       this.$refs['NameDialog'].dialogShow = true
       this.$refs['NameDialog'].id = row.id
+      this.$refs['NameDialog'].loadPage()
     },
   },
 }

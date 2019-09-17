@@ -1,5 +1,5 @@
 <template>
-  <div class="iep-page-form">
+  <div>
     <basic-container>
       <div class="wrap">
         <el-row>
@@ -25,10 +25,10 @@
                     <!-- <el-image :src="form.orgVo.url" class="avater"></el-image> -->
                     <iep-img-avatar :size="50" :src="form.orgVo.url" alt="头像"></iep-img-avatar>
                   </el-col>
-                  <el-col :span="8">
+                  <el-col :span="4">
                     <div class="userName">{{form.orgVo.name}}</div>
                   </el-col>
-                  <el-col :span="12">
+                  <el-col :span="16">
                     <div class="userName">
                       <iep-button type="primary" @click="handleSignUp">我要报名</iep-button>
                     </div>
@@ -94,10 +94,8 @@
           <iep-button type="primary" @click="submitForm('ValidateForm')">报名</iep-button>
         </div>
         <!-- 标签 -->
-        <iep-page-header title="会议标签"></iep-page-header>
-        <div class="tag">
-          <div v-for="item in form.tags" :key="item.id" class="allTag">{{item.name}}</div>
-        </div>
+        <!-- <iep-page-header title="会议标签"></iep-page-header>
+        <div class="tag"></div> -->
         <el-col :span="16">
           <iep-page-header title="会议内容"></iep-page-header>
           <div class="content">
@@ -152,14 +150,11 @@ export default {
       //链接
       if (this.$route.params.id) {
         getmeetingmarketing(this.$route.params.id).then(res => {
-          console.log(res)
           this.form = res.data.data
-          console.log(this.form)
           this.address = res.data.data.province
         })
       }
       //预览
-      console.log(this.$route)
       if (this.$route.query.preview) {
         this.form = this.$route.query.data
         this.form.orgVo = { url: '', name: '' }
@@ -169,9 +164,9 @@ export default {
     },
     //报名
     handleSignUp () {
-      // this.$router.push({
-      //   path: '/login',
-      // })
+      this.$router.push({
+        path: '/login',
+      })
       this.isShow = true
     },
     handleChange (value) {
@@ -180,17 +175,6 @@ export default {
       } else if (value < this.formData.length) {
         this.formData.pop(this.subFrom)
       }
-      // if (value == 1) {
-      //   this.formData = initForm()
-      // } else if (value == 2) {
-      //   this.formData = initFormTwo()
-      // } else if (value == 3) {
-      //   this.formData = initFormThree()
-      // } else if (value == 4) {
-      //   this.formData = initFormFour()
-      // } else if (value == 5) {
-      //   this.formData = initFormFive()
-      // }
     },
     submitForm (formName) {
       let submitForm = {
@@ -292,20 +276,6 @@ export default {
   border: 1px solid #ccc;
   border-radius: 10px;
   margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.allTag {
-  width: 120px;
-  height: 45px;
-  border: 1px solid #ccc;
-  border-radius: 30px;
-  text-align: center;
-  color: #fff;
-  line-height: 45px;
-  background-color: #ba1b21;
-  margin: 0 10px;
 }
 .content {
   width: 100%;

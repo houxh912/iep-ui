@@ -30,6 +30,16 @@ export default [
     },
   },
   {
+    path: '/sign/:id',
+    name: '报名页',
+    component: () => import('@/page/MeetingDetail/index'),
+    meta: {
+      keepAlive: false,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
     path: '/lock',
     name: '锁屏页',
     component: () => import('@/page/lock/index'),

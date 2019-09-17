@@ -37,6 +37,9 @@ export default {
   methods: {
     close () {
       this.dialogShow = false
+      this.formData=initForm()
+      this.$emit('load-page')
+
     },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
@@ -52,6 +55,7 @@ export default {
               type: 'success',
             })
           })
+          this.close()
         } else {
           return false
         }

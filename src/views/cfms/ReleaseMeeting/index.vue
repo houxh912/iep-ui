@@ -55,32 +55,44 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="会议分类：">
-              <!-- <el-checkbox-group v-model="formData.meetingClasses">
-                <el-checkbox label="科技网络"></el-checkbox>
-                <el-checkbox label="财经金融"></el-checkbox>
-                <el-checkbox label="工业制造"></el-checkbox>
-                <el-checkbox label="农林牧渔"></el-checkbox>
-                <el-checkbox label="服务行业"></el-checkbox>
-                <el-checkbox label="健康医疗"></el-checkbox>
-                <el-checkbox label="教育培训"></el-checkbox>
-                <el-checkbox label="学术研讨"></el-checkbox>
-                <el-checkbox label="社群活动"></el-checkbox>
-                <el-checkbox label=其他></el-checkbox>
-              </el-checkbox-group> -->
-              <el-checkbox-group v-model="formData.meetingClasses">
-                <el-checkbox v-for="item in this.arr" :key="item.tagId" :label="item.tagId" name="leixing">{{item.name}}</el-checkbox>
+              <el-checkbox-group v-model="formData.meetingClasses1">
+                <el-checkbox v-for="item in this.arr" :key="item.id" :label="item.id" name="leixing">{{item.name}}</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
           </el-col>
           <el-col>
-            <el-form-item label="会议标签：">
+            <el-form-item label="会议子分类：">
               <!-- <iep-tag v-model="formData.tags"></iep-tag> -->
               <div class="tag">
-                <iep-button @click="AddTags">添加标签</iep-button>
+                <iep-button @click="AddTags">添加子分类</iep-button>
+                <el-tag v-for="tag in tags" :key="tag.id" :value="tag.id" closable @close="closeTag(tag)" class="allTag">
+                  {{tag.name}}
+                </el-tag>
+              </div>
+            </el-form-item>
+          </el-col>
+
+          <!-- <el-col>
+            <el-form-item label="会议分类测试：">
+              <el-checkbox-group v-model="formData.meetingClasses1">
+                <el-checkbox v-for="item in  dictGroup['prms_business_type']" :key="item.value" :label="item.value" name="leixing">{{item.label}}</el-checkbox>
+              </el-checkbox-group>
+            </el-form-item>
+          </el-col>
+          <el-col>
+            <el-form-item label="会议子分类测试：">
+              <div class="tag">
+                <iep-button @click="handelAdd">添加子分类</iep-button>
                 <el-tag v-for="tag in tags" :key="tag.tagId" :value="tag.tagId" closable @close="closeTag(tag)" class="allTag">
                   {{tag.name}}
                 </el-tag>
               </div>
+            </el-form-item>
+          </el-col> -->
+
+          <el-col>
+            <el-form-item label="会议标签：">
+              <iep-tag v-model="formData.tags"></iep-tag>
             </el-form-item>
           </el-col>
           <el-col>
@@ -104,7 +116,7 @@
       <el-row>
         <el-col :offset="9">
           <iep-button class="button" type="primary" @click="draft('formName')">草稿</iep-button>
-          <iep-button class="button" type="primary" @click="preview('formName')">预览 </iep-button>
+          <!-- <iep-button class="button" type="primary" @click="preview('formName')">预览 </iep-button> -->
           <iep-button class="button" type="primary" @click="submitForm('formName')">发布</iep-button>
         </el-col>
       </el-row>
@@ -115,14 +127,13 @@
 <script>
 import { initForm } from './option'
 import { mapGetters } from 'vuex'
-import { postMeetingmarketing, getMeetingtagAlltag, getMeetingtagSontag, getCodeName } from '@/api/mcms/meeting'
+import { postMeetingmarketing, getCodeName, getdic } from '@/api/mcms/meeting'
 import AvatarImg from './IepAvatar.vue'
 import TagDialog from './TagDialog.vue'
 export default {
   components: { AvatarImg, TagDialog },
   data () {
     return {
-      // formData: { biaoti: '', area: [], address: '', clientTypeKey: [], tags: [], meetingContent: '', avatar: '' },
       formData: initForm(),
       arr: [],
       tagId: [],
@@ -130,31 +141,7 @@ export default {
       oneAddress: '',
       twoAddress: '',
       allAddress: '',
-      // form: initForm(),
-      options: [{
-        value: '100',
-        label: '100',
-      }, {
-        value: '200',
-        label: '200',
-      }, {
-        value: '300',
-        label: '300',
-      }, {
-        value: '400',
-        label: '400',
-      }, {
-        value: '500',
-        label: '500',
-      }],
-
-      tags: [
-        { name: '标签一', type: '' },
-        { name: '标签二', type: 'success' },
-        { name: '标签三', type: 'info' },
-        { name: '标签四', type: 'warning' },
-        { name: '标签五', type: 'danger' },
-      ],
+      tags: [],
       meetingTypeOption: [{
         value: '会议',
         label: '会议',
@@ -165,8 +152,7 @@ export default {
         value: '沙龙',
         label: '沙龙',
       }],
-      // value: '',
-      // value1: '',
+
       signTimeOption: {
         disabledDate: (time) => {
           if (this.formData.meetingTimeEnd) {
@@ -194,7 +180,7 @@ export default {
     ]),
   },
   created () {
-
+    // console.log(this.dictGroup)
     this.tag()
   },
   mounted () {
@@ -229,15 +215,14 @@ export default {
       })
     },
     load () {
-      //一级标签
-      getMeetingtagAlltag().then((res) => {
+      getdic({ number: 'meetingmarketing', type: 0 }).then((res) => {
         this.arr = res.data
       })
     },
     //添加标签
     AddTags () {
       this.$refs['TagDialog'].dialogShow = true
-      getMeetingtagSontag({ id: this.formData.meetingClasses }).then((res) => {
+      getdic({ number: 'meetingmarketing', type: 1,source:1, dictId: this.formData.meetingClasses1 }).then((res) => {
         this.$refs['TagDialog'].cities = res.data
       })
     },
@@ -250,7 +235,7 @@ export default {
     },
     submitForm (formName) {
       this.formData.meetingUrl = window.location.host + '/cfms_spa/meeting_detail'
-      this.formData.tags = this.tags.map(m => m.tagId)
+      this.formData.meetingClasses2 = this.tags.map(m => m.id)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           postMeetingmarketing(this.formData).then((res) => {

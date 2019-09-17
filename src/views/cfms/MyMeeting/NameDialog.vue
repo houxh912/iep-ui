@@ -7,9 +7,12 @@
         <iep-button @click="handleDelte" plain>删除</iep-button>
       </template>
       <template slot="right">
-        <operation-search @search-page="searchPage" advance-search prop="inName">
-          <advance-search @search-page="searchPage"></advance-search>
-        </operation-search>
+        <!-- <operation-search @search-page="searchPage" :id="id" advance-search prop='inName'>
+          <advance-search @search-page="searchPage" :id="id"></advance-search>
+        </operation-search> -->
+        <search advance-search @search-page="searchPage" prop='inName' :id="id">
+          <advance-search @search-page="searchPage" :id="id"></advance-search>
+        </search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsName" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" :isMutipleSelection="isTrue" @selection-change="handleSelectionChange">
@@ -22,7 +25,7 @@
         </template>
       </el-table-column> -->
     </iep-table>
-    <edit-dialog ref="EditDialog"></edit-dialog>
+    <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </iep-dialog>
 </template>
 <script>
@@ -31,9 +34,10 @@ import { columnsName } from './option'
 import { geTmeetingsignup, postMeetingsignupStatus, deleteMeetingsignup } from '@/api/mcms/meeting'
 import AdvanceSearch from './AdvanceSearch'
 import EditDialog from './EditDialog'
+import Search from './Search'
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch, EditDialog },
+  components: { AdvanceSearch, EditDialog, Search },
   data () {
     return {
       dialogShow: false,
@@ -45,10 +49,9 @@ export default {
     }
   },
   created () {
-    this.loadPage()
   },
   methods: {
-    loadPage (param = {}) {
+    loadPage (param = { meetingId: this.id }) {
       this.loadTable(param, geTmeetingsignup)
     },
     resetForm () {
@@ -73,7 +76,7 @@ export default {
             type: 'success',
           })
         })
-        this.loadPage()
+        this.loadPage({ meetingId: this.id })
       } else {
         this.$message({
           message: '请先勾选数据',
@@ -83,15 +86,15 @@ export default {
 
     },
     handleDelte () {
-      if(this.multipleSelection.length > 0){
-         deleteMeetingsignup({ id: this.multipleSelection }).then((res) => {
-        this.$message({
-          message: res.data.msg,
-          type: 'success',
+      if (this.multipleSelection.length > 0) {
+        deleteMeetingsignup({ id: this.multipleSelection }).then((res) => {
+          this.$message({
+            message: res.data.msg,
+            type: 'success',
+          })
         })
-      })
-      this.loadPage()
-      }else{
+        this.loadPage({ meetingId: this.id })
+      } else {
         this.$message({
           message: '请先勾选数据',
           type: 'waring',

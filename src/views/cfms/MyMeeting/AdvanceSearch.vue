@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form :model="form" label-width="80px" size="small">
+    <el-form :model="form" label-width="80px" size="small" :inline="true">
       <el-form-item label="手机">
         <el-input v-model="form.inPhone" placeholder="请输入客户名称"></el-input>
       </el-form-item>
@@ -17,7 +17,7 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label="">
+      <el-form-item label=" ">
         <el-button type="primary" @click="searchPage" size="mini">搜索</el-button>
         <el-button @click="clearSearchParam" size="mini">清空</el-button>
       </el-form-item>
@@ -27,6 +27,7 @@
 <script>
 import { initSearchForm } from './option'
 export default {
+  props: ['id'],
   data () {
     return {
       form: {},
@@ -35,6 +36,7 @@ export default {
   },
   methods: {
     searchPage () {
+      this.form.meetingId = this.id
       this.$emit('search-page', { ...this.form })
     },
     clearSearchParam () {

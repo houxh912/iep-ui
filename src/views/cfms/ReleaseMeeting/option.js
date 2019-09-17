@@ -8,7 +8,8 @@ const initForm = () => {
     meetingTimeEnd: '',//结束时间
     cityAdrss: [],  //省市地址
     meetingAddress: '', //详细地址
-    meetingClasses: [], //会议分类
+    meetingClasses1: [], //会议分类
+    meetingClasses2: [],//会议子分类
     tags: [], // 会议标签
     meetingHighlights: '', //会议亮点
     content: '', //会议详情

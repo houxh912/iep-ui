@@ -1,3 +1,11 @@
+export const changeDict = (list, prop = ['value', 'label']) => {
+  let data = {}
+  for (let item of list) {
+    data[item[prop[0]]] = item[prop[1]]
+  }
+  return data
+}
+
 export const dictsMap = {
   topShow: [
     { value: 0, label: '否' },
@@ -10,15 +18,37 @@ export const dictsMap = {
   ],
 }
 
+export const tableDictsMap = {
+  classId: {},
+  topShow: changeDict(dictsMap.topShow),
+  status: changeDict(dictsMap.status),
+}
+
 export const tableOption = [
   {
-    label: '创建时间',
-    prop: 'createTime',
-    width: '250',
+    label: '标题名称',
+    prop: 'title',
   }, {
-    label: '浏览次数',
-    prop: 'views',
-    width: '150',
+    label: '类别',
+    prop: 'classId',
+    width: 100,
+    type: 'dict',
+  }, {
+    label: '成文日期',
+    prop: 'enterTime',
+  }, {
+    label: '发布时间',
+    prop: 'createTime',
+  }, {
+    label: '文件状态',
+    prop: 'status',
+    width: 100,
+    type: 'dict',
+  }, {
+    label: '显示状态',
+    prop: 'status',
+    width: 100,
+    type: 'dict',
   },
 ]
 
@@ -51,7 +81,7 @@ export const rules = {
     { required: true, message: '请输入文件内容', trigger: 'blur' },
   ],
   enterTime: [
-    { required: true, message: '请选择文件状态', trigger: 'blur' },
+    { required: true, message: '请选择成文时间', trigger: 'blur' },
   ],
   annex: [
     { required: true, message: '请上传附件', trigger: 'blur' },

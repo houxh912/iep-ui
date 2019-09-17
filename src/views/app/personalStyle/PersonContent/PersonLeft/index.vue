@@ -108,10 +108,6 @@ export default {
           label: `商机(${this.counts.opportunityCount})`,
           value: 'Business',
         },
-        {
-          label: '学术论文(0)',
-          value: 'paper',
-        },
       ]
     },
   },

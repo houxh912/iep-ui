@@ -13,14 +13,17 @@ export default {
         {
           prop: 'id',
           label: '序号',
-        },
-        {
-          prop: 'date',
-          label: '生效时间',
+          width: '100',
         },
         {
           prop: 'msg',
           label: '变更信息',
+          type: 'detail',
+        },
+        {
+          prop: 'date',
+          label: '生效时间',
+          width: '150',
         },
       ],
     }

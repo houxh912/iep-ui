@@ -145,7 +145,7 @@ export const tipContent = {
     attachFileList:'附件仅支持DOC、PPT、TXT、PDF、XLS等形式的一个文件，大小限制在200M以内',
 }
 export const tipContent2  = {
-    materialName:'1、文件主题+类型：如浙江省政府数字化转型的几点思考；（名称中切记出现特殊符号）',
+    materialName:'1、文件主题+类型：如浙江省政府数字化转型的几点思考；（名称中切勿出现特殊符号）',
     intro:'1、材料内容主旨说明；<br/>' +
     '2、字数在50字以上',
     content:'1、文章字体为默认字体；<br/>' +

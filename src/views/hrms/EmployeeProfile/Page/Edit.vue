@@ -30,7 +30,7 @@ import LaborContract from './LaborContract'
 import Welfare from './Welfare'
 import Transfer from './Transfer'
 import Dimission from './Dimission'
-import { getEmployeeProfileById } from '@/api/hrms/employee_profile'
+import { getEmployeeProfileById, putEmployeeProfile } from '@/api/hrms/employee_profile'
 import { initForm, formToVo, formToDto, rules } from '@/views/hrms/EmployeeProfile/options'
 export default {
   mixins: [formMixins],
@@ -77,15 +77,19 @@ export default {
       formLoading: true,
       rules,
       form: initForm(),
-      formRequestFn: this.record.formRequestFn,
     }
+  },
+  computed: {
+    id () {
+      return this.$route.params.id || this.record.id
+    },
   },
   created () {
     this.loadPage()
   },
   methods: {
     async submitForm () {
-      const { data } = await this.formRequestFn(formToDto(this.form))
+      const { data } = await putEmployeeProfile(formToDto(this.form))
       if (data.data) {
         return true
       } else {
@@ -110,11 +114,15 @@ export default {
       }
     },
     handleGoBack () {
-      this.$emit('onGoBack')
+      if (this.$route.params.id) {
+        this.$router.go(-1)
+      } else {
+        this.$emit('onGoBack')
+      }
     },
     loadPage () {
       this.formLoading = true
-      getEmployeeProfileById(this.record.id).then(({ data }) => {
+      getEmployeeProfileById(this.id).then(({ data }) => {
         this.form = formToVo(data.data)
         this.formLoading = false
       })

@@ -6,11 +6,11 @@
           <iep-div-detail :value="form.number"></iep-div-detail>
         </el-form-item>
       </el-col>
-      <el-col :span='8'>
+      <!-- <el-col :span='8'>
         <el-form-item label="产品官网：">
           <iep-div-detail :value="form.website"></iep-div-detail>
         </el-form-item>
-      </el-col>
+      </el-col> -->
       <el-col :span='8'>
         <el-form-item label="是否带库：">
           <div>否</div>

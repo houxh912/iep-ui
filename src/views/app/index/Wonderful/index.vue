@@ -87,5 +87,8 @@ export default {
 .wonderful >>> .el-card {
   height: 290px;
 }
+.wonderful >>> .el-carousel__arrow {
+  top: 40%;
+}
 </style>
 

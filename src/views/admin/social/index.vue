@@ -4,7 +4,7 @@
       <iep-page-header title="密钥管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button v-if="generator_syssocialdetails_add" type="primary" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>
+          <iep-button v-if="sys_social_details_add" type="primary" @click="handleAdd()" icon="el-icon-plus" plain>新增</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
@@ -17,9 +17,9 @@
             <operation-wrapper>
               <iep-button type="warning" @click="handleChild(scope.row, scope.index)" icon="el-icon-plus" plain>子项
               </iep-button>
-              <iep-button v-if="generator_syssocialdetails_edit" @click="handleEdit(scope.row)" plain>编辑
+              <iep-button v-if="sys_social_details_edit" @click="handleEdit(scope.row)" plain>编辑
               </iep-button>
-              <iep-button v-if="generator_syssocialdetails_del" @click="handleDel(scope.row, scope.index)" plain>删除
+              <iep-button v-if="sys_social_details_del" @click="handleDel(scope.row, scope.index)" plain>删除
               </iep-button>
             </operation-wrapper>
           </template>
@@ -49,18 +49,18 @@ export default {
   data () {
     return {
       columnsMap,
-      generator_syssocialdetails_add: false,
-      generator_syssocialdetails_edit: false,
-      generator_syssocialdetails_del: false,
+      sys_social_details_add: false,
+      sys_social_details_edit: false,
+      sys_social_details_del: false,
     }
   },
   computed: {
     ...mapGetters(['permissions']),
   },
   created () {
-    this.generator_syssocialdetails_add = this.permissions['generator_syssocialdetails_add']
-    this.generator_syssocialdetails_edit = this.permissions['generator_syssocialdetails_edit']
-    this.generator_syssocialdetails_del = this.permissions['generator_syssocialdetails_del']
+    this.sys_social_details_add = this.permissions['sys_social_details_add']
+    this.sys_social_details_edit = this.permissions['sys_social_details_edit']
+    this.sys_social_details_del = this.permissions['sys_social_details_del']
     this.loadPage()
   },
   methods: {

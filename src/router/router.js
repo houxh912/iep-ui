@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import VueRouter from 'vue-router'
 import PageRouter from './page/'
 import ViewsRouter from './views/'
@@ -18,17 +19,15 @@ import conmRouter from './conm/'
 import exceptionRouter from './exception/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
-// const originalPush = VueRouter.prototype.push
-// VueRouter.prototype.push = function push (location, onResolve, onReject) {
-//   if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
-//   return originalPush.call(this, location).catch(err => err)
-// }
+
+Vue.use(VueRouter)
+
 const createRouter = () => new VueRouter({
   mode: 'history',
   routes: [],
 })
 
-let Router = createRouter()
+const Router = createRouter()
 
 export function initRouter (router, store) {
   AvueRouter.install(router, store)

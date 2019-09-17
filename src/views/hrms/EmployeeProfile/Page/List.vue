@@ -58,7 +58,7 @@
   </div>
 </template>
 <script>
-import { getEmployeeProfilePage, putEmployeeProfile, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
+import { getEmployeeProfilePage, postInduction, postPositive, postDeparture, postTransfer } from '@/api/hrms/employee_profile'
 import { postExcelExport } from '@/api/hrms/excel'
 import mixins from '@/mixins/mixins'
 import keyBy from 'lodash/keyBy'
@@ -135,7 +135,6 @@ export default {
     },
     handleEdit (row) {
       this.$emit('onEdit', {
-        formRequestFn: putEmployeeProfile,
         id: row.id,
       })
     },

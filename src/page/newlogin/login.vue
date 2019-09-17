@@ -44,7 +44,7 @@
         </el-form-item>
       </el-form>
 
-      <!-- <el-divider>其他方式登录</el-divider>
+      <el-divider>其他方式登录</el-divider>
       <div class="social-container">
         <div class="box qq" @click="handleClick('tencent')">
           <span class="container">
@@ -56,7 +56,7 @@
             <i icon-class="wechat" class="iconfont icon-weixin"></i>
           </span>
         </div>
-      </div> -->
+      </div>
 
     </div>
   </user-operation-layout>

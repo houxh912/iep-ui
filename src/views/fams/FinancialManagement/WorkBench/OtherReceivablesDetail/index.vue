@@ -15,7 +15,7 @@
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column label="状态">
           <template slot-scope="scope">
-            {{scope.row.payAmount === 0 ? '已收' : '未收'}}
+            {{scope.row.amount-scope.row.incomeAmount+scope.row.payAmount === 0 ? '已收' : '未收'}}
           </template>
         </el-table-column>
         <el-table-column prop="operation" label="操作" width="200" fixed="right">

@@ -1,14 +1,15 @@
 <template>
   <div class="join-org-wrapper">
     <a-input-group class="search-box" compact>
-      <a-select defaultValue="1" style="width: 120px" @change="handleChange">
+      <a-select :defaultValue="null" style="width: 120px" @change="handleChange">
+        <a-select-option :key="null" :value="null">全部</a-select-option>
         <a-select-option v-for="item in GOMS_ORG_TYPE" :key="item.value" :value="item.value">{{item.label}}</a-select-option>
       </a-select>
       <a-input-search style="width: 50%" placeholder="请输入组织名进行搜索" @search="onSearch" enterButton />
     </a-input-group>
     <iep-no-data v-if="!orgList.length" message="无相关组织"></iep-no-data>
     <div class="select-org-container">
-      <el-button :disabled="!!item.isApplyed" class="grid-item" v-for="(item,index) in orgList" :key="index" @click="handleApplyJoin(item)">{{item.name}}</el-button>
+      <el-button :disabled="!!item.isApplyed" class="grid-item" v-for="(item,index) in orgList" :key="index" @click="handleApplyJoin(item.orgId)">{{item.name}}</el-button>
     </div>
     <apply-form-dialog ref="ApplyFormDialog" @load-page="loadPage"></apply-form-dialog>
   </div>
@@ -33,16 +34,18 @@ export default {
       return this.dictGroup['GOMS_ORG_TYPE']
     },
   },
-  created () {
+  async created () {
     this.loadPage()
+    if (this.$route.query.orgId) {
+      this.handleApplyJoin(this.$route.query.orgId)
+    }
   },
   methods: {
     handleChange (value) {
-      console.log(value)
       this.orgType = '' + value
     },
-    handleApplyJoin (row) {
-      getOrgById(row.orgId).then(({ data }) => {
+    handleApplyJoin (orgId) {
+      getOrgById(orgId).then(({ data }) => {
         const form = data.data
         this.$refs['ApplyFormDialog'].form = { ...form }
         this.$refs['ApplyFormDialog'].DialogShow = true
@@ -51,10 +54,9 @@ export default {
     onSearch (orgName) {
       this.loadPage(orgName, this.orgType)
     },
-    loadPage (orgName = null, orgType = null) {
-      getICanOrgList(orgName, orgType).then(({ data }) => {
-        this.orgList = data.data
-      })
+    async loadPage (orgName = null, orgType = null) {
+      const { data } = await getICanOrgList(orgName, orgType)
+      this.orgList = data.data
     },
   },
 }

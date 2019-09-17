@@ -15,16 +15,11 @@
           <i class="el-icon-warning"></i>
           <span v-if="noOrg" class="remind-text">您尚未加入任何组织，请选择</span>
           <span v-else class="remind-text">您已在 {{userInfo.orgName}} 的组织</span>
-          <el-button :type="`${tabsActive ? 'default':'primary'}`" size="mini" @click="tabsActive=0">加入组织</el-button>
-          <el-button :type="`${tabsActive ? 'primary':'default'}`" size="mini" @click="tabsActive=1">创建组织</el-button>
+          <el-button :type="`${tabsActive==='0' ? 'primary':'default'}`" size="mini" @click="handleChangeTab('0')">加入组织</el-button>
+          <el-button :type="`${tabsActive==='1' ? 'primary':'default'}`" size="mini" @click="handleChangeTab('1')">创建组织</el-button>
         </div>
         <div class="bottom-wrapper">
-          <template v-if="tabsActive===0">
-            <join-org></join-org>
-          </template>
-          <div v-if="tabsActive===1" class="create-org-container">
-            <create-org></create-org>
-          </div>
+          <component ref="tabList" :is="activeTab"></component>
         </div>
       </div>
     </basic-container>
@@ -40,7 +35,6 @@ export default {
   components: { JoinOrg, CreateOrg },
   data () {
     return {
-      tabsActive: 0,
       keyword: '我能',
     }
   },
@@ -49,6 +43,25 @@ export default {
       'userInfo',
       'noOrg',
     ]),
+    tabsActive () {
+      return this.$route.query.type || '0'
+    },
+    activeTab () {
+      const componentsMap = {
+        '0': 'join-org',
+        '1': 'create-org',
+      }
+      return componentsMap[this.tabsActive]
+    },
+  },
+  methods: {
+    handleChangeTab (key) {
+      const query = { type: key }
+      this.$router.replace({
+        path: '/wel/org',
+        query,
+      })
+    },
   },
 }
 </script>

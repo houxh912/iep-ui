@@ -1,5 +1,7 @@
 <template>
   <div class="wel-aside-wrapper">
+    <!-- 所属组织 -->
+    <my-org />
     <!-- 我要创建 -->
     <my-created />
     <!-- 我要找 -->
@@ -10,9 +12,7 @@
     <!-- <my-treasure /> -->
     <!-- 我的机会 -->
     <my-chance ref="myChance" :opportunity="opportunity" />
-    <!-- 收到评价 -->
-    <!-- <receive-evaluation :appraise="appraise" /> -->
-    <!-- 我的指數 -->
+    <!-- 我的数据 -->
     <my-data />
   </div>
 </template>
@@ -23,10 +23,17 @@ import MyFind from './MyFind'
 // import MyTreasure from './MyTreasure'
 import MyBlockClain from './MyBlockClain'
 import MyChance from './MyChance'
-// import ReceiveEvaluation from './ReceiveEvaluation'
+import MyOrg from './MyOrg'
 import MyData from './MyData'
 export default {
-  components: { MyCreated, MyFind, MyChance, MyData, MyBlockClain },
+  components: {
+    MyCreated,
+    MyFind,
+    MyBlockClain,
+    MyChance,
+    MyData,
+    MyOrg,
+  },
   data () {
     return {
       opportunity: [],
@@ -55,10 +62,6 @@ export default {
   & > div {
     padding: 10px 10px 20px 10px;
     border-bottom: 1px solid #ececec;
-    &:first-child {
-      border: none;
-      padding: 0;
-    }
   }
 }
 </style>

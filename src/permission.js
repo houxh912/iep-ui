@@ -84,7 +84,7 @@ router.beforeEach(async (to, from, next) => {
     if (meta.isAuth === false) {
       next()
     } else {
-      next(`/login?redirect=${to.path}`)
+      next(`/login?redirect=${to.fullPath}`)
     }
   }
 })

@@ -334,8 +334,7 @@
 
 <script>
 import { dictMap, initFormData, relatedFormList, initBudgetForm } from './Total/const.js'
-import { getDataDetail, createData, updateData } from '@/api/gpms/index'
-import { checkProjectName } from '@/api/gpms/index'
+import { getDataDetail, createData, updateData, checkProjectName } from '@/api/gpms/index'
 // import { getCustomerPage } from '@/api/crms/customer'
 // import { mapState } from 'vuex'
 import { mapState, mapMutations, mapGetters } from 'vuex'

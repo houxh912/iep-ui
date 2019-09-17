@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Directives from '../directives/index'
 
 import '@/core/components_use'
 import '@/core/custom_use'
@@ -21,6 +22,7 @@ Vue.prototype.$openTagDetail = openTagDetail
 Vue.prototype.$fillStatisticsArray = fillStatisticsArray
 Vue.prototype.$wsUrl = wsUrl
 
+Vue.use(Directives)
 Vue.use(Avue, { menuType: 'text' })
 
 //加载过滤器

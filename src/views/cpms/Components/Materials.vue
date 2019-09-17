@@ -2,7 +2,7 @@
   <el-table :data="form.materialRelations" border>
     <el-table-column label="标题">
       <template slot-scope="scope">
-        <div>{{scope.row.name}}</div>
+        <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
       </template>
     </el-table-column>
     <el-table-column label="类别">
@@ -19,6 +19,11 @@ export default {
     form: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    handleDetail (row) {
+      this.$router.push(`/mlms_spa/material/detail/${row.id}`)
     },
   },
 }

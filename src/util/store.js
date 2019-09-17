@@ -4,27 +4,28 @@ import Cookies from 'js-cookie'
 
 /**
  * 设置根域名Cookie
- * @param {*} key 
- * @param {*} value 
- * @param {*} option 
+ * @param {*} key
+ * @param {*} value
+ * @param {*} option
  */
 export const setCookies = (key, value, option = {
-  expires: 2147483647,
+  expires: 7,
   domain: '.' + getLocation(),
 }) => {
   Cookies.set(key, value, option)
 }
 /**
  * 获得根域名Cookie
- * @param {*} key 
- * @param {*} value 
- * @param {*} option 
+ * @param {*} key
+ * @param {*} value
+ * @param {*} option
  */
 export const getCookies = (key) => {
   return Cookies.get(key)
 }
 /**
  * 存储localStorage
+ * @param {*} params
  */
 export const setStore = params => {
   let { name, content, type } = params
@@ -39,8 +40,8 @@ export const setStore = params => {
 }
 /**
  * 获取localStorage
+ * @param {*} params
  */
-
 export const getStore = params => {
   let { name, debug } = params
   let obj = {}
@@ -65,6 +66,7 @@ export const getStore = params => {
 }
 /**
  * 删除localStorage
+ * @param {*} params
  */
 export const removeStore = params => {
   let { name } = params
@@ -74,6 +76,7 @@ export const removeStore = params => {
 
 /**
  * 获取全部localStorage
+ * @param {*} params
  */
 export const getAllStore = params => {
   let list = []
@@ -104,6 +107,7 @@ export const getAllStore = params => {
 
 /**
  * 清空全部localStorage
+ * @param {*} params
  */
 export const clearStore = params => {
   let { type } = params

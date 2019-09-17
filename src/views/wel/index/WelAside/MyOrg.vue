@@ -95,7 +95,7 @@ export default {
 .org-list {
   margin-top: 15px;
   font-size: 15px;
-  height: 100px;
+  max-height: 112px;
   overflow-y: scroll;
   .org-item {
     display: flex;

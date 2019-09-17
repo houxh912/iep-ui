@@ -89,7 +89,7 @@ export default {
     }),
     ...mapActions(['famsGetTotal']),
     onConfirm () {
-      const r = confirm(`你将支付 ${this.realPayAmount} !`)
+      const r = confirm('您确定打赏吗!')
       if (r == true) {
         this.submitForm()
       }

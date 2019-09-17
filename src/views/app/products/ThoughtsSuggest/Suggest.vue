@@ -11,7 +11,7 @@
               <span class="name" @click="peopleDetail(item.userId)">{{item.name}}</span>
               <span class="time">{{item.sendTime}}</span>
             </div>
-            <p class="feed" @click="peopleDetail(item.userId)">{{item.proposeContent}}</p>
+            <p class="feed" @click="peopleDetail(item.userId)" :title="item.proposeContent">{{item.proposeContent}}</p>
           </div>
         </div>
       </div>
@@ -44,11 +44,11 @@ export default {
 <style lang="scss" scoped>
 .suggest-list {
   .piece {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     overflow: hidden;
     .photo {
-      width: 68px;
-      height: 68px;
+      width: 62px;
+      height: 62px;
       margin-right: 10px;
       float: left;
       border: 1px solid #eee;
@@ -57,7 +57,7 @@ export default {
     .box {
       float: left;
       width: 260px;
-      height: 68px;
+      height: 62px;
       .piece-title {
         .name {
           font-size: 16px;
@@ -74,7 +74,7 @@ export default {
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
         &:hover {
           color: #ba1b21;

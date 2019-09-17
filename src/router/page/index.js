@@ -30,16 +30,6 @@ export default [
     },
   },
   {
-    path: '/lock',
-    name: '锁屏页',
-    component: () => import('@/page/lock/index'),
-    meta: {
-      keepAlive: true,
-      isTab: false,
-      isAuth: false,
-    },
-  },
-  {
     path: '/myiframe',
     component: Layout,
     redirect: '/myiframe',

@@ -88,7 +88,4 @@ export default [
     path: '/504',
     redirect: '/exception/504',
   },
-  {
-    path: '*', redirect: '/404',
-  },
 ]

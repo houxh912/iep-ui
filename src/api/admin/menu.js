@@ -1,6 +1,6 @@
 import request from '@/router/axios'
 
-export function GetMenu () {
+export function getMenu () {
   return request({
     url: '/admin/menu',
     method: 'get',

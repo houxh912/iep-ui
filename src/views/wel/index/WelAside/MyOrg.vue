@@ -9,6 +9,13 @@
       <span class="current-label">当前</span>
       <span class="current-name">{{userInfo.orgName}}</span>
     </div>
+    <div class="current-role">
+      <div>
+        <span>组织角色：</span>
+        <span>{{identity}}</span>
+      </div>
+      <iep-button type="primary" v-popover:popover plain>组织邀请</iep-button>
+    </div>
     <div class="org-list">
       <div class="org-item" v-for="org in orgs" :key="org.orgId" @click="handleSwitch(org)">
         <div class="org-name">{{org.name}}</div>
@@ -17,6 +24,9 @@
         </div>
       </div>
     </div>
+    <el-popover ref="popover" placement="left" width="100" trigger="hover" v-model="popoverShow">
+      <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
+    </el-popover>
   </my-content>
 </template>
 
@@ -26,11 +36,20 @@ import { setOrg } from '@/api/admin/user'
 import MyContent from './MyContent'
 export default {
   components: { MyContent },
+  data () {
+    return {
+      popoverShow: false,
+    }
+  },
   computed: {
     ...mapGetters(['userInfo']),
     ...mapState({
       orgs: state => state.user.orgs,
+      identity: state => state.user.identity,
     }),
+    copyUrlText () {
+      return `${window.location.origin}/wel/org?orgId=${this.userInfo.orgId}&type=0`
+    },
   },
   methods: {
     ...mapActions([
@@ -76,7 +95,7 @@ export default {
 .org-list {
   margin-top: 15px;
   font-size: 15px;
-  height: 100px;
+  max-height: 112px;
   overflow-y: scroll;
   .org-item {
     display: flex;
@@ -100,6 +119,12 @@ export default {
       max-width: 150px;
     }
   }
+}
+.current-role {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 .current-label {
   border: 1px solid;

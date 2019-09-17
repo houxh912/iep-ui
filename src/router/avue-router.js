@@ -1,4 +1,7 @@
-let RouterPlugin = function () {
+
+import NotFoundRouterMap from './exception/notFoundRouterMap'
+
+const RouterPlugin = function () {
   this.$router = null
   this.$store = null
 }
@@ -147,6 +150,7 @@ RouterPlugin.install = function (router, store) {
       if (first) {
         if (!this.routerList.includes(aRouter[0][propsDefault.path])) {
           this.safe.$router.addRoutes(aRouter)
+          this.safe.$router.addRoutes(NotFoundRouterMap)
           this.routerList.push(aRouter[0][propsDefault.path])
         }
       } else {

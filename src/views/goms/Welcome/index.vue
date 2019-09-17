@@ -19,12 +19,7 @@
           <el-button :type="`${tabsActive==='1' ? 'primary':'default'}`" size="mini" @click="handleChangeTab('1')">创建组织</el-button>
         </div>
         <div class="bottom-wrapper">
-          <template v-if="tabsActive==='0'">
-            <join-org></join-org>
-          </template>
-          <div v-if="tabsActive==='1'" class="create-org-container">
-            <create-org></create-org>
-          </div>
+          <component ref="tabList" :is="activeTab"></component>
         </div>
       </div>
     </basic-container>
@@ -51,14 +46,20 @@ export default {
     tabsActive () {
       return this.$route.query.type || '0'
     },
+    activeTab () {
+      const componentsMap = {
+        '0': 'join-org',
+        '1': 'create-org',
+      }
+      return componentsMap[this.tabsActive]
+    },
   },
   methods: {
     handleChangeTab (key) {
-      this.$router.push({
+      const query = { type: key }
+      this.$router.replace({
         path: '/wel/org',
-        query: {
-          type: key,
-        },
+        query,
       })
     },
   },

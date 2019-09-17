@@ -189,7 +189,7 @@ export default {
         window.location.origin + '/#/authredirect'
       )
       if (thirdpart === 'wechat') {
-        appid = 'wxd1678d3f83b1d83a'
+        appid = 'wx2506d6d34d7a90aa'
         url =
           'https://open.weixin.qq.com/connect/qrconnect?appid=' +
           appid +

@@ -8,6 +8,9 @@
           {{userInfo.orgName}}
         </span>
         创建成功！
+        <div class="desc">
+          恭喜您已成功开启智慧组织之旅，您还需要招兵买马、备足粮草不断提升您组织的信用与竞争力！
+        </div>
       </div>
       <div class="container">
         <div class="title-label">你还需要：</div>
@@ -88,11 +91,14 @@ export default {
 }
 .top-title {
   border: 1px solid #d8d8d8;
-  background: #eee;
+  background: #f3f3f3;
   border-radius: 5px;
   text-align: center;
   font-size: 20px;
   padding: 20px;
+  .desc {
+    font-size: 16px;
+  }
   .success {
     color: #20d170;
     font-size: 30px;

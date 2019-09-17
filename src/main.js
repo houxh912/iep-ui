@@ -1,5 +1,4 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
 
 import './permission' // 权限
 import './error' // 日志
@@ -12,7 +11,7 @@ import './plugins/element'
 import './plugins/ant-design'
 import './core/use'
 
-Vue.use(VueRouter)
+
 
 Vue.config.productionTip = false
 

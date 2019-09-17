@@ -4,7 +4,7 @@
       <!-- <div class="important" slot="left">
         <el-button type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
       </div> -->
-      <el-button class="left" slot="left" type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
+      <el-button class="right" slot="left" type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
       <el-table :data="tableData" style="padding-bottom:20px;width: 100%" height="300px" @cell-click="handleDetail">
         <el-table-column prop="positionName" label="岗位名称">
         </el-table-column>
@@ -126,5 +126,14 @@ export default {
 }
 .leader-board >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
   display: block;
+}
+.leader-board >>> .title .right {
+  float: right;
+  padding: 0;
+  height: 24px;
+  color: #cb3737;
+}
+.leader-board >>> .title .right:hover {
+  opacity: 0.7;
 }
 </style>

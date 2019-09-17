@@ -1,7 +1,9 @@
 <template>
   <el-form :form="searchForm" label-width="80px" size="mini">
     <el-form-item label="所在组织">
-      <iep-select style="width:100%" v-model="searchForm.orgIds" multiple autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+      <el-select style="width:100%" v-model="searchForm.orgId" placeholder="请选择组织" clearable>
+        <el-option v-for="(item, index) in resdata" :key="index" :label="item.label" :value="item.value"></el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="及格状态">
       <el-select v-model="searchForm.state" clearable style="width:100%">
@@ -13,9 +15,6 @@
     <el-form-item label="排序方式">
       <el-select v-model="searchForm.sort" clearable style="width:100%">
         <el-option :key="0" :value="0" label="合格率从高到低"></el-option>
-        <el-option :key="1" :value="1" label="考试人数从高到低"></el-option>
-        <el-option :key="2" :value="2" label="及格人数从高到低"></el-option>
-        <el-option :key="3" :value="3" label="平均分数从高到低"></el-option>
       </el-select>
     </el-form-item>
     <el-form-item>
@@ -25,17 +24,17 @@
   </el-form>
 </template>
 <script>
-// import { getTestOption } from '@/api/exam/createExam/newTest/newTest'
+import { getOrgList } from '@/api/evaluate/org'
 export default {
   name: 'AdvanceSearch',
   data () {
     return {
       searchForm: {},
-      res: [],
+      resdata: [],
     }
   },
   created () {
-    // this.getTestOption()
+    this.getTestOption()
   },
   methods: {
     searchPage () {
@@ -44,15 +43,14 @@ export default {
     /**
      * 获取试题数据
      */
-    // async getTestOption () {
-    //   const params = {
-    //     numberList: [
-    //       'exms_subjects',//考试科目
-    //     ],
-    //   }
-    //   const { data } = await getTestOption(params)
-    //   this.res = data
-    // },
+    getTestOption () {
+      getOrgList().then(res => {
+        this.resdata = res.data.data
+      })
+
+    },
+
+
     /**
      * 清空按钮
      */

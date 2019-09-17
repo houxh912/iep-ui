@@ -28,6 +28,9 @@ export default {
 .school-board >>> .name {
   width: 85% !important;
 }
+.school-board >>> .grade {
+  width: 0 !important;
+}
 </style>
 
 

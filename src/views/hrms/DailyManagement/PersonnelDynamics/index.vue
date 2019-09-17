@@ -30,6 +30,7 @@ export default {
         {
           prop: 'id',
           label: '序号',
+          width: '55',
         },
         {
           prop: 'name',

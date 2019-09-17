@@ -1,15 +1,16 @@
 <template>
-  <div class="created">
-    <div class="title">我要创建</div>
-    <div class="created-content">
-      <div class="handelCreate" :class="item.disabled" v-for="(item,index) in dataList" :key="index" @click="item.callback">{{item.title}}</div>
+  <my-content class="my-content" title-name="我要创建">
+    <div class="my-wrapper">
+      <div :class="item.disabled" v-for="(item,index) in dataList" :key="index" @click="item.callback">{{item.title}}</div>
       <div v-show="false" class="add"><i class="el-icon-plus"></i></div>
     </div>
-  </div>
+  </my-content>
 </template>
 <script>
+import MyContent from './MyContent'
 import { mapMutations } from 'vuex'
 export default {
+  components: { MyContent },
   data () {
     return {
       dataList: [
@@ -93,30 +94,18 @@ export default {
     ...mapMutations({
       setApprovalDialogShow: 'SET_APPROVAL_DIALOG_SHOW',
     }),
-    //创建标签事件
-    handelCreate () {
-
-    },
-    //+添加事件
-    handelAdd () {
-
-    },
   },
 }
 </script>
 <style  lang="scss" scoped>
-.created {
-  box-sizing: border-box;
-  margin: 10px 5px;
-  .disabled {
+.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+  &:hover {
     color: #ccc;
-    cursor: not-allowed;
-    &:hover {
-      color: #ccc;
-    }
   }
 }
-.created-content {
+.my-wrapper {
   display: grid;
   grid-template-columns: auto auto auto auto;
   text-align: center;
@@ -135,11 +124,6 @@ export default {
   .add i {
     color: #999;
   }
-}
-.title {
-  padding: 0 0 10px;
-  font-size: 16px;
-  font-weight: 500;
 }
 </style>
 

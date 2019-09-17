@@ -1,7 +1,7 @@
 <template>
   <el-form :form="searchForm" label-width="80px" size="mini">
     <el-form-item label="考试名称">
-      <el-input v-model="searchForm.title"></el-input>
+      <el-input v-model="searchForm.title" clearable></el-input>
     </el-form-item>
     <el-form-item label="考试科目">
       <el-select v-model="searchForm.field" clearable style="width:100%">

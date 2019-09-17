@@ -38,15 +38,17 @@ const columnsMap = [
 
 const initSearchForm = () => {
   return {
-    serialNo: null, // 流水
-    rangeTime: null, // 日期
+    remarks: '', // 备注
+    serialNo: '', // 流水
+    rangeTime: '', // 日期
   }
 }
 const initDtoSearchForm = () => {
   return {
+    remarks: '', // 备注
     serialNo: '', // 流水
-    startTime: null, // 日期
-    endTime: null, // 日期
+    startTime: '', // 日期
+    endTime: '', // 日期
   }
 }
 const toDtoSearchForm = (row) => {

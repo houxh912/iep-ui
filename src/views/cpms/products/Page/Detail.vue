@@ -61,7 +61,7 @@ export default {
         label: '团队信息',
         value: 'TeamInfo',
       }, {
-        label: '全新版本',
+        label: '全部版本',
         value: 'Versions',
       }, {
         label: '包含产品模块',

@@ -1,7 +1,7 @@
 <template>
   <div class="GovLearn">
     <IepAppTabsCard isMore linkName="/app/resource/material">
-      <el-button class="btn left" slot="left" type="text" @click="getMore">新人必读</el-button>
+      <el-button class="btn right" slot="left" type="text" @click="getMore">新人必读</el-button>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='GovLearn'" v-slot:GovLearn>
           <gov-learn v-loading="activeTab !=='GovLearn'"></gov-learn>
@@ -42,15 +42,18 @@ export default {
 .GovLearn >>> .el-card {
   height: 374px;
 }
-.left {
+.right {
   position: absolute;
   top: 0px;
   right: 70px;
-  line-height: 50px;
+  line-height: 59px;
   padding: 0;
-  color: #BA1B21;
+  color: #cb3737;
   z-index: 3;
   transition: all 0.5s;
-  font-size: 18px;
+  font-size: 14px;
+}
+.right:hover {
+  opacity: 0.7;
 }
 </style>

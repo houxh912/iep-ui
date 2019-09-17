@@ -51,7 +51,7 @@ export default {
           name: '项目',
           data: this.counts.projectCount1,
           text: `（在建 ${this.counts.projectCount2}）`,
-          link: `/app/project_list?id=${this.$route.params.id}`,
+          link: `/app/resource/project_list?id=${this.$route.params.id}`,
         },
         {
           icon: 'icon-dangan',

@@ -12,13 +12,14 @@ export const dictsMap = {
 
 export const tableOption = [
   {
+    label: '分类名称',
+    prop: 'className',
+  }, {
+    label: '栏目编码',
+    prop: 'columnCode',
+  }, {
     label: '创建时间',
     prop: 'createTime',
-    width: '250',
-  }, {
-    label: '浏览次数',
-    prop: 'views',
-    width: '150',
   },
 ]
 

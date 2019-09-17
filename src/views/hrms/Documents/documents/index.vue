@@ -13,7 +13,7 @@
           <!-- <searchForm @searchPage="searchPage"></searchForm> -->
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="tableDictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange">
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -24,14 +24,16 @@
         </el-table-column>
       </iep-table>
     </div>
-    <form-tpl ref="local" @load-page="loadPage" v-if="pageState === 'form'"></form-tpl>
+    <form-tpl ref="form" @load-page="loadPage" v-if="pageState === 'form'" :classifiedList="classifiedList"></form-tpl>
     <classified ref="classified" @load-page="loadPage" v-if="pageState === 'classified'"></classified>
   </basic-container>
 </template>
 
 <script>
+import { getFilemanagePage, deleteFilemanage } from '@/api/hrms/iephrsystemfilemanage'
+import { getClassManageList } from '@/api/hrms/iephrclassmanage'
 import mixins from '@/mixins/mixins'
-import { tableOption, dictsMap } from './option'
+import { tableOption, dictsMap, tableDictsMap, changeDict } from './option'
 import FormTpl from './form'
 import classified from '../classified'
 
@@ -41,16 +43,27 @@ export default {
   data () {
     return {
       dictsMap,
+      tableDictsMap,
       columnsMap: tableOption,
       pageState: 'list',
+      classifiedList: [],
     }
   },
   methods: {
-    loadPage () {
+    loadPage (param = this.searchForm) {
+      this.loadClassList()
       this.pageState = 'list'
+      this.loadTable(param, getFilemanagePage)
     },
-    handleUpdate () {},
-    handleDelete () {},
+    handleUpdate (row) {
+      this.pageState = 'form'
+      this.$nextTick(() => {
+        this.$refs['form'].handleUpdate(row)
+      })
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.systemId, deleteFilemanage)
+    },
     searchPage () {},
     selectionChange () {},
     handleCreate () {
@@ -59,6 +72,13 @@ export default {
     // 分类管理
     handleClassified () {
       this.pageState = 'classified'
+    },
+    // 获取分类list
+    loadClassList () {
+      getClassManageList().then(({ data }) => {
+        this.classifiedList = data.data
+        this.$set(this.tableDictsMap, 'classId', changeDict(data.data, ['classId', 'className']))
+      })
     },
   },
   created () {

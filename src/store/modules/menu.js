@@ -1,5 +1,5 @@
 import { getStore, setStore } from '@/util/store'
-import { GetMenu } from '@/api/admin/menu'
+import { getMenu } from '@/api/admin/menu'
 import website from '@/const/website'
 import { isURL } from '@/util/validate'
 import keyBy from 'lodash/keyBy'
@@ -57,7 +57,7 @@ const menu = {
     // 获取系统菜单
     async GetMenu ({ commit, state, dispatch }) {
       await dispatch('ClearMenu')
-      const { data } = await GetMenu()
+      const { data } = await getMenu()
       const menu = deepClone(data.data)
       menu.forEach(ele => {
         addPath(ele)

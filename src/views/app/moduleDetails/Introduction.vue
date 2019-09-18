@@ -6,7 +6,7 @@
       </div>
       <div class="right">
         <div class="title">
-          <span class="name">{{form.name}}</span>
+          <iep-div-detail class="name" :value="form.name">{{form.name}}</iep-div-detail>
           <span class="status">{{dictsMap.schedule[form.schedule]}}</span>
         </div>
         <div class="tag">
@@ -87,9 +87,12 @@ export default {
     width: 940px;
     position: relative;
     .title {
+      display: -webkit-box;
+      width: 60%;
       height: 60px;
       line-height: 60px;
       .name {
+        width: 30%;
         font-size: 20px;
         color: #333;
       }

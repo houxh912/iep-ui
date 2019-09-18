@@ -57,6 +57,8 @@ export default {
               this.form = initForm()
             } else {
               this.$message(data.msg)
+              this.setApprenticeDialogShow(false)
+              this.form = initForm()
             }
           })
         }

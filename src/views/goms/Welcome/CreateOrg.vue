@@ -54,9 +54,6 @@ export default {
         orgType: [
           { required: true, message: '请选择类别', trigger: 'blur' },
         ],
-        logo: [
-          { required: true, message: '请输入LOGO', trigger: 'blur' },
-        ],
         intro: [
           { required: true, message: '请输入组织简介', trigger: 'blur' },
           { min: 3, max: 2000, message: '组织简介必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },

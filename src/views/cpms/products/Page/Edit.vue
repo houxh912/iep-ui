@@ -21,6 +21,9 @@
           <el-form-item label="组合系统网址：" prop="website" class="form-half">
             <el-input :maxlength="2010" v-model="form.website"></el-input>
           </el-form-item>
+          <iep-form-item label-name="考试地址" class="form-half" tip="请输入有效地址，如'/cpms_spa/product_edit'">
+            <el-input v-model="form.exam_address"></el-input>
+          </iep-form-item>
           <el-form-item label="上线时间：" prop="onlineTime" class="form-half">
             <iep-date-picker v-model="form.onlineTime" type="date" placeholder="请输入时间"></iep-date-picker>
           </el-form-item>

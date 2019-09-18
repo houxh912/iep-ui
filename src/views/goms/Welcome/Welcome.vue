@@ -118,7 +118,30 @@
         </div>
       </div>
     </div>
-    <div class="footer-container"></div>
+    <iep-divider></iep-divider>
+    <div class="congratulations-wrapper">
+      <div class="big-title">再一次恭喜您，您的组织竞争力优于<span>80%</span>的组织！</div>
+      <div>您可以选择</div>
+      <operation-wrapper>
+        <iep-button size="medium">继续学习如何打造智慧组织</iep-button>
+        <iep-button size="medium">即刻迈进智慧组织</iep-button>
+      </operation-wrapper>
+    </div>
+    <div class="footer-container">
+      <img src="/img/bg/org-wel.webp" alt="org-wel">
+      <div></div>
+      <div class="text">
+        <div>
+          如果您有相关疑问需要解答，
+        </div>
+        <div>
+          请随时联系客服小能，小能欢迎您的叨扰！
+        </div>
+        <div>
+          <iep-button type="primary" size="medium">联系客服</iep-button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -142,6 +165,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 70px;
+  height: 400px;
+  background: url("/img/bg/org-bg.webp") no-repeat;
+  background-size: contain;
+  .text {
+    font-size: 18px;
+    line-height: 50px;
+  }
+}
+.congratulations-wrapper {
+  .big-title {
+    font-size: 20px;
+  }
+  font-size: 16px;
+  text-align: center;
+  line-height: 50px;
+  span {
+    color: $--menu-color-primary;
+    font-size: 25px;
+  }
+}
 .org-task {
   display: flex;
   flex-direction: column;
@@ -197,6 +245,7 @@ export default {
   margin: 0 auto;
   margin-top: 20px;
   max-width: 1200px;
+  padding-bottom: 20px;
   .container {
     display: flex;
     margin-top: 40px;

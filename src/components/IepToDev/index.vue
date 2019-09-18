@@ -1,15 +1,9 @@
 <template>
-  <img class="img" :src="fackerImg"/>
+  <img class="img" src="/img/facker.webp" />
 </template>
 <script>
-const fackerImg = require('./facker.png')
 export default {
   name: 'IepToDev',
-  data () {
-    return {
-      fackerImg,
-    }
-  },
 }
 </script>
 <style scoped>

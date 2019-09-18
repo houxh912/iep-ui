@@ -194,11 +194,6 @@ export default {
     }
     .leader-btn {
       margin-left: 10px;
-      padding: 0;
-      width: 84px;
-      height: 30px;
-      line-height: 14px;
-      text-align: center;
       i {
         font-size: 14px;
       }

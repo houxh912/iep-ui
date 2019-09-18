@@ -96,7 +96,7 @@ export default {
   margin-top: 15px;
   font-size: 15px;
   max-height: 112px;
-  overflow-x: scroll;
+  overflow-x: hidden;
   .org-item {
     display: flex;
     justify-content: space-between;
@@ -148,11 +148,11 @@ export default {
 .org-list::-webkit-scrollbar {
   border-radius: 10px;
   width: 6px;
-  background-color: #fff;
+  /* background-color: #fff; */
 }
 .org-list::-webkit-scrollbar-track {
   border-radius: 10px;
-  background-color: #fff;
+  /* background-color: #fff; */
   transition: 0.3s background-color;
 }
 .org-list::-webkit-scrollbar-thumb {

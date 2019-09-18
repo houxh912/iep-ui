@@ -20,7 +20,7 @@
             {{getDictVal(scope.row.treatment, 'hrms_wages_salaries')}}
           </template>
         </el-table-column>
-        <el-table-column prop="orgName" label="需求组织">
+        <el-table-column prop="orgName" label="需求组织" max-width="190">
         </el-table-column>
       </el-table>
     </IepAppTabCard>

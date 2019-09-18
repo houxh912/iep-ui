@@ -45,7 +45,7 @@ export default {
   methods: {
     allDelete () {
       if (this.multipleSelection.length == 0) {
-        this.$message.error('请至少全部一项数据')
+        this.$message.error('请至少删除一项数据')
         return
       }
       deleteEmailReceiver(this.multipleSelection).then(() => {

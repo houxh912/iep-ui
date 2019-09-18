@@ -1,5 +1,5 @@
 <template>
-  <div class="input-wrapper">
+  <div class="input-wrapper" :class="{'advance-search': advanceSearch}">
     <el-input :placeholder="placeholder" prefix-icon="el-icon-search" size="small" @keyup.enter.native="handleSearch" v-model="input" :maxlength="120" clearable>
       <iep-button class="search-btn" slot="append" @click="handleSearch">搜索</iep-button>
     </el-input>
@@ -59,7 +59,7 @@ export default {
 .input-wrapper ::v-deep .el-input.is-active .el-input__inner {
   border-color: #c0c4cc;
 }
-.input-wrapper ::v-deep .el-input-group__append {
+.advance-search ::v-deep .el-input-group__append {
   border-radius: 0;
 }
 .input-wrapper ::v-deep .el-input__inner:focus {

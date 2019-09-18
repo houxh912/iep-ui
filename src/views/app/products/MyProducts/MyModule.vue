@@ -27,8 +27,8 @@
         <div v-for="(item,index) in moduleList" :key="index" class="piece" @click="getDetail(item.id)">
           <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
           <div class="text">
-            <span>{{item.name}}</span>
-            <span class="introduction">{{item.synopsis}}</span>
+            <iep-div-detail :value="item.name">{{item.name}}</iep-div-detail>
+            <iep-div-detail class="introduction" :value="item.synopsis">{{item.synopsis}}</iep-div-detail>
           </div>
         </div>
       </div>
@@ -180,22 +180,10 @@ export default {
         width: 440px;
         margin-left: 15px;
         text-align: left;
-        span {
-          display: block;
-          transition: 0.5s;
-          font-size: 16px;
-          height: 28px;
-          line-height: 28px;
-        }
         .introduction {
           font-size: 14px;
           color: #999;
           height: 56px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
         }
       }
       &:hover .text {

@@ -98,10 +98,11 @@ export default {
       })
     },
     handleGWClick () {
-      this.$router.push('/cpms_spa/product_edit/0')
+      window.location.href = this.form.website
     },
     handleTestClick () {
-      // this.$router.push('/app/resource/product_ku')
+      const newUrl = this.form.exam_address ? this.form.exam_address : ''
+      this.$router.push(`${newUrl}`)
     },
     handleGoBack () {
       this.$router.push('/app/resource/product_ku')

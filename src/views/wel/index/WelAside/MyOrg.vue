@@ -17,7 +17,7 @@
       <iep-button type="primary" v-popover:popover plain>组织邀请</iep-button>
     </div>
     <div class="org-list">
-      <div class="org-item" v-for="org in orgs" :key="org.orgId" @click="handleSwitch(org)">
+      <div class="org-item" :class="{'disabled':org.orgId === userInfo.orgId}" v-for="org in orgs" :key="org.orgId" @click="handleSwitch(org)">
         <div class="org-name">{{org.name}}</div>
         <div class="switch-icon">
           <a-icon type="swap" />
@@ -61,6 +61,9 @@ export default {
       this.$openPage('/wel/org?type=1')
     },
     async handleSwitch (org) {
+      if (org.orgId === this.userInfo.orgId) {
+        return
+      }
       this.$confirm(`是否切换为${org.name}`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -104,6 +107,17 @@ export default {
     padding: 3px 0;
     padding-left: 15px;
     cursor: pointer;
+    &.disabled {
+      cursor: not-allowed;
+      color: #999;
+      &:hover {
+        border-color: $--menu-color-primary;
+        background-color: transparent;
+        .switch-icon {
+          display: none;
+        }
+      }
+    }
     &:hover {
       border-color: $--menu-color-primary;
       background-color: #eee;
@@ -112,6 +126,7 @@ export default {
       }
     }
     .switch-icon {
+      color: $--menu-color-primary;
       display: none;
       margin-right: 10px;
     }

@@ -13,8 +13,8 @@
         <div v-for="(item,index) in moduleList" :key="index" class="piece" @click="handleleDetail(item)">
           <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
           <div class="text">
-            <span>{{item.name}}</span>
-            <span class="introduction">{{item.synopsis}}</span>
+            <iep-div-detail :value="item.name">{{item.name}}</iep-div-detail>
+            <iep-div-detail class="introduction" :value="item.synopsis">{{item.synopsis}}</iep-div-detail>
           </div>
         </div>
       </div>

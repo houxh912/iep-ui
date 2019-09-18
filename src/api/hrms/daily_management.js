@@ -10,6 +10,14 @@ export function getLaborContractPage (query) {
   })
 }
 
+export function sendLaborContractEmail (ids) {
+  return request({
+    url: `${prefixUrl}/relation/labor_contract/email`,
+    method: 'post',
+    data: ids,
+  })
+}
+
 export function getPersonnelDynamicsPage (query) {
   return request({
     url: `${prefixUrl}/administrative_approval/personnel/page`,

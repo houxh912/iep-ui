@@ -233,11 +233,11 @@ export default {
   },
 }
 </script>
-<style scoped>
-.table >>> .th {
+<style lang="scss" scoped>
+.table ::v-deep .th {
   background: #ccc;
 }
-.table >>> .ms-tree-space {
+.table ::v-deep .ms-tree-space {
   position: relative;
   top: 1px;
   font-style: normal;
@@ -246,14 +246,14 @@ export default {
   width: 18px;
   height: 14px;
 }
-.table >>> .cell {
+.table ::v-deep .cell {
   display: flex;
   flex-wrap: wrap;
 }
-.table >>> .cell-master {
+.table ::v-deep .cell-master {
   background-color: #fff;
 }
-.table >>> .cell-child {
+.table ::v-deep .cell-child {
   background-color: #fafafa;
 }
 span.ms-tree-space {

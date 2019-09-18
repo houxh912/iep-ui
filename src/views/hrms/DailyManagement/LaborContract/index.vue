@@ -3,15 +3,15 @@
     <basic-container>
       <iep-page-header title="劳动合同"></iep-page-header>
       <operation-container>
-        <template slot="right">
-          <iep-button @click="handleBatchMessage">批量提醒</iep-button>
+        <template slot="left">
+          <iep-button @click="handleBatchMessage">批量邮件提醒</iep-button>
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
-      <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :checkbox-init="checkboxInit" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="序号" width="55">
             <template slot-scope="scope">
@@ -24,11 +24,11 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作" width="150">
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" @click="openEmployeeProfile(scope.row)" plain>编辑</iep-button>
-              <iep-button @click="sendMessage(scope.row)">提醒</iep-button>
+              <iep-button v-if="(!scope.row.isSent) && scope.row.sortNumber" @click="sendMessage(scope.row)">邮件提醒</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -38,25 +38,41 @@
 </template>
 
 <script>
-import { getLaborContractPage } from '@/api/hrms/daily_management'
-import { createEmail } from '@/api/mlms/email/index'
+import { getLaborContractPage, sendLaborContractEmail } from '@/api/hrms/daily_management'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
   data () {
     return {
+      checkboxInit: (row) => {
+        if ((!row.isSent) && row.sortNumber)
+          return 1 //不可勾选
+        else
+          return 0 //可勾选
+      },
+      dictsMap: {
+        isSent: {
+          0: '未发',
+          1: '已发',
+        },
+      },
       columnsMap: [
         {
           prop: 'startTime',
-          label: '开始时间',
+          label: '劳动合同开始时间',
           type: 'date',
           formatString: 'YYYY-MM-DD',
         },
         {
           prop: 'endTime',
-          label: '结束时间',
+          label: '劳动合同到期时间',
           type: 'date',
           formatString: 'YYYY-MM-DD',
+        },
+        {
+          prop: 'isSent',
+          label: '到期提醒状态',
+          type: 'dict',
         },
         {
           prop: 'companyName',
@@ -70,23 +86,24 @@ export default {
     this.loadPage()
   },
   methods: {
-    _createForm (userIds = []) {
-      return {
-        subject: '劳动合同到期提醒',
-        receiverIds: userIds,
-        content: '您的劳动合同即将到期，请及时签约新的合同。',
-      }
-    },
     handleSelectionChange (val) {
-      this.multipleSelection = val.map(m => m.userId)
+      this.multipleSelection = val.map(m => m.id)
     },
     async handleBatchMessage () {
-      const { data } = await createEmail(this._createForm(this.multipleSelection))
-      console.log(data)
+      const { data } = await sendLaborContractEmail(this.multipleSelection)
+      if (data.data) {
+        this.loadPage()
+      } else {
+        this.$message(data.msg)
+      }
     },
     async sendMessage (row) {
-      const { data } = await createEmail(this._createForm([row.userId]))
-      console.log(data)
+      const { data } = await sendLaborContractEmail([row.id])
+      if (data.data) {
+        this.loadPage()
+      } else {
+        this.$message(data.msg)
+      }
     },
     openEmployeeProfile (row) {
       this.$openPage(`/hrms_spa/employee_profile_edit/${row.userId}`)

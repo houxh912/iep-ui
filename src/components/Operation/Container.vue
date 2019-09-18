@@ -31,12 +31,10 @@ export default {
     }
   }
 }
-</style>
-<style scoped>
-.operation-container >>> .el-checkbox-group {
+.operation-container ::v-deep .el-checkbox-group {
   margin-left: 10px;
 }
-.operation-container >>> .el-checkbox {
+.operation-container ::v-deep .el-checkbox {
   margin-right: 10px;
 }
 </style>

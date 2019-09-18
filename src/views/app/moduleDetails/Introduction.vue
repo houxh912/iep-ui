@@ -6,7 +6,7 @@
       </div>
       <div class="right">
         <div class="title">
-          <span class="name">{{form.name}}</span>
+          <iep-div-detail class="name" :value="form.name">{{form.name}}</iep-div-detail>
           <span class="status">{{dictsMap.schedule[form.schedule]}}</span>
         </div>
         <div class="tag">
@@ -14,8 +14,8 @@
         </div>
         <span class="updateTime">更新时间：{{form.updateTime}}</span>
         <el-button class="join" @click.stop="handleModuleClick">加入定制</el-button>
-        <el-button class="use">立即使用</el-button>
-        <el-button class="text">模块考试</el-button>
+        <el-button class="use" @click.stop="handleUseClick">立即使用</el-button>
+        <el-button class="text" @click.stop="handleTestClick">模块考试</el-button>
       </div>
     </el-card>
   </div>
@@ -39,6 +39,13 @@ export default {
       putModuleById(this.id).then(() => {
         this.$router.push('/app/resource/product_ku')
       })
+    },
+    handleUseClick () {
+      window.location.href = this.form.website
+    },
+    handleTestClick () {
+      const newUrl = this.form.exam_address ? this.form.exam_address : ''
+      this.$router.push(`${newUrl}`)
     },
   },
 }
@@ -80,9 +87,12 @@ export default {
     width: 940px;
     position: relative;
     .title {
+      display: -webkit-box;
+      width: 60%;
       height: 60px;
       line-height: 60px;
       .name {
+        width: 30%;
         font-size: 20px;
         color: #333;
       }

@@ -4,7 +4,7 @@
     <div class="title">
       <div>{{title}}</div>
     </div>
-    <IepAppListCard :dataList="form.materialRelations.map(m => m.name)"></IepAppListCard>
+    <IepAppListCard @click="handleDetail" :dataList="form.materialRelations"></IepAppListCard>
   </div>
 </template>
 <script>
@@ -14,6 +14,11 @@ export default {
     return {
       title: '相关材料',
     }
+  },
+  methods: {
+    handleDetail (val) {
+      this.$router.push(`/mlms_spa/material/detail/${val.id}`)
+    },
   },
 }
 </script>

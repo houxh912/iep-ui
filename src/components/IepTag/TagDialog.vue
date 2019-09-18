@@ -76,8 +76,8 @@ export default {
   },
 }
 </script>
-<style scoped>
-.tag-list >>> .ant-tag {
+<style lang="scss" scoped>
+.tag-list ::v-deep .ant-tag {
   margin-bottom: 5px;
 }
 .tag-list {

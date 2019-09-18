@@ -94,7 +94,7 @@ export default {
 <style lang="scss" scoped>
 .org-list {
   margin-top: 15px;
-  font-size: 15px;
+  font-size: 14px;
   max-height: 112px;
   overflow-x: hidden;
   .org-item {
@@ -127,8 +127,8 @@ export default {
   margin-top: 10px;
 }
 .current-label {
-  border: 1px solid;
-  color: #aaa;
+  border: 1px solid #999;
+  color: #999;
   padding: 1px 4px;
 }
 .current-name {

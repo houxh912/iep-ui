@@ -22,6 +22,7 @@
   </div>
 </template>
 <script>
+import { createClassManage, updateClassManage } from '@/api/hrms/iephrclassmanage'
 import { initFormData, dictsMap, rules } from './option'
 
 export default {
@@ -41,6 +42,7 @@ export default {
         },
       },
       dialogShow: false,
+      requestFn: () => {},
     }
   },
   methods: {
@@ -52,17 +54,35 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
+          this.requestFn(this.formData).then(({ data }) => {
+            this.loadState = false
+            if (data.data) {
+              this.$message.success('保存成功！')
+              this.resetForm()
+              this.$emit('load-page', true)
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
         } else {
           return false
         }
       })
     },
-    open () {
+    open (type, formData) {
       this.dialogShow = true
+      if (type === 'create') {
+        this.requestFn = createClassManage
+        this.methodName = '新增'
+      } else {
+        this.requestFn = updateClassManage
+        this.methodName = '修改'
+        this.formData = formData
+      }
     },
   },
   created () {
-
+    
   },
 }
 </script>

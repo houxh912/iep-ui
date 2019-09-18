@@ -4,11 +4,14 @@
       <iep-page-header title="劳动合同"></iep-page-header>
       <operation-container>
         <template slot="right">
+          <iep-button @click="handleBatchMessage">批量提醒</iep-button>
+        </template>
+        <template slot="right">
           <operation-search @search-page="searchPage">
           </operation-search>
         </template>
       </operation-container>
-      <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table class="dept-table" :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
         <template slot="before-columns">
           <el-table-column label="序号" width="55">
             <template slot-scope="scope">
@@ -21,9 +24,12 @@
             </template>
           </el-table-column>
         </template>
-        <el-table-column label="操作" width="100">
+        <el-table-column label="操作" width="150">
           <template slot-scope="scope">
-            <iep-button type="warning" @click="openEmployeeProfile(scope.row)" plain>编辑</iep-button>
+            <operation-wrapper>
+              <iep-button type="warning" @click="openEmployeeProfile(scope.row)" plain>编辑</iep-button>
+              <iep-button @click="sendMessage(scope.row)">提醒</iep-button>
+            </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
@@ -33,6 +39,7 @@
 
 <script>
 import { getLaborContractPage } from '@/api/hrms/daily_management'
+import { createEmail } from '@/api/mlms/email/index'
 import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
@@ -63,6 +70,24 @@ export default {
     this.loadPage()
   },
   methods: {
+    _createForm (userIds = []) {
+      return {
+        subject: '劳动合同到期提醒',
+        receiverIds: userIds,
+        content: '您的劳动合同即将到期，请及时签约新的合同。',
+      }
+    },
+    handleSelectionChange (val) {
+      this.multipleSelection = val.map(m => m.userId)
+    },
+    async handleBatchMessage () {
+      const { data } = await createEmail(this._createForm(this.multipleSelection))
+      console.log(data)
+    },
+    async sendMessage (row) {
+      const { data } = await createEmail(this._createForm([row.userId]))
+      console.log(data)
+    },
     openEmployeeProfile (row) {
       this.$openPage(`/hrms_spa/employee_profile_edit/${row.userId}`)
     },

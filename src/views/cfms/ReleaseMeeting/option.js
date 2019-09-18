@@ -19,4 +19,17 @@ const initForm = () => {
     sendDraft: 2, //发送/草稿
   }
 }
-export { initForm }
+const rules = {
+  meetingTitle: [{ required: true, message: '请输入会议标题', trigger: 'blur' }],
+  meetingType: [{ required: true, message: '请选择会议类型', trigger: 'change' }],
+  meetingScale: [{ required: true, message: '请输入会议规模', trigger: 'blur' }],
+  meetingTimeStart: [{ required: true, message: '请选择开始时间', trigger: 'blur' }],
+  meetingTimeEnd: [{ required: true, message: '请选择结束时间', trigger: 'blur' }],
+  cityAdrss: [{ required: true, message: '请选择地址', trigger: 'change' }],
+  meetingClasses1: [{ required: true, message: '请选择会议分类', trigger: 'change' }],
+  tags: [{ required: true, message: '请添加标签', trigger: 'blur' }],
+  meetingHighlights: [{ required: true, message: '请输入会议亮点', trigger: 'blur' }],
+  content: [{ required: true, message: '请输入会议详情', trigger: 'blur' }],
+  attachs: [{ required: true, message: '请上传海报', trigger: 'change' }],
+}
+export { initForm, rules }

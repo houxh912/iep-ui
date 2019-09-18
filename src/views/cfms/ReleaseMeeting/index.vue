@@ -2,15 +2,15 @@
   <div class="iep-page-form">
     <basic-container>
       <iep-page-header title="发布会议"></iep-page-header>
-      <el-form :model="formData" label-width="120px" ref="formName">
+      <el-form :model="formData" label-width="120px" ref="formName" :rules="rules">
         <el-row>
           <el-col>
-            <el-form-item label="会议标题：">
+            <el-form-item label="会议标题：" prop="meetingTitle">
               <el-input v-model="formData.meetingTitle"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="会议类型：">
+            <el-form-item label="会议类型：" prop="meetingType">
               <el-select v-model="formData.meetingType">
                 <el-option v-for="item in meetingTypeOption" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
@@ -19,7 +19,7 @@
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="会议规模：">
+            <el-form-item label="会议规模：" prop="meetingScale">
               <!-- <el-select v-model="formData.meetingScale">
                 <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
                 </el-option>
@@ -35,18 +35,18 @@
             </el-form-item>
           </el-col> -->
           <el-col :span='12'>
-            <el-form-item label="开始日间：">
+            <el-form-item label="开始日间：" prop="meetingTimeStart">
               <IepDatePicker v-model="formData.meetingTimeStart" :picker-options="signTimeOption" type="datetime" class="time"></IepDatePicker>
             </el-form-item>
           </el-col>
           <el-col :span='12'>
-            <el-form-item label="结束时间：">
+            <el-form-item label="结束时间：" prop="meetingTimeEnd">
               <IepDatePicker v-model="formData.meetingTimeEnd" :picker-options="finishTimeOption" type="datetime" class="time"></IepDatePicker>
             </el-form-item>
           </el-col>
 
           <el-col :span="12">
-            <el-form-item label="会议地址：">
+            <el-form-item label="会议地址：" prop="cityAdrss">
               <div style="display:flex;">
                 <iep-cascader style="flex:2;" v-model="formData.cityAdrss" prefix-url="admin/city"></iep-cascader>
                 <el-input style="flex:3;" v-model="formData.meetingAddress"></el-input>
@@ -54,7 +54,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="会议分类：">
+            <el-form-item label="会议分类：" prop="meetingClasses1">
               <el-checkbox-group v-model="formData.meetingClasses1">
                 <el-checkbox v-for="item in this.arr" :key="item.id" :label="item.id" name="leixing">{{item.name}}</el-checkbox>
               </el-checkbox-group>
@@ -91,22 +91,22 @@
           </el-col> -->
 
           <el-col>
-            <el-form-item label="会议标签：">
+            <el-form-item label="会议标签：" prop="tags">
               <iep-tag v-model="formData.tags"></iep-tag>
             </el-form-item>
           </el-col>
           <el-col>
-            <el-form-item label="会议亮点：">
+            <el-form-item label="会议亮点：" prop="meetingHighlights">
               <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" v-model="formData.meetingHighlights" placeholder="请填写几句会议核心亮点"></el-input>
             </el-form-item>
           </el-col>
           <el-col>
-            <el-form-item label="会议详情：">
+            <el-form-item label="会议详情：" prop="content">
               <iep-froala-editor v-model="formData.content"></iep-froala-editor>
             </el-form-item>
           </el-col>
           <el-col>
-            <el-form-item label="海报：">
+            <el-form-item label="海报：" prop="attachs">
               <!-- <iep-avatar v-model="formData.attachs"></iep-avatar> -->
               <avatar-img v-model="formData.attachs"></avatar-img>
             </el-form-item>
@@ -116,7 +116,7 @@
       <el-row>
         <el-col :offset="9">
           <iep-button class="button" type="primary" @click="draft('formName')">草稿</iep-button>
-          <!-- <iep-button class="button" type="primary" @click="preview('formName')">预览 </iep-button> -->
+          <iep-button class="button" type="primary" @click="preview('formName')">预览 </iep-button>
           <iep-button class="button" type="primary" @click="submitForm('formName')">发布</iep-button>
         </el-col>
       </el-row>
@@ -125,7 +125,7 @@
   </div>
 </template>
 <script>
-import { initForm } from './option'
+import { initForm, rules } from './option'
 import { mapGetters } from 'vuex'
 import { postMeetingmarketing, getCodeName, getdic } from '@/api/mcms/meeting'
 import AvatarImg from './IepAvatar.vue'
@@ -135,6 +135,7 @@ export default {
   data () {
     return {
       formData: initForm(),
+      rules,
       arr: [],
       tagId: [],
       tagLabel: [],
@@ -197,17 +198,18 @@ export default {
     preview (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let arr = this.formData.cityAdrss.map(m => Number(m))
-          getCodeName({ codes: arr }).then((res) => {
+          getCodeName({ codes: this.formData.cityAdrss }).then((res) => {
             console.log(res)
-          })
-          this.$router.push({
-            path: '/cfms_spa/meeting_detail',
-            query: {
-              preview: true,
-              data: this.formData,
-              orgVo: { url: this.userInfo.avatar, name: this.userInfo.orgName },
-            },
+            this.$router.push({
+              path: '/cfms_spa/meeting_detail',
+              query: {
+                preview: true,
+                data: this.formData,
+                orgVo: { url: this.userInfo.avatar, name: this.userInfo.orgName },
+                province: res.data.province,
+                city: res.data.city,
+              },
+            })
           })
         } else {
           return false
@@ -222,22 +224,22 @@ export default {
     //添加标签
     AddTags () {
       this.$refs['TagDialog'].dialogShow = true
-      getdic({ number: 'meetingmarketing', type: 1,source:1, dictId: this.formData.meetingClasses1 }).then((res) => {
+      getdic({ number: 'meetingmarketing', type: 1, source: 1, dictId: this.formData.meetingClasses1 }).then((res) => {
         this.$refs['TagDialog'].cities = res.data
       })
     },
     closeTag (tag) {
-      const tags = this.tags.filter(m => m.tagId != tag.tagId)
+      const tags = this.tags.filter(m => m.id != tag.id)
       this.tags = tags
     },
     tag (val) {
       this.tags = val
     },
     submitForm (formName) {
-      this.formData.meetingUrl = window.location.host + '/cfms_spa/meeting_detail'
-      this.formData.meetingClasses2 = this.tags.map(m => m.id)
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.formData.meetingUrl = window.location.host + '/cfms_spa/meeting_detail'
+          this.formData.meetingClasses2 = this.tags.map(m => m.id)
           postMeetingmarketing(this.formData).then((res) => {
             this.$message({
               message: res.data.msg,

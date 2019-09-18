@@ -30,7 +30,7 @@
                   </el-col>
                   <el-col :span="12">
                     <div class="userName">
-                      <iep-button type="primary" @click="handleSignUp">我要报名</iep-button>
+                      <iep-button type="primary" @click="handleSignUp" :disabled="this.$route.query.preview">我要报名</iep-button>
                     </div>
                   </el-col>
                 </el-row>
@@ -95,7 +95,10 @@
         </div>
         <!-- 标签 -->
         <iep-page-header title="会议标签"></iep-page-header>
-        <div class="tag">
+        <div class="tag" v-if="this.$route.query.preview">
+          <div v-for="item in form.tags" :key="item" class="allTag">{{item}}</div>
+        </div>
+        <div class="tag" v-else>
           <div v-for="item in form.tags" :key="item.id" class="allTag">{{item.name}}</div>
         </div>
         <el-col :span="16">
@@ -121,6 +124,7 @@ import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
 // import { initForm, initFormTwo, initFormThree, initFormFour, initFormFive } from './option'
 import { initForm, rules } from './option'
 import { postMeetingsignup, getmeetingmarketing } from '@/api/mcms/meeting'
+import { mapGetters } from 'vuex'
 export default {
   components: { BaiduMap },
   data () {
@@ -143,8 +147,14 @@ export default {
       rules,
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'dictGroup',
+    ]),
+  },
   created () {
-    // console.log(this.$route.params)
+    console.log(this.dictGroup)
     this.loadPage()
   },
   methods: {
@@ -165,6 +175,8 @@ export default {
         this.form.orgVo = { url: '', name: '' }
         this.form.urls = this.$route.query.data.attachs
         this.form.orgVo = this.$route.query.orgVo
+        this.form.address = this.$route.query.province + this.$route.query.city + this.$route.query.data.meetingAddress
+        this.address = this.$route.query.province
       }
     },
     //报名

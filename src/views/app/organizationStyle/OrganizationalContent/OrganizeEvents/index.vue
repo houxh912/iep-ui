@@ -1,6 +1,6 @@
 <template>
   <div class="organiz-events">
-    <IepAppTabsCard :linkName="linkName">
+    <IepAppTabsCard :linkName="linkName" isMore>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
         <template v-if="activeTab ==='OrganizeDynamic'" v-slot:OrganizeDynamic>
           <organize-dynamic v-loading="activeTab !=='OrganizeDynamic'" :orgId="orgId"></organize-dynamic>
@@ -33,7 +33,7 @@ export default {
         value: 'OrganizeDynamic',
       }],
       activeTab: 'OrganizeDynamic',
-      linkName: '',
+      linkName: `/app/organization_details/memorabilia?id=${this.$route.params.id}`,
     }
   },
 }

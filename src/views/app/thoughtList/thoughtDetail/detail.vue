@@ -67,6 +67,11 @@ export default {
   margin: auto;
   width: 1200px;
 }
+@media (max-width: 1400px) {
+  .list {
+    width: calc(100% - 200px);
+  }
+}
 </style>
 <style scoped>
 .breadcrumb-wrapper >>> .el-breadcrumb__inner.is-link {

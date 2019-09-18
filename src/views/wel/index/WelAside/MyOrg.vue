@@ -96,7 +96,7 @@ export default {
   margin-top: 15px;
   font-size: 15px;
   max-height: 112px;
-  overflow-y: scroll;
+  overflow-x: scroll;
   .org-item {
     display: flex;
     justify-content: space-between;
@@ -142,5 +142,27 @@ export default {
   &:hover {
     color: #cb132d;
   }
+}
+</style>
+<style scoped>
+.org-list::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  background-color: #fff;
+}
+.org-list::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #fff;
+  transition: 0.3s background-color;
+}
+.org-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  transition: 0.3s background-color;
+  display: none;
+  transition: all 0.5s;
+}
+.org-list:hover::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>

@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .iep-scroll {
   max-width: 100%;
   max-height: 100%;

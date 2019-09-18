@@ -5,21 +5,13 @@
       <operation-container>
         <template slot="right">
           <el-button-group>
-            <iep-button size="middle" type="primary" plain>本月</iep-button>
-            <iep-button size="middle" type="primary" plain>本年</iep-button>
-            <iep-button size="middle" type="primary" plain>全部</iep-button>
+            <iep-button size="small" type="primary" plain>本月</iep-button>
+            <iep-button size="small" type="primary" plain>本年</iep-button>
+            <iep-button size="small" type="primary" plain>全部</iep-button>
           </el-button-group>
         </template>
       </operation-container>
-      <iep-table
-        :isLoadTable="isLoadTable"
-        :columnsMap="columnsMap"
-        :dictsMap="dictsMap"
-        :pagination="pagination"
-        :pagedTable="pagedTable"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      >
+      <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>

@@ -47,7 +47,7 @@ export default {
   },
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .input-wrapper {
   display: flex;
   max-width: 350px;
@@ -56,22 +56,27 @@ export default {
 .input-wrapper > * {
   margin-right: 5px;
 }
-.input-wrapper >>> .el-input.is-active .el-input__inner {
+.input-wrapper ::v-deep .el-input.is-active .el-input__inner {
   border-color: #c0c4cc;
 }
-.input-wrapper >>> .el-input__inner:focus {
+.input-wrapper ::v-deep .el-input-group__append {
+  border-radius: 0;
+}
+.input-wrapper ::v-deep .el-input__inner:focus {
   border-color: #c0c4cc;
 }
-.input-wrapper >>> .senior-btn {
+.input-wrapper ::v-deep .senior-btn {
   margin-left: -6px;
-  padding: 9px 5px;
+  padding: 8px 5px;
   border-radius: 0 3px 3px 0;
 }
-.input-wrapper >>> .el-input-group {
+.input-wrapper ::v-deep .el-input-group {
   width: inherit;
 }
-.search-btn:hover,
-.search-btn:focus {
-  opacity: 0.8;
+.search-btn {
+  &:focus,
+  &:hover {
+    opacity: 0.8;
+  }
 }
 </style>

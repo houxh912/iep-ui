@@ -24,7 +24,7 @@
           <div class="user-operation-box">
             <div class="operation-box-con">
               <iep-button class="leader-btn" type="primary" size="mini" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
-              <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" size="mini" type="primary" icon="el-icon-s-marketing" plain @click="handleSome2()">领导桌面</iep-button>
+              <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" size="mini" type="primary" icon="el-icon-monitor" plain @click="handleSome2()">领导桌面</iep-button>
             </div>
             <div class="user-tags-box">
               <div class="user-height">

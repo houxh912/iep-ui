@@ -1,118 +1,120 @@
 <template>
-  <div>
-    <basic-container>
-      <div class="wrap">
-        <el-row>
-          <el-col :span="12">
-            <!-- <div class='img'>图片</div> -->
-            <el-image :src="form.urls" class="img"></el-image>
-          </el-col>
-          <el-col :span="12">
-            <el-row>
-              <el-col>
-                <div class="title">{{form.meetingTitle}}</div>
-              </el-col>
-              <el-col>
-                <div class="time">{{form.meetingTimeStart}} ～ {{form.meetingTimeEnd}}</div>
-                <div class="number">限额：{{form.meetingScale}}人</div>
-              </el-col>
-              <el-col>
-                <div class="address">{{form.address}}</div>
-              </el-col>
-              <el-col>
-                <el-row class="name">
-                  <el-col :span="4">
-                    <!-- <el-image :src="form.orgVo.url" class="avater"></el-image> -->
-                    <iep-img-avatar :size="50" :src="form.orgVo.url" alt="头像"></iep-img-avatar>
-                  </el-col>
-                  <el-col :span="4">
-                    <div class="userName">{{form.orgVo.name}}</div>
-                  </el-col>
-                  <el-col :span="16">
-                    <div class="userName">
-                      <iep-button type="primary" @click="handleSignUp">我要报名</iep-button>
-                    </div>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-          </el-col>
-        </el-row>
+  <el-scrollbar style="height:100%">
+    <div>
+      <basic-container>
+        <div class="wrap">
+          <el-row>
+            <el-col :span="12">
+              <!-- <div class='img'>图片</div> -->
+              <el-image :src="form.urls" class="img"></el-image>
+            </el-col>
+            <el-col :span="12">
+              <el-row>
+                <el-col>
+                  <div class="title">{{form.meetingTitle}}</div>
+                </el-col>
+                <el-col>
+                  <div class="time">{{form.meetingTimeStart}} ～ {{form.meetingTimeEnd}}</div>
+                  <div class="number">限额：{{form.meetingScale}}人</div>
+                </el-col>
+                <el-col>
+                  <div class="address">{{form.address}}</div>
+                </el-col>
+                <el-col>
+                  <el-row class="name">
+                    <el-col :span="4">
+                      <!-- <el-image :src="form.orgVo.url" class="avater"></el-image> -->
+                      <iep-img-avatar :size="50" :src="form.orgVo.url" alt="头像"></iep-img-avatar>
+                    </el-col>
+                    <el-col :span="4">
+                      <div class="userName">{{form.orgVo.name}}</div>
+                    </el-col>
+                    <el-col :span="16">
+                      <div class="userName">
+                        <iep-button type="primary" @click="handleSignUp">我要报名</iep-button>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </el-col>
+              </el-row>
+            </el-col>
+          </el-row>
 
-        <!-- 报名 -->
-        <el-row class="numberTop" v-if="isShow">
-          <el-col :span="2">
-            <div class="selectNumber">选择数量</div>
-          </el-col>
-          <el-col :span="22">
-            <el-input-number v-model="ticketNumber" :min="1" :max="5" label="描述文字" @change="handleChange"></el-input-number>
-          </el-col>
-        </el-row>
+          <!-- 报名 -->
+          <el-row class="numberTop" v-if="isShow">
+            <el-col :span="2">
+              <div class="selectNumber">选择数量</div>
+            </el-col>
+            <el-col :span="22">
+              <el-input-number v-model="ticketNumber" :min="1" :max="5" label="描述文字" @change="handleChange"></el-input-number>
+            </el-col>
+          </el-row>
 
-        <el-row class="formTitle" v-if="isShow">
-          <h3>请填写公司信息</h3>
-        </el-row>
+          <el-row class="formTitle" v-if="isShow">
+            <h3>请填写公司信息</h3>
+          </el-row>
 
-        <div class="form" v-if="isShow">
-          <el-form label-width="120px" :model="formData" label-position="top" :ref="'ValidateForm'" v-for="(formData,index) in formData" :key="index" :rules="rules">
-            <el-row>
-              <el-col>
-                <div class="Line"></div>
-              </el-col>
-              <el-col>
-                <el-form-item label="公司:" prop="companyName">
-                  <el-input v-model="formData.companyName"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col>
-                <el-form-item label="职位:" prop="position">
-                  <el-input v-model="formData.position"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col>
-                <el-form-item label="姓名:" prop="name">
-                  <el-input v-model="formData.name"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col>
-                <el-form-item label="联系电话:" prop="phoneNumber">
-                  <el-input v-model="formData.phoneNumber"></el-input>
-                </el-form-item>
-              </el-col>
-              <el-col>
-                <el-form-item label="电子邮箱:" prop="email">
-                  <el-input v-model="formData.email"></el-input>
-                </el-form-item>
-              </el-col>
-              <!-- <el-col>
+          <div class="form" v-if="isShow">
+            <el-form label-width="120px" :model="formData" label-position="top" :ref="'ValidateForm'" v-for="(formData,index) in formData" :key="index" :rules="rules">
+              <el-row>
+                <el-col>
+                  <div class="Line"></div>
+                </el-col>
+                <el-col>
+                  <el-form-item label="公司:" prop="companyName">
+                    <el-input v-model="formData.companyName"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col>
+                  <el-form-item label="职位:" prop="position">
+                    <el-input v-model="formData.position"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col>
+                  <el-form-item label="姓名:" prop="name">
+                    <el-input v-model="formData.name"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col>
+                  <el-form-item label="联系电话:" prop="phoneNumber">
+                    <el-input v-model="formData.phoneNumber"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col>
+                  <el-form-item label="电子邮箱:" prop="email">
+                    <el-input v-model="formData.email"></el-input>
+                  </el-form-item>
+                </el-col>
+                <!-- <el-col>
                 <el-form-item label="选择数量:">
                   <el-input-number v-model="formData.ticketNumber" :min="1" :max="10" label="描述文字"></el-input-number>
                 </el-form-item>
               </el-col> -->
-            </el-row>
-          </el-form>
-          <iep-button type="primary" @click="submitForm('ValidateForm')">报名</iep-button>
-        </div>
-        <!-- 标签 -->
-        <!-- <iep-page-header title="会议标签"></iep-page-header>
+              </el-row>
+            </el-form>
+            <iep-button type="primary" @click="submitForm('ValidateForm')">报名</iep-button>
+          </div>
+          <!-- 标签 -->
+          <!-- <iep-page-header title="会议标签"></iep-page-header>
         <div class="tag"></div> -->
-        <el-col :span="16">
-          <iep-page-header title="会议内容"></iep-page-header>
-          <div class="content">
-            <iep-html v-model="form.content"></iep-html>
-          </div>
-          <!-- <el-input type="textarea" :autosize="{ minRows: 20, maxRows: 25}" v-model="form.content" readonly></el-input> -->
-        </el-col>
-        <el-col :span="8">
-          <iep-page-header title="会议地点"></iep-page-header>
-          <div class="map">
-            <baidu-map class="bm-view" ak="RingkKMiGtHhO44e91clv6GgRV4nZDxT" :center="address">
-            </baidu-map>
-          </div>
-        </el-col>
-      </div>
-    </basic-container>
-  </div>
+          <el-col :span="16">
+            <iep-page-header title="会议内容"></iep-page-header>
+            <div class="content">
+              <iep-html v-model="form.content"></iep-html>
+            </div>
+            <!-- <el-input type="textarea" :autosize="{ minRows: 20, maxRows: 25}" v-model="form.content" readonly></el-input> -->
+          </el-col>
+          <el-col :span="8">
+            <iep-page-header title="会议地点"></iep-page-header>
+            <div class="map">
+              <baidu-map class="bm-view" ak="RingkKMiGtHhO44e91clv6GgRV4nZDxT" :center="address">
+              </baidu-map>
+            </div>
+          </el-col>
+        </div>
+      </basic-container>
+    </div>
+  </el-scrollbar>
 </template>
 <script>
 import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
@@ -142,7 +144,6 @@ export default {
     }
   },
   created () {
-    // console.log(this.$route.params)
     this.loadPage()
   },
   methods: {
@@ -150,7 +151,9 @@ export default {
       //链接
       if (this.$route.params.id) {
         getmeetingmarketing(this.$route.params.id).then(res => {
+          console.log(res)
           this.form = res.data.data
+          console.log(this.form)
           this.address = res.data.data.province
         })
       }

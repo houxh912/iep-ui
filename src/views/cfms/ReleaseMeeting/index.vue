@@ -35,7 +35,7 @@
             </el-form-item>
           </el-col> -->
           <el-col :span='12'>
-            <el-form-item label="开始日间：" prop="meetingTimeStart">
+            <el-form-item label="开始时间：" prop="meetingTimeStart">
               <IepDatePicker v-model="formData.meetingTimeStart" :picker-options="signTimeOption" type="datetime" class="time"></IepDatePicker>
             </el-form-item>
           </el-col>

@@ -105,7 +105,7 @@ export default {
           clientName: formData.clientName, // 客户名称 clientName
           projectName: formData.projectName, // 项目名称 projectName
           businessType: formData.businessType.map(m => m.commonId), // 业务类型 businessType
-          intentionLevel: formData.intentionLevelKey, // 意向程度 intentionLevel
+          intentionLevel: formData.intentionLevel[0].commonId, // 意向程度 intentionLevel
           tags: formData.tags.map(m => m.commonName), // 商机标签 businessTag
           opportunityDes: formData.opportunityDes, // 商机描述
         }

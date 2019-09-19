@@ -31,7 +31,7 @@ export default {
         },
         honor: {
           name: '荣誉资质',
-          path: '',
+          path: '/mlms_spa/aptitude/detail/',
         },
       },
     }

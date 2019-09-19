@@ -1,20 +1,19 @@
 <template>
-  <my-content class="my-content" title-name="所属组织">
+  <my-content class="my-content" :title-name="`我的SO(${orgs.length})`">
     <template v-slot:stitle>
-      <div class="sub-title" @click="handleCreate">
-        创建组织
-      </div>
+      <iep-button size="mini" @click="handleCreate">创建SO</iep-button>
     </template>
-    <div class="current-org">
-      <span class="current-label">当前</span>
-      <span class="current-name">{{userInfo.orgName}}</span>
-    </div>
-    <div class="current-role">
-      <div>
-        <span>组织角色：</span>
-        <span>{{identity}}</span>
+    <div class="current-wrapper">
+      <div class="current-org">
+        <span>{{userInfo.orgName}}</span>
       </div>
-      <iep-button type="primary" v-popover:popover plain>组织邀请</iep-button>
+      <div class="current-role">
+        <div>
+          <span>SO角色：</span>
+          <span>{{identity}}</span>
+        </div>
+        <iep-button type="primary" size="mini" v-popover:popover plain>入驻邀请</iep-button>
+      </div>
     </div>
     <div class="org-list">
       <div class="org-item" :class="{'disabled':org.orgId === userInfo.orgId}" v-for="org in orgs" :key="org.orgId" @click="handleSwitch(org)">
@@ -25,7 +24,7 @@
       </div>
     </div>
     <el-popover ref="popover" placement="left" width="100" trigger="hover" v-model="popoverShow">
-      <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
+      <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制SO链接</el-link>
     </el-popover>
   </my-content>
 </template>
@@ -72,7 +71,7 @@ export default {
         await this.ClearMenu()
         const loading = this.$loading({
           lock: true,
-          text: '组织切换中....',
+          text: 'SO切换中....',
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.7)',
         })
@@ -81,7 +80,7 @@ export default {
         await this.GetMenu()
         loading.close()
         this.$message({
-          message: '组织切换成功！',
+          message: 'SO切换成功！',
           type: 'success',
         })
         this.$router.push({
@@ -121,6 +120,7 @@ export default {
     &:hover {
       border-color: $--menu-color-primary;
       background-color: #eee;
+      color: $--menu-color-primary;
       .switch-icon {
         display: block;
       }
@@ -128,34 +128,24 @@ export default {
     .switch-icon {
       color: $--menu-color-primary;
       display: none;
-      margin-right: 10px;
+      margin-right: 10px 15px;
     }
     .org-name {
       max-width: 150px;
     }
   }
 }
+.current-wrapper {
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  padding: 10px;
+  font-size: 15px;
+}
 .current-role {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
-}
-.current-label {
-  border: 1px solid;
-  color: #aaa;
-  padding: 1px 4px;
-}
-.current-name {
-  font-size: 15px;
-  margin-left: 5px;
-}
-.sub-title {
-  font-size: 12px;
-  cursor: pointer;
-  color: #999;
-  &:hover {
-    color: #cb132d;
-  }
 }
 </style>

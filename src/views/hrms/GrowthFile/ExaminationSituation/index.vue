@@ -13,7 +13,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getTestRecordList } from '@/api/exam/personalCenter/testRecord/testRecord.js'
+import { getTestRecordPage } from '@/api/exam/personalCenter/testRecord/testRecord.js'
 export default {
   mixins: [mixins],
   data () {
@@ -27,6 +27,7 @@ export default {
         {
           prop: 'fieldName',
           label: '科目',
+          width: '200',
         },
         {
           prop: 'title',
@@ -49,7 +50,7 @@ export default {
   },
   methods: {
     loadPage (param = this.searchForm) {
-      this.loadTable({ ...param, userId: this.id }, getTestRecordList)
+      this.loadTable({ ...param, userId: this.id }, getTestRecordPage)
     },
   },
 }

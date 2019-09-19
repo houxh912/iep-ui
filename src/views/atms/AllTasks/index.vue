@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <page-header title="全部任务"></page-header>
+      <iep-page-header title="全部任务"></iep-page-header>
       <el-card class="box" shadow="hover">
         <div class="total-wrapper">
           <div class="total-item" @click="cSelectTpye('all')">
@@ -47,7 +47,7 @@
           <el-table-column label="状态">
             <template slot-scope="scope">
               {{scope.row.taskStatus}}
-              <span></span> 
+              <span></span>
             </template>
           </el-table-column>
           <el-table-column label="创建人">

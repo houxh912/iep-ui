@@ -16,6 +16,18 @@ export function getTestRecordList (params) {
 }
 
 /**
+ * 获取专题考试分页
+ * @param {Object} params 参数
+ */
+export function getTestRecordPage (params) {
+  return request({
+    url: '/exms/iepexamination/selectByUserId/page',
+    method: 'get',
+    params: params,
+  })
+}
+
+/**
  * 获取证书
  * @param {Object} params 参数
  */

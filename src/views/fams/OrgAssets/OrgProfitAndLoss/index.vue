@@ -52,7 +52,7 @@
             {{`${qichuzhi_edit ? `(${calculateSign(scope.row.projectInitialValue)}) (${calculateSign(scope.row.costInitialValue, false)})` : ''}`}}
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作">
+        <el-table-column prop="operation" label="操作" width="150">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleFee(scope.row)">查看费用明细</iep-button>

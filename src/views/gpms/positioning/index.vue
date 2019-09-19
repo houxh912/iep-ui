@@ -20,7 +20,7 @@
                 <span style="color:#000;">{{myData.projectTagList}}</span>
                 主题的项目。</p>
               <p v-else style="font-size:24px;color:#ba1a22;">您还未参与任何项目</p>
-              <p style="color:#666;">请继续努力，发挥自身价值，成为更优秀的国脉人！</p>
+              <p style="color:#666;">请继续努力，发挥自身价值，成为更优秀的人！</p>
             </div>
           </el-col>
         </el-row>

@@ -205,22 +205,18 @@ export default {
       this.formData.hostName = this.formData.host.length > 0 ? this.formData.host[0].name : '无'
       // 获取人物
       let fn = (obj) => {
-        let msg = ''
+        let list = []
         for (let key in obj) {
-          if (obj[key] !== null) {
-            for (let item of obj[key]) {
-              msg += item.name + '、'
-            }
-          }
+          list = list.concat(obj[key].map(m => m.name))
         }
-        if (msg === '') {
+        if (list.length === 0) {
           return '无'
         } else {
-          return msg.slice(0, msg.length - 1)
+          return list.join('、')
         }
       }
-      this.formData.attendeeName = fn(this.formData.attendee) // 参会人
-      this.formData.receiverName = fn(this.formData.receiver) // 参会人
+      this.formData.attendeeName = fn(this.formData.attendeeList) // 参会人
+      this.formData.receiverName = fn(this.formData.receiverList) // 参会人
     },
     // 收藏
     handleCollect () {

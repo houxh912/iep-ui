@@ -6,9 +6,9 @@
           <el-radio-button label="views">按热度</el-radio-button>
           <el-radio-button label="refers">按应用</el-radio-button>
         </el-radio-group>
-        <iep-tabs v-model="activeTab" :tab-list="tabList">
+        <iep-tabs v-model="activeTab" :tab-list="tabLists">
           <template v-if="activeTab ==='All'" v-slot:All>
-            <all v-loading="activeTab !=='All'" :descs="descs"></all>
+            <all ref="tagtab" v-loading="activeTab !=='All'" :descs="descs" @load_total="loadTotal"></all>
           </template>
           <template v-if="activeTab ==='OrgTags'" v-slot:OrgTags>
             <org-tags v-loading="activeTab !=='OrgTags'"></org-tags>
@@ -46,31 +46,59 @@ export default {
     SkillTags,
     CompreTags,
   },
+  computed: {
+    tabLists () {
+      let list = []
+      for (let item of this.tabList) {
+        list.push({
+          label: `${item.label}（${item.total}）`,
+          value: item.value,
+        })
+      }
+      return list
+    },
+  },
   data () {
     return {
       linkName: '',
       descs: '',
       tabList: [{
-        label: '所有标签(430)',
+        label: '所有标签',
         value: 'All',
+        total: 0,
       }, {
-        label: '组织运维类(30)',
+        label: '组织运维类',
         value: 'OrgTags',
+        total: 30,
       }, {
-        label: '行业知识类(30)',
+        label: '行业知识类',
         value: 'IndustryTag',
+        total: 30,
       }, {
-        label: '业务技能类(30)',
+        label: '业务技能类',
         value: 'BusinessTags',
+        total: 30,
       }, {
-        label: '技术能力类(30)',
+        label: '技术能力类',
         value: 'SkillTags',
+        total: 30,
       }, {
-        label: '综合类(30)',
+        label: '综合类',
         value: 'CompreTags',
+        total: 30,
       }],
       activeTab: 'All',
     }
+  },
+  methods: {
+    search (form) {
+      if (this.$refs['tagtab']) {
+        this.$refs['tagtab'].searchPage(form)
+      }
+    },
+    loadTotal (total, index) {
+      this.tabList[index].total = total
+    },
   },
 }
 </script>

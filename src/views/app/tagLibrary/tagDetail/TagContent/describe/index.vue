@@ -20,7 +20,7 @@
 </template>
 <script>
 import { initFormData, rules } from './option'
-import { postTagDesc } from '@/api/tms/description'
+import { postTagDesc, putTagDesc } from '@/api/tms/description'
 
 export default {
   components: {  },
@@ -29,7 +29,6 @@ export default {
       loadState: false,
       rules,
       formData: initFormData(),
-      methodName: '新增',
       backOption: {
         isBack: true,
         backPath: null,
@@ -38,6 +37,8 @@ export default {
         },
       },
       dialogShow: false,
+      requestFn: postTagDesc,
+      methodName: '新增',
     }
   },
   methods: {
@@ -49,11 +50,11 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
-          postTagDesc(this.formData).then(({ data }) => {
+          this.requestFn(this.formData).then(({ data }) => {
             this.loadState = false
             if (data.data) {
               this.dialogShow = false
-              this.$message.success('新增成功！')
+              this.$message.success(`${this.methodName}成功！`)
               this.$emit('load-page', true)
             } else {
               this.$message.error(data.msg)
@@ -66,6 +67,10 @@ export default {
       })
     },
     open (row) {
+      if (row.descriptionId) {
+        this.requestFn = putTagDesc
+        this.methodName = '修改'
+      }
       this.dialogShow = true
       this.formData = Object.assign({}, this.formData, row)
     },

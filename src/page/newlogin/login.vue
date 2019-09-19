@@ -172,7 +172,7 @@ export default {
             if (this.$route.query.redirect) {
               this.$openPage(this.$route.query.redirect)
             } else {
-              this.$openPage(this.$route.query.redirect)
+              this.$openPage('/')
             }
           } catch (error) {
             this.$message.error(error.message)

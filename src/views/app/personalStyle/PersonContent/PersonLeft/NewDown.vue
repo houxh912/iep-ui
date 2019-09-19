@@ -63,7 +63,7 @@ export default {
       this.$router.push(`/app/personal_style/${row.visitorId}`)
     },
     getImpressionById () {
-      getImpressionByUserId({userId: this.$route.params.id, size: 30}).then(({ data }) => {
+      getImpressionByUserId({userId: this.$route.params.id, size: 999}).then(({ data }) => {
         this.tagList = data.records
       })
     },

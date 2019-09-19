@@ -44,11 +44,12 @@ deploy_release_job:
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host $DEPLOY_SERVER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
     - rsync -rav -e 'ssh -p 10061' --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH"
-deploy_i_can_job:
+
+deploy_release_ican_job:
   image: alpine
-  stage: deploy-i-can
+  stage: deploy-release-ican
   only:
-    - deploy-i-can
+    - deploy-release-ican
   tags:
     - bmc
   script:
@@ -58,7 +59,7 @@ deploy_i_can_job:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host $DEPLOY_SERVER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - rsync -rav -e 'ssh -p 10061' --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH_WONENG"
+    - rsync -rav -e "ssh -p $DEPLOY_PORT" --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH_WONENG"
 
 deploy_master_job:
   image: alpine
@@ -73,5 +74,21 @@ deploy_master_job:
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - echo -e "Host $DEPLOY_SERVER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - rsync -rav -e 'ssh -p 10061' --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH"
+    - echo -e "Host $DEPLOY_SERVER_MASTER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    - rsync -rav --delete dist/ "$DEPLOY_SERVER_MASTER:$SERVER_DEV_PATH_MASTER"
+
+deploy_master_ican_job:
+  image: alpine
+  stage: deploy-master-ican
+  only:
+    - deploy-master-ican
+  tags:
+    - bmc
+  script:
+    - echo "http://mirrors.aliyun.com/alpine/v3.8/main/" > /etc/apk/repositories
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo -e "Host $DEPLOY_SERVER_MASTER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    - rsync -rav --delete dist/ "$DEPLOY_SERVER_MASTER:$SERVER_DEV_PATH_WONENG"

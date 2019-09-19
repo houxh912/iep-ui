@@ -15,7 +15,7 @@
     </el-row>
     <el-row>
       <el-col :span="24">
-        <span>详情介绍：</span>
+        <span style="vertical-align:top;">详情介绍：</span>
         <iep-html style="display: inline-block;" v-model="form.description"></iep-html>
       </el-col>
     </el-row>

@@ -26,18 +26,6 @@ export default [
         name: '工资条',
         component: () => import(/* webpackChunkName: "fams" */'@/views/fams/FinancialManagement/SalaryManagement/PayrollDetail.vue'),
       },
-      // {
-      //   path: 'invoice_detail_approval/:id',
-      //   name: '报销审批详情',
-      //   redirect: () => {
-      //     return {
-      //       path: '/fams_spa/invoice_detail/:id',
-      //       query: {
-      //         isApproval: 'true',
-      //       },
-      //     }
-      //   },
-      // },
       {
         path: 'invoice_detail/:id',
         name: '报销详情',
@@ -53,18 +41,6 @@ export default [
         name: '费用详情',
         component: () => import(/* webpackChunkName: "fams" */'@/views/fams/wealth/Fee/Detail.vue'),
       },
-      // {
-      //   path: 'fee_detail_approval/:id',
-      //   name: '费用审批详情',
-      //   redirect: () => {
-      //     return {
-      //       path: '/fams_spa/fee_detail/:id',
-      //       query: {
-      //         isApproval: 'true',
-      //       },
-      //     }
-      //   },
-      // },
       {
         path: 'fee_edit/:id',
         name: '费用编辑',
@@ -104,11 +80,6 @@ export default [
         path: 'change_shareholder/:id',
         name: '变更股东',
         component: () => import(/* webpackChunkName: "fams" */'@/views/fams/Investment/Management/ChangeShareholder/index.vue'),
-      },
-      {
-        path: 'management_detail/:id',
-        name: '投资管理详情',
-        component: () => import(/* webpackChunkName: "fams" */'@/views/fams/Investment/ManagementDetail/index.vue'),
       },
       {
         path: 'union_borrow_detail/:id',

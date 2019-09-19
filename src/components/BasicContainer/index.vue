@@ -41,11 +41,3 @@ export default {
   }
 }
 </style>
-<style lang="css" scoped>
-.basic-container > .el-card .el-input.is-active .el-input__inner,
-.basic-container > .el-card .el-input__inner:focus,
-.basic-container > .el-textarea__inner,
-.basic-container > .el-textarea__inner:focus {
-  border-color: #c0c4cc;
-}
-</style>

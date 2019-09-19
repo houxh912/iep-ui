@@ -1,7 +1,7 @@
 <template>
   <div class="abs iep-page-form">
     <basic-container>
-      <page-header :title="`${methodName}任务`"></page-header>
+      <iep-page-header :title="`${methodName}任务`"></iep-page-header>
       <el-form :model="form" :rules="rules" size="small" ref="form" label-width="200px" class="form form-detail">
         <el-form-item label='任务名称：' prop="taskName">
           <el-input v-model="form.taskName" placeholder="请填写任务名称" maxlength="50"></el-input>
@@ -19,7 +19,7 @@
         <el-form-item label='优先级：' prop="priority" class="form-half">
           <iep-dict-select v-model="form.priority" placeholder="普通" dict-name="atms_task_priority"></iep-dict-select>
         </el-form-item>
-        
+
         <el-form-item label='负责人：' prop="principals" v-if="!this.id">
           <div style="width: 200px;">
             <iep-contact-select v-model="form.principals"></iep-contact-select>
@@ -29,14 +29,14 @@
         <el-form-item label='协同人：' prop="assistants">
           <iep-contact-multiple-user v-model="form.assistants"></iep-contact-multiple-user>
         </el-form-item>
-        
+
         <el-form-item label='执行人：' prop="executors">
           <iep-contact-multiple-user v-model="form.executors"></iep-contact-multiple-user>
         </el-form-item>
 
         <el-form-item label='起止时间：' prop="startEndTime" class="form-half">
           <iep-date-picker v-model="form.startEndTime" type="daterange" align="right" unlink-panels range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-              </iep-date-picker>
+          </iep-date-picker>
         </el-form-item>
 
         <el-form-item label='标签：' prop="tagKeyWords">
@@ -59,7 +59,7 @@
           <el-button @click="handleAdd"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-form-item>
         <el-form-item></el-form-item>
-        
+
         <div v-for="(item, index) in relatedFormList" :key="index">
           <el-form-item :label="`${item.name}：`" v-if="form[item.list].length>0">
             <ul class="relevance-list">
@@ -97,7 +97,7 @@ export default {
       },
       form: initForm(),
       rules,
-      limit:1,
+      limit: 1,
       relatedFormList,
     }
   },
@@ -105,7 +105,7 @@ export default {
     if (this.id) {
       getAtmsById(this.id).then(({ data }) => {
         this.form = this.$mergeByFirst(initForm(), data.data)
-        this.form.startEndTime=[this.form.startTime,this.form.endTime]
+        this.form.startEndTime = [this.form.startTime, this.form.endTime]
         this.form.parentId == 0 ? this.form.parentId = '' : this.form.parentId
         if (this.form.projectList.length > 0) {
           this.form.projectId = this.form.projectList[0].id
@@ -113,7 +113,7 @@ export default {
         }
       })
     } else {
-       this.form = initForm(this.userInfo)
+      this.form = initForm(this.userInfo)
     }
   },
   computed: {
@@ -143,7 +143,7 @@ export default {
             this.form.startTime = this.form.startEndTime[0]
             this.form.endTime = this.form.startEndTime[1]
           }
-          this.form.principal=this.form.principals.id
+          this.form.principal = this.form.principals.id
           delete this.form.principals
           delete this.form.summaryList
           delete this.form.materialList
@@ -201,7 +201,5 @@ export default {
       cursor: pointer;
     }
   }
-} 
-
-
+}
 </style>

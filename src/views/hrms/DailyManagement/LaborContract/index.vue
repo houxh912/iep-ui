@@ -106,7 +106,7 @@ export default {
       }
     },
     openEmployeeProfile (row) {
-      this.$openPage(`/hrms_spa/employee_profile_edit/${row.userId}`)
+      this.$openPage(`/hrms_spa/employee_profile_edit/${row.userId}#LaborContract`)
     },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getLaborContractPage)

@@ -170,9 +170,9 @@ export default {
             this.loginLoading = true
             await this.LoginByUsername(this.form)
             if (this.$route.query.redirect) {
-              this.$router.push({ path: this.$route.query.redirect })
+              this.$openPage(this.$route.query.redirect)
             } else {
-              this.$router.push({ path: this.tagWel.value })
+              this.$openPage(this.$route.query.redirect)
             }
           } catch (error) {
             this.$message.error(error.message)

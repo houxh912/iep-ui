@@ -1,8 +1,9 @@
 stages:
   - build
-  - deploy-release
   - deploy-master
-  - deploy-i-can
+  - deploy-release
+  - deploy-master-ican
+  - deploy-release-ican
 
 cache:
   key: ${CI_COMMIT_REF_NAME}

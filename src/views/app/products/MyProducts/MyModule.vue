@@ -27,8 +27,8 @@
         <div v-for="(item,index) in moduleList" :key="index" class="piece" @click="getDetail(item.id)">
           <iep-img class="img" :src="item.imageUrl" alt=""></iep-img>
           <div class="text">
-            <iep-div-detail :value="item.name">{{item.name}}</iep-div-detail>
-            <iep-div-detail class="introduction" :value="item.synopsis">{{item.synopsis}}</iep-div-detail>
+            <iep-div-detail :value="item.name"></iep-div-detail>
+            <iep-div-detail class="introduction" :value="item.synopsis"></iep-div-detail>
           </div>
         </div>
       </div>

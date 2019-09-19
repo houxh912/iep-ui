@@ -10,6 +10,13 @@
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+        <template slot="before-columns">
+          <el-table-column label="申请人" width="120px">
+            <template slot-scope="scope">
+              <iep-table-link @click="handleDetail(scope.row)">{{scope.row.name}}</iep-table-link>
+            </template>
+          </el-table-column>
+        </template>
       </iep-table>
     </basic-container>
   </div>
@@ -27,15 +34,6 @@ export default {
   data () {
     return {
       columnsMap: [
-        {
-          prop: 'id',
-          label: '序号',
-          width: '55',
-        },
-        {
-          prop: 'name',
-          label: '姓名',
-        },
         {
           prop: 'applyType',
           label: '变动类型',
@@ -63,6 +61,11 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleDetail (row) {
+      this.$router.push({
+        path: `/hrms_spa/approval_detail/${row.id}`,
+      })
+    },
     loadPage (param = this.searchForm) {
       this.loadTable(param, getPersonnelDynamicsPage)
     },

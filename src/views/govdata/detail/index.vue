@@ -30,10 +30,10 @@
         <div class="detail-box">
           <div class="box">发文时间：{{resdata.publishTime |dateFormat}} </div>
           <div class="box">适用行业：{{resdata.industryList}}</div>
-          <div class="box">主题：{{resdata.themeList}}</div>
+          <div class="box">适用对象：{{resdata.targetList}} </div>
         </div>
         <div class="detail-box">
-          <div class="box">适用对象：{{resdata.targetList}} </div>
+          <div class="box">主题：{{resdata.themeList}}</div>
         </div>
       </div>
 
@@ -182,9 +182,9 @@ export default {
     flex: 1 1 100%;
     .title {
       line-height: 1.5;
-      font-size: 34px;
-      font-weight: 700;
-      color: #444;
+      font-size: 22px;
+      font-weight: 400;
+      color: #333;
     }
     .tip {
       margin: 15px auto 10px;
@@ -197,12 +197,13 @@ export default {
       }
     }
     .tag {
-      font-size: 13px;
-      color: #999;
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.65);
     }
   }
   .detail {
     margin: 20px 0;
+    padding: 20px 0;
     border: 1px solid #eee;
     border-width: 1px 0;
     background: #f6f6f6;
@@ -211,11 +212,21 @@ export default {
       height: 30px;
       display: flex;
       .box {
-        width: 33%;
+        width: 30%;
         line-height: 30px;
         font-size: 14px;
         color: #666;
         margin: 0 20px;
+        &:nth-child(2n) {
+          margin: 0;
+          width: 45%;
+        }
+        &:nth-child(3n) {
+          width: 25%;
+        }
+      }
+      &:last-child .box {
+        width: 100%;
       }
     }
   }
@@ -236,9 +247,14 @@ export default {
 </style>
 
 <style  scoped>
-.tag >>> .el-tag {
+.tag >>> .el-tag.el-tag--info {
   margin-left: 10px;
   height: 24px !important;
   line-height: 22px !important;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.65);
+}
+.tag >>> .el-tag:hover {
+  opacity: 0.85;
 }
 </style>

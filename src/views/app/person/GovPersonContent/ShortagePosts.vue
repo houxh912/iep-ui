@@ -33,6 +33,8 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+
+
       title: '紧缺岗位',
       data: '（53个）',
       linkName: '',

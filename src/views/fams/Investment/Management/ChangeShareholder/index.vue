@@ -13,8 +13,7 @@
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增股东</iep-button>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" prop="realName">
-          </operation-search>
+          <operation-search @search-page="searchPage" prop="userName"></operation-search>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">

@@ -1,4 +1,4 @@
-import { getStore, removeStore, setStore } from '@/util/store'
+import { getStore, setStore } from '@/util/store'
 import website from '@/const/website'
 
 const common = {
@@ -7,14 +7,11 @@ const common = {
     screen: -1,
     windowSize: { width: 0, height: 0 },
     isWelcome: getStore({ name: 'isWelcome' }) || false,
-    isExperimental: getStore({ name: 'isExperimental' }) ? getStore({ name: 'isExperimental' }) : true,
     isLock: getStore({ name: 'isLock' }) || false,
     showCollapse: getStore({ name: 'showCollapse' }) || false,
     showSearch: getStore({ name: 'showSearch' }) || false,
-    showLock: getStore({ name: 'showLock' }) || false,
     showMenu: getStore({ name: 'showMenu' }) || false,
     showMoney: getStore({ name: 'showMoney' }) || false,
-    lockPasswd: getStore({ name: 'lockPasswd' }) || '',
     website: website,
   },
   actions: {},
@@ -24,13 +21,6 @@ const common = {
       setStore({
         name: 'isWelcome',
         content: state.isWelcome,
-      })
-    },
-    SET_EXPERIMENTAL: state => {
-      state.isExperimental = !state.isExperimental
-      setStore({
-        name: 'isExperimental',
-        content: state.isExperimental,
       })
     },
     SET_COLLAPSE: state => {
@@ -57,13 +47,6 @@ const common = {
         content: state.showMoney,
       })
     },
-    SET_SHOWLOCK: (state, active) => {
-      state.showLock = active
-      setStore({
-        name: 'showLock',
-        content: state.showLock,
-      })
-    },
     SET_SHOWSEARCH: (state, active) => {
       state.showSearch = active
       setStore({
@@ -71,37 +54,11 @@ const common = {
         content: state.showSearch,
       })
     },
-    SET_LOCK: state => {
-      state.isLock = true
-      setStore({
-        name: 'isLock',
-        content: state.isLock,
-        type: 'session',
-      })
-    },
     SET_SCREEN: (state, screen) => {
       state.screen = screen
     },
     SET_WINDOWSIZE: (state, size) => {
       state.windowSize = size
-    },
-    SET_LOCK_PASSWD: (state, lockPasswd) => {
-      state.lockPasswd = lockPasswd
-      setStore({
-        name: 'lockPasswd',
-        content: state.lockPasswd,
-        type: 'session',
-      })
-    },
-    CLEAR_LOCK: state => {
-      state.isLock = false
-      state.lockPasswd = ''
-      removeStore({
-        name: 'lockPasswd',
-      })
-      removeStore({
-        name: 'isLock',
-      })
     },
   },
 }

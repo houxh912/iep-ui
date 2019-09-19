@@ -17,7 +17,8 @@
     </div>
     <div class="org-list">
       <div class="org-item" :class="{'disabled':org.orgId === userInfo.orgId}" v-for="org in orgs" :key="org.orgId" @click="handleSwitch(org)">
-        <div class="org-name">{{org.name}}</div>
+        <iep-div-detail class="org-name" :value="org.name"></iep-div-detail>
+        <!-- <div class="org-name" :title="org.name">{{org.name}}</div> -->
         <div class="switch-icon">
           <a-icon type="swap" />
         </div>
@@ -110,8 +111,9 @@ export default {
       cursor: not-allowed;
       color: #999;
       &:hover {
-        border-color: $--menu-color-primary;
+        border-color: #eee;
         background-color: transparent;
+        color: #999;
         .switch-icon {
           display: none;
         }

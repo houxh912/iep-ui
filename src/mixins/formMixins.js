@@ -20,11 +20,15 @@ export default {
       let message = ''
       for (const key in error) {
         if (error.hasOwnProperty(key)) {
-          const element = error[key]
-          message = element[0].message
+          const i = Object.keys(error).indexOf(key)
+          if (i === 0) {
+            const element = error[key]
+            message = element[0].message
+            this.$message(message)
+            break
+          }
         }
       }
-      this.$message(message)
     },
     async mixinsForm (formRefName = 'form') {
       this.submitFormLoading = true
@@ -36,7 +40,6 @@ export default {
           return false
         }
       } catch (error) {
-        console.log(error)
         this.mixinsMessage(error)
         this.submitFormLoading = false
         return false
@@ -55,7 +58,6 @@ export default {
         }
         this.submitFormLoading = false
       } catch (error) {
-        console.log(error)
         this.mixinsMessage(error)
         this.submitFormLoading = false
         yield false

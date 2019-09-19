@@ -1,5 +1,7 @@
 <template>
-  <component @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  <keep-alive include="List">
+    <component @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
+  </keep-alive>
 </template>
 
 <script>

@@ -58,4 +58,4 @@ deploy_master_job:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host $DEPLOY_SERVER_MASTER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - rsync -rav -e "ssh -p $DEPLOY_PORT_MASTER" --delete dist/ "$DEPLOY_SERVER_MASTER:$SERVER_DEV_PATH_MASTER"
+    - rsync -rav --delete dist/ "$DEPLOY_SERVER_MASTER:$SERVER_DEV_PATH_MASTER"

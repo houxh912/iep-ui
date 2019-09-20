@@ -18,9 +18,9 @@
           <el-form-item label="组合系统分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="PRODUCT_TYPE"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="组合系统网址：" prop="website" class="form-half">
-            <el-input :maxlength="2010" v-model="form.website"></el-input>
-          </el-form-item>
+          <iep-form-item label-name="组合系统网址" prop="website" class="form-half" tip="请输入有效地址，如'https://www.baidu.com'">
+            <el-input :maxlength="110" v-model="form.website"></el-input>
+          </iep-form-item>
           <iep-form-item label-name="考试地址" class="form-half" tip="请输入有效地址，如'/cpms_spa/product_edit'">
             <el-input v-model="form.exam_address"></el-input>
           </iep-form-item>

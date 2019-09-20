@@ -305,7 +305,7 @@ export default {
             }
           }
           .span-list {
-            width: 630px;
+            width: 100%;
             display: inline-block;
             height: 40px;
             line-height: 40px;

@@ -12,7 +12,7 @@
         </div>
         <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
           <template slot="before-columns">
-            <el-table-column label="名称">
+            <el-table-column label="名称" width="200">
               <template slot-scope="scope">
                 <div class="custom-name">{{scope.row.name}}</div>
                 <el-col class="custom-tags">

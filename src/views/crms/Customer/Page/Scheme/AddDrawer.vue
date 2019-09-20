@@ -157,8 +157,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        checkName({ name: row.materialName, id: this.formData.clientId }).then((res) => {
-          console.log(res.data.data)
+        checkName({ name: row.name, id: this.formData.clientId }).then((res) => {
           if (res.data.data) {
             this.$emit('add', row)
             this.drawerShow = false

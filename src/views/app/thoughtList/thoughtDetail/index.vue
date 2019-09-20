@@ -78,6 +78,14 @@ export default {
   margin: auto;
   width: 1200px;
 }
+@media (max-width: 1400px) {
+  .breadcrumb-wrapper {
+    width: calc(100% - 200px);
+  }
+  .list, .no-data {
+    width: calc(100% - 200px);
+  }
+}
 .no-data {
   height: 100px;
   line-height: 100px;

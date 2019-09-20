@@ -20,7 +20,7 @@
             {{getDictVal(scope.row.treatment, 'hrms_wages_salaries')}}
           </template>
         </el-table-column>
-        <el-table-column prop="orgName" label="需求组织">
+        <el-table-column prop="orgName" label="需求组织" max-width="190">
         </el-table-column>
       </el-table>
     </IepAppTabCard>
@@ -33,6 +33,8 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+
+
       title: '紧缺岗位',
       data: '（53个）',
       linkName: '',

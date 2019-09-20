@@ -97,9 +97,9 @@ export default {
 <style lang="scss" scoped>
 .org-list {
   margin-top: 15px;
-  font-size: 15px;
+  font-size: 14px;
   max-height: 112px;
-  overflow-y: scroll;
+  overflow-x: hidden;
   .org-item {
     display: flex;
     justify-content: space-between;
@@ -149,5 +149,27 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
+}
+</style>
+<style scoped>
+.org-list::-webkit-scrollbar {
+  border-radius: 10px;
+  width: 6px;
+  /* background-color: #fff; */
+}
+.org-list::-webkit-scrollbar-track {
+  border-radius: 10px;
+  /* background-color: #fff; */
+  transition: 0.3s background-color;
+}
+.org-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #ddd;
+  transition: 0.3s background-color;
+  display: none;
+  transition: all 0.5s;
+}
+.org-list:hover::-webkit-scrollbar-thumb {
+  display: block;
 }
 </style>

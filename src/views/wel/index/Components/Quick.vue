@@ -97,6 +97,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .grid-btn-group {
+  width: 100%;
   margin: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

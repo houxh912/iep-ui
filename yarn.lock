@@ -3813,6 +3813,11 @@ dotenv@^7.0.0:
   resolved "https://registry.npm.taobao.org/dotenv/download/dotenv-7.0.0.tgz#a2be3cd52736673206e8a85fb5210eea29628e7c"
   integrity sha1-or481Sc2ZzIG6KhftSEO6ilijnw=
 
+driver.js@^0.9.7:
+  version "0.9.7"
+  resolved "https://registry.npm.taobao.org/driver.js/download/driver.js-0.9.7.tgz#a240edc0b9594f8b99589154dc13e784b56e5791"
+  integrity sha1-okDtwLlZT4uZWJFU3BPnhLVuV5E=
+
 duplexer@^0.1.1:
   version "0.1.1"
   resolved "https://registry.npm.taobao.org/duplexer/download/duplexer-0.1.1.tgz#ace6ff808c1ce66b57d1ebf97977acb02334cfc1"

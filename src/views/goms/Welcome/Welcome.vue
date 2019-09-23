@@ -14,17 +14,17 @@
       </div>
       <div class="container">
         <el-card class="org-card-wrapper" shadow="hover">
-          <img src="//183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg" class="image">
+          <img :src="form.logo" class="image">
           <div class="org-desc">
-            <div style="font-size: 16px;">国脉集团总部</div>
+            <div style="font-size: 16px;">{{form.name}}</div>
             <div style="font-size: 12px;margin-top: 5px;">
-              <div>负责人：黄磊</div>
-              <div>成立时间：2019-01-01</div>
+              <div>负责人：{{form.creatorName}}</div>
+              <div>成立时间：{{form.establishTime | parseToDay}}</div>
             </div>
           </div>
           <div class="org-finish">
             <div style="margin-bottom: 10px;">信息完成度</div>
-            <el-progress :text-inside="true" :stroke-width="20" :percentage="82" status="exception"></el-progress>
+            <el-progress :text-inside="true" :stroke-width="20" :percentage="+form.integrity" status="exception"></el-progress>
           </div>
         </el-card>
         <div class="org-task">
@@ -41,7 +41,8 @@
               <div class="scan-code"></div>
               <div>
                 <span>{{form.createdOrg?'':'未'}}完成</span>
-                <span class="money"> +1 贝</span>
+                <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
+                <span v-if="form.createdOrg === -1" class="money-text"> +1 贝</span>
               </div>
             </div>
           </div>
@@ -56,15 +57,16 @@
             </div>
             <div class="reward">
               <div class="scan-code"></div>
-              <div>
+              <iep-button v-if="form.finishInfo === 1" class="money" type="primary" @click="handleGet(2)" round>立即领取</iep-button>
+              <div v-else>
                 <span>{{form.finishInfo?'':'未'}}完成</span>
-                <span class="money"> +1 贝</span>
+                <span v-if="form.finishInfo === -1" class="money-text"> +1 贝</span>
               </div>
             </div>
           </div>
           <div class="task-item">
             <div class="icon">
-              <i v-if="form.extendMember===10" class="el-icon-success success"></i>
+              <i v-if="form.extendMember>=10 || form.extendMember === -1" class="el-icon-success success"></i>
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info">
@@ -73,10 +75,11 @@
             </div>
             <div class="reward">
               <div class="scan-code"></div>
-              <div>
-                <span>{{form.extendMember===10?'':'未'}}完成</span>
-                {{form.extendMember}}/10
-                <span class="money"> +{{form.extendMember}} 贝</span>
+              <iep-button v-if="form.extendMember >= 10" class="money" type="primary" @click="handleGet(3)" round>立即领取</iep-button>
+              <div v-else>
+                <span>{{form.extendMember>=10 || form.extendMember === -1?'':'未'}}完成</span>
+                <span class="money-text" v-if="form.extendMember>=0">{{form.extendMember}} / 10</span>
+                <span v-if="form.extendMember === -1" class="money-text"> +10 贝</span>
               </div>
             </div>
           </div>
@@ -91,15 +94,16 @@
             </div>
             <div class="reward">
               <div class="scan-code"></div>
-              <div>
+              <iep-button v-if="form.distribution === 1" class="money" type="primary" @click="handleGet(4)" round>立即领取</iep-button>
+              <div v-else>
                 <span>{{form.distribution?'':'未'}}完成</span>
-                <span class="money"> +1 贝</span>
+                <span v-if="form.distribution === -1" class="money-text"> +1 贝</span>
               </div>
             </div>
           </div>
           <div class="task-item">
             <div class="icon">
-              <i v-if="form.buildDept===2" class="el-icon-success success"></i>
+              <i v-if="form.buildDept>=2 || form.buildDept === -1" class="el-icon-success success"></i>
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info">
@@ -108,10 +112,11 @@
             </div>
             <div class="reward">
               <div class="scan-code"></div>
-              <div>
-                <span>{{form.buildDept===2?'':'未'}}完成</span>
-                {{form.buildDept}}/2
-                <span class="money"> +{{form.buildDept}} 贝</span>
+              <iep-button v-if="form.buildDept>=2" class="money" type="primary" @click="handleGet(5)" round>立即领取</iep-button>
+              <div v-else>
+                <span>{{form.buildDept>=2 || form.buildDept === -1?'':'未'}}完成</span>
+                <span class="money-text" v-if="form.buildDept>=0">{{form.buildDept}} / 2</span>
+                <span v-if="form.buildDept === -1" class="money-text"> +10 贝</span>
               </div>
             </div>
           </div>
@@ -146,20 +151,44 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
+import { getOrgGuideDrivers, getOrgGuideStep } from '@/api/admin/guide'
 export default {
   data () {
     return {
       form: {
-        createdOrg: false,
-        finishInfo: false,
+        name: '',
+        logo: '',
+        creatorName: '',
+        integrity: '',
+        establishTime: '',
+        createdOrg: 0,
+        finishInfo: 0,
         extendMember: 0,
-        distribution: false,
+        distribution: 0,
         buildDept: 0,
       },
     }
   },
   computed: {
     ...mapGetters(['userInfo']),
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async handleGet (step) {
+      const { data } = await getOrgGuideStep(step)
+      if (data.data) {
+        this.$message.success('领取成功')
+        this.loadPage()
+      } else {
+        this.$message(data.msg)
+      }
+    },
+    async loadPage () {
+      const { data } = await getOrgGuideDrivers()
+      this.form = { ...data.data }
+    },
   },
 }
 </script>
@@ -232,10 +261,13 @@ export default {
       }
     }
     .reward {
-      flex: 0 0 200px;
+      flex: 0 0 250px;
       display: flex;
       justify-content: space-between;
       .money {
+        margin-left: 20px;
+      }
+      .money-text {
         color: $--menu-color-primary;
       }
     }

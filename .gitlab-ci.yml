@@ -42,7 +42,7 @@ deploy_release_job:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host $DEPLOY_SERVER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - rsync -rav -e 'ssh -p 10061' --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH"
+    - rsync -rav -e "ssh -p $DEPLOY_PORT" --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH"
 
 deploy_master_job:
   image: alpine
@@ -57,5 +57,5 @@ deploy_master_job:
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - echo -e "Host $DEPLOY_SERVER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-    - rsync -rav -e 'ssh -p 10061' --delete dist/ "$DEPLOY_SERVER:$SERVER_DEV_PATH"
+    - echo -e "Host $DEPLOY_SERVER_MASTER\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    - rsync -rav --delete dist/ "$DEPLOY_SERVER_MASTER:$SERVER_DEV_PATH_MASTER"

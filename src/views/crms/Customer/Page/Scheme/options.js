@@ -21,11 +21,10 @@ export const tableOption = [
   {
     label: '创建时间',
     prop: 'createTime',
-    width: '250',
   }, {
     label: '浏览次数',
     prop: 'views',
-    width: '150',
+    width: '80',
   },
 ]
 

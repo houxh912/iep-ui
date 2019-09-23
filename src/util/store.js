@@ -8,10 +8,14 @@ import Cookies from 'js-cookie'
  * @param {*} value
  * @param {*} option
  */
-export const setCookies = (key, value, option = {
-  expires: 7,
-  domain: '.' + getLocation(),
-}) => {
+export const setCookies = (
+  key,
+  value,
+  option = {
+    expires: 1,
+    domain: '.' + getLocation(),
+  }
+) => {
   Cookies.set(key, value, option)
 }
 /**
@@ -20,7 +24,7 @@ export const setCookies = (key, value, option = {
  * @param {*} value
  * @param {*} option
  */
-export const getCookies = (key) => {
+export const getCookies = key => {
   return Cookies.get(key)
 }
 /**

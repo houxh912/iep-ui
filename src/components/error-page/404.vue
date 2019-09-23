@@ -33,7 +33,7 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: url(./images/404.png) no-repeat center;
+    background: url("/img/error-page/404.webp") no-repeat center;
   }
   &-btn-con {
     text-align: center;

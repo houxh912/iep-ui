@@ -1,6 +1,6 @@
 <template>
   <div class="avue-contail">
-    <im-ui v-if="$store.getters.userInfo.userId != 1" v-show="isExperimental"></im-ui>
+    <im-ui v-if="$store.getters.userInfo.userId != 1"></im-ui>
     <el-container style="height: 100vh;">
       <el-header style="height: 60px;padding: 0;z-index: 500;">
         <!-- 顶部导航栏 -->
@@ -26,7 +26,7 @@
 
 <script>
 import DialogGroup from './DialogGroup'
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapActions } from 'vuex'
 import top from './top/'
 import sidebar from './sidebar/'
 import imUi from '@/views/imui'
@@ -51,9 +51,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      isExperimental: state => state.common.isExperimental,
-    }),
     ...mapGetters([
       'userInfo',
       'isLock',

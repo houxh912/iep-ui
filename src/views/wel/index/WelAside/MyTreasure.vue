@@ -21,10 +21,10 @@
       </span>
     </div>
     <div v-if="accountType === 1" class="no-treasure-data">
-      <el-button @click="handleOpenAccount('开通账户并提取1000国脉贝')" round>开通账户并提取1000国脉贝</el-button>
+      <iep-button @click="handleOpenAccount('开通账户并提取1000国脉贝')" round>开通账户并提取1000国脉贝</iep-button>
     </div>
     <div v-if="accountType === 2" class="no-treasure-data">
-      <el-button @click="handleOpenAccount('提取1000国脉贝')" round>提取1000国脉贝</el-button>
+      <iep-button @click="handleOpenAccount('提取1000国脉贝')" round>提取1000国脉贝</iep-button>
     </div>
     <el-button-group class="operation-btn-group">
       <iep-button @click="handleInvoice" plain>报销</iep-button>

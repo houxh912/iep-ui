@@ -49,7 +49,7 @@ export default {
   computed: {
     linkName () {
       return {
-        Projects: `/app/project_list?id=${this.orgId}`,
+        Projects: `/app/resource/project_list?id=${this.orgId}`,
         Customer: `/app/resource/client?id=${this.orgId}`,
         Programme: `/app/resource/material?id=${this.orgId}&materialType=4`,
       }

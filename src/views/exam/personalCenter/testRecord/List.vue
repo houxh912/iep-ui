@@ -5,14 +5,13 @@
       <operation-container>
         <template slot="right">
           <el-button-group>
-            <iep-button size="middle" type="primary" plain @click="handleSelect ('month')">本月</iep-button>
-            <iep-button size="middle" type="primary" plain @click="handleSelect ('year')">本年</iep-button>
-            <iep-button size="middle" type="primary" plain @click="handleSelect ()">全部</iep-button>
+            <iep-button size="small" type="primary" plain @click="handleSelect ('month')">本月</iep-button>
+            <iep-button size="small" type="primary" plain @click="handleSelect ('year')">本年</iep-button>
+            <iep-button size="small" type="primary" plain @click="handleSelect ()">全部</iep-button>
           </el-button-group>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable"
-        @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <el-table-column prop="fieldName" label="科目">
           <template slot-scope="scope">
             {{scope.row.fieldName}}
@@ -54,8 +53,7 @@
           </template>
         </el-table-column>
       </iep-table>
-      <iep-dialog :dialog-show="dialogShow" title="查看证书" width="700px" @close="dialogShow = false"
-        center>
+      <iep-dialog :dialog-show="dialogShow" title="查看证书" width="700px" @close="dialogShow = false" center>
         <img :src="imgurl" alt="查看证书" style="width: 100%">
       </iep-dialog>
     </basic-container>

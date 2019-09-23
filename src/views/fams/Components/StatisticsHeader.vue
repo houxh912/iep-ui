@@ -8,7 +8,7 @@
     </template>
     <div class="total-wrapper">
       <div class="total-item" v-for="(item, index) in dataMap" :key="index">
-        <div class="value">{{item|parseToM}}</div>
+        <div class="value">{{judgeSN(item)}}</div>
         <div class="label"><a href="#" @click="handleClick(index)">{{index}}</a></div>
       </div>
     </div>
@@ -36,6 +36,13 @@ export default {
     },
   },
   methods: {
+    judgeSN (value) {
+      if (typeof (value) === 'number') {
+        return this.$options.filters.parseToM(value)
+      } else {
+        return value
+      }
+    },
     handleClick (index) {
       if (!validatenull(this.typeUrlMap)) {
         this.$openPage(this.typeUrlMap[index])

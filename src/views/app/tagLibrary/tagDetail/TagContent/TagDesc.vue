@@ -5,7 +5,7 @@
         <div class="left">
           <p class="title">{{form.name}}</p>
           <span class="sign" v-for="typeName in form.typeNames" :key="typeName">{{typeName}}</span>
-          <div class="edit" @click="handleEdit"><i class="icon-bianji"></i> 添加介绍</div>
+          <div class="edit" @click="handleCreate" v-if="isAddState"><i class="icon-bianji"></i> 添加介绍</div>
         </div>
         <span class="explain">
           <i class="icon-wenhao"></i>
@@ -18,7 +18,7 @@
       </p>
       <div class="introduce">
         <div class="introduce-item" v-for="(item, index) in introduceList" :key="index">
-          {{item.description}} —— {{item.creatorRealName}}
+          {{item.description}} —— {{item.creatorRealName}} <i class="icon-bianji" @click="handleUpdate(item)"></i>
         </div>
       </div>
       <!-- <span class="more fr">
@@ -33,6 +33,7 @@
 <script>
 import describe from './describe/index'
 import { getTagDesc } from '@/api/tms/description'
+import { mapGetters } from 'vuex'
 
 export default {
   components: { describe },
@@ -40,14 +41,22 @@ export default {
   data () {
     return {
       introduceList: [],
+      isAddState: true,
     }
   },
+  computed: {
+    ...mapGetters(['userInfo']),
+  },
   methods: {
-    handleEdit () {
+    handleCreate () {
       this.$refs['describe'].open({
         tagId: this.form.tagId,
         name: this.form.name,
       })
+    },
+    handleUpdate (row) {
+      row.name = this.form.name
+      this.$refs['describe'].open(row)
     },
     getIntroduce (row) {
       getTagDesc({
@@ -55,6 +64,12 @@ export default {
         size: 999,
       }).then(({ data }) => {
         this.introduceList = data.records
+        // 判断当前登陆用户是否添加过介绍
+        for (let item of this.introduceList) {
+          if (item.creatorId === this.userInfo.userId) {
+            this.isAddState = false
+          }
+        }
       })
     },
   },
@@ -134,6 +149,11 @@ export default {
   .introduce-item {
     margin-bottom: 5px;
     display: flex;
+    i {
+      font-size: 12px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
   }
 }
 .more {

@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import { getClassManagePage, deleteClassManage } from '@/api/hrms/iephrclassmanage'
 import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
 import FormTpl from './form'
@@ -41,9 +42,15 @@ export default {
     }
   },
   methods: {
-    loadPage () {},
-    handleUpdate () {},
-    handleDelete () {},
+    loadPage (param = this.searchForm) {
+      this.loadTable(param, getClassManagePage)
+    },
+    handleUpdate (row) {
+      this.$refs['form'].open('update', row)
+    },
+    handleDelete (row) {
+      this._handleGlobalDeleteById(row.classId, deleteClassManage)
+    },
     searchPage () {},
     selectionChange () {},
     handleCreate () {

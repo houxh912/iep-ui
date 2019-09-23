@@ -3,11 +3,11 @@
     <basic-container>
       <div class="details">
         <div class="detail-left">
-          <page-header :title="`${form.taskName}`" :backOption="backOption">
+          <iep-page-header :title="`${form.taskName}`" :backOption="backOption">
             <slot>
               <iep-button @click="handleEdit()" :disabled="userInfo.userId!=this.form.creatorId && userInfo.userId!=this.form.principal">编辑</iep-button>
             </slot>
-          </page-header>
+          </iep-page-header>
           <div class="sub">
             <span v-if='!form.parentName'><span class="sub-title">所属任务：</span>无</span>
             <span v-else @click="handleDetail(form.parentId)" style="cursor: pointer;"><span class="sub-title">所属任务：</span>{{form.parentName}}</span>

@@ -23,8 +23,8 @@
           </div>
           <div class="user-operation-box">
             <div class="operation-box-con">
-              <iep-button class="leader-btn" type="primary" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
-              <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" type="primary" plain @click="handleSome2()">领导桌面</iep-button>
+              <iep-button class="leader-btn" type="primary" size="mini" icon="el-icon-notebook-1" plain @click="handManage()">通讯录</iep-button>
+              <iep-button v-if="permissions.wel_leadership_desktop" class="leader-btn" size="mini" type="primary" icon="el-icon-monitor" plain @click="handleSome2()">领导桌面</iep-button>
             </div>
             <div class="user-tags-box">
               <div class="user-height">
@@ -193,11 +193,6 @@ export default {
     }
     .leader-btn {
       margin-left: 10px;
-      padding: 0;
-      width: 84px;
-      height: 30px;
-      line-height: 14px;
-      text-align: center;
       i {
         font-size: 14px;
       }

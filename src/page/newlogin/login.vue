@@ -170,9 +170,9 @@ export default {
             this.loginLoading = true
             await this.LoginByUsername(this.form)
             if (this.$route.query.redirect) {
-              this.$router.push({ path: this.$route.query.redirect })
+              this.$openPage(this.$route.query.redirect)
             } else {
-              this.$router.push({ path: this.tagWel.value })
+              this.$openPage('/')
             }
           } catch (error) {
             this.$message.error(error.message)
@@ -189,7 +189,7 @@ export default {
         window.location.origin + '/#/authredirect'
       )
       if (thirdpart === 'wechat') {
-        appid = 'wxd1678d3f83b1d83a'
+        appid = 'wx2506d6d34d7a90aa'
         url =
           'https://open.weixin.qq.com/connect/qrconnect?appid=' +
           appid +

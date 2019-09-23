@@ -116,9 +116,12 @@ export default {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  overflow-y: scroll;
+  //overflow-y: scroll;
   .has-data {
-    margin-top: 60px;
+    padding: 20px 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
   }
   .piece {
     .piece-title {

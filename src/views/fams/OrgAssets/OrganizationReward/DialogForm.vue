@@ -23,14 +23,16 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">保存</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">保存</iep-button>
       <iep-button @click="dialogShow = false">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import { initForm, dictsMap, dtoForm, rules } from './options'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       dictsMap,
@@ -55,24 +57,14 @@ export default {
       this.dialogShow = false
       this.$emit('load-page')
     },
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.formRequestFn(dtoForm(this.form)).then(({ data }) => {
-            if (data.data) {
-              this.$message({
-                message: '操作成功',
-                type: 'success',
-              })
-            } else {
-              this.$message(data.msg)
-            }
-            this.close()
-          })
-        } else {
-          return false
-        }
-      })
+    async submitForm () {
+      const { data } = await this.formRequestFn(dtoForm(this.form))
+      if (data.data) {
+        this.$message.success('操作成功')
+        this.close()
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

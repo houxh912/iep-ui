@@ -1,7 +1,7 @@
 <template>
   <div class="my-tasks">
     <basic-container>
-      <page-header title="我的任务"></page-header>
+      <iep-page-header title="我的任务"></iep-page-header>
       <el-card class="box" shadow="hover">
         <div class="total-wrapper">
           <div class="total-item" @click="cSelectTpye('myAll')">

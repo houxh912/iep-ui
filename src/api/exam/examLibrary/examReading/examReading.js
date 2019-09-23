@@ -168,3 +168,14 @@ export function setZeroAll (params) {
     params: params,
   })
 }
+
+/**
+ * 纠正阅卷
+ */
+export function CorrectMarking (params) {
+  return request({
+    url: '/exms/iepcorrqstn/updateCorrQstn',
+    method: 'post',
+    params: params,
+  })
+}

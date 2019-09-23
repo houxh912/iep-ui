@@ -20,7 +20,7 @@
         <el-form-item label="描述：" prop="resume">
           <el-input v-model="formData.resume" placeholder="请输入文件的描述" type="textarea" :rows=5></el-input>
         </el-form-item>
-        <el-form-item label="内容：" prop="content">
+        <el-form-item label="内容：">
           <iep-froala-editor v-model="formData.content"></iep-froala-editor>
         </el-form-item>
         <el-form-item label="成文日期：" prop="enterTime">
@@ -31,8 +31,8 @@
             <el-radio v-for="(item, index) in dictsMap.status" :key="index" :label="item.value">{{item.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="标签：" prop="tagKeyWords">
-          <iep-tag v-model="formData.tagKeyWords"></iep-tag>
+        <el-form-item label="标签：" prop="tagList">
+          <iep-tag v-model="formData.tagList"></iep-tag>
         </el-form-item>
         <el-form-item label="附件：" prop="annexList">
           <iep-upload v-model="formData.annexList" :limit="1"></iep-upload>
@@ -40,8 +40,8 @@
         <el-form-item label="置顶显示：" prop="topShow">
           <el-switch
             v-model="formData.topShow"
-            :active-value="0"
-            :inactive-value="1"
+            :active-value="1"
+            :inactive-value="0"
             active-color="#13ce66">
           </el-switch>
         </el-form-item>

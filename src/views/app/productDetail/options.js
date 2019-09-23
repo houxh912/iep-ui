@@ -33,6 +33,7 @@ const initForm = () => {
     userRelationTechnologys: [],//技术经理集合
     userRelationProducts: [],//产品经理集合
     userRelationTeams: [],//团队成员集合
+    exam_address: '',//考试地址
   }
 }
 

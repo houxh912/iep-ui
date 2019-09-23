@@ -4,9 +4,6 @@
       <iep-page-header title="投资核准"></iep-page-header>
       <operation-container>
         <template slot="right">
-          <el-radio-group v-model="status" size="small" @change="handleChange">
-            <el-radio-button v-for="(v,k) in dictsMap.status" :label="k" :key="k">{{v}}</el-radio-button>
-          </el-radio-group>
           <operation-search @search-page="searchPage" prop="orgName"></operation-search>
         </template>
       </operation-container>
@@ -21,7 +18,7 @@
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button v-if="scope.row.status===1" type="warning" @click="handleReview(scope.row)" plain>核准</iep-button>
+              <iep-button v-if="scope.row.status===2" type="warning" @click="handleReview(scope.row)" plain>核准</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -62,7 +59,7 @@ export default {
       this.loadPage()
     },
     loadPage (param = this.searchForm) {
-      this.loadTable({ status: this.status, ...param }, getInvestmentPage)
+      this.loadTable({ status: 2, ...param }, getInvestmentPage)
     },
   },
 }

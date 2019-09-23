@@ -7,9 +7,6 @@
     <el-form-item label="类型：">
       <iep-dict-cascader dictName="fams_expenditure_type" v-model="form.type" clearable></iep-dict-cascader>
     </el-form-item>
-    <el-form-item label="组织：">
-      <iep-select size="small" v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织" clearable></iep-select>
-    </el-form-item>
     <el-form-item label="线下公司：">
       <el-input v-model="form.companyName" clearable></el-input>
     </el-form-item>

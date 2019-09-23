@@ -21,9 +21,12 @@
           <el-form-item label="业务分类：" prop="serviceTypes">
             <iep-dict-select v-model="form.serviceTypes" dict-name="MODULE_SERVICE_TYPE" multiple></iep-dict-select>
           </el-form-item>
-          <el-form-item label="测试地址：" prop="website" class="form-half">
+          <iep-form-item label-name="测试地址" prop="website" class="form-half" tip="请输入有效地址，如'https://www.baidu.com'">
             <el-input :maxlength="110" v-model="form.website"></el-input>
-          </el-form-item>
+          </iep-form-item>
+          <iep-form-item label-name="考试地址" class="form-half" tip="请输入有效地址，如'/cpms_spa/product_edit'">
+            <el-input :maxlength="110" v-model="form.exam_address"></el-input>
+          </iep-form-item>
           <el-form-item label="产品模块指导价(元)：" prop="guidePrice" class="form-half">
             <iep-input-number v-model="form.guidePrice"></iep-input-number>
           </el-form-item>

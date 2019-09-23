@@ -5,9 +5,6 @@
       <operation-container>
         <template slot="left">
           <iep-button @click="handleAdd()" type="primary" icon="el-icon-plus" plain>新增</iep-button>
-          <!-- <iep-button>发送</iep-button>
-          <iep-button>撤回</iep-button>
-          <iep-button>删除</iep-button> -->
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage">

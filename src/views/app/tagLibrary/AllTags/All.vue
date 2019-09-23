@@ -54,6 +54,7 @@ export default {
         }
         this.pagedTable = records
         this.isLoadTable = false
+        this.$emit('load_total', total, 0)
       })
     },
     handleCurrentChange (val) {

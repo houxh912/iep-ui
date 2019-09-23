@@ -3,7 +3,7 @@
     <basic-container>
       <iep-page-header :title="`${methodName}客户`" :backOption="backOption"></iep-page-header>
       <div class="edit-wrapper">
-        <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" class="wrap" @validate='validate'>
+        <el-form :model="formData" size="small" :rules="rules" ref="formName" label-width="120px" @validate='validate'>
           <el-row>
             <el-col :span='10'>
               <el-form-item prop="clientName">

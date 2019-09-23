@@ -2,7 +2,10 @@
   <div class="wb-content">
     <basic-container>
       <iep-page-header :title="`欢迎您，${userInfo.realName}`"></iep-page-header>
-      <el-alert title="模块更新" type="info" description="商机对接模块全新上线，请在模块设置中配置使用。" show-icon></el-alert>
+      <el-alert title="智慧组织创建教程" type="info" show-icon>
+        您有尚未完成的智慧组织创建任务，赶紧完成任务赚取能贝吧！
+        <a @click.prevent="$openPage('/wel/orgwelcome')">查看任务</a>
+      </el-alert>
       <div class="time-log-list-wrapper">
         <a-timeline :pending="pendingText" :reverse="false">
           <a-timeline-item v-for="item in logList" :key="item.id">

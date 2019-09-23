@@ -15,6 +15,7 @@
   </iep-dialog>
 </template>
 <script>
+import { getProjectAnnouncement } from '@/api/fams/investment'
 export default {
   name: 'IepReviewConfirm',
   props: {
@@ -32,6 +33,8 @@ export default {
       content: '',
       id: null,
       ids: [],
+      projectInformation: {},
+      announcementSelection: [],
     }
   },
   computed: {
@@ -65,6 +68,24 @@ export default {
             message: '成功',
             type: 'success',
           })
+          if (this.projectStatus == '3') {
+            const announcement = `公司公告：${this.projectInformation.applicantName}与${this.projectInformation.attendeeByName ? this.projectInformation.attendeeByName : ''}${this.projectInformation.relatedClientList ? this.projectInformation.relatedClientList.name : ''}签订了${this.projectInformation.projectName}，签订时间为${new Date().toLocaleDateString()}`
+            if (this.id) {
+              getProjectAnnouncement([{ content: announcement, orgId: this.projectInformation.orgId }]).then(() => {
+
+              })
+            } else {
+              const announcementSelectionEnd = this.announcementSelection.map(m => {
+                return {
+                  content: `公司公告：${m.applicantName}与${m.attendeeByName ? m.attendeeByName : ''}${m.relatedClientList ? m.relatedClientList.name : ''}签订了${m.projectName}，签订时间为${new Date().toLocaleDateString()}`,
+                  orgId: m.orgId,
+                }
+              })
+              getProjectAnnouncement(announcementSelectionEnd).then(() => {
+
+              })
+            }
+          }
         } else {
           this.$message({
             message: data.msg,

@@ -3,7 +3,7 @@
     <basic-container>
       <iep-page-header title="员工信息管理"></iep-page-header>
       <el-form v-loading="formLoading" ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
-        <iep-tab-scroll :tab-list="tabList" :height="270">
+        <iep-tab-scroll ref="iepTabScroll" :on-data="form" :tab-list="tabList" :height="270">
           <div>
             <div class="base" :id="item.value" v-for="item in tabList" :key="item.value">
               <div class="title">{{item.label}}</div>

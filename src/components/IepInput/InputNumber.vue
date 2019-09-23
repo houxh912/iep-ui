@@ -17,8 +17,8 @@ export default {
   },
 }
 </script>
-<style scoped>
-.iep-input-number-wrapper >>> .el-input__inner {
+<style lang="scss" scoped>
+.iep-input-number-wrapper ::v-deep .el-input__inner {
   text-align: left;
 }
 </style>

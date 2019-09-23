@@ -23,6 +23,8 @@ export default {
         {
           prop: 'createTime',
           label: '奖惩时间',
+          type: 'date',
+          formatString: 'YYYY-MM-DD',
         },
         {
           prop: 'creatorName',

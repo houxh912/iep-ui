@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="content-wrapper" :style="{marginRight: isShow260px}">
+    <div class="content-wrapper" :style="{marginRight: isShow280px}">
       <slot></slot>
     </div>
     <aside-wrapper class="aside-wrapper" :class="{inactive:!showAside }" @aside-hide="toggleShowAside">
@@ -25,8 +25,8 @@ export default {
     this.showAside = this.isDesktop()
   },
   computed: {
-    isShow260px () {
-      if (!this.isTablet()) { return this.showAside ? '260px' : '0' } else { return '0' }
+    isShow280px () {
+      if (!this.isTablet()) { return this.showAside ? '280px' : '0' } else { return '0' }
     },
   },
   methods: {
@@ -47,7 +47,7 @@ export default {
     transition: 1000 all ease-in;
   }
   .aside-wrapper {
-    width: 260px;
+    width: 280px;
     height: 100%;
     position: fixed;
     right: 0;
@@ -58,7 +58,7 @@ export default {
     transition: all 0.5s;
   }
   .inactive {
-    right: -260px;
+    right: -280px;
   }
 }
 </style>

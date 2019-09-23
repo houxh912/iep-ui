@@ -1,87 +1,68 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header :title="`投资管理 - ${methodName}`" :backOption="backOption"></iep-page-header>
-      <el-form ref="form" :model="form" :rules="rules" label-width="190px" size="small">
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="投资组织" prop="orgId">
-              <iep-select v-model="form.orgId" autocomplete="off" prefix-url="admin/org/all" placeholder="请选择投资组织"></iep-select>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="股份数量" prop="allSharesNumber" tip="股份数量">
-              <iep-input-number v-model="form.allSharesNumber"></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="每股单价" prop="sharesUnivalent" tip="每股单价">
-              <iep-input-amount v-model="form.sharesUnivalent"></iep-input-amount>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="目标金额" prop="targetAmount" tip="目标金额">
-              <iep-input-number v-model="form.targetAmount" disabled></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="开始日期" prop="startTime">
-              <iep-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></iep-date-picker>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="结束日期" prop="endTime">
-              <iep-date-picker v-model="form.endTime" type="date" placeholder="选择日期"></iep-date-picker>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="最低认购数量" prop="minimumBuy" tip="最低认购数量">
-              <iep-input-number v-model="form.minimumBuy" :max="form.allSharesNumber"></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-row>
-          <el-col :span="12">
-            <iep-form-item label-name="投资人最低信用评分" prop="minimumCredit" tip="投资人最低信用评分">
-              <iep-input-number v-model="form.minimumCredit"></iep-input-number>
-            </iep-form-item>
-          </el-col>
-        </el-row>
-        <el-form-item label="">
+      <iep-statistics-header :title="form.orgName" :dataMap="financialData">
+        <template slot="right">
           <operation-wrapper>
-            <iep-button @click="handleSubmit" type="primary">保存</iep-button>
-            <iep-button @click="onGoBack">取消</iep-button>
+            <iep-button v-if="form.status === 1" type="primary" @click="handleChangeRelease" plain>变更发行</iep-button>
+            <iep-button v-if="form.status === 1" @click="$openPage(`/fams_spa/change_shareholder/${id}`)">变更股东</iep-button>
+            <iep-button @click="onGoBack">返回</iep-button>
           </operation-wrapper>
-        </el-form-item>
-      </el-form>
+        </template>
+      </iep-statistics-header>
+      <iep-tabs v-model="activeTab" :tab-list="tabList" style="margin-top:20px;">
+        <template v-slot:[activeTab]>
+          <component ref="tabList" :is="activeTab"></component>
+        </template>
+      </iep-tabs>
     </basic-container>
+    <change-release-form ref="ChangeReleaseForm" @load-page="syncRefresh"></change-release-form>
   </div>
 </template>
 <script>
-import { getInvestmentById, postInvestment, putInvestment } from '@/api/fams/investment'
-import { initForm, rules } from './options'
-import formMixins from '@/mixins/formMixins'
+import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
+import { getInvestmentById, getShareStatistics, changeRelease } from '@/api/fams/investment'
+import ChangeReleaseForm from './ChangeReleaseForm'
+import { initInvestmentForm } from './options'
+import ReleaseRecord from './ReleaseRecord/'
+import EquityStructure from './EquityStructure/'
+import TransactionRecord from './TransactionRecord/'
+import ShareholderInformation from './ShareholderInformation/'
 export default {
-  mixins: [formMixins],
+  components: {
+    IepStatisticsHeader,
+    ReleaseRecord,
+    TransactionRecord,
+    ShareholderInformation,
+    EquityStructure,
+    ChangeReleaseForm,
+  },
   data () {
     return {
       backOption: {
         isBack: true,
       },
-      form: initForm(),
-      rules,
+      form: initInvestmentForm(),
+      statistics: [0, 0, 0, 0],
+      tabList: [
+        {
+          label: '发行记录',
+          value: 'ReleaseRecord',
+        },
+        {
+          label: '交易记录',
+          value: 'TransactionRecord',
+        },
+        {
+          label: '股东信息',
+          value: 'ShareholderInformation',
+        },
+        {
+          label: '股本结构',
+          value: 'EquityStructure',
+        },
+      ],
+      activeTab: 'ReleaseRecord',
     }
   },
   computed: {
@@ -91,11 +72,14 @@ export default {
     methodName () {
       return this.id ? '编辑' : '新增'
     },
-    requestFunc () {
-      if (this.id) {
-        return putInvestment
-      } else {
-        return postInvestment
+    financialData () {
+      return {
+        '总股本': this.statistics[0],
+        '发行股份': this.statistics[1],
+        '已认购股份': this.statistics[2],
+        '股东人数': this.statistics[3],
+        '今日股价': this.statistics[4],
+        '募集金额': this.statistics[5],
       }
     },
   },
@@ -103,41 +87,26 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage () {
-      if (this.id) {
-        getInvestmentById(this.id).then(({ data }) => {
-          this.form = data.data
-        })
-      }
+    handleChangeRelease () {
+      this.$refs['ChangeReleaseForm'].form = this.$refs['ChangeReleaseForm'].initForm(this.id)
+      this.$refs['ChangeReleaseForm'].formRequestFn = changeRelease
+      this.$refs['ChangeReleaseForm'].dialogShow = true
     },
-    async handleSubmit () {
-      try {
-        await this.mixinsValidate()
-        this.requestFunc(this.form).then(({ data }) => {
-          if (data.data) {
-            this.$message.success('操作成功')
-            this.onGoBack()
-          } else {
-            this.$message(data.msg)
-          }
-        })
-      } catch (object) {
-        this.mixinsMessage(object)
-      }
+    syncRefresh () {
+      this.loadPage()
+      this.$refs['tabList'].loadPage()
+    },
+    loadPage () {
+      getInvestmentById(this.id).then(({ data }) => {
+        this.form = data.data
+      })
+      getShareStatistics(this.id).then(({ data }) => {
+        this.statistics = data.data
+      })
     },
     onGoBack () {
       this.$router.history.go(-1)
     },
   },
-  watch: {
-    'form.allSharesNumber': function (n) {
-      this.form.targetAmount = this.form.sharesUnivalent * n
-    },
-    'form.sharesUnivalent': function (n) {
-      this.form.targetAmount = this.form.allSharesNumber * n
-    },
-  },
 }
 </script>
-<style>
-</style>

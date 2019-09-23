@@ -11,6 +11,11 @@ export default [
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/index/'),
       },
       {
+        path: 'newindex',
+        name: '后台首页(new)',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/index/new'),
+      },
+      {
         path: 'master',
         name: '推荐师父',
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/master/'),

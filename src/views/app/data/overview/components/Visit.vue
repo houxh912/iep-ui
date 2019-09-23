@@ -25,10 +25,7 @@ export default {
   },
   created () {
     getvisit().then(({data}) => {
-      let month = new Date().getMonth() + 1
-      if (month < 8) {
-        this.tableData = data.data
-      }
+      this.tableData = data.data
     })
   },
 }

@@ -18,10 +18,14 @@ export default {
       type: Number,
       required: true,
     },
+    onData: {
+      type: Object,
+      default: () => { },
+    },
   },
   data () {
     return {
-      type: this.tabList[0].value,
+      type: window.location.hash !== '' ? window.location.hash.slice(1) : this.tabList[0].value,
     }
   },
   computed: {
@@ -34,6 +38,19 @@ export default {
   methods: {
     changeType (a) {
       window.location.hash = `#${a.name}`
+    },
+  },
+  watch: {
+    onData: {
+      handler () {
+        if (window.location.hash) {
+          const hash = window.location.hash.slice(1)
+          window.location.hash = '#'
+          window.location.hash = `#${hash}`
+        }
+      },
+      immediate: true,
+      deep: true,
     },
   },
 }

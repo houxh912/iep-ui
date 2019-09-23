@@ -57,10 +57,10 @@
 </template>
 <script>
 import { getProjectInformationById } from '@/api/fams/statistics'
-import Accounting from './Accounting/'
-import { initDetailForm } from './options'
-import Budget from './Budget/'
 import mixins from '@/mixins/mixins'
+import { initDetailForm } from './options'
+import Accounting from './Accounting/'
+import Budget from './Budget/'
 import Cost from './Cost/'
 import Payback from './Payback/'
 import Invoiceing from './Invoiceing/'

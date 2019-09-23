@@ -285,9 +285,13 @@ export async function openTagDetail (value) {
 
 export function openPage (value, type = 'path') {
   if (type === 'path') {
-    this.$router.push({
-      path: value,
-    })
+    if (value.includes('http') || value.includes('https')) {
+      window.location.href = value
+    } else {
+      this.$router.push({
+        path: value,
+      })
+    }
   }
   if (type === 'name') {
     this.$router.push({

@@ -59,6 +59,7 @@ const initForm = () => {
     userRelationProducts: [],//产品经理集合
     userRelationTeams: [],//团队成员集合
     tagKeywords: [],//关联标签
+    exam_address: '',//考试地址
   }
 }
 

@@ -9,12 +9,12 @@
           <district></district>
         </div>
       </el-col>
-      <el-col :span='9'>
+      <el-col :span='10'>
         <div class="echarts">
           <business></business>
         </div>
       </el-col>
-      <el-col :span='5'>
+      <el-col :span='4'>
         <div class="echarts lines">
           <div class="line"></div>
           <div class="msg">您的客户中：</div>

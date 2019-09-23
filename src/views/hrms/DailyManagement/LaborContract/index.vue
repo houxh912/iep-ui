@@ -92,6 +92,7 @@ export default {
     async handleBatchMessage () {
       const { data } = await sendLaborContractEmail(this.multipleSelection)
       if (data.data) {
+        this.$message.success('劳动合同过期提醒发送成功！')
         this.loadPage()
       } else {
         this.$message(data.msg)
@@ -100,6 +101,7 @@ export default {
     async sendMessage (row) {
       const { data } = await sendLaborContractEmail([row.id])
       if (data.data) {
+        this.$message.success('劳动合同过期提醒发送成功！')
         this.loadPage()
       } else {
         this.$message(data.msg)

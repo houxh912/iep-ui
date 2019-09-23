@@ -77,15 +77,9 @@
               </div>
               <el-scrollbar style="height:204px">
                 <div class="shareholders-wrapper" v-for="(item,index) in form.shareholderInformation" :key="index">
-                  <el-popover placement="top-start" trigger="hover" :content="item.orgName" v-if="item.holdType==2">
-                    <span slot="reference">{{item.orgName}}</span>
-                  </el-popover>
-                  <el-popover placement="top-start" trigger="hover" :content="item.other" v-else-if="item.holdType==4">
-                    <span slot="reference">{{item.other}}</span>
-                  </el-popover>
-                  <el-popover placement="top-start" trigger="hover" :content="item.name" v-else>
-                    <span slot="reference">{{item.name}}</span>
-                  </el-popover>
+                  <iep-div-detail v-if="item.holdType==2" :value="item.orgName"></iep-div-detail>
+                  <iep-div-detail v-else-if="item.holdType==4" :value="item.other"></iep-div-detail>
+                  <iep-div-detail v-else :value="item.name"></iep-div-detail>
                   <span>{{item.proportion}}</span>
                   <span>{{Math.round(item.proportion/form.allSharesNumber * 10000) / 100 >1?Math.round(item.proportion/form.allSharesNumber * 10000) / 100:'&lt;1'}} %</span>
                 </div>
@@ -515,5 +509,9 @@ export default {
 .financial-investment
   >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
   display: block;
+}
+.wealth-details >>> .iep-ellipsis {
+  width: 33%;
+  text-align: center;
 }
 </style>

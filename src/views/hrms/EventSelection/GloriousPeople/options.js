@@ -25,10 +25,6 @@ const initForm = () => {
 }
 const columnsMap = [
   {
-    prop: 'splendorId',
-    label: 'ID',
-  },
-  {
     prop: 'selectionName',
     label: '评选名称',
   },
@@ -72,6 +68,9 @@ const rules = {
   ],
   priority: [
     { required: true, message: '请输入评选优先级', trigger: 'blur' },
+  ],
+  user: [
+    { required: true, message: '请选择被评选人', trigger: 'blur' },
   ],
 }
 

@@ -1,7 +1,7 @@
 <template>
   <basic-container>
     <iep-page-header title="我的会议"></iep-page-header>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columns" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columns" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <template slot="columns">
         <el-table-column label="链接地址" width="300px">
           <template slot-scope="scope">
@@ -17,7 +17,7 @@
         </template>
       </el-table-column>
     </iep-table>
-    <name-dialog ref="NameDialog"></name-dialog>
+    <name-dialog ref="NameDialog" @load-page="loadPage"></name-dialog>
   </basic-container>
 </template>
 <script>
@@ -32,12 +32,9 @@ export default {
     return {
       columns,
       isLoadTable: false,
-      paginationOne: [{ xinxi: '111', baoming: '1231', shijian: '21323', zhuangtai: '', id: 111 }],
-      address: '',
     }
   },
   created () {
-    // console.log(window.location)
     this.loadPage()
   },
   methods: {

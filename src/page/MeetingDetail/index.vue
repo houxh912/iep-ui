@@ -5,7 +5,6 @@
         <div class="wrap">
           <el-row>
             <el-col :span="12">
-              <!-- <div class='img'>图片</div> -->
               <el-image :src="form.urls" class="img"></el-image>
             </el-col>
             <el-col :span="12">
@@ -23,13 +22,12 @@
                 <el-col>
                   <el-row class="name">
                     <el-col :span="4">
-                      <!-- <el-image :src="form.orgVo.url" class="avater"></el-image> -->
-                      <iep-img-avatar :size="50" :src="form.orgVo.url" alt="头像"></iep-img-avatar>
+                      <iep-img-avatar :size="50" :src="form.orgLogo" alt="头像"></iep-img-avatar>
                     </el-col>
-                    <el-col :span="4">
-                      <div class="userName">{{form.orgVo.name}}</div>
+                    <el-col :span="8">
+                      <div class="userName">{{form.orgName}}</div>
                     </el-col>
-                    <el-col :span="16">
+                    <el-col :span="12">
                       <div class="userName">
                         <iep-button type="primary" @click="handleSignUp">我要报名</iep-button>
                       </div>
@@ -41,7 +39,7 @@
           </el-row>
 
           <!-- 报名 -->
-          <el-row class="numberTop" v-if="isShow">
+          <el-row class="numberTop" v-if="this.$router.history.current.query.isShow">
             <el-col :span="2">
               <div class="selectNumber">选择数量</div>
             </el-col>
@@ -50,11 +48,11 @@
             </el-col>
           </el-row>
 
-          <el-row class="formTitle" v-if="isShow">
+          <el-row class="formTitle" v-if="this.$router.history.current.query.isShow">
             <h3>请填写公司信息</h3>
           </el-row>
 
-          <div class="form" v-if="isShow">
+          <div class="form" v-if="this.$router.history.current.query.isShow">
             <el-form label-width="120px" :model="formData" label-position="top" :ref="'ValidateForm'" v-for="(formData,index) in formData" :key="index" :rules="rules">
               <el-row>
                 <el-col>
@@ -85,25 +83,18 @@
                     <el-input v-model="formData.email"></el-input>
                   </el-form-item>
                 </el-col>
-                <!-- <el-col>
-                <el-form-item label="选择数量:">
-                  <el-input-number v-model="formData.ticketNumber" :min="1" :max="10" label="描述文字"></el-input-number>
-                </el-form-item>
-              </el-col> -->
               </el-row>
             </el-form>
             <iep-button type="primary" @click="submitForm('ValidateForm')">报名</iep-button>
           </div>
           <!-- 标签 -->
-          <!-- <iep-page-header title="会议标签"></iep-page-header>
-        <div class="tag"></div> -->
           <el-col :span="16">
             <iep-page-header title="会议内容"></iep-page-header>
             <div class="content">
               <iep-html v-model="form.content"></iep-html>
             </div>
-            <!-- <el-input type="textarea" :autosize="{ minRows: 20, maxRows: 25}" v-model="form.content" readonly></el-input> -->
           </el-col>
+
           <el-col :span="8">
             <iep-page-header title="会议地点"></iep-page-header>
             <div class="map">
@@ -118,7 +109,6 @@
 </template>
 <script>
 import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
-// import { initForm, initFormTwo, initFormThree, initFormFour, initFormFive } from './option'
 import { initForm, rules } from './option'
 import { postMeetingsignup, getmeetingmarketing } from '@/api/mcms/meeting'
 export default {
@@ -126,11 +116,8 @@ export default {
   data () {
     return {
       formData: initForm(),
-      form: { urls: '', orgVo: { url: '', name: '' }, content: '', meetingTitle: '', meetingTimeStart: '', meetingTimeEnd: '', address: '' },
+      form: { urls: '', orgName: '', orgLogo: '', content: '', meetingTitle: '', meetingTimeStart: '', meetingTimeEnd: '', address: '' },
       address: '',
-      isShow: false,
-      one: '',
-      two: '',
       ticketNumber: '',
       subFrom: {
         companyName: '', // 公司
@@ -151,26 +138,23 @@ export default {
       //链接
       if (this.$route.params.id) {
         getmeetingmarketing(this.$route.params.id).then(res => {
-          console.log(res)
           this.form = res.data.data
-          console.log(this.form)
-          this.address = res.data.data.province
+          this.address = res.data.data.provinceName
         })
       }
       //预览
       if (this.$route.query.preview) {
         this.form = this.$route.query.data
-        this.form.orgVo = { url: '', name: '' }
         this.form.urls = this.$route.query.data.attachs
-        this.form.orgVo = this.$route.query.orgVo
       }
     },
     //报名
     handleSignUp () {
       this.$router.push({
         path: '/login',
+        query: { redirect: `/sign/${this.$route.params.id}?isShow=true` },
       })
-      this.isShow = true
+      this.isShow = this.$router.history.current.query.isShow
     },
     handleChange (value) {
       if (value > this.formData.length) {
@@ -209,14 +193,6 @@ export default {
           })
         }
       }
-
-      // this.$refs[formName].validate((valid) => {
-      //   if (valid) {
-
-      //   } else {
-
-      //   }
-      // })
     },
   },
 }
@@ -231,8 +207,6 @@ export default {
   height: 300px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  /* margin: 0 auto; */
-  /* background: red; */
 }
 .title {
   font-size: 20px;

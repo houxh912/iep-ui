@@ -1,11 +1,11 @@
 <template>
   <div>
     <el-form :model="form" label-width="80px" size="small" :inline="true">
-      <el-form-item label="手机">
-        <el-input v-model="form.inPhone" placeholder="请输入客户名称"></el-input>
-      </el-form-item>
       <el-form-item label="姓名">
-        <el-input v-model="form.inName" placeholder="请输入项目名称"></el-input>
+        <el-input v-model="form.inName" placeholder="请输入名称"></el-input>
+      </el-form-item>
+      <el-form-item label="手机">
+        <el-input v-model="form.inPhone" placeholder="请输入手机"></el-input>
       </el-form-item>
       <el-form-item label="邮箱">
         <el-input v-model="form.inEmail" placeholder="请输入邮箱"></el-input>

@@ -7,23 +7,12 @@
         <iep-button @click="handleDelte" plain>删除</iep-button>
       </template>
       <template slot="right">
-        <!-- <operation-search @search-page="searchPage" :id="id" advance-search prop='inName'>
-          <advance-search @search-page="searchPage" :id="id"></advance-search>
-        </operation-search> -->
         <search advance-search @search-page="searchPage" prop='inName' :id="id">
           <advance-search @search-page="searchPage" :id="id"></advance-search>
         </search>
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsName" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" :isMutipleSelection="isTrue" @selection-change="handleSelectionChange">
-      <!-- <el-table-column prop="operation" label="操作" width="250">
-        <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button type="warning" plain @click=" handleEdit(scope.row)">修改</iep-button>
-            <iep-button type="warning" plain @click=" handleDelete(scope.row)">删除</iep-button>
-          </operation-wrapper>
-        </template>
-      </el-table-column> -->
     </iep-table>
     <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </iep-dialog>
@@ -56,6 +45,7 @@ export default {
     },
     resetForm () {
       this.dialogShow = false
+      this.$emit('load-page')
     },
     handleAdd () {
       this.$refs['EditDialog'].dialogShow = true

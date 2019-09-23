@@ -20,20 +20,9 @@
 
           <el-col :span="12">
             <el-form-item label="会议规模：" prop="meetingScale">
-              <!-- <el-select v-model="formData.meetingScale">
-                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select> -->
               <el-input v-model="formData.meetingScale" placeholder="请输入规模人数"></el-input>
             </el-form-item>
           </el-col>
-
-          <!-- <el-col :span="12">
-            <el-form-item label="会议时间：">
-              <el-date-picker v-model="formData.value1" type="datetimerange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期">
-              </el-date-picker>
-            </el-form-item>
-          </el-col> -->
           <el-col :span='12'>
             <el-form-item label="开始时间：" prop="meetingTimeStart">
               <IepDatePicker v-model="formData.meetingTimeStart" :picker-options="signTimeOption" type="datetime" class="time"></IepDatePicker>
@@ -62,7 +51,6 @@
           </el-col>
           <el-col>
             <el-form-item label="会议子分类：">
-              <!-- <iep-tag v-model="formData.tags"></iep-tag> -->
               <div class="tag">
                 <iep-button @click="AddTags">添加子分类</iep-button>
                 <el-tag v-for="tag in tags" :key="tag.id" :value="tag.id" closable @close="closeTag(tag)" class="allTag">
@@ -71,25 +59,6 @@
               </div>
             </el-form-item>
           </el-col>
-
-          <!-- <el-col>
-            <el-form-item label="会议分类测试：">
-              <el-checkbox-group v-model="formData.meetingClasses1">
-                <el-checkbox v-for="item in  dictGroup['prms_business_type']" :key="item.value" :label="item.value" name="leixing">{{item.label}}</el-checkbox>
-              </el-checkbox-group>
-            </el-form-item>
-          </el-col>
-          <el-col>
-            <el-form-item label="会议子分类测试：">
-              <div class="tag">
-                <iep-button @click="handelAdd">添加子分类</iep-button>
-                <el-tag v-for="tag in tags" :key="tag.tagId" :value="tag.tagId" closable @close="closeTag(tag)" class="allTag">
-                  {{tag.name}}
-                </el-tag>
-              </div>
-            </el-form-item>
-          </el-col> -->
-
           <el-col>
             <el-form-item label="会议标签：" prop="tags">
               <iep-tag v-model="formData.tags"></iep-tag>
@@ -107,7 +76,6 @@
           </el-col>
           <el-col>
             <el-form-item label="海报：" prop="attachs">
-              <!-- <iep-avatar v-model="formData.attachs"></iep-avatar> -->
               <avatar-img v-model="formData.attachs"></avatar-img>
             </el-form-item>
           </el-col>
@@ -137,11 +105,6 @@ export default {
       formData: initForm(),
       rules,
       arr: [],
-      tagId: [],
-      tagLabel: [],
-      oneAddress: '',
-      twoAddress: '',
-      allAddress: '',
       tags: [],
       meetingTypeOption: [{
         value: '会议',
@@ -181,7 +144,6 @@ export default {
     ]),
   },
   created () {
-    // console.log(this.dictGroup)
     this.tag()
   },
   mounted () {
@@ -199,7 +161,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           getCodeName({ codes: this.formData.cityAdrss }).then((res) => {
-            console.log(res)
             this.$router.push({
               path: '/cfms_spa/meeting_detail',
               query: {
@@ -238,7 +199,7 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.meetingUrl = window.location.host + '/cfms_spa/meeting_detail'
+          this.formData.meetingUrl = window.location.host + '/sign'
           this.formData.meetingClasses2 = this.tags.map(m => m.id)
           postMeetingmarketing(this.formData).then((res) => {
             this.$message({

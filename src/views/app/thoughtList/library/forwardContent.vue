@@ -86,3 +86,12 @@ export default {
   }
 }
 </style>
+
+<style scoped>
+.contentTpl >>> .content {
+  width: 620px;
+}
+.contentTpl >>> .span {
+  width: 620px;
+}
+</style>

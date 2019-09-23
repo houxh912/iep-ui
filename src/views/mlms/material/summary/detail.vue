@@ -215,8 +215,8 @@ export default {
           return list.join('、')
         }
       }
-      this.formData.attendeeName = fn(this.formData.attendeeList) // 参会人
-      this.formData.receiverName = fn(this.formData.receiverList) // 参会人
+      this.formData.attendeeName = fn(this.formData.attendeeList || this.formData.attendee) // 参会人
+      this.formData.receiverName = fn(this.formData.receiverList || this.formData.receiver) // 抄送人
     },
     // 收藏
     handleCollect () {

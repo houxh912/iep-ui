@@ -68,6 +68,9 @@ export default {
   width: 1200px;
 }
 @media (max-width: 1400px) {
+  .breadcrumb-wrapper {
+    width: calc(100% - 200px);
+  }
   .list {
     width: calc(100% - 200px);
   }

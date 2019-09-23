@@ -67,8 +67,12 @@ export default {
 <style lang="scss" scoped>
 .content-tpl {
   .content {
+    width: 765px;
+    word-wrap:break-word;
     span {
       white-space: pre-wrap;
+      width: 765px;
+      word-wrap:break-word;
     }
     .subject {
       color: #cb3737;

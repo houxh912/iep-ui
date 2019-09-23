@@ -59,7 +59,7 @@ export const initFormData = () => {
     resume: '',
     content: '',
     status: 0,
-    tagKeyWords: [],
+    tagList: [],
     enterTime: '',
     annex: '',
     annexList: [],
@@ -89,7 +89,7 @@ export const rules = {
   annexList: [
     { required: true, message: '请上传附件', trigger: 'blur' },
   ],
-  tagKeyWords: [
+  tagList: [
     { required: true, message: '请填写附件', trigger: 'blur' },
   ],
   status: [

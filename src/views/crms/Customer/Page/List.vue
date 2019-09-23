@@ -419,7 +419,7 @@ export default {
       getUnToclaimHighseas({ clientId: row.clientId }).then(({ data }) => {
         if (data.data) {
           this.$message({
-            message: '取消认领成功!',
+            message: '操作成功!',
             type: 'success',
           })
           this.$emit('onGoBack')

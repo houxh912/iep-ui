@@ -5493,9 +5493,9 @@ html-webpack-plugin@^3.2.0:
     util.promisify "1.0.0"
 
 html2canvas@^1.0.0-alpha.12:
-  version "1.0.0-rc.3"
-  resolved "https://registry.npm.taobao.org/html2canvas/download/html2canvas-1.0.0-rc.3.tgz#1de88b073f6bcaa6954ca1edfb46da13b258b038"
-  integrity sha1-HeiLBz9ryqaVTKHt+0baE7JYsDg=
+  version "1.0.0-rc.4"
+  resolved "https://registry.npm.taobao.org/html2canvas/download/html2canvas-1.0.0-rc.4.tgz#caa4a094d97d321035a8025e4757bdd5ac76da86"
+  integrity sha1-yqSglNl9MhA1qAJeR1e91ax22oY=
   dependencies:
     css-line-break "1.1.1"
 
@@ -9560,10 +9560,10 @@ sort-keys@^2.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-sortablejs@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.npm.taobao.org/sortablejs/download/sortablejs-1.9.0.tgz#2d1e74ae6bac2cb4ad0622908f340848969eb88d"
-  integrity sha1-LR50rmusLLStBiKQjzQISJaeuI0=
+sortablejs@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.npm.taobao.org/sortablejs/download/sortablejs-1.10.0.tgz#0ebc054acff2486569194a2f975b2b145dd5e7d6"
+  integrity sha1-DrwFSs/ySGVpGUovl1srFF3V59Y=
 
 source-list-map@^2.0.0:
   version "2.0.1"
@@ -10844,11 +10844,11 @@ vue@^2.2.6, vue@^2.5.17, vue@^2.5.2, vue@^2.5.9, vue@^2.6.10:
   integrity sha1-pysaQqTYKnIepDjRtr9V5mGVxjc=
 
 vuedraggable@^2.17.0:
-  version "2.23.0"
-  resolved "https://registry.npm.taobao.org/vuedraggable/download/vuedraggable-2.23.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvuedraggable%2Fdownload%2Fvuedraggable-2.23.0.tgz#1f4a5a601675a5dbf0d96ee61aebfffa43445262"
-  integrity sha1-H0paYBZ1pdvw2W7mGuv/+kNEUmI=
+  version "2.23.1"
+  resolved "https://registry.npm.taobao.org/vuedraggable/download/vuedraggable-2.23.1.tgz#6af3a17110793e3154fb8a52ce9df5109726d2ab"
+  integrity sha1-avOhcRB5PjFU+4pSzp31EJcm0qs=
   dependencies:
-    sortablejs "^1.9.0"
+    sortablejs "^1.10.0"
 
 vuex@^3.0.1:
   version "3.1.1"

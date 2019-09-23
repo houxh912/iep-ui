@@ -469,8 +469,8 @@ export default {
   box-sizing: border-box;
   border-top: 1px solid #eee;
   .left {
-    margin-right: 30px;
-    /*  border: 1px solid #ddd; */
+    padding-right: 30px;
+    border-right: 1px solid #ebeef5;
     border-radius: 3px;
     .page-top {
       display: flex;
@@ -568,7 +568,6 @@ export default {
     }
   }
   .right {
-    border-left: 1px solid #ebeef5;
     /* border-radius: 3px; */
     padding: 0 0 0 30px;
     // margin-left: 25px;

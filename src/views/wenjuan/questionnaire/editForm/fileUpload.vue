@@ -82,12 +82,12 @@ export default {
   // color: #909399;
   .name {
     margin: 13px 0;
-    font-size: 17px;
+    font-size: 16px;
   }
   .ti {
     display: flex;
     .ti1 {
-      font-size: 15px;
+      font-size: 14px;
       padding: 8px;
     }
     .ti2 {

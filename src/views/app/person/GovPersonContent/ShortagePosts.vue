@@ -1,5 +1,5 @@
 <template>
-  <div class="leader-board">
+  <div class="leader-board iep-basic-scroll">
     <IepAppTabCard :title="title" :linkName="linkName">
       <!-- <div class="important" slot="left">
         <el-button type="text" @click="() => {this.$router.push('/app/tobeBole')}">争做伯乐</el-button>
@@ -108,26 +108,6 @@ export default {
 .leader-board >>> .el-table__body-wrapper {
   overflow-y: scroll;
   height: 210px !important;
-}
-.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  transition: 0.3s background-color;
-}
-.leader-board >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  transition: 0.3s background-color;
-  display: none;
-  transition: all 0.5s;
-}
-.leader-board >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
-  display: block;
 }
 .leader-board >>> .title .right {
   float: right;

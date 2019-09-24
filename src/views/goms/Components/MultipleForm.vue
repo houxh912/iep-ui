@@ -1,4 +1,5 @@
 <template>
+<div class="iep-basic-scroll">
   <iep-a-dialog :dialog-show="dialogShow" :title="`批量添加${showTexts.name}`" width="70%" @ok="handleOk" :confirmLoading="confirmLoading" @cancel="close">
     <el-row :gutter="20">
       <el-col :span="6">
@@ -51,7 +52,7 @@
       </a-button>
     </template>
   </iep-a-dialog>
-
+</div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
@@ -142,26 +143,5 @@ export default {
 .el-scrollbar >>> .el-scrollbar__wrap {
   margin-right: -6px !important;
   overflow-x: hidden;
-}
-.el-scrollbar >>> ::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-.el-scrollbar >>> ::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  transition: 0.3s background-color;
-}
-.el-scrollbar >>> ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  transition: 0.3s background-color;
-  display: none;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-.el-scrollbar >>> :hover::-webkit-scrollbar-thumb {
-  display: block;
 }
 </style>

@@ -5,9 +5,9 @@
         <a-list-item-meta>
           <a slot="title">{{ item.title }}</a>
           <span slot="description">
-            <span class="security-list-description">{{ item.description }}</span>
+            <span>{{ item.description }}</span>
             <span v-if="item.value"> : </span>
-            <span class="security-list-value">{{ item.value }}</span>
+            <span>{{ item.value }}</span>
           </span>
         </a-list-item-meta>
         <template v-if="item.actions">
@@ -46,6 +46,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-</style>

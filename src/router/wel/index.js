@@ -34,7 +34,7 @@ export default [
           {
             path: 'base',
             name: 'BaseSettings',
-            component: () => import(/* webpackChunkName: "wel" */'@/views/wel/account-settings/BaseSetting'),
+            component: () => import(/* webpackChunkName: "wel" */'@/views/wel/account-settings/Base'),
             meta: { title: '基本设置' },
           },
           {
@@ -42,6 +42,12 @@ export default [
             name: 'SecuritySettings',
             component: () => import(/* webpackChunkName: "wel" */'@/views/wel/account-settings/Security'),
             meta: { title: '安全设置' },
+          },
+          {
+            path: 'binding',
+            name: 'BindingSettings',
+            component: () => import(/* webpackChunkName: "wel" */'@/views/wel/account-settings/Binding'),
+            meta: { title: '账号关联' },
           },
           // {
           //   path: 'notification',

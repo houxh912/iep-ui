@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <el-button style="float:right" class="modify" size="small" @click="handleEdit">编辑</el-button>
+      <iep-button style="float:right" @click="handleEdit">编辑</iep-button>
       <div class="org-detail-wrapper">
         <div class="content">
           <div class="top">

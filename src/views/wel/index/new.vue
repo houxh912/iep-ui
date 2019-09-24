@@ -4,17 +4,17 @@
     <quick></quick>
     <notice></notice>
     <instruction></instruction>
-    <system></system>
-    <wealth></wealth>
-    <in-box></in-box>
-    <report></report>
+    <system v-if="false"></system>
     <material></material>
+    <wealth></wealth>
+    <in-box v-if="false"></in-box>
+    <report v-if="false"></report>
     <my-data></my-data>
-    <task></task>
+    <task v-if="false"></task>
     <relationship></relationship>
     <business></business>
     <opportunity></opportunity>
-    <training></training>
+    <training v-if="false"></training>
     <project></project>
     <find-project></find-project>
   </div>

@@ -187,7 +187,12 @@ export default {
     },
     calculateDict (item, scope) {
       if (scope.row[item.prop]) {
-        return keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]].label
+        const isExist = keyBy(this.dictGroup[item.dictName], 'value')[scope.row[item.prop]]
+        if (isExist) {
+          return isExist.label
+        } else {
+          return '暂无'
+        }
       } else {
         return '暂无'
       }

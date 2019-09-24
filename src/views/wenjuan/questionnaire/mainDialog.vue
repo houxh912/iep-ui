@@ -238,7 +238,7 @@ export default {
       this.$nextTick(() => {
         this.$refs['form'].clearValidate()
       })
-      getOrgList().then(({ data }) => {
+      getOrgList('', 2).then(({ data }) => {
         this.groupDic = data.data.map(item => {
           return {
             label: item.name,

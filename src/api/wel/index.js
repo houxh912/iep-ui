@@ -56,3 +56,22 @@ export function getProjectList () {
   })
 }
 
+export function getNotice () {
+  return request({
+    url: `${prefixUrl}/pending/list`,
+    method: 'get',
+    params: {
+      type: 'announcement',
+    },
+  })
+}
+
+export function getInstruction () {
+  return request({
+    url: `${prefixUrl}/pending/list`,
+    method: 'get',
+    params: {
+      type: 'instruction',
+    },
+  })
+}

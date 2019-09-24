@@ -21,6 +21,7 @@ Vue.prototype.$openPage = openPage
 Vue.prototype.$openTagDetail = openTagDetail
 Vue.prototype.$fillStatisticsArray = fillStatisticsArray
 Vue.prototype.$wsUrl = wsUrl
+Vue.prototype.$wxAppId = 'wx92d9fe94daef034e'
 
 Vue.use(Directives)
 Vue.use(Avue, { menuType: 'text' })

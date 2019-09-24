@@ -7,7 +7,7 @@
       </div>
       <slot name="right"></slot>
     </div>
-    <div>
+    <div class="content-wrapper">
       <slot></slot>
     </div>
   </div>
@@ -35,6 +35,12 @@ export default {
       font-size: 16px;
       font-weight: 600;
     }
+  }
+  .content-wrapper {
+    height: calc(100% - 35px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 </style>

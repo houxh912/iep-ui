@@ -5,6 +5,7 @@
         <!-- <iep-button type="danger" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button> -->
         <!-- <iep-button type="danger" plain>导出</iep-button> -->
         <iep-button @click="handleEdit" icon="el-icon-plus" type="primary" plain>阅卷进度</iep-button>
+        <iep-button @click="handlePaperAgain" icon="el-icon-finished" type="warning" plain>纠正阅卷</iep-button>
         <!-- <iep-button class="tip">当前已选择<span>{{Value}}</span>项</iep-button> -->
         <!-- <iep-button class="empty" @click="handleEmpty" v-show="Value != 0">清空</iep-button> -->
       </template>
@@ -65,7 +66,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getExamReadingList, sendCertificateById, judgeWrittenById, getInterviewById } from '@/api/exam/examLibrary/examReading/examReading'
+import { getExamReadingList, sendCertificateById, judgeWrittenById, getInterviewById, CorrectMarking } from '@/api/exam/examLibrary/examReading/examReading'
 import WritteForm from './writte-form'
 import InterviewForm from './interview-form'
 import ProgressForm from './progress-form'
@@ -182,6 +183,28 @@ export default {
     handleEdit () {
       this.dialogProgress = true
       this.InterviewData = { ...this.record }
+    },
+
+    /**
+     * 纠正阅卷按钮
+     */
+    handlePaperAgain () {
+      const params = {
+        examId: this.record.row.id,
+      }
+      CorrectMarking(params).then(res => {
+        if (res.data.data == true) {
+          this.$message({
+            type: 'success',
+            message: '成功一键纠正阅卷',
+          })
+        } else {
+          this.$message({
+            type: 'error',
+            message: '系统繁忙，请稍后再试',
+          })
+        }
+      })
     },
 
     /**

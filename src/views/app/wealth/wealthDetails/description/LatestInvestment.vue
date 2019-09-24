@@ -34,7 +34,7 @@ const columnsMap = [
     type: 'dict',
   },
   {
-    prop: 'updateTime',
+    prop: 'createTime',
     label: '投资时间',
   },
 ]

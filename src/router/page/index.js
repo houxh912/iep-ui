@@ -40,6 +40,16 @@ export default [
     },
   },
   {
+    path: '/authredirect',
+    name: '授权',
+    component: () => import('@/page/authredirect/index'),
+    meta: {
+      keepAlive: false,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
     path: '/myiframe',
     component: Layout,
     redirect: '/myiframe',

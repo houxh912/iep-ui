@@ -38,23 +38,6 @@ export default {
 .msg-tabs >>> .el-card__body {
   overflow: auto;
 }
-.msg-tabs >>> ::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 8px;
-  background-color: #fff;
-}
-.msg-tabs >>> ::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
-.msg-tabs >>> ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ccc;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
 </style>
 <style lang="scss" scoped>
 .item {

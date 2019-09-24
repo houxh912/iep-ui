@@ -1,5 +1,5 @@
 <template>
-  <div class="texture-score">
+  <div class="texture-score iep-basic-scroll">
     <IepAppTabCard :title="title" :linkName="linkName">
       <el-button style="float: right; padding: 5px 0;" type="text" slot="right" @click="handleEvaluate">我要评价</el-button>
       <div class="texture-score-list">
@@ -162,29 +162,6 @@ export default {
 .texture-score >>> .el-card__body {
   padding: 0;
   overflow-x: hidden;
-}
-.texture-score >>> .el-card__body::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-.texture-score >>> .el-card__body::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
-.texture-score >>> .el-card__body::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  display: none;
-  background-color: #ddd;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-.texture-score >>> .el-card:hover ::-webkit-scrollbar-thumb {
-  display: block;
 }
 
 .texture-score >>> .el-card {

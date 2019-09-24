@@ -1,6 +1,6 @@
 <!-- 弹窗Layout -->
 <template>
-  <div class="dialog-layout" :class="classname">
+  <div class="dialog-layout iep-basic-scroll" :class="classname">
     <div ref="body">
       <slot></slot>
     </div>

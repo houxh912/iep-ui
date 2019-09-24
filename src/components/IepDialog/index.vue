@@ -1,4 +1,5 @@
 <template>
+<div class="iep-basic-scroll">
   <el-dialog class="iep-dialog" :width="width" :visible="dialogShow" append-to-body :close-on-click-modal="closeOnClickModal" v-bind="$attrs" v-on="$listeners">
     <div slot="title" class="dialog-title-box">
       <span class="dialog-title">{{title}}</span>
@@ -12,6 +13,7 @@
       </OperationWrapper>
     </div>
   </el-dialog>
+  </div>
 </template>
 <script>
 export default {

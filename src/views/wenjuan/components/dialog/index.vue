@@ -12,7 +12,7 @@
     :visible.sync="visible"
     :top="top"
     :width="width">
-    <div class="dialog-layout" :style="style">
+    <div class="dialog-layout iep-basic-scroll" :style="style">
       <div ref="dialogBody">
         <slot></slot>
       </div>

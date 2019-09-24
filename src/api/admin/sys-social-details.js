@@ -47,3 +47,18 @@ export function bindAccount (obj) {
     params: obj,
   })
 }
+export function getBindToken (obj) {
+  return request({
+    url: `${prefixUrl}/token`,
+    method: 'get',
+    params: obj,
+  })
+}
+
+export function unBindAccount (obj) {
+  return request({
+    url: `${prefixUrl}/unbind`,
+    method: 'get',
+    params: obj,
+  })
+}

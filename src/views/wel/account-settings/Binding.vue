@@ -23,6 +23,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { unBindAccount } from '@/api/admin/sys-social-details'
 export default {
   data () {
     return {
@@ -42,7 +43,7 @@ export default {
             show: false,
             title: '解除绑定',
             callback: () => {
-              this.handleClick('wechat')
+              this.handleUnbind('WX')
             },
           },
         },
@@ -58,6 +59,16 @@ export default {
     this.data[0].actions1.show = this.userInfo.wxOpenid ? true : false
   },
   methods: {
+    async handleUnbind (state) {
+      const { data } = await unBindAccount({
+        state,
+      })
+      if (data.data) {
+        this.$message.success('解绑成功')
+      } else {
+        this.$message(data.msg)
+      }
+    },
     handleClick (thirdpart) {
       let appid, client_id, redirect_uri, url
       redirect_uri = encodeURIComponent(

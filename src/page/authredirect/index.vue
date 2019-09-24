@@ -13,9 +13,15 @@ export default {
   created () {
     if (this.$route.query.type === 'bind') {
       this.bindAccount()
+    } else {
+      this.loginAccount()
     }
   },
   methods: {
+    async loginAccount () {
+      window.close()
+      window.opener.location.href = `${window.location.origin}/login${window.location.search}`
+    },
     async bindAccount () {
       const { data } = await bindAccount({
         state: this.state,

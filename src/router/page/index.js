@@ -30,7 +30,7 @@ export default [
     },
   },
   {
-    path: '/sign/:id',
+    path: '/meeting/:id',
     name: '报名页',
     component: () => import('@/page/MeetingDetail/index'),
     meta: {

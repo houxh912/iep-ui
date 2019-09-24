@@ -1,5 +1,5 @@
 <template>
-  <div class="account-settings-info-view">
+  <div>
     <a-row :gutter="16">
       <a-col :xl="24" :xxl="20">
         <el-form ref="form" class="form-detail" :rules="rules" :model="form" label-width="150px" size="small">
@@ -294,8 +294,8 @@ export default {
         this.unWatch = this.$watch('form', function (curVal) {
           that.autoSave(curVal)
         }, {
-            deep: true, immediate: false,
-          })
+          deep: true, immediate: false,
+        })
       }, 100)
     },
     unAutoSave () {

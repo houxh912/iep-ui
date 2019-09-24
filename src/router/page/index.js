@@ -31,7 +31,7 @@ export default [
   },
   {
     path: '/authredirect',
-    name: '注册页',
+    name: '授权',
     component: () => import('@/page/authredirect/index'),
     meta: {
       keepAlive: false,

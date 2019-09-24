@@ -1,5 +1,5 @@
 <template>
-  <div class="see-project">
+  <div class="see-project iep-basic-scroll">
     <keep-alive>
       <basic-container>
         <iep-page-header title="查看项目" :backOption="backOption"></iep-page-header>
@@ -482,28 +482,5 @@ export default {
 }
 .contianBox >>> .center-box .content {
   padding: 0;
-}
-.see-project >>> ::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-.see-project >>> ::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
-.see-project >>> ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-  display: none;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-.see-project >>> :hover::-webkit-scrollbar-thumb {
-  display: block;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+<div class="iep-basic-scroll">
   <iep-dialog :dialog-show="dialogShow" title="添加关联" width="60%" @close="resetForm">
     <!-- transfer -->
     <div class="iep-transfer">
@@ -46,6 +47,7 @@
       <iep-button @click="resetForm('form')">取消</iep-button>
     </template>
   </iep-dialog>
+  </div>
 </template>
 <script>
 import { getMaterialList } from '@/api/mlms/material/datum/material'
@@ -162,29 +164,6 @@ export default {
 .iep-transfer {
   margin-bottom: 25px;
   display: flex;
-  .box-list::-webkit-scrollbar {
-    border-radius: 10px;
-    width: 6px;
-    background-color: #fff;
-  }
-  .box-list::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-color: #fff;
-    -webkit-transition: 0.3s background-color;
-    transition: 0.3s background-color;
-  }
-  .box-list::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #ddd;
-    -webkit-transition: 0.3s background-color;
-    transition: 0.3s background-color;
-    display: none;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-  }
-  .box-list:hover ::-webkit-scrollbar-thumb {
-    display: block;
-  }
   .transfer {
     flex: 1;
     overflow-y: scroll;

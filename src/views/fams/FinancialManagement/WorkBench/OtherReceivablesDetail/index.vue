@@ -21,8 +21,8 @@
         <el-table-column prop="operation" label="操作" width="200" fixed="right">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button @click="handleIncome(scope.row)" type="primary" plain>新增</iep-button>
-              <iep-button @click="handleShow(scope.row)">查看</iep-button>
+              <iep-button @click="handleIncome(scope.row)" type="primary" plain>新增回款</iep-button>
+              <iep-button @click="handleShow(scope.row)">查看回款记录</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

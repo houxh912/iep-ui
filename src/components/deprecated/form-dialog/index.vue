@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body>
+  <el-dialog class="iep-basic-scroll" :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body>
     <div slot="title" class="dialog-title-box">
       <span class="dialog-title">{{title}}</span>
       <el-button v-if="isNeedRestore" class="text-icon" type="text" @click="toggleFullscreen">

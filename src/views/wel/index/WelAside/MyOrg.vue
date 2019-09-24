@@ -15,7 +15,7 @@
         <iep-button type="primary" size="mini" v-popover:popover plain>入驻邀请</iep-button>
       </div>
     </div>
-    <div class="org-list">
+    <div class="org-list iep-basic-scroll">
       <div class="org-item" :class="{'disabled':org.orgId === userInfo.orgId}" v-for="org in orgs" :key="org.orgId" @click="handleSwitch(org)">
         <iep-div-detail class="org-name" :value="org.name"></iep-div-detail>
         <!-- <div class="org-name" :title="org.name">{{org.name}}</div> -->
@@ -149,27 +149,5 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
-}
-</style>
-<style scoped>
-.org-list::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  /* background-color: #fff; */
-}
-.org-list::-webkit-scrollbar-track {
-  border-radius: 10px;
-  /* background-color: #fff; */
-  transition: 0.3s background-color;
-}
-.org-list::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  transition: 0.3s background-color;
-  display: none;
-  transition: all 0.5s;
-}
-.org-list:hover::-webkit-scrollbar-thumb {
-  display: block;
 }
 </style>

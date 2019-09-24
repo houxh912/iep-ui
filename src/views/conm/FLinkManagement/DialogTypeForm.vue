@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`友情链接${methodName}`" width="700px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`友情链接分类${methodName}`" width="700px" @close="loadPage">
     <el-form class="form-detail" :model="form" size="small" :rules="rules" label-width="120px">
       <el-form-item label="分类名称：" prop="typeName">
         <el-input v-model="form.typeName" maxlength="150" show-word-limit></el-input>

@@ -186,10 +186,10 @@ export default {
     handleClick (thirdpart) {
       let appid, client_id, redirect_uri, url
       redirect_uri = encodeURIComponent(
-        window.location.origin + '/#/authredirect'
+        window.location.origin + '/authredirect'
       )
       if (thirdpart === 'wechat') {
-        appid = 'wx2506d6d34d7a90aa'
+        appid = 'wx92d9fe94daef034e'
         url =
           'https://open.weixin.qq.com/connect/qrconnect?appid=' +
           appid +

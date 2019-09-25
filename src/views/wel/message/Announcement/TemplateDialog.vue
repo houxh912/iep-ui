@@ -17,7 +17,7 @@
                 <div slot="header" class="clearfix">
                   <span>模板内容</span>
                 </div>
-                <iep-html :value="content"></iep-html>
+                <iep-html class="template-content iep-basic-scroll" :value="content"></iep-html>
               </el-card>
               <iep-button slot="reference" type="warning" plain>查看</iep-button>
             </el-popover>
@@ -86,3 +86,8 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.template-content {
+  max-height: 300px;
+}
+</style>

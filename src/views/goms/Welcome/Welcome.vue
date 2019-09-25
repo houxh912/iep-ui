@@ -131,7 +131,7 @@
       <div>您可以选择</div>
       <operation-wrapper>
         <iep-button size="medium">继续学习如何打造智慧组织</iep-button>
-        <iep-button size="medium">即刻迈进智慧组织</iep-button>
+        <iep-button size="medium" @click="$openPage('/goms/work_bench')">即刻迈进智慧组织</iep-button>
       </operation-wrapper>
     </div>
     <div class="footer-container">

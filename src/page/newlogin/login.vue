@@ -61,11 +61,12 @@
   </user-operation-layout>
 </template>
 <script>
-import { openWindow } from '@/util/util'
+import { mapGetters, mapActions } from 'vuex'
 import UserOperationLayout from './index'
+import { getBindCheck } from '@/api/admin/sys-social-details'
+import { openWindow } from '@/util/util'
 import { codeUrl } from '@/config/env'
 import { randomLenNum } from '@/util/util'
-import { mapGetters, mapActions } from 'vuex'
 import { validatenull } from '@/util/validate'
 export default {
   components: { UserOperationLayout },
@@ -107,21 +108,27 @@ export default {
   },
   watch: {
     '$route.query': {
-      handler (newName) {
+      async handler (newName) {
         const params = newName
         this.socialForm.state = params.state
         this.socialForm.code = params.code
         if (!validatenull(this.socialForm.state)) {
-          const loading = this.$loading({
-            lock: true,
-            text: '登录中,请稍后。。。',
-            spinner: 'el-icon-loading',
-            background: 'rgba(0, 0, 0, 0.7)',
-          })
-          setTimeout(() => {
-            loading.close()
-          }, 2000)
-          this.handleSocialLogin()
+          const { data } = await getBindCheck(this.socialForm)
+          if (data.data) {
+            const loading = this.$loading({
+              lock: true,
+              text: '登录中,请稍后。。。',
+              spinner: 'el-icon-loading',
+              background: 'rgba(0, 0, 0, 0.7)',
+            })
+            setTimeout(() => {
+              loading.close()
+            }, 2000)
+            this.handleSocialLogin()
+          } else {
+            this.$message(data.msg)
+            console.log(data.msg)
+          }
         }
       },
       deep: true,

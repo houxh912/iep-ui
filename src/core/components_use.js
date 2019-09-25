@@ -28,6 +28,7 @@ import IepReadMarkDel from '@/components/IepCommon/ReadMarkDel'
 import IepFiveKay from '@/components/IepCommon/FiveKey'
 import IepKeyItem from '@/components/IepCommon/KeyItem'
 import IepUserCard from '@/components/IepCommon/UserCard'
+import IepCharts from '@/components/IepCommon/ECharts'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -137,6 +138,7 @@ Vue.component(IepReadMarkDel.name, IepReadMarkDel)
 Vue.component(IepFiveKay.name, IepFiveKay)
 Vue.component(IepKeyItem.name, IepKeyItem)
 Vue.component(IepUserCard.name, IepUserCard)
+Vue.component(IepCharts.name, IepCharts)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)

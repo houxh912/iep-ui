@@ -243,7 +243,11 @@ export function examForm () {
     operateUserids: [],//报名管理&考卷管理列表
     writeUserids: [],//试卷审阅权限列表
     faceUserIds: [],//面试判分权限列表
-    examType: null,
+    examType: null,//考卷模式
+    applyTimeSwitch: 0,//报名时间按钮，0默认不开启
+    examTimeSwitch: 0, //考试时间按钮，0默认不开启
+    examDifficulty: '', //难度系数
+    // datiFrequency: 0, //答题次数
   }
 }
 
@@ -318,6 +322,9 @@ export const examFormRules = {
   ],
   examType: [
     { required: true, message: '请选择考卷模式', trigger: 'change' },    
+  ],
+  examDifficulty:[
+    { required: true, message: '请选择考卷模式', trigger: 'change' },  
   ],
 }
 

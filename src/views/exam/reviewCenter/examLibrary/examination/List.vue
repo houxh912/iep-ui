@@ -4,8 +4,7 @@
       <iep-page-header title="考试库管理"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd"
-            v-if="permissionAdd || permissionAll">新增</iep-button>
+          <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleAdd" v-if="permissionAdd || permissionAll">新增</iep-button>
           <iep-button size="small" @click="handleDeleteAll" v-if="permissionAll">批量删除</iep-button>
           <!-- <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
@@ -15,15 +14,14 @@
           </el-dropdown> -->
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title"
-            advanceSearch>
+          <operation-search @search-page="searchPage" :params="searchForm.title" prop="title" advanceSearch>
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
 
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection @selection-change="selectionChange" is-mutiple-selection>
-        <el-table-column prop="fieldName" label="考试科目">
+        <el-table-column prop="fieldName" label="考试科目" width="120">
           <template slot-scope="scope">
             {{scope.row.fieldName}}
           </template>
@@ -33,33 +31,39 @@
             {{scope.row.title}}
           </template>
         </el-table-column>
-        <el-table-column prop="beginTime" label="开始时间" min-width="150">
+        <el-table-column prop="examType" label="类型" width="120">
+          <template slot-scope="scope">
+            <el-tag type="success" size="medium" v-if="scope.row.examType === 0">专题考试</el-tag>
+            <el-tag type="warning" size="medium" v-if="scope.row.examType === 1">模拟练习</el-tag>
+          </template>
+        </el-table-column>
+        <!-- <el-table-column prop="beginTime" label="开始时间" min-width="150">
           <template slot-scope="scope">
             {{scope.row.beginTime}}
           </template>
-        </el-table-column>
-        <el-table-column prop="endTime" label="结束时间" min-width="150">
+        </el-table-column> -->
+        <!-- <el-table-column prop="endTime" label="结束时间" min-width="150">
           <template slot-scope="scope">
             {{scope.row.endTime}}
           </template>
-        </el-table-column>
-        <el-table-column prop="totalScore" label="总分" min-width="60">
+        </el-table-column> -->
+        <el-table-column prop="totalScore" label="总分" width="80">
           <template slot-scope="scope">
             {{scope.row.totalScore}}
           </template>
         </el-table-column>
-        <el-table-column prop="number" label="报名人数">
+        <el-table-column prop="number" label="报名人数" width="90">
           <template slot-scope="scope">
             {{scope.row.number}}
           </template>
         </el-table-column>
-        <el-table-column prop="state" label="状态" min-width="60">
+        <el-table-column prop="state" label="状态" width="80">
           <template slot-scope="scope">
             <el-tag type="success" size="medium" v-if="scope.row.state === 0">启用</el-tag>
             <el-tag type="warning" size="medium" v-if="scope.row.state === 1">禁用</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="username" label="创建者">
+        <el-table-column prop="username" label="创建者" width="100">
           <template slot-scope="scope">
             {{scope.row.username}}
           </template>
@@ -69,14 +73,12 @@
             {{scope.row.creatTime}}
           </template>
         </el-table-column> -->
-        <el-table-column prop="operation" label="操作" min-width="200">
+        <el-table-column prop="operation" label="操作" width="180">
           <template slot-scope="scope">
             <operation-wrapper>
-              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)"
-                v-if="isCreator(scope.row) || permissionAll">编辑</iep-button>
+              <iep-button type="warning" size="small" plain @click="handleEdit(scope.row)" v-if="isCreator(scope.row) || permissionAll">编辑</iep-button>
               <iep-button size="small" @click="handleDetail(scope.row)">查看</iep-button>
-              <el-dropdown size="medium"
-                v-if="permissionReading(scope.row) || permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">
+              <el-dropdown size="medium" v-if="permissionReading(scope.row) || permissionRegist(scope.row) || isCreator(scope.row) || permissionAll">
                 <iep-button type="default"><i class="el-icon-more-outline"></i></iep-button>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item @click.native="handleOpen(scope.row)" v-if="scope.row.state === 1 && (isCreator(scope.row) || permissionAll)">启用</el-dropdown-item>

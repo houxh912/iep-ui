@@ -110,24 +110,27 @@ export default {
     '$route.query': {
       async handler (newName) {
         const params = newName
-        this.socialForm.state = params.state
-        this.socialForm.code = params.code
-        if (!validatenull(this.socialForm.state)) {
-          const { data } = await getBindCheck(this.socialForm)
-          if (data.data) {
-            const loading = this.$loading({
-              lock: true,
-              text: '登录中,请稍后。。。',
-              spinner: 'el-icon-loading',
-              background: 'rgba(0, 0, 0, 0.7)',
-            })
-            setTimeout(() => {
-              loading.close()
-            }, 2000)
-            this.handleSocialLogin()
-          } else {
-            this.$message(data.msg)
-            console.log(data.msg)
+        if (params.isValid) {
+          return
+        } else {
+          this.socialForm.state = params.state
+          this.socialForm.code = params.code
+          if (!validatenull(this.socialForm.state)) {
+            const { data } = await getBindCheck(this.socialForm)
+            if (data.data) {
+              const loading = this.$loading({
+                lock: true,
+                text: '登录中,请稍后。。。',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)',
+              })
+              setTimeout(() => {
+                loading.close()
+              }, 2000)
+              this.handleSocialLogin()
+            } else {
+              this.$message(data.msg + '请登陆后绑定账号')
+            }
           }
         }
       },
@@ -154,7 +157,7 @@ export default {
       this.$emit('tab-active', 'retrieve')
     },
     handleRegister () {
-      this.$router.push({ path: '/register', query: this.$route.query })
+      this.$router.push({ path: '/register', query: { ...this.$route.query, isValid: true } })
     },
     refreshCode () {
       this.form.code = ''

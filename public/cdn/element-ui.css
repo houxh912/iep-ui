@@ -14776,8 +14776,8 @@
 
 .el-scrollbar__bar.is-vertical>div {
     width: 100%;
-    opacity: 1;
     height: 100%;
+    opacity: 0;
 }
 
 .el-scrollbar__bar.is-horizontal {

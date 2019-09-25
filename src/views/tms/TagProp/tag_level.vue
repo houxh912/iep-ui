@@ -10,7 +10,7 @@
 
     <el-form :inline="true" size="small">
       <el-form-item v-if="gov_tagLevel_add">
-        <el-button @click="handleClick()" type="primary" icon="el-icon-plus">新增</el-button>
+        <el-button @click="handleClick()" type="primary" icon="el-icon-plus" plain>新增</el-button>
       </el-form-item>
     </el-form>
 

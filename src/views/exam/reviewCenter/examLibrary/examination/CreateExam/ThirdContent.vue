@@ -99,18 +99,33 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="40">
+          <!-- <el-row :gutter="40" v-if="showsubmitPaper">
             <el-col :span="12">
-              <el-form-item label="报名时间" required>
+              <el-form-item label="答题次数" prop="datiFrequency">
+                <el-radio-group v-model="examForm.datiFrequency">
+                  <el-radio :label="0" :disabled="readOnly">无限次</el-radio>
+                  <el-radio :label="1" :disabled="readOnly">一次</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+          </el-row> -->
+          <el-row :gutter="40" v-if="showTime">
+            <el-col :span="12">
+              <el-form-item label="报名时间">
                 <el-row>
-                  <el-col :span="11" style="padding:0">
+                  <el-col :span="3">
+                    <el-form-item prop="applyTimeSwitch">
+                      <el-switch v-model="examForm.applyTimeSwitch" :active-value="1" :inactive-value="0" @change="applySwitchChange" :disabled="readOnly"></el-switch>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="10" style="padding:0" v-if="showTime && examForm.applyTimeSwitch == 1">
                     <el-form-item prop="signBeginTime">
                       <iep-date-picker v-model="examForm.signBeginTime" type="datetime" placeholder="开始时间" style="width:100%" :readonly="readOnly" :picker-options="pickerOptionsSignBegin" value-format="yyyy-MM-dd HH:mm:ss">
                       </iep-date-picker>
                     </el-form-item>
                   </el-col>
-                  <el-col class="line" :span="2">-</el-col>
-                  <el-col :span="11" style="padding:0">
+                  <el-col class="line" :span="1" v-if="showTime && examForm.applyTimeSwitch == 1">-</el-col>
+                  <el-col :span="10" v-if="showTime && examForm.applyTimeSwitch == 1" style="padding:0">
                     <el-form-item prop="signEndTime">
                       <iep-date-picker v-model="examForm.signEndTime" type="datetime" placeholder="结束时间" style="width:100%" :readonly="readOnly" :picker-options="pickerOptionsSignEnd" value-format="yyyy-MM-dd HH:mm:ss">
                       </iep-date-picker>
@@ -119,7 +134,7 @@
                 </el-row>
               </el-form-item>
             </el-col>
-            <el-col :span="12">
+            <el-col :span="12" v-if="showTime && examForm.applyTimeSwitch == 1">
               <el-form-item label="报名消耗" prop="consume">
                 <el-input v-model.number="examForm.consume" :readonly="readOnly">
                   <template slot="append">贝</template>
@@ -127,18 +142,22 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="40">
+          <el-row :gutter="40" v-if="showTime">
             <el-col :span="12">
-              <el-form-item label="考试时间" required>
+              <el-form-item label="考试时间">
                 <el-row>
-                  <el-col :span="11" style="padding:0">
+                  <el-col :span="3">
+                    <el-form-item prop="examTimeSwitch">
+                      <el-switch v-model="examForm.examTimeSwitch" :active-value="1" :inactive-value="0" @change="examSwitchChange" :disabled="readOnly"></el-switch>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="10" v-if="showTime && examForm.examTimeSwitch == 1" style="padding:0">
                     <el-form-item prop="signBeginTime">
                       <iep-date-picker v-model="examForm.beginTime" type="datetime" placeholder="开始时间" style="width:100%" :picker-options="pickerOptionsBegin" :readonly="readOnly"></iep-date-picker>
                     </el-form-item>
-
                   </el-col>
-                  <el-col class="line" :span="2">-</el-col>
-                  <el-col :span="11" style="padding:0">
+                  <el-col class="line" :span="1" v-if="showTime && examForm.examTimeSwitch == 1">-</el-col>
+                  <el-col :span="10" v-if="showTime && examForm.examTimeSwitch == 1" style="padding:0">
                     <el-form-item prop="endTime">
                       <iep-date-picker v-model="examForm.endTime" type="datetime" placeholder="结束时间" style="width:100%" :picker-options="pickerOptionsEnd" :readonly="readOnly">
                       </iep-date-picker>
@@ -147,6 +166,9 @@
                 </el-row>
               </el-form-item>
             </el-col>
+            <el-col :span="12"></el-col>
+          </el-row>
+          <el-row :gutter="40">
             <el-col :span="12">
               <el-form-item label="答卷时长" prop="timeLong">
                 <el-input v-model="examForm.timeLong" :readonly="readOnly">
@@ -154,6 +176,13 @@
                     分
                   </template>
                 </el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="难度系数" prop="examDifficulty">
+                <el-select placeholder="请选择考试难度系数" v-model="examForm.examDifficulty" :disabled="readOnly" clearable style="width:100%">
+                  <el-option v-for="(item, index) in res.exms_difficulty" :key="index" :label="item.label" :value="item.id"></el-option>
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -285,12 +314,13 @@ export default {
       examFormRules,
       examForm: examForm(),
       testPaper: initForm(),//试卷信息
-      res: [],
+      res: {},
       formRequestFn: () => { },
       pickerOptionsSignBegin: this.signBeginDate(),
       pickerOptionsSignEnd: this.signEndDate(),
       pickerOptionsBegin: this.beginDate(),
       pickerOptionsEnd: this.endDate(),
+      showTime: false,
       showsubmitPaper: false,
     }
   },
@@ -323,14 +353,24 @@ export default {
       immediate: true,
     },
     'examForm.examType' () {
-      if (this.examForm.examType == 1) {
-        this.showsubmitPaper = true
-      } else {
-        this.showsubmitPaper = false
-      }
+      this.showTime = this.examForm.examType == 0 ? true : false
+      this.showsubmitPaper = this.examForm.examType == 1 ? true : false
     },
   },
   methods: {
+    /**
+     * 报名时间开关
+     */    
+    applySwitchChange (status) {
+      this.examForm.signEndTime = status == 1 ? '' : this.examForm.signEndTime
+    },
+
+    /**
+     * 考试时间开关
+     */
+    examSwitchChange (status) {
+      this.examForm.endTime = status == 1 ? '' : this.examForm.endTime
+    },
 
     /**
      * 报名开始时间
@@ -395,6 +435,7 @@ export default {
       const params = {
         numberList: [
           'exms_subjects',//考试科目
+          'exms_difficulty',//难度
         ],
       }
       const { data } = await getTestOption(params)
@@ -443,8 +484,10 @@ export default {
       this.saveLoading = true
       this.$refs['examForm'].validate((valid) => {
         if (valid) {
-          this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
           this.examForm.testPaperId = this.testPaper.id
+          this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
+          this.examForm.signEndTime = this.showTime && this.examForm.applyTimeSwitch == 1 ? this.examForm.signEndTime : '2049-09-24 12:00:00'
+          this.examForm.endTime = this.showTime && this.examForm.examTimeSwitch == 1 ? this.examForm.endTime : '2049-09-24 12:00:00'
           if (this.isEdit) {
             this.formRequestFn = updateSave
           } else {
@@ -471,7 +514,9 @@ export default {
       this.$refs['examForm'].validate((valid) => {
         if (valid) {
           this.examForm.testPaperId = this.testPaper.id
-       this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
+          this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
+          this.examForm.signEndTime = this.showTime && this.examForm.applyTimeSwitch == 1 ? this.examForm.signEndTime : '2049-09-24 12:00:00'
+          this.examForm.endTime = this.showTime && this.examForm.examTimeSwitch == 1 ? this.examForm.endTime : '2049-09-24 12:00:00'
           if (this.isEdit) {
             this.formRequestFn = updateRelease
           } else {

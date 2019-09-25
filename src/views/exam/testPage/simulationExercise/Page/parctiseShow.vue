@@ -42,8 +42,14 @@
                       <div class="content">
                         <h3 class="title">{{item.title}}</h3>
                         <div class="detail">
-                          <span v-if="item.examStatus === 5">报名日期：{{registDate(item)}}</span>
-                          <span v-else>考试日期：{{examDate(item)}}</span>
+                          <div style="margin-bottom:5px">
+                            <span v-if="item.examStatus === 5">报名日期：{{registDate(item)}}</span>
+                            <span v-else>考试日期：{{examDate(item)}}</span>
+                          </div>
+                          <div>
+                            <span style="margin-right:20px">时长：{{item.timeLong}}分钟</span>
+                            <span>难度系数：{{item.examDifficultyName}}</span>
+                          </div>
                         </div>
                       </div>
 
@@ -227,13 +233,21 @@ export default {
      * 报名时间
      */
     registDate (item) {
-      return `${this.dateFormat(item.signBeginTime)} - ${this.dateFormat(item.signEndTime)}`
+      if(item.signEndTime == '2049-09-24 12:00:00'){
+        return '长期有效'
+      }else{
+        return `${this.dateFormat(item.signBeginTime)} - ${this.dateFormat(item.signEndTime)}`
+      }
     },
     /**
      * 考试时间
      */
     examDate (item) {
-      return `${this.dateFormat(item.beginTime)} - ${this.dateFormat(item.endTime)}`
+       if(item.endTime == '2049-09-24 12:00:00'){
+         return '长期有效'
+       }else{
+         return `${this.dateFormat(item.beginTime)} - ${this.dateFormat(item.endTime)}`
+       }
     },
     /**
      * 格式化日期
@@ -430,7 +444,7 @@ export default {
 
   .title {
     font-size: 16px;
-    height: 48px;
+    height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -439,7 +453,7 @@ export default {
   }
 
   .detail {
-    display: flex;
+    // display: flex;
     flex-direction: column;
     .total {
       em {

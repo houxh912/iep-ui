@@ -5,7 +5,7 @@
       </iep-date-picker>
     </el-form-item>
     <el-form-item label="类型：">
-      <iep-dict-cascader dictName="fams_expenditure_type" v-model="form.type" clearable></iep-dict-cascader>
+      <iep-dict-cascader dictName="fams_income_type" v-model="form.type" clearable></iep-dict-cascader>
     </el-form-item>
     <el-form-item label="线下公司：">
       <el-input v-model="form.companyName" clearable></el-input>

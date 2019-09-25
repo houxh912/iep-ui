@@ -136,7 +136,7 @@ export default {
     handleOpen () {
       this.form = this.temp
       this.projectIdDic = []
-      getOrgList().then(({ data }) => {
+      getOrgList('', 2).then(({ data }) => {
         this.groupDic = data.data.map(m => {
           return {
             label: m.name,

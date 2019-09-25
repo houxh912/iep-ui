@@ -4,7 +4,7 @@
       <slot name="page"></slot>
     </basic-container>
     <el-card class="box-card" v-if="pageShow">
-      <div slot="header" class="clearfix">
+      <div slot="header" class="clearfix iep-basic-scroll">
         <span class="dialog-title">{{title}}</span>
         <el-button icon="el-icon-back" style="float: right; padding: 3px 0;" type="text" @click="handleClose">返回</el-button>
       </div>

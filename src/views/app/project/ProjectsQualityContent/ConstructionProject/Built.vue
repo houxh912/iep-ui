@@ -1,5 +1,5 @@
 <template>
-  <div class="construction">
+  <div class="construction iep-basic-scroll">
     <el-table :data="list" style="width: 100%">
       <el-table-column prop="projectName" label="项目名称" width="200">
       </el-table-column>
@@ -46,25 +46,5 @@ export default {
 }
 .construction >>> .el-table__body-wrapper {
   overflow-y: scroll;
-}
-.construction >>> .el-table__body-wrapper::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-.construction >>> .el-table__body-wrapper::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  transition: 0.3s background-color;
-}
-.construction >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  transition: 0.3s background-color;
-  display: none;
-  transition: all 0.5s;
-}
-.construction >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
-  display: block;
 }
 </style>

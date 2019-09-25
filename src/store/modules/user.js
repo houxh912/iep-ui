@@ -51,17 +51,14 @@ const user = {
     // 根据OpenId登录
     LoginBySocial ({ commit }, param) {
       return new Promise((resolve, reject) => {
-        loginBySocial(param.state, param.code)
-          .then(response => {
-            const data = response.data
-            commit('SET_ACCESS_TOKEN', data.access_token)
-            commit('SET_REFRESH_TOKEN', data.refresh_token)
-            commit('SET_EXPIRES_IN', data.expires_in)
-            resolve()
-          })
-          .catch(error => {
-            reject(error)
-          })
+        loginBySocial(param.state, param.code).then(({ data }) => {
+          commit('SET_ACCESS_TOKEN', data.access_token)
+          commit('SET_REFRESH_TOKEN', data.refresh_token)
+          commit('SET_EXPIRES_IN', data.expires_in)
+          resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
       })
     },
     async GetUserInfo ({ commit }) {

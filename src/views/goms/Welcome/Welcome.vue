@@ -51,7 +51,7 @@
               <i v-if="form.finishInfo" class="el-icon-success success"></i>
               <i v-else class="el-icon-warning-outline"></i>
             </div>
-            <div class="info">
+            <div class="info" @click="$openPage('/goms/basic_configuration/organization_information?is_guide=true')">
               <div class="info-name">完善组织详情</div>
               <div class="info-desc">充分展示组织优势，提升组织信用，获得更多协作机会</div>
             </div>
@@ -71,7 +71,9 @@
             </div>
             <div class="info">
               <div class="info-name">拓展组织成员</div>
-              <div class="info-desc">立即分享二维码，邀请好友，邀请 1 个 +1 贝</div>
+              <div class="info-desc">立即分享二维码，邀请好友，邀请 1 个 +1 贝
+                <iep-button type="primary" size="mini" v-popover:popover plain>入驻邀请</iep-button>
+              </div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -88,7 +90,7 @@
               <i v-if="form.distribution" class="el-icon-success success"></i>
               <i v-else class="el-icon-warning-outline"></i>
             </div>
-            <div class="info">
+            <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
               <div class="info-name">分配成员角色</div>
               <div class="info-desc">充分赋予成员相应权限，发挥成员无限价值</div>
             </div>
@@ -106,7 +108,7 @@
               <i v-if="form.buildDept>=2 || form.buildDept === -1" class="el-icon-success success"></i>
               <i v-else class="el-icon-warning-outline"></i>
             </div>
-            <div class="info">
+            <div class="info" @click="$openPage('/hrms/organizational_structure/department_management?is_guide=true')">
               <div class="info-name">设立部门</div>
               <div class="info-desc">完善组织架构，持续促进组织的成长与发展，创建 1 个 +1 贝</div>
             </div>
@@ -147,6 +149,9 @@
         </div>
       </div>
     </div>
+    <el-popover ref="popover" placement="right" width="100" trigger="hover" v-model="popoverShow">
+      <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
+    </el-popover>
   </div>
 </template>
 <script>
@@ -155,6 +160,7 @@ import { getOrgGuideDrivers, getOrgGuideStep } from '@/api/admin/guide'
 export default {
   data () {
     return {
+      popoverShow: false,
       form: {
         name: '',
         logo: '',
@@ -171,6 +177,9 @@ export default {
   },
   computed: {
     ...mapGetters(['userInfo']),
+    copyUrlText () {
+      return `${window.location.origin}/wel/org?orgId=${this.form.orgId}&type=0`
+    },
   },
   created () {
     this.loadPage()

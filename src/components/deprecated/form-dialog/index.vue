@@ -1,12 +1,12 @@
 <template>
-  <el-dialog :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body>
+  <el-dialog class="iep-basic-scroll" :width="width" :visible="dialogShow" :before-close="handleClose" @close="close" :fullscreen="fullscreen" append-to-body>
     <div slot="title" class="dialog-title-box">
       <span class="dialog-title">{{title}}</span>
       <el-button v-if="isNeedRestore" class="text-icon" type="text" @click="toggleFullscreen">
         <i class="icon-huanyuan"></i>
       </el-button>
     </div>
-    <div v-if="dialogShow" class="dialog-content">
+    <div v-if="dialogShow" class="dialog-content iep-basic-scroll">
       <slot></slot>
     </div>
     <div v-if="$slots.footer" slot="footer" class="dialog-footer">
@@ -94,29 +94,6 @@ export default {
 .dialog-content {
   max-height: 54vh;
   overflow-y: scroll;
-  &::-webkit-scrollbar {
-    border-radius: 10px;
-    width: 6px;
-    background-color: #fff;
-  }
-  &::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-color: #fff;
-    -webkit-transition: 0.3s background-color;
-    transition: 0.3s background-color;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #ddd;
-    -webkit-transition: 0.3s background-color;
-    transition: 0.3s background-color;
-    display: none;
-    -webkit-transition: all 0.5s;
-    transition: all 0.5s;
-  }
-  &:hover ::-webkit-scrollbar-thumb {
-    display: block;
-  }
 }
 .text-icon {
   color: #333;

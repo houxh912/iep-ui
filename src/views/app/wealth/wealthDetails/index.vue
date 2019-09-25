@@ -493,4 +493,7 @@ export default {
   width: 33%;
   text-align: center;
 }
+.wealth-details >>> .el-scrollbar__bar.is-vertical > div{
+  height: 100%;
+}
 </style>

@@ -1,4 +1,5 @@
 <template>
+<div class="iep-basic-scroll">
   <el-popover
     placement="right"
     width="250"
@@ -19,6 +20,7 @@
     </slot>
     <el-input readonly slot="reference" v-model="formData" @click="visible = !visible"></el-input>
   </el-popover>
+  </div>
 </template>
 
 <script>
@@ -105,29 +107,6 @@ export default {
       color: $--color-primary;
     }
   }
-}
-::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-  display: none;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-:hover ::-webkit-scrollbar-thumb {
-  display: block;
 }
 </style>
 

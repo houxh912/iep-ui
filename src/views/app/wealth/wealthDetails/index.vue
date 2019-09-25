@@ -1,5 +1,5 @@
 <template>
-  <div class="wealth-details">
+  <div class="wealth-details iep-basic-scroll">
     <basic-container>
       <div class="grid-container">
         <div class="title">
@@ -498,29 +498,11 @@ export default {
   overflow: auto;
   overflow-x: hidden;
 }
-.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  transition: 0.3s background-color;
-}
-.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  transition: 0.3s background-color;
-  display: none;
-  transition: all 0.5s;
-}
-.financial-investment
-  >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
-  display: block;
-}
 .wealth-details >>> .iep-ellipsis {
   width: 33%;
   text-align: center;
+}
+.wealth-details >>> .el-scrollbar__bar.is-vertical > div{
+  height: 100%;
 }
 </style>

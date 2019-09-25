@@ -1,4 +1,5 @@
 <template>
+<div class="iep-basic-scroll">
   <iep-dialog :dialog-show="dialogShow" title="添加关联" width="800px" @close="resetForm">
     <div class="iep-transfer">
       <div class="head">
@@ -29,7 +30,7 @@
       <iep-button @click="resetForm">取消</iep-button>
     </template>
   </iep-dialog>
-
+</div>
 </template>
 <script>
 import IepScroll from '@/components/IepScroll/index'
@@ -194,29 +195,6 @@ export default {
       }
     }
   }
-}
-::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-  display: none;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-:hover ::-webkit-scrollbar-thumb {
-  display: block;
 }
 </style>
 

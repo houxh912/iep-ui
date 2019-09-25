@@ -1,8 +1,8 @@
 <template>
-  <gov-dialog ref="dialog" width="90%" :btnGroup="btnGroup" @open="handleOpen" @closed="handleClosedDialog" :title="'创建问卷'" :isBtnGroup="status !== dialog.textName.detail" @handleSubmit="dialogSubmit" @handleSubmitDraft="handleSubmitDraft" @handlePreview="handlePreview">
+  <gov-dialog ref="dialog" width="90%" :btnGroup="btnGroup" @open="handleOpen" @closed="handleClosedDialog" :title="'创建问卷'" :isBtnGroup="status !== dialog.textName.detail" @handleSubmit="dialogSubmit" @handleSubmitDraft="handleSubmitDraft" @handlePreview="handlePreview">   
     <layout-form>
       <el-row class="mainContainer">
-        <el-col :span="3" class="left">
+        <el-col :span="4" class="left">
           <h3 class="titleH">选择题</h3>
           <div class="leftItem" v-for="item in menu.select" :key="item" @click="addSubject(item)">
             <i :class="`iconfont ${item.icon} v1`"></i>{{item.name}}
@@ -19,7 +19,7 @@
             <gov-button type="primary" @click="handleChoose" plain style="width: 100%">选择模板</gov-button>
           </div>
         </el-col>
-        <el-col :span="21" class="right">
+        <el-col :span="20" class="right">
           <h3 class="title">问卷设置</h3>
           <avue-form style="padding-top:20px" ref="form" v-model="form" :option="editOption"></avue-form>
           <h3 class="title">题目设置</h3>
@@ -500,35 +500,37 @@ export default {
 <style lang="scss" scoped>
 .mainContainer {
   .left {
-    border: 1px solid #dcdfe6;
+    padding-right:15px;
+    border-right: 1px solid #dcdfe6;
     .titleH {
-      font-weight: 600;
-      font-size: 17px;
+      font-size: 14px;
       margin: 8px;
     }
     .leftItem {
       padding: 10px 16px;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 14px;
       &:hover {
-        color: #409eff;
+        border-color: #cb3737;
+        background: #f9eae7;
+        color: #cb3737;
       }
       .iconfont {
-        font-size: 15px;
+        font-size: 14px;
         margin-right: 3px;
       }
     }
     .selectBtn {
       width: 93%;
-      margin: 15px auto 15px;
+      margin: 15px auto 15px;font-size: 14px;
     }
   }
   .right {
+    padding-left:15px;
     height: 580px;
-    overflow: auto;
+    overflow: hidden;
     .title {
-      font-size: 18px;
-      font-weight: 600;
+      font-size: 16px;
       margin: 6px 8px 0;
     }
     .questionArea {

@@ -20,7 +20,7 @@
     :close-on-press-escape="false"
     >
     <!-- body start -->
-    <div class="dialog-layout" :style="style">
+    <div class="dialog-layout iep-basic-scroll" :style="style">
       <div ref="dialogBody">
         <slot></slot>
       </div>

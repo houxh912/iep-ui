@@ -1,7 +1,7 @@
 <template>
   <wrapper title="推荐材料">
     <iep-no-data v-if="!listData.length"></iep-no-data>
-    <div class="list-wrapper">
+    <div v-else class="list-wrapper">
       <div class="list-item" v-for="item in listData" :key="item.id">
         <el-link class="iep-ellipsis" :title="item.name" @click="handleOpen(item)">{{item.name}}</el-link>
         <div class="info">

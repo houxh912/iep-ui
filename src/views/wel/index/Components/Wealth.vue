@@ -11,7 +11,7 @@
         <div class="tip-line">投资宝典<span><i class="el-icon-question"></i></span></div>
       </div>
     </template>
-    <div class="content-wrapper">
+    <div class="wealth-wrapper">
       <div v-if="accountType === 0" class="data-wrapper">
         <div class="item total">
           <div class="title">总资产</div>
@@ -28,12 +28,12 @@
       <div v-if="accountType === 2" class="no-data-wrapper">
         <iep-button @click="handleOpenAccount('提取1000国脉贝')" round>提取1000国脉贝</iep-button>
       </div>
-      <el-button-group class="operation-btn-group">
+      <operation-wrapper>
         <iep-button @click="handleInvoice" plain>报销</iep-button>
         <iep-button @click="handleReward" plain>打赏</iep-button>
         <iep-button @click="$openPage('/wel/wealth/investment')" plain>投资</iep-button>
         <iep-button @click="$openPage('/wel/wealth/mutual_fund')" plain>互助基金</iep-button>
-      </el-button-group>
+      </operation-wrapper>
     </div>
   </wrapper>
 </template>
@@ -71,6 +71,9 @@ export default {
       return this.showMoney ? dayBell : '****'
     },
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
     ...mapMutations({
       setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
@@ -85,6 +88,14 @@ export default {
     },
     handleInvoice () {
       this.setInvoiceDialogShow(true)
+    },
+    async loadPage () {
+      const data = await this.famsGetTotal()
+      if (data.data) {
+        this.accountType = 0
+      } else {
+        this.accountType = +data.msg
+      }
     },
     async handleOpenAccount (msg) {
       this.$confirm(`确定${msg}?`, '提示', {
@@ -124,16 +135,28 @@ export default {
 .tip-wrapper {
   display: flex;
 }
-.content-wrapper {
+.wealth-wrapper {
+  display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
   .data-wrapper {
     display: flex;
     justify-content: space-between;
+    margin-top: 40px;
     width: 100%;
     .item {
       width: 100%;
       text-align: center;
+      &:first-child {
+        border-right: 1px solid #eee;
+      }
+      .color {
+        font-size: 20px;
+        color: $--color-primary;
+      }
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="equity">
+  <div class="equity iep-basic-scroll">
     <el-dialog :visible.sync="dialogShow" width="600px" :before-close="loadPage">
       <div class="main">
         <div style="padding:60px;">

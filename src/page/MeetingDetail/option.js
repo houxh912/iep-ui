@@ -10,7 +10,7 @@ const initForm = () => {
   ]
 }
 const rules = {
-  companyName: [{ required: true, message: '请输入公司名称', trigger: 'blur' }],
+  companyName: [{ required: true, message: '请输入组织名称', trigger: 'blur' }],
   position: [{ required: true, message: '请输入职位', trigger: 'blur' }],
   name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
   phoneNumber: [{ required: true, message: '请输入联系电话', trigger: 'blur' }],

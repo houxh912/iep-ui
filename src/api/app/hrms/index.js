@@ -129,3 +129,27 @@ export const getCredit = () => {
     method: 'get',
   })
 }
+
+// 光彩国脉人
+export const getGlowPersonList = () => {
+  return request({
+    url: 'hrms/iephrsplendormanage/userList',
+    method: 'get',
+  })
+}
+
+// 个人证书list
+export const getCertificateList = () => {
+  return request({
+    url: 'hrms/relation/certificate/list',
+    method: 'get',
+  })
+}
+
+// 个人证书page
+export const getCertificatePage = () => {
+  return request({
+    url: 'hrms/relation/certificate/page',
+    method: 'get',
+  })
+}

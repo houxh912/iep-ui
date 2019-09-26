@@ -17,6 +17,7 @@
 <script>
 import Whole from './Whole'
 import { getHonorSign, getHonorPage } from '@/api/app/mlms/honor'
+import { getCertificatePage } from '@/api/app/hrms'
 
 export default {
   components: {
@@ -56,9 +57,24 @@ export default {
       this.loadPage()
     },
     // 获取选项卡
-    getHonorSign () {
-      getHonorSign().then(({ data }) => {
+    getHonorSign (params = {}) {
+      getHonorSign(Object.assign({}, this.params, params)).then(({ data }) => {
         this.tabList = this.tabList.concat(data.data)
+        this.tabList.push({
+          label: '个人证书',
+          value: '99',
+        })
+      })
+    },
+    getCertificatePage () {
+      getCertificatePage().then(({ data }) => {
+        this.list = data.data.records.map(m => {
+          return {
+            honorQualName: m.name,
+            image: m.annex,
+          }
+        })
+        this.total = data.data.total
       })
     },
   },
@@ -67,10 +83,16 @@ export default {
   },
   watch: {
     activeTab (newVal) {
-      if (newVal == 0) newVal = ''
-      this.params.current = 1
-      this.params.honorQualType = newVal
-      this.loadPage()
+      if (newVal == 99) {
+        this.params.current = 1
+        this.getCertificatePage()
+      }
+      else {
+        if (newVal == 0) newVal = ''
+        this.params.current = 1
+        this.params.honorQualType = newVal
+        this.loadPage()
+      }
     },
   },
 }

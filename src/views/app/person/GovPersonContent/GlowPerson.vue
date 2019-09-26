@@ -1,28 +1,27 @@
 <template>
   <div class="resources">
     <IepAppTabCard :title="title" :linkName="linkName">
-      <el-button class="btn" type="text" slot="right">换一批</el-button>
-      <div>
-        <div class="classify">
-          <span class="sub-title">分类：</span>
-          <span class="pieceDeletion" v-for="(name,index) in nameList" :key="index" :class="showClass1==index?'color':''" @click="tab1(index)">{{name.name}}<span class="data-con">{{name.data}}</span></span>
-        </div>
-        <div class="resourcesList">
-          <div v-for="(item,index) in resourcesList" :key="index" class="piece" @click="handleOpen()">
-            <div class="img-con">
-              <iep-img :src="item.img" class="img" alt=""></iep-img>
-            </div>
-            <div class="text">
-              <span class="name">{{item.name}}</span>
-              <span class="department">{{item.department}}</span>
+      <!-- <el-button class="btn" type="text" slot="right">换一批</el-button> -->
+      <el-carousel :interval="5000" arrow="always" style="padding-left:40px;">
+        <el-carousel-item v-for="item in itemLength" :key="item">
+          <div class="resourcesList">
+            <div v-for="(item,index) in resourcesList.slice((item-1)*9,item*9)" :key="index" class="piece" @click="handleOpen()">
+              <div class="img-con">
+                <iep-img :src="item.avatar" class="img" alt=""></iep-img>
+              </div>
+              <div class="text">
+                <div class="title"><span>{{item.name}}</span><span class="selectionName">{{item.selectionName}}</span></div>
+                <div class="orgName">{{item.orgName}}</div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </el-carousel-item>
+      </el-carousel>
     </IepAppTabCard>
   </div>
 </template>
 <script>
+import { getGlowPersonList } from '@/api/app/hrms/'
 export default {
   data () {
     return {
@@ -56,17 +55,16 @@ export default {
         },
       ],
       resourcesList: [
-        { img: '../img/person/p01.jpg', name: '李凯', department: '北方区业务一部' },
-        { img: '../img/person/p02.jpg', name: '符恩祖', department: '海南办事处' },
-        { img: '../img/person/p03.jpg', name: '张小燕', department: '北方业务一部' },
-        { img: '../img/person/p04.jpg', name: '洪琼', department: '湖南国脉原道数据科技有限公司（衡阳办事处、长沙）' },
-        { img: '../img/person/p05.jpg', name: '阮晨光', department: '国脉集团研发中心' },
-        { img: '../img/person/p06.jpg', name: '杜照鸿', department: '国脉集团研发中心' },
-        { img: '../img/person/p07.jpg', name: '张兵', department: '国脉集团研发中心' },
-        { img: '../img/person/p08.jpg', name: '何舟杰', department: '国脉先锋队' },
-        { img: '../img/person/p09.jpg', name: '潘超巧', department: '国脉先锋队' },
       ],
+      itemLength: '',
     }
+  },
+  created () {
+    getGlowPersonList().then(({ data }) => {
+      this.resourcesList = data.data
+      this.itemLength = Math.ceil(this.resourcesList.length / 9)
+      console.log(this.itemLength)
+    })
   },
   methods: {
     tab1 (val) {
@@ -112,13 +110,9 @@ export default {
     border: 1px solid #dc8687;
     color: #dc8687;
   }
-  .name {
-    font-size: 16px;
-  }
 }
 .resourcesList {
   display: grid;
-  margin-top: 15px;
   grid-auto-flow: row dense;
   grid-template-columns: 1fr 1fr 1fr;
   grid-row-gap: 40px;
@@ -151,7 +145,21 @@ export default {
       margin-left: 20px;
       width: 70%;
     }
-    .department {
+
+    .title {
+      font-size: 16px;
+      .selectionName {
+        margin-left: 10px;
+        color: #ba1b21;
+        background-color: #f8e8e9;
+        border: 1px solid #cb3737;
+        border-color: #f1d1d3;
+        border-radius: 4px;
+        padding: 0 4px;
+        font-size: 12px;
+      }
+    }
+    .orgName {
       display: block;
       margin-top: 5px;
       color: #999;
@@ -172,3 +180,12 @@ export default {
   }
 }
 </style>
+<style scoped>
+.resources >>> .el-card {
+  height: 384px;
+}
+.resources >>> .el-carousel__arrow--left {
+  left: -40px;
+}
+</style>
+

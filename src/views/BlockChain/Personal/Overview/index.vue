@@ -37,11 +37,12 @@ export default {
   methods: {
     handleTransfer () {
       this.$refs['TransferDialog'].realMaxAmount = this.statistics[0]
+      this.$refs['TransferDialog'].submitFormLoading = false
       this.$refs['TransferDialog'].dialogShow = true
     },
     async loadPage () {
       const { data } = await getAmount()
-      this.statistics[0] = data.data
+      this.$set(this, 'statistics', [data.data])
     },
   },
 }

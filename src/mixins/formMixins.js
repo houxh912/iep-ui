@@ -4,9 +4,6 @@ export default {
       submitFormLoading: false,
     }
   },
-  created () {
-    this.submitFormLoading = true
-  },
   methods: {
     mixinsValidate (formRefName = 'form') {
       return new Promise((resolve, reject) => {
@@ -73,18 +70,15 @@ export default {
      */
     async mixinsSubmitFormGen () {
       const mixinsFormGen = this.mixinsFormGen()
-      const valid = (await mixinsFormGen.next()).value
       let mixinsResult = false
-      if (valid) {
-        // 网络 400
-        try {
+      try {
+        const valid = (await mixinsFormGen.next()).value
+        if (valid) {
           mixinsResult = await this.submitForm()
-        } catch (error) {
-          console.log(error)
-        } finally {
-          await mixinsFormGen.next()
         }
-      } else {
+      } catch (error) {
+        console.log(error)
+      } finally {
         await mixinsFormGen.next()
       }
       return mixinsResult

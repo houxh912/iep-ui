@@ -4,6 +4,9 @@ export default {
       submitFormLoading: false,
     }
   },
+  created () {
+    this.submitFormLoading = true
+  },
   methods: {
     mixinsValidate (formRefName = 'form') {
       return new Promise((resolve, reject) => {

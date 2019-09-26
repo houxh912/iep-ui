@@ -152,7 +152,7 @@ export default {
     handleSignUp () {
       this.$router.push({
         path: '/login',
-        query: { redirect: `/sign/${this.$route.params.id}?isShow=true` },
+        query: { redirect: `/meeting/${this.$route.params.id}?isShow=true` },
       })
       this.isShow = this.$router.history.current.query.isShow
     },

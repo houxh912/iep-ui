@@ -130,6 +130,7 @@ export default {
               this.handleSocialLogin()
             } else {
               this.$message(data.msg + '请登陆后绑定账号')
+              this.$openPage('/login?redirect=/wel/account-settings/binding')
             }
           }
         }

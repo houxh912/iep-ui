@@ -1,13 +1,13 @@
 export default {
   title: 'Iep',
   logo: 'Iep',
-  indexTitle: '我能一站式数字化转型服务平台',
+  indexTitle: '我能智慧组织赋能平台',
   whiteList: ['/login', '/404', '/401', '/lock'], // 配置无权限可以访问的页面
   whiteTagList: ['/login', '/404', '/401', '/lock'], // 配置不添加tags页面 （'/advanced-router/mutative-detail/*'——*为通配符）
   lockPage: '/lock',
   tokenTime: 6000,
   info: {
-    title: '我能一站式数字化转型服务平台',
+    title: '我能智慧组织赋能平台',
     list: [],
   },
   statusWhiteList: [428],

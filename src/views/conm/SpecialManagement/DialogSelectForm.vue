@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" :title="`专题${methodName}`" width="900px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" :title="`专题${methodName}`" width="900px" @close="dialogShow=false">
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="selectionChange" is-mutiple-selection>
       <template slot="before-columns">
         <el-table-column label="ID" width="90px">

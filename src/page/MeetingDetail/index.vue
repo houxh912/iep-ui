@@ -59,7 +59,7 @@
                   <div class="Line"></div>
                 </el-col>
                 <el-col>
-                  <el-form-item label="公司:" prop="companyName">
+                  <el-form-item label="组织:" prop="companyName">
                     <el-input v-model="formData.companyName"></el-input>
                   </el-form-item>
                 </el-col>
@@ -277,7 +277,7 @@ export default {
   width: 100%;
   padding: 0 20%;
   margin-top: 20px;
-  margin-bottom: -20px;
+  /* margin-bottom: -20px; */
 }
 .bm-view {
   width: 100%;

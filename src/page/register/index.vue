@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     loadLoginPage () {
-      this.$router.push('/login')
+      this.$router.push({ path: '/login', query: this.$route.query })
     },
   },
   watch: {

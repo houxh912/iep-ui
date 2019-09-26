@@ -10,6 +10,10 @@
             <iep-dict-select v-else-if="item.type === 'dict'" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" :dict-name="item.dictName"></iep-dict-select>
             <iep-input-area v-else-if="item.type === 'area'" :maxlength="1000" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" :autosize="{minRows: 1}"></iep-input-area>
             <iep-select v-else-if="item.type === 'list'" size="mini" :prefixUrl="item.prefixUrl" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-select>
+            <el-upload v-else-if="item.type === 'avatar'" class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="(response, file, fileList)=>{return handleAvatarSuccess(response, file, fileList,scope.$index)}" accept="image/*">
+              <iep-img v-if="scope.row[item.prop]" :src="scope.row[item.prop]" class="avatar"></iep-img>
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
             <el-input v-else :maxlength="100" size="mini" v-model="scope.row[item.prop]" :placeholder="item.label" clearable></el-input>
           </template>
           <template v-else>
@@ -18,6 +22,7 @@
             <iep-upload-select v-else-if="item.type === 'file'" size="mini" :value="scope.row[item.prop]" disabled></iep-upload-select>
             <iep-div-detail v-else-if="item.type === 'date'" :value="scope.row[item.prop] | parseToDay"></iep-div-detail>
             <iep-select v-else-if="item.type === 'list'" size="mini" disabled :prefixUrl="item.prefixUrl" v-model="scope.row[item.prop]" :placeholder="item.label"></iep-select>
+            <iep-img v-else-if="item.type === 'avatar'" :src="scope.row[item.prop]" class="avatar"></iep-img>
             <iep-div-detail v-else :value="scope.row[item.prop]"></iep-div-detail>
           </template>
         </template>
@@ -53,6 +58,7 @@
 </template>
 <script>
 import { post, put, del } from './inline'
+import store from '@/store'
 export default {
   props: {
     tableData: {
@@ -83,6 +89,9 @@ export default {
   data () {
     return {
       data: [],
+      headers: {
+        Authorization: 'Bearer ' + store.getters.access_token,
+      },
     }
   },
   created () {
@@ -152,6 +161,10 @@ export default {
     toggle (id) {
       const target = this.data.filter(item => item.id === id)[0]
       target.editable = !target.editable
+    },
+    handleAvatarSuccess (response, file, fileList, val) {
+      this.data[val].annex = response.data.url
+      console.log(file, fileList, val)
     },
   },
   watch: {

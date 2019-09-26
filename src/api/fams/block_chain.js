@@ -10,6 +10,13 @@ export function getAmountByUserId (userId) {
   })
 }
 
+export function getAmount () {
+  return request({
+    url: `${prefixUrl}/account`,
+    method: 'get',
+  })
+}
+
 export function getPage (query) {
   return request({
     url: `${prefixUrl}/page`,

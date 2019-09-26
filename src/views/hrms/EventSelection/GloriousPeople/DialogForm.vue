@@ -70,6 +70,12 @@ export default {
   methods: {
     changeCustomClass () {
       this.customClass = !this.customClass
+      if (this.customClass == false) {
+        this.form.targetId = 0
+      }
+      else {
+        this.form.targetId = ''
+      }
     },
     changePeople (val) {
       this.form.realName = val.name
@@ -133,13 +139,19 @@ export default {
           else {
             this.form.sign = 2
           }
-          this.formRequestFn({ splendorId: this.id, ...this.form }).then(({ data }) => {
-            if (data.data) {
+          this.formRequestFn({ splendorId: this.id, ...this.form }).then(data => {
+            if (data.data.data) {
               this.$message({
                 message: `${this.methodName}成功`,
                 type: 'success',
               })
               this.dialogShow = false
+            }
+            else {
+              this.$message({
+                type: 'info',
+                message: `${this.methodName}失败,${data.data.msg}`,
+              })
             }
           })
         }

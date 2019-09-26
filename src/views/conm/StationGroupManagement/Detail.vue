@@ -14,6 +14,7 @@
       <column-management v-if="selectType=='1'"></column-management>
       <ad v-if="selectType=='4'"></Ad>
       <f-link-management v-if="selectType=='5'"></f-link-management>
+      <special-management v-if="selectType=='6'"></special-management>
       <ad-slot v-if="selectType=='3'"></ad-slot>
       <attribute-management v-if="selectType=='2'"></attribute-management>
     </el-col>
@@ -25,6 +26,7 @@ import AdSlot from '../ADSlotManagement'
 import AttributeManagement from '../AttributeManagement'
 import ColumnManagement from '../ColumnManagement'
 import FLinkManagement from '../FLinkManagement'
+import SpecialManagement from '../SpecialManagement'
 export default {
   data () {
     return {
@@ -37,6 +39,7 @@ export default {
         { type: '3', name: '广告位管理' },
         { type: '4', name: '广告管理' },
         { type: '5', name: '友情链接管理' },
+        { type: '6', name: '专题管理' },
       ],
       backOption: {
         isBack: true,
@@ -50,6 +53,7 @@ export default {
     AttributeManagement,
     ColumnManagement,
     FLinkManagement,
+    SpecialManagement,
   },
   methods: {
     handleSelectType (type) {

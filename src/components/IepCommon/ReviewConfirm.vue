@@ -9,7 +9,7 @@
       </iep-input-area>
     </div>
     <template slot="footer">
-      <iep-button type="primary" @click="handleSubmit">提交</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="handleSubmit">提交</iep-button>
       <iep-button @click="handleCancel">取消</iep-button>
     </template>
   </iep-dialog>
@@ -29,6 +29,7 @@ export default {
   },
   data () {
     return {
+      submitFormLoading: false,
       title: '',
       formRequestFn: () => { },
       dialogShow: false,
@@ -59,11 +60,13 @@ export default {
         this.$message('字数不得超过 2000 !')
         return
       }
+      this.submitFormLoading = true
       this.formRequestFn({
         ids: this.currentIds,
         status: this.status, // 用来变更状态
         content: this.content,
       }).then(({ data }) => {
+        this.submitFormLoading = true
         if (data.data) {
           this.$message.success('操作成功')
         } else {

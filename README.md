@@ -27,6 +27,13 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 - 确认安装依赖无错，即可运行 `yarn serve` 或 `npm run serve`
 - 提交使用 `yarn cz` 尽量使用命令提交, 冲突等等可不用
 
+## 内网部署说明
+
+- 确认 gitlab-ci 有正常运行
+- 部署正式站，切换到 master 分支 运行 ./master 进行合并分支，不需要 git pull, 然后 git push -f
+- 测试没问题后，切换到 deploy-master 运行 git reset --hard origin/master 以进行部署，git push -f 完成部署
+- 测试站与我能同理
+
 ## 内网前端任务分配(组件以及负责人变更需这里修改)
 
 | 组件             | 组件路径                | 组件所属父组件 | 负责人      | 负责人      | 负责人 | 负责人 |

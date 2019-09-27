@@ -65,7 +65,7 @@ export default {
       dictsMap,
       columnsMap,
       paramForm: initSearchForm(),
-      statistics: [20],
+      statistics: [0],
       replaceText: (data) => `（共${data[0]}条）`,
       pagedTable: [
       ],

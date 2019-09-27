@@ -47,9 +47,17 @@ export function bindAccount (obj) {
     params: obj,
   })
 }
-export function getBindToken (obj) {
+
+export function getBindUserInfoList () {
   return request({
-    url: `${prefixUrl}/token`,
+    url: `${prefixUrl}/user/info/list`,
+    method: 'get',
+  })
+}
+
+export function getBindCheck (obj) {
+  return request({
+    url: `${prefixUrl}/check`,
     method: 'get',
     params: obj,
   })

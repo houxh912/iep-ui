@@ -216,6 +216,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.login-form ::v-deep .el-form-item {
+  margin-bottom: 20px;
+}
 .login-form {
   margin: 10px 0;
   .el-form-item {

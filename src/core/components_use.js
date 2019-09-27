@@ -3,6 +3,7 @@ import Vue from 'vue'
 // TODO:容器Container 统一改为 Iep前缀
 import BasicContainer from '@/components/BasicContainer/index'
 import BasicAsideContainer from '@/components/BasicAsideContainer/index'
+import IepLayoutDrawerContainer from '@/components/IepLayout/DrawerContainer/index'
 import OperationWrapper from '@/components/Operation/Wrapper'
 import OperationSearch from '@/components/Operation/Search'
 import OperationContainer from '@/components/Operation/Container'
@@ -27,6 +28,7 @@ import IepReadMarkDel from '@/components/IepCommon/ReadMarkDel'
 import IepFiveKay from '@/components/IepCommon/FiveKey'
 import IepKeyItem from '@/components/IepCommon/KeyItem'
 import IepUserCard from '@/components/IepCommon/UserCard'
+import IepCharts from '@/components/IepCommon/ECharts'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -111,6 +113,7 @@ import IepAppEvaluationReviews from '@/components/IepApp/EvaluationReviews'
 // 注册全局容器
 Vue.component(BasicContainer.name, BasicContainer)
 Vue.component(BasicAsideContainer.name, BasicAsideContainer)
+Vue.component(IepLayoutDrawerContainer.name, IepLayoutDrawerContainer)
 Vue.component(OperationWrapper.name, OperationWrapper)
 Vue.component(OperationContainer.name, OperationContainer)
 Vue.component(OperationSearch.name, OperationSearch)
@@ -135,6 +138,7 @@ Vue.component(IepReadMarkDel.name, IepReadMarkDel)
 Vue.component(IepFiveKay.name, IepFiveKay)
 Vue.component(IepKeyItem.name, IepKeyItem)
 Vue.component(IepUserCard.name, IepUserCard)
+Vue.component(IepCharts.name, IepCharts)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)

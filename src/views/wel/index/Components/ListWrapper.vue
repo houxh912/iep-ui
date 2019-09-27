@@ -3,7 +3,7 @@
     <iep-no-data v-if="!listData.length"></iep-no-data>
     <div v-else class="list-wrapper">
       <div class="list-item" v-for="item in listData" :key="item.id">
-        <el-link class="iep-ellipsis" :title="item.name" @click="handleOpen(item)">{{item.name}}</el-link>
+        <el-link class="iep-ellipsis-flex" :title="item.name" @click="handleOpen(item)">{{item.name}}</el-link>
         <!-- <iep-div-detail class="link" :value="item.name"></iep-div-detail> -->
         <div class="time">{{item.time | parseToMonthDay}}</div>
       </div>

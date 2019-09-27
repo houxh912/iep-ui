@@ -106,10 +106,10 @@
           <iep-button style="margin: 0 5px;" @click.native="updateGroupMember">确定</iep-button>
           <iep-button style="margin: 0 5px;" @click.native="clearGroup">重置</iep-button>
         </div>
-        <el-tag style="margin: 5px;" :key="'pre' + member.membersId" v-for="(member) in groupMembers" :disable-transitions="false">
+        <el-tag style="margin: 5px;border-style: none;" :key="'pre' + member.membersId" v-for="(member) in groupMembers" :disable-transitions="false">
           {{member.realName}}
         </el-tag>
-        <el-tag style="margin: 5px;" :key="'current' + user.userId" v-for="(user, index) in users" closable :disable-transitions="false" @close="handleClose(index)">
+        <el-tag style="margin: 5px;border-style: none;" :key="'current' + user.userId" v-for="(user, index) in users" closable :disable-transitions="false" @close="handleClose(index)">
           {{user.realName}}
         </el-tag>
       </div>
@@ -448,8 +448,8 @@ export default {
 }
 </script>
 
-<style>
-.chat-main-content .msg-link {
+<style lang="scss" scoped>
+.chat-main-content ::v-deep .msg-link {
   color: #ba1b21;
   text-decoration: underline;
 }
@@ -458,12 +458,6 @@ export default {
   padding: 5px 10px;
   font-size: 20px;
 }
-.el-tag {
-  border-style: none;
-}
-</style>
-
-<style lang="scss" scoped>
 .chat-content {
   flex: 1 1 400px;
   .chat-list {

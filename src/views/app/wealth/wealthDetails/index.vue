@@ -498,7 +498,7 @@ export default {
   overflow: auto;
   overflow-x: hidden;
 }
-.wealth-details >>> .iep-ellipsis {
+.top-ten-shareholders >>> .iep-ellipsis {
   width: 33%;
   text-align: center;
 }

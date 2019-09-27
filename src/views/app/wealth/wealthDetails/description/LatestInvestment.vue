@@ -74,8 +74,8 @@ export default {
 </script>
 <style scoped>
 .LatestInvestment >>> .iep-ellipsis {
-  width: 100% !important;
-  text-align: left !important;
+  width: 100%;
+  text-align: left;
 }
 </style>
 

@@ -30,7 +30,7 @@ export default [
     },
   },
   {
-    path: '/meeting/:id',
+    path: 'http://www.icanvip.net/meeting/:id',
     name: '报名页',
     component: () => import('@/page/MeetingDetail/index'),
     meta: {

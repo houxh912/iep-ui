@@ -1,7 +1,7 @@
 <template>
   <my-content class="my-content" :title-name="`我的组织(${orgs.length})`">
     <template v-slot:stitle>
-      <iep-button size="mini" @click="handleCreate">创建组织</iep-button>
+      <iep-button size="mini" @click="handleCreate">创建或加入组织</iep-button>
     </template>
     <div class="current-wrapper">
       <div class="current-org">

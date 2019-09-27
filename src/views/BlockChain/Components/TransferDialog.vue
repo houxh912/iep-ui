@@ -1,21 +1,24 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="转账" width="500px" @close="close">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
-      <el-form-item label="交易金额" prop="amount">
+      <iep-form-item label-name="交易金额" prop="amount">
         <iep-input-amount v-model="form.amount" :max="realMaxAmount" :precision="0"></iep-input-amount>
-      </el-form-item>
-      <el-form-item label="交易对象：" prop="user">
+      </iep-form-item>
+      <iep-form-item v-if="form.type===4" label-name="交易对象" prop="user">
         <iep-contact-select v-model="form.user"></iep-contact-select>
-      </el-form-item>
-      <el-form-item label="交易方式：" prop="type">
+      </iep-form-item>
+      <iep-form-item v-if="form.type===3" label-name="交易对象" prop="orgId">
+        <iep-select v-model="form.orgId" filterable autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
+      </iep-form-item>
+      <iep-form-item label-name="交易方式" prop="type">
         <el-radio-group v-model="form.type">
           <el-radio :label="3">组织</el-radio>
           <el-radio :label="4">个人</el-radio>
         </el-radio-group>
-      </el-form-item>
-      <el-form-item label="备注：" prop="remarks">
+      </iep-form-item>
+      <iep-form-item label-name="备注" prop="remarks">
         <iep-input-area v-model="form.remarks"></iep-input-area>
-      </el-form-item>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">打赏</iep-button>
@@ -25,9 +28,9 @@
 </template>
 <script>
 import formMixins from '@/mixins/formMixins'
-import { checkContactUser } from '@/util/rules'
+// import { checkContactUser } from '@/util/rules'
 import { sendAmount } from '@/api/fams/block_chain'
-const initForm = () => {
+const initForm = (payType) => {
   return {
     amount: 0,
     userId: '',
@@ -36,34 +39,49 @@ const initForm = () => {
       name: '',
     },
     remarks: '',
-    type: 3,
-    payType: 4,
+    type: 4,
+    payType,
+    orgId: '',
   }
 }
 function toDtoForm (row) {
   const newForm = row
-  newForm.userId = row.user.id
+  let objectId = 0
+  switch (newForm.type) {
+    case 3:
+      objectId = newForm.orgId
+      break
+    case 4:
+      objectId = newForm.user.id
+      break
+    default:
+      break
+  }
+  newForm.objectId = objectId
   return newForm
 }
 export default {
+  props: {
+    payType: {
+      type: Number,
+      required: true,
+    },
+  },
   mixins: [formMixins],
   data () {
     return {
       realMaxAmount: 0,
       dialogShow: false,
-      form: initForm(),
+      form: initForm(this.payType),
       rules: {
         amount: [
           { type: 'number', required: true, message: '请输入的转账金额不少于 1 ', trigger: 'blur', min: 1 },
         ],
-        user: [
-          { required: true, validator: checkContactUser, trigger: 'blur' },
-        ],
-        type: [
-          { required: true, message: '请输入的转账类型 ', trigger: 'blur' },
-        ],
-        payType: [
-          { required: true, message: '请输入的转账支付类型 ', trigger: 'blur' },
+        // user: [
+        //   { required: true, validator: checkContactUser, trigger: 'blur' },
+        // ],
+        orgId: [
+          { required: true, message: '请选择组织', trigger: 'blur' },
         ],
       },
     }
@@ -83,6 +101,15 @@ export default {
       this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
+    },
+  },
+  watch: {
+    'form.type': function () {
+      this.form.user = {
+        id: '',
+        name: '',
+      }
+      this.form.orgId = ''
     },
   },
 }

@@ -82,7 +82,7 @@ export default {
   },
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .btn {
   margin-right: 10px;
 }
@@ -90,4 +90,3 @@ export default {
   padding-bottom: 10px;
 }
 </style>
-

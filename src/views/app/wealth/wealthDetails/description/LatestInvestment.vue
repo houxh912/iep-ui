@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="LatestInvestment">
     <iep-table :isLoadTable="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false">
 
     </iep-table>
@@ -72,3 +72,10 @@ export default {
   },
 }
 </script>
+<style scoped>
+.LatestInvestment >>> .iep-ellipsis {
+  width: 100% !important;
+  text-align: left !important;
+}
+</style>
+

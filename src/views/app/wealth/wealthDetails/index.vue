@@ -499,6 +499,7 @@ export default {
   overflow-x: hidden;
 }
 .wealth-details >>> .iep-ellipsis {
+  width: 33%;
   text-align: center;
 }
 .wealth-details >>> .el-scrollbar__bar.is-vertical > div {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="LatestInvestment">
     <iep-table :isLoadTable="false" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" :isPagination="false">
 
     </iep-table>
@@ -34,7 +34,7 @@ const columnsMap = [
     type: 'dict',
   },
   {
-    prop: 'updateTime',
+    prop: 'createTime',
     label: '投资时间',
   },
 ]
@@ -72,3 +72,10 @@ export default {
   },
 }
 </script>
+<style scoped>
+.LatestInvestment >>> .iep-ellipsis {
+  width: 100%;
+  text-align: left;
+}
+</style>
+

@@ -1,5 +1,5 @@
 <template>
-  <div class="statistics">
+  <div class="statistics iep-basic-scroll">
     <basic-container>
       <iep-page-header title="收入统计"></iep-page-header>
       <iep-tabs v-model="activeTab" :tab-list="tabList">
@@ -42,28 +42,5 @@ export default {
 <style lang="css" scoped>
 .statistics >>> .gutter {
   background: rgb(242, 244, 245);
-}
-.statistics >>> .el-table__body-wrapper::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-.statistics >>> .el-table__body-wrapper::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-}
-.statistics >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  -webkit-transition: 0.3s background-color;
-  transition: 0.3s background-color;
-  display: none;
-  -webkit-transition: all 0.5s;
-  transition: all 0.5s;
-}
-.statistics >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
-  display: block;
 }
 </style>

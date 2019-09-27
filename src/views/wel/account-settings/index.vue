@@ -10,6 +10,9 @@
             <a-menu-item key="/wel/account-settings/security">
               <a @click="$openPage('SecuritySettings', 'name')">安全设置</a>
             </a-menu-item>
+            <a-menu-item key="/wel/account-settings/binding">
+              <a @click="$openPage('BindingSettings', 'name')">账号关联</a>
+            </a-menu-item>
           </a-menu>
         </div>
         <div class="account-settings-info-right">

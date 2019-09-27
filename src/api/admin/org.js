@@ -1,11 +1,12 @@
 import request from '@/router/axios'
 // @/api/admin/org
-export function getOrgList (name) {
+export function getOrgList (name,unionId) {
   return request({
     url: '/admin/org/list',
     method: 'get',
     params: {
       name,
+      unionId,
     },
   })
 }

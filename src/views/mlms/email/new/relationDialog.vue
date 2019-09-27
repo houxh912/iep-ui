@@ -1,4 +1,5 @@
 <template>
+<div class="iep-basic-scroll">
   <iep-dialog :dialog-show="dialogShow" title="添加关联" width="650px" @close="resetForm">
     <div class="iep-transfer">
       <div class="head">
@@ -29,7 +30,7 @@
       <iep-button type="primary" @click="submitForm">添加</iep-button>
       <iep-button @click="resetForm">取消</iep-button>
     </template>
-  </iep-dialog>
+  </iep-dialog></div>
 </template>
 
 <script>

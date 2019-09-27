@@ -61,11 +61,12 @@
   </user-operation-layout>
 </template>
 <script>
-import { openWindow } from '@/util/util'
+import { mapGetters, mapActions } from 'vuex'
 import UserOperationLayout from './index'
+import { getBindCheck } from '@/api/admin/sys-social-details'
+import { openWindow } from '@/util/util'
 import { codeUrl } from '@/config/env'
 import { randomLenNum } from '@/util/util'
-import { mapGetters, mapActions } from 'vuex'
 import { validatenull } from '@/util/validate'
 export default {
   components: { UserOperationLayout },
@@ -106,21 +107,36 @@ export default {
     }
   },
   watch: {
-    $route () {
-      const params = this.$route.query
-      this.socialForm.state = params.state
-      this.socialForm.code = params.code
-      if (!validatenull(this.socialForm.state)) {
-        const loading = this.$loading({
-          lock: true,
-          text: '登录中,请稍后。。。',
-          spinner: 'el-icon-loading',
-        })
-        setTimeout(() => {
-          loading.close()
-        }, 2000)
-        this.handleSocialLogin()
-      }
+    '$route.query': {
+      async handler (newName) {
+        const params = newName
+        if (params.isValid) {
+          return
+        } else {
+          this.socialForm.state = params.state
+          this.socialForm.code = params.code
+          if (!validatenull(this.socialForm.state)) {
+            const { data } = await getBindCheck(this.socialForm)
+            if (data.data) {
+              const loading = this.$loading({
+                lock: true,
+                text: '登录中,请稍后。。。',
+                spinner: 'el-icon-loading',
+                background: 'rgba(0, 0, 0, 0.7)',
+              })
+              setTimeout(() => {
+                loading.close()
+              }, 2000)
+              this.handleSocialLogin()
+            } else {
+              this.$message(data.msg + '请登陆后绑定账号')
+              this.$openPage('/login?redirect=/wel/account-settings/binding')
+            }
+          }
+        }
+      },
+      deep: true,
+      immediate: true,
     },
   },
   created () {
@@ -142,7 +158,7 @@ export default {
       this.$emit('tab-active', 'retrieve')
     },
     handleRegister () {
-      this.$router.push({ path: '/register', query: this.$route.query })
+      this.$router.push({ path: '/register', query: { ...this.$route.query, isValid: true } })
     },
     refreshCode () {
       this.form.code = ''
@@ -158,10 +174,9 @@ export default {
         ? (this.passwordType = 'password')
         : (this.passwordType = '')
     },
-    handleSocialLogin () {
-      this.LoginBySocial(this.socialForm).then(() => {
-        this.$router.push({ path: this.tagWel.value })
-      })
+    async handleSocialLogin () {
+      await this.LoginBySocial(this.socialForm)
+      this._goToRedirect()
     },
     handleLogin () {
       this.$refs.form.validate(async (valid) => {
@@ -169,11 +184,7 @@ export default {
           try {
             this.loginLoading = true
             await this.LoginByUsername(this.form)
-            if (this.$route.query.redirect) {
-              this.$openPage(this.$route.query.redirect)
-            } else {
-              this.$openPage('/')
-            }
+            this._goToRedirect()
           } catch (error) {
             this.$message.error(error.message)
           } finally {
@@ -183,13 +194,21 @@ export default {
         }
       })
     },
+    _goToRedirect () {
+      if (this.$route.query.redirect) {
+        this.$openPage(this.$route.query.redirect)
+      } else {
+        this.$openPage('/')
+      }
+    },
     handleClick (thirdpart) {
       let appid, client_id, redirect_uri, url
+      const redirect = this.$route.query.redirect || '/'
       redirect_uri = encodeURIComponent(
-        window.location.origin + '/#/authredirect'
+        window.location.origin + '/authredirect?type=login&redirect=' + redirect
       )
       if (thirdpart === 'wechat') {
-        appid = 'wx2506d6d34d7a90aa'
+        appid = 'wx92d9fe94daef034e'
         url =
           'https://open.weixin.qq.com/connect/qrconnect?appid=' +
           appid +

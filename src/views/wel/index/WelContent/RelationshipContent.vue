@@ -49,6 +49,7 @@ export default {
     return {
       masterData: [],
       apprenticeData: [],
+      attentionData: [],
     }
   },
   methods: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="wealth-details">
+  <div class="wealth-details iep-basic-scroll">
     <basic-container>
       <div class="grid-container">
         <div class="title">
@@ -15,7 +15,7 @@
                     <span style="font-size:16px;">今日股价：</span>
                     <span style="font-size:32px;color:#ba1b20;margin:0 20px 0 5px;">{{form.sharesUnivalent}}</span>
                     <span style="font-size:14px;">日涨幅：</span>
-                    <span style="font-size:14px;color:#ba1b20">{{form.dailyGain}}</span>
+                    <span style="font-size:14px;" :class="form.sharesUnivalent - form.yesterDayPrice>0?'red':'green'">{{form.dailyGain}}</span>
                   </div>
                   <div class="release-bottom">
                     <span class="schedule-title-sub">已购数量：{{form.purchasedNumber}}（股）</span>
@@ -199,8 +199,11 @@ export default {
         this.form = data.data
         this.form.percentage = this.form.purchasedNumber / this.form.circulationNumber * 100
         const chazhi = this.form.sharesUnivalent - this.form.yesterDayPrice
-        if (this.form.yesterDayPrice) {
+        if (this.form.yesterDayPrice && chazhi > 0) {
           this.form.dailyGain = chazhi.toFixed(2).toString() + '+' + Math.round(chazhi / this.form.yesterDayPrice * 10000) / 100 + '%'
+        }
+        else if (this.form.yesterDayPrice && chazhi < 0) {
+          this.form.dailyGain = chazhi.toFixed(2).toString() + Math.round(chazhi / this.form.yesterDayPrice * 10000) / 100 + '%'
         }
         else {
           this.form.dailyGain = '-'
@@ -323,6 +326,12 @@ export default {
             height: 60px;
             line-height: 60px;
             margin-bottom: 20px;
+            .red {
+              color: red;
+            }
+            .green {
+              color: green;
+            }
           }
           .release-bottom {
             height: 30x;
@@ -489,29 +498,11 @@ export default {
   overflow: auto;
   overflow-x: hidden;
 }
-.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 6px;
-  background-color: #fff;
-}
-.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #fff;
-  transition: 0.3s background-color;
-}
-.financial-investment >>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #ddd;
-  transition: 0.3s background-color;
-  display: none;
-  transition: all 0.5s;
-}
-.financial-investment
-  >>> .el-table__body-wrapper:hover::-webkit-scrollbar-thumb {
-  display: block;
-}
-.wealth-details >>> .iep-ellipsis {
+.top-ten-shareholders >>> .iep-ellipsis {
   width: 33%;
   text-align: center;
+}
+.wealth-details >>> .el-scrollbar__bar.is-vertical > div {
+  height: 100%;
 }
 </style>

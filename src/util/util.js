@@ -301,6 +301,9 @@ export function openPage (value, type = 'path') {
   if (type === 'url') {
     window.open(value, '_blank')
   }
+  if (type === 'bind') {
+    window.location.href = value
+  }
 }
 
 /**

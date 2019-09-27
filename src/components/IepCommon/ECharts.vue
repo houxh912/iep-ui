@@ -1,8 +1,7 @@
 <template>
   <div class="echarts" />
 </template>
-
-<style>
+<style lang="scss" scoped>
 .echarts {
   width: 600px;
   height: 400px;

@@ -199,7 +199,8 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.meetingUrl = window.location.host + '/meeting'
+          // this.formData.meetingUrl = window.location.host + '/meeting'
+          this.formData.meetingUrl = 'http://www.icanvip.net/meeting'
           this.formData.meetingClasses2 = this.tags.map(m => m.id)
           postMeetingmarketing(this.formData).then((res) => {
             this.$message({

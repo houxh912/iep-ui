@@ -1,7 +1,7 @@
 <template>
   <div class="main-item-wrapper" @click="$openPage(website.menu.firstMenu.path)">
     <div v-if="isNull">{{isNull}}</div>
-    <div v-else>
+    <template v-else>
       <el-tooltip v-if="collapse" class="item" effect="dark" content="个人赋能台" placement="right">
         <span><i :class="mainMenu.icon"></i></span>
       </el-tooltip>
@@ -10,7 +10,7 @@
         <span v-if="isSub">-</span>
         <span v-if="isSub">{{mainMenu.label}}</span>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script>
@@ -56,7 +56,7 @@ export default {
 .main-item-wrapper {
   cursor: pointer;
   font-size: 16px;
-  text-align: left;
+  text-align: center;
   padding: 15px 20px;
   border-bottom: 1px solid #e5e5e5;
   color: #666;

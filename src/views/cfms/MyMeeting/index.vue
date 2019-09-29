@@ -12,6 +12,7 @@
       <el-table-column prop="operation" label="操作" width="250">
         <template slot-scope="scope">
           <operation-wrapper>
+            <iep-button type="warning" plain @click=" handleEdit(scope.row)">修改会议</iep-button>
             <iep-button type="warning" plain @click=" handleName(scope.row)">名单管理</iep-button>
           </operation-wrapper>
         </template>
@@ -45,6 +46,14 @@ export default {
       this.$refs['NameDialog'].dialogShow = true
       this.$refs['NameDialog'].id = row.id
       this.$refs['NameDialog'].loadPage()
+    },
+    handleEdit (row) {
+      this.$router.push({
+        path: `/cfms_spa/meeting_edit/${row.id}`,
+        query: {
+          edit: true,
+        },
+      })
     },
   },
 }

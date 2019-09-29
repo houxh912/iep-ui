@@ -124,8 +124,8 @@ export default {
     .title {
       width: 100%;
       display: inline-block;
-      height: 28px;
-      line-height: 28px;
+      height: 26px;
+      line-height: 26px;
       padding: 0 4px;
       font-size: 14px;
     }

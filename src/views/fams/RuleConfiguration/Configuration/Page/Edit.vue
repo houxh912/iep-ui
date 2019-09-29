@@ -17,7 +17,7 @@
         </iep-form-item>
         <el-form-item label="">
           <operation-wrapper>
-            <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">保存</iep-button>
+            <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">保存</iep-button>
           </operation-wrapper>
         </el-form-item>
       </el-form>

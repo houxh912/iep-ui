@@ -33,11 +33,11 @@
           </div>
         </template>
       </el-table-column>
-      <el-table-column label="审批结果" width="100px">
+      <!-- <el-table-column label="审批结果" width="100px">
         <template slot-scope="scope">
           {{dictsMap.status[scope.row.status]}}
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <operation-wrapper>

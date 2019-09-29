@@ -2,12 +2,9 @@
   <div>
     <basic-container>
       <iep-page-header title="我的审批" :data="[10 ,5]"></iep-page-header>
-      <iep-tabs v-model="activeTab" :tab-list="tabList">
-        <template v-if="activeTab ==='ExaminApproval'" v-slot:ExaminApproval>
-          <examin-approval v-loading="activeTab !=='ExaminApproval'"></examin-approval>
-        </template>
-        <template v-if="activeTab ==='AlreadyApproval'" v-slot:AlreadyApproval>
-          <already-approval v-loading="activeTab !=='AlreadyApproval'"></already-approval>
+      <iep-tabs :value="activeTab" :tab-list="tabList" @tab-click="handleTabClick">
+        <template v-slot:[activeTab]>
+          <component ref="tabList" :is="activeTab"></component>
         </template>
       </iep-tabs>
     </basic-container>
@@ -27,8 +24,21 @@ export default {
         label: '已审批',
         value: 'AlreadyApproval',
       }],
-      activeTab: 'ExaminApproval',
     }
+  },
+  computed: {
+    activeTab () {
+      return this.$route.query.activeTab || 'ExaminApproval'
+    },
+  },
+  methods: {
+    handleTabClick (vC) {
+      this.$router.push({
+        query: {
+          activeTab: vC.name,
+        },
+      })
+    },
   },
 }
 </script>

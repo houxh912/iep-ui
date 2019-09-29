@@ -12,21 +12,15 @@
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <operation-wrapper>
-            <el-popover placement="left" width="400" trigger="hover" @show="handleDetail(scope.row)">
-              <el-card shadow="never">
-                <div slot="header" class="clearfix">
-                  <span>模板内容</span>
-                </div>
-                <iep-html class="template-content iep-basic-scroll" :value="content"></iep-html>
-              </el-card>
-              <iep-button slot="reference" type="warning" plain>查看</iep-button>
-            </el-popover>
+            <iep-button type="warning" @click="handleDetail(scope.row)" plain>查看</iep-button>
             <iep-button @click="handleSelect(scope.row)" plain>选择</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
-
+    <iep-dialog :dialog-show="dialogShow1" title="查看模板" width="800px" @close="dialogShow1=false">
+      <iep-html class="template-content iep-basic-scroll" :value="content"></iep-html>
+    </iep-dialog>
   </iep-dialog>
 </template>
 <script>
@@ -40,6 +34,7 @@ export default {
   data () {
     return {
       content: '',
+      dialogShow1: false,
       dialogShow: false,
       columnsMap: [
         {
@@ -69,6 +64,7 @@ export default {
     async handleDetail (row) {
       const { data } = await getTemplateById(row.templateId)
       this.content = data.data.content
+      this.dialogShow1 = true
     },
     async handleSelect (row) {
       const { data } = await getTemplateById(row.templateId)

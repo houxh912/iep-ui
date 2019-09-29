@@ -9,7 +9,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">确 定</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">确 定</iep-button>
       <iep-button @click="close">取 消</iep-button>
     </template>
   </iep-dialog>

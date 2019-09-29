@@ -9,7 +9,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">{{methodName}}</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">{{methodName}}</iep-button>
     </template>
   </iep-dialog>
 </template>

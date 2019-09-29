@@ -2,7 +2,7 @@
   <div class="iep-page-form">
     <basic-container>
       <iep-page-header :title="`${methodName}报销-${dictsMap.referType[this.form.referType]}`" :back-option="backOption">
-        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">存为草稿</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">存为草稿</iep-button>
         <iep-button :loading="submitFormLoading" @click="handlePublish()">保存并发送</iep-button>
       </iep-page-header>
       <el-table :data="tableData" style="width: 100%" size="small" border show-summary>

@@ -1,5 +1,5 @@
 // org config options
-import { checkContactUsers } from '@/util/rules'
+// import { checkContactUsers } from '@/util/rules'
 const dictsMap = {
   isReward: {
     1: '打赏',
@@ -64,10 +64,10 @@ const rules = {
     { type: 'number', required: true, message: '输入的金额至少大于 0 元', trigger: 'blur', min: 0.01 },
   ],
   type: [
-    { required: true, message: '请选择打赏类型', trigger: 'change' },
+    { required: true, message: '请选择打赏类型', trigger: 'blur' },
   ],
   targetUsers: [
-    { type: 'array', required: true, validator: checkContactUsers('打赏对象'), trigger: 'change' },
+    { type: 'array', required: true, message: '请选择打赏对象', trigger: 'blur' },
   ],
 }
 

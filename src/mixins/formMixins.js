@@ -56,11 +56,12 @@ export default {
         } else {
           yield false
         }
-        this.submitFormLoading = false
       } catch (error) {
         this.mixinsMessage(error)
-        this.submitFormLoading = false
+        console.log(error, formRefName)
         yield false
+      } finally {
+        this.submitFormLoading = false
       }
     },
     /**

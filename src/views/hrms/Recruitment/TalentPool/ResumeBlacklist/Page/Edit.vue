@@ -95,7 +95,7 @@
     </el-card>
     <footer-tool-bar>
       <iep-button :loading="submitFormLoading" @click="handleGoBack">返回</iep-button>
-      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">提交</iep-button>
     </footer-tool-bar>
   </div>
 </template>

@@ -67,7 +67,7 @@ export default {
 </style>
 <style scoped>
 .certificate >>> .el-card {
-  height: 384px;
+  height: 364px;
 }
 .certificate >>> .el-image {
   display: flex;

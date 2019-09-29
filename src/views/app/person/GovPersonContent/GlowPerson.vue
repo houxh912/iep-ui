@@ -2,15 +2,16 @@
   <div class="resources">
     <IepAppTabCard :title="title" :linkName="linkName">
       <!-- <el-button class="btn" type="text" slot="right">换一批</el-button> -->
-      <el-carousel :interval="5000" arrow="always" style="padding-left:40px;">
+      <el-carousel :interval="40000" arrow="hover">
         <el-carousel-item v-for="item in itemLength" :key="item">
           <div class="resourcesList">
-            <div v-for="(item,index) in resourcesList.slice((item-1)*9,item*9)" :key="index" class="piece" @click="handleOpen()">
+            <div v-for="(item,index) in resourcesList.slice((item-1)*9,item*9)" :key="index" class="piece" @click="handleOpen(item)">
               <div class="img-con">
                 <iep-img :src="item.avatar" class="img" alt=""></iep-img>
               </div>
               <div class="text">
-                <div class="title"><span>{{item.name}}</span><span class="selectionName">{{item.selectionName}}</span></div>
+                <span class="selectionName">{{item.selectionName}}</span>
+                <span class="title">{{item.name}}</span>
                 <div class="orgName">{{item.orgName}}</div>
               </div>
             </div>
@@ -28,32 +29,6 @@ export default {
       showClass1: 0,
       title: '光彩国脉人',
       linkName: '',
-      nameList: [
-        {
-          name: '全部',
-          data: '(506人)',
-        },
-        {
-          name: '技术之星',
-          data: '(2人)',
-        },
-        {
-          name: '品牌达人',
-          data: '(11人)',
-        },
-        {
-          name: '销售达人',
-          data: '(56人)',
-        },
-        {
-          name: '材料达人',
-          data: '(34人)',
-        },
-        {
-          name: '贡献达人',
-          data: '(13人)',
-        },
-      ],
       resourcesList: [
       ],
       itemLength: '',
@@ -70,9 +45,9 @@ export default {
     tab1 (val) {
       this.showClass1 = val
     },
-    handleOpen () {
+    handleOpen (val) {
       this.$router.push({
-        path: '/app/personal_style',
+        path: `/app/personal_style${val.id}`,
       })
     },
   },
@@ -115,21 +90,21 @@ export default {
   display: grid;
   grid-auto-flow: row dense;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-row-gap: 40px;
+  grid-row-gap: 20px;
   grid-column-gap: 20px;
-  padding: 20px 0 13px;
+  padding: 10px 0 13px;
   .piece {
     display: flex;
     justify-content: flex-start;
     width: 100%;
-    height: 60px;
+    height: 70px;
     cursor: pointer;
     &:hover {
       opacity: 0.7;
     }
     .img-con {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border: 1px solid #ebeef5;
       overflow: hidden;
     }
@@ -142,27 +117,35 @@ export default {
       }
     }
     .text {
-      margin-left: 20px;
+      margin-left: 15px;
       width: 70%;
     }
 
     .title {
-      font-size: 16px;
-      .selectionName {
-        margin-left: 10px;
-        color: #ba1b21;
-        background-color: #f8e8e9;
-        border: 1px solid #cb3737;
-        border-color: #f1d1d3;
-        border-radius: 4px;
-        padding: 0 4px;
-        font-size: 12px;
-      }
+      width: 100%;
+      display: inline-block;
+      height: 28px;
+      line-height: 28px;
+      padding: 0 4px;
+      font-size: 14px;
+    }
+    .selectionName {
+      display: inline-block;
+      color: #ba1b21;
+      background-color: #f8e8e9;
+      border: 1px solid #cb3737;
+      border-color: #f1d1d3;
+      border-radius: 4px;
+      padding: 0 4px;
+      margin-bottom: 4px;
+      font-size: 14px;
     }
     .orgName {
       display: block;
-      margin-top: 5px;
       color: #999;
+      font-size: 12px;
+      height: 20px;
+      line-height: 20px;
     }
   }
 }
@@ -182,10 +165,7 @@ export default {
 </style>
 <style scoped>
 .resources >>> .el-card {
-  height: 384px;
-}
-.resources >>> .el-carousel__arrow--left {
-  left: -40px;
+  height: 364px;
 }
 </style>
 

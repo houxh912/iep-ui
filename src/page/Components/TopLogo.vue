@@ -38,9 +38,9 @@ export default {
   .logo {
     cursor: pointer;
     margin-right: 10px;
-    width: 76px;
-    height: 32px;
-    background-image: url("/img/logo.png");
+    width: 50px;
+    height: 50px;
+    background-image: url("/img/logo-.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
   }

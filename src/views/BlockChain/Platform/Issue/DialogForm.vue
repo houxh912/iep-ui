@@ -34,7 +34,7 @@ export default {
           { type: 'number', required: true, message: '请输入的发币金额不少于 1 ', trigger: 'blur', min: 1 },
         ],
         remarks: [
-          { required: true, message: '请输入的备注', trigger: 'blur' },
+          { message: '请输入的备注', trigger: 'blur' },
         ],
       },
     }

@@ -39,12 +39,12 @@ export default {
   },
   methods: {
     handleTransfer () {
-      this.$refs['TransferDialog'].realMaxAmount = this.statistics[0]
+      this.$refs['TransferDialog'].realMaxAmount = this.statistics[1]
       this.$refs['TransferDialog'].dialogShow = true
     },
     async loadPage () {
       const { data } = await getPlatformAccount()
-      this.$set(this, 'statistics', [data.data, 0, 0, 0])
+      this.$set(this, 'statistics', [0, data.data, 0, 0])
     },
   },
 }

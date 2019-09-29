@@ -25,6 +25,7 @@ export default {
           'L': '转出',
         },
         accountType: {
+          '0': '系统',
           '1': '平台',
           '2': '联盟',
           '3': '组织',
@@ -46,6 +47,10 @@ export default {
         {
           prop: 'amount',
           label: '能贝数量',
+        },
+        {
+          prop: 'realName',
+          label: '交易对象',
         },
         {
           prop: 'accountType',

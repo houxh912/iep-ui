@@ -48,6 +48,10 @@ export default {
           label: '能贝数量',
         },
         {
+          prop: 'realName',
+          label: '交易对象',
+        },
+        {
           prop: 'accountType',
           label: '账户类型',
           type: 'dict',

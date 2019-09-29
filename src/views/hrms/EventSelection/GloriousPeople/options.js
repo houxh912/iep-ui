@@ -60,9 +60,6 @@ const rules = {
   selectionName: [
     { required: true, message: '请输入评选名称', trigger: 'blur' },
   ],
-  targetId: [
-    { required: true, message: '请选择关联指标', trigger: 'change' },
-  ],
   status: [
     { required: true, message: '请选择评选状态', trigger: 'change' },
   ],

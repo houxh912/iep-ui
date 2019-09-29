@@ -80,4 +80,8 @@ export default {
   height: auto;
   border: 1px solid #ebeef5;
 }
+.certificate >>> .el-carousel__item--card.is-active {
+  width: 64%;
+  margin-left: -7%;
+}
 </style>

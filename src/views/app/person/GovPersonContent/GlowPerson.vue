@@ -47,7 +47,7 @@ export default {
     },
     handleOpen (val) {
       this.$router.push({
-        path: `/app/personal_style${val.id}`,
+        path: `/app/personal_style/${val.userId}`,
       })
     },
   },

@@ -13,7 +13,7 @@
           </el-menu>
         </div>
       </el-scrollbar>
-      <el-menu :collapse="keyCollapse">
+      <el-menu class="fold-menu" :collapse="keyCollapse">
         <el-menu-item @click="changeCollapse()">
           <i :class="`${keyCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'}`"></i>
           <span slot="title">{{keyCollapse ? '展开':'收起'}}</span>
@@ -82,6 +82,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.fold-menu {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
+}
 .el-aside {
   overflow: hidden;
   background-color: #fafafa;
@@ -141,7 +144,7 @@ export default {
   .el-submenu__title,
 .avue-sidebar ::v-deep .el-submenu .el-submenu__title:hover {
   margin-left: 0 !important;
-  border-color: $--menu-color-primary;
+  // border-color: $--menu-color-primary;
   background-color: $--menu-color-second;
   color: $--menu-color-primary;
 }

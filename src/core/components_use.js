@@ -74,7 +74,7 @@ import IepHoverCard from '@/components/IepCommon/HoverCard'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
 import IepImageDialog from '@/components/IepCommon/ImageDialog'
 
-//投资弹框
+// 投资弹框
 import IepEquityDialog from '@/components/IepCommon/EquityDialog'
 
 // 表格相关组件

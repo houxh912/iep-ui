@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Qrcode from '@chenfengyuan/vue-qrcode'
 import Directives from '../directives/index'
 
 import '@/core/components_use'
@@ -25,6 +26,8 @@ Vue.prototype.$wxAppId = 'wx92d9fe94daef034e'
 
 Vue.use(Directives)
 Vue.use(Avue, { menuType: 'text' })
+
+Vue.component(Qrcode.name, Qrcode)
 
 //加载过滤器
 Object.keys(filters).forEach(key => {

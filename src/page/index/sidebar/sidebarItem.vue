@@ -110,7 +110,8 @@ export default {
     line-height: 40px;
     border-left: 3px solid #fafafa;
     &:hover {
-      border-color: $--menu-color-primary;
+      background-color: $--menu-color-second;
+      color: $--menu-color-primary;
     }
   }
 }

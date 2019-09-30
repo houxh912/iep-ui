@@ -29,6 +29,8 @@ import IepFiveKay from '@/components/IepCommon/FiveKey'
 import IepKeyItem from '@/components/IepCommon/KeyItem'
 import IepUserCard from '@/components/IepCommon/UserCard'
 import IepCharts from '@/components/IepCommon/ECharts'
+import IepStatisticsHeader from '@/components/IepCommon/StatisticsHeader'
+import IepSlotCard from '@/components/IepCommon/SlotCard'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -70,6 +72,7 @@ import IepADialog from '@/components/IepDialog/ADialog'
 import IepDrawer from '@/components/IepDrawer/'
 import IepHoverCard from '@/components/IepCommon/HoverCard'
 import IepReviewConfirm from '@/components/IepCommon/ReviewConfirm'
+import IepImageDialog from '@/components/IepCommon/ImageDialog'
 
 //投资弹框
 import IepEquityDialog from '@/components/IepCommon/EquityDialog'
@@ -139,6 +142,8 @@ Vue.component(IepFiveKay.name, IepFiveKay)
 Vue.component(IepKeyItem.name, IepKeyItem)
 Vue.component(IepUserCard.name, IepUserCard)
 Vue.component(IepCharts.name, IepCharts)
+Vue.component(IepStatisticsHeader.name, IepStatisticsHeader)
+Vue.component(IepSlotCard.name, IepSlotCard)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)
@@ -179,6 +184,7 @@ Vue.component(IepADialog.name, IepADialog)
 Vue.component(IepDrawer.name, IepDrawer)
 Vue.component(IepHoverCard.name, IepHoverCard)
 Vue.component(IepReviewConfirm.name, IepReviewConfirm)
+Vue.component(IepImageDialog.name, IepImageDialog)
 
 //投资弹框
 Vue.component(IepEquityDialog.name, IepEquityDialog)

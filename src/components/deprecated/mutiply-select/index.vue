@@ -186,8 +186,8 @@ export default {
   },
 }
 </script>
-
-<style>
+<style lang="scss" scoped>
+// 只用scoped限制
 .select-box {
   width: 300px;
 }

@@ -63,9 +63,3 @@ export default {
   },
 }
 </script>
-<style>
-.btn {
-  margin-right: 10px;
-}
-</style>
-

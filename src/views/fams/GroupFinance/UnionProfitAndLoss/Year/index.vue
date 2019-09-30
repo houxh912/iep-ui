@@ -5,7 +5,7 @@
         <iep-date-picker size="small" v-model="yearDate" align="right" type="year" placeholder="选择年" @change="loadPage()" :clearable="false"></iep-date-picker>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle" show-summary>
+    <iep-table :isLoadTable="isLoadTable" :isPagination="false" :columnsMap="columnsMap" :pagedTable="pagedTable" @row-click="handleDetail" :cell-style="mixinsCellPointerStyle" :summary-method="getSummary2" show-summary>
       <el-table-column prop="projectIncome" label="项目收入">
         <template slot-scope="scope">
           {{scope.row.projectIncome}}
@@ -43,6 +43,7 @@
 import { mapGetters } from 'vuex'
 import { getUnionProfits } from '@/api/fams/statistics'
 import { getYear } from '@/util/date'
+import { getSummary2 } from '@/util/table'
 import { calculateSign } from '@/util/util'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options.js'
@@ -77,6 +78,7 @@ export default {
   },
   methods: {
     calculateSign,
+    getSummary2,
     handleDetail (row) {
       this.$openPage(`/fams/org_assets/org_profit_and_loss?orgId=${row.id}&orgName=${row.orgName}`)
     },

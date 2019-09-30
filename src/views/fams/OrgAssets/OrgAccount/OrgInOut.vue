@@ -35,10 +35,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getOrgBudgetList } from '@/api/fams/statistics'
-import IepSlotCard from '@/views/fams/Components/SlotCard'
 import IepCardBtn from '@/views/fams/Components/CardBtn'
 export default {
-  components: { IepSlotCard, IepCardBtn },
+  components: {
+    IepCardBtn,
+  },
   data () {
     return {
       type: '1',

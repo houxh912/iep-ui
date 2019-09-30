@@ -10,17 +10,16 @@ export function getAmountByUserId (userId) {
   })
 }
 
-export function getPage (query) {
+export function getAmount () {
   return request({
-    url: `${prefixUrl}/page`,
+    url: `${prefixUrl}/account`,
     method: 'get',
-    params: query,
   })
 }
 
-export function getMyPage (query) {
+export function getPage (query) {
   return request({
-    url: `${prefixUrl}/my/page`,
+    url: `${prefixUrl}/page`,
     method: 'get',
     params: query,
   })
@@ -41,10 +40,57 @@ export function sendAmount (obj) {
     data: obj,
   })
 }
+
 export function issuedAmount (obj) {
   return request({
     url: `${prefixUrl}/coin/making`,
     method: 'post',
     data: obj,
+  })
+}
+
+export function getCoinIssuePage (query) {
+  return request({
+    url: `${prefixUrl}/making/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getPlatformPage (query) {
+  return request({
+    url: `${prefixUrl}/platform/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getOrgPage (query) {
+  return request({
+    url: `${prefixUrl}/org/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getMyPage (query) {
+  return request({
+    url: `${prefixUrl}/my/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
+export function getPlatformAccount () {
+  return request({
+    url: `${prefixUrl}/platform/account`,
+    method: 'get',
+  })
+}
+
+export function getOrgAccount () {
+  return request({
+    url: `${prefixUrl}/org/account`,
+    method: 'get',
   })
 }

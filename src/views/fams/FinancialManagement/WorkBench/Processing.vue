@@ -32,7 +32,6 @@
 </template>
 <script>
 import keyBy from 'lodash/keyBy'
-import IepSlotCard from '@/views/fams/Components/SlotCard'
 import mixins from '@/mixins/mixins'
 import { getPendingPage } from '@/api/fams/statistics'
 function pageOption () {
@@ -50,7 +49,6 @@ const typeMap = {
 }
 export default {
   mixins: [mixins],
-  components: { IepSlotCard },
   data () {
     return {
       selectType: 1,

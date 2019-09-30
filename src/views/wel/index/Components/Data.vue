@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import { getRadar } from '@/api/app/hrms/index.js'
 import Wrapper from './Wrapper'
 export default {
   components: {
@@ -46,13 +47,27 @@ export default {
       }
     },
   },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      const { data } = await getRadar()
+      console.log(data)
+      this.scores[0].value = data.data.cfzz
+      this.scores[1].value = data.data.cxfw
+      this.scores[2].value = data.data.gz
+      this.scores[3].value = data.data.xx
+      this.scores[4].value = data.data.gl
+      this.scores[5].value = data.data.xz
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .echarts {
   width: 100%;
-  min-width: 400px;
-  height: 120px;
+  height: 200px;
 }
 </style>

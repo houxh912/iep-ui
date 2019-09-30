@@ -173,10 +173,10 @@ export default {
       height: 50px;
       line-height: 50px;
       .red {
-        color: red;
+        color: #f00;
       }
       .green {
-        color: green;
+        color: #0f990f;
       }
     }
     .box:first-child {

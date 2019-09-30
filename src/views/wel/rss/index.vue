@@ -6,99 +6,194 @@
           <span class="title">订阅目录</span>
         </div>
         <el-menu :default-active="selectType" class="menu-vertical">
-          <el-menu-item class="menu-item" :key="index" v-for="(item,index) in imsMsgType">
+          <el-menu-item class="menu-item" :key="index" v-for="(item,index) in rssType" @click="handleSelect(item)">
             <span>{{item.label}}</span>
           </el-menu-item>
         </el-menu>
       </el-card>
     </el-col>
     <el-col :span="20">
-      <iep-page-header title="我的订阅"></iep-page-header>
-      <div class="info">
+      <iep-page-header :title="rssTitle"></iep-page-header>
+      <!-- <div class="info">
         <span>我的订阅模块主要为个人在内网中订阅的内容。</span>
         <span class="red">我的订阅模块还在开发中，敬请期待，本页面仅为样式效果演示</span>
-      </div>
+      </div> -->
       <operation-container>
         <template slot="left">
-          <el-dropdown size="medium">
-            <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
-              <el-dropdown-item @click.native="handleExport">导出</el-dropdown-item>
-              <el-dropdown-item @click.native="handleCollectAll">收藏</el-dropdown-item>
-              <el-dropdown-item>分享</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+          <iep-button type="primary" @click="handleAdd()" plain>订阅</iep-button>
+          <el-popover placement="bottom" width="600" trigger="click">
+            <el-tabs v-model="activeName">
+              <el-tab-pane label="主题" name="first">
+                <el-transfer style="text-align: left; display: inline-block" v-model="themeList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消', '订阅']" :format="{
+        noChecked: '${total}',
+        hasChecked: '${checked}/${total}'
+      }" :data="POLICY_THEME" disabled>
+                  <span slot-scope="{ option }">{{ option.label }}</span>
+                </el-transfer>
+              </el-tab-pane>
+              <el-tab-pane label="行业" name="second">
+                <el-transfer style="text-align: left; display: inline-block" v-model="industryList" filterable :props="props" :titles="['全部', '已订阅']" :button-texts="['取消', '订阅']" :format="{
+        noChecked: '${total}',
+        hasChecked: '${checked}/${total}'
+      }" :data="POLICY_INDUSTRY" disabled>
+                  <span slot-scope="{ option }">{{ option.label }}</span>
+                </el-transfer>
+              </el-tab-pane>
+              <el-tab-pane label="地域" name="third">
+                <div style="display: flex;" v-for="(item,i) in selectCityList" :key="i">
+                  <el-cascader style="flex: 1;" size="small" :props="cityProps" :value="item" :options="cityOption" disabled></el-cascader>
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+            <iep-button slot="reference">查看订阅</iep-button>
+          </el-popover>
         </template>
         <template slot="right">
+          <el-radio-group v-model="type" size="small" @change="loadPage">
+            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value">{{tab.label}}</el-radio-button>
+          </el-radio-group>
           <operation-search @search-page="searchPage"></operation-search>
         </template>
       </operation-container>
-      <iep-table :isLoadTable="false" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
+          <el-table-column label="政策名称">
+            <template slot-scope="scope">
+              <div @click="handleDetail(scope.row)" class="row-style">
+                <span v-if="arrFlag[scope.$index]" class="grade">最新推荐</span>
+                <span>{{scope.row.title}}</span>
+              </div>
+            </template>
+          </el-table-column>
         </template>
-        <el-table-column prop="operation" label="操作" width="260">
-          <template>
-            <operation-wrapper>
-              <iep-button type="warning" plain>收藏</iep-button>
-              <iep-button>分享</iep-button>
-              <iep-button>取消订阅</iep-button>
-            </operation-wrapper>
-          </template>
-        </el-table-column>
+        <!-- <el-table-column prop="operation" label="操作" width="160"> -->
+        <!-- <template> -->
+        <!-- <operation-wrapper> -->
+        <!-- <iep-button type="warning" plain>收藏</iep-button> -->
+        <!-- <iep-button>分享</iep-button> -->
+        <!-- <iep-button>取消订阅</iep-button> -->
+        <!-- </operation-wrapper> -->
+        <!-- </template> -->
+        <!-- </el-table-column> -->
       </iep-table>
     </el-col>
+    <dialog-form ref="DialogForm"></dialog-form>
+    <dialog-detail ref="DialogDetail"></dialog-detail>
   </el-row>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { dictsMap, columnsMap } from './options'
+import { getPolicyPage, getThemeList, getIndustryList, getRegionList } from '@/api/govdata/rss'
+import { region as cityOption } from '@/views/govdata/policyManage/region.js'
+import DialogForm from './DialogForm'
+import { mapGetters } from 'vuex'
+import DialogDetail from './DialogDetail'
 export default {
+  components: { DialogForm, DialogDetail },
   mixins: [mixins],
   data () {
     return {
+      cityOption,
       dictsMap,
       columnsMap,
-      pagedTable: [
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
-        { time: '2019-02-02', name: '数据基因微服务版说明书 V1.0', status: '0' },
+      activeName: 'first',
+      type: '*',
+      cityProps: {
+        value: 'code',
+        label: 'name',
+      },
+      props: {
+        key: 'value',
+      },
+      industryList: [],
+      themeList: [],
+      selectCityList: [],
+      arrFlag: [],
+      tabList: [
+        {
+          label: '全部',
+          value: '*',
+        },
+        {
+          label: '通用',
+          value: 'general',
+        },
+        {
+          label: '申报',
+          value: 'declare',
+        },
+        {
+          label: '解读',
+          value: 'explain',
+        },
+        {
+          label: '资讯',
+          value: 'information',
+        },
       ],
-      imsMsgType: [
-        { label: '技术文档', value: '1' },
-        { label: '产品解决方案', value: '1' },
-        { label: '培训/课程', value: '1' },
-        { label: '制度文件', value: '1' },
-        { label: '会议纪要', value: '1' },
-        { label: '学习资源', value: '1' },
+      rssType: [
+        { label: '政策订阅', value: '1' },
       ],
+      rssTitle: '政策订阅',
       selectType: '0',
       bodyStyle: {
         padding: 0,
       },
     }
   },
+  computed: {
+    ...mapGetters(['dictGroup']),
+    POLICY_THEME () {
+      return this.dictGroup['POLICY_THEME']
+    },
+    POLICY_INDUSTRY () {
+      return this.dictGroup['POLICY_INDUSTRY']
+    },
+  },
+  created () {
+    this.loadPage()
+  },
   methods: {
-    handleSelectionChange () {
-    },
     handleAdd () {
+      this.$refs['DialogForm'].dialogShow = true
     },
-    handleDetail () {
+    dataReduce () {
+      let data = new Date()
+      let time = data.getTime()
+      return time
     },
-    handleSelectType (k) {
-      this.selectType = k
+    handleDetail (row) {
+      this.$refs['DialogDetail'].form = { ...row }
+      this.$refs['DialogDetail'].dialogShow = true
+    },
+    handleSelect (item) {
+      this.rssTitle = item.label
+      this.selectType = item.value
       this.loadPage()
     },
-    // 导出
-    handleExporthandleExport () {
-      this.$message.error('抱歉，此功能尚未开发')
-    },
-    // 收藏
-    handleCollectAll () {
-      this.$message.error('抱歉，此功能尚未开发')
+    loadPage (param = this.searchForm) {
+      getThemeList().then(({ data }) => {
+        this.themeList = data.data.map(m => m.value)
+      })
+      getIndustryList().then(({ data }) => {
+        this.industryList = data.data.map(m => m.value)
+      })
+      getRegionList().then(({ data }) => {
+        this.selectCityList = data.data.map(m => m.dictValueKey.split(','))
+      })
+      const D = this.loadTable({ ...param, beforeDays: 3, policyType: this.type }, getPolicyPage)
+      let publishTime = []
+      D.then((data) => {
+        data.records.forEach(element => {
+          if (this.dataReduce() - element.publishTime - 3 * 24 * 60 * 60 * 1000 > 0) {
+            publishTime.push(false)
+          } else {
+            publishTime.push(true)
+          }
+        })
+      })
+      this.arrFlag = publishTime
     },
   },
 }
@@ -123,6 +218,20 @@ export default {
   margin: 0 !important;
   padding: 20px;
   height: 100vh;
+  .row-style {
+    cursor: pointer;
+  }
+  .grade {
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    height: 18px;
+    line-height: 18px;
+    margin-right: 4px;
+    margin-top: 10px;
+    background-color: #b91b21;
+    margin-right: 10px;
+  }
   .menu-vertical {
     border: none;
   }
@@ -161,4 +270,10 @@ export default {
   height: 40px;
   line-height: 40px;
 }
+/* .aside-main >>> .el-badge {
+  display: inline;
+} */
+/* .aside-main >>> .cell {
+  flex-wrap: nowrap;
+} */
 </style>

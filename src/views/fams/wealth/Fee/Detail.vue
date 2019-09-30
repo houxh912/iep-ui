@@ -2,7 +2,7 @@
   <div>
     <basic-container>
       <iep-page-header title="查看财务费用申请" :back-option="backOption">
-        <template v-if="form.status===1 && isApproval">
+        <!-- <template v-if="form.status===1 && isApproval">
           <iep-button @click="handlePass(form, false)">通过</iep-button>
           <iep-button @click="handleReject(form, false)">驳回</iep-button>
           <iep-button @click="handleTrans(form)">转交</iep-button>
@@ -10,7 +10,7 @@
         <template v-if="form.status===2 && isApproval">
           <iep-button @click="handlePass(form, true)">通过</iep-button>
           <iep-button @click="handleReject(form, true)">驳回</iep-button>
-        </template>
+        </template> -->
       </iep-page-header>
       <el-form ref="form" class="form-detail" :model="flowForm" :rules="rules" label-width="140px" size="small">
         <el-table :data="form.relations" style="width: 100%" size="small" border show-summary>

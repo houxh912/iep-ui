@@ -4,37 +4,21 @@
       <iep-page-header title="项目列表"></iep-page-header>
       <operation-container>
         <template slot="left">
-          <iep-select
-            v-show="isAbled"
-            size="small"
-            v-model="orgIds"
-            autocomplete="off"
-            prefix-url="admin/org/all"
-            @change="listPage()"
-            placeholder="所有"
-          ></iep-select>
+          <iep-select v-show="isAbled" size="small" v-model="orgIds" autocomplete="off" prefix-url="admin/org/all" @change="listPage()" placeholder="所有"></iep-select>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search  prop="projectName">
+          <operation-search @search-page="searchPage" advance-search prop="projectName">
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>
       </operation-container>
-      <iep-table
-        :isLoadTable="isLoadTable"
-        :columnsMap="columnsMap"
-        :pagination="pagination"
-        :pagedTable="pagedTable"
-        :dictsMap="dictMap"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-      >
+      <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagination="pagination" :pagedTable="pagedTable" :dictsMap="dictMap" @size-change="handleSizeChange" @current-change="handleCurrentChange">
         <template slot="before-columns">
           <el-table-column label="项目名称" width="300px">
             <template slot-scope="scope">
-             <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
-              <span>{{ scope.row.projectName }}</span>
-            </div>
+              <div style="cursor: pointer;width: 100%;" @click="handleDetail(scope.row)">
+                <span>{{ scope.row.projectName }}</span>
+              </div>
             </template>
           </el-table-column>
         </template>
@@ -83,17 +67,9 @@ const columnsMap = [
     label: '发布人',
   },
 ]
-// const initForm = () => {
-//   return {
-//     projectStage: '',
-//     projectManager: '',
-//     projectLevel: '',
-//     publisherName: '',
-//   }
-// }
 export default {
   mixins: [mixins],
-  components: {AdvanceSearch},
+  components: { AdvanceSearch },
   data () {
     return {
       orgIds: '',
@@ -109,9 +85,6 @@ export default {
       'userInfo',
       'dictGroup',
     ]),
-    // ...mapState({
-    //   orgId: state => state.user.userInfo.orgIds,
-    // }),
     isAbled () {
       return this.userInfo.userId === 1 || this.userInfo.userId === 2 || this.userInfo.userId === 3 || this.userInfo.userId === 451
     },

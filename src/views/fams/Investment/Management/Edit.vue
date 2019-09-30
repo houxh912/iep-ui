@@ -20,7 +20,6 @@
   </div>
 </template>
 <script>
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import { getInvestmentById, getShareStatistics, changeRelease } from '@/api/fams/investment'
 import ChangeReleaseForm from './ChangeReleaseForm'
 import { initInvestmentForm } from './options'
@@ -30,7 +29,6 @@ import TransactionRecord from './TransactionRecord/'
 import ShareholderInformation from './ShareholderInformation/'
 export default {
   components: {
-    IepStatisticsHeader,
     ReleaseRecord,
     TransactionRecord,
     ShareholderInformation,

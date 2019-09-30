@@ -204,8 +204,6 @@ export default {
 .title span {
   margin: 0px 10px 0 0;
 }
-</style>
-<style>
 .nameForSpan {
   display: inline-block;
   width: 20%;

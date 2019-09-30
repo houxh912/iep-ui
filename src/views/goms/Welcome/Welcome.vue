@@ -39,9 +39,9 @@
             </div>
             <div class="reward">
               <div class="scan-code"></div>
-              <div>
+              <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
+              <div v-else>
                 <span>{{form.createdOrg?'':'未'}}完成</span>
-                <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
                 <span v-if="form.createdOrg === -1" class="money-text"> +1 贝</span>
               </div>
             </div>

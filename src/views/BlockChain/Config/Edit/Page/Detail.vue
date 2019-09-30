@@ -35,20 +35,22 @@ export default {
       },
       columnsMap: [
         {
-          prop: 'ruleName',
+          prop: 'rules',
           label: '规则名称',
+          type: 'dictGroup',
+          dictName: 'FAMS_I_CAN_BEI_RULE',
         },
         {
           prop: 'targetName',
           label: '操作对象',
         },
         {
-          prop: 'userName',
+          prop: 'operationName',
           label: '操作人',
         },
         {
           prop: 'amount',
-          label: '国脉贝',
+          label: '能贝',
         },
         {
           prop: 'createTime',

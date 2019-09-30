@@ -20,9 +20,7 @@
 </template>
 <script>
 import { getBudgetList } from '@/api/fams/statistics'
-import IepSlotCard from '@/views/fams/Components/SlotCard'
 export default {
-  components: { IepSlotCard },
   data () {
     return {
       rangeTime: [],

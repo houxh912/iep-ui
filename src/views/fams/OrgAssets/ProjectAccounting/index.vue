@@ -76,7 +76,6 @@
 
 <script>
 import { getProjectPage, getProjectPageByOrgId } from '@/api/fams/statistics'
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initForm } from './options'
 import AdvanceSearch from './AdvanceSearch'
@@ -84,7 +83,9 @@ function initStatistics () {
   return [0, 0, 0, 0, 0, 0, 0]
 }
 export default {
-  components: { IepStatisticsHeader, AdvanceSearch },
+  components: {
+    AdvanceSearch,
+  },
   mixins: [mixins],
   data () {
     return {

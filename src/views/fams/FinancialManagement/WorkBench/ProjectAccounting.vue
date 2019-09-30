@@ -25,9 +25,7 @@
   </iep-slot-card>
 </template>
 <script>
-import IepSlotCard from '@/views/fams/Components/SlotCard'
 export default {
-  components: { IepSlotCard },
   data () {
     this.chartExtend = {
       'xAxis.0.axisLabel.rotate': 45,

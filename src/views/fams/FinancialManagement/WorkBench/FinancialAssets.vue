@@ -4,9 +4,7 @@
 </template>
 <script>
 import { getAssetsByDate } from '@/api/fams/statistics'
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 export default {
-  components: { IepStatisticsHeader },
   data () {
     return {
       rangeTime: [],

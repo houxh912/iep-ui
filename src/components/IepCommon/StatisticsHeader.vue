@@ -15,11 +15,9 @@
   </iep-slot-card>
 </template>
 <script>
-import IepSlotCard from './SlotCard'
 import { validatenull } from '@/util/validate'
 export default {
   name: 'IepStatisticsHeader',
-  components: { IepSlotCard },
   props: {
     title: {
       type: String,

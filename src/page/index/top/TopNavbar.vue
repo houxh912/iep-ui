@@ -80,9 +80,6 @@ export default {
       this.$nextTick(() => {
         this.$refs['resource'][0].getCount()
       })
-      this.$nextTick(() => {
-        this.$refs['policyCenter'][0]
-      })
     },
   },
   mounted () {

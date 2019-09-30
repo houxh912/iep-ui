@@ -129,3 +129,11 @@ export const getCredit = () => {
     method: 'get',
   })
 }
+
+// 数据雷达图
+export const getRadar = () => {
+  return request({
+    url: `${prefixUrl}/user_map`,
+    method: 'get',
+  })
+}

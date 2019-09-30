@@ -72,7 +72,7 @@ export default {
     grid-row: 1 / 9;
     .img {
       width: 576px;
-      height: 359px;
+      height: 100%;
     }
   }
   .banner-list:nth-child(2) {
@@ -80,7 +80,7 @@ export default {
     grid-row: 1 / 5;
     .img {
       width: 286px;
-      height: 176px;
+      height: 100%;
     }
   }
   .banner-list:nth-child(3) {
@@ -88,7 +88,7 @@ export default {
     grid-row: 5/ 9;
     .img {
       width: 286px;
-      height: 178px;
+      height: 100%;
     }
   }
 }

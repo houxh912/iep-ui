@@ -1,5 +1,6 @@
 import Layout from '@/page/index/index'
 import resourceRoute from './resource'
+import policyRoute from './policyRoute'
 
 
 
@@ -94,7 +95,9 @@ export default [
         path: 'policyCenter',
         name: '政策中心频道',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/policyCenter/'),
+        redirect:'/app/policyCenter/general',
         meta: noAuth,
+        children: policyRoute,
       },
       {
         path: 'search',
@@ -259,6 +262,12 @@ export default [
         path: 'tag_library',
         name: '标签库',
         component: () => import(/* webpackChunkName: "app-channel" */'@/views/app/tagLibrary/'),
+        meta: noAuth,
+      },
+      {
+        path: 'detail/:id',
+        name: '政策详情',
+        component: () => import('@/views/govdata/detail'),
         meta: noAuth,
       },
       {

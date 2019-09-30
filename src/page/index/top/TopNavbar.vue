@@ -11,6 +11,7 @@
         <el-menu-item v-for="(item) in navListFront" :key="item.id" :index="item.id" :class="item.show">
           <span class="sub-menu">{{item.name}}</span>
           <resource-con ref="resource" class="sub-nav-menu" v-if="item.show=='show'"></resource-con>
+          <policy-con ref="policyCenter" class="sub-nav-menu" v-if="item.id =='/app/policyCenter'"></policy-con>
         </el-menu-item>
         <a-dropdown v-if="navListEnd.length">
           <a-icon class="ant-dropdown-link" type="ellipsis" />
@@ -37,9 +38,10 @@
 import remove from 'lodash/remove'
 import displayMixins from '@/mixins/displayMixins'
 import ResourceCon from './ResourceCon'
+import PolicyCon from './PolicyCon'
 import { navList, navPathList } from '@/router/app/navList.js'
 export default {
-  components: { ResourceCon },
+  components: { ResourceCon, PolicyCon },
   mixins: [displayMixins],
   data () {
     const navListRaw = [...navList]
@@ -77,6 +79,9 @@ export default {
     menuItemEnter () {
       this.$nextTick(() => {
         this.$refs['resource'][0].getCount()
+      })
+      this.$nextTick(() => {
+        this.$refs['policyCenter'][0]
       })
     },
   },

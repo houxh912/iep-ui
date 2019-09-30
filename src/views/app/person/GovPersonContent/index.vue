@@ -3,8 +3,12 @@
     <div class="top-content">
       <gov-person-img></gov-person-img>
       <gov-person-notice></gov-person-notice>
-      <!-- <glow-person></glow-person>
-      <talent-advantage></talent-advantage> -->
+      <!-- <talent-advantage></talent-advantage> -->
+    </div>
+    <div class="first-img"></div>
+    <div class="top-content">
+      <glow-person></glow-person>
+      <gov-personal-certificate></gov-personal-certificate>
     </div>
     <div class="first-img">
       <!-- <img src="./img/first.png" alt=""> -->
@@ -39,7 +43,8 @@
 <script>
 import GovPersonImg from './GovPersonImg'
 import GovPersonNotice from './GovPersonNotice'
-// import GlowPerson from './GlowPerson'
+import GlowPerson from './GlowPerson'
+import GovPersonalCertificate from './GovPersonalCertificate'
 import Thoughts from './Thoughts'
 import ShortagePosts from './ShortagePosts'
 import GovTags from './GovTags'
@@ -58,6 +63,8 @@ export default {
   components: {
     GovPersonImg,
     GovPersonNotice,
+    GlowPerson,
+    GovPersonalCertificate,
     Thoughts,
     ShortagePosts,
     GovTags,

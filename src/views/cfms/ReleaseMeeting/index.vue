@@ -98,7 +98,7 @@
 <script>
 import { initForm, rules } from './option'
 import { mapGetters } from 'vuex'
-import { postMeetingmarketing, getCodeName, getdic, getmeetingmarketing, putMeetingmarketing } from '@/api/mcms/meeting'
+import { postMeetingmarketing, getCodeName, getmeetingmarketing, putMeetingmarketing } from '@/api/mcms/meeting'
 import AvatarImg from './IepAvatar.vue'
 import TagDialog from './TagDialog.vue'
 function flatten (arr) {

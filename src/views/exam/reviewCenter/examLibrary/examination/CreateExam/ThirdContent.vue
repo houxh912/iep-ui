@@ -99,7 +99,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!-- <el-row :gutter="40" v-if="showsubmitPaper">
+          <el-row :gutter="40" v-if="showsubmitPaper">
             <el-col :span="12">
               <el-form-item label="答题次数" prop="datiFrequency">
                 <el-radio-group v-model="examForm.datiFrequency">
@@ -108,7 +108,7 @@
                 </el-radio-group>
               </el-form-item>
             </el-col>
-          </el-row> -->
+          </el-row>
           <el-row :gutter="40" v-if="showTime">
             <el-col :span="12">
               <el-form-item label="报名时间">

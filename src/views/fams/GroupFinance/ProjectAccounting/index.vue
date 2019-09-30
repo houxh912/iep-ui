@@ -60,7 +60,6 @@
 </template>
 
 <script>
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import { getUnionProjectPage } from '@/api/fams/statistics'
 import DialogForm from './DialogForm'
 import CreateDialog from './CreateDialog'
@@ -68,7 +67,11 @@ import AdvanceSearch from './AdvanceSearch'
 import mixins from '@/mixins/mixins'
 import { columnsMap, initForm } from './options'
 export default {
-  components: { DialogForm, CreateDialog, AdvanceSearch, IepStatisticsHeader },
+  components: {
+    DialogForm,
+    CreateDialog,
+    AdvanceSearch,
+  },
   mixins: [mixins],
   data () {
     return {

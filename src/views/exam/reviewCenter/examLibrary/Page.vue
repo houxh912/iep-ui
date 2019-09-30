@@ -9,7 +9,7 @@
           <div>科目：<span>{{row.fieldName}}</span></div>
           <div>总题量：<span>{{row.choiceNum}} 道</span></div>
           <div>总分：<span>{{row.totalScore}} 分</span></div>
-          <div>考试时间：<span>{{row.beginTime}} ~ {{row.endTime}}</span></div>
+          <div>考试时间：<span>{{row | getExamTime}}</span></div>
         </div>
         <!-- <div class="row" style="margin-top:-17px">
         </div> -->
@@ -81,6 +81,12 @@ export default {
       permissionAll: false,
       permissionView: false,
     }
+  },
+  filters: {
+    getExamTime (val) {
+      const data = val.endTime == '2049-09-24 12:00:00' ? '长期有效' : `${val.beginTime} ~ ${val.endTime}`
+      return data
+    },    
   },
   computed: {
     ...mapGetters(['userInfo', 'permissions']),

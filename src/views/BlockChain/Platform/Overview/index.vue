@@ -13,10 +13,8 @@
 <script>
 import { getPlatformAccount } from '@/api/fams/block_chain'
 import TransferDialog from '@/views/BlockChain/Components/TransferDialog.vue'
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 export default {
   components: {
-    IepStatisticsHeader,
     TransferDialog,
   },
   data () {

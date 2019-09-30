@@ -380,6 +380,7 @@ export default {
       //const times = true
       const params = {
         examId: this.record.id,
+        datiFrequency: this.record.answerNumber,
         currentQuestionNum: this.resdata.questionNum,
         questionNum: this.resdata.questionNum,
       }

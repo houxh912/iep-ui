@@ -15,7 +15,7 @@
         <iep-contact-select v-model="form.user"></iep-contact-select>
       </el-form-item>
       <el-form-item label="优先级：" prop="priority">
-        <iep-input-number v-model="form.priority" placeholder="请正确输入非负优先级" :min="1" :max="9"></iep-input-number>
+        <iep-input-number v-model="form.priority" placeholder="请正确输入非负优先级" :min="1" :max="999"></iep-input-number>
       </el-form-item>
       <el-form-item label="状态：" prop="status">
         <el-radio-group v-model="form.status">

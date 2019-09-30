@@ -31,12 +31,13 @@
 
 <script>
 import { getOrgPaymentPlanPage, getOrgPaymentPlanPageByOrgId } from '@/api/gpms/fas'
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 import AdvanceSearch from './AdvanceSearch'
 export default {
-  components: { IepStatisticsHeader, AdvanceSearch },
+  components: {
+    AdvanceSearch,
+  },
   mixins: [mixins],
   data () {
     return {

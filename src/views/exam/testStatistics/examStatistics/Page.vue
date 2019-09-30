@@ -1,33 +1,70 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header :title="topTitle" :backOption="backOption"></iep-page-header>
-
-      <div class="top">
-        <div class="time-box">
-          <el-row>
-            <el-col :span="8">
-              <el-col :span="5">
-                <div class="des">考试时间 :</div>
-              </el-col>
-              <el-col :span="19">
-                <div class="time">{{row.beginTime}} ~ {{row.endTime}}</div>
-              </el-col>
-            </el-col>
-            <el-col :span="16"></el-col>
-          </el-row>
-        </div>
-        <div class="box-list">
-          <div class="box" v-for="(item, index) in dataList" :key="index">
-            <el-col :span="12" class="name-box">
-              <div class="name">{{item.title}}</div>
-            </el-col>
-            <el-col :span="12">
-              <div class="num">{{item.count}}</div>
-            </el-col>
-          </div>
-        </div>
+      <iep-page-header :title="form.title" :backOption="backOption"></iep-page-header>
+      <div>
+        <hr>
       </div>
+      <el-form ref="form" :model="form" label-width="120px">
+        <el-row class="item">
+          <el-col :span="6">
+            <el-form-item label="开考时间：">
+              <el-input v-model="form.beginTime" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="结束时间：">
+              <el-input v-model="form.endTime" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row class="item">
+          <el-col :span="6">
+            <el-form-item label="考试类型：">
+              <el-input v-model="form.examType" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="报名人数：">
+              <el-input v-model="form.totalEnrollment" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="实考人数：">
+              <el-input v-model="form.totalExam" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="及格人数：">
+              <el-input v-model="form.isPassTotal" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+
+        <el-row class="item">
+          <el-col :span="6">
+            <el-form-item label="最高分：">
+              <el-input v-model="form.maxPenScore" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="最低分：">
+              <el-input v-model="form.minPenScore" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="平均分：">
+              <el-input v-model="form.avgPenScore" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item label="及格率：">
+              <el-input v-model="form.passRateView" size="mini" readonly></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
 
       <iep-tabs v-model="activeTab" :tab-list="tabList" class="tab">
         <template v-if="activeTab ==='GradeAnalyze'" v-slot:GradeAnalyze>
@@ -63,18 +100,9 @@ export default {
         value: 'ScoreStatistics',
       }],
       activeTab: 'GradeAnalyze',
-      topTitle: null,
-      row: {},
-      dataList: [
-        { title: '考试类型 :', count: '' },
-        { title: '及格率 :', count: '' },
-        { title: '平均分 :', count: 0 },
-        { title: '最高分 :', count: 0 },
-        { title: '最低分 :', count: 0 },
-        { title: '报名人数 :', count: 0 },
-        { title: '实考人数 :', count: 0 },
-        { title: '及格人数 :', count: 0 },
-      ],
+      form: {
+        examType: '',
+      },
       backOption: {
         isBack: true,
         backPath: null,
@@ -96,62 +124,23 @@ export default {
   methods: {
     loadPage () {
       const { row } = this.record
-      this.row = row
-      this.topTitle = this.row.title
-      this.row.beginTime = this.row.beginTime
-      this.row.endTime = this.row.endTime
-      this.dataList[0].count = this.row.examType == 0 ? '考试模式' : '练习模式'
-      this.dataList[1].count = this.row.passRateView
-      this.dataList[2].count = this.row.avgPenScore
-      this.dataList[3].count = this.row.maxPenScore
-      this.dataList[4].count = this.row.minPenScore
-      this.dataList[5].count = this.row.totalEnrollment
-      this.dataList[6].count = this.row.totalExam
-      this.dataList[7].count = this.row.isPassTotal
+      this.form = row
+      this.form.examType = row.examType == 0 ? '考试模式' : '练习模式'
+      this.form.endTime = row.endTime == '2049-09-24 12:00:00' ? '长期有效' : row.endTime
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.top {
-  border-top: 1px solid #e4e4e4;
-  border-bottom: 1px solid #e4e4e4;
-  background-color: #fafafa;
-  margin-top: -13px;
-  .time-box {
-    height: 29px;
-    line-height: 28px;
-    font-size: 14px;
-    .des {
-      color: #333;
-      float: right;
-      margin-right: 8px;
-    }
-    .time {
-      color: #797b79;
-    }
-  }
-  .box-list {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-template-rows: repeat(1, 1fr);
-    .box {
-      height: 29px;
-      line-height: 28px;
-      font-size: 14px;
-      .name-box {
-        text-align: right;
-        .title {
-          color: #333;
-        }
-      }
-      .num {
-        color: #797b79;
-        margin-left: 5px;
-      }
-    }
-  }
+hr {
+  margin-top: -8px;
+  background-color: #d7d7d7;
+  border: none;
+  height: 1px;
+}
+.el-form-item {
+  margin-bottom: 5px;
 }
 </style>
 <style  scoped>

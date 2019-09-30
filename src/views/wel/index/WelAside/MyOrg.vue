@@ -25,6 +25,7 @@
       </div>
     </div>
     <el-popover ref="popover" placement="left" width="100" trigger="hover" v-model="popoverShow">
+      <qrcode class="code" :value="mUrlText" :options="{width:120}"></qrcode>
       <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制SO链接</el-link>
     </el-popover>
   </my-content>
@@ -35,7 +36,9 @@ import { mapGetters, mapState, mapActions } from 'vuex'
 import { setOrg } from '@/api/admin/user'
 import MyContent from './MyContent'
 export default {
-  components: { MyContent },
+  components: {
+    MyContent,
+  },
   data () {
     return {
       popoverShow: false,
@@ -49,6 +52,9 @@ export default {
     }),
     copyUrlText () {
       return `${window.location.origin}/wel/org?orgId=${this.userInfo.orgId}&type=0`
+    },
+    mUrlText () {
+      return `${window.location.origin}/so/invitation/codeShare?redirect=so/orgDetail/${this.userInfo.orgId}`
     },
   },
   methods: {

@@ -39,9 +39,9 @@
             </div>
             <div class="reward">
               <div class="scan-code"></div>
-              <div>
+              <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
+              <div v-else>
                 <span>{{form.createdOrg?'':'未'}}完成</span>
-                <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
                 <span v-if="form.createdOrg === -1" class="money-text"> +1 贝</span>
               </div>
             </div>
@@ -150,6 +150,7 @@
       </div>
     </div>
     <el-popover ref="popover" placement="right" width="100" trigger="hover" v-model="popoverShow">
+      <qrcode class="code" :value="mUrlText" :options="{width:120}"></qrcode>
       <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
     </el-popover>
   </div>
@@ -179,6 +180,9 @@ export default {
     ...mapGetters(['userInfo']),
     copyUrlText () {
       return `${window.location.origin}/wel/org?orgId=${this.form.orgId}&type=0`
+    },
+    mUrlText () {
+      return `${window.location.origin}/so/invitation/codeShare?redirect=so/orgDetail/${this.form.orgId}`
     },
   },
   created () {

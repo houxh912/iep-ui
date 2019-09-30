@@ -54,7 +54,12 @@ export default {
     },
     currentChange (val) {
       this.params.current = val
-      this.loadPage()
+      if (this.activeTab == 99) {
+        this.getCertificatePage()
+      }
+      else {
+        this.loadPage()
+      }
     },
     // 获取选项卡
     getHonorSign (params = {}) {

@@ -9,6 +9,8 @@ const columns = [
 const columnsName = [
   { label: '名称', prop: 'name' },
   { label: '手机', prop: 'phoneNumber' },
+  { label: '组织', prop: 'companyName', width: 200 },
+  { label: '职务', prop: 'position', width: 200 },
   { label: '邮箱', prop: 'email' },
   // { label: '报名渠道', prop: 'meetingFlagName' },
   { label: '状态', prop: 'signupFlagName' },

@@ -157,6 +157,7 @@ export default {
     },
   },
   created () {
+    console.log(this.meetingMarketing)
     this.tag()
     if (this.$route.query.edit) {
       this.title = '修改会议'
@@ -212,8 +213,14 @@ export default {
     AddTags () {
       this.$refs['TagDialog'].dialogShow = true
       let cities = []
-      for (let i = 0, len = this.meetingMarketing.length; i < len; i++) {
-        this.meetingMarketing[i].children ? cities.push(this.meetingMarketing[i].children) : cities.push(this.meetingMarketing[i])
+      let arr2 = []
+      this.meetingMarketing.forEach(item => {
+        if (this.arr1.includes(Number(item.value - 1))) {
+          arr2.push(item)
+        }
+      })
+      for (let i = 0, len = arr2.length; i < len; i++) {
+        arr2[i].children ? cities.push(arr2[i].children) : cities.push(arr2[i])
       }
       const newCitys = flatten(cities)
       this.$refs['TagDialog'].cities = newCitys
@@ -223,7 +230,7 @@ export default {
       this.tags = tags
     },
     handleCheckedCitiesChange (val) {
-      this.arr1 = val.filter(m => m + 1)
+      this.arr1 = val
     },
     tag (val) {
       this.tags = val

@@ -25,10 +25,27 @@ export function getBellBalancePage (query) {
   })
 }
 
+export function getBlockChainRulePage (query) {
+  return request({
+    url: `${prefixUrl}/block_chain/page`,
+    method: 'get',
+    params: query,
+  })
+}
+
 export function getBellBalancePageById (id) {
   return function (query) {
     return request({
       url: `${prefixUrl}/page/${id}`,
+      method: 'get',
+      params: query,
+    })
+  }
+}
+export function getBlockChainRuleById (id) {
+  return function (query) {
+    return request({
+      url: `${prefixUrl}/block_chain/page/${id}`,
       method: 'get',
       params: query,
     })

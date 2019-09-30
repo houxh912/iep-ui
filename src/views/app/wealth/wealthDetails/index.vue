@@ -498,11 +498,11 @@ export default {
   overflow: auto;
   overflow-x: hidden;
 }
-.wealth-details >>> .iep-ellipsis {
+.top-ten-shareholders >>> .iep-ellipsis {
   width: 33%;
   text-align: center;
 }
-.wealth-details >>> .el-scrollbar__bar.is-vertical > div{
+.wealth-details >>> .el-scrollbar__bar.is-vertical > div {
   height: 100%;
 }
 </style>

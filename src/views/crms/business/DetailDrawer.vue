@@ -101,7 +101,7 @@ export default {
   },
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .tag-style {
   margin-right: 10px;
 }

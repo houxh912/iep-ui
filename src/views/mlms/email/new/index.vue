@@ -91,7 +91,7 @@
       </el-form>
     </basic-container>
     <main-dialog ref="relation" @relativeSubmit="relativeSubmit"></main-dialog>
-    <module-dialog ref="moduleDialog"  @confirm-select="ConfirmSelect"></module-dialog>
+    <module-dialog ref="moduleDialog" @confirm-select="ConfirmSelect"></module-dialog>
   </div>
 </template>
 
@@ -237,7 +237,7 @@ export default {
       this.formData.transferList[key].splice(index, 1)
     },
     ConfirmSelect (val) {
-      this.formData.content=val
+      this.formData.content = val
     },
   },
   created () {
@@ -290,16 +290,14 @@ export default {
   }
 }
 </style>
-<style>
-.validate label::before {
+<style lang="scss" scoped>
+.item ::v-deep .el-form-item {
+  margin-bottom: 0;
+}
+.validate ::v-deep label::before {
   content: "*";
   color: #f56c6c;
   margin-right: 4px;
-}
-</style>
-<style scoped>
-.item >>> .el-form-item {
-  margin-bottom: 0;
 }
 </style>
 

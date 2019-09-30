@@ -71,10 +71,10 @@ export default {
     changeCustomClass () {
       this.customClass = !this.customClass
       if (this.customClass == false) {
-        this.form.targetId = 0
+        this.form.targetId = ''
       }
       else {
-        this.form.targetId = ''
+        this.form.targetId = 0
       }
     },
     changePeople (val) {

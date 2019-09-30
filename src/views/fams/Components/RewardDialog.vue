@@ -27,6 +27,7 @@
   </iep-dialog>
 </template>
 <script>
+// import { checkContactUsers } from '@/util/rules'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import { reward } from '@/api/fams/total'
 import formMixins from '@/mixins/formMixins'
@@ -47,21 +48,14 @@ export default {
   mixins: [formMixins],
   name: 'RewardDialog',
   data () {
-    const checkContact = (rule, value, callback) => {
-      if (!value.id) {
-        return callback(new Error('打赏用户不能为空'))
-      } else {
-        callback()
-      }
-    }
     return {
       form: initForm(),
       rules: {
         amount: [
           { type: 'number', required: true, message: '请输入的打赏金额不少于 1 ', trigger: 'blur', min: 1 },
         ],
-        targetUser: [
-          { required: true, validator: checkContact, trigger: 'blur' },
+        targetUserList: [
+          { type: 'array', required: true, message: '请选择打赏人', trigger: 'blur' },
         ],
       },
     }
@@ -91,7 +85,7 @@ export default {
     onConfirm () {
       const r = confirm('您确定打赏吗!')
       if (r == true) {
-        this.submitForm()
+        this.mixinsSubmitFormGen()
       }
     },
     async submitForm () {

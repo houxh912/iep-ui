@@ -10,7 +10,7 @@
           </el-checkbox-group>
         </template>
         <template slot="right">
-          <operation-search @search-page="searchPage" advance-search>
+          <operation-search @search-page="searchPage" prop="message" advance-search>
             <advance-search @search-page="searchPage"></advance-search>
           </operation-search>
         </template>

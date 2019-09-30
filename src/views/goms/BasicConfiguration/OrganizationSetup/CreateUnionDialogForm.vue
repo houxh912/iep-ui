@@ -16,7 +16,7 @@
     </el-form>
     <template slot="footer">
       <operation-wrapper>
-        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">提交</iep-button>
         <iep-button @click="close">取消</iep-button>
       </operation-wrapper>
     </template>

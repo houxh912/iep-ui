@@ -31,7 +31,7 @@
             </div>
           </el-form>
           <div class="footer">
-            <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen" :disabled="!checked">提交</iep-button>
+            <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" :disabled="!checked">提交</iep-button>
             <iep-button @click="loadPage">取消</iep-button>
           </div>
         </div>

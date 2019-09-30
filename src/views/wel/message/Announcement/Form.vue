@@ -25,7 +25,7 @@
 
         <el-form-item label="">
           <operation-wrapper>
-            <a-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">{{methodName}}</a-button>
+            <a-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">{{methodName}}</a-button>
           </operation-wrapper>
         </el-form-item>
       </el-form>

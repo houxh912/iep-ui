@@ -165,6 +165,7 @@ export default {
         this.formData.cityAdrss = [res.data.data.meetingProvince, res.data.data.meetingCity]
         this.formData.meetingClasses1 = res.data.data.meetingClasses1.map(m => m.id)
         this.formData.meetingClasses2 = res.data.data.meetingClasses2.map(m => m.id)
+        this.formData.meetingUrl = res.data.data.meetingUrl
         this.formData.tags = res.data.data.tags.map(m => m.name)
         this.tags = res.data.data.meetingClasses2
       })

@@ -2,7 +2,7 @@
   <div class="resources">
     <IepAppTabCard :title="title" :linkName="linkName">
       <!-- <el-button class="btn" type="text" slot="right">换一批</el-button> -->
-      <el-carousel :interval="40000" arrow="hover">
+      <el-carousel :interval="40000" arrow="hover" :autoplay="false">
         <el-carousel-item v-for="item in itemLength" :key="item">
           <div class="resourcesList">
             <div v-for="(item,index) in resourcesList.slice((item-1)*9,item*9)" :key="index" class="piece" @click="handleOpen(item)">
@@ -141,11 +141,15 @@ export default {
       font-size: 14px;
     }
     .orgName {
-      display: block;
       color: #999;
       font-size: 12px;
       height: 20px;
       line-height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
     }
   }
 }

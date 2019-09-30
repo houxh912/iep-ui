@@ -45,7 +45,7 @@
           <el-col :span="24">
             <el-form-item label="会议分类：" prop="meetingClasses1">
               <el-checkbox-group v-model="formData.meetingClasses1" @change="handleCheckedCitiesChange">
-                <el-checkbox v-for="(item,index) in this.meetingMarketing.map(m=>m.label)" :key="item+index" :label="index" name="leixing">{{item}}</el-checkbox>
+                <el-checkbox v-for="(item,index) in this.meetingMarketing" :key="item+index" :label="item.value" name="leixing">{{item.label}}</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
           </el-col>
@@ -56,6 +56,10 @@
                 <el-tag v-for="tag in tags" :key="tag.value+tag.label" :value="tag.value" closable @close="closeTag(tag)" class="allTag">
                   {{tag.label}}
                 </el-tag>
+
+                <!-- <el-tag v-for="tag in tags" :key="tag.value+tag.label" :value="tag.id" closable @close="closeTag(tag)" class="allTag">
+                  {{tag.name}}
+                </el-tag> -->
               </div>
             </el-form-item>
           </el-col>
@@ -157,7 +161,6 @@ export default {
     },
   },
   created () {
-    console.log(this.meetingMarketing)
     this.tag()
     if (this.$route.query.edit) {
       this.title = '修改会议'
@@ -173,11 +176,14 @@ export default {
         this.formData.content = res.data.data.content
         this.formData.attachs = res.data.data.urls
         this.formData.cityAdrss = [res.data.data.meetingProvince, res.data.data.meetingCity]
-        this.formData.meetingClasses1 = res.data.data.meetingClasses1.map(m => m.id)
-        this.formData.meetingClasses2 = res.data.data.meetingClasses2.map(m => m.id)
+        this.formData.meetingClasses1 = res.data.data.meetingClasses1.map(m => String(m.id))
+        this.formData.meetingClasses2 = res.data.data.meetingClasses2.map(m => String(m.id))
+        console.log(res.data.data.meetingClasses1.map(m => String(m.id)))
         this.formData.meetingUrl = res.data.data.meetingUrl
         this.formData.tags = res.data.data.tags.map(m => m.name)
-        this.tags = res.data.data.meetingClasses2
+        this.tags = res.data.data.meetingClasses2.map(m => ({ value: m.id, label: m.name }))
+        console.log(this.tags)
+        this.arr1 = res.data.data.meetingClasses1.map(m => String(m.id))
       })
     }
   },
@@ -215,7 +221,7 @@ export default {
       let cities = []
       let arr2 = []
       this.meetingMarketing.forEach(item => {
-        if (this.arr1.includes(Number(item.value - 1))) {
+        if (this.arr1.includes(item.value)) {
           arr2.push(item)
         }
       })
@@ -226,10 +232,14 @@ export default {
       this.$refs['TagDialog'].cities = newCitys
     },
     closeTag (tag) {
-      const tags = this.tags.filter(m => m.label != tag.label)
+      // const tags = this.tags.filter(m => m.label != tag.label)
+      const tags = this.tags.filter(m => m.value != tag.value)
+      console.log(tags, tag)
+
       this.tags = tags
     },
     handleCheckedCitiesChange (val) {
+      console.log(val)
       this.arr1 = val
     },
     tag (val) {
@@ -239,7 +249,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // this.formData.meetingUrl = window.location.host + '/meeting'
-          this.formData.meetingUrl = 'http://home.icanvip.net/meeting'
+          this.formData.meetingUrl = 'http://www.home.icanvip.net/meeting'
           this.formData.meetingClasses2 = this.tags.map(m => m.value)
           postMeetingmarketing(this.formData).then((res) => {
             this.$message({
@@ -255,7 +265,8 @@ export default {
     handEdit (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.formData.meetingClasses2 = this.tags.map(m => m.id)
+          // this.formData.meetingUrl = 'http://www.home.icanvip.net/meeting'
+          this.formData.meetingClasses2 = this.tags.map(m => m.value)
           putMeetingmarketing(this.formData).then((res) => {
             this.$message({
               message: res.data.msg,

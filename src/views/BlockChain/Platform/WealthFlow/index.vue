@@ -72,6 +72,7 @@ export default {
         {
           prop: 'remarks',
           label: '发行明细',
+          type: 'detail',
         },
       ],
     }

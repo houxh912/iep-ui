@@ -5,7 +5,7 @@
       <operation-container style="border-bottom: 1px solid #eee;padding-bottom:15px;">
         <template slot="left">
           <span>标题：{{form.title}}</span>
-          <span>发布日期：{{form.createTime|parseToDay}}</span>
+          <span>发布日期：{{form.updateTime|parseToDay}}</span>
         </template>
       </operation-container>
       <div class="container">
@@ -31,7 +31,7 @@ function initForm () {
   return {
     title: '',
     image: '',
-    createTime: '',
+    updateTime: '',
     views: '',
     content: '',
   }

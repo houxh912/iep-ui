@@ -44,6 +44,7 @@ export default {
     },
     submit () {
       this.$emit('tag', this.arr)
+      this.checkedCities = []
       this.close()
     },
     load () {

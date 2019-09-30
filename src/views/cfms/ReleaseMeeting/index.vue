@@ -44,8 +44,8 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="会议分类：" prop="meetingClasses1">
-              <el-checkbox-group v-model="formData.meetingClasses1">
-                <el-checkbox v-for="item in this.arr" :key="item.id" :label="item.id" name="leixing">{{item.name}}</el-checkbox>
+              <el-checkbox-group v-model="formData.meetingClasses1" @change="handleCheckedCitiesChange">
+                <el-checkbox v-for="(item,index) in this.meetingMarketing.map(m=>m.label)" :key="item+index" :label="index" name="leixing">{{item}}</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
           </el-col>
@@ -53,8 +53,8 @@
             <el-form-item label="会议子分类：">
               <div class="tag">
                 <iep-button @click="AddTags">添加子分类</iep-button>
-                <el-tag v-for="tag in tags" :key="tag.id" :value="tag.id" closable @close="closeTag(tag)" class="allTag">
-                  {{tag.name}}
+                <el-tag v-for="tag in tags" :key="tag.value+tag.label" :value="tag.value" closable @close="closeTag(tag)" class="allTag">
+                  {{tag.label}}
                 </el-tag>
               </div>
             </el-form-item>
@@ -95,9 +95,14 @@
 <script>
 import { initForm, rules } from './option'
 import { mapGetters } from 'vuex'
-import { postMeetingmarketing, getCodeName, getdic } from '@/api/mcms/meeting'
+import { postMeetingmarketing, getCodeName } from '@/api/mcms/meeting'
 import AvatarImg from './IepAvatar.vue'
 import TagDialog from './TagDialog.vue'
+function flatten (arr) {
+  return arr.reduce((result, item) => {
+    return result.concat(Array.isArray(item) ? flatten(item) : item)
+  }, [])
+}
 export default {
   components: { AvatarImg, TagDialog },
   data () {
@@ -105,6 +110,7 @@ export default {
       formData: initForm(),
       rules,
       arr: [],
+      arr1: [],
       tags: [],
       meetingTypeOption: [{
         value: '会议',
@@ -142,12 +148,12 @@ export default {
       'userInfo',
       'dictGroup',
     ]),
+    meetingMarketing () {
+      return this.dictGroup['meetingmarketing']
+    },
   },
   created () {
     this.tag()
-  },
-  mounted () {
-    this.load()
   },
   methods: {
     //草稿
@@ -177,21 +183,22 @@ export default {
         }
       })
     },
-    load () {
-      getdic({ number: 'meetingmarketing', type: 0 }).then((res) => {
-        this.arr = res.data
-      })
-    },
     //添加标签
     AddTags () {
       this.$refs['TagDialog'].dialogShow = true
-      getdic({ number: 'meetingmarketing', type: 1, source: 1, dictId: this.formData.meetingClasses1 }).then((res) => {
-        this.$refs['TagDialog'].cities = res.data
-      })
+      let cities = []
+      for (let i = 0, len = this.meetingMarketing.length; i < len; i++) {
+        this.meetingMarketing[i].children ? cities.push(this.meetingMarketing[i].children) : cities.push(this.meetingMarketing[i])
+      }
+      const newCitys = flatten(cities)
+      this.$refs['TagDialog'].cities = newCitys
     },
     closeTag (tag) {
-      const tags = this.tags.filter(m => m.id != tag.id)
+      const tags = this.tags.filter(m => m.label != tag.label)
       this.tags = tags
+    },
+    handleCheckedCitiesChange (val) {
+      this.arr1 = val.filter(m => m + 1)
     },
     tag (val) {
       this.tags = val
@@ -201,7 +208,7 @@ export default {
         if (valid) {
           // this.formData.meetingUrl = window.location.host + '/meeting'
           this.formData.meetingUrl = 'http://home.icanvip.net/meeting'
-          this.formData.meetingClasses2 = this.tags.map(m => m.id)
+          this.formData.meetingClasses2 = this.tags.map(m => m.value)
           postMeetingmarketing(this.formData).then((res) => {
             this.$message({
               message: res.data.msg,

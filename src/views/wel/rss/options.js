@@ -9,21 +9,24 @@ const dictsMap = {
 
 const columnsMap = [
   {
-    prop: 'name',
-    label: '名称',
+    prop: 'themeList',
+    label: '主题',
+    type: 'tag',
+    iepType: 'themeList',
   },
   {
-    prop: 'status',
-    label: '类型',
-    type: 'dict',
-    width:'100',
+    prop: 'industryList',
+    label: '行业',
+    type: 'tag',
+    iepType: 'industryList',
   },
   {
-    prop: 'time',
-    label: '更新时间',
-    width:'120',
+    prop: 'publishTime',
+    label: '发文时间',
+    type: 'date',
+    formatString: 'YYYY-MM-DD',
   },
-  
+
 ]
 
 const initForm = () => {
@@ -34,11 +37,9 @@ const initForm = () => {
   }
 }
 
-const initSearchForm = () => {
-  return {
-    name: '',
-    sex: '',
-  }
+const toDtoForm = (row) => {
+  const newForm = { ...row }
+  return newForm
 }
 
-export { dictsMap, columnsMap, initForm, initSearchForm }
+export { dictsMap, columnsMap, initForm, toDtoForm }

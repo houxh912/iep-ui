@@ -5,7 +5,7 @@
         <iep-input-amount v-model="form.amount" :precision="2"></iep-input-amount>
       </el-form-item>
       <el-form-item label="方式：" prop="isReward">
-        <el-radio-group v-model="form.isReward" size="medium" @change="form.type=''">
+        <el-radio-group v-model="form.isReward" @change="form.type=''">
           <el-radio v-for="(v,k) in dictsMap.isReward" :key="k" :label="k">{{v}}</el-radio>
         </el-radio-group>
       </el-form-item>
@@ -23,7 +23,7 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">保存</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">保存</iep-button>
       <iep-button @click="dialogShow = false">取消</iep-button>
     </template>
   </iep-dialog>

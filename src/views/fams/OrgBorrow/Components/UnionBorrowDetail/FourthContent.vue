@@ -45,7 +45,7 @@
       <a-button v-if="is还款" type="primary" @click="handleRepay">还款</a-button>
       <a-button v-if="data.isOut && data.status === 10 && isRepayment" type="primary" @click="handleConfirm">确认收款</a-button>
 
-      <a-button v-if="isApproval && data.status!==6" type="primary" @click="handleAdd">去填写资金调拨</a-button>
+      <a-button v-if="isApproval && data.status!==6 && data.status!==10" type="primary" @click="handleAdd">去填写资金调拨</a-button>
 
       <a-button v-if="!isApproval && data.isOut && data.status===1" type="primary" @click="handleFinishAccount">转账完成</a-button>
       <a-button v-if="!isApproval && !data.isOut && data.status===2" type="primary" @click="handleConfirmAccount">确认收款</a-button>

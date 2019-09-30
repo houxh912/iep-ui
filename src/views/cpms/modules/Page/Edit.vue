@@ -90,7 +90,7 @@
         </el-row>
       </el-form>
       <FooterToolBar>
-        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen">提交</iep-button>
+        <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">提交</iep-button>
       </FooterToolBar>
     </basic-container>
   </div>

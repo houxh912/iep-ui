@@ -41,7 +41,7 @@ export default {
     },
     async loadPage () {
       const { data } = await this.requestFunc()
-      this.listData = data.data
+      this.listData = data.data || []
     },
   },
 }

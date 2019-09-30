@@ -45,7 +45,6 @@
   </div>
 </template>
 <script>
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import { getInvestmentById, getReleasePage, postShareholder, putShareholder, delShareholder } from '@/api/fams/investment'
 import DialogForm from './DialogForm'
 import { initForm } from './options'
@@ -53,7 +52,6 @@ import mixins from '@/mixins/mixins'
 export default {
   mixins: [mixins],
   components: {
-    IepStatisticsHeader,
     DialogForm,
   },
   data () {

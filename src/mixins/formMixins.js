@@ -56,11 +56,12 @@ export default {
         } else {
           yield false
         }
-        this.submitFormLoading = false
       } catch (error) {
         this.mixinsMessage(error)
-        this.submitFormLoading = false
+        console.log(error, formRefName)
         yield false
+      } finally {
+        this.submitFormLoading = false
       }
     },
     /**
@@ -68,8 +69,8 @@ export default {
      * 需要 rules 规则
      * 需要 submitForm 方法同步,包括里面的请求函数
      */
-    async mixinsSubmitFormGen () {
-      const mixinsFormGen = this.mixinsFormGen()
+    async mixinsSubmitFormGen (formRefName = 'form') {
+      const mixinsFormGen = this.mixinsFormGen(formRefName)
       let mixinsResult = false
       try {
         const valid = (await mixinsFormGen.next()).value

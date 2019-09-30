@@ -1,7 +1,7 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="标签" width="50%" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="标签" wvalueth="50%" @close="close">
     <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange" class="wrap">
-      <el-checkbox v-for="city in cities" :label="city.name" :key="city.id" border class="tag">{{city.name}}</el-checkbox>
+      <el-checkbox v-for="city in cities" :label="city.label" :key="city.value+city.label" border class="tag">{{city.label}}</el-checkbox>
     </el-checkbox-group>
 
     <div class="Button">
@@ -36,7 +36,7 @@ export default {
       this.arr = []
       for (let i = 0; i < this.cities.length; i++) {
         for (let m = 0; m < this.checkedCities.length; m++) {
-          if (this.checkedCities[m] == this.cities[i].name) {
+          if (this.checkedCities[m] == this.cities[i].label) {
             this.arr.push(this.cities[i])
           }
         }
@@ -44,6 +44,7 @@ export default {
     },
     submit () {
       this.$emit('tag', this.arr)
+      this.checkedCities = []
       this.close()
     },
     load () {

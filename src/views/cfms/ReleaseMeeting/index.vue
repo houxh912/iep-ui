@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <iep-page-header title="发布会议"></iep-page-header>
+      <iep-page-header :title="title"></iep-page-header>
       <el-form :model="formData" label-width="120px" ref="formName" :rules="rules">
         <el-row>
           <el-col>
@@ -44,8 +44,8 @@
           </el-col>
           <el-col :span="24">
             <el-form-item label="会议分类：" prop="meetingClasses1">
-              <el-checkbox-group v-model="formData.meetingClasses1">
-                <el-checkbox v-for="item in this.arr" :key="item.id" :label="item.id" name="leixing">{{item.name}}</el-checkbox>
+              <el-checkbox-group v-model="formData.meetingClasses1" @change="handleCheckedCitiesChange">
+                <el-checkbox v-for="(item,index) in this.meetingMarketing.map(m=>m.label)" :key="item+index" :label="index" name="leixing">{{item}}</el-checkbox>
               </el-checkbox-group>
             </el-form-item>
           </el-col>
@@ -53,8 +53,8 @@
             <el-form-item label="会议子分类：">
               <div class="tag">
                 <iep-button @click="AddTags">添加子分类</iep-button>
-                <el-tag v-for="tag in tags" :key="tag.id" :value="tag.id" closable @close="closeTag(tag)" class="allTag">
-                  {{tag.name}}
+                <el-tag v-for="tag in tags" :key="tag.value+tag.label" :value="tag.value" closable @close="closeTag(tag)" class="allTag">
+                  {{tag.label}}
                 </el-tag>
               </div>
             </el-form-item>
@@ -82,7 +82,10 @@
         </el-row>
       </el-form>
       <el-row>
-        <el-col :offset="9">
+        <el-col :offset="9" v-if="this.$route.query.edit == true">
+          <iep-button class="button" type="primary" @click="handEdit('formName')">修改</iep-button>
+        </el-col>
+        <el-col :offset="9" v-else>
           <iep-button class="button" type="primary" @click="draft('formName')">草稿</iep-button>
           <iep-button class="button" type="primary" @click="preview('formName')">预览 </iep-button>
           <iep-button class="button" type="primary" @click="submitForm('formName')">发布</iep-button>
@@ -95,9 +98,14 @@
 <script>
 import { initForm, rules } from './option'
 import { mapGetters } from 'vuex'
-import { postMeetingmarketing, getCodeName, getdic } from '@/api/mcms/meeting'
+import { postMeetingmarketing, getCodeName, getmeetingmarketing, putMeetingmarketing } from '@/api/mcms/meeting'
 import AvatarImg from './IepAvatar.vue'
 import TagDialog from './TagDialog.vue'
+function flatten (arr) {
+  return arr.reduce((result, item) => {
+    return result.concat(Array.isArray(item) ? flatten(item) : item)
+  }, [])
+}
 export default {
   components: { AvatarImg, TagDialog },
   data () {
@@ -105,7 +113,9 @@ export default {
       formData: initForm(),
       rules,
       arr: [],
+      arr1: [],
       tags: [],
+      title: '发布会议',
       meetingTypeOption: [{
         value: '会议',
         label: '会议',
@@ -142,12 +152,34 @@ export default {
       'userInfo',
       'dictGroup',
     ]),
+    meetingMarketing () {
+      return this.dictGroup['meetingmarketing']
+    },
   },
   created () {
+    console.log(this.meetingMarketing)
     this.tag()
-  },
-  mounted () {
-    this.load()
+    if (this.$route.query.edit) {
+      this.title = '修改会议'
+      getmeetingmarketing(this.$route.params.id).then(res => {
+        this.formData.id = res.data.data.id
+        this.formData.meetingType = res.data.data.meetingType
+        this.formData.meetingTitle = res.data.data.meetingTitle
+        this.formData.meetingScale = res.data.data.meetingScale
+        this.formData.meetingTimeStart = res.data.data.meetingTimeStart
+        this.formData.meetingTimeEnd = res.data.data.meetingTimeEnd
+        this.formData.meetingAddress = res.data.data.meetingAddress
+        this.formData.meetingHighlights = res.data.data.meetingHighlights
+        this.formData.content = res.data.data.content
+        this.formData.attachs = res.data.data.urls
+        this.formData.cityAdrss = [res.data.data.meetingProvince, res.data.data.meetingCity]
+        this.formData.meetingClasses1 = res.data.data.meetingClasses1.map(m => m.id)
+        this.formData.meetingClasses2 = res.data.data.meetingClasses2.map(m => m.id)
+        this.formData.meetingUrl = res.data.data.meetingUrl
+        this.formData.tags = res.data.data.tags.map(m => m.name)
+        this.tags = res.data.data.meetingClasses2
+      })
+    }
   },
   methods: {
     //草稿
@@ -177,21 +209,28 @@ export default {
         }
       })
     },
-    load () {
-      getdic({ number: 'meetingmarketing', type: 0 }).then((res) => {
-        this.arr = res.data
-      })
-    },
     //添加标签
     AddTags () {
       this.$refs['TagDialog'].dialogShow = true
-      getdic({ number: 'meetingmarketing', type: 1, source: 1, dictId: this.formData.meetingClasses1 }).then((res) => {
-        this.$refs['TagDialog'].cities = res.data
+      let cities = []
+      let arr2 = []
+      this.meetingMarketing.forEach(item => {
+        if (this.arr1.includes(Number(item.value - 1))) {
+          arr2.push(item)
+        }
       })
+      for (let i = 0, len = arr2.length; i < len; i++) {
+        arr2[i].children ? cities.push(arr2[i].children) : cities.push(arr2[i])
+      }
+      const newCitys = flatten(cities)
+      this.$refs['TagDialog'].cities = newCitys
     },
     closeTag (tag) {
-      const tags = this.tags.filter(m => m.id != tag.id)
+      const tags = this.tags.filter(m => m.label != tag.label)
       this.tags = tags
+    },
+    handleCheckedCitiesChange (val) {
+      this.arr1 = val
     },
     tag (val) {
       this.tags = val
@@ -201,8 +240,23 @@ export default {
         if (valid) {
           // this.formData.meetingUrl = window.location.host + '/meeting'
           this.formData.meetingUrl = 'http://home.icanvip.net/meeting'
-          this.formData.meetingClasses2 = this.tags.map(m => m.id)
+          this.formData.meetingClasses2 = this.tags.map(m => m.value)
           postMeetingmarketing(this.formData).then((res) => {
+            this.$message({
+              message: res.data.msg,
+              type: 'success',
+            })
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    handEdit (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.formData.meetingClasses2 = this.tags.map(m => m.id)
+          putMeetingmarketing(this.formData).then((res) => {
             this.$message({
               message: res.data.msg,
               type: 'success',

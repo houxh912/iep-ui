@@ -20,6 +20,11 @@ export default [
         name: '会议预览',
         component: () => import('@/views/cfms/MeetingDetail/index.vue'),
       },
+      {
+        path: 'meeting_edit/:id',
+        name: '会议修改',
+        component: () => import('@/views/cfms/ReleaseMeeting/index.vue'),
+      },
     ],
   },
 ]

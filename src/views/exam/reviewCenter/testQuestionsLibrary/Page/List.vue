@@ -366,9 +366,10 @@ export default {
         }).then(() => {
           deleteApprovalById(this.selectionValue).then(res => {
             if (res.data.data == true) {
+              let type = res.data.msg == '删除成功' ? 'success' : 'error'
               this.$message({
-                message: '操作成功',
-                type: 'success',
+                message: res.data.msg,
+                type: type,
               })
               this.loadPage()
             }

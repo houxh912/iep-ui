@@ -444,7 +444,7 @@ export default {
 
   .title {
     font-size: 16px;
-    height: 40px;
+    height: 48px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

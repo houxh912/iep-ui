@@ -87,3 +87,11 @@ export function getdic (obj) {
     data: obj,
   })
 }
+//修改会议
+export function putMeetingmarketing (query) {
+  return request({
+    url: '/mcms/meetingmarketing/update',
+    method: 'post',
+    data: query,
+  })
+}

@@ -1,7 +1,7 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <iep-page-header title="发布会议"></iep-page-header>
+      <iep-page-header :title="title"></iep-page-header>
       <el-form :model="formData" label-width="120px" ref="formName" :rules="rules">
         <el-row>
           <el-col>
@@ -82,7 +82,10 @@
         </el-row>
       </el-form>
       <el-row>
-        <el-col :offset="9">
+        <el-col :offset="9" v-if="this.$route.query.edit == true">
+          <iep-button class="button" type="primary" @click="handEdit('formName')">修改</iep-button>
+        </el-col>
+        <el-col :offset="9" v-else>
           <iep-button class="button" type="primary" @click="draft('formName')">草稿</iep-button>
           <iep-button class="button" type="primary" @click="preview('formName')">预览 </iep-button>
           <iep-button class="button" type="primary" @click="submitForm('formName')">发布</iep-button>
@@ -95,7 +98,7 @@
 <script>
 import { initForm, rules } from './option'
 import { mapGetters } from 'vuex'
-import { postMeetingmarketing, getCodeName } from '@/api/mcms/meeting'
+import { postMeetingmarketing, getCodeName, getdic, getmeetingmarketing, putMeetingmarketing } from '@/api/mcms/meeting'
 import AvatarImg from './IepAvatar.vue'
 import TagDialog from './TagDialog.vue'
 function flatten (arr) {
@@ -112,6 +115,7 @@ export default {
       arr: [],
       arr1: [],
       tags: [],
+      title: '发布会议',
       meetingTypeOption: [{
         value: '会议',
         label: '会议',
@@ -154,6 +158,27 @@ export default {
   },
   created () {
     this.tag()
+    if (this.$route.query.edit) {
+      this.title = '修改会议'
+      getmeetingmarketing(this.$route.params.id).then(res => {
+        this.formData.id = res.data.data.id
+        this.formData.meetingType = res.data.data.meetingType
+        this.formData.meetingTitle = res.data.data.meetingTitle
+        this.formData.meetingScale = res.data.data.meetingScale
+        this.formData.meetingTimeStart = res.data.data.meetingTimeStart
+        this.formData.meetingTimeEnd = res.data.data.meetingTimeEnd
+        this.formData.meetingAddress = res.data.data.meetingAddress
+        this.formData.meetingHighlights = res.data.data.meetingHighlights
+        this.formData.content = res.data.data.content
+        this.formData.attachs = res.data.data.urls
+        this.formData.cityAdrss = [res.data.data.meetingProvince, res.data.data.meetingCity]
+        this.formData.meetingClasses1 = res.data.data.meetingClasses1.map(m => m.id)
+        this.formData.meetingClasses2 = res.data.data.meetingClasses2.map(m => m.id)
+        this.formData.meetingUrl = res.data.data.meetingUrl
+        this.formData.tags = res.data.data.tags.map(m => m.name)
+        this.tags = res.data.data.meetingClasses2
+      })
+    }
   },
   methods: {
     //草稿
@@ -210,6 +235,21 @@ export default {
           this.formData.meetingUrl = 'http://home.icanvip.net/meeting'
           this.formData.meetingClasses2 = this.tags.map(m => m.value)
           postMeetingmarketing(this.formData).then((res) => {
+            this.$message({
+              message: res.data.msg,
+              type: 'success',
+            })
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    handEdit (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.formData.meetingClasses2 = this.tags.map(m => m.id)
+          putMeetingmarketing(this.formData).then((res) => {
             this.$message({
               message: res.data.msg,
               type: 'success',

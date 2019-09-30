@@ -1,6 +1,6 @@
 <template>
   <wrapper title="我的指数">
-    <div class="grid-btn-group">
+    <div class="data-wrapper iep-basic-scroll">
       <iep-charts class="echarts" :options="scoreRadar" :init-options="initOptions" autoresize />
     </div>
   </wrapper>
@@ -16,12 +16,12 @@ export default {
   data () {
     return {
       scores: [
-        { name: '进攻', max: 20, value: 19 },
-        { name: '防守', max: 20, value: 9 },
-        { name: '速度', max: 20, value: 18 },
-        { name: '力量', max: 20, value: 16 },
-        { name: '耐力', max: 20, value: 16 },
-        { name: '敏捷', max: 20, value: 20 },
+        { name: '财富增值', max: 1000, value: 0 },
+        { name: '服务创新', max: 1000, value: 0 },
+        { name: '工作', max: 1000, value: 0 },
+        { name: '学习', max: 1000, value: 0 },
+        { name: '管理', max: 1000, value: 0 },
+        { name: '协作', max: 1000, value: 0 },
       ],
       initOptions: {
         renderer: 'canvas',
@@ -53,7 +53,10 @@ export default {
   methods: {
     async loadPage () {
       const { data } = await getRadar()
-      console.log(data)
+      const sum = data.data.cfzz + data.data.cxfw + data.data.gz + data.data.xx + data.data.gl + data.data.xz
+      this.scores.map(m => {
+        m.max = sum
+      })
       this.scores[0].value = data.data.cfzz
       this.scores[1].value = data.data.cxfw
       this.scores[2].value = data.data.gz
@@ -68,6 +71,12 @@ export default {
 <style lang="scss" scoped>
 .echarts {
   width: 100%;
-  height: 200px;
+  min-width: 300px;
+  height: 300px;
+}
+.data-wrapper {
+  width: 100%;
+  height: 165px;
+  overflow-y: scroll;
 }
 </style>

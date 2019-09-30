@@ -14,7 +14,7 @@
       </div>
       <div class="container">
         <el-card class="org-card-wrapper" shadow="hover">
-          <img :src="form.logo" class="image">
+          <iep-img :src="form.logo" class="image"></iep-img>
           <div class="org-desc">
             <div style="font-size: 16px;">{{form.name}}</div>
             <div style="font-size: 12px;margin-top: 5px;">

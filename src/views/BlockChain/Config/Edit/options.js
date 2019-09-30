@@ -17,7 +17,7 @@ const columnsMap = [
   },
   {
     prop: 'score',
-    label: '国脉贝值',
+    label: '能贝数值',
   },
   {
     prop: 'dailyLimit',

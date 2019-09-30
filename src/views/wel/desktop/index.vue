@@ -1,37 +1,29 @@
 <template>
-<div>
-   <div class="desktop">
-    <div class="full">
-      <leader-top></leader-top>
-    </div>
-    <!-- <div>
-      <fund-distribution></fund-distribution>
-    </div>
-    <div>
-      <dev-ops></dev-ops>
-    </div> -->
-    <div class="full">
-      <financial-assets></financial-assets>
-    </div>
-    <div class="full">
-      <project-receipt></project-receipt>
-    </div>
-    <div>
-      <budget></budget>
-    </div>
-    <div>
-      <bulleted-list></bulleted-list>
-    </div>
-    <div class="full">
-      <post-statistics></post-statistics>
+  <div>
+    <div class="desktop">
+      <div class="full">
+        <leader-top></leader-top>
+      </div>
+      <div class="full">
+        <financial-assets></financial-assets>
+      </div>
+      <div class="full">
+        <project-receipt></project-receipt>
+      </div>
+      <div>
+        <budget></budget>
+      </div>
+      <div>
+        <bulleted-list></bulleted-list>
+      </div>
+      <div class="full">
+        <post-statistics></post-statistics>
+      </div>
     </div>
   </div>
-</div>
 </template>
 <script>
 import LeaderTop from './LeaderTop'
-// import FundDistribution from './FundDistribution'
-// import DevOps from './DevOps'
 import FinancialAssets from './FinancialAssets'
 import ProjectReceipt from './ProjectReceipt'
 import Budget from './Budget'

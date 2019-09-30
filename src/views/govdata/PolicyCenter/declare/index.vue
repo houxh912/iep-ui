@@ -102,73 +102,71 @@
     </div>
 
     <div class="bottom">
-      <el-row style="width:100%">
-        <el-col :span="18">
-          <div class="left">
-            <div class="page-top">
-              <el-row style="width:100%">
-                <el-col :span="7" class="page-header">
-                  申报政策<span>共有{{paginationOption.total}}条政策</span>
-                </el-col>
-                <el-col :span="17" class="page-header-btn">
-                  <span class="header-btn">
-                    <el-radio-group v-model="pageOption.sort" size="mini" @change="handleChangeSort">
-                      <el-radio-button label="time">发文时间</el-radio-button>
-                      <el-radio-button label="views">热门</el-radio-button>
-                    </el-radio-group>
-                  </span>
-                </el-col>
-              </el-row>
-            </div>
-
-            <div class="tip" v-if="paginationOption.total == 0">暂无数据</div>
-
-            <div class="text-container" v-for="(item, index) in resdata" :key="index">
-              <h3 @click="handleOpenLink(item)">
-                <span class="istop" v-if="item.isTop === 1">
-                  <el-tag>置顶</el-tag>
+      <el-col :span="18">
+        <div class="left">
+          <div class="page-top">
+            <el-row style="width:100%">
+              <el-col :span="7" class="page-header">
+                <span class="sub-title">申报政策</span><span>共有{{paginationOption.total}}条政策</span>
+              </el-col>
+              <el-col :span="17" class="page-header-btn">
+                <span class="header-btn">
+                  <el-radio-group v-model="pageOption.sort" size="mini" @change="handleChangeSort">
+                    <el-radio-button label="time">发文时间</el-radio-button>
+                    <el-radio-button label="views">热门</el-radio-button>
+                  </el-radio-group>
                 </span>
-                {{item.title}}
-              </h3>
-              <div class="text-des">
-                {{item.summary}}
-              </div>
-              <div class="detail">
-                <div :class="{'distance-right':item.dispatchList.length>0}"><i class="el-icon-setting" v-if="item.dispatchList.length>0">{{DeptJoint(item.dispatchList)}}</i></div>
-                <div :class="{'distance-right':item.publishTime}"><i class="el-icon-time"></i>{{item.publishTime | dateFormat}}</div>
-                <div v-if="item.views">浏览次数: {{item.views}}</div>
-              </div>
-              <div class="tag">
-                标签:
-                <el-tag type="info" v-for="(item, index) in item.tagList" :key="index">{{item.commonName}}</el-tag>
-              </div>
-              <!-- <div class="comparison">
+              </el-col>
+            </el-row>
+          </div>
+
+          <div class="tip" v-if="paginationOption.total == 0">暂无数据</div>
+
+          <div class="text-container" v-for="(item, index) in resdata" :key="index">
+            <h3 @click="handleOpenLink(item)">
+              <span class="istop" v-if="item.isTop === 1">
+                <el-tag>置顶</el-tag>
+              </span>
+              {{item.title}}
+            </h3>
+            <div class="text-des">
+              {{item.summary}}
+            </div>
+            <div class="detail">
+              <div :class="{'distance-right':item.dispatchList.length>0}"><i class="el-icon-setting" v-if="item.dispatchList.length>0">{{DeptJoint(item.dispatchList)}}</i></div>
+              <div :class="{'distance-right':item.publishTime}"><i class="el-icon-time"></i>{{item.publishTime | dateFormat}}</div>
+              <div v-if="item.views">浏览次数: {{item.views}}</div>
+            </div>
+            <div class="tag">
+              标签:
+              <el-tag type="info" v-for="(item, index) in item.tagList" :key="index">{{item.commonName}}</el-tag>
+            </div>
+            <!-- <div class="comparison">
                 <el-button plain type="danger" size="mini" icon="el-icon-sort">比对</el-button>
               </div> -->
-            </div>
-
-            <div class="page-wrapper">
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="paginationOption.current" :page-sizes="[10, 20, 30, 40]" :page-size="paginationOption.size" layout="total, sizes, prev, pager, next, jumper" :total="paginationOption.total">
-              </el-pagination>
-            </div>
           </div>
-        </el-col>
 
-        <el-col :span="6">
-          <div class="right">
-            <div class="title">推荐政策<span @click="changeData">换一换</span></div>
-            <hr style="margin:-5px 20px">
-            <div class="hotPolicy">
-              <el-row v-for="(item,index) in policyList" :key="index">
-                <el-col :span="1"><i class="el-icon-caret-right"></i></el-col>
-                <el-col :span="23">
-                  <div class="content">{{item.title}}</div>
-                </el-col>
-              </el-row>
-            </div>
+          <div class="page-wrapper">
+            <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="paginationOption.current" :page-sizes="[10, 20, 30, 40]" :page-size="paginationOption.size" layout="total, sizes, prev, pager, next, jumper" :total="paginationOption.total">
+            </el-pagination>
           </div>
-        </el-col>
-      </el-row>
+        </div>
+      </el-col>
+
+      <el-col :span="6">
+        <div class="right">
+          <div class="title">推荐政策<span @click="changeData">换一换</span></div>
+          <hr style="margin:-1px 0 0">
+          <div class="hotPolicy">
+            <el-row v-for="(item,index) in policyList" :key="index">
+              <el-col :span="1"><i class="el-icon-caret-right"></i></el-col>
+              <el-col :span="23">
+                <div class="content">{{item.title}}</div>
+              </el-col>
+            </el-row>
+          </div>
+        </div>
+      </el-col>
     </div>
   </div>
 </template>
@@ -422,6 +420,9 @@ export default {
   border: 1px solid #ddd;
   border-radius: 3px;
   padding: 20px;
+  &:hover {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  }
   .policy-top {
     display: flex;
     margin-left: 18px;
@@ -442,7 +443,7 @@ export default {
         margin: 6px 10px 0 0;
       }
       .el-radio-button--small .el-radio-button__inner {
-        padding: 10px 15px;
+        padding: 6px 15px;
         font-size: 14px;
       }
     }
@@ -467,22 +468,34 @@ export default {
   -webkit-box-flex: 1;
   flex: 1;
   box-sizing: border-box;
+  border-top: 1px solid #eee;
   .left {
-    border: 1px solid #ddd;
+    padding-right: 30px;
+    border-right: 1px solid #ebeef5;
     border-radius: 3px;
     .page-top {
       display: flex;
-      margin: 20px 20px -20px 20px;
-      padding-bottom: 13px;
+      height: 53px;
+      padding-top: 12px;
+      border-bottom: solid 1px #e6e6e6;
       .page-header {
         align-items: baseline;
-        font-size: 22px;
+        font-size: 18px;
         color: #222;
         span {
           font-size: 13px;
           margin-left: 16px;
           color: #999;
           font-weight: 400;
+        }
+        .sub-title {
+          display: inline-block;
+          margin-left: 0;
+          padding: 0 10px;
+          font-size: 18px;
+          line-height: 40px;
+          border-bottom: 2px solid #ba1b21;
+          color: #333;
         }
       }
       .page-header-btn {
@@ -499,16 +512,16 @@ export default {
       color: #eee;
     }
     .text-container {
-      margin: 20px 20px;
+      margin: 20px 0;
       border-top: 1px solid #eee;
       h3 {
         line-height: 30px;
         font-size: 18px;
-        color: #222;
+        color: #333;
         margin-top: 15px;
         &:hover {
           cursor: pointer;
-          text-decoration: underline;
+          color: $--menu-color-primary;
         }
       }
       .text-des {
@@ -537,13 +550,16 @@ export default {
         }
       }
       .tag {
-        font-size: 13px;
-        color: #666;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.65);
       }
       .comparison {
         text-align: right;
         margin: 0px 10px 20px 10px;
       }
+    }
+    &:nth-child(1) .text-container {
+      border: 0;
     }
     .page-wrapper {
       display: flex;
@@ -552,32 +568,35 @@ export default {
     }
   }
   .right {
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    margin-left: 25px;
+    /* border-radius: 3px; */
+    /* margin-left: 25px; */
+    padding: 0 0 0 30px;
     .title {
-      margin: 20px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #2c3e50;
+      padding: 18px 0 18px;
+      font-size: 18px;
+      font-weight: 400;
+      color: #333;
       span {
         font-size: 14px;
-        font-weight: 300;
-        color: #4ea4eb;
+        font-weight: 400;
+        color: $--menu-color-primary;
         cursor: pointer;
         float: right;
+        &:hover {
+          opacity: 0.6;
+        }
       }
     }
     .hotPolicy {
-      margin: 20px;
+      margin: 20px 0;
       .content {
         font-size: 13.3px;
-        color: #2c3e50;
+        color: #333;
         margin-bottom: 10px;
         padding-left: 9px;
+        cursor: pointer;
         &:hover {
-          color: #4ea4eb;
-          text-decoration: underline;
+          color: $--menu-color-primary;
         }
       }
     }
@@ -594,22 +613,28 @@ export default {
   width: 35%;
 }
 .header-btn >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
-  color: #fff;
-  border-color: #ba1b21;
-  background-color: #ba1b21;
+  color: #ba1b21;
+  background: #f8e8e9;
+  border-color: #e3a4a6;
 }
 .istop >>> .el-tag {
   height: 27px;
   line-height: 26px;
 }
-.tag >>> .el-tag {
+.tag >>> .el-tag.el-tag--info {
   margin-left: 10px;
   height: 24px !important;
   line-height: 22px !important;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.65);
+}
+.tag >>> .el-tag:hover {
+  opacity: 0.85;
 }
 .card >>> .el-radio-button--small .el-radio-button__inner {
   font-size: 14px;
   border-radius: 6px;
+  border: 1px solid #fff;
 }
 .card >>> .el-radio-button:first-child .el-radio-button__inner {
   border-radius: 6px;
@@ -618,14 +643,15 @@ export default {
   border: 0px solid #dcdfe6;
   margin: 1px;
 }
-.card >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner {
+.card >>> .el-radio-button__orig-radio:checked + .el-radio-button__inner,
+.card >>> .el-radio-button--small .el-radio-button__inner:hover {
+  background-color: #fef6f4;
+  border: 1px solid #dc8687;
+  border-radius: 20px;
   color: #ba1b21;
-  font-weight: 700;
-  background-color: #f1f6fe;
-  -webkit-box-shadow: -1px 0 0 0 #f1f6fe;
 }
 .hotPolicy >>> .el-icon-caret-right {
   margin-left: -4px;
-  color: #4ea4eb;
+  color: #999;
 }
 </style>

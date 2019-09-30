@@ -41,7 +41,7 @@ export default {
           dictName: 'FAMS_I_CAN_BEI_RULE',
         },
         {
-          prop: 'targetName',
+          prop: 'realName',
           label: '操作对象',
         },
         {

@@ -247,7 +247,7 @@ export function examForm () {
     applyTimeSwitch: 0,//报名时间按钮，0默认不开启
     examTimeSwitch: 0, //考试时间按钮，0默认不开启
     examDifficulty: '', //难度系数
-    // datiFrequency: 0, //答题次数
+    datiFrequency: null, //答题次数
   }
 }
 
@@ -325,6 +325,9 @@ export const examFormRules = {
   ],
   examDifficulty:[
     { required: true, message: '请选择考卷模式', trigger: 'change' },  
+  ],
+  datiFrequency:[
+    { required: true, message: '请选择答题次数', trigger: 'change' },      
   ],
 }
 

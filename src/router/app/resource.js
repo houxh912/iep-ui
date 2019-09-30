@@ -105,4 +105,15 @@ export default [
       },
     ],
   },
+  {
+    path: 'policy_center',
+    name: '政策中心',
+    icon: 'icon-survey-library',
+    count: 0,
+    countName: 'countPolicy',
+    component: () => import( /* webpackChunkName: "app-channel" */ '@/views/app/resource/policyCenter'),
+    meta: {
+      keepAlive: true,
+    },
+  },
 ]

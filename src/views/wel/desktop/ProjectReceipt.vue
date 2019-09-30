@@ -90,7 +90,6 @@ export default {
     grid-auto-flow: row dense;
     grid-row-gap: 25px;
     grid-column-gap: 25px;
-    // grid-template-columns: minmax(100px, 5fr) minmax(100px, 2fr);
   }
 }
 </style>

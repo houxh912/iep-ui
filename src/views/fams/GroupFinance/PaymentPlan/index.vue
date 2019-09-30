@@ -30,11 +30,9 @@
 
 <script>
 import { getPaymentPlanPage } from '@/api/gpms/fas'
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
 export default {
-  components: { IepStatisticsHeader },
   mixins: [mixins],
   data () {
     return {

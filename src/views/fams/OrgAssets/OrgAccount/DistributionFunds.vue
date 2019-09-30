@@ -11,9 +11,7 @@
 </template>
 <script>
 import { getAssetsByDate } from '@/api/fams/statistics'
-import IepSlotCard from '@/views/fams/Components/SlotCard'
 export default {
-  components: { IepSlotCard },
   data () {
     this.colors = [
       (paramsA) => {

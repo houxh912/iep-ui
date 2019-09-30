@@ -4,9 +4,7 @@
       <div slot="header" class="clearfix">
         <iep-page-header title="岗位统计"></iep-page-header>
       </div>
-      <!-- <el-table style="width: 100%"> -->
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">    </iep-table>
-      <!-- </el-table> -->
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange"> </iep-table>
     </el-card>
   </div>
 </template>
@@ -14,18 +12,18 @@
 import { getLibraryPage } from '@/api/hrms/post_library'
 import mixins from '@/mixins/mixins'
 const columnsMap = [
-	{
-		prop: 'name',
-		label: '岗位名称',
-	},
-	{
-		prop: 'typeName',
-		label: '岗位分类',
-	},
-	{
-		prop: 'count',
-		label: '在职人数',
-	},
+  {
+    prop: 'name',
+    label: '岗位名称',
+  },
+  {
+    prop: 'typeName',
+    label: '岗位分类',
+  },
+  {
+    prop: 'count',
+    label: '在职人数',
+  },
 ]
 export default {
   mixins: [mixins],

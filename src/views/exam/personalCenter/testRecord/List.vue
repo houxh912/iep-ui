@@ -4,15 +4,13 @@
       <iep-page-header title="专题考试记录" :data="[10, 5]"></iep-page-header>
       <operation-container>
         <template slot="right">
-          <el-button-group>
-            <iep-button size="small" type="primary" plain @click="handleSelect ('month')">本月</iep-button>
-            <iep-button size="small" type="primary" plain @click="handleSelect ('year')">本年</iep-button>
-            <iep-button size="small" type="primary" plain @click="handleSelect ()">全部</iep-button>
-          </el-button-group>
+          <el-radio-group v-model="type" size="small" @change="handleSelect(type)">
+            <el-radio-button v-for="tab in tabList" :label="tab.value" :key="tab.value" :disabled="isLoadTable">{{tab.label}}</el-radio-button>
+          </el-radio-group>
         </template>
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-        <el-table-column prop="fieldName" label="科目">
+        <el-table-column prop="fieldName" label="科目" width="150">
           <template slot-scope="scope">
             {{scope.row.fieldName}}
           </template>
@@ -22,9 +20,15 @@
             {{scope.row.title}}
           </template>
         </el-table-column>
-        <el-table-column prop="beginTime" label="考试时间" width="350">
+        <el-table-column prop="certificateStatus" label="证书关联" width="100">
           <template slot-scope="scope">
-            {{scope.row.beginTime}} ~ {{scope.row.endTime}}
+            <el-tag type="success" size="medium" v-if="scope.row.certificateStatus === 0">已关联</el-tag>
+            <el-tag type="error" size="medium" v-if="scope.row.certificateStatus === 1">未关联</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="beginTime" label="考试时间" width="330">
+          <template slot-scope="scope">
+            {{scope.row | getEndTime}}
           </template>
         </el-table-column>
         <el-table-column prop="examStatus" label="个人中心状态" width="150">
@@ -36,7 +40,12 @@
             <el-tag type="success" size="medium" v-if="scope.row.examStatus === 8">已完成</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="operation" label="操作" width="250">
+        <el-table-column prop="examAchievement" label="分数" width="80">
+          <template slot-scope="scope">
+            {{scope.row.examAchievement}}
+          </template>
+        </el-table-column>
+        <el-table-column prop="operation" label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" v-if="scope.row.examStatus === 0" disabled plain>开始考试</iep-button>
@@ -48,7 +57,6 @@
 
               <iep-button type="warning" plain v-if="scope.row.examStatus === 8" @click="handleShowResult(scope.row)">查看成绩</iep-button>
               <iep-button v-if="scope.row.examStatus === 8" plain @click="handleShowCER(scope.row)">查看证书</iep-button>
-
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -62,56 +70,65 @@
 <script>
 import { getTestRecordList, getCertificate } from '@/api/exam/personalCenter/testRecord/testRecord'
 import mixins from '@/mixins/mixins'
-// const columnsMap = [
-//   {
-//     prop: 'fieldName',
-//     label: '科目',
-//   },
-//   {
-//     prop: 'title',
-//     label: '名称',
-//   },
-//   {
-//     prop: 'examTime',
-//     label: '考试时间',
-//   },
-//   {
-//     prop: 'status',
-//     label: '状态',
-//     type: 'dict',
-//   },
-//   {
-//     prop: 'examMarks',
-//     label: '考试分数',
-//   },
-// ]
-
 export default {
   mixins: [mixins],
+  props: ['record'],
   data () {
     return {
       dialogShow: false,
       imgurl: '',
-      // columnsMap,
+      type: '',
+      tabList: [
+        {
+          label: '全部',
+          value: '',
+        },
+        {
+          label: '按月',
+          value: 'month',
+        },
+        {
+          label: '按年',
+          value: 'year',
+        },
+      ],
     }
   },
+  filters: {
+    getEndTime (val) {
+      const data = val.endTime == '2049-09-24 12:00:00' ? '长期有效' : `${val.beginTime} ~ ${val.endTime}`
+      return data
+    },
+  },
   created () {
-    this.loadPage()
+    if (this.record) {
+      this.load()
+    } else {
+      this.loadPage()
+    }
   },
   methods: {
     /**
      * 点击筛选
      */
-    handleSelect (state) {
+    handleSelect (type) {
       this.pageOption.current = 1
-      this.searchForm = {
-        state: state,
-      }
+      this.searchForm.state = type
       this.loadTable({ ...this.searchForm }, getTestRecordList)
     },
+
+    load (param = this.searchForm) {
+      this.pageOption.current = this.record.current
+      this.pageOption.size = this.record.size
+      this.searchForm.state = this.record.state
+      this.type = this.record.state
+      this.loadTable({ ...this.pageOption, ...param }, getTestRecordList)
+    },
+
     loadPage (param = this.searchForm) {
       this.loadTable({ ...this.pageOption, ...param }, getTestRecordList)
     },
+
     /**
      * 点击开始考试
      */
@@ -133,12 +150,20 @@ export default {
         })
       })
     },
+
     /**
      * 点击成绩
      */
     handleShowResult (row) {
-      this.$emit('onShowResult', row)
+      this.$emit('onShowResult', {
+        id: row.id,
+        title: row.title,
+        state: this.type,
+        current: this.pageOption.current,
+        size: this.pageOption.size,
+      })
     },
+
     /**
      * 点击证书
      */

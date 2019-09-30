@@ -1,7 +1,7 @@
 <template>
   <my-content class="my-content" :title-name="`我的组织(${orgs.length})`">
     <template v-slot:stitle>
-      <iep-button size="mini" @click="handleCreate">创建组织</iep-button>
+      <iep-button size="mini" @click="handleCreate">创建或加入组织</iep-button>
     </template>
     <div class="current-wrapper">
       <div class="current-org">
@@ -25,17 +25,22 @@
       </div>
     </div>
     <el-popover ref="popover" placement="left" width="100" trigger="hover" v-model="popoverShow">
+      <qrcode class="code" :value="mUrlText" :options="{width:120}"></qrcode>
       <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
     </el-popover>
   </my-content>
 </template>
 
 <script>
+import Qrcode from '@chenfengyuan/vue-qrcode'
 import { mapGetters, mapState, mapActions } from 'vuex'
 import { setOrg } from '@/api/admin/user'
 import MyContent from './MyContent'
 export default {
-  components: { MyContent },
+  components: {
+    Qrcode,
+    MyContent,
+  },
   data () {
     return {
       popoverShow: false,
@@ -49,6 +54,9 @@ export default {
     }),
     copyUrlText () {
       return `${window.location.origin}/wel/org?orgId=${this.userInfo.orgId}&type=0`
+    },
+    mUrlText () {
+      return `${window.location.origin}/so/invitation/codeShare?redirect=so/orgDetail/${this.userInfo.orgId}`
     },
   },
   methods: {

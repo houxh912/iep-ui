@@ -1,4 +1,3 @@
-
 // IP PORT 配置
 const baseUrl = process.env.BASEURL
 // 设置代理
@@ -20,6 +19,14 @@ if (process.env.NODE_ENV === 'development') {
       ws: true,
       pathRewrite: {
         '^/api/ims/ws': '/ims/ws',
+      },
+    },
+    '/api/gc': {
+      target: 'http://39.96.13.121:9999',
+      changeOrigin: true,
+      ws: true,
+      pathRewrite: {
+        '^/api/gc': '/gov',
       },
     },
     '/api': {

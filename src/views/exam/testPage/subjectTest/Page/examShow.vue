@@ -48,7 +48,7 @@
                           </div>
                           <div>
                             <span style="margin-right:20px">时长：{{item.timeLong}}分钟</span>
-                            <span>难度系数：{{item.examDifficultyName}}</span>
+                            <span v-if="item.examDifficultyName">难度系数：{{item.examDifficultyName}}</span>
                           </div>
                         </div>
                       </div>
@@ -444,7 +444,7 @@ export default {
 
   .title {
     font-size: 16px;
-    height: 40px;
+    height: 48px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

@@ -7,16 +7,14 @@
         </template>
       </iep-statistics-header>
     </basic-container>
-    <transfer-dialog ref="TransferDialog"></transfer-dialog>
+    <transfer-dialog ref="TransferDialog" :pay-type="4" @load-page="loadPage"></transfer-dialog>
   </div>
 </template>
 <script>
 import { getAmount } from '@/api/fams/block_chain'
-import TransferDialog from './TransferDialog'
-import IepStatisticsHeader from '@/views/fams/Components/StatisticsHeader'
+import TransferDialog from '@/views/BlockChain/Components/TransferDialog.vue'
 export default {
   components: {
-    IepStatisticsHeader,
     TransferDialog,
   },
   data () {
@@ -37,7 +35,6 @@ export default {
   methods: {
     handleTransfer () {
       this.$refs['TransferDialog'].realMaxAmount = this.statistics[0]
-      this.$refs['TransferDialog'].submitFormLoading = false
       this.$refs['TransferDialog'].dialogShow = true
     },
     async loadPage () {

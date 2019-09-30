@@ -48,21 +48,20 @@
     </el-form-item>
 
     <el-form-item label="发文时间" prop="publishTime" class="formWidth">
-      <el-date-picker style="width: 317px;" type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker style="width: 317px;" type="date" placeholder="选择日期" v-model="formData.publishTime" value-format="timestamp" format="yyyy年M月d号" :disabled="isReadonly">{{formData.publishTime | dateFormat}}</el-date-picker>
     </el-form-item>
 
     <el-form-item label="申报开始时间" class="formWidth">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.effectTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.effectTime" value-format="timestamp" format="yyyy年M月d号" style="width: 100%;" :disabled="isReadonly">{{formData.effectTime | dateFormat}}</el-date-picker>
     </el-form-item>
 
     <el-form-item label="申报截止时间" class="formWidth">
-      <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" value-format="yyyy-M-d HH:mm:ss" format="yyyy年M月d号" style="width: 100%;" :disabled="isReadonly"></el-date-picker>
+      <el-date-picker type="date" placeholder="选择日期" v-model="formData.invalidTime" value-format="timestamp" format="yyyy年M月d号" style="width: 100%;" :disabled="isReadonly">{{formData.invalidTime | dateFormat}}</el-date-picker>
     </el-form-item>
 
     <!-- <el-form-item label="标题图" class="formWidth">
       <el-input v-model="formData.explainImage" :readonly="isReadonly"></el-input>
     </el-form-item> -->
-
 
     <!-- 这里是循环选择器的组件 -->
     <el-form-item class="formWidth" :label="key" v-for="(value, key) in selectFiledMap" :key="key" :prop="value.formText">
@@ -119,9 +118,10 @@
 <script>
 import multiplyMixin from '../multiply_mixin'
 import { region } from '../region'
+import { dateFormat } from '@/util/date'
 import MutiplyTagSelect from '@/components/deprecated/mutiply-tag-select'
 import MutiplySelect from '@/components/deprecated/mutiply-select'
-import {  postDeclare, putDeclare, postDeclareAndCommit, putDeclareAndCommit } from '@/api/govdata/declaration_policy'
+import { postDeclare, putDeclare, postDeclareAndCommit, putDeclareAndCommit } from '@/api/govdata/declaration_policy'
 // import { validInformationTitle}from '@/api/govdata/information'
 import { getBasisPage } from '@/api/govdata/common'
 import { getOrganizationPage } from '@/api/govdata/common'
@@ -133,9 +133,9 @@ const orgOption = [{
   label: '机构网址',
 }]
 export default {
-  props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn','btnTxt'],
+  props: ['formData', 'isEdit', 'isReadonly', 'isAudit', 'dictGroup', 'selectFiledMap', 'isHideSubmitBtn', 'btnTxt'],
   mixins: [multiplyMixin],
-  components: { MutiplyTagSelect,MutiplySelect },
+  components: { MutiplyTagSelect, MutiplySelect },
   data () {
     // var checkTitle = (rule, value, callback) => {
     //   const title = this.isEdited ? this.formData.title : undefined
@@ -209,8 +209,14 @@ export default {
   computed: {
 
   },
+  filters: {
+    dateFormat (time) {
+      var date = new Date(time)
+      return dateFormat(date, 'yyyy年MM月dd日 hh:mm:ss')
+    },
+  },
   created () {
-    console.log('this.formData => ',this.formData)
+    console.log('this.formData => ', this.formData)
   },
   methods: {
     // _processForm (rows) {
@@ -248,37 +254,37 @@ export default {
      * 暂存
      */
     async handleTempSave (formName) {
-        this.loading = true
-        // this.formData.region = this.$refs['region'].currentLabels.join(',')
-        // this.formData.regionList = []
-        this.formData.theme = this.formData.theme.join(',')
-        this.formData.industry = this.formData.industry.join(',')
-        this.formData.scale = this.formData.scale.join(',')
-        this.formData.mode = this.formData.mode.join(',')
-        this.formData.formality = this.formData.formality.join(',')
-        this.formData.support = this.formData.support.join(',')
-        this.formData.fund = this.formData.fund.join(',')
-        this.formData.target = this.formData.target.join(',')
-        const submitForm = JSON.parse(JSON.stringify(this.formData))
-        submitForm.file = submitForm.attachments ? submitForm.attachments.url : ''
-        // this._processForm(submitForm)
-        this.$refs[formName].validateField(('title'))
-        if (!submitForm.title) {
-          this.msg('标题不能为空', 'warning')
-          return false
-        }
+      this.loading = true
+      // this.formData.region = this.$refs['region'].currentLabels.join(',')
+      // this.formData.regionList = []
+      this.formData.theme = this.formData.theme.join(',')
+      this.formData.industry = this.formData.industry.join(',')
+      this.formData.scale = this.formData.scale.join(',')
+      this.formData.mode = this.formData.mode.join(',')
+      this.formData.formality = this.formData.formality.join(',')
+      this.formData.support = this.formData.support.join(',')
+      this.formData.fund = this.formData.fund.join(',')
+      this.formData.target = this.formData.target.join(',')
+      const submitForm = JSON.parse(JSON.stringify(this.formData))
+      submitForm.file = submitForm.attachments ? submitForm.attachments.url : ''
+      // this._processForm(submitForm)
+      this.$refs[formName].validateField(('title'))
+      if (!submitForm.title) {
+        this.msg('标题不能为空', 'warning')
+        return false
+      }
 
-        const requestFun = this.isEdited ? putDeclare : postDeclare
-        requestFun(submitForm).then(res => {
-          if (!this.isEdited) {
-            this.formData.id = res.data.msg ? Number(res.data.msg) : this.formData.id
-            this.formData.title = submitForm.title
-            this.isEdited = true
-          }
-          this.submitMessage()
-        }).catch(() => {
-          this.msg('保存失败，请检查你的网络链接。', 'error')
-        })
+      const requestFun = this.isEdited ? putDeclare : postDeclare
+      requestFun(submitForm).then(res => {
+        if (!this.isEdited) {
+          this.formData.id = res.data.msg ? Number(res.data.msg) : this.formData.id
+          this.formData.title = submitForm.title
+          this.isEdited = true
+        }
+        this.submitMessage()
+      }).catch(() => {
+        this.msg('保存失败，请检查你的网络链接。', 'error')
+      })
     },
 
     /**
@@ -320,13 +326,13 @@ export default {
 .selectclass >>> .el-input {
   width: 170%;
 }
-.titleItem{
+.titleItem {
   margin-right: 35px;
 }
-.summaryItem{
+.summaryItem {
   margin-right: 35px;
 }
-.tagListItem{
+.tagListItem {
   min-width: 315px;
 }
 .htmlItem {

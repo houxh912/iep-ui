@@ -58,6 +58,7 @@
       </div>
 
     </div>
+    <select-dialog ref="SelectDialog" @load-page="refreshPage()" @login="handleSocialLogin()" @have="handleHave()"></select-dialog>
   </user-operation-layout>
 </template>
 <script>
@@ -68,8 +69,12 @@ import { openWindow } from '@/util/util'
 import { codeUrl } from '@/config/env'
 import { randomLenNum } from '@/util/util'
 import { validatenull } from '@/util/validate'
+import SelectDialog from './SelectDialog'
 export default {
-  components: { UserOperationLayout },
+  components: {
+    UserOperationLayout,
+    SelectDialog,
+  },
   name: 'Userlogin',
   data () {
     return {
@@ -116,7 +121,11 @@ export default {
           this.socialForm.state = params.state
           this.socialForm.code = params.code
           if (!validatenull(this.socialForm.state)) {
+            console.log(this.socialForm)
             const { data } = await getBindCheck(this.socialForm)
+            if (data.code) {
+              return
+            }
             if (data.data) {
               const loading = this.$loading({
                 lock: true,
@@ -129,8 +138,10 @@ export default {
               }, 2000)
               this.handleSocialLogin()
             } else {
-              this.$message(data.msg + '请登陆后绑定账号')
-              this.$openPage('/login?redirect=/wel/account-settings/binding')
+              // this.$message(data.msg + '请登陆后绑定账号')
+              this.$refs['SelectDialog'].dialogShow = true
+              this.$refs['SelectDialog'].form.code = params.code
+              this.$refs['SelectDialog'].form.state = params.state
             }
           }
         }
@@ -150,6 +161,12 @@ export default {
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
+    },
+    handleHave () {
+      this.$openPage('/login?redirect=/wel/account-settings/binding')
+    },
+    refreshPage () {
+      this.$router.push({ path: '/login', query: { redirect: this.$route.query.redirect } })
     },
     loadPage () {
       this.refreshCode()

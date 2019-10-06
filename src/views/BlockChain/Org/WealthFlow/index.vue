@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="我能平台账户交易流水"></iep-page-header>
+      <iep-page-header title="组织交易流水"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage"></operation-search>

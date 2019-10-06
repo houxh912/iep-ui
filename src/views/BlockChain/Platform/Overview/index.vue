@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-statistics-header title="平台账户" :dataMap="financialData">
+      <iep-statistics-header title="平台账户概览" :dataMap="financialData">
         <template slot="right">
           <iep-button @click="handleTransfer">转账</iep-button>
         </template>

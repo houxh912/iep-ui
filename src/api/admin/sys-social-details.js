@@ -70,3 +70,11 @@ export function unBindAccount (obj) {
     params: obj,
   })
 }
+
+export function newUserLogin (obj) {
+  return request({
+    url: `${prefixUrl}/new/user`,
+    method: 'get',
+    params: obj,
+  })
+}

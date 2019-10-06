@@ -63,9 +63,7 @@ export default {
       this.ApprenticeApply({ id: row.userId, name: row.realName })
     },
     getPerson (row) {
-      this.$router.push({
-        path: `/app/personal_style/${row.userId}`,
-      })
+      this.$openPage(`//www.icanvip.net/master/${row.userId}.html`, 'bind')
     },
     getPageRecommend () {
       getPageRecommend(this.params).then(({ data }) => {

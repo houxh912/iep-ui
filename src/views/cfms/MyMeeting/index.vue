@@ -2,13 +2,6 @@
   <basic-container>
     <iep-page-header title="我的会议"></iep-page-header>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columns" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-      <template slot="columns">
-        <el-table-column label="链接地址" width="300px">
-          <template slot-scope="scope">
-            <span>{{scope.row.id}}</span>
-          </template>
-        </el-table-column>
-      </template>
       <el-table-column prop="operation" label="操作" width="250">
         <template slot-scope="scope">
           <operation-wrapper>

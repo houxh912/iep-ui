@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/atms/task'
+const prefixUrl = '/cpms/task'
 
 export function getMyAtms (obj) {
   return request({

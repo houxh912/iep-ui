@@ -1,6 +1,6 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="会议子分类" width="70%" @close="close">
-    <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange" class="wrap">
+    <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange" class="wrap" :max="3">
       <el-checkbox v-for="city in cities" :label="city.label" :key="city.value+city.label" border class="tag">{{city.label}}</el-checkbox>
     </el-checkbox-group>
     <div class="Button">

@@ -21,13 +21,13 @@
       </el-form-item>
     </el-form>
     <template slot="footer">
-      <iep-button type="primary" :loading="submitFormLoading" @click="onConfirm">打赏</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">打赏</iep-button>
       <iep-button @click="close">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 <script>
-// import { checkContactUsers } from '@/util/rules'
+import { checkContactUsers } from '@/util/rules'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import { reward } from '@/api/fams/total'
 import formMixins from '@/mixins/formMixins'
@@ -55,7 +55,7 @@ export default {
           { type: 'number', required: true, message: '请输入的打赏金额不少于 1 ', trigger: 'blur', min: 1 },
         ],
         targetUserList: [
-          { type: 'array', required: true, message: '请选择打赏人', trigger: 'blur' },
+          { required: true, validator: checkContactUsers('打赏人'), trigger: 'change' },
         ],
       },
     }
@@ -82,21 +82,18 @@ export default {
       setRewardDialogShow: 'SET_REWARD_DIALOG_SHOW',
     }),
     ...mapActions(['famsGetTotal']),
-    onConfirm () {
+    async submitForm () {
       const r = confirm('您确定打赏吗!')
       if (r == true) {
-        this.mixinsSubmitFormGen()
-      }
-    },
-    async submitForm () {
-      const { data } = await reward(toDtoForm(this.form))
-      if (data.data) {
-        this.$message.success('打赏成功')
-        this.setRewardDialogShow(false)
-        this.form = initForm()
-        this.famsGetTotal()
-      } else {
-        this.$message(data.msg)
+        const { data } = await reward(toDtoForm(this.form))
+        if (data.data) {
+          this.$message.success('打赏成功')
+          this.setRewardDialogShow(false)
+          this.form = initForm()
+          this.famsGetTotal()
+        } else {
+          this.$message(data.msg)
+        }
       }
     },
     close () {

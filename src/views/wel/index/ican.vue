@@ -18,7 +18,7 @@ export default {
 .ican-wrapper {
   display: flex;
   .ican-content {
-    flex: 2;
+    flex: 3;
   }
   .ican-aside {
     flex: 1;

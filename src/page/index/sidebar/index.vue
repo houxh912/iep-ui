@@ -1,7 +1,7 @@
 <template>
   <el-aside v-show="asideDisplay" :width="asideWidth">
     <div class="avue-sidebar" :style="{width: asideWidth}">
-      <el-scrollbar style="height:calc(100vh - 100px);" native>
+      <el-scrollbar style="height:calc(100vh - 96px);" native>
         <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
         <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
         <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">

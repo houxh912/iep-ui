@@ -1,107 +1,39 @@
 <template>
   <div>
     <div class="financial-assets">
-      <el-card shadow="never">
-        <h4 class="sub-title">总资产</h4>
-        <div class="total-wrapper" v-if="!isAbled">
-          <div class="total-item">
-            <div class="sum">{{form.bankDeposit}}</div>
-            <div class="name">银行存款</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{form.cashInStock}}</div>
-            <div class="name">库存现金</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{form.groupContacts}}</div>
-            <div class="name">集团往来</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{form.contractualReceive}}</div>
-            <div class="name">合同应收账款</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{form.financing}}</div>
-            <div class="name">融资</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{form.investment}}</div>
-            <div class="name">投资</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{form.other}}</div>
-            <div class="name">其他应收款</div>
-          </div>
-        </div>
-        <div class="total-wrapper" v-else>
-          <div class="total-item">
-            <div class="sum">{{groupForm.circulation}}</div>
-            <div class="name">发行量</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{groupForm.balance}}</div>
-            <div class="name">系统账户余额</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{groupForm.expenditure}}</div>
-            <div class="name">系统支出</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{groupForm.income}}</div>
-            <div class="name">系统收入</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{groupForm.putForward}}</div>
-            <div class="name">提现数</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{groupForm.project}}</div>
-            <div class="name">项目应收款</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{groupForm.other}}</div>
-            <div class="name">其他应收款</div>
-          </div>
-          <div class="total-item">
-            <div class="sum">{{groupForm.borrow}}</div>
-            <div class="name">组织拆借</div>
-          </div>
-        </div>
-      </el-card>
+      <iep-statistics-header title="总资产" :dataMap="financialData" :typeUrlMap="typeUrlMap" v-if="!isAbled">
+      </iep-statistics-header>
+      <iep-statistics-header title="总资产" :dataMap="financialGroupData" :typeUrlMap="typeUrlMap" v-else>
+      </iep-statistics-header>
     </div>
   </div>
 </template>
 <script>
-import { getAssetsByDate,getGroupAssetsByDate } from '@/api/fams/statistics'
-import {mapGetters} from 'vuex'
-function initForm () {
-  return {
-    bankDeposit: '',
-    cashInStock: '',
-    groupContacts: '',
-    contractualReceive: '',
-    financing: '',
-    investment: '',
-    other: '',
-  }
-}
-function initGroupForm () {
-  return {
-    circulation: '',
-    balance: '',
-    expenditure: '',
-    income: '',
-    putForward: '',
-    project: '',
-    other: '',
-    borrow: '',
-  }
-}
+import { getAssetsByDate, getGroupAssetsByDate } from '@/api/fams/statistics'
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      form: initForm(),
-      groupForm: initGroupForm(),
+      rangeTime: [],
+      financialData: {
+        '银行存款': 0,
+        '库存现金': 0,
+        '集团往来': 0,
+        '合同应收账款': 0,
+        '融资': 0,
+        '投资': 0,
+        '其他应收款': 0,
+      },
+      financialGroupData: {
+        '发行量': 0,
+        '系统账户余额': 0,
+        '系统支出': 0,
+        '系统收入': 0,
+        '提现数': 0,
+        '项目应收款': 0,
+        '其他应收款': 0,
+        '组织拆借': 0,
+      },
     }
   },
   created () {
@@ -117,42 +49,29 @@ export default {
   },
   methods: {
     async loadPage () {
-      if(this.isAbled){
-        const { data } = await getGroupAssetsByDate([])
-        this.groupForm = this.$mergeByFirst(initGroupForm(), data.data)
-      }else{
-        const { data } = await getAssetsByDate([])
-        this.form = this.$mergeByFirst(initForm(), data.data)
+      if (!this.isAbled) {
+        const { data } = await getAssetsByDate(this.rangeTime)
+        const realData = data.data
+        this.financialData['银行存款'] = realData.bankDeposit
+        this.financialData['库存现金'] = realData.cashInStock
+        this.financialData['集团往来'] = realData.groupContacts
+        this.financialData['合同应收账款'] = realData.contractualReceive
+        this.financialData['融资'] = realData.financing
+        this.financialData['投资'] = realData.investment
+        this.financialData['其他应收款'] = realData.other
+      } else {
+        const { data } = await getGroupAssetsByDate(this.rangeTime)
+        const realData = data.data
+        this.financialGroupData['发行量'] = realData.circulation
+        this.financialGroupData['系统账户余额'] = realData.balance
+        this.financialGroupData['系统支出'] = realData.expenditure
+        this.financialGroupData['系统收入'] = realData.income
+        this.financialGroupData['提现数'] = realData.putForward
+        this.financialGroupData['项目应收款'] = realData.project
+        this.financialGroupData['其他应收款'] = realData.other
+        this.financialGroupData['组织拆借'] = realData.borrow
       }
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-.financial-assets {
-  .sub-title {
-    margin-bottom: 20px;
-    font-size: 16px;
-  }
-  .total-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .total-item {
-      padding-right: 36px;
-      text-align: center;
-      border-right: 1px solid #eee;
-      &:last-child {
-        border-right: 0;
-      }
-    }
-    .sum {
-      font-size: 24px;
-    }
-    .name {
-      margin-top: 10px;
-      color: #999;
-    }
-  }
-}
-</style>

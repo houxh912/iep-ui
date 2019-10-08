@@ -4,7 +4,7 @@
     <div class="sub-title">
       <div class="left">
         <span>作者：{{formData.creatorName}}</span>
-        <span>发布日期：{{formData.createTime}}</span>
+        <span>发布日期：{{formData.updateTimel}}</span>
       </div>
       <div class="right">
         <span><i class="icon-yanjing"></i> {{formData.views}}人浏览</span>

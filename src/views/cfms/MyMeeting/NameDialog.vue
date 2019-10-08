@@ -12,7 +12,7 @@
         </search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsName" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" :isMutipleSelection="isTrue" @selection-change="handleSelectionChange">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsName" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" :isMutipleSelection="isTrue" @selection-change="handleSelectionChange" @size-change="handleSizeChange" @current-change="handleCurrentChange">
     </iep-table>
     <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </iep-dialog>

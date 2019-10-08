@@ -1,36 +1,37 @@
 <template>
-<div class="iep-basic-scroll">
-  <iep-dialog :dialog-show="dialogShow" title="添加关联" width="650px" @close="resetForm">
-    <div class="iep-transfer">
-      <div class="head">
-        <div class="title">选择事项分类：</div>
-        <div class="radio">
-          <li v-for="(item, index) in selectList" :key="index" :class="activeIndex == index ? 'active' : ''" @click="chosenIndex(item, index)">{{item.name}}</li>
+  <div class="iep-basic-scroll">
+    <iep-dialog :dialog-show="dialogShow" title="添加关联" width="650px" @close="resetForm">
+      <div class="iep-transfer">
+        <div class="head">
+          <div class="title">选择事项分类：</div>
+          <div class="radio">
+            <li v-for="(item, index) in selectList" :key="index" :class="activeIndex == index ? 'active' : ''" @click="chosenIndex(item, index)">{{item.name}}</li>
+          </div>
+        </div>
+        <div class="content">
+          <div class="search">
+            <el-input placeholder="请输入关键字" v-model="name" class="input-with-select">
+              <el-button slot="append" icon="el-icon-search" @click="searchData"></el-button>
+            </el-input>
+          </div>
+          <div class="list">
+            <iep-scroll :load="projectState" @load-page="loadProject">
+              <!-- <div class="item" v-for="(item, index) in relationlist" :key="index">{{item.name}}</div> -->
+              <el-checkbox-group v-model="formData">
+                <div class="item" v-for="(item, index) in relationlist" :key="index">
+                  <el-checkbox :label="item.id" name="type" @change="changeItem(item)">{{item.name}}</el-checkbox>
+                </div>
+              </el-checkbox-group>
+            </iep-scroll>
+          </div>
         </div>
       </div>
-      <div class="content">
-        <div class="search">
-          <el-input placeholder="请输入关键字" v-model="name" class="input-with-select">
-            <el-button slot="append" icon="el-icon-search" @click="searchData"></el-button>
-          </el-input>
-        </div>
-        <div class="list">
-          <iep-scroll :load="projectState" @load-page="loadProject">
-            <!-- <div class="item" v-for="(item, index) in relationlist" :key="index">{{item.name}}</div> -->
-            <el-checkbox-group v-model="formData">
-              <div class="item" v-for="(item, index) in relationlist" :key="index">
-                <el-checkbox :label="item.id" name="type" @change="changeItem(item)">{{item.name}}</el-checkbox>
-              </div>
-            </el-checkbox-group>
-          </iep-scroll>
-        </div>
-      </div>
-    </div>
-    <template slot="footer">
-      <iep-button type="primary" @click="submitForm">添加</iep-button>
-      <iep-button @click="resetForm">取消</iep-button>
-    </template>
-  </iep-dialog></div>
+      <template slot="footer">
+        <iep-button type="primary" @click="submitForm">添加</iep-button>
+        <iep-button @click="resetForm">取消</iep-button>
+      </template>
+    </iep-dialog>
+  </div>
 </template>
 
 <script>
@@ -105,7 +106,7 @@ export default {
     },
     getListFn () {
       let row = this.selectList[this.activeIndex]
-      row.requestFn(this.params).then(({data}) => {
+      row.requestFn(this.params).then(({ data }) => {
         if (data.data.records.length > 0) {
           this.projectState = 0
           if (row.name == '项目') {
@@ -200,16 +201,13 @@ export default {
 ::-webkit-scrollbar-track {
   border-radius: 10px;
   background-color: #fff;
-  -webkit-transition: 0.3s background-color;
   transition: 0.3s background-color;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #ddd;
-  -webkit-transition: 0.3s background-color;
   transition: 0.3s background-color;
   display: none;
-  -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 :hover ::-webkit-scrollbar-thumb {

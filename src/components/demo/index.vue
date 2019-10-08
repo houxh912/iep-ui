@@ -27,20 +27,8 @@
           <iep-tag v-model="form.tagList"></iep-tag>
         </el-form-item>
 
-        <el-form-item label="单部门:">
-          <iep-dept-select v-model="form.dept"></iep-dept-select>
-        </el-form-item>
-
-        <el-form-item label="多部门:">
-          <iep-dept-multiple v-model="form.deptList"></iep-dept-multiple>
-        </el-form-item>
-
         <el-form-item label="时间:">
           <iep-date-range-select v-model="form.timeRange"></iep-date-range-select>
-        </el-form-item>
-
-        <el-form-item label="组织:">
-          <iep-select v-model="form.orgIds" multiple autocomplete="off" prefix-url="admin/org/all" placeholder="请选择组织"></iep-select>
         </el-form-item>
 
         <el-form-item label="多色图标:">
@@ -83,7 +71,6 @@ export default {
           id: 588,
           name: '张超',
         },
-        orgIds: [],
         receivers: { // 比如接收人
           unions: [],
           orgs: [],
@@ -95,14 +82,6 @@ export default {
         userList: [{
           id: 588,
           name: '张超',
-        }],
-        dept: {
-          id: 1,
-          name: '研发部',
-        },
-        deptList: [{
-          id: 1,
-          name: '研发部',
         }],
         fileList: [{ 'name': 'AINY4Y0AL3.txt', 'url': 'files-04cd8be68d2846c197432e51ee8888b5.txt' }],
         tagList: ['大数据', '人工智能', 'hahahaha'],

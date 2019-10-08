@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="转账" width="500px" @close="close">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
       <iep-form-item label-name="交易金额" prop="amount">
-        <iep-input-amount v-model="form.amount" :max="realMaxAmount" :precision="0"></iep-input-amount>
+        <iep-input-amount v-model.number="form.amount" :max="realMaxAmount" :precision="0"></iep-input-amount>
       </iep-form-item>
       <iep-form-item label-name="交易方式" prop="type">
         <el-radio-group v-model="form.type">
@@ -28,7 +28,7 @@
 </template>
 <script>
 import formMixins from '@/mixins/formMixins'
-// import { checkContactUser } from '@/util/rules'
+import { checkContactUser } from '@/util/rules'
 import { sendAmount } from '@/api/fams/block_chain'
 
 function toDtoForm (row) {
@@ -64,9 +64,9 @@ export default {
         amount: [
           { type: 'number', required: true, message: '请输入的转账金额不少于 1 ', trigger: 'blur', min: 1 },
         ],
-        // user: [
-        //   { required: true, validator: checkContactUser, trigger: 'blur' },
-        // ],
+        user: [
+          { required: true, validator: checkContactUser('交易对象'), trigger: 'change' },
+        ],
         orgId: [
           { required: true, message: '请选择组织', trigger: 'blur' },
         ],

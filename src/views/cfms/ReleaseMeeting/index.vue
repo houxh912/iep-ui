@@ -129,7 +129,11 @@ export default {
       }, {
         value: '沙龙',
         label: '沙龙',
-      }],
+      }, {
+        value: '培训',
+        label: '培训',
+      },
+      ],
 
       signTimeOption: {
         disabledDate: (time) => {

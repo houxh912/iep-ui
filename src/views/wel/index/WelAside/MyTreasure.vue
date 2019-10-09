@@ -76,6 +76,7 @@ export default {
     ...mapActions(['famsReward', 'famsGetTotal']),
     async loadPage () {
       const data = await this.famsGetTotal()
+      console.log(data, data.data, data.msg)
       if (data.data) {
         this.accountType = 0
       } else {
@@ -156,7 +157,6 @@ export default {
 .no-treasure-data {
   display: flex;
   height: 90px;
-  width: 230px;
   justify-content: center;
   align-items: center;
   border: 1px solid #e8e8e8;

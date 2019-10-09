@@ -95,3 +95,11 @@ export function putMeetingmarketing (query) {
     data: query,
   })
 }
+//删除会议
+export function meetingmarketingDelete (ids) {
+  return request({
+    url: '/mcms/meetingmarketing/delete/batch',
+    method: 'post',
+    data: ids,
+  })
+}

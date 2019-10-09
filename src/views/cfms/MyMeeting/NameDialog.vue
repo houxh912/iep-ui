@@ -12,7 +12,7 @@
         </search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsName" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" :isMutipleSelection="isTrue" @selection-change="handleSelectionChange">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsName" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" :isMutipleSelection="isTrue" @selection-change="handleSelectionChange" @size-change="handleSizeChange" @current-change="handleCurrentChange">
     </iep-table>
     <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </iep-dialog>
@@ -82,8 +82,10 @@ export default {
             message: res.data.msg,
             type: 'success',
           })
+          if (res.data.data == true) {
+            this.loadPage({ meetingId: this.id })
+          }
         })
-        this.loadPage({ meetingId: this.id })
       } else {
         this.$message({
           message: '请先勾选数据',

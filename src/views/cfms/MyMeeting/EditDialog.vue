@@ -1,7 +1,7 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="新增" width="50%" @close="close">
     <el-form label-width="120px" :model="formData" :ref="'ValidateForm'" :rules="rules">
-      <el-form-item label="公司:" prop="companyName">
+      <el-form-item label="组织:" prop="companyName">
         <el-input v-model="formData.companyName"></el-input>
       </el-form-item>
       <el-form-item label="职位:" prop="position">
@@ -37,7 +37,7 @@ export default {
   methods: {
     close () {
       this.dialogShow = false
-      this.formData=initForm()
+      this.formData = initForm()
       this.$emit('load-page')
 
     },

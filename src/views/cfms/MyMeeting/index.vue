@@ -7,6 +7,7 @@
           <operation-wrapper>
             <iep-button type="warning" plain @click=" handleEdit(scope.row)">修改会议</iep-button>
             <iep-button type="warning" plain @click=" handleName(scope.row)">名单管理</iep-button>
+            <iep-button type="warning" plain @click=" handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -17,7 +18,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { columns } from './option'
-import { getMeetingmarketingList } from '@/api/mcms/meeting'
+import { getMeetingmarketingList, meetingmarketingDelete } from '@/api/mcms/meeting'
 import NameDialog from './NameDialog'
 export default {
   mixins: [mixins],
@@ -47,6 +48,27 @@ export default {
           edit: true,
         },
       })
+    },
+    handleDelete (row) {
+      this.$confirm('是否删除该条会议？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        meetingmarketingDelete({ id: [row.id] }).then((res) => {
+          this.$message({
+            message: res.data.msg,
+            type: 'success',
+          })
+          this.loadPage()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除',
+        })
+      })
+
     },
   },
 }

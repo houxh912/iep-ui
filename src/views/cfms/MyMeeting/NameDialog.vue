@@ -82,8 +82,10 @@ export default {
             message: res.data.msg,
             type: 'success',
           })
+          if (res.data.data == true) {
+            this.loadPage({ meetingId: this.id })
+          }
         })
-        this.loadPage({ meetingId: this.id })
       } else {
         this.$message({
           message: '请先勾选数据',

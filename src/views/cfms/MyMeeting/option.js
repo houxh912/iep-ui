@@ -1,9 +1,10 @@
 const columns = [
   // { label: '会议海报', prop: 'huiyi' },
-  { label: '会议信息', prop: 'meetingTitle', width: 250 },
+  { label: '会议信息', prop: 'meetingTitle' },
   { label: '链接地址', prop: 'meetingUrl', width: 300 },
   { label: '已报名', prop: 'meetingSignupView', width: 100 },
-  { label: '发布时间', prop: 'createTime' },
+  { label: '发布人', prop: 'createName' },
+  { label: '发布时间', prop: 'createTime', width: 150 },
   { label: '状态', prop: 'meetingFlagName' },
 ]
 const columnsName = [

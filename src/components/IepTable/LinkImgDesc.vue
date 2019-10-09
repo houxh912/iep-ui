@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="img-wrapper" @click="handleClick">
-      <i v-if="isIcon" class="img-icon icon iconfont" :class="img"></i>
+      <i v-if="isIcon" class="img img-icon icon iconfont" :class="img"></i>
       <iep-img v-else class="img" :src="img" alt=""></iep-img>
     </div>
     <div>
@@ -32,9 +32,10 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.img-wrapper {    
-  display: flex;
-  align-items: center;
+.img-wrapper ::v-deep .el-image__inner {
+  height: auto;
+}
+.img-wrapper {
   cursor: pointer;
   padding: 5px;
   border: 1px solid #eee;
@@ -43,9 +44,14 @@ export default {
   & > .img {
     width: 50px;
     height: 50px;
+    display: flex;
+    align-items: center;
   }
+
   .img-icon {
     font-size: 30px;
+    display: flex;
+    justify-content: center;
   }
 }
 .desc {

@@ -2,7 +2,7 @@
   <div class="rule-wrapper">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>Apache Lucene分词器</span>
+        <span style="font-size:18px;">Apache Lucene分词器</span>
         <el-button style="float: right; padding: 3px 0" type="text" @click="handleOpen(`调用接口为/tms/tag/extract_tag,参数为：content=内容，num=所需标签个数`)">查看使用规范</el-button>
       </div>
       <div class="text item">
@@ -13,7 +13,7 @@
     </el-card>
     <el-card class="box-card">
       <div slot="header" class="clearfix">
-        <span>联想输入</span>
+        <span style="font-size:18px;">联想输入</span>
         <el-button style="float: right; padding: 3px 0" type="text" @click="handleOpen(`调用接口为/tms/tag/assn_tag,参数为：keyWord=关键字
 `)">查看使用规范</el-button>
       </div>

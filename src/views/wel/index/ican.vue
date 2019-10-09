@@ -22,6 +22,7 @@ export default {
   }
   .ican-aside {
     flex: 1;
+    display: inline-table;
   }
 }
 </style>

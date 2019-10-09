@@ -44,5 +44,8 @@ export default {
 .ranking >>> .name {
   cursor: pointer;
 }
+.ranking>>>.el-card{
+  padding-right: 0;
+}
 </style>
 

@@ -32,7 +32,9 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.img-wrapper {
+.img-wrapper {    
+  display: flex;
+  align-items: center;
   cursor: pointer;
   padding: 5px;
   border: 1px solid #eee;

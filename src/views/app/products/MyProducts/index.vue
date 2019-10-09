@@ -47,7 +47,9 @@ export default {
 .my-products {
   grid-column-start: 1;
   grid-column-end: 4;
-  text-align: center;
+  text-align: center;    
+  height: 390px;
+  overflow: hidden;
 }
 .publish {
   position: absolute;
@@ -63,4 +65,3 @@ export default {
   }
 }
 </style>
-

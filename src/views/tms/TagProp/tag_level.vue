@@ -15,11 +15,10 @@
     </el-form>
 
     <crud-table :is-load-table="isLoadTable" :paged-table="pagedTable" :column-map="columnMap" :border="true" :stripe="true">
-      <el-table-column prop="operation" label="操作">
+      <el-table-column prop="operation" label="操作" width="180px">
         <template slot-scope="scope">
-          <el-button :disabled="!gov_tagLevel_edit" @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
-          <iep-divider type="vertical" />
-          <el-button :disabled="!gov_tagLevel_del" @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button style="margin-right:-5px" :disabled="!gov_tagLevel_edit" @click="handleClick(scope.row)" type="warning" size="small" plain>修改</el-button>
+          <el-button :disabled="!gov_tagLevel_del" @click="handleDelete(scope.row)" size="small">删除</el-button>
         </template>
       </el-table-column>
     </crud-table>

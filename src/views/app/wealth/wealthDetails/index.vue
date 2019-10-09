@@ -200,10 +200,10 @@ export default {
         this.form.percentage = this.form.purchasedNumber / this.form.circulationNumber * 100
         const chazhi = this.form.sharesUnivalent - this.form.yesterDayPrice
         if (this.form.yesterDayPrice && chazhi > 0) {
-          this.form.dailyGain = chazhi.toFixed(2).toString() + '+' + Math.round(chazhi / this.form.yesterDayPrice * 10000) / 100 + '%'
+          this.form.dailyGain = chazhi.toFixed(2).toString() + '+' + Math.round(chazhi / Math.abs(this.form.yesterDayPrice) * 10000) / 100 + '%'
         }
         else if (this.form.yesterDayPrice && chazhi < 0) {
-          this.form.dailyGain = chazhi.toFixed(2).toString() + Math.round(chazhi / this.form.yesterDayPrice * 10000) / 100 + '%'
+          this.form.dailyGain = chazhi.toFixed(2).toString() + Math.round(chazhi / Math.abs(this.form.yesterDayPrice) * 10000) / 100 + '%'
         }
         else {
           this.form.dailyGain = '-'

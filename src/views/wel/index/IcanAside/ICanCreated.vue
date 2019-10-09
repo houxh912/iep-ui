@@ -80,7 +80,7 @@ export default {
   div {
     padding: 10px 0;
     font-size: 14px;
-    background-color: #fafafa;
+    background-color: #fff;
     cursor: pointer;
     &:hover {
       color: #cb132d;

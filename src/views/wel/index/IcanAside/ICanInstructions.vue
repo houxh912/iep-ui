@@ -16,9 +16,11 @@ export default {
   data () {
     return {
       tabList: [
-        { title: '111', time: '2018-10-20' },
-        { title: '111', time: '2018-10-20' },
-        { title: '111', time: '2018-10-20' },
+        { title: '关于加快熟悉全国数字政府建设工作', time: '01-30' },
+        { title: '推荐一份“数字政府主题报告VIP”', time: '01-28' },
+        { title: '认识大数据，了解大数据发展', time: '01-27' },
+        { title: '关于加快学习数字政府白皮书。专家...', time: '01-20' },
+        { title: '关于20190126微信优秀项目分享...', time: '01-15' },
       ],
     }
   },
@@ -42,8 +44,8 @@ export default {
 }
 .title {
   flex: 2;
-  font-size: 16px;
-  color: #888;
+  font-size: 14px;
+  color: #666;
   margin: 0 4px;
   height: 22px;
   line-height: 22px;

@@ -1,18 +1,18 @@
 <template>
   <i-can-content class="my-content" title-name="我的关系">
-    <div slot="stitle" class="stitle">找师傅</div>
+    <div slot="stitle" class="stitle">找师父</div>
     <div class="my-wrapper">
       <div class="title-con">
         <div class="title">我的师傅：</div>
-        <span class="time">王某某/李某</span>
+        <span class="time">马思红/赵之灵/杨冰之/郑爱军/田景熙</span>
       </div>
       <div class="title-con">
         <div class="title">我的徒弟：</div>
-        <span class="time">王某某/李某</span>
+        <span class="time">马思红/赵之灵/杨冰之/郑爱军/田景熙</span>
       </div>
       <div class="title-con">
         <div class="title">我的关注：</div>
-        <span class="time">王某某/李某</span>
+        <span class="time">马思红/赵之灵/杨冰之/郑爱军/田景熙</span>
       </div>
       <slot></slot>
     </div>

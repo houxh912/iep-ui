@@ -173,7 +173,7 @@ h3.title {
   padding: 0 20px;
 }
 .content {
-  padding: 0 20px;
+  padding: 0 40px;
   margin: auto;
   border-bottom: 1px solid #ddd;
   .content-top {
@@ -208,5 +208,8 @@ h3.title {
 .head >>> .input {
   padding: 20px;
   background-color: #fafafa;
+}
+.content >>> .search {
+  right: 30px;
 }
 </style>

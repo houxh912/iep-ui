@@ -14,7 +14,7 @@
       </div>
       <div class="container">
         <el-card class="org-card-wrapper" shadow="hover">
-          <img :src="form.logo" class="image">
+          <iep-img :src="form.logo" class="image"></iep-img>
           <div class="org-desc">
             <div style="font-size: 16px;">{{form.name}}</div>
             <div style="font-size: 12px;margin-top: 5px;">
@@ -39,10 +39,10 @@
             </div>
             <div class="reward">
               <div class="scan-code"></div>
-              <div>
+              <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
+              <div v-else>
                 <span>{{form.createdOrg?'':'未'}}完成</span>
-                <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
-                <span v-if="form.createdOrg === -1" class="money-text"> +1 贝</span>
+                <span v-if="form.createdOrg === -1" class="money-text"> +{{rules[0]}} 贝</span>
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@
               <iep-button v-if="form.finishInfo === 1" class="money" type="primary" @click="handleGet(2)" round>立即领取</iep-button>
               <div v-else>
                 <span>{{form.finishInfo?'':'未'}}完成</span>
-                <span v-if="form.finishInfo === -1" class="money-text"> +1 贝</span>
+                <span v-if="form.finishInfo === -1" class="money-text"> +{{rules[1]}} 贝</span>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@
               <div v-else>
                 <span>{{form.extendMember>=10 || form.extendMember === -1?'':'未'}}完成</span>
                 <span class="money-text" v-if="form.extendMember>=0">{{form.extendMember}} / 10</span>
-                <span v-if="form.extendMember === -1" class="money-text"> +10 贝</span>
+                <span v-if="form.extendMember === -1" class="money-text"> +{{rules[2]}} 贝</span>
               </div>
             </div>
           </div>
@@ -99,7 +99,7 @@
               <iep-button v-if="form.distribution === 1" class="money" type="primary" @click="handleGet(4)" round>立即领取</iep-button>
               <div v-else>
                 <span>{{form.distribution?'':'未'}}完成</span>
-                <span v-if="form.distribution === -1" class="money-text"> +1 贝</span>
+                <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span>
               </div>
             </div>
           </div>
@@ -118,7 +118,7 @@
               <div v-else>
                 <span>{{form.buildDept>=2 || form.buildDept === -1?'':'未'}}完成</span>
                 <span class="money-text" v-if="form.buildDept>=0">{{form.buildDept}} / 2</span>
-                <span v-if="form.buildDept === -1" class="money-text"> +10 贝</span>
+                <span v-if="form.buildDept === -1" class="money-text"> +{{rules[4]}} 贝</span>
               </div>
             </div>
           </div>
@@ -162,6 +162,7 @@ export default {
   data () {
     return {
       popoverShow: false,
+      rules: [1, 1, 10, 1, 1],
       form: {
         name: '',
         logo: '',
@@ -201,6 +202,7 @@ export default {
     async loadPage () {
       const { data } = await getOrgGuideDrivers()
       this.form = { ...data.data }
+      this.$set(this, 'rules', data.data.rules)
     },
   },
 }

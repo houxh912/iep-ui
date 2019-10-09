@@ -32,7 +32,7 @@ export default {
   methods: {
     async loadPage () {
       const { data } = await getMaterials()
-      this.listData = data.data
+      this.listData = data.data || []
     },
   },
 }

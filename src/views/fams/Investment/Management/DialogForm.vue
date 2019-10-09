@@ -51,7 +51,7 @@ export default {
     },
     async handleSubmit () {
       if (this.form.allSharesNumber !== this.form.cAllSharesNumber) {
-        this.$message('请确认总数本一致！')
+        this.$message('请确认总股本一致！')
         return
       }
       try {

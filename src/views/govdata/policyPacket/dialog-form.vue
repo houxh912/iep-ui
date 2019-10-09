@@ -103,7 +103,6 @@
 
 <script>
 import { getPacketById, postPacket, putPacket, getpolicyPage } from '@/api/govdata/policy_packet'
-import Qrcode from '@chenfengyuan/vue-qrcode'
 import mixins from '@/mixins/mixins'
 import multiplyMixin from '@/views/govdata/policyManage/multiply_mixin'
 import collapseForm from '@/components/deprecated/collapse-form'
@@ -117,7 +116,7 @@ function initFormInline () {
 }
 export default {
   mixins: [mixins, multiplyMixin],
-  components: { Qrcode, collapseForm },
+  components: { collapseForm },
   props: ['formData', 'isAdd', 'isEdit', 'isReadonly'],
   data () {
     var checkTotalAmount = (rule, value, callback) => {

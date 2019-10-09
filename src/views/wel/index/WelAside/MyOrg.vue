@@ -32,13 +32,11 @@
 </template>
 
 <script>
-import Qrcode from '@chenfengyuan/vue-qrcode'
 import { mapGetters, mapState, mapActions } from 'vuex'
 import { setOrg } from '@/api/admin/user'
 import MyContent from './MyContent'
 export default {
   components: {
-    Qrcode,
     MyContent,
   },
   data () {

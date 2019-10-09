@@ -1,6 +1,6 @@
 import request from '@/router/axios'
-const prefixUrl = '/prms/payment'
-const InformationUrl = '/prms/iepProjectInformation'
+const prefixUrl = '/fams/payment'
+const InformationUrl = '/fams/iepProjectInformation'
 // @/api/gpms/fas
 export function getPaymentPlanPage (obj) {
   return request({
@@ -28,14 +28,14 @@ export function getOrgPaymentPlanPageByOrgId (orgId) {
 
 export function getUnionBudgetList (year) {
   return request({
-    url: `/prms/income/group/${year}`,
+    url: `/fams/income/group/${year}`,
     method: 'get',
   })
 }
 
 export function getOrgBudgetList (query) {
   return request({
-    url: '/prms/income/org',
+    url: '/fams/income/org',
     method: 'get',
     params: query,
   })
@@ -43,7 +43,7 @@ export function getOrgBudgetList (query) {
 
 export function getOrgMonthBudgetList (query) {
   return request({
-    url: '/prms/income/org/month',
+    url: '/fams/income/org/month',
     method: 'get',
     params: query,
   })

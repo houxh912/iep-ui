@@ -77,7 +77,13 @@ export default {
         name: '',
         identityMarks: [],
         orgList: [],
-        projectTag: [],
+        abilityTag: [],
+        rankMap: {
+          xyz: 0,
+          hydpm: 0,
+          gmbpm: 0,
+          sjzc: 0,
+        },
       },
     }
   },

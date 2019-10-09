@@ -1,7 +1,7 @@
 
 <template>
   <div>
-    <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable">
+    <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" :pagination="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange">
       <el-table-column label="操作" width="120">
         <template slot-scope="scope">
           <operation-wrapper>

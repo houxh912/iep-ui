@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="行为规则"></iep-page-header>
+      <iep-page-header title="配置与统计"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage" prop="ruleName">

@@ -1,52 +1,52 @@
 <template>
-<div class="iep-basic-scroll">
-  <iep-dialog :dialog-show="dialogShow" title="添加关联" width="60%" @close="resetForm">
-    <!-- transfer -->
-    <div class="iep-transfer">
-      <!-- 第一栏 -->
-      <div class="transfer box-list">
-        <ul class="list">
-          <li class="item" :class="activitIndex === index ? 'selectItem' : ''" v-for="(item, index) in firstList" :key="index" @click="firstClick(item, index)">{{item.name}}</li>
-        </ul>
-      </div>
-      <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
-      <!-- 第二栏 -->
-      <div class="transfer box-list">
-        <!-- <el-input class="search" placeholder="请输入关键字" prefix-icon="el-icon-search" v-model="searchVal"></el-input> -->
-        <!-- <ul class="list">
+  <div class="iep-basic-scroll">
+    <iep-dialog :dialog-show="dialogShow" title="添加关联" width="60%" @close="resetForm">
+      <!-- transfer -->
+      <div class="iep-transfer">
+        <!-- 第一栏 -->
+        <div class="transfer box-list">
+          <ul class="list">
+            <li class="item" :class="activitIndex === index ? 'selectItem' : ''" v-for="(item, index) in firstList" :key="index" @click="firstClick(item, index)">{{item.name}}</li>
+          </ul>
+        </div>
+        <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
+        <!-- 第二栏 -->
+        <div class="transfer box-list">
+          <!-- <el-input class="search" placeholder="请输入关键字" prefix-icon="el-icon-search" v-model="searchVal"></el-input> -->
+          <!-- <ul class="list">
           <li class="item" :class="selectFn(item.id) ? 'selectItem' : ''" v-for="(item, index) in secondList" :key="index" @click="selectFn(item.id) ? '' : secondClick(item)">{{item.name}}</li>
         </ul> -->
-        <iep-scroll :load="projectState" @load-page="loadProject">
+          <iep-scroll :load="projectState" @load-page="loadProject">
+            <ul class="list">
+              <li class="item" :class="selectFn(item.id) ? 'selectItem' : ''" v-for="(item, index) in secondList" :key="index" @click="selectFn(item.id) ? '' : secondClick(item)">{{item.name}}</li>
+            </ul>
+          </iep-scroll>
+        </div>
+        <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
+        <!-- 第三栏 -->
+        <div class="transfer box-list">
           <ul class="list">
-            <li class="item" :class="selectFn(item.id) ? 'selectItem' : ''" v-for="(item, index) in secondList" :key="index" @click="selectFn(item.id) ? '' : secondClick(item)">{{item.name}}</li>
+            <h3 class="item-title">关联项目：</h3>
+            <li class="item last-item" v-for="(item, index) in transferList.projectIds" :key="index">
+              <p>{{item.name}}</p>
+              <i class="el-icon-close" @click="cancel(index, 'projectIds')"></i>
+            </li>
           </ul>
-        </iep-scroll>
+          <ul class="list">
+            <h3 class="item-title">关联材料：</h3>
+            <li class="item last-item" v-for="(item, index) in transferList.materialIds" :key="index">
+              <p>{{item.name}}</p>
+              <i class="el-icon-close" @click="cancel(index, 'materialIds')"></i>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="arrow"><i class="el-icon-d-arrow-right"></i></div>
-      <!-- 第三栏 -->
-      <div class="transfer box-list">
-        <ul class="list">
-          <h3 class="item-title">关联项目：</h3>
-          <li class="item last-item" v-for="(item, index) in transferList.projectIds" :key="index">
-            <p>{{item.name}}</p>
-            <i class="el-icon-close" @click="cancel(index, 'projectIds')"></i>
-          </li>
-        </ul>
-        <ul class="list">
-          <h3 class="item-title">关联材料：</h3>
-          <li class="item last-item" v-for="(item, index) in transferList.materialIds" :key="index">
-            <p>{{item.name}}</p>
-            <i class="el-icon-close" @click="cancel(index, 'materialIds')"></i>
-          </li>
-        </ul>
-      </div>
-    </div>
 
-    <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')">添加</iep-button>
-      <iep-button @click="resetForm('form')">取消</iep-button>
-    </template>
-  </iep-dialog>
+      <template slot="footer">
+        <iep-button type="primary" @click="submitForm('form')">添加</iep-button>
+        <iep-button @click="resetForm('form')">取消</iep-button>
+      </template>
+    </iep-dialog>
   </div>
 </template>
 <script>
@@ -221,16 +221,13 @@ export default {
 ::-webkit-scrollbar-track {
   border-radius: 10px;
   background-color: #fff;
-  -webkit-transition: 0.3s background-color;
   transition: 0.3s background-color;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: #ddd;
-  -webkit-transition: 0.3s background-color;
   transition: 0.3s background-color;
   display: none;
-  -webkit-transition: all 0.5s;
   transition: all 0.5s;
 }
 :hover ::-webkit-scrollbar-thumb {

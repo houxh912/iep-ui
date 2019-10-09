@@ -37,7 +37,7 @@ const fams = {
   actions: {
     async famsGetTotal ({ commit }) {
       const { data } = await getTotal()
-      if (data.msg === '1') {
+      if (['1', '2'].includes(data.msg)) {
         commit('SET_WITHDRAWABLECASH', 0)
         commit('SET_TOTALASSET', 0)
         commit('SET_DAYBELL', 0)

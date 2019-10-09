@@ -30,6 +30,7 @@ const columnsMap = [
   {
     prop: 'remarks',
     label: '描述',
+    type: 'detail',
   },
 ]
 

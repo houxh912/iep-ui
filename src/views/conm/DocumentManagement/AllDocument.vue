@@ -1,29 +1,9 @@
 <template>
-  <!-- <el-row class="aside-main" :gutter="8">
-    <el-col class="sub-menu-left" :span="4">
-      <menus></menus>
-    </el-col>
-  <el-col :span="20">-->
   <div>
     <operation-container>
       <template slot="left">
         <iep-button v-if="info_article_add" type="primary" plain @click="handleAdd">新增</iep-button>
-        <!-- <iep-button>移动</iep-button> -->
-        <!-- <el-dropdown size="medium">
-            <iep-button type="default">
-              更多操作
-              <i class="el-icon-arrow-down el-icon--right"></i>
-            </iep-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>-->
       </template>
-      <!-- <template slot="right">
-        <operation-search>
-          <advance-search @search-page="searchPage"></advance-search>
-        </operation-search>
-      </template> -->
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
       <template slot="before-columns">
@@ -38,31 +18,26 @@
           </template>
         </el-table-column>
         <el-table-column label="发布时间">
-          <template slot-scope="scope">{{scope.row.updateTime|parseToDay}}</template>
+          <template slot-scope="scope">{{scope.row.createTime|parseToDay}}</template>
         </el-table-column>
       </template>
       <el-table-column prop="operation" label="操作" width="250" fixed="right">
         <template slot-scope="scope">
           <operation-wrapper>
-            <!-- <iep-button>查看评论</iep-button> -->
             <iep-button v-if="info_article_edit" @click="handleEdit(scope.row)">编辑</iep-button>
             <iep-button v-if="info_article_del" @click="handleFalseDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
-    <!-- </el-col>
-    </el-row>-->
   </div>
 </template>
 <script>
-// import Menus from './Menus'
 import { getPage, logicDeleteNodeById } from '@/api/conm/article_controller'
 import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
 export default {
-  // components: { Menus },
   mixins: [mixins],
   data () {
     return {

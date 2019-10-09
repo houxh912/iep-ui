@@ -53,7 +53,7 @@
                 <el-form-item label="简单:" style="margin-right:20px">
                   <el-input v-model="item.simpleNum" size="mini" readonly></el-input>
                 </el-form-item>
-                <el-form-item label="普通:" style="margin-right:20px">
+                <el-form-item label="一般:" style="margin-right:20px">
                   <el-input v-model="item.middleNum" size="mini" readonly></el-input>
                 </el-form-item>
                 <el-form-item label="困难:" style="margin-right:20px">

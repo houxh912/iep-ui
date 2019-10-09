@@ -23,7 +23,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" plain @click="handleBuy(scope.row)">买入</iep-button>
-            <iep-button @click="handleWithdrawal(scope.row)">退股</iep-button>
+            <iep-button v-if="scope.row.reback" @click="handleWithdrawal(scope.row)">退股</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>

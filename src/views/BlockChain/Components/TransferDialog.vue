@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="转账" width="500px" @close="close">
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
       <iep-form-item label-name="交易金额" prop="amount">
-        <iep-input-amount v-model.number="form.amount" :max="realMaxAmount" :precision="0"></iep-input-amount>
+        <iep-input-amount v-model.number="form.amount" :max="realMaxAmount"></iep-input-amount>
       </iep-form-item>
       <iep-form-item label-name="交易方式" prop="type">
         <el-radio-group v-model="form.type">

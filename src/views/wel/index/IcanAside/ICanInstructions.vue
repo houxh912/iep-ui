@@ -19,8 +19,8 @@ export default {
         { title: '关于加快熟悉全国数字政府建设工作', time: '01-30' },
         { title: '推荐一份“数字政府主题报告VIP”', time: '01-28' },
         { title: '认识大数据，了解大数据发展', time: '01-27' },
-        { title: '关于加快学习数字政府白皮书。专家...', time: '01-20' },
-        { title: '关于20190126微信优秀项目分享...', time: '01-15' },
+        { title: '关于加快学习数字政府白皮书。专家', time: '01-20' },
+        { title: '关于20190126微信优秀项目分享', time: '01-15' },
       ],
     }
   },
@@ -49,6 +49,9 @@ export default {
   margin: 0 4px;
   height: 22px;
   line-height: 22px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .time {
   margin-left: 5px;

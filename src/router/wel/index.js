@@ -16,6 +16,11 @@ export default [
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/index/new'),
       },
       {
+        path: 'ican',
+        name: '后台首页(ican)',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/index/ican'),
+      },
+      {
         path: 'master',
         name: '推荐师父',
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/master/'),

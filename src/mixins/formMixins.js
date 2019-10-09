@@ -58,7 +58,7 @@ export default {
         }
       } catch (error) {
         this.mixinsMessage(error)
-        console.log(error, formRefName)
+        // console.log(error, formRefName)
         yield false
       } finally {
         this.submitFormLoading = false

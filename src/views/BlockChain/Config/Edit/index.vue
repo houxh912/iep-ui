@@ -1,5 +1,5 @@
 <template>
-  <keep-alive include="List">
+  <keep-alive>
     <component @onDetail="handleDetail" @onEdit="handleEdit" @onGoBack="handleGoBack" :record="record" :is="currentComponet"></component>
   </keep-alive>
 </template>

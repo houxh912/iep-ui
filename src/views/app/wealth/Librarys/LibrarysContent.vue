@@ -15,22 +15,22 @@
             </div>
             <div class="box">{{item.todayPrice}}</div>
             <div class="box">
-              <span :class="item.dailyGain>0&&!item.dailyGainInitial?'red':'green'">{{item.dailyGain==0||item.dailyGainInitial?'-':Math.round(item.dailyGain/item.yesterdayPrice * 10000) / 100 + '%'}}</span>
+              <span :class="item.dailyGain>0&&!item.dailyGainInitial?'red':'green'">{{item.dailyGain==0||item.dailyGainInitial?'-':Math.round(item.dailyGain/Math.abs(item.yesterdayPrice) * 10000) / 100 + '%'}}</span>
               <i v-if="item.dailyGain<0&&!item.dailyGainInitial" class="iconfont icon-xiadie green"></i>
               <i v-else-if="item.dailyGain>0&&!item.dailyGainInitial" class="iconfont icon-shangzhang red"></i>
             </div>
             <div class="box">
-              <span :class="item.weekGain>0&&!item.weekGainInitial?'red':'green'">{{item.weekGain==0||item.weekGainInitial?'-':Math.round(item.weekGain/item.lastWeekPrice * 10000) / 100 + '%'}}</span>
+              <span :class="item.weekGain>0&&!item.weekGainInitial?'red':'green'">{{item.weekGain==0||item.weekGainInitial?'-':Math.round(item.weekGain/Math.abs(item.lastWeekPrice) * 10000) / 100 + '%'}}</span>
               <i v-if="item.weekGain<0&&!item.weekGainInitial" class="iconfont icon-xiadie green"></i>
               <i v-else-if="item.weekGain>0&&!item.weekGainInitial" class="iconfont icon-shangzhang red"></i>
             </div>
             <div class="box">
-              <span :class="item.monthGain>0&&!item.monthGainInitial?'red':'green'">{{item.monthGain==0||item.monthGainInitial?'-':Math.round(item.monthGain/item.lastMonthPrice * 10000) / 100 + '%'}}</span>
+              <span :class="item.monthGain>0&&!item.monthGainInitial?'red':'green'">{{item.monthGain==0||item.monthGainInitial?'-':Math.round(item.monthGain/Math.abs(item.lastMonthPrice) * 10000) / 100 + '%'}}</span>
               <i v-if="item.monthGain<0&&!item.monthGainInitial" class="iconfont icon-xiadie green"></i>
               <i v-else-if="item.monthGain>0&&!item.monthGainInitial" class="iconfont icon-shangzhang red"></i>
             </div>
             <div class="box">
-              <span :class="item.marchGain>0&&!item.marchGainInitial?'red':'green'">{{item.marchGain==0||item.marchGainInitial?'-':Math.round(item.marchGain/item.threeMonthPrice * 10000) / 100 + '%'}}</span>
+              <span :class="item.marchGain>0&&!item.marchGainInitial?'red':'green'">{{item.marchGain==0||item.marchGainInitial?'-':Math.round(item.marchGain/Math.abs(item.threeMonthPrice) * 10000) / 100 + '%'}}</span>
               <i v-if="item.marchGain<0&&!item.marchGainInitial" class="iconfont icon-xiadie green"></i>
               <i v-else-if="item.marchGain>0&&!item.marchGainInitial" class="iconfont icon-shangzhang red"></i>
             </div>

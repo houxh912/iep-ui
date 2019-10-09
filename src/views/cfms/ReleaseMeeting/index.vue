@@ -90,7 +90,7 @@
           <iep-button class="button" type="primary" @click="handEdit('formName')">修改</iep-button>
         </el-col>
         <el-col :offset="9" v-else>
-          <iep-button class="button" type="primary" @click="draft('formName')">草稿</iep-button>
+          <iep-button class="button" type="primary" @click="draft('formName')">存为草稿</iep-button>
           <iep-button class="button" type="primary" @click="preview('formName')">预览 </iep-button>
           <iep-button class="button" type="primary" @click="submitForm('formName')">发布</iep-button>
         </el-col>

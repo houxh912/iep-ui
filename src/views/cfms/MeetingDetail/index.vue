@@ -106,7 +106,6 @@
           <div class="content">
             <iep-html v-model="form.content"></iep-html>
           </div>
-          <!-- <el-input type="textarea" :autosize="{ minRows: 20, maxRows: 25}" v-model="form.content" readonly></el-input> -->
         </el-col>
         <el-col :span="8">
           <iep-page-header title="会议地点"></iep-page-header>
@@ -325,6 +324,7 @@ export default {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
+  overflow: auto;
 }
 .map {
   width: 100%;

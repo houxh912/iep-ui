@@ -260,6 +260,7 @@ export default {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 20px;
+  overflow: auto;
 }
 .map {
   width: 100%;

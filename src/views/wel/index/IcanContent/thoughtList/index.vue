@@ -1,5 +1,5 @@
 <template>
-  <iep-app-layout>
+  <div>
     <headTpl class="head" @load-page="loadPage"></headTpl>
     <tabsTpl v-model="tabName" :tab-list="tabList" class="content">
       <!-- 说说列表 -->
@@ -25,7 +25,7 @@
       </template>
     </tabsTpl>
 
-  </iep-app-layout>
+  </div>
 </template>
 
 <script>

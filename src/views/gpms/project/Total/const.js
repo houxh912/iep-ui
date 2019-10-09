@@ -14,6 +14,12 @@ export const dictMap = {
     { value: 1, label: '是' },
     { value: 2, label: '否' },
   ],
+  is_open: [
+    { value: 3, label: '对联盟开放' },
+    { value: 2, label: '对组织开放' },
+    { value: 1, label: '不开放' },
+    { value: 0, label: '开放' },
+  ],
   projectStatus: {
     1:'待提交',2:'待审核',3:'已立项',4:'审核未通过',5:'锁定',
   },
@@ -188,6 +194,7 @@ export function initFormData (obj) {
     projectStage: '',
     orgId:'',
     isClaim: 1,
+    isOpen:3,
   }
 }
 

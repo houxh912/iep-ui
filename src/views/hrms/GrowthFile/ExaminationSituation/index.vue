@@ -1,5 +1,5 @@
 <template>
-  <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable">
+  <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable" :pagination="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange">
     <el-table-column prop="examStatus" label="考试状态" width="150">
       <template slot-scope="scope">
         <el-tag type="success" size="medium" v-if="scope.row.examStatus === 0">已报名</el-tag>

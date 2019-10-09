@@ -216,6 +216,7 @@ export default {
           loading: false,
           disabled: false,
           fn: 'handlePreview',
+          type:'primary',
         },
         {
           label: '保存',

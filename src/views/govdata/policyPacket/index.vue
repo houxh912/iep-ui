@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column prop="operation" align="center" label="操作" width="200">
           <template slot-scope="scope">
-            <el-button @click="handleView(scope.row)" type="text" size="small" icon="el-icon-view">预览</el-button>
+            <el-button @click="handleView(scope.row)" type="warning" size="small" icon="el-icon-view" plain>预览</el-button>
             <iep-divider type="vertical" />
             <el-button @click="handleClickMotify(scope.row)" type="text" size="small" icon="el-icon-edit" v-if="scope.row.status === 0">更新</el-button>
             <iep-divider type="vertical" />

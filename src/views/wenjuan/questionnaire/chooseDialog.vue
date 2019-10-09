@@ -8,7 +8,7 @@
       <avue-crud @selection-change="selectionChange" :option="chooseOption" :data="tableList" :table-loading="tableLoading" @size-change="sizeChange" @current-change="currentChange" :page="pagination">
         <template slot-scope="scope" slot="menu">
           <div class="table-btn-group">
-            <gov-button @click="handleSelect(scope.row)" type="text">选择</gov-button>
+            <gov-button @click="handleSelect(scope.row)" type="warning" plain>选择</gov-button>
             <gov-button @click="handleDetail(scope.row)" type="text">预览</gov-button>
           </div>
         </template>

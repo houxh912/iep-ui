@@ -66,7 +66,7 @@ export default {
         status: this.status, // 用来变更状态
         content: this.content,
       }).then(({ data }) => {
-        this.submitFormLoading = true
+        this.submitFormLoading = false
         if (data.data) {
           this.$message.success('操作成功')
         } else {

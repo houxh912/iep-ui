@@ -1,6 +1,6 @@
 <template>
-  <el-popover placement="bottom" width="336" trigger="click">
-    <iep-img src="/img/qrcode.webp"></iep-img>
+  <el-popover placement="bottom" width="200" trigger="click">
+    <qrcode value="//iep.govmade.com" :options="{width:170,margin:1}"></qrcode>
     <el-tooltip slot="reference" effect="dark" content="手机版二维码" placement="bottom">
       <iep-button>
         <a-icon type="scan" />
@@ -8,14 +8,6 @@
     </el-tooltip>
   </el-popover>
 </template>
-
-<style lang="css" scoped>
-.item >>> .el-badge__content.is-fixed {
-  z-index: 1;
-  top: 20px;
-  right: 22px;
-}
-</style>
 <style lang="scss" scoped>
 button {
   border: 0;

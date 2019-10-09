@@ -11,7 +11,7 @@
         <template slot="before-columns">
           <el-table-column prop="company" label="组织名" width="300">
             <template slot-scope="scope">
-              <iep-table-link-img-desc :img="scope.row.orgLogo" :name="scope.row.orgName" v-on:m-click="handleDetail(scope.row)"></iep-table-link-img-desc>
+              <iep-table-link-img-desc :img="scope.row.orgLogo" :name="scope.row.orgName"></iep-table-link-img-desc>
             </template>
           </el-table-column>
         </template>
@@ -49,11 +49,6 @@ export default {
       this.$refs['iepReviewForm'].id = row.id
       this.$refs['iepReviewForm'].formRequestFn = ReviewInvestmentBatch
       this.$refs['iepReviewForm'].dialogShow = true
-    },
-    handleDetail (row) {
-      this.$router.push({
-        path: `/fams_spa/management_detail/${row.id}`,
-      })
     },
     handleChange () {
       this.loadPage()

@@ -39,7 +39,7 @@
       </el-row>
     </el-col>
 
-    <el-col class="right">
+    <!-- <el-col class="right">
       <div class="info">
         <div class="name">{{formData.creatorRealName}}</div>
         <div class="num">共{{materialTotal}}篇材料</div>
@@ -52,7 +52,7 @@
         <h3>优秀材料</h3>
         <p v-for="(item, index) in greatMaterialList" :key="index" @click="handleDetail(item)">{{item.name}}</p>
       </div>
-    </el-col>
+    </el-col> -->
     <!-- 拜师 -->
     <el-dialog title="拜师" :visible.sync="apprenticeShow" width="330px" center>
       <div style="text-align: center;">是否确认向 【{{formData.creatorRealName}}】 拜师</div>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import { getGreatMaterial, getMaterialTotal } from '@/api/mlms/material/datum/material'
+// import { getGreatMaterial, getMaterialTotal } from '@/api/mlms/material/datum/material'
 import { downloadCount, getDataById } from '@/api/mlms/material/datum/aptitude'
 import { commentMaterial, getCommentPage } from '@/api/mlms/index'
 import { downloadFile } from '@/api/common'
@@ -181,12 +181,12 @@ export default {
         this.formData = data.data
         this.getComment(data.data.id)
         // 获取优秀材料
-        getGreatMaterial(data.data.creator).then(({ data }) => {
-          this.greatMaterialList = data
-        })
-        getMaterialTotal(data.data.creator).then(({ data }) => {
-          this.materialTotal = data.data
-        })
+        // getGreatMaterial(data.data.creator).then(({ data }) => {
+        //   this.greatMaterialList = data
+        // })
+        // getMaterialTotal(data.data.creator).then(({ data }) => {
+        //   this.materialTotal = data.data
+        // })
       })
     },
     open (id) {
@@ -258,7 +258,8 @@ export default {
 
 <style lang="scss" scoped>
 .left {
-  width: calc(100% - 370px);
+  // width: calc(100% - 370px);
+  width: 100%;
   margin-right: 20px;
   .info {
     display: flex;

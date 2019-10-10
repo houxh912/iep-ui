@@ -32,14 +32,22 @@
           </el-form-item>
           <el-form-item label="是否带库：" prop="tapeLibrary" class="form-half">
             <el-radio-group v-model="form.tapeLibrary">
-              <el-radio label="1">是</el-radio>
-              <el-radio label="0">否</el-radio>
+              <el-radio :label="1">是</el-radio>
+              <el-radio :label="0">否</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="是否典型项目应用：" prop="isCase" class="form-half">
             <el-radio-group v-model="form.isCase">
               <el-radio :label="1">是</el-radio>
               <el-radio :label="0">否</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="开放范围：" prop="isOpen" class="form-half">
+            <el-radio-group v-model="form.isOpen">
+              <el-radio :label="0">生态开放</el-radio>
+              <el-radio :label="1">不开放</el-radio>
+              <el-radio :label="2">对组织开放</el-radio>
+              <el-radio :label="3">对联盟开放</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="组合系统估值(元)：" prop="valuation" class="form-half">

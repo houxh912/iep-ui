@@ -43,19 +43,21 @@
         </el-form-item>
       </el-form>
 
-      <el-divider>其他方式登录</el-divider>
-      <div class="social-container">
-        <div class="box qq" @click="handleClick('tencent')">
-          <span class="container">
-            <i icon-class="qq" class="iconfont icon-qq"></i>
-          </span>
+      <template v-if="false">
+        <el-divider>其他方式登录</el-divider>
+        <div class="social-container">
+          <div class="box qq" @click="handleClick('tencent')">
+            <span class="container">
+              <i icon-class="qq" class="iconfont icon-qq"></i>
+            </span>
+          </div>
+          <div class="box wechat" @click="handleClick('wechat')">
+            <span class="container">
+              <i icon-class="wechat" class="iconfont icon-weixin"></i>
+            </span>
+          </div>
         </div>
-        <div class="box wechat" @click="handleClick('wechat')">
-          <span class="container">
-            <i icon-class="wechat" class="iconfont icon-weixin"></i>
-          </span>
-        </div>
-      </div>
+      </template>
 
     </div>
     <select-dialog ref="SelectDialog" @load-page="refreshPage()" @login="handleSocialLogin()" @have="handleHave()"></select-dialog>

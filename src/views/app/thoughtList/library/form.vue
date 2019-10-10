@@ -199,7 +199,7 @@ export default {
       initForm = () => {
         return {
           content: this.subject,
-          status: 0,
+          status: 3,
           images: [],
           tags: [],
         }

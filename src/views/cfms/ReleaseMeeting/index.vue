@@ -102,7 +102,7 @@
 <script>
 import { initForm, rules } from './option'
 import { mapGetters } from 'vuex'
-import { postMeetingmarketing, getCodeName, getmeetingmarketing, putMeetingmarketing } from '@/api/mcms/meeting'
+import { postMeetingmarketing, getCodeName, getmeetingmarketing, putMeetingmarketing, getCode } from '@/api/mcms/meeting'
 import AvatarImg from './IepAvatar.vue'
 import TagDialog from './TagDialog.vue'
 function flatten (arr) {
@@ -255,10 +255,16 @@ export default {
           // this.formData.meetingUrl = window.location.host + '/meeting'
           this.formData.meetingUrl = 'http://www.icanvip.net/meeting'
           this.formData.meetingClasses2 = this.tags.map(m => m.value)
-          postMeetingmarketing(this.formData).then((res) => {
-            this.$message({
-              message: res.data.msg,
-              type: 'success',
+          getCode({ code: this.formData.cityAdrss[0] }).then((res) => {
+            this.formData.provinceName = res.data
+            getCode({ code: this.formData.cityAdrss[1] }).then((res) => {
+              this.formData.cityName = res.data
+              postMeetingmarketing(this.formData).then((res) => {
+                this.$message({
+                  message: res.data.msg,
+                  type: 'success',
+                })
+              })
             })
           })
         } else {
@@ -271,10 +277,16 @@ export default {
         if (valid) {
           // this.formData.meetingUrl = 'http://www.home.icanvip.net/meeting'
           this.formData.meetingClasses2 = this.tags.map(m => m.value)
-          putMeetingmarketing(this.formData).then((res) => {
-            this.$message({
-              message: res.data.msg,
-              type: 'success',
+          getCode({ code: this.formData.cityAdrss[0] }).then((res) => {
+            this.formData.provinceName = res.data
+            getCode({ code: this.formData.cityAdrss[1] }).then((res) => {
+              this.formData.cityName = res.data
+              putMeetingmarketing(this.formData).then((res) => {
+                this.$message({
+                  message: res.data.msg,
+                  type: 'success',
+                })
+              })
             })
           })
         } else {

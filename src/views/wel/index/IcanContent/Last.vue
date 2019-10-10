@@ -18,6 +18,7 @@ div {
   }
   .content {
     margin-right: 10px;
+    color: #666;
   }
 }
 </style>

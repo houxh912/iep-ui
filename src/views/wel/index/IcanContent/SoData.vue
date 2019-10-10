@@ -5,42 +5,42 @@
         <div class="icon bg1"><i class="icon-jiandati"></i></div>
         <div class="text">
           <div>材料</div>
-          <div>666</div>
+          <div class="number">666</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg2"><i class="icon-survey-library"></i></div>
         <div class="text">
           <div>项目</div>
-          <div>666</div>
+          <div class="number">666</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg3"><i class="icon-xiangmu"></i></div>
         <div class="text">
           <div>方案</div>
-          <div>666</div>
+          <div class="number">666</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg4"><i class="icon-kehu"></i></div>
         <div class="text">
           <div>客户</div>
-          <div>666</div>
+          <div class="number">666</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg5"><i class="icon-tongji1"></i></div>
         <div class="text">
           <div>合同</div>
-          <div>666</div>
+          <div class="number">666</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg6"><i class="icon-chanpin"></i></div>
         <div class="text">
           <div>产品</div>
-          <div>666</div>
+          <div class="number">666</div>
         </div>
       </div>
     </div>
@@ -56,22 +56,22 @@ export default {
 </script>
 <style lang="scss" scoped>
 .bg1 {
-  background: #05a055;
+  background: #e9b176;
 }
 .bg2 {
-  background: #33c3d6;
+  background: #e3797d;
 }
 .bg3 {
-  background: #2c53d3;
+  background: #77b4e3;
 }
 .bg4 {
-  background: #d32b87;
+  background: #8dc7af;
 }
 .bg5 {
-  background: #ecbb1b;
+  background: #bfc78c;
 }
 .bg6 {
-  background: #ec331b;
+  background: #9c9de0;
 }
 .data {
   margin: 20px;
@@ -95,6 +95,10 @@ export default {
     flex-direction: column;
     justify-content: center;
     margin-left: 10px;
+    .number {
+      font-size: 18px;
+      color: #333;
+    }
   }
 }
 </style>

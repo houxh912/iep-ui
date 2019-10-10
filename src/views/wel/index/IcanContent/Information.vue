@@ -103,6 +103,7 @@ export default {
   .time {
     flex: 0 0 100px;
     text-align: right;
+    color: #999;
   }
 }
 .information-wrapper {

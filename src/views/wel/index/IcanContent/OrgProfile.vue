@@ -20,31 +20,31 @@
       </div>
       <div class="data-wrapper">
         <div>
-          <div>670</div>
+          <div class="number">670</div>
           <div>信用值</div>
         </div>
         <div>
-          <div>670</div>
+          <div class="number">670</div>
           <div>活跃度</div>
         </div>
         <div>
-          <div>670</div>
+          <div class="number">670</div>
           <div>关注量</div>
         </div>
         <div>
-          <div>670</div>
+          <div class="number">670</div>
           <div>数据资产</div>
         </div>
         <div>
-          <div>670</div>
+          <div class="number">670</div>
           <div>组织成员</div>
         </div>
         <div>
-          <div>670</div>
+          <div class="number">670</div>
           <div>组织财富</div>
         </div>
         <div>
-          <div>670</div>
+          <div class="number">670</div>
           <div>资料完善</div>
         </div>
       </div>
@@ -60,9 +60,14 @@
     width: 100%;
     text-align: center;
     border-right: 1px solid #eee;
+    color: #999;
     &:last-child {
       border: none;
     }
+  }
+  .number {
+    font-size: 18px;
+    color: #333;
   }
 }
 .desc-wrapper {
@@ -98,9 +103,10 @@
     }
     .label {
       font-size: 14px;
-      padding: 2px 5px;
+      padding: 0px 5px;
       border: 1px solid #eee;
       color: $--color-primary;
+      border-radius: 4px;
     }
   }
 }

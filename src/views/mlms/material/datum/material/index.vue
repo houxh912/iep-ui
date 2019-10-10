@@ -4,15 +4,7 @@
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
-            <iep-button size="small" type="primary" icon="el-icon-plus" plain>新增<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <div @click="localCreate">本地上传</div>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <div @click="newlyCreate">新建文档</div>
-              </el-dropdown-item>
-            </el-dropdown-menu>
+            <iep-button size="small" type="primary" icon="el-icon-plus" plain  @click="handleCreateForm">新增</iep-button>
           </el-dropdown>
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
@@ -62,8 +54,9 @@
         </el-table-column>
       </iep-table>
     </div>
-    <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass"></local-dialog>
-    <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'" :firstClass="firstClass"></newly-dialog>
+    <!-- <local-dialog ref="local" @load-page="loadPage" v-if="pageState=='local'" :firstClass="firstClass"></local-dialog>
+    <newly-dialog ref="newly" @load-page="loadPage" v-if="pageState=='newly'" :firstClass="firstClass"></newly-dialog> -->
+    <formTpl ref="form" @load-page="loadPage" v-if="pageState === 'form'" :firstClass="firstClass"></formTpl>
     <collection-dialog ref="collection" @load-page="loadPage" type="material" :requestFn="createCollect"></collection-dialog>
     <upload-file ref="uploadFile" @upload-success="uploadSuccess" @update-success="updateSuccess"></upload-file>
     <share-dialog ref="share" type="material"></share-dialog>
@@ -77,8 +70,7 @@ import { tableOption, dictsMap } from './option'
 import { getTableData, getTableDataOnlyMe, deleteData, getDataById, getVersion } from '@/api/mlms/material/datum/material'
 import { createCollect } from '@/api/mlms/material/summary'
 import UploadFile from './uploadFile'
-import LocalDialog from './localDialog'
-import NewlyDialog from './newlyDialog'
+import formTpl from './form'
 import CollectionDialog from '../../components/collectionDialog'
 import ShareDialog from '@/views/mlms/material/components/shareDialog'
 import { getConfigureTree } from '@/api/mlms/material/datum/configure'
@@ -88,7 +80,7 @@ import searchForm from './searchForm'
 
 export default {
   mixins: [mixins],
-  components: { LocalDialog, NewlyDialog, CollectionDialog, ShareDialog, DetailDialog, UploadFile, searchForm },
+  components: { formTpl, CollectionDialog, ShareDialog, DetailDialog, UploadFile, searchForm },
   computed: {
     ...mapGetters(['permissions', 'userInfo']),
   },
@@ -115,12 +107,12 @@ export default {
   },
   methods: {
     handleEdit (row) {
+      this.pageState = 'form'
       // 0是本地，1是新建
-      this.pageState = row.type === 0 ? 'local' : 'newly'
       getDataById(row.id).then((res) => {
-        this.$refs[this.pageState].firstClassChange(res.data.data.firstClass)
-        this.$refs[this.pageState].formData = res.data.data
-        this.$refs[this.pageState].methodName = 'update'
+        this.$refs['form'].firstClassChange(res.data.data.firstClass)
+        this.$refs['form'].formData = res.data.data
+        this.$refs['form'].methodName = 'update'
       })
     },
     handleDeleteById (row) {
@@ -165,6 +157,19 @@ export default {
       this.pageState = 'newly'
       this.$nextTick(() => {
         this.$refs[this.pageState].methodName = 'create'
+      })
+    },
+    // 新建
+    handleCreateForm (row) {
+      this.pageState = 'form'
+      this.$nextTick(() => {
+        this.$refs['form'].methodName = 'create'
+        let obj = {
+          materialName: row[0].name,
+          uploader: this.userInfo.realName,
+          attachFileList: row,
+        }
+        this.$refs['form'].formData = Object.assign({}, this.$refs['form'].formData, obj)
       })
     },
     // 详情

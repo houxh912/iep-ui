@@ -86,8 +86,9 @@ export default {
         await this.GetUserInfo()
         await this.GetMenu()
         loading.close()
-        this.$message({
-          message: 'SO切换成功！',
+        this.$notify({
+          title: 'SO切换成功！',
+          message: `已切换为 ${org.name} SO`,
           type: 'success',
         })
         this.$router.push({

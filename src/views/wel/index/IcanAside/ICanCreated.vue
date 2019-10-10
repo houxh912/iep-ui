@@ -73,12 +73,13 @@ export default {
 }
 .my-wrapper {
   display: grid;
-  grid-template-columns: auto auto auto auto auto;
+  grid-template-columns: repeat(5, 20%);
+  margin-top: 10px;
   text-align: center;
   grid-gap: 1px;
   color: #666;
   div {
-    padding: 10px 0;
+    padding: 8px 0;
     font-size: 14px;
     background-color: #fff;
     cursor: pointer;

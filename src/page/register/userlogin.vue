@@ -134,6 +134,7 @@ export default {
           { min: 6, message: '密码长度最少为6位', trigger: 'blur' },
         ],
         phone: [{ required: true, trigger: 'blur', validator: validatePhone }],
+        realName: [{ required: true, trigger: 'blur', message: '请输入真实姓名' }],
       },
       passwordType: 'password',
     }

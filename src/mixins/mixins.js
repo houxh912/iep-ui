@@ -18,7 +18,15 @@ export default {
   },
   methods: {
     _pageOption () {
-      return pageOption()
+      const page = {
+        current: this.$route.query.current || 0,
+        size: this.$route.query.size || 0,
+      }
+      if (page.current && page.size) {
+        return page
+      } else {
+        return pageOption()
+      }
     },
     searchPage (param) {
       this.pageOption = this._pageOption()
@@ -41,10 +49,12 @@ export default {
     },
     handleSizeChange (val) {
       this.pageOption.size = val
+      this.$router.push({ query: { ...this.$route.query, ...this.pageOption } })
       this.loadPage()
     },
     handleCurrentChange (val) {
       this.pageOption.current = val
+      this.$router.push({ query: { ...this.$route.query, ...this.pageOption } })
       this.loadPage()
     },
     _handleGlobalDeleteById (id, delFunction) {

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tags-function">
     <basic-container>
       <el-table :data="tableData" style="width: 100%" border>
         <el-table-column label="标签功能">
@@ -44,3 +44,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.tags-function>>>.el-switch.is-checked .el-switch__core{
+      border-color: rgb(19, 206, 102);
+    background-color: rgb(19, 206, 102);
+}
+</style>

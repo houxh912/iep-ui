@@ -2,7 +2,7 @@
   <i-can-content class="my-content" title-name="消息">
     <div class="my-wrapper">
       <div class="item">
-        <div class="icon"><i class="icon-jiandati"></i></div>
+        <div class="icon bg1"><i class="icon-jiandati"></i></div>
         <div class="text">
           <div class="require">
             <div>待处理请求</div>
@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="item">
-        <div class="icon"><i class="icon-jiandati"></i></div>
+        <div class="icon bg2"><i class="icon-survey-library"></i></div>
         <div class="text">
           <div class="require">
             <div>好友/徒弟添加请求</div>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="item">
-        <div class="icon"><i class="icon-jiandati"></i></div>
+        <div class="icon bg3"><i class="icon-xiangmu"></i></div>
         <div class="text">
           <div class="require">
             <div>谁邀请我</div>
@@ -49,6 +49,15 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.bg1 {
+  background: #05a055;
+}
+.bg2 {
+  background: #33c3d6;
+}
+.bg3 {
+  background: #2c53d3;
+}
 .data {
   margin: 20px;
   width: 100%;
@@ -60,7 +69,6 @@ export default {
   padding: 8px 10px 0 10px;
   .icon {
     display: flex;
-    background-color: #213133;
     border-radius: 50%;
     height: 50px;
     width: 50px;

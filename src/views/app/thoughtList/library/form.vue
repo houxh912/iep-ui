@@ -5,14 +5,7 @@
         <el-input @click.native="handleCancal" id="keyupStart" ref="content" type="textarea" rows="5" :placeholder="subjectPlaceholder" v-model="formData.content" class="textarea" maxlength="1000" @keyup.native="handleKeyup"></el-input>
         <div class="yincang">
           {{formData.content}}
-          <el-autocomplete
-            ref="autocomplete"
-            v-model="state"
-            :fetch-suggestions="querySearchAsync"
-            placeholder="请输入内容"
-            @select="handleSelect"
-            placement="top-end"
-          ></el-autocomplete>
+          <el-autocomplete ref="autocomplete" v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" placement="top-end"></el-autocomplete>
         </div>
       </el-form-item>
       <div class="img-list" v-if="formData.images.length > 0">
@@ -20,39 +13,29 @@
           <div class="close" @click="handleDeleteImage(index)"><i class="el-icon-close"></i></div>
           <iep-img :src="item"></iep-img>
         </div>
-        <el-upload
-          v-if="formData.images.length < 9"
-          class="avatar-uploader"
-          action="/api/admin/file/upload/avatar"
-          :show-file-list="false"
-          :headers="headers"
-          :on-success="handleAvatarSuccess"
-          accept="image/*"
-          ref="upload">
+        <el-upload v-if="formData.images.length < 9" class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*" ref="upload">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </div>
       <div class="button-list">
         <div class="func" @click="handleImage" v-if="formData.images.length === 0 && transmitId === -1">
-          <el-upload
-            action="/api/admin/file/upload/avatar"
-            :show-file-list="false"
-            :headers="headers"
-            :on-success="handleAvatarSuccess"
-            accept="image/*"
-            :before-upload="beforeUpload"
-            ref="upload">
-            <div class="func"><i class="icon-tupian"></i><p>图片</p></div>
+          <el-upload action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*" :before-upload="beforeUpload" ref="upload">
+            <div class="func"><i class="icon-tupian"></i>
+              <p>图片</p>
+            </div>
           </el-upload>
         </div>
         <div class="func" v-if="formData.images.length > 0 && transmitId === -1">
-          <i class="icon-tupian"></i><p>图片</p>
+          <i class="icon-tupian"></i>
+          <p>图片</p>
         </div>
         <div class="func" @click="handleAnt">
-          <i class="symbol">@</i><p>提醒</p>
+          <i class="symbol">@</i>
+          <p>提醒</p>
         </div>
         <div class="func" @click="handleSubject">
-          <i class="symbol">#</i><p>话题</p>
+          <i class="symbol">#</i>
+          <p>话题</p>
         </div>
         <div class="label">
           <label>说说标签：</label>
@@ -91,7 +74,7 @@ import image from '@/mixins/image'
 var initForm = () => {
   return {
     content: '',
-    status: 0,
+    status: 3,
     images: [],
     tags: [],
   }
@@ -120,7 +103,7 @@ const rules = {
 }
 
 export default {
-  mixins: [ keyup, image ],
+  mixins: [keyup, image],
   props: {
     subject: {
       type: String,
@@ -261,7 +244,7 @@ export default {
         overflow: hidden;
       }
       .avatar-uploader:hover {
-        border-color: #409EFF;
+        border-color: #409eff;
       }
       .avatar-uploader-icon {
         font-size: 28px;

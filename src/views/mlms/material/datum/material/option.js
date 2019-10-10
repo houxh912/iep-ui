@@ -57,7 +57,7 @@ export const initLocalForm = () => {
     isContri: 0,
     attachFileList: [],
     attachFile: '',
-    isOpen: 2,
+    isOpen: 3,
     secrecyLevel: 0,
   }
 }

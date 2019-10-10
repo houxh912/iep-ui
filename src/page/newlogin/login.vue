@@ -44,7 +44,7 @@
         </el-form-item>
       </el-form>
 
-      <template v-if="false">
+      <template v-if="true">
         <el-divider>其他方式登录</el-divider>
         <div class="social-container">
           <div class="box qq" @click="handleClick('tencent')">

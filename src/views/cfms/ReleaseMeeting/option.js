@@ -7,6 +7,8 @@ const initForm = () => {
     meetingTimeStart: '',//开始时间
     meetingTimeEnd: '',//结束时间
     cityAdrss: [],  //省市地址
+    provinceName: '',//省名称
+    cityName: '',//城市名称
     meetingAddress: '', //详细地址
     meetingClasses1: [], //会议分类
     meetingClasses2: [],//会议子分类

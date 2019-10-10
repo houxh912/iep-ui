@@ -1,17 +1,19 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="名单管理" width="80%" @close="resetForm">
-    <operation-container>
-      <template slot="left">
-        <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
-        <iep-button @click="handleSign" plain>签到</iep-button>
-        <iep-button @click="handleDelte" plain>删除</iep-button>
-      </template>
-      <template slot="right">
-        <search advance-search @search-page="searchPage" prop='inName' :id="id">
-          <advance-search @search-page="searchPage" :id="id"></advance-search>
-        </search>
-      </template>
-    </operation-container>
+    <template slot="header">
+      <operation-container>
+        <template slot="left">
+          <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
+          <iep-button @click="handleSign" plain>签到</iep-button>
+          <iep-button @click="handleDelte" plain>删除</iep-button>
+        </template>
+        <template slot="right">
+          <search advance-search @search-page="searchPage" prop='inName' :id="id">
+            <advance-search @search-page="searchPage" :id="id"></advance-search>
+          </search>
+        </template>
+      </operation-container>
+    </template>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsName" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" :isMutipleSelection="isTrue" @selection-change="handleSelectionChange" @size-change="handleSizeChange" @current-change="handleCurrentChange">
     </iep-table>
     <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
@@ -24,9 +26,10 @@ import { geTmeetingsignup, postMeetingsignupStatus, deleteMeetingsignup } from '
 import AdvanceSearch from './AdvanceSearch'
 import EditDialog from './EditDialog'
 import Search from './Search'
+import IepDialog from './IepDialog'
 export default {
   mixins: [mixins],
-  components: { AdvanceSearch, EditDialog, Search },
+  components: { AdvanceSearch, EditDialog, Search, IepDialog },
   data () {
     return {
       dialogShow: false,

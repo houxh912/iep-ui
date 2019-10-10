@@ -103,3 +103,11 @@ export function meetingmarketingDelete (ids) {
     data: ids,
   })
 }
+//根据code获取城市名字
+export function getCode (query) {
+  return request({
+    url: '/crm/customer/code/name',
+    method: 'get',
+    params: query,
+  })
+}

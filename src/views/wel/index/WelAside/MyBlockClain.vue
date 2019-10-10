@@ -20,7 +20,7 @@
 <script>
 // import { addBellBalanceRule } from '@/api/fams/balance_rule'
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import { getAccountInfo } from '@/api/fams/block_chain'
+import { getAmount } from '@/api/fams/block_chain'
 export default {
   data () {
     return {
@@ -46,8 +46,8 @@ export default {
       setShowMoney: 'SET_SHOWMONEY',
     }),
     async loadPage () {
-      const { data } = await getAccountInfo()
-      this.totalAsset = data.data.balance
+      const { data } = await getAmount()
+      this.totalAsset = data.data
     },
     handleShowMoney () {
       this.setShowMoney(!this.showMoney)

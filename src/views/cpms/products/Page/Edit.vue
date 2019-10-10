@@ -42,7 +42,7 @@
               <el-radio :label="0">否</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="开放范围：" prop="isOpen" class="form-half">
+          <el-form-item label="开放范围：" prop="isOpen">
             <el-radio-group v-model="form.isOpen">
               <el-radio :label="0">生态开放</el-radio>
               <el-radio :label="1">不开放</el-radio>

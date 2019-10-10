@@ -34,15 +34,6 @@
       </div>
       <div class="button-list">
         <div class="func" @click="handleImage" v-if="formData.images.length === 0 && transmitId === -1">
-          <!-- <el-upload
-            action="/api/admin/file/upload/avatar"
-            :show-file-list="false"
-            :headers="headers"
-            :on-success="handleAvatarSuccess"
-            accept="image/*"
-            ref="upload">
-            <div class="func"><i class="icon-tupian"></i><p>图片</p></div>
-          </el-upload> -->
           <el-upload
             action="/api/admin/file/upload/avatar"
             :show-file-list="false"
@@ -63,22 +54,27 @@
         <div class="func" @click="handleSubject">
           <i class="symbol">#</i><p>话题</p>
         </div>
+        <div class="label">
+          <label>说说标签：</label>
+          <iep-tag v-model="formData.tags"></iep-tag>
+        </div>
+        <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">发布</iep-button>
+      </div>
+      <div class="button-list">
         <div class="switch">
           <p>是否开放：</p>
-          <el-switch
+          <el-radio-group v-model="formData.status">
+            <el-radio :label="item.value" v-for="(item, index) in dictMaps.status" :key="index">{{item.label}}</el-radio>
+          </el-radio-group>
+          <!-- <el-switch
             class="el-switch"
             v-model="formData.status"
             active-color="#13ce66"
             inactive-color="#bbb"
             :active-value="0"
             :inactive-value="1">
-          </el-switch>
+          </el-switch> -->
         </div>
-        <div class="label">
-          <label>说说标签：</label>
-          <iep-tag v-model="formData.tags"></iep-tag>
-        </div>
-        <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">发布</iep-button>
       </div>
     </el-form>
   </div>
@@ -100,6 +96,24 @@ var initForm = () => {
     images: [],
     tags: [],
   }
+}
+
+const dictMaps = {
+  status: [
+    {
+      label: '生态开放',
+      value: 0,
+    }, {
+      label: '不开放',
+      value: 1,
+    }, {
+      label: '对组织开放',
+      value: 2,
+    }, {
+      label: '对联盟开放',
+      value: 3,
+    },
+  ],
 }
 
 const rules = {
@@ -128,6 +142,7 @@ export default {
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
       },
+      dictMaps,
     }
   },
   methods: {

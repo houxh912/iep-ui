@@ -2,6 +2,7 @@ const utils = require('./config/utils')
 const cacheGroups = require('./config/cacheGroups')
 const devServer = require('./config/devServer')
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production'
 const externals = {
@@ -94,21 +95,6 @@ module.exports = {
     if (isProduction) {
       // 用cdn方式引入
       config.optimization = {
-        minimizer: [
-          new TerserPlugin({
-            cache: true,
-            parallel: true,
-            sourceMap: false, // Must be set to true if using source-maps in production
-            terserOptions: {
-              compress: {
-                warnings: false,
-                drop_debugger: true,
-                // drop_console: true,
-              }
-              // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
-            }
-          }),
-        ],
         providedExports: true,
         usedExports: true,
         //识别package.json中的sideEffects以剔除无用的模块，用来做tree-shake
@@ -148,7 +134,7 @@ module.exports = {
       // pass options to sass-loader
       sass: {
         // 引入全局变量样式,@使我们设置的别名,执行src目录
-        data: `
+        prependData: `
             @import "@/styles/approval.scss";
             @import "@/styles/variables.scss";
         `,

@@ -66,7 +66,7 @@ export default {
 }
 .item {
   display: flex;
-  padding: 8px 10px 0 10px;
+  padding: 15px 10px 0 10px;
   .icon {
     display: flex;
     border-radius: 50%;

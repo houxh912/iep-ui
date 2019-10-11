@@ -10,6 +10,7 @@ const initForm = () => {
     publisher: '', //发布者
     publishDate: '', //发布日期
     reciver: '', //认领人
+    isOpen: 3,
   }
 }
 // 全部客户搜索

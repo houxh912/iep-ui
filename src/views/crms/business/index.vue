@@ -108,6 +108,7 @@ export default {
           intentionLevel: formData.intentionLevel[0].commonId, // 意向程度 intentionLevel
           tags: formData.tags.map(m => m.commonName), // 商机标签 businessTag
           opportunityDes: formData.opportunityDes, // 商机描述
+          isOpen: formData.isOpen,
         }
         this.$refs['EditDrawer'].flag = formData.clientName
       })

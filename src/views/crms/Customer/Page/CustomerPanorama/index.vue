@@ -40,7 +40,7 @@
         </el-row>
       </div>
       <div class="other">
-        <div class="item" v-if="formData.projects.length==0?false:true">
+        <div class="item" >
           <div class="label">合作项目：</div>
           <div class="value">
             <div class="dot" v-for="(item, index) in formData.projects" :key="index">{{item.name}}<span>（合同金额：{{item.amount}}）</span></div>
@@ -53,13 +53,13 @@
             <iep-tag-detail v-model="formData.tagsName"></iep-tag-detail>
           </div>
         </div>
-        <div class="item" v-if="formData.products.length==0?false:true">
+        <div class="item" >
           <div class="label">相关产品：</div>
           <div class="value">
             <div class="dot" v-for="(item,index) in formData.products" :key="index">{{item}}</div>
           </div>
         </div>
-        <div class="item" v-if="formData.programs.length==0?false:true">
+        <div class="item" >
           <div class="label">相关方案：</div>
           <div class="value">
             <div class="dot" v-for="(item,index) in formData.programs" :key="index">{{item.commonName}}</div>
@@ -71,7 +71,7 @@
             <div class="dot" v-for="(item,index) in formData.similarClient" :key="index">{{item.name}}</div>
           </div>
         </div> -->
-        <div class="item" v-if="formData.partners.length==0?false:true">
+        <div class="item" >
           <div class="label">项目合作伙伴：</div>
           <div class="value">
             <div class="dot" v-for="(item,index) in formData.partners" :key="index">{{item}}<span>（市场经理：{{item.marketManager}}）</span></div>
@@ -83,7 +83,7 @@
             <div class="dot">{{formData.marketManagerName}}</div>
           </div>
         </div>
-        <div class="item" v-if="formData.collaborations.length==0?false:true">
+        <div class="item" >
           <div class="label">协作人：</div>
           <div class="value">
             <div class="dot" v-for="(item,index) in formData.collaborations" :key="index">{{item.commonName}}</div>
@@ -133,10 +133,11 @@
 
 <script>
 export default {
-  name: 'detail',
+  // name: 'detail',
   data () {
     return {
       tagsName: [],
+      // formData: {},
     }
   },
   props: {

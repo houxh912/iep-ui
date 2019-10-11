@@ -27,6 +27,7 @@ const initForm = () => {
     clientAbrName: '',//客户简称
     toClaim: 0,
     unionId: '',
+    isOpen: 3, //开放范围
   }
 }
 // 全部客户搜索

@@ -22,7 +22,7 @@ const initForm = () => {
   }
 }
 const rules = {
-  meetingTitle: [{ required: true, message: '请输入会议标题', trigger: 'blur' }, { max: 16, message: '标题不超过16个字符', trigger: 'blur' }],
+  meetingTitle: [{ required: true, message: '请输入会议标题', trigger: 'blur' }, { max: 35, message: '标题不超过35个字符', trigger: 'blur' }],
   meetingType: [{ required: true, message: '请选择会议类型', trigger: 'change' }],
   meetingScale: [{ required: true, message: '请输入会议规模', trigger: 'blur' }],
   meetingTimeStart: [{ required: true, message: '请选择开始时间', trigger: 'blur' }],

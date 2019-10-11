@@ -100,6 +100,13 @@
                 <el-input v-model="formData.projectExplain" maxlength="254"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="24">
+              <el-form-item label="是否开放：" prop="isOpen">
+                <el-radio-group v-model="formData.isOpen">
+                  <el-radio v-for="item in dictMap.is_open" :key="item.value" :label="item.value">{{item.label}}</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
           </el-row>
           <hr>
           <el-row>

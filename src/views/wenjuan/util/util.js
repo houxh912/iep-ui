@@ -68,7 +68,7 @@ export const formatRoutes = (aMenu) => {
           }
           require([`../${componentPath}.vue`], resolve)
         },
-        meta: {title: label ? label : ''},
+        meta: { title: label ? label : '' },
         name: name,
         icon: icon,
         redirect: redirectUrl ? redirectUrl : undefined,
@@ -294,16 +294,6 @@ export const findArray = (dic, value) => {
 }
 
 /**
- * 生成随机len位数字
- */
-export const randomLenNum = (len, date) => {
-  let random = ''
-  random = Math.ceil(Math.random() * 100000000000000).toString().substr(0, typeof len === 'number' ? len : 4)
-  if (date) random = random + Date.now()
-  return random
-}
-
-/**
  * 数组分页功能函数
  */
 export function pagination (currentPage, pageSize, array) {
@@ -336,7 +326,7 @@ export const openWindow = (url, title, w, h) => {
 function contentDispositionAnalysis (contentDisposition) {
   let file = {}
   let list = contentDisposition.split('; ')
-  list.forEach(item=>{
+  list.forEach(item => {
     let n = item.split('=')
     n[1] ? file[n[0]] = n[1] : file[n[0]] = n[0]
   })
@@ -344,7 +334,7 @@ function contentDispositionAnalysis (contentDisposition) {
   return file
 }
 
-export function downloadExport ({title = '', response}) {
+export function downloadExport ({ title = '', response }) {
   let contentInfo = contentDispositionAnalysis(response.headers['content-disposition'].replace(/"/g, ''))
   return new Promise((resolve) => {
     let headers = response.headers

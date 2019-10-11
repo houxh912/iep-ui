@@ -22,17 +22,20 @@
               <template slot="title">
                 <span>我的关系</span>
               </template>
-              <el-menu-item index="601" class="menu-item" @click.native="handleSelectMaster()">
+              <el-menu-item index="601" class="menu-item" @click.native="mark = 'master'">
                 <span>我的师父</span>
               </el-menu-item>
-              <el-menu-item index="602" class="menu-item" @click.native="handleSelectApprentice()">
+              <el-menu-item index="602" class="menu-item" @click.native="mark = 'apprentice'">
                 <span>我的徒弟</span>
               </el-menu-item>
-              <el-menu-item index="603" class="menu-item" @click.native="handleSelectAttention()">
+              <el-menu-item index="603" class="menu-item" @click.native="mark = 'attention'">
                 <span>我的关注</span>
               </el-menu-item>
+              <el-menu-item index="604" class="menu-item" @click.native="mark = 'friend'">
+                <span>我的好友</span>
+              </el-menu-item>
               <el-menu-item class="menu-item" :index="item.id+''" :key="item.id" v-for="item in relationship" @click.native="handleSelectType(item.id,item.userId==userInfo.userId)" @dblclick.native="item.userId==userInfo.userId?changeGroup(item.name,item.id,item.isOpen):''">
-                <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="bottom-start" v-if="item.userId==userInfo.userId">
+                <el-tooltip class="item" effect="dark" content="双击可进行编辑自定义分组名" placement="left" v-if="item.userId==userInfo.userId">
                   <span>{{item.name}}</span>
                 </el-tooltip>
                 <span v-else>{{item.name}}</span>
@@ -43,14 +46,17 @@
           <el-button style="width:100%;border:0;" @click="openContact"><i class="iconfont icon-xinzeng"></i></el-button>
         </el-card>
       </el-col>
-      <el-col :span="20" v-if="this.mark=='master'">
+      <el-col :span="20" v-if="mark=='master'">
         <master></master>
       </el-col>
-      <el-col :span="20" v-else-if="this.mark=='apprentice'">
+      <el-col :span="20" v-else-if="mark=='apprentice'">
         <apprentice></apprentice>
       </el-col>
-      <el-col :span="20" v-else-if="this.mark=='attention'">
+      <el-col :span="20" v-else-if="mark=='attention'">
         <attention-page></attention-page>
+      </el-col>
+      <el-col :span="20" v-else-if="mark=='friend'">
+        <friend-page></friend-page>
       </el-col>
       <el-col :span="20" v-else>
         <!-- <iep-page-header title=""></iep-page-header> -->
@@ -106,15 +112,21 @@ import AddDialogForm from './AddDialogForm'
 import master from './MentorTable/master'
 import apprentice from './MentorTable/apprentice'
 import attentionPage from './MentorTable/attentionPage'
+import friendPage from './MentorTable/friendPage'
 import { mapGetters } from 'vuex'
 import { followById, unfollowById } from '@/api/cpms/iepuserfollow'
 import { deleteReleaseMentorById } from '@/api/wel/relationship_manage'
 import { addMasterWorker } from '@/api/cpms/characterrelations'
-// import AdvanceSearch from './AdvanceSearch'
 export default {
   mixins: [mixins, formMixins],
-  // components: { AdvanceSearch },
-  components: { DialogForm, AddDialogForm, master, apprentice, attentionPage },
+  components: {
+    DialogForm,
+    AddDialogForm,
+    master,
+    apprentice,
+    attentionPage,
+    friendPage,
+  },
   data () {
     return {
       dictsMap,
@@ -259,15 +271,6 @@ export default {
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.userId)
     },
-    handleSelectMaster () {
-      this.mark = 'master'
-    },
-    handleSelectApprentice () {
-      this.mark = 'apprentice'
-    },
-    handleSelectAttention () {
-      this.mark = 'attention'
-    },//我关注的分页
     handleSelectType (k, isremove) {
       this.groupType = k
       this.isremove = isremove

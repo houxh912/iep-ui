@@ -3,34 +3,27 @@
     <div v-show="pageState=='list'">
       <operation-container>
         <template slot="left">
-          
+
         </template>
         <template slot="right">
           <operation-search @search-page="searchPage" :paramForm="searchForm" prop="content"></operation-search>
         </template>
       </operation-container>
-      <iep-table 
-        :isLoadTable="isLoadTable" 
-        :pagination="pagination" 
-        :columnsMap="columnsMap" 
-        :pagedTable="pagedTable" 
-        @size-change="handleSizeChange" 
-        @current-change="handleCurrentChange" 
-        isMutipleSelection 
-        :dictsMap="dictsMap" 
-        @selection-change="selectionChange">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection :dictsMap="dictsMap" @selection-change="selectionChange">
         <el-table-column prop="operation" label="操作">
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain size="small" @click="handleDetail(scope.row)">查看</iep-button>
               <iep-button size="small" @click="handleTop(scope.row)" v-if="scope.row.status === 0">{{scope.row.isTop === 2 ? '取消置顶' : '置顶'}}</iep-button>
               <iep-button size="small" @click="handleDeleteById(scope.row)">删除</iep-button>
-              <iep-button size="small" @click="handleOpen(scope.row)">{{scope.row.status === 0 ? '设为不公开' : '设为公开'}}</iep-button>
+              <iep-button size="small" @click="handleOpen(scope.row)">{{openStatus[scope.row.status]}}</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
       </iep-table>
     </div>
+    <open-select ref="optenSelect" @opten-select="optenSelct">
+    </open-select>
   </div>
 </template>
 
@@ -39,10 +32,11 @@ import mixins from '@/mixins/mixins'
 import { tableOption, dictsMap } from './option'
 import { getManagePage, thoughtsDelete, topUpThoughts, postStatusBatch } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
+import OpenSelect from './OpenSelect'
 
 export default {
   mixins: [mixins],
-  components: {  },
+  components: { OpenSelect },
   computed: {
     ...mapGetters(['permissions', 'userInfo']),
   },
@@ -57,6 +51,9 @@ export default {
       searchForm: {
         content: '',
       },
+      status: '',
+      ids: '',
+      openStatus: ['生态开放', '不开放', '对组织开放', '对联盟开放'],
     }
   },
   created () {
@@ -79,7 +76,7 @@ export default {
     },
     // 置顶
     handleTop (row) {
-      topUpThoughts({ id: row.thoughtsId, type: row.isTop === 2 ? 1: 2 }).then(() => {
+      topUpThoughts({ id: row.thoughtsId, type: row.isTop === 2 ? 1 : 2 }).then(() => {
         this.loadPage()
       })
     },
@@ -88,25 +85,25 @@ export default {
       this._handleGlobalDeleteById([row.thoughtsId], thoughtsDelete)
     },
     // 清空搜索
-    clearSearchParam () {},
+    clearSearchParam () { },
     // 更改公开状态
     handleOpen (row) {
       if (row.isTop === 2) {
         this.$message.error('请先取消置顶状态！')
         return
       }
-      this.$confirm('是否更改此条数据状态', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
+      this.$refs['optenSelect'].dialogShow = true
+      this.ids = [row.thoughtsId]
+    },
+    optenSelct (status) {
+      this.status = status
+      postStatusBatch({
+        status: this.status,
+        ids: this.ids,
       }).then(() => {
-        postStatusBatch({
-          status: row.status === 0 ? 1 : 0,
-          ids: [row.thoughtsId],
-        }).then(() => {
-          this.loadPage()
-          this.$message.success('更改成功')
-        })
+        this.loadPage()
+        this.$message.success('更改成功')
+        this.status = ''
       })
     },
   },
@@ -114,5 +111,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

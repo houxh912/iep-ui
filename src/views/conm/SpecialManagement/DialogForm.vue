@@ -12,10 +12,6 @@
       </el-form-item>
       <el-form-item label="选择文章：">
         <operation-wrapper class="contact-wrapper">
-          <!-- <span v-if="!form.relations">
-            <el-tag class="wrapper" v-for="item in relations.map(m=>m.title)" :key="item">{{item}}</el-tag>
-          </span> -->
-          <!-- <span>{{titleColumn.map(m => m.name).join('、')}}</span> -->
           <el-tag class="wrapper" v-for="item in titleColumn" :key="item">{{item}}</el-tag>
         </operation-wrapper>
         <iep-button @click="handleSelect">选择文章</iep-button>
@@ -33,7 +29,6 @@ import { getPageDetailById } from '@/api/conm/special_controller'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 import DialogSelectForm from './DialogSelectForm'
-// import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   components: {

@@ -1,33 +1,11 @@
 <template>
-  <!-- <el-row class="aside-main" :gutter="8">
-    <el-col class="sub-menu-left" :span="4">
-      <menus></menus>
-    </el-col>
-  <el-col :span="20">-->
   <div class="column-management">
     <basic-container>
       <iep-page-header title="栏目管理" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="info_node_add" type="primary" plain @click="handleAdd">新增</iep-button>
-          <!-- <el-dropdown size="medium">
-              <iep-button type="default">
-                更多操作
-                <i class="el-icon-arrow-down el-icon--right"></i>
-              </iep-button>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>移动</el-dropdown-item>
-                <el-dropdown-item  @click.native="handleMerge">合并</el-dropdown-item>
-                <el-dropdown-item>上移</el-dropdown-item>
-                <el-dropdown-item>下移</el-dropdown-item>
-              </el-dropdown-menu>
-          </el-dropdown>-->
         </template>
-        <!-- <template slot="right">
-          <operation-search>
-            <advance-search @search-page="searchPage"></advance-search>
-          </operation-search>
-        </template> -->
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection is-tree>
         <template slot="before-columns">
@@ -41,8 +19,6 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click.stop="handleAdd(scope.row)">添加子栏目</iep-button>
-              <!-- <iep-button @click="handleEdit(scope.row)">编辑</iep-button>
-              <iep-button @click="handleDelete(scope.row)">删除</iep-button> -->
               <iep-button @click="handleDoc(scope.row)">文档管理</iep-button>
               <el-dropdown size="medium">
                 <iep-button type="default">
@@ -61,11 +37,8 @@
     <dialog-form ref="DialogForm" @load-page="loadPage"></dialog-form>
     <dialog-merge ref="DialogMerge" @load-page="loadPage"></dialog-merge>
   </div>
-  <!-- </el-col>
-  </el-row>-->
 </template>
 <script>
-// import Menus from './Menus'
 import { addObj, getPage, deleteNodeById, updateObj } from '@/api/conm/node_controller'
 import { columnsMap, initSearchForm, dictsMap, toNewParentForm } from './options'
 import mixins from '@/mixins/mixins'

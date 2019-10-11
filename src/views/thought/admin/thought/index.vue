@@ -53,7 +53,7 @@ export default {
       },
       status: '',
       ids: '',
-      openStatus: ['生态开放', '不开放', '对组织开放', '对联盟开放'],
+      openStatus: ['生态开放', '关闭', '对组织开放', '对联盟开放'],
     }
   },
   created () {

@@ -2,10 +2,10 @@
   <iep-dialog :dialog-show="dialogShow" :title="title" width="620px" @close="isClose" center>
     <div class="center-box">
       <el-radio-group v-model="isOpen" class="isOpen">
-        <el-radio :label="'0'">对联盟开放</el-radio>
-        <el-radio :label="'1'">对组织开放</el-radio>
-        <el-radio :label="'2'">生态开放</el-radio>
-        <el-radio :label="'3'">关闭</el-radio>
+        <el-radio :label="'3'">对联盟开放</el-radio>
+        <el-radio :label="'2'">对组织开放</el-radio>
+        <el-radio :label="'0'">生态开放</el-radio>
+        <el-radio :label="'1'">关闭</el-radio>
       </el-radio-group>
     </div>
     <template slot="footer">

@@ -74,7 +74,7 @@ export default {
       this.$refs['updateDialog'].pageState = 'forward'
       this.$refs['updateDialog'].backOption.isBack = true
       this.$refs['updateDialog'].backType = type
-      this.$refs['updateDialog'].formData.content = row.content
+      this.$refs['updateDialog'].formData.content = `<p>发件人：${row.sendRealName}</p>${row.content}`
       this.$refs['updateDialog'].formData.subject = `转发：${row.subject}`
       this.$refs['updateDialog'].formData.transferList = { // 所有的关联
         projectIds: this.dealWithTransferList(row.projectRelatios, [{ O: 'id', X: 'relatiionId' }, { O: 'name', X: 'relatiionName' }]),

@@ -68,7 +68,7 @@
         <el-radio-group v-model="formData.isOpen">
           <el-radio :label="3" v-if="inUnion == 1">对联盟开放</el-radio>
           <el-radio :label="2">对组织开放</el-radio>
-          <el-radio :label="0">开放</el-radio>
+          <el-radio :label="0">生态开放</el-radio>
           <el-radio :label="1">关闭</el-radio>
         </el-radio-group>
       </el-form-item>

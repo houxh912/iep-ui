@@ -84,18 +84,18 @@ var initForm = () => {
 const dictMaps = {
   status: [
     {
-      label: '生态开放',
-      value: 0,
-    }, {
-      label: '不开放',
-      value: 1,
+      label: '对联盟开放',
+      value: 3,
     }, {
       label: '对组织开放',
       value: 2,
     }, {
-      label: '对联盟开放',
-      value: 3,
-    },
+      label: '生态开放',
+      value: 0,
+    }, {
+      label: '关闭',
+      value: 1,
+    }, 
   ],
 }
 

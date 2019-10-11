@@ -17,11 +17,11 @@
             <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
           </a-input>
         </el-form-item>
-        <el-form-item prop="code">
+        <!-- <el-form-item prop="code">
           <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" size="large">
             <img slot="addonAfter" :src="code.src" class="login-code-img" @click="refreshCode" />
           </a-input>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <div class="login-text">
             将保持登陆状态
@@ -68,8 +68,8 @@ import { mapGetters, mapActions } from 'vuex'
 import UserOperationLayout from './index'
 import { getBindCheck } from '@/api/admin/sys-social-details'
 import { openWindow } from '@/util/util'
-import { codeUrl } from '@/config/env'
-import { randomLenNum } from '@/util/util'
+// import { codeUrl } from '@/config/env'
+// import { randomLenNum } from '@/util/util'
 import { validatenull } from '@/util/validate'
 import SelectDialog from './SelectDialog'
 export default {
@@ -87,7 +87,7 @@ export default {
       form: {
         username: '',
         password: '',
-        code: '',
+        code: '0000',
         redomStr: '',
       },
       code: {
@@ -104,10 +104,6 @@ export default {
           { required: true, message: '请输入密码', trigger: 'blur' },
           { min: 6, message: '密码长度最少为6位', trigger: 'blur' },
         ],
-        code: [
-          { required: true, message: '请输入验证码', trigger: 'blur' },
-          { min: 4, max: 4, message: '验证码长度为4位', trigger: 'blur' },
-        ],
       },
       passwordType: 'password',
       loginLoading: false,
@@ -123,7 +119,6 @@ export default {
           this.socialForm.state = params.state
           this.socialForm.code = params.code
           if (!validatenull(this.socialForm.state)) {
-            console.log(this.socialForm)
             const { data } = await getBindCheck(this.socialForm)
             if (data.code) {
               return
@@ -152,9 +147,6 @@ export default {
       immediate: true,
     },
   },
-  created () {
-    this.loadPage()
-  },
   computed: {
     ...mapGetters(['tagWel']),
   },
@@ -170,24 +162,21 @@ export default {
     refreshPage () {
       this.$router.push({ path: '/login', query: { redirect: this.$route.query.redirect } })
     },
-    loadPage () {
-      this.refreshCode()
-    },
     handleRetrieve () {
       this.$emit('tab-active', 'retrieve')
     },
     handleRegister () {
       this.$router.push({ path: '/register', query: { ...this.$route.query, isValid: true } })
     },
-    refreshCode () {
-      this.form.code = ''
-      this.form.randomStr = randomLenNum(this.code.len, true)
-      this.code.type === 'text'
-        ? (this.code.value = randomLenNum(this.code.len))
-        : (this.code.src = `${codeUrl}?randomStr=${
-          this.form.randomStr
-          }`)
-    },
+    // refreshCode () {
+    //   this.form.code = ''
+    //   this.form.randomStr = randomLenNum(this.code.len, true)
+    //   this.code.type === 'text'
+    //     ? (this.code.value = randomLenNum(this.code.len))
+    //     : (this.code.src = `${codeUrl}?randomStr=${
+    //       this.form.randomStr
+    //       }`)
+    // },
     showPassword () {
       this.passwordType == ''
         ? (this.passwordType = 'password')
@@ -208,7 +197,6 @@ export default {
             this.$message.error(error.message)
           } finally {
             this.loginLoading = false
-            this.refreshCode()
           }
         }
       })
@@ -247,12 +235,11 @@ export default {
   },
 }
 </script>
-
-<style lang="css" scoped>
-.login-code >>> .ant-input {
+<style lang="scss" scoped>
+.login-code ::v-deep .ant-input {
   font-size: 14px;
 }
-.login-code >>> .ant-input-group-addon {
+.login-code ::v-deep .ant-input-group-addon {
   padding: 0;
   height: 40px;
 }
@@ -273,16 +260,16 @@ export default {
   float: right;
   color: red;
 }
-.login-text >>> .el-button--text {
+.login-text ::v-deep .el-button--text {
   color: #ba1b20;
 }
-.login-text >>> .el-button--text:hover {
+.login-text ::v-deep .el-button--text:hover {
   color: #f56c6c;
 }
-.login-text >>> .el-button--text:nth-child(1) {
+.login-text ::v-deep .el-button--text:nth-child(1) {
   color: #666;
 }
-.login-text >>> .el-button--text:nth-child(1):hover {
+.login-text ::v-deep .el-button--text:nth-child(1):hover {
   color: #999;
 }
 .login-form {
@@ -291,23 +278,20 @@ export default {
 .login-form i {
   color: #999;
 }
-.form-detail >>> .el-form-item {
+.form-detail ::v-deep .el-form-item {
   margin-bottom: 15px;
 }
-.login-form >>> .el-form-item .el-form-item__content {
+.login-form ::v-deep .el-form-item .el-form-item__content {
   margin-left: 0 !important;
   width: 100%;
 }
-.login-form >>> .el-input {
+.login-form ::v-deep .el-input {
   padding: 0;
 }
-.login-form >>> .el-input .el-input__prefix i {
+.login-form ::v-deep .el-input .el-input__prefix i {
   padding: 0 5px;
   font-size: 16px !important;
 }
-</style>
-
-<style lang="scss" scoped>
 .login-wrapper {
   display: flex;
   flex-direction: column;

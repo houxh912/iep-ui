@@ -4,8 +4,8 @@ const env = process.env
 
 const baseUrl = ''
 
-// const codeUrl = '/api/code'
+const codeUrl = '/api/code'
 const actUrl = `${window.location.origin}/act/modeler.html?modelId=`
 const wsUrl = '/api/ims/ws'
 
-export { baseUrl, actUrl, env, wsUrl }
+export { baseUrl, actUrl, codeUrl, env, wsUrl }

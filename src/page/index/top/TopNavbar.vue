@@ -84,7 +84,7 @@ export default {
   },
   mounted () {
     if (!this.keyCollapse) {
-      this.menuItemEnter()
+      // this.menuItemEnter()
     }
   },
   watch: {

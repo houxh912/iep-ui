@@ -13,15 +13,19 @@
       </span>
     </div>
     <el-button-group class="operation-btn-group">
-      <iep-button @click="handleReward" plain>打赏</iep-button>
+      <iep-button @click="handleTransfer" plain>打赏</iep-button>
     </el-button-group>
+    <transfer-dialog ref="TransferDialog" :pay-type="4" @load-page="loadPage"></transfer-dialog>
   </div>
 </template>
 <script>
-// import { addBellBalanceRule } from '@/api/fams/balance_rule'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import TransferDialog from '@/views/BlockChain/Components/TransferDialog.vue'
+import { mapGetters, mapMutations } from 'vuex'
 import { getAmount } from '@/api/fams/block_chain'
 export default {
+  components: {
+    TransferDialog,
+  },
   data () {
     return {
       totalAsset: 0,
@@ -55,9 +59,9 @@ export default {
     ...mapMutations({
       setInvoiceDialogShow: 'SET_INVOICE_DIALOG_SHOW',
     }),
-    ...mapActions(['icanReward']),
-    handleReward () {
-      this.icanReward()
+    handleTransfer () {
+      this.$refs['TransferDialog'].realMaxAmount = this.totalAsset
+      this.$refs['TransferDialog'].dialogShow = true
     },
   },
 }

@@ -31,6 +31,7 @@ import IepUserCard from '@/components/IepCommon/UserCard'
 import IepCharts from '@/components/IepCommon/ECharts'
 import IepStatisticsHeader from '@/components/IepCommon/StatisticsHeader'
 import IepSlotCard from '@/components/IepCommon/SlotCard'
+import IepIsOpen from '@/components/IepCommon/IsOpen'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -144,6 +145,7 @@ Vue.component(IepUserCard.name, IepUserCard)
 Vue.component(IepCharts.name, IepCharts)
 Vue.component(IepStatisticsHeader.name, IepStatisticsHeader)
 Vue.component(IepSlotCard.name, IepSlotCard)
+Vue.component(IepIsOpen.name, IepIsOpen)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)

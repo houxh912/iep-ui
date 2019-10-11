@@ -18,14 +18,8 @@
           <el-form-item label="产品模块分类：" prop="type" class="form-half">
             <iep-dict-select v-model="form.type" dict-name="cpms_module_type"></iep-dict-select>
           </el-form-item>
-          <el-form-item label="开放范围：" prop="isOpen">
-            <el-radio-group v-model="form.isOpen">
-              <el-radio :label="0">生态开放</el-radio>
-              <el-radio :label="1">不开放</el-radio>
-              <el-radio :label="2">对组织开放</el-radio>
-              <el-radio :label="3">对联盟开放</el-radio>
-            </el-radio-group>
-          </el-form-item>
+          <!-- 是否开放 -->
+          <iep-is-open v-model="form"></iep-is-open>
           <el-form-item label="业务分类：" prop="serviceTypes">
             <iep-dict-select v-model="form.serviceTypes" dict-name="MODULE_SERVICE_TYPE" multiple></iep-dict-select>
           </el-form-item>

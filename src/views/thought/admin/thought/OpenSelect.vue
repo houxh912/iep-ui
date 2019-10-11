@@ -1,12 +1,9 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="title" width="620px" @close="isClose" center>
     <div class="center-box">
-      <el-radio-group v-model="isOpen" class="isOpen">
-        <el-radio :label="'0'">生态开放</el-radio>
-        <el-radio :label="'1'">不开放</el-radio>
-        <el-radio :label="'2'">对组织开放</el-radio>
-        <el-radio :label="'3'">对联盟开放</el-radio>
-      </el-radio-group>
+      <el-form :model="form">
+        <iep-is-open v-model="form"></iep-is-open>
+      </el-form>
     </div>
     <template slot="footer">
       <iep-button type="primary" @click="handleSubmit">提交</iep-button>
@@ -20,18 +17,19 @@ export default {
   data () {
     return {
       title: '公开状态',
-      isOpen: 0,
+      form: {
+        isOpen: 3,
+      },
       dialogShow: false,
     }
   },
   methods: {
     handleSubmit () {
-      if (this.isOpen == '') return this.$message('请选择状态')
-      this.$emit('opten-select', this.isOpen)
+      this.$emit('opten-select', this.form.isOpen)
       this.isClose()
     },
     isClose () {
-      this.isOpen = ''
+      this.form.isOpen = 3
       this.dialogShow = false
     },
   },

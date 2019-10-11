@@ -21,7 +21,6 @@
 import { getPageDetailById } from '@/api/conm/attribute_controller'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
-// import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   data () {
@@ -36,7 +35,6 @@ export default {
       siteId: 0,
     }
   },
-  // },
   created () {
     this.loadPage()
   },

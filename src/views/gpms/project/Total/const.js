@@ -11,10 +11,10 @@ function changeDict (list) {
 
 export const dictMap = {
   is_open: [
+    { value: 3, label: '对联盟开放' },
+    { value: 2, label: '对组织开放' },
     { value: 0, label: '生态开放' },
     { value: 1, label: '关闭' },
-    { value: 2, label: '对组织开放' },
-    { value: 3, label: '对联盟开放' },
   ],
   is_yes: [
     { value: 1, label: '是' },

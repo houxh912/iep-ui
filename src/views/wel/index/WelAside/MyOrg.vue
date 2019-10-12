@@ -1,7 +1,10 @@
 <template>
   <my-content class="my-content" :title-name="`我的SO(${orgs.length})`">
     <template v-slot:stitle>
-      <iep-button size="mini" @click="handleCreate">创建或加入SO</iep-button>
+      <operation-wrappe>
+        <iep-button size="mini" @click="$openPage('/wel/orgwelcome')">完善SO</iep-button>
+        <iep-button size="mini" @click="$openPage('/wel/org?type=1')">创建或加入SO</iep-button>
+      </operation-wrappe>
     </template>
     <div class="current-wrapper">
       <div class="current-org">
@@ -63,9 +66,6 @@ export default {
       'GetMenu',
       'ClearMenu',
     ]),
-    handleCreate () {
-      this.$openPage('/wel/org?type=1')
-    },
     async handleSwitch (org) {
       if (org.orgId === this.userInfo.orgId) {
         return

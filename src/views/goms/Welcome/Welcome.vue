@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-container">
-      <div class="top-title">
+      <div class="top-title" v-if="$route.query.first">
         <i class="el-icon-circle-check success"></i>
         恭喜你，
         <span class="org-name">
@@ -11,6 +11,10 @@
         <div class="desc">
           在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！
         </div>
+      </div>
+      <div class="top-title-bg" v-else>
+        <div class="org-name">{{userInfo.orgName}}的管理者，您好！</div>
+        <div class="desc">在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！</div>
       </div>
       <div class="container">
         <el-card class="org-card-wrapper" shadow="hover">
@@ -312,6 +316,12 @@ export default {
     }
   }
 }
+.top-title-bg {
+  background-image: url("/img/bg/org-bg.jpg");
+  height: 130px;
+  text-align: center;
+  padding: 20px;
+}
 .top-title {
   border: 1px solid #d8d8d8;
   background: #f3f3f3;
@@ -319,6 +329,9 @@ export default {
   text-align: center;
   font-size: 20px;
   padding: 20px;
+}
+.top-title-bg,
+.top-title {
   .desc {
     font-size: 16px;
   }

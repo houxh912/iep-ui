@@ -85,7 +85,7 @@ export default {
           await this.ClearMenu()
           await this.GetUserInfo()
           await this.GetMenu()
-          this.$openPage('/wel/orgwelcome')
+          this.$openPage('/wel/orgwelcome?first=true')
         } else {
           this.$message.success('创建成功，请等待审核！')
           this.tabsActive = 0

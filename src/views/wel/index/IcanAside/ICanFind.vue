@@ -1,11 +1,11 @@
 <template>
   <i-can-content class="my-content" title-name="我要找">
-    <template v-slot:stitle>
+    <!-- <template v-slot:stitle>
       <div class="sub-title" @click="getMore">
         <span>更多</span>
         <span><i class="el-icon-d-arrow-right"></i></span>
       </div>
-    </template>
+    </template> -->
     <div class="my-wrapper">
       <div class="cursor" v-for="(item,index) in findList" :key="index" @click="item.callback()">
         <div class="icon"><i :class="item.icon"></i></div>

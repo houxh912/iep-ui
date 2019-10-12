@@ -54,9 +54,7 @@ export default {
   },
   methods: {
     gotoDetails (val) {
-      this.$router.push({
-        path: `/app/personal_style/${val}`,
-      })
+      this.$openPage(`//www.icanvip.net/master/${val}.html`, 'bind')
     },
     loadPage () {
       getMyMasterContactList().then(({ data }) => {

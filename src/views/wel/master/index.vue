@@ -72,7 +72,7 @@ export default {
       })
     },
     handleClick () {
-      this.$router.push('/app/resource/expert?type=1')
+      this.$openPage('//www.icanvip.net/masterList.html', 'bind')
     },
     handleClick2 () {
       this.$router.push({

@@ -47,6 +47,10 @@ export default {
           id: 7,
           name: '考试',
         },
+        {
+          id: 8,
+          name: '活动',
+        },
       ],
       listData: [
         {

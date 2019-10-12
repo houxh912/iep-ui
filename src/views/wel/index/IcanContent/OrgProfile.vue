@@ -10,7 +10,10 @@
             <span class="name">国脉集团研发中心</span>
             <span class="label">虚拟</span>
           </div>
-          <div class="style">SO风采</div>
+          <div class="style-item">
+            <a class="style" href="#">SO风采</a>
+            <a class="style" href="#">完善SO</a>
+          </div>
         </div>
         <div class="detail-wrapper">
           <div>创建人：黄永梅</div>
@@ -86,11 +89,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .style {
+  .style-item {
     color: $--color-primary;
     border: 1px solid;
     border-radius: 20px;
-    padding: 0 10px;
+    .style {
+      color: $--color-primary;
+      padding: 0 8px;
+      border-right: 1px solid;
+      &:nth-child(2) {
+        border-right: none;
+      }
+    }
   }
   .title {
     display: flex;

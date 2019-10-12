@@ -83,6 +83,11 @@
                     <el-input v-model="formData.email"></el-input>
                   </el-form-item>
                 </el-col>
+                <el-col>
+                  <el-form-item label="备注:" prop="note">
+                    <el-input v-model="formData.note"></el-input>
+                  </el-form-item>
+                </el-col>
               </el-row>
             </el-form>
             <iep-button type="primary" @click="submitForm('ValidateForm')">报名</iep-button>
@@ -125,6 +130,7 @@ export default {
         name: '', // 姓名
         phoneNumber: '', // 联系电话
         email: '', // 电子邮箱
+        note: '',//备注
       },
       flag: false,
       rules,
@@ -145,7 +151,11 @@ export default {
       //预览
       if (this.$route.query.preview) {
         this.form = this.$route.query.data
+        this.form.orgVo = { url: '', name: '' }
         this.form.urls = this.$route.query.data.attachs
+        this.form.orgVo = this.$route.query.orgVo
+        this.form.address = this.$route.query.province + this.$route.query.city + this.$route.query.data.meetingAddress
+        this.address = this.$route.query.province
       }
     },
     //报名

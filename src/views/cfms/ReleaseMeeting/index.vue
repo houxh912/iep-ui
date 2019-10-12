@@ -204,7 +204,7 @@ export default {
         if (valid) {
           getCodeName({ codes: this.formData.cityAdrss }).then((res) => {
             this.$router.push({
-              path: '/cfms_spa/meeting_detail',
+              path: '/meeting',
               query: {
                 preview: true,
                 data: this.formData,

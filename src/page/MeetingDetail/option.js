@@ -28,5 +28,6 @@ const rules = {
   name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
   phoneNumber: [{ required: true, validator: checkPhone, trigger: 'blur' }],
   email: [{ message: '请输入电子邮箱', trigger: 'blur' }, { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }],
+  note: [{ max: 80, message: '长度不超过80个字符', trigger: 'blur' }],
 }
 export { initForm, rules }

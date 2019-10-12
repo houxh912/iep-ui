@@ -5,6 +5,7 @@
         <template slot="left">
           <iep-button type="primary" @click="handleAdd" icon="el-icon-plus" plain>新增</iep-button>
           <iep-button @click="handleSign" plain>签到</iep-button>
+          <!-- <iep-button @click="handleEdit" plain>修改</iep-button> -->
           <iep-button @click="handleDelte" plain>删除</iep-button>
         </template>
         <template slot="right">
@@ -15,6 +16,13 @@
       </operation-container>
     </template>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsName" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" :isMutipleSelection="isTrue" @selection-change="handleSelectionChange" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <el-table-column prop="operation" label="操作" width="100">
+        <template slot-scope="scope">
+          <operation-wrapper>
+            <iep-button type="warning" plain @click=" handleEdit(scope.row)">修改</iep-button>
+          </operation-wrapper>
+        </template>
+      </el-table-column>
     </iep-table>
     <edit-dialog ref="EditDialog" @load-page="loadPage"></edit-dialog>
   </iep-dialog>
@@ -53,6 +61,13 @@ export default {
     handleAdd () {
       this.$refs['EditDialog'].dialogShow = true
       this.$refs['EditDialog'].id = this.id
+      this.$refs['EditDialog'].title = '新增'
+    },
+    handleEdit (row) {
+      this.$refs['EditDialog'].dialogShow = true
+      this.$refs['EditDialog'].id = this.id
+      this.$refs['EditDialog'].title = '修改'
+      this.$refs['EditDialog'].formData = row
     },
     handleSelectionChange (val) {
       this.multipleSelection = val.map(m => m.id)

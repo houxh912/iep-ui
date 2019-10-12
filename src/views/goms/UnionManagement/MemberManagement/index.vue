@@ -23,7 +23,6 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button @click="handleRole(scope.row)" type="warning" plain>修改角色</iep-button>
-              <iep-button @click="handleResetPass(scope.row)">重置密码</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>

@@ -26,12 +26,7 @@
         </contentTpl>
         <!-- 按钮组 -->
         <div class="footer">
-          <el-popover
-            placement="left-start"
-            title=""
-            width="200"
-            trigger="hover"
-            :content="reference">
+          <el-popover placement="left-start" title="" width="200" trigger="hover" :content="reference">
             <div slot="reference" class="button" @click="hadnleAddUp(item, index)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp" :class="item.praiseStatus > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           </el-popover>
           <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i>
@@ -110,7 +105,7 @@ export default {
     },
     handleDetail (id) {
       this.$router.push({
-        path:`/app/personal_style/${id}`,
+        path: `/app/personal_style/${id}`,
       })
     },
     // 点赞
@@ -194,7 +189,7 @@ export default {
       }])
     },
     // 取消收藏
-    handleNoCollect () {},
+    handleNoCollect () { },
     // 关注
     handleFollow (row) {
       followById(row.userId).then(() => {
@@ -236,18 +231,17 @@ export default {
   .items {
     margin-bottom: 40px;
     display: flex;
-    .name{
+    .name {
       cursor: pointer;
     }
     .avatar {
-      margin-right: 35px;
       width: 70px;
       height: 70px;
       border-radius: 50%;
-      .img{
+      .img {
         cursor: pointer;
-        width: 70px;
-        height: 70px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         overflow: hidden;
       }
@@ -255,7 +249,7 @@ export default {
     .content-list {
       flex: 1;
       margin-top: 5px;
-      
+
       .top {
         display: flex;
         justify-content: space-between;
@@ -296,8 +290,8 @@ export default {
           }
         }
         .top {
-          border: 1px solid #BA1B21;
-          color: #BA1B21;
+          border: 1px solid #ba1b21;
+          color: #ba1b21;
           border-radius: 3px;
           font-size: 12px;
           padding: 0 5px;

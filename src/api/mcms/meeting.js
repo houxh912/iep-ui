@@ -111,3 +111,19 @@ export function getCode (query) {
     params: query,
   })
 }
+//分页查询我报名的会议
+export function getMymeetingPage (query) {
+  return request({
+    url: '/mcms/meetingmarketing/mymeeting/page',
+    method: 'get',
+    params: query,
+  })
+}
+//修改报名人员会议信息
+export function putMeetingsignup (query) {
+  return request({
+    url: '/mcms/meetingsignup/update',
+    method: 'post',
+    data: query,
+  })
+}

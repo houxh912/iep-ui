@@ -10,6 +10,7 @@
       <!-- <top-search-icon v-if="!noOrg"></top-search-icon> -->
       <!-- <top-scan></top-scan>
       <top-guide></top-guide> -->
+      <top-guide disabled></top-guide>
       <top-chat v-if="!noOrg"></top-chat>
       <top-message></top-message>
       <top-email></top-email>
@@ -23,7 +24,7 @@ import TopLogo from '@/page/Components/TopLogo'
 import TopNavbar from './TopNavbar'
 import TopMessage from './TopMessage'
 import TopEmail from './TopEmail'
-// import TopGuide from './TopGuide'
+import TopGuide from './TopGuide'
 // import TopScan from './TopScan'
 // import TopSearchIcon from './TopSearchIcon'
 import TopUser from './TopUser'
@@ -37,7 +38,7 @@ export default {
     TopMessage,
     TopEmail,
     // TopSearchIcon,
-    // TopGuide,
+    TopGuide,
     // TopScan,
     TopUser,
     TopChat,

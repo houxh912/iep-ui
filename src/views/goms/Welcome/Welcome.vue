@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="main-container">
-      <div class="top-title">
+      <div class="top-title" v-if="$route.query.first">
         <i class="el-icon-circle-check success"></i>
         恭喜你，
         <span class="org-name">
@@ -9,8 +9,12 @@
         </span>
         创建成功！
         <div class="desc">
-          恭喜您已成功开启智慧组织之旅，您还需要招兵买马、备足粮草不断提升您组织的信用与竞争力！
+          在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！
         </div>
+      </div>
+      <div class="top-title-bg" v-else>
+        <div class="org-name">{{userInfo.orgName}}的管理者，您好！</div>
+        <div class="desc">在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！</div>
       </div>
       <div class="container">
         <el-card class="org-card-wrapper" shadow="hover">
@@ -35,7 +39,7 @@
             </div>
             <div class="info">
               <div class="info-name">创建组织</div>
-              <div class="info-desc">立即开启您的智慧组织之旅</div>
+              <div class="info-desc">为您的组织搭建一个<span class="red">“浅交流、深协作”</span>的新圈子</div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -52,8 +56,8 @@
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info" @click="$openPage('/goms/basic_configuration/organization_information?is_guide=true')">
-              <div class="info-name">完善组织详情</div>
-              <div class="info-desc">充分展示组织优势，提升组织信用，获得更多协作机会</div>
+              <div class="info-name">完善信息</div>
+              <div class="info-desc">为您的组织制作一张<span class="red">“形象丰满、优势突出、氛围优渥”</span>的好名片</div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -70,8 +74,8 @@
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info">
-              <div class="info-name">拓展组织成员</div>
-              <div class="info-desc">立即分享二维码，邀请好友，邀请 1 个 +1 贝
+              <div class="info-name">招兵买马</div>
+              <div class="info-desc">为您的组织吸引更多<span class="red">“能力出众、特点鲜明、资源充沛”</span>的赋能者
                 <iep-button type="primary" size="mini" v-popover:popover plain>入驻邀请</iep-button>
               </div>
             </div>
@@ -91,8 +95,8 @@
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
-              <div class="info-name">分配成员角色</div>
-              <div class="info-desc">充分赋予成员相应权限，发挥成员无限价值</div>
+              <div class="info-name">协作管理</div>
+              <div class="info-desc">为您的组织带来<span class="red">“统一、独立、高度协作”</span>的管理新模式，赋能又赋权</div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -109,8 +113,8 @@
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info" @click="$openPage('/hrms/organizational_structure/department_management?is_guide=true')">
-              <div class="info-name">设立部门</div>
-              <div class="info-desc">完善组织架构，持续促进组织的成长与发展，创建 1 个 +1 贝</div>
+              <div class="info-name">部门协同</div>
+              <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责，实现<span class="red">“资产自增、组织共赢、成就共益”</span></div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -127,11 +131,10 @@
     </div>
     <iep-divider></iep-divider>
     <div class="congratulations-wrapper">
-      <div class="big-title">再一次恭喜您，您的组织竞争力优于<span>80%</span>的组织！</div>
-      <div>您可以选择</div>
+      <div class="big-title">开放-赋能-协作</div>
+      <div>完善组织，实现您的组织梦！</div>
       <operation-wrapper>
-        <iep-button size="medium">继续学习如何打造智慧组织</iep-button>
-        <iep-button size="medium" @click="$openPage('/goms/work_bench')">即刻迈进智慧组织</iep-button>
+        <iep-button type="primary" size="medium" @click="$openPage('/')">即刻迈进</iep-button>
       </operation-wrapper>
     </div>
     <div class="footer-container">
@@ -151,6 +154,7 @@
     </div>
     <el-popover ref="popover" placement="right" width="100" trigger="hover" v-model="popoverShow">
       <qrcode class="code" :value="mUrlText" :options="{width:120}"></qrcode>
+      <div>右击图片复制下载</div>
       <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
     </el-popover>
   </div>
@@ -209,14 +213,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.red {
+  color: $--menu-color-primary;
+}
 .footer-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 70px;
+  margin-top: 50px;
   height: 400px;
   background: url("/img/bg/org-bg.webp") no-repeat;
-  background-size: contain;
+  background-size: cover;
   .text {
     font-size: 18px;
     line-height: 50px;
@@ -225,20 +232,28 @@ export default {
 .congratulations-wrapper {
   .big-title {
     font-size: 20px;
+    color: $--menu-color-primary;
   }
   font-size: 16px;
   text-align: center;
   line-height: 50px;
-  span {
-    color: $--menu-color-primary;
-    font-size: 25px;
-  }
 }
 .org-task {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 1;
+  //flex: 1;
+  &::after{ 
+    position: absolute;
+    top: 20px;  
+    left: 49px;
+    bottom: 20px;
+    content: "";
+    width: 2px;
+    background-color: #eee;
+    z-index: -1;
+  }
   .task-item {
     display: flex;
     justify-content: center;
@@ -250,6 +265,7 @@ export default {
       justify-content: center;
       align-items: center;
       font-size: 22px;
+      background-color: #fff;
       .success {
         color: $--menu-color-primary;
       }
@@ -262,7 +278,7 @@ export default {
       border: 1px solid #eee;
       cursor: pointer;
       .info-name {
-        flex: 0 0 150px;
+        flex: 0 0 100px;
         font-size: 17px;
       }
       .info-desc {
@@ -276,7 +292,7 @@ export default {
       }
     }
     .reward {
-      flex: 0 0 250px;
+      flex: 0 0 150px;
       display: flex;
       justify-content: space-between;
       .money {
@@ -291,11 +307,12 @@ export default {
 .main-container {
   margin: 0 auto;
   margin-top: 20px;
-  max-width: 1200px;
+  //width: 1200px;
   padding-bottom: 20px;
   .container {
     display: flex;
-    margin-top: 40px;
+    margin-top: 20px;
+    padding:0 20px;
     .org-card-wrapper {
       flex: 0 0 250px;
       .image {
@@ -312,6 +329,12 @@ export default {
     }
   }
 }
+.top-title-bg {
+  background-image: url("/img/bg/org-bg.jpg");
+  height: 130px;
+  text-align: center;
+  padding: 20px;
+}
 .top-title {
   border: 1px solid #d8d8d8;
   background: #f3f3f3;
@@ -319,6 +342,9 @@ export default {
   text-align: center;
   font-size: 20px;
   padding: 20px;
+}
+.top-title-bg,
+.top-title {
   .desc {
     font-size: 16px;
   }

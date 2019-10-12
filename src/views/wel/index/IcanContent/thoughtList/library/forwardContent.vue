@@ -47,7 +47,7 @@ export default {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    .img{
+    .img {
       cursor: pointer;
       width: 50px;
       height: 50px;

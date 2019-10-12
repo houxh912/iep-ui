@@ -10,9 +10,9 @@ const columns = [
 const columnsName = [
   { label: '名称', prop: 'name' },
   { label: '手机', prop: 'phoneNumber' },
-  { label: '组织', prop: 'companyName', width: 200 },
-  { label: '职务', prop: 'position', width: 200 },
-  { label: '邮箱', prop: 'email' },
+  { label: '组织', prop: 'companyName' },
+  { label: '职务', prop: 'position'  },
+  { label: '邮箱', prop: 'email',width: 200 },
   // { label: '报名渠道', prop: 'meetingFlagName' },
   { label: '状态', prop: 'signupFlagName' },
   // { label: '备注', prop: 'meetingFlagName' },
@@ -44,6 +44,7 @@ const rules = {
   name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
   phoneNumber: [{ required: true, validator: checkPhone, trigger: 'blur' }],
   email: [{ message: '请输入电子邮箱', trigger: 'blur' }, { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }],
+  note: [{ max: 80, message: '长度不超过80个字符', trigger: 'blur' }],
 }
 const initForm = () => {
   return {

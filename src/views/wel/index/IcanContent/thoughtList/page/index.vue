@@ -23,7 +23,7 @@ export default {
   components: { library },
   props: {
     requestFn: {
-      default: () => {},
+      default: () => { },
     },
     paramData: {
       type: Object,
@@ -54,7 +54,7 @@ export default {
     },
     loadPage () {
       this.requestFn(Object.assign({}, this.params, this.paramData)).then(({ data }) => {
-        this.$set(this, 'dataList', data.data.records)
+        this.$set(this, 'dataList', data.data.records.splice(5))
         this.total = data.data.total
       })
     },

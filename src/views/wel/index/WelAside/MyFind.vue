@@ -1,10 +1,10 @@
 <template>
   <my-content class="my-content" title-name="我要找">
     <template v-slot:stitle>
-      <div class="sub-title" @click="getMore">
+      <!-- <div class="sub-title" @click="getMore">
         <span>更多</span>
         <span><i class="el-icon-d-arrow-right"></i></span>
-      </div>
+      </div> -->
     </template>
     <div class="my-wrapper">
       <div class="cursor" v-for="(item,index) in findList" :key="index" @click="item.callback()">

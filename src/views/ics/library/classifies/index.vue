@@ -2,14 +2,13 @@
   <el-col class="sub-menu-left" :span="4">
     <el-card class="sub-card" shadow="never" :body-style="bodyStyle">
       <div slot="header" class="clearfix">
-        <div class="title">分类</div><i class="icon-iconset0136"></i>
+        <div class="title">分类</div><i class="icon-iconset0136" @click="handleCreate"></i>
       </div>
       <el-menu :default-active="selectType" class="menu-vertical" @select="catalogSelect" @open="nemuOpen" @close="nemuColse" unique-opened>
         <el-submenu :index="index+''" v-for="(item, index) in catalogList" :key="index">
           <template slot="title">
-            <!-- <span>{{item.name}}</span> -->
             <div class="item-tpl" style="padding-right: 25px;" v-on:mouseover="settingIndex=item.id" v-on:mouseout="settingIndex=-1">
-              <div class="item-name">{{item.name}}</div>
+              <div class="item-name">{{item.typeName}}</div>
               <el-dropdown size="medium" v-show="settingIndex===item.id" slot="reference">
                 <i class="el-icon-setting"></i>
                 <el-dropdown-menu slot="dropdown">
@@ -20,9 +19,9 @@
               </el-dropdown>
             </div>
           </template>
-          <el-menu-item :index="child.id+''" v-for="(child, i) in item.childrens" :key="i">
+          <el-menu-item :index="child.id + ''" v-for="(child, i) in item.subType" :key="i">
             <div class="item-tpl" v-on:mouseover="settingIndex=child.id" v-on:mouseout="settingIndex=-1">
-              <div class="item-name">{{child.name}}</div>
+              <div class="item-name">{{child.typeName}}</div>
               <el-dropdown size="medium" v-show="settingIndex===child.id" slot="reference">
                 <i class="el-icon-setting"></i>
                 <el-dropdown-menu slot="dropdown">
@@ -36,37 +35,49 @@
         </el-submenu>
       </el-menu>
     </el-card>
+    
+    <formTpl ref="form" @load_page="loadPage"></formTpl>
   </el-col>
 </template>
 
 <script>
+import { getQuestionTypeTree } from '@/api/ics/questionType'
+import formTpl from './form'
+
 export default {
+  components: { formTpl },
   data () {
     return {
       bodyStyle: {
         padding: 0,
-        minHeight: '200px',
+        minHeight: '400px',
       },
       selectType: '0',
-      catalogList: [
-        {
-          id: 1,
-          name: '一级分类',
-          childrens: [
-            {
-              id: 1,
-              name: '一级子分类',
-            },
-          ],
-        },
-      ],
+      catalogList: [],
       settingIndex: -1,
     }
   },
   methods: {
-    catalogSelect () {},
-    nemuOpen () {},
-    nemuColse () {},
+    loadPage () {
+      getQuestionTypeTree().then(({ data }) => {
+        this.catalogList = data.data || []
+        if (this.catalogList.length > 0) {
+          this.$emit('load_page', true, this.catalogList[0].id)
+        }
+      })
+    },
+    handleCreate () {
+      this.$refs['form'].open('create')
+    },
+    catalogSelect (val) {
+      console.log('val: ', val)
+    },
+    nemuOpen (index) {
+      this.$emit('load_page', true, this.catalogList[index].id)
+    },
+    nemuColse (index) {
+      this.$emit('load_page', true, this.catalogList[index].id)
+    },
     catalogUpdate () {},
   },
 }
@@ -85,6 +96,17 @@ export default {
       }
       i {
         cursor: pointer;
+      }
+    }
+    .menu-vertical {
+      .item-tpl {
+        display: flex;
+        .item-name {
+          flex: 1;
+        }
+        i {
+          line-height: 50px;
+        }
       }
     }
   }

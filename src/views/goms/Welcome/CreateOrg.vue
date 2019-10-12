@@ -51,6 +51,8 @@ export default {
       }
     }
     return {
+      // eslint-disable-next-line
+      IS_ICAN: IS_ICAN,
       form: initForm(),
       rules: {
         name: [
@@ -76,13 +78,19 @@ export default {
     async submitForm () {
       const { data } = await addiCanObj(this.form)
       if (data.data) {
-        this.$message.success('创建成功')
-        this.tabsActive = 0
-        this.form = initForm()
-        await this.ClearMenu()
-        await this.GetUserInfo()
-        await this.GetMenu()
-        this.$openPage('/wel/orgwelcome')
+        if (this.IS_ICAN) {
+          this.$message.success('创建成功')
+          this.tabsActive = 0
+          this.form = initForm()
+          await this.ClearMenu()
+          await this.GetUserInfo()
+          await this.GetMenu()
+          this.$openPage('/wel/orgwelcome')
+        } else {
+          this.$message.success('创建成功，请等待审核！')
+          this.tabsActive = 0
+          this.form = initForm()
+        }
       } else {
         this.$message(data.msg)
       }

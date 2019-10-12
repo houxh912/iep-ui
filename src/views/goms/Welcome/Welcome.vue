@@ -9,7 +9,7 @@
         </span>
         创建成功！
         <div class="desc">
-          恭喜您已成功开启智慧组织之旅，您还需要招兵买马、备足粮草不断提升您组织的信用与竞争力！
+          在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！
         </div>
       </div>
       <div class="container">
@@ -35,7 +35,7 @@
             </div>
             <div class="info">
               <div class="info-name">创建组织</div>
-              <div class="info-desc">立即开启您的智慧组织之旅</div>
+              <div class="info-desc">为您的组织搭建一个<span class="red">“浅交流、深协作”</span>的新圈子</div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -52,8 +52,8 @@
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info" @click="$openPage('/goms/basic_configuration/organization_information?is_guide=true')">
-              <div class="info-name">完善组织详情</div>
-              <div class="info-desc">充分展示组织优势，提升组织信用，获得更多协作机会</div>
+              <div class="info-name">完善信息</div>
+              <div class="info-desc">为您的组织制作一张<span class="red">“形象丰满、优势突出、氛围优渥”</span>的好名片</div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -70,8 +70,8 @@
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info">
-              <div class="info-name">拓展组织成员</div>
-              <div class="info-desc">立即分享二维码，邀请好友，邀请 1 个 +1 贝
+              <div class="info-name">招兵买马</div>
+              <div class="info-desc">为您的组织吸引更多<span class="red">“能力出众、特点鲜明、资源充沛”</span>的赋能者
                 <iep-button type="primary" size="mini" v-popover:popover plain>入驻邀请</iep-button>
               </div>
             </div>
@@ -91,8 +91,8 @@
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
-              <div class="info-name">分配成员角色</div>
-              <div class="info-desc">充分赋予成员相应权限，发挥成员无限价值</div>
+              <div class="info-name">协作管理</div>
+              <div class="info-desc">为您的组织带来<span class="red">“统一、独立、高度协作”</span>的管理新模式，赋能又赋权</div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -109,8 +109,8 @@
               <i v-else class="el-icon-warning-outline"></i>
             </div>
             <div class="info" @click="$openPage('/hrms/organizational_structure/department_management?is_guide=true')">
-              <div class="info-name">设立部门</div>
-              <div class="info-desc">完善组织架构，持续促进组织的成长与发展，创建 1 个 +1 贝</div>
+              <div class="info-name">部门协同</div>
+              <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责，实现<span class="red">“资产自增、组织共赢、成就共益”</span></div>
             </div>
             <div class="reward">
               <div class="scan-code"></div>
@@ -127,9 +127,10 @@
     </div>
     <iep-divider></iep-divider>
     <div class="congratulations-wrapper">
-      <div class="big-title">再一次恭喜您，您的组织竞争力优于<span>80%</span>的组织！</div>
+      <div class="big-title">开放-赋能-协作</div>
+      <div>完善组织，实现您的组织梦！</div>
       <operation-wrapper>
-        <iep-button size="medium" @click="$openPage('/')">即刻迈进智慧组织</iep-button>
+        <iep-button type="primary" size="medium" @click="$openPage('/')">即刻迈进</iep-button>
       </operation-wrapper>
     </div>
     <div class="footer-container">
@@ -208,6 +209,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.red {
+  color: $--menu-color-primary;
+}
 .footer-container {
   display: flex;
   justify-content: space-around;
@@ -224,14 +228,11 @@ export default {
 .congratulations-wrapper {
   .big-title {
     font-size: 20px;
+    color: $--menu-color-primary;
   }
   font-size: 16px;
   text-align: center;
   line-height: 50px;
-  span {
-    color: $--menu-color-primary;
-    font-size: 25px;
-  }
 }
 .org-task {
   display: flex;
@@ -261,7 +262,7 @@ export default {
       border: 1px solid #eee;
       cursor: pointer;
       .info-name {
-        flex: 0 0 150px;
+        flex: 0 0 100px;
         font-size: 17px;
       }
       .info-desc {
@@ -275,7 +276,7 @@ export default {
       }
     }
     .reward {
-      flex: 0 0 250px;
+      flex: 0 0 150px;
       display: flex;
       justify-content: space-between;
       .money {

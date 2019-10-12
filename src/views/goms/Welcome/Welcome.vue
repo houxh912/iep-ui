@@ -236,13 +236,14 @@ export default {
 }
 .org-task {
   position: relative;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   //flex: 1;
-  &::after{ 
+  &::after {
     position: absolute;
-    top: 20px;  
+    top: 20px;
     left: 49px;
     bottom: 20px;
     content: "";
@@ -303,12 +304,12 @@ export default {
 .main-container {
   margin: 0 auto;
   margin-top: 20px;
-  //width: 1200px;
+  width: 1200px;
   padding-bottom: 20px;
   .container {
     display: flex;
     margin-top: 20px;
-    padding:0 20px;
+    padding: 0 20px;
     .org-card-wrapper {
       flex: 0 0 250px;
       .image {

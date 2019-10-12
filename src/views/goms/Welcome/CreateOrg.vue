@@ -52,8 +52,9 @@ export default {
     }
     return {
       // eslint-disable-next-line
-      IS_ICAN: IS_ICAN,
-      form: initForm(),
+      IS_ICAN,
+      // eslint-disable-next-line
+      form: initForm(IS_ICAN),
       rules: {
         name: [
           { required: true, validator: validateOrgName, trigger: 'blur' },

@@ -220,10 +220,10 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 70px;
+  margin-top: 50px;
   height: 400px;
   background: url("/img/bg/org-bg.webp") no-repeat;
-  background-size: contain;
+  background-size: cover;
   .text {
     font-size: 18px;
     line-height: 50px;
@@ -239,10 +239,21 @@ export default {
   line-height: 50px;
 }
 .org-task {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex: 1;
+  //flex: 1;
+  &::after{ 
+    position: absolute;
+    top: 20px;  
+    left: 49px;
+    bottom: 20px;
+    content: "";
+    width: 2px;
+    background-color: #eee;
+    z-index: -1;
+  }
   .task-item {
     display: flex;
     justify-content: center;
@@ -254,6 +265,7 @@ export default {
       justify-content: center;
       align-items: center;
       font-size: 22px;
+      background-color: #fff;
       .success {
         color: $--menu-color-primary;
       }
@@ -295,11 +307,12 @@ export default {
 .main-container {
   margin: 0 auto;
   margin-top: 20px;
-  width: 1200px;
+  //width: 1200px;
   padding-bottom: 20px;
   .container {
     display: flex;
-    margin-top: 40px;
+    margin-top: 20px;
+    padding:0 20px;
     .org-card-wrapper {
       flex: 0 0 250px;
       .image {

@@ -86,7 +86,7 @@ module.exports = {
         BUILD_GIT_HASH: JSON.stringify(utils.getGitHash()),
         BUILD_PRO_DESC: JSON.stringify(utils.getProjectDesc()),
         BUILD_TIME: Date.parse(new Date()),
-        IS_ICAN: false,
+        IS_ICAN: true,
       })
       return definitions
     })

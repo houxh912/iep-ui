@@ -29,7 +29,6 @@
               <iep-button :disabled="isMine(scope.row)" v-else-if="scope.row.status===2" @click="handleLocking(scope.row)">解锁</iep-button>
               <iep-button :disabled="isMine(scope.row)" v-if="([1].includes(scope.row.status))" @click="handlePassById(scope.row)">通过</iep-button>
               <iep-button :disabled="isMine(scope.row)" v-if="([1].includes(scope.row.status))" @click="handleRejectById(scope.row)">不通过</iep-button>
-              <iep-button :disabled="isMine(scope.row)" @click="handleResetPass(scope.row)" plain>重置密码</iep-button>
               <iep-button :disabled="isMine(scope.row)" v-if="!([1].includes(scope.row.status))" icon="el-icon-delete" @click="handleDeleteById(scope.row)"></iep-button>
             </operation-wrapper>
           </template>

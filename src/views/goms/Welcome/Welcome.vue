@@ -128,10 +128,8 @@
     <iep-divider></iep-divider>
     <div class="congratulations-wrapper">
       <div class="big-title">再一次恭喜您，您的组织竞争力优于<span>80%</span>的组织！</div>
-      <div>您可以选择</div>
       <operation-wrapper>
-        <iep-button size="medium">继续学习如何打造智慧组织</iep-button>
-        <iep-button size="medium" @click="$openPage('/goms/work_bench')">即刻迈进智慧组织</iep-button>
+        <iep-button size="medium" @click="$openPage('/')">即刻迈进智慧组织</iep-button>
       </operation-wrapper>
     </div>
     <div class="footer-container">
@@ -151,6 +149,7 @@
     </div>
     <el-popover ref="popover" placement="right" width="100" trigger="hover" v-model="popoverShow">
       <qrcode class="code" :value="mUrlText" :options="{width:120}"></qrcode>
+      <div>右击图片复制下载</div>
       <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
     </el-popover>
   </div>
@@ -291,7 +290,7 @@ export default {
 .main-container {
   margin: 0 auto;
   margin-top: 20px;
-  max-width: 1200px;
+  width: 1200px;
   padding-bottom: 20px;
   .container {
     display: flex;

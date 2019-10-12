@@ -16,6 +16,9 @@
       <el-form-item label="电子邮箱:" prop="email">
         <el-input v-model="formData.email"></el-input>
       </el-form-item>
+      <el-form-item label="备注:" prop="note">
+        <el-input v-model="formData.note"></el-input>
+      </el-form-item>
       <div class="button">
         <iep-button type="primary" @click="submitForm('ValidateForm')">保存</iep-button>
       </div>

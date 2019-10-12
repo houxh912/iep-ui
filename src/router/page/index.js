@@ -40,6 +40,16 @@ export default [
     },
   },
   {
+    path: '/meeting',
+    name: '报名页预览',
+    component: () => import('@/page/MeetingDetail/index'),
+    meta: {
+      keepAlive: false,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
     path: '/authredirect',
     name: '授权',
     component: () => import('@/page/authredirect/index'),

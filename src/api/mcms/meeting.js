@@ -119,3 +119,11 @@ export function getMymeetingPage (query) {
     params: query,
   })
 }
+//修改报名人员会议信息
+export function putMeetingsignup (query) {
+  return request({
+    url: '/mcms/meetingsignup/update',
+    method: 'post',
+    data: query,
+  })
+}

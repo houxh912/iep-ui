@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="新增" width="50%" @close="close">
+  <iep-dialog :dialog-show="dialogShow" :title="title" width="50%" @close="close">
     <el-form label-width="120px" :model="formData" :ref="'ValidateForm'" :rules="rules">
       <el-form-item label="组织:" prop="companyName">
         <el-input v-model="formData.companyName"></el-input>
@@ -20,14 +20,14 @@
         <el-input v-model="formData.note"></el-input>
       </el-form-item>
       <div class="button">
-        <iep-button type="primary" @click="submitForm('ValidateForm')">保存</iep-button>
+        <iep-button type="primary" @click="submitForm('ValidateForm')">{{title}}</iep-button>
       </div>
     </el-form>
   </iep-dialog>
 </template>
 <script>
 import { rules, initForm } from './option'
-import { postMeetingsignup } from '@/api/mcms/meeting'
+import { postMeetingsignup, putMeetingsignup } from '@/api/mcms/meeting'
 export default {
   data () {
     return {
@@ -35,6 +35,7 @@ export default {
       formData: initForm(),
       rules,
       id: '',
+      title: '',
     }
   },
   methods: {
@@ -47,18 +48,29 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          let form = {
-            list: [this.formData],
-            mid: this.id,
-            number: 1,
-          }
-          postMeetingsignup(form).then((res) => {
-            this.$message({
-              message: res.data.msg,
-              type: 'success',
+          if (this.title == '新增') {
+            let form = {
+              list: [this.formData],
+              mid: this.id,
+              number: 1,
+            }
+            postMeetingsignup(form).then((res) => {
+              this.$message({
+                message: res.data.msg,
+                type: 'success',
+              })
             })
-          })
-          this.close()
+            this.close()
+          }
+          if (this.title == '修改') {
+            putMeetingsignup(this.formData).then((res) => {
+              this.$message({
+                message: res.data.msg,
+                type: 'success',
+              })
+            })
+            this.close()
+          }
         } else {
           return false
         }

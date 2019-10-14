@@ -7,7 +7,7 @@
       <iep-ant-input v-model="form.password" type="password" autocomplete="current-password" placeholder="请输入密码" iconfont="icon-suoding1"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="code">
-      <iep-ant-input input-type="right" :maxlength="code.len" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" :refreshCode="refreshCode" :codeSrc="code.src" @keyup.enter.native="mixinsSubmitFormGen()"></iep-ant-input>
+      <iep-ant-input input-type="right-code" :maxlength="code.len" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" :refreshCode="refreshCode" :codeSrc="code.src" @keyup.enter.native="mixinsSubmitFormGen()"></iep-ant-input>
     </el-form-item>
     <el-form-item>
       <div class="login-text">

@@ -2,7 +2,10 @@
   <div class="iep-input" :class="inputType">
     <span class="input-prefix" v-show="inputType=='left'"><i class="iconfont" :class="iconfont"></i></span>
     <el-input v-bind="$attrs" v-on="$listeners"></el-input>
-    <span class="input-group-addon" v-show="inputType=='right'"><img :src="codeSrc" class="login-code-img" @click="refreshCode" /></span>
+    <span class="input-group-addon" v-show="inputType=='right-code'"><img :src="codeSrc" class="login-code-img" @click="refreshCode" /></span>
+    <span class="input-group-addon" v-show="inputType=='right-mobile'">
+      <el-button class="login-code-mobile" @click="handleSend" :disabled="inputDisabled">{{inputDisabled==false?'发送验证码':msgText}}</el-button>
+    </span>
   </div>
 </template>
 <script>
@@ -25,6 +28,18 @@ export default {
     refreshCode: {
       type: Function,
       default: () => { },
+    },
+    handleSend: {
+      type: Function,
+      default: () => { },
+    },
+    inputDisabled: {
+      type: Boolean,
+      default: false,
+    },
+    msgText: {
+      type: String,
+      default: '',
     },
   },
 }
@@ -54,12 +69,19 @@ export default {
     vertical-align: unset;
     box-sizing: border-box;
   }
+  .login-code-mobile {
+    width: 120px;
+    height: 97%;
+    border-left: 0;
+    border-bottom-left-radius: 0;
+  }
   img {
     vertical-align: middle;
     border-style: none;
   }
 }
-.right {
+.right-mobile,
+.right-code {
   display: table;
   width: 100%;
 }
@@ -72,6 +94,10 @@ export default {
   font-size: 16px;
   line-height: 1.5;
 }
+.iep-input ::v-deep .el-input__inner:hover {
+  border-color: #c73e3e;
+  border-right-width: 1px;
+}
 .iep-input ::v-deep .el-input__inner:focus {
   outline: 0;
   box-shadow: 0 0 0 2px rgba(186, 27, 33, 0.2);
@@ -79,8 +105,11 @@ export default {
 .left ::v-deep .el-input__inner {
   padding-left: 30px;
 }
-.right ::v-deep .el-input__inner {
+.right-code ::v-deep .el-input__inner {
   padding: 6px 11px;
+  border-top-right-radius: 0;
+}
+.right-mobile ::v-deep .el-input__inner {
   border-top-right-radius: 0;
 }
 </style>

@@ -22,14 +22,6 @@ const initForm = () => {
 }
 const columnsMap = [
   {
-    prop: 'views',
-    label: '浏览量',
-  },
-  {
-    prop: 'numberOfComments',
-    label: '评论数',
-  },
-  {
     prop: 'status',
     label: '状态',
     type: 'dict',

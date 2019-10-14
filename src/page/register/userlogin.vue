@@ -118,15 +118,15 @@ export default {
           { validator: checkUserName, trigger: 'change' },
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur', validator: validatePass },
-          { min: 6, message: '密码长度最少为6位', trigger: 'blur' },
+          { required: true, message: '请输入密码', trigger: 'change', validator: validatePass },
+          { min: 6, message: '密码长度最少为6位', trigger: 'change' },
         ],
         cpassword: [
-          { trigger: 'blur', validator: validatePass2 },
-          { min: 6, message: '密码长度最少为6位', trigger: 'blur' },
+          { trigger: 'change', validator: validatePass2 },
+          { min: 6, message: '密码长度最少为6位', trigger: 'change' },
         ],
-        phone: [{ required: true, trigger: 'blur', validator: validatePhone }],
-        realName: [{ required: true, trigger: 'blur', message: '请输入真实姓名' }],
+        phone: [{ required: true, trigger: 'change', validator: validatePhone }],
+        realName: [{ required: true, trigger: 'change', message: '请输入真实姓名' }],
       },
       passwordType: 'password',
     }

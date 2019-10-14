@@ -1,13 +1,13 @@
 <template>
-  <el-form class="form-detail" ref="form" :model="form">
+  <el-form class="form-detail login-form" ref="form" :model="form">
     <el-form-item prop="username">
-      <a-input ref="username" @keyup.enter.native="handleLogin" v-model="form.username" autocomplete="username" placeholder="请输入用户名" size="large">
+      <a-input ref="username" v-model="form.username" autocomplete="username" placeholder="请输入用户名" size="large">
         <a-icon slot="prefix" type="user" />
         <a-icon v-if="form.username" slot="suffix" type="close-circle" @click="emitEmpty('username')" />
       </a-input>
     </el-form-item>
     <el-form-item prop="password">
-      <a-input ref="password" @keyup.enter.native="handleLogin" :type="passwordType" v-model="form.password" autocomplete="current-password" placeholder="请输入密码" size="large">
+      <a-input ref="password" :type="passwordType" v-model="form.password" autocomplete="current-password" placeholder="请输入密码" size="large">
         <a-icon slot="prefix" type="lock" />
         <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
       </a-input>
@@ -39,6 +39,9 @@
   </el-form>
 </template>
 <script>
+import { mapActions } from 'vuex'
+import { randomLenNum } from '@/util/util'
+import { codeUrl } from '@/config/env'
 export default {
   data () {
     return {
@@ -71,5 +74,125 @@ export default {
       loginLoading: false,
     }
   },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    ...mapActions(['LoginByUsername']),
+    emitEmpty (name) {
+      this.$refs[name].focus()
+      this.form[name] = ''
+    },
+    handleHave () {
+      this.$openPage('/login?redirect=/wel/account-settings/binding')
+    },
+    refreshPage () {
+      this.$router.push({ path: '/login', query: { redirect: this.$route.query.redirect } })
+    },
+    loadPage () {
+      this.refreshCode()
+    },
+    handleRetrieve () {
+      this.$emit('tab-active', 'retrieve')
+    },
+    handleRegister () {
+      this.$router.push({ path: '/register', query: { ...this.$route.query, isValid: true } })
+    },
+    refreshCode () {
+      this.form.code = ''
+      this.form.randomStr = randomLenNum(this.code.len, true)
+      this.code.type === 'text'
+        ? (this.code.value = randomLenNum(this.code.len))
+        : (this.code.src = `${codeUrl}?randomStr=${
+          this.form.randomStr
+          }`)
+    },
+    showPassword () {
+      this.passwordType == ''
+        ? (this.passwordType = 'password')
+        : (this.passwordType = '')
+    },
+    handleLogin () {
+      this.$refs.form.validate(async (valid) => {
+        if (valid) {
+          try {
+            this.loginLoading = true
+            await this.LoginByUsername(this.form)
+            this.$emit('onredirect')
+          } catch (error) {
+            this.$message.error(error.message)
+          } finally {
+            this.loginLoading = false
+            this.refreshCode()
+          }
+        }
+      })
+    },
+  },
 }
 </script>
+<style lang="scss" scoped>
+.login-form {
+  margin: 10px 0;
+}
+.login-form i {
+  color: #999;
+}
+.login-form ::v-deep .el-form-item .el-form-item__content {
+  margin-left: 0 !important;
+  width: 100%;
+}
+.login-form ::v-deep .el-input {
+  padding: 0;
+}
+.login-form ::v-deep .el-input .el-input__prefix i {
+  padding: 0 5px;
+  font-size: 16px !important;
+}
+
+.form-detail ::v-deep .el-form-item {
+  margin-bottom: 15px;
+}
+.form-detail {
+  width: 100%;
+}
+
+.login-code ::v-deep .ant-input {
+  font-size: 14px;
+}
+.login-code ::v-deep .ant-input-group-addon {
+  padding: 0;
+  height: 40px;
+}
+.login-code .login-code-img {
+  padding: 1px 0;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.login-text .check-text {
+  float: right;
+  color: red;
+}
+.login-text ::v-deep .el-button--text {
+  color: #ba1b20;
+}
+.login-text ::v-deep .el-button--text:hover {
+  color: #f56c6c;
+}
+.login-text ::v-deep .el-button--text:nth-child(1) {
+  color: #666;
+}
+.login-text ::v-deep .el-button--text:nth-child(1):hover {
+  color: #999;
+}
+
+.visitor {
+  background-color: #e4e4e4;
+  border-color: #e4e4e4;
+}
+.visitor:hover {
+  opacity: 0.7;
+  color: #666;
+}
+</style>

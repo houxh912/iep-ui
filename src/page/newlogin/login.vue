@@ -2,10 +2,11 @@
   <user-operation-layout>
     <div class="login-wrapper">
       <div class="title">
-        <h1>用户登录</h1>
-        <h1>手机号登录</h1>
+        <h1 :class="{'active':active===1}" @click="active=1">帐户密码登录</h1>
+        <h1 :class="{'active':active===2}" @click="active=2">手机号登录</h1>
       </div>
-      <login-password></login-password>
+      <login-password v-if="active===1" @onredirect="_goToRedirect"></login-password>
+      <login-mobile v-if="active===2" @onredirect="_goToRedirect"></login-mobile>
       <template v-if="false">
         <el-divider>其他方式登录</el-divider>
         <div class="social-container">
@@ -27,24 +28,25 @@
   </user-operation-layout>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import UserOperationLayout from './index'
 import { getBindCheck } from '@/api/admin/sys-social-details'
 import { openWindow } from '@/util/util'
-import { codeUrl } from '@/config/env'
-import { randomLenNum } from '@/util/util'
 import { validatenull } from '@/util/validate'
 import SelectDialog from './SelectDialog'
 import LoginPassword from './Form/password'
+import LoginMobile from './Form/mobile'
 export default {
   components: {
     UserOperationLayout,
     SelectDialog,
     LoginPassword,
+    LoginMobile,
   },
   name: 'Userlogin',
   data () {
     return {
+      active: 1,
       socialForm: {
         code: '',
         state: '',
@@ -89,66 +91,11 @@ export default {
       immediate: true,
     },
   },
-  created () {
-    this.loadPage()
-  },
-  computed: {
-    ...mapGetters(['tagWel']),
-  },
   methods: {
-    ...mapActions(['LoginBySocial', 'LoginByUsername']),
-    emitEmpty (name) {
-      this.$refs[name].focus()
-      this.form[name] = ''
-    },
-    handleHave () {
-      this.$openPage('/login?redirect=/wel/account-settings/binding')
-    },
-    refreshPage () {
-      this.$router.push({ path: '/login', query: { redirect: this.$route.query.redirect } })
-    },
-    loadPage () {
-      this.refreshCode()
-    },
-    handleRetrieve () {
-      this.$emit('tab-active', 'retrieve')
-    },
-    handleRegister () {
-      this.$router.push({ path: '/register', query: { ...this.$route.query, isValid: true } })
-    },
-    refreshCode () {
-      this.form.code = ''
-      this.form.randomStr = randomLenNum(this.code.len, true)
-      this.code.type === 'text'
-        ? (this.code.value = randomLenNum(this.code.len))
-        : (this.code.src = `${codeUrl}?randomStr=${
-          this.form.randomStr
-          }`)
-    },
-    showPassword () {
-      this.passwordType == ''
-        ? (this.passwordType = 'password')
-        : (this.passwordType = '')
-    },
+    ...mapActions(['LoginBySocial']),
     async handleSocialLogin () {
       await this.LoginBySocial(this.socialForm)
       this._goToRedirect()
-    },
-    handleLogin () {
-      this.$refs.form.validate(async (valid) => {
-        if (valid) {
-          try {
-            this.loginLoading = true
-            await this.LoginByUsername(this.form)
-            this._goToRedirect()
-          } catch (error) {
-            this.$message.error(error.message)
-          } finally {
-            this.loginLoading = false
-            this.refreshCode()
-          }
-        }
-      })
     },
     _goToRedirect () {
       if (this.$route.query.redirect) {
@@ -185,78 +132,26 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.login-code ::v-deep .ant-input {
-  font-size: 14px;
-}
-.login-code ::v-deep .ant-input-group-addon {
-  padding: 0;
-  height: 40px;
-}
-.login-code .login-code-img {
-  padding: 1px 0;
-  height: 100%;
-  box-sizing: border-box;
-}
-.visitor {
-  background-color: #e4e4e4;
-  border-color: #e4e4e4;
-}
-.visitor:hover {
-  opacity: 0.7;
-  color: #666;
-}
-.login-text .check-text {
-  float: right;
-  color: red;
-}
-.login-text ::v-deep .el-button--text {
-  color: #ba1b20;
-}
-.login-text ::v-deep .el-button--text:hover {
-  color: #f56c6c;
-}
-.login-text ::v-deep .el-button--text:nth-child(1) {
-  color: #666;
-}
-.login-text ::v-deep .el-button--text:nth-child(1):hover {
-  color: #999;
-}
-.login-form {
-  margin: 10px 0;
-}
-.login-form i {
-  color: #999;
-}
-.form-detail ::v-deep .el-form-item {
-  margin-bottom: 15px;
-}
-.login-form ::v-deep .el-form-item .el-form-item__content {
-  margin-left: 0 !important;
-  width: 100%;
-}
-.login-form ::v-deep .el-input {
-  padding: 0;
-}
-.login-form ::v-deep .el-input .el-input__prefix i {
-  padding: 0 5px;
-  font-size: 16px !important;
-}
 .login-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   .title {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-evenly;
     width: 100%;
     h1 {
       color: #888;
       font-size: 18px;
+      cursor: pointer;
+      &.active {
+        cursor: inherit;
+        color: $--menu-color-primary;
+        padding-bottom: 5px;
+        border-bottom: 2px solid;
+      }
     }
-  }
-  .form-detail {
-    width: 100%;
   }
 }
 .social-container {

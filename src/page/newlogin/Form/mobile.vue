@@ -1,7 +1,7 @@
 <template>
   <el-form class="form-detail login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
     <el-form-item prop="mobile">
-      <iep-ant-input v-model="form.mobile" type="phone" placeholder="请输入手机号码" iconfont="icon-dianhua"></iep-ant-input>
+      <iep-ant-input v-model="form.mobile" type="phone" autocomplete="username" placeholder="请输入手机号码" iconfont="icon-dianhua"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="code">
       <iep-ant-input v-model="form.code" inputType="right-mobile" autocomplete="one-time-code" placeholder="请输入验证码" :msgText="msgText" :inputDisabled="msgKey" :handleSend="handleSend"></iep-ant-input>
@@ -12,7 +12,7 @@
           <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>登录</a-button>
         </a-col>
         <a-col :span="12">
-          <a-button size="large" @click="$openPage(`/register?mobile=${form.mobile}`)" block>注册</a-button>
+          <a-button size="large" @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)" block>注册</a-button>
         </a-col>
       </a-row>
     </el-form-item>

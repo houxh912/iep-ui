@@ -19,14 +19,7 @@
       </div>
     </el-form-item>
     <el-form-item>
-      <a-row :gutter="8">
-        <a-col :span="12">
-          <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>登录</a-button>
-        </a-col>
-        <a-col :span="12">
-          <a-button class="visitor" size="large" @click="$message.success('功能开发中')" block>访客</a-button>
-        </a-col>
-      </a-row>
+      <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>登录</a-button>
     </el-form-item>
   </el-form>
 </template>
@@ -170,14 +163,5 @@ export default {
 }
 .login-text ::v-deep .el-button--text:nth-child(1):hover {
   color: #999;
-}
-
-.visitor {
-  background-color: #e4e4e4;
-  border-color: #e4e4e4;
-}
-.visitor:hover {
-  opacity: 0.7;
-  color: #666;
 }
 </style>

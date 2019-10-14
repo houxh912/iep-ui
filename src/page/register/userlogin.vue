@@ -1,7 +1,12 @@
 <template>
   <el-form class="login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
-    <el-form-item prop="username">
-      <iep-ant-input v-model="form.username" type="password" autocomplete="username" placeholder="请输入用户名" iconfont="icon-denglu"></iep-ant-input>
+    <el-form-item prop="phone">
+      <iep-ant-input v-model="form.phone" type="password" autocomplete="username" placeholder="请输入手机号码" iconfont="icon-dianhua" :disabled="!!$route.query.quick"></iep-ant-input>
+    </el-form-item>
+    <el-form-item prop="code">
+      <a-input-search :maxlength="4" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" @search="handleSend" size="large">
+        <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
+      </a-input-search>
     </el-form-item>
     <el-form-item prop="password">
       <iep-ant-input v-model="form.password" type="passwordType" autocomplete="new-password" placeholder="请输入密码" iconfont="icon-suoding1"></iep-ant-input>
@@ -10,10 +15,7 @@
       <iep-ant-input v-model="form.cpassword" type="passwordType" autocomplete="new-password" placeholder="确认你的密码" iconfont="icon-suoding1"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="realName">
-      <iep-ant-input v-model="form.realName" type="user" autocomplete="name" placeholder="请输入真实姓名" iconfont="icon-denglu"></iep-ant-input>
-    </el-form-item>
-    <el-form-item prop="phone">
-      <iep-ant-input v-model="form.phone" type="phone" autocomplete="tel" placeholder="请输入手机号码" iconfont="icon-dianhua"></iep-ant-input>
+      <iep-ant-input v-model="form.realName" type="user" autocomplete="name" placeholder="请输入真实姓名（可选）" iconfont="icon-denglu"></iep-ant-input>
     </el-form-item>
     <!-- <el-form-item prop="code">
       <a-input-search :maxlength="4" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" @search="handleSend" size="large">
@@ -24,12 +26,12 @@
       <el-checkbox v-model="checked">同意并遵守<span class="agreement">《用户守则》</span></el-checkbox>
     </el-form-item>
     <el-form-item>
-      <a-button type="primary" size="large" @click="handleRegister" block>注册</a-button>
+      <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>注册</a-button>
     </el-form-item>
   </el-form>
 </template>
 <script>
-import { mapGetters } from 'vuex'
+import formMixins from '@/mixins/formMixins'
 import { getMobileCode } from '@/api/admin/mobile'
 import { registerUser, validRegisterUserName, validRegisterUserPhone } from '@/api/login'
 import { isvalidatemobile } from '@/util/validate'
@@ -38,6 +40,7 @@ const MSGINIT = '发送验证码',
   MSGTIME = 60
 export default {
   name: 'Userlogin',
+  mixins: [formMixins],
   data () {
     const checkUserName = (rule, value, callback) => {
       if (!value) {
@@ -78,6 +81,7 @@ export default {
       }
     }
     const validatePass2 = (rule, value, callback) => {
+      console.log(value, this.form.password)
       if (value === '') {
         callback(new Error('请再次输入密码'))
       } else if (value !== this.form.password) {
@@ -94,7 +98,8 @@ export default {
         username: '',
         password: '',
         cpassword: '',
-        phone: '',
+        phone: this.$route.query.mobile || '',
+        code: this.$route.query.code || '',
         randomStr: '',
       },
       checked: false,
@@ -111,20 +116,36 @@ export default {
           { min: 6, message: '密码长度最少为6位', trigger: 'change' },
         ],
         phone: [{ required: true, trigger: 'change', validator: validatePhone }],
-        realName: [{ required: true, trigger: 'change', message: '请输入真实姓名' }],
+        code: [{ required: true, trigger: 'change', message: '请输入短信验证码' }],
       },
       passwordType: 'password',
     }
   },
-  mounted () { },
-  computed: {
-    ...mapGetters(['tagWel']),
-  },
-  props: [],
   methods: {
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
+    },
+    async submitForm () {
+      if (!this.checked) {
+        this.$message('请先同意用户守则')
+        return
+      }
+      const { data } = await registerUser(this.form)
+      if (data.data) {
+        this.$message.success('恭喜你，注册成功')
+        const data = await this.$store.dispatch('LoginByPhone', {
+          mobile: this.form.phone,
+          code: this.form.code,
+        })
+        if (data.access_token) {
+          this._goToRedirect()
+        } else {
+          this.$message(data.msg)
+        }
+      } else {
+        this.$message(data.msg)
+      }
     },
     handleSend () {
       if (this.msgKey) return
@@ -154,29 +175,12 @@ export default {
         ? (this.passwordType = 'password')
         : (this.passwordType = '')
     },
-    handleRegister () {
-      if (!this.checked) {
-        this.$message('请先同意用户守则')
-        return
+    _goToRedirect () {
+      if (this.$route.query.redirect) {
+        this.$openPage(this.$route.query.redirect)
+      } else {
+        this.$openPage('/')
       }
-      this.$refs.form.validate(valid => {
-        if (valid) {
-          registerUser(this.form).then(({ data }) => {
-            if (data.data) {
-              this.$message({
-                message: '恭喜你，注册成功',
-                type: 'success',
-              })
-              this.$router.push({ path: '/login', query: this.$route.query })
-            } else {
-              this.$message({
-                message: data.msg,
-                type: 'warning',
-              })
-            }
-          })
-        }
-      })
     },
   },
 }

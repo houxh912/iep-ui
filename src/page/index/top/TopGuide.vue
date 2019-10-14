@@ -7,7 +7,7 @@
 export default {
   methods: {
     handleOpen () {
-      this.$openPage('/app/resource/material/material_detail/7914')
+      // this.$openPage('/app/resource/material/material_detail/7914')
     },
   },
 }

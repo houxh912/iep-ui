@@ -57,6 +57,7 @@ import IepCrmsSelectMultiple from '@/components/IepForm/CrmsSelectMultiple'
 import IepInputAmount from '@/components/IepInput/InputAmount'
 import IepInputNumber from '@/components/IepInput/InputNumber'
 import IepInputArea from '@/components/IepInput/InputArea'
+import IepAntInput from '@/components/IepInput/AntInput'
 
 // 头像上传文件有关组件
 import IepAvatar from '@/components/IepUpload/Avatar'
@@ -170,6 +171,7 @@ Vue.component(IepCrmsSelectMultiple.name, IepCrmsSelectMultiple)
 Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepInputAmount.name, IepInputAmount)
 Vue.component(IepInputArea.name, IepInputArea)
+Vue.component(IepAntInput.name, IepAntInput)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)

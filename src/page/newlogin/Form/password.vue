@@ -1,21 +1,13 @@
 <template>
   <el-form class="form-detail login-form" ref="form" :model="form">
     <el-form-item prop="username">
-      <a-input ref="username" v-model="form.username" autocomplete="username" placeholder="请输入用户名" size="large">
-        <a-icon slot="prefix" type="user" />
-        <a-icon v-if="form.username" slot="suffix" type="close-circle" @click="emitEmpty('username')" />
-      </a-input>
+      <iep-ant-input v-model="form.username" autocomplete="username" placeholder="请输入用户名" iconfont="icon-denglu"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="password">
-      <a-input ref="password" :type="passwordType" v-model="form.password" autocomplete="current-password" placeholder="请输入密码" size="large">
-        <a-icon slot="prefix" type="lock" />
-        <a-icon v-if="form.password" slot="suffix" :type="passwordType?'eye-invisible':'eye'" @click="showPassword" />
-      </a-input>
+      <iep-ant-input v-model="form.password" type="password" autocomplete="current-password" placeholder="请输入密码" iconfont="icon-suoding1"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="code">
-      <a-input class="login-code" @keyup.enter.native="handleLogin" :maxlength="code.len" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" size="large">
-        <img slot="addonAfter" :src="code.src" class="login-code-img" @click="refreshCode" />
-      </a-input>
+      <iep-ant-input input-type="right" :maxlength="code.len" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" :refreshCode="refreshCode" :codeSrc="code.src" @keyup.enter.native="mixinsSubmitFormGen()"></iep-ant-input>
     </el-form-item>
     <el-form-item>
       <div class="login-text">

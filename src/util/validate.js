@@ -191,7 +191,7 @@ export function isvalidatemobile (phone) {
         result = false
       }
     } else {
-      msg = '手机号码长度不为11位'
+      msg = '手机号码长度有误'
     }
   } else {
     msg = '手机号码不能为空'

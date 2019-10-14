@@ -1,7 +1,7 @@
 <template>
   <el-form class="form-detail login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
     <el-form-item prop="mobile">
-      <a-input ref="mobile" v-model="form.mobile" auto-complete="tel" placeholder="请输入手机号码" size="large">
+      <a-input ref="mobile" v-model="form.mobile" autocomplete="username" placeholder="请输入手机号码" size="large">
         <a-icon slot="prefix" type="phone" />
         <a-icon v-if="form.mobile" slot="suffix" type="close-circle" @click="emitEmpty('mobile')" />
       </a-input>
@@ -17,7 +17,7 @@
           <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>登录</a-button>
         </a-col>
         <a-col :span="12">
-          <a-button size="large" @click="$openPage(`/register?mobile=${form.mobile}`)" block>注册</a-button>
+          <a-button size="large" @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)" block>注册</a-button>
         </a-col>
       </a-row>
     </el-form-item>

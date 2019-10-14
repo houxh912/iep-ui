@@ -12,11 +12,19 @@
       </a-input-search>
     </el-form-item>
     <el-form-item>
-      <a-button type="primary" size="large" :loading="loginLoading" @click="handleLogin" block>登录</a-button>
+      <a-row :gutter="8">
+        <a-col :span="12">
+          <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>登录</a-button>
+        </a-col>
+        <a-col :span="12">
+          <a-button size="large" @click="$openPage(`/register?mobile=${form.mobile}`)" block>注册</a-button>
+        </a-col>
+      </a-row>
     </el-form-item>
   </el-form>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import { getMobileCode } from '@/api/admin/mobile'
 import { validRegisterUserPhone } from '@/api/login'
 import { isvalidatemobile } from '@/util/validate'
@@ -24,6 +32,7 @@ const MSGINIT = '发送验证码',
   MSGSCUCCESS = '${time}秒后重发',
   MSGTIME = 60
 export default {
+  mixins: [formMixins],
   data () {
     const validatePhone = (rule, value, callback) => {
       if (isvalidatemobile(value)[0]) {
@@ -31,7 +40,7 @@ export default {
       } else {
         validRegisterUserPhone(value).then(({ data }) => {
           if (data.data) {
-            callback(new Error('该手机号不存在'))
+            callback(new Error('该手机号不存在，请注册'))
           } else {
             callback()
           }
@@ -52,7 +61,6 @@ export default {
         mobile: [{ required: true, trigger: 'change', validator: validatePhone }],
         code: [{ required: true, trigger: 'change', message: '请输入短信验证码' }],
       },
-      loginLoading: false,
     }
   },
   methods: {
@@ -60,14 +68,13 @@ export default {
       this.$refs[name].focus()
       this.form[name] = ''
     },
-    handleLogin () {
-      this.$refs.form.validate(valid => {
-        if (valid) {
-          this.$store.dispatch('LoginByPhone', this.form).then(() => {
-            this.$emit('onredirect')
-          })
-        }
-      })
+    async submitForm () {
+      const data = await this.$store.dispatch('LoginByPhone', this.form)
+      if (data.access_token) {
+        this.$emit('onredirect')
+      } else {
+        this.$message(data.msg)
+      }
     },
     handleSend () {
       if (this.msgKey) return

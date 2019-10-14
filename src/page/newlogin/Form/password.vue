@@ -29,7 +29,7 @@
     <el-form-item>
       <a-row :gutter="8">
         <a-col :span="12">
-          <a-button type="primary" size="large" :loading="loginLoading" @click="handleLogin" block>登录</a-button>
+          <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>登录</a-button>
         </a-col>
         <a-col :span="12">
           <a-button class="visitor" size="large" @click="$message.success('功能开发中')" block>访客</a-button>
@@ -39,10 +39,12 @@
   </el-form>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import { mapActions } from 'vuex'
 import { randomLenNum } from '@/util/util'
 import { codeUrl } from '@/config/env'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       form: {
@@ -71,7 +73,6 @@ export default {
         ],
       },
       passwordType: 'password',
-      loginLoading: false,
     }
   },
   created () {
@@ -112,21 +113,13 @@ export default {
         ? (this.passwordType = 'password')
         : (this.passwordType = '')
     },
-    handleLogin () {
-      this.$refs.form.validate(async (valid) => {
-        if (valid) {
-          try {
-            this.loginLoading = true
-            await this.LoginByUsername(this.form)
-            this.$emit('onredirect')
-          } catch (error) {
-            this.$message.error(error.message)
-          } finally {
-            this.loginLoading = false
-            this.refreshCode()
-          }
-        }
-      })
+    async submitForm () {
+      const data = await this.LoginByUsername(this.form)
+      if (data.access_token) {
+        this.$emit('onredirect')
+      } else {
+        this.$meesage(data.msg)
+      }
     },
   },
 }

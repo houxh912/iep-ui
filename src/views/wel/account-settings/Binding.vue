@@ -11,22 +11,24 @@
           </span>
         </a-list-item-meta>
         <template v-if="!item.isBind">
-          <a slot="actions" @click="item.bindCallback">绑定</a>
+          <a slot="actions" @click="item.bindCallback">{{item.bindText}}</a>
         </template>
         <template v-if="item.isBind">
-          <a slot="actions" @click="item.unbindCallback">解除绑定</a>
+          <a slot="actions" @click="item.unbindCallback">{{item.unbindText}}</a>
         </template>
       </a-list-item>
     </a-list>
+    <mobile-dialog ref="MobileDialog" @load-page="loadPage"></mobile-dialog>
   </div>
 </template>
 
 <script>
 import { getBindUserInfoList, unBindAccount } from '@/api/admin/sys-social-details'
-const nameLabelMap = {
-  'WX': '微信',
-}
+import MobileDialog from './MobileDialog'
 export default {
+  components: {
+    MobileDialog,
+  },
   data () {
     return {
       bindList: [
@@ -35,21 +37,37 @@ export default {
           value: '',
         },
       ],
+      nameLabelMap: {
+        'WX': {
+          name: '微信',
+          bindText: '绑定',
+          unbindText: '解除绑定',
+          bindCallback: this.handleBind,
+          unbindCallback: this.handleUnbind,
+        },
+        'MOBILE': {
+          name: '手机号',
+          bindText: '绑定',
+          unbindText: '更换',
+          bindCallback: this.handleMobileBind,
+          unbindCallback: this.handleMobileBind,
+        },
+      },
     }
   },
   computed: {
     bindData () {
+      const nameLabelMap = this.nameLabelMap
       return this.bindList.map(m => {
         return {
+          label: m.label,
           isBind: m.value ? true : false,
-          name: nameLabelMap[m.label],
+          name: nameLabelMap[m.label].name,
           value: m.value || '无',
-          bindCallback: () => {
-            this.handleBind(m.label)
-          },
-          unbindCallback: () => {
-            this.handleUnbind(m.label)
-          },
+          bindText: nameLabelMap[m.label].bindText,
+          unbindText: nameLabelMap[m.label].unbindText,
+          bindCallback: nameLabelMap[m.label].bindCallback,
+          unbindCallback: nameLabelMap[m.label].unbindCallback,
         }
       })
     },
@@ -61,6 +79,9 @@ export default {
     async loadPage () {
       const { data } = await getBindUserInfoList()
       this.bindList = data.data
+    },
+    handleMobileBind () {
+      this.$refs.MobileDialog.dialogShow = true
     },
     async handleUnbind (state) {
       const { data } = await unBindAccount({

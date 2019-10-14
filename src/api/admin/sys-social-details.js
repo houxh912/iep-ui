@@ -78,3 +78,10 @@ export function newUserLogin (obj) {
     params: obj,
   })
 }
+export function changeMobile (obj) {
+  return request({
+    url: `${prefixUrl}/change`,
+    method: 'get',
+    params: obj,
+  })
+}

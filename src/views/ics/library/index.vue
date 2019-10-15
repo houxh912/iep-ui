@@ -20,6 +20,7 @@ export default {
   components: { classifies, tableTpl, formTpl },
   data () {
     return {
+      currentId: 0,
       pageState: 'library',
     }
   },
@@ -31,6 +32,7 @@ export default {
       })
     },
     loadPage (state, id) {
+      this.currentId = id
       this.pageState = 'library'
       if (state) {
         this.$refs['table'].loadPage(id)

@@ -2,7 +2,7 @@
   <el-col class="sub-menu-left" :span="4">
     <el-card class="sub-card" shadow="never" :body-style="bodyStyle">
       <div slot="header" class="clearfix">
-        <div class="title">分类</div><i class="icon-iconset0136" @click="handleCreate"></i>
+        <div class="title">分类</div><i class="icon-tianjia" @click="handleCreate(0)"></i>
       </div>
       <el-menu :default-active="selectType" class="menu-vertical" @select="catalogSelect" @open="nemuOpen" @close="nemuColse" unique-opened>
         <el-submenu :index="index+''" v-for="(item, index) in catalogList" :key="index">
@@ -13,7 +13,10 @@
                 <i class="el-icon-setting"></i>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>
-                    <div @click="catalogCreate(item.id)">添加子目录</div>
+                    <div @click="handleCreate(item.id)">添加子目录</div>
+                  </el-dropdown-item>
+                  <el-dropdown-item>
+                    <div @click="handleUpdate(item)">重命名</div>
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -26,7 +29,7 @@
                 <i class="el-icon-setting"></i>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>
-                    <div @click="catalogUpdate(child.id)">重命名</div>
+                    <div @click="handleUpdate(child)">重命名</div>
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -66,11 +69,11 @@ export default {
         }
       })
     },
-    handleCreate () {
-      this.$refs['form'].open('create')
+    handleCreate (id = 0) {
+      this.$refs['form'].open('create', {parentTypeId: id})
     },
     catalogSelect (val) {
-      console.log('val: ', val)
+      this.$emit('load_page', true, val.id)
     },
     nemuOpen (index) {
       this.$emit('load_page', true, this.catalogList[index].id)
@@ -78,7 +81,9 @@ export default {
     nemuColse (index) {
       this.$emit('load_page', true, this.catalogList[index].id)
     },
-    catalogUpdate () {},
+    handleUpdate (row) {
+      this.$refs['form'].open('update', row)
+    },
   },
 }
 </script>

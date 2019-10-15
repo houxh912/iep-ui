@@ -24,23 +24,25 @@ export default {
   data () {
     return {
       methodName: 'create',
-      formData: {},
+      formData: {
+        parentTypeId: 0,
+      },
       dialogShow: false,
       rules,
     }
   },
   methods: {
-    open (state = 'create') {
+    open (state = 'create', row) {
+      this.formData = row
       this.methodName = state
       this.dialogShow = true
     },
     submitForm () {
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.formData.typeDesc = this.formData.typeName
           postQuestionType(this.formData).then(() => {
             this.$message({
-              message: `${this.methodName}成功`,
+              message: '操作成功！',
               type: 'success',
             })
             this.$emit('load_page', true)

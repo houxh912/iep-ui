@@ -1,15 +1,15 @@
 <template>
   <basic-container class="iep-page-form">
-    <iep-page-header title="新建材料" :backOption="backOption"></iep-page-header>
+    <iep-page-header title="新建问答" :backOption="backOption"></iep-page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="150px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="标准问题：" prop="question">
         <el-input v-model="formData.question"></el-input>
       </el-form-item>
       <el-form-item label="相似问法：">
-        <el-input v-model="formData.uploader"></el-input>
+        <el-input v-model="formData.lalalalalalalala"></el-input>
       </el-form-item>
-      <el-form-item label="答案：" prop="materialName">
-        <iep-froala-editor v-model="formData.content"></iep-froala-editor>
+      <el-form-item label="答案：" prop="reply">
+        <iep-froala-editor v-model="formData.reply"></iep-froala-editor>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">
         <iep-tag v-model="formData.tagKeyWords" plus @selectTags="selectTags"></iep-tag>

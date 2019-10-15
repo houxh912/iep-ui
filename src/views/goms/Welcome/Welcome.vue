@@ -2,12 +2,20 @@
   <div class="main-box">
     <div class="main-container">
       <div class="top-title bg-title">
-        <i class="el-icon-circle-check success"></i>
-        恭喜你，
-        <span class="org-name">
-          {{userInfo.orgName}}
-        </span>
-        创建成功！
+        <template v-if="$route.query.first">
+          <i class="el-icon-circle-check success"></i>
+          恭喜你，
+          <span class="org-name">
+            {{userInfo.orgName}}
+          </span>
+          创建成功！
+        </template>
+        <template v-else>
+          <span class="org-name" style="margin-left: 40px;">
+            {{userInfo.orgName}}
+          </span>
+          的创建者，您好
+        </template>
         <div class="desc">
           在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！
         </div>
@@ -16,16 +24,12 @@
           <iep-button type="primary" plain v-copy="copyUrlText">{{IS_ICAN?'复制SO组织链接':'复制组织链接'}}</iep-button>
         </div>
       </div>
-      <div class="top-title-bg">
-        <div class="org-name">{{userInfo.orgName}}的管理者，您好！</div>
-        <div class="desc">在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！</div>
-      </div>
       <div class="container">
         <div class="container-content">
           <div class="main-org">
             <div class="title-item">
               完善组织，获取{{IS_ICAN?'能贝':'国脉贝'}}
-              <span class="step">(第2步/共2步)</span>
+              <span v-if="$route.query.first" class="step">(第2步/共2步)</span>
             </div>
             <div class="org-task">
               <div class="task-item">

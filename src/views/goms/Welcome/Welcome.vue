@@ -20,7 +20,8 @@
         <div class="container-content">
           <div class="main-org">
             <div class="title-item">
-              完善组织，获取能贝
+              完善组织，获取{{IS_ICAN?'能贝':'国脉贝'}}
+              <span class="step">(第2步/共2步)</span>
             </div>
             <div class="org-task">
               <div class="task-item">
@@ -377,6 +378,9 @@ export default {
       margin-top: 20px;
       padding: 0 20px;
       .title-item {
+        .step {
+          font-size: 16px;
+        }
         padding: 5px 0 30px 30px;
         font-size: 20px;
       }

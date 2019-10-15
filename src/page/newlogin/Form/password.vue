@@ -15,6 +15,7 @@
         <div class="check-text">
           <el-button type="text" @click="handleRetrieve">忘记密码?</el-button>
           <el-button type="text" @click="handleRegister">立即注册</el-button>
+          <el-button v-if="IS_ICAN" type="text" icon="el-icon-chat-dot-square" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">联系客服</el-button>
         </div>
       </div>
     </el-form-item>
@@ -32,6 +33,8 @@ export default {
   mixins: [formMixins],
   data () {
     return {
+      // eslint-disable-next-line
+      IS_ICAN,
       form: {
         username: '',
         password: '',

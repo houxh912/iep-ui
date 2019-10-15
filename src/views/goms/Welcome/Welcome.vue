@@ -130,7 +130,7 @@
                   <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <span>{{form.distribution?'':'未'}}完成</span>
+                    <span>{{form.releaseInfo?'':'未'}}完成</span>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -148,7 +148,7 @@
                   <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <span>{{form.distribution?'':'未'}}完成</span>
+                    <span>{{form.orgCert?'':'未'}}完成</span>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -166,7 +166,7 @@
                   <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <span>{{form.distribution?'':'未'}}完成</span>
+                    <span>{{form.productMarket?'':'未'}}完成</span>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -233,6 +233,9 @@ export default {
         extendMember: 0,
         distribution: 0,
         buildDept: 0,
+        releaseInfo: 0,//发布信息
+        orgCert: 0, //组织认证
+        productMarket: 0,//产品超市/代理
       },
       //eslint-disable-next-line
       IS_ICAN,

@@ -77,8 +77,6 @@ export default {
         if (valid) {
           mixinsResult = await this.submitForm()
         }
-      } catch (error) {
-        console.log(error)
       } finally {
         await mixinsFormGen.next()
       }

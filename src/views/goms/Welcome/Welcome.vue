@@ -12,8 +12,8 @@
           在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！
         </div>
         <div class="btn-column">
-          <el-button type="primary">二维码邀请</el-button>
-          <el-button type="primary" plain>复制SO组织链接</el-button>
+          <iep-button type="primary" style="margin-right:5px;" v-popover:popover>二维码邀请</iep-button>
+          <iep-button type="primary" plain v-copy="copyUrlText">{{IS_ICAN?'复制SO组织链接':'复制组织链接'}}</iep-button>
         </div>
       </div>
       <div class="container">
@@ -47,8 +47,8 @@
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" @click="$openPage('/goms/basic_configuration/organization_information?is_guide=true')">
-                  <div class="info-name">完善信息</div>
-                  <div class="info-desc">为您的组织制作一张<span class="red">“形象丰满、优势突出、氛围优渥”</span>的好名片</div>
+                  <div class="info-name">丰富组织信息</div>
+                  <div class="info-desc">完善您的组织信息，组织主页将更有吸引力</div>
                 </div>
                 <div class="reward">
                   <div class="scan-code"></div>
@@ -65,9 +65,8 @@
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info">
-                  <div class="info-name">招兵买马</div>
-                  <div class="info-desc">为您的组织吸引更多<span class="red">“能力出众、特点鲜明、资源充沛”</span>的赋能者
-                    <iep-button type="primary" size="mini" v-popover:popover plain>入驻邀请</iep-button>
+                  <div class="info-name">添加成员</div>
+                  <div class="info-desc">为您的组织搭添加10个成员，开启更多赋能功能
                   </div>
                 </div>
                 <div class="reward">
@@ -86,8 +85,8 @@
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
-                  <div class="info-name">协作管理</div>
-                  <div class="info-desc">为您的组织带来<span class="red">“统一、独立、高度协作”</span>的管理新模式，赋能又赋权</div>
+                  <div class="info-name">权限管理</div>
+                  <div class="info-desc">组织“统一、独立、高度协作”的管理新模式，赋能又赋权</div>
                 </div>
                 <div class="reward">
                   <div class="scan-code"></div>
@@ -104,8 +103,8 @@
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" @click="$openPage('/hrms/organizational_structure/department_management?is_guide=true')">
-                  <div class="info-name">部门协同</div>
-                  <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责，实现<span class="red">“资产自增、组织共赢、成就共益”</span></div>
+                  <div class="info-name">创建部门</div>
+                  <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责</div>
                 </div>
                 <div class="reward">
                   <div class="scan-code"></div>
@@ -114,6 +113,60 @@
                     <span>{{form.buildDept>=2 || form.buildDept === -1?'':'未'}}完成</span>
                     <span class="money-text" v-if="form.buildDept>=0">{{form.buildDept}} / 2</span>
                     <span v-if="form.buildDept === -1" class="money-text"> +{{rules[4]}} 贝</span>
+                  </div>
+                </div>
+              </div>
+              <div class="task-item">
+                <div class="icon">
+                  <i v-if="form.distribution" class="el-icon-success success"></i>
+                  <i v-else class="el-icon-warning-outline"></i>
+                </div>
+                <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
+                  <div class="info-name">发布信息</div>
+                  <div class="info-desc">发一条<span class="red">说说</span>，发一篇<span class="red">文章</span>，发一个<span class="red">任务商机</span></div>
+                </div>
+                <div class="reward">
+                  <div class="scan-code"></div>
+                  <!-- <iep-button>立即领取</iep-button> -->
+                  <div>
+                    <span>{{form.distribution?'':'未'}}完成</span>
+                    <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
+                  </div>
+                </div>
+              </div>
+              <div class="task-item">
+                <div class="icon">
+                  <i v-if="form.distribution" class="el-icon-success success"></i>
+                  <i v-else class="el-icon-warning-outline"></i>
+                </div>
+                <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
+                  <div class="info-name">组织认证</div>
+                  <div class="info-desc">创建者、组织进行认证，获取更多组织方服务</div>
+                </div>
+                <div class="reward">
+                  <div class="scan-code"></div>
+                  <!-- <iep-button>立即领取</iep-button> -->
+                  <div>
+                    <span>{{form.distribution?'':'未'}}完成</span>
+                    <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
+                  </div>
+                </div>
+              </div>
+              <div class="task-item">
+                <div class="icon">
+                  <i v-if="form.distribution" class="el-icon-success success"></i>
+                  <i v-else class="el-icon-warning-outline"></i>
+                </div>
+                <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
+                  <div class="info-name">产品超市/代理</div>
+                  <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责</div>
+                </div>
+                <div class="reward">
+                  <div class="scan-code"></div>
+                  <!-- <iep-button>立即领取</iep-button> -->
+                  <div>
+                    <span>{{form.distribution?'':'未'}}完成</span>
+                    <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
               </div>
@@ -155,7 +208,6 @@
         <el-popover ref="popover" placement="right" width="100" trigger="hover" v-model="popoverShow">
           <qrcode class="code" :value="mUrlText" :options="{width:120}"></qrcode>
           <div>右击图片复制下载</div>
-          <el-link :underline="false" icon="el-icon-link" v-copy="copyUrlText">复制组织链接</el-link>
         </el-popover>
       </div>
     </div>
@@ -180,6 +232,8 @@ export default {
         extendMember: 0,
         distribution: 0,
         buildDept: 0,
+        //eslint-disable-next-line
+        IS_ICAN,
       },
     }
   },
@@ -265,6 +319,7 @@ export default {
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-bottom: 15px;
     .icon {
       flex: 0 0 100px;
       display: flex;
@@ -284,7 +339,7 @@ export default {
       border: 1px solid #eee;
       cursor: pointer;
       .info-name {
-        flex: 0 0 100px;
+        flex: 0 0 120px;
         font-size: 17px;
       }
       .info-desc {

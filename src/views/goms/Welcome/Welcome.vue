@@ -358,8 +358,7 @@ export default {
     }
     .reward {
       flex: 0 0 150px;
-      display: flex;
-      justify-content: space-around;
+      text-align: center;
       .money {
         margin-left: 20px;
       }

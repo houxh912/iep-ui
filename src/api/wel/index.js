@@ -51,7 +51,7 @@ export function getCustomerList (query) {
 
 export function getProjectList () {
   return request({
-    url: '/prms/iepProjectInformation/getMyProject/list',
+    url: '/fams/iepProjectInformation/getMyProject/list',
     method: 'get',
   })
 }

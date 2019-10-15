@@ -18,7 +18,7 @@
       </p>
       <div class="introduce">
         <div class="introduce-item" v-for="(item, index) in introduceList" :key="index">
-          {{item.description}} —— {{item.creatorRealName}} <i class="icon-bianji" @click="handleUpdate(item)"></i>
+          {{item.description}} —— {{item.creatorRealName}} <i class="icon-bianji" v-if="userInfo.userId === item.creatorId" @click="handleUpdate(item)"></i>
         </div>
       </div>
       <!-- <span class="more fr">
@@ -148,7 +148,6 @@ export default {
 .introduce {
   .introduce-item {
     margin-bottom: 5px;
-    display: flex;
     i {
       font-size: 12px;
       margin-left: 10px;

@@ -18,7 +18,6 @@
 import { getTypePageDetailById } from '@/api/conm/f_link_type_controller'
 import { initTypeForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
-// import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   data () {
@@ -33,7 +32,6 @@ export default {
       siteId: 0,
     }
   },
-  // },
   created () {
     this.loadPage()
   },

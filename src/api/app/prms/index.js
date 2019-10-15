@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/prms/channel_project'
+const prefixUrl = '/fams/channel_project'
 
 export const getProjectList = (id) => {
   return request({

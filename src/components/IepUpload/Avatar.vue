@@ -1,5 +1,5 @@
 <template>
-  <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess" accept="image/*">
+  <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :headers="headers" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload" accept="image/*">
     <div class="no-avatar-wrapper">
       <a-avatar v-if="isShow" :size="64" shape="square" :src="value"></a-avatar>
       <a-avatar v-if="!isShow" shape="square" :size="64" icon="picture"></a-avatar>
@@ -31,8 +31,15 @@ export default {
     },
   },
   methods: {
-    handleAvatarSuccess (res) {
-      this.$emit('input', res.data.url)
+    beforeAvatarUpload (file) {
+      const isLt4M = file.size / 1024 / 1024 < 4
+      if (!isLt4M) {
+        this.$message.error('上传图片大小不能超过 4MB!')
+      }
+      return isLt4M
+    },
+    handleAvatarSuccess (file) {
+      this.$emit('input', file.data.url)
     },
   },
 }

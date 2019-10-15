@@ -15,8 +15,8 @@
           <i class="el-icon-warning"></i>
           <span v-if="noOrg" class="remind-text">您尚未加入任何组织，请选择</span>
           <span v-else class="remind-text">您已在 {{userInfo.orgName}} 的组织</span>
-          <el-button :type="`${tabsActive==='0' ? 'primary':'default'}`" size="mini" @click="handleChangeTab('0')">加入组织</el-button>
-          <el-button :type="`${tabsActive==='1' ? 'primary':'default'}`" size="mini" @click="handleChangeTab('1')">创建组织</el-button>
+          <el-button :type="`${tabsActive==='0' ? 'primary':'default'}`" @click="handleChangeTab('0')">我要加入组织</el-button>
+          <el-button :type="`${tabsActive==='1' ? 'primary':'default'}`" @click="handleChangeTab('1')">我要创建组织</el-button>
         </div>
         <div class="bottom-wrapper">
           <component ref="tabList" :is="activeTab"></component>

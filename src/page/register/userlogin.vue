@@ -44,7 +44,6 @@
   </el-form>
 </template>
 <script>
-import { randomLenNum } from '@/util/util'
 import { mapGetters } from 'vuex'
 import { getMobileCode } from '@/api/admin/mobile'
 import { registerUser, validRegisterUserName, validRegisterUserPhone } from '@/api/login'
@@ -111,14 +110,7 @@ export default {
         password: '',
         cpassword: '',
         phone: '',
-        code: '',
         randomStr: '',
-      },
-      code: {
-        src: '/code',
-        value: '',
-        len: 4,
-        type: 'image',
       },
       checked: false,
       rules: {
@@ -134,12 +126,10 @@ export default {
           { min: 6, message: '密码长度最少为6位', trigger: 'blur' },
         ],
         phone: [{ required: true, trigger: 'blur', validator: validatePhone }],
+        realName: [{ required: true, trigger: 'blur', message: '请输入真实姓名' }],
       },
       passwordType: 'password',
     }
-  },
-  created () {
-    this.refreshCode()
   },
   mounted () { },
   computed: {
@@ -173,15 +163,6 @@ export default {
           clearInterval(time)
         }
       }, 1000)
-    },
-    refreshCode () {
-      this.form.code = ''
-      this.form.randomStr = randomLenNum(this.code.length, true)
-      this.code.type === 'text'
-        ? (this.code.value = randomLenNum(this.code.len))
-        : (this.code.src = `${this.codeUrl}?randomStr=${
-          this.form.randomStr
-          }`)
     },
     showPassword () {
       this.passwordType == ''

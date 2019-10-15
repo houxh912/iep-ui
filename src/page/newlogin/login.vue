@@ -43,21 +43,24 @@
         </el-form-item>
       </el-form>
 
-      <el-divider>其他方式登录</el-divider>
-      <div class="social-container">
-        <div class="box qq" @click="handleClick('tencent')">
-          <span class="container">
-            <i icon-class="qq" class="iconfont icon-qq"></i>
-          </span>
+      <template v-if="false">
+        <el-divider>其他方式登录</el-divider>
+        <div class="social-container">
+          <div class="box qq" @click="handleClick('tencent')">
+            <span class="container">
+              <i icon-class="qq" class="iconfont icon-qq"></i>
+            </span>
+          </div>
+          <div class="box wechat" @click="handleClick('wechat')">
+            <span class="container">
+              <i icon-class="wechat" class="iconfont icon-weixin"></i>
+            </span>
+          </div>
         </div>
-        <div class="box wechat" @click="handleClick('wechat')">
-          <span class="container">
-            <i icon-class="wechat" class="iconfont icon-weixin"></i>
-          </span>
-        </div>
-      </div>
+      </template>
 
     </div>
+    <select-dialog ref="SelectDialog" @load-page="refreshPage()" @login="handleSocialLogin()" @have="handleHave()"></select-dialog>
   </user-operation-layout>
 </template>
 <script>
@@ -68,8 +71,12 @@ import { openWindow } from '@/util/util'
 import { codeUrl } from '@/config/env'
 import { randomLenNum } from '@/util/util'
 import { validatenull } from '@/util/validate'
+import SelectDialog from './SelectDialog'
 export default {
-  components: { UserOperationLayout },
+  components: {
+    UserOperationLayout,
+    SelectDialog,
+  },
   name: 'Userlogin',
   data () {
     return {
@@ -116,7 +123,11 @@ export default {
           this.socialForm.state = params.state
           this.socialForm.code = params.code
           if (!validatenull(this.socialForm.state)) {
+            console.log(this.socialForm)
             const { data } = await getBindCheck(this.socialForm)
+            if (data.code) {
+              return
+            }
             if (data.data) {
               const loading = this.$loading({
                 lock: true,
@@ -129,8 +140,10 @@ export default {
               }, 2000)
               this.handleSocialLogin()
             } else {
-              this.$message(data.msg + '请登陆后绑定账号')
-              this.$openPage('/login?redirect=/wel/account-settings/binding')
+              // this.$message(data.msg + '请登陆后绑定账号')
+              this.$refs['SelectDialog'].dialogShow = true
+              this.$refs['SelectDialog'].form.code = params.code
+              this.$refs['SelectDialog'].form.state = params.state
             }
           }
         }
@@ -150,6 +163,12 @@ export default {
     emitEmpty (name) {
       this.$refs[name].focus()
       this.form[name] = ''
+    },
+    handleHave () {
+      this.$openPage('/login?redirect=/wel/account-settings/binding')
+    },
+    refreshPage () {
+      this.$router.push({ path: '/login', query: { redirect: this.$route.query.redirect } })
     },
     loadPage () {
       this.refreshCode()
@@ -228,12 +247,11 @@ export default {
   },
 }
 </script>
-
-<style lang="css" scoped>
-.login-code >>> .ant-input {
+<style lang="scss" scoped>
+.login-code ::v-deep .ant-input {
   font-size: 14px;
 }
-.login-code >>> .ant-input-group-addon {
+.login-code ::v-deep .ant-input-group-addon {
   padding: 0;
   height: 40px;
 }
@@ -254,16 +272,16 @@ export default {
   float: right;
   color: red;
 }
-.login-text >>> .el-button--text {
+.login-text ::v-deep .el-button--text {
   color: #ba1b20;
 }
-.login-text >>> .el-button--text:hover {
+.login-text ::v-deep .el-button--text:hover {
   color: #f56c6c;
 }
-.login-text >>> .el-button--text:nth-child(1) {
+.login-text ::v-deep .el-button--text:nth-child(1) {
   color: #666;
 }
-.login-text >>> .el-button--text:nth-child(1):hover {
+.login-text ::v-deep .el-button--text:nth-child(1):hover {
   color: #999;
 }
 .login-form {
@@ -272,23 +290,20 @@ export default {
 .login-form i {
   color: #999;
 }
-.form-detail >>> .el-form-item {
+.form-detail ::v-deep .el-form-item {
   margin-bottom: 15px;
 }
-.login-form >>> .el-form-item .el-form-item__content {
+.login-form ::v-deep .el-form-item .el-form-item__content {
   margin-left: 0 !important;
   width: 100%;
 }
-.login-form >>> .el-input {
+.login-form ::v-deep .el-input {
   padding: 0;
 }
-.login-form >>> .el-input .el-input__prefix i {
+.login-form ::v-deep .el-input .el-input__prefix i {
   padding: 0 5px;
   font-size: 16px !important;
 }
-</style>
-
-<style lang="scss" scoped>
 .login-wrapper {
   display: flex;
   flex-direction: column;

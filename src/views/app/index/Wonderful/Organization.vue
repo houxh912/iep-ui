@@ -46,11 +46,11 @@ export default {
     cursor: pointer;
     .img {
       width: 100%;
-      height: 160px;
+      height: 165px;
       overflow: hidden;
       img {
         width: 100%;
-        height: 160px;
+        height: 165px;
         transition: 0.5s;
         &:hover {
           cursor: pointer;
@@ -59,7 +59,9 @@ export default {
       }
     }
     .name {
-      line-height: 40px;
+      display: block;
+      line-height: 50px;
+      height: 30px;
     }
     &:first-child {
       margin: 0 15px 0 0;
@@ -74,7 +76,7 @@ export default {
 <style scoped>
 .organization >>> .el-image__inner {
   width: 100%;
-  height: 160px;
+  height: 165px;
   transition: 0.5s;
 }
 .organization >>> .el-image__inner:hover {

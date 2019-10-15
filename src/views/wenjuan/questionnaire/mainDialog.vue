@@ -1,5 +1,5 @@
 <template>
-  <gov-dialog ref="dialog" width="90%" :btnGroup="btnGroup" @open="handleOpen" @closed="handleClosedDialog" :title="'创建问卷'" :isBtnGroup="status !== dialog.textName.detail" @handleSubmit="dialogSubmit" @handleSubmitDraft="handleSubmitDraft" @handlePreview="handlePreview">   
+  <gov-dialog ref="dialog" width="90%" :btnGroup="btnGroup" @open="handleOpen" @closed="handleClosedDialog" :title="'创建问卷'" :isBtnGroup="status !== dialog.textName.detail" @handleSubmit="dialogSubmit" @handleSubmitDraft="handleSubmitDraft" @handlePreview="handlePreview">
     <layout-form>
       <el-row class="mainContainer">
         <el-col :span="4" class="left">
@@ -216,6 +216,7 @@ export default {
           loading: false,
           disabled: false,
           fn: 'handlePreview',
+          type: 'primary',
         },
         {
           label: '保存',
@@ -500,7 +501,7 @@ export default {
 <style lang="scss" scoped>
 .mainContainer {
   .left {
-    padding-right:15px;
+    padding-right: 15px;
     border-right: 1px solid #dcdfe6;
     .titleH {
       font-size: 14px;
@@ -522,13 +523,14 @@ export default {
     }
     .selectBtn {
       width: 93%;
-      margin: 15px auto 15px;font-size: 14px;
+      margin: 15px auto 15px;
+      font-size: 14px;
     }
   }
   .right {
-    padding-left:15px;
+    padding-left: 15px;
     height: 580px;
-    overflow: hidden;
+    overflow: inherit;
     .title {
       font-size: 16px;
       margin: 6px 8px 0;

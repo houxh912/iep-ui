@@ -16,6 +16,11 @@ export default [
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/index/new'),
       },
       {
+        path: 'ican',
+        name: '后台首页(ican)',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/index/ican'),
+      },
+      {
         path: 'master',
         name: '推荐师父',
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/master/'),
@@ -24,6 +29,11 @@ export default [
         path: 'masterConfirm/:id',
         name: '确认师父',
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/master/confirm'),
+      },
+      {
+        path: 'friend_confirm/:id',
+        name: '确认好友',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/RelationshipManage/confirm'),
       },
       {
         path: 'account-settings',

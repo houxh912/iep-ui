@@ -24,12 +24,11 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import { validatenull } from '@/util/validate'
-import config from './config.js'
 export default {
   name: 'SidebarItem',
   data () {
     return {
-      config: config,
+      propsDefault: this.$website.menu.props,
     }
   },
   props: {
@@ -58,16 +57,16 @@ export default {
   computed: {
     ...mapGetters(['roles']),
     labelKey () {
-      return this.props.label || this.config.propsDefault.label
+      return this.props.label || this.propsDefault.label
     },
     pathKey () {
-      return this.props.path || this.config.propsDefault.path
+      return this.props.path || this.propsDefault.path
     },
     iconKey () {
-      return this.props.icon || this.config.propsDefault.icon
+      return this.props.icon || this.propsDefault.icon
     },
     childrenKey () {
-      return this.props.children || this.config.propsDefault.children
+      return this.props.children || this.propsDefault.children
     },
     nowTagValue () {
       return this.$router.$avueRouter.getValue(this.$route)
@@ -110,7 +109,8 @@ export default {
     line-height: 40px;
     border-left: 3px solid #fafafa;
     &:hover {
-      border-color: $--menu-color-primary;
+      background-color: $--menu-color-second;
+      color: $--menu-color-primary;
     }
   }
 }

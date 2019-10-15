@@ -2,12 +2,15 @@
   <div class="title">
     <template v-if="type === 'edit'">
       <h3 class="name">图片单选题</h3>
-      <div class="ti">
-        <div class="ti1">标题：</div>
-        <div class="ti2">
-          <el-input style="width:80%" v-model="data.title" :maxlength="200"></el-input>
-        </div>
-      </div>
+      <el-form :model="data" ref="data" label-width="70px" class="ti">
+        <el-form-item label="标题：" prop="title" :rules="[
+          { required: true, message: '标题不能为空'}
+        ]">
+          <div class="ti2">
+            <el-input style="width:250%" v-model="data.title" :maxlength="200"></el-input>
+          </div>
+        </el-form-item>
+      </el-form>
       <div class="ti">
         <div class="ti1">选项：</div>
         <div class="ti2">

@@ -1,7 +1,7 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="16">
-      <el-form ref="form" :rules="rules" size="small" :model="form" label-width="120px">
+    <el-col :span="18">
+      <el-form ref="form" :rules="rules" size="small" :model="form" label-width="180px">
         <iep-form-item label-name="组织名称" prop="name">
           <el-input v-model="form.name" :maxlength="110"></el-input>
         </iep-form-item>
@@ -14,8 +14,11 @@
         <iep-form-item label-name="组织简介" prop="intro">
           <iep-input-area v-model="form.intro"></iep-input-area>
         </iep-form-item>
+        <!-- <iep-form-item label-name="是否默认加入我能联盟" prop="isICan">
+          <el-switch v-model="form.isICan" :active-value="1" :inactive-value="0"></el-switch>
+        </iep-form-item> -->
         <el-form-item>
-          <el-button type="primary" @click="onSubmit('form')">立即创建</el-button>
+          <el-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">立即创建</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -27,9 +30,12 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import formMixins from '@/mixins/formMixins'
 import { initForm } from './options'
 import { addObj, validOrgName } from '@/api/goms/org'
 export default {
+  mixins: [formMixins],
   data () {
     const validateOrgName = (rule, value, callback) => {
       if (!value) {
@@ -45,7 +51,10 @@ export default {
       }
     }
     return {
-      form: initForm(),
+      // eslint-disable-next-line
+      IS_ICAN,
+      // eslint-disable-next-line
+      form: initForm(IS_ICAN),
       rules: {
         name: [
           { required: true, validator: validateOrgName, trigger: 'blur' },
@@ -62,27 +71,30 @@ export default {
     }
   },
   methods: {
-    onSubmit (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          addObj(this.form).then(({ data }) => {
-            if (data.data) {
-              this.$message({
-                message: '创建成功，等待审核',
-                type: 'success',
-              })
-              this.tabsActive = 0
-              this.form = initForm()
-              // this.$openPage('/wel/finishorg')
-            } else {
-              this.$message({
-                message: data.msg,
-                type: 'warning',
-              })
-            }
-          })
+    ...mapActions([
+      'GetUserInfo',
+      'GetMenu',
+      'ClearMenu',
+    ]),
+    async submitForm () {
+      const { data } = await addObj(this.form)
+      if (data.data) {
+        if (this.IS_ICAN) {
+          this.$message.success('创建成功')
+          this.tabsActive = 0
+          this.form = initForm()
+          await this.ClearMenu()
+          await this.GetUserInfo()
+          await this.GetMenu()
+          this.$openPage('/wel/orgwelcome')
+        } else {
+          this.$message.success('创建成功，请等待审核！')
+          this.tabsActive = 0
+          this.form = initForm()
         }
-      })
+      } else {
+        this.$message(data.msg)
+      }
     },
   },
 }

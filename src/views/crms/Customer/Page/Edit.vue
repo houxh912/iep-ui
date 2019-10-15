@@ -102,6 +102,14 @@
             <el-switch v-model="Claim" active-color="#13ce66" active-text="是" inactive-text="否">
             </el-switch>
           </el-form-item>
+          <el-form-item label="开放范围：" prop="isOpen">
+            <el-radio-group v-model="formData.isOpen">
+              <el-radio :label="3">对联盟开放</el-radio>
+              <el-radio :label="2">对组织开放</el-radio>
+              <el-radio :label="0">生态开放</el-radio>
+              <el-radio :label="1">关闭</el-radio>
+            </el-radio-group>
+          </el-form-item>
           <!-- <el-form-item label="跟进状态:" prop="followUpStatus">
             <iep-dict-select v-model="formData.followUpStatus" dict-name="crms_follow_up_status"></iep-dict-select>
           </el-form-item> -->

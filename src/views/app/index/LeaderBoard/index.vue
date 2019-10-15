@@ -48,5 +48,8 @@ export default {
 .leaderBoard >>> .el-card {
   height: 376px;
 }
+.leaderBoard >>> .ranking .piece{
+  height: 29px;
+}
 </style>
 

@@ -1,5 +1,5 @@
 import request from '@/router/axios'
-const prefixUrl = '/prms/iepProjectInformation'
+const prefixUrl = '/fams/iepProjectInformation'
 
 export function getTableData (obj) {
   return request({
@@ -151,7 +151,7 @@ export function withdrawById (obj) {
 //统计页面
 export function getMyPosition (obj) {
   return request({
-    url: 'prms/iep-project-myposition/getDetail',
+    url: 'fams/iep-project-myposition/getDetail',
     method: 'get',
     params: obj,
   })

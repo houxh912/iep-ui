@@ -83,13 +83,14 @@ export default {
       let fn = () => {
         downloadCount(this.formData.id).then(({ data }) => {
           if (data.data) {
+            this.formData.isPay = 1
             downloadFile(obj)
           } else {
             this.$message.error(data.msg)
           }
         })
       }
-      if (this.getMoney(this.formData.downloadCost) == 0) {
+      if (this.getMoney(this.formData.downloadCost) == 0 || this.formData.isPay === 1) {
         fn()
       } else {
         this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {

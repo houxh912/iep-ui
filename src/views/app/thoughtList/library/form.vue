@@ -5,14 +5,7 @@
         <el-input @click.native="handleCancal" id="keyupStart" ref="content" type="textarea" rows="5" :placeholder="subjectPlaceholder" v-model="formData.content" class="textarea" maxlength="1000" @keyup.native="handleKeyup"></el-input>
         <div class="yincang">
           {{formData.content}}
-          <el-autocomplete
-            ref="autocomplete"
-            v-model="state"
-            :fetch-suggestions="querySearchAsync"
-            placeholder="请输入内容"
-            @select="handleSelect"
-            placement="top-end"
-          ></el-autocomplete>
+          <el-autocomplete ref="autocomplete" v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" placement="top-end"></el-autocomplete>
         </div>
       </el-form-item>
       <div class="img-list" v-if="formData.images.length > 0">
@@ -20,65 +13,51 @@
           <div class="close" @click="handleDeleteImage(index)"><i class="el-icon-close"></i></div>
           <iep-img :src="item"></iep-img>
         </div>
-        <el-upload
-          v-if="formData.images.length < 9"
-          class="avatar-uploader"
-          action="/api/admin/file/upload/avatar"
-          :show-file-list="false"
-          :headers="headers"
-          :on-success="handleAvatarSuccess"
-          accept="image/*"
-          ref="upload">
+        <el-upload v-if="formData.images.length < 9" class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*" ref="upload">
           <i class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </div>
       <div class="button-list">
         <div class="func" @click="handleImage" v-if="formData.images.length === 0 && transmitId === -1">
-          <!-- <el-upload
-            action="/api/admin/file/upload/avatar"
-            :show-file-list="false"
-            :headers="headers"
-            :on-success="handleAvatarSuccess"
-            accept="image/*"
-            ref="upload">
-            <div class="func"><i class="icon-tupian"></i><p>图片</p></div>
-          </el-upload> -->
-          <el-upload
-            action="/api/admin/file/upload/avatar"
-            :show-file-list="false"
-            :headers="headers"
-            :on-success="handleAvatarSuccess"
-            accept="image/*"
-            :before-upload="beforeUpload"
-            ref="upload">
-            <div class="func"><i class="icon-tupian"></i><p>图片</p></div>
+          <el-upload action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" accept="image/*" :before-upload="beforeUpload" ref="upload">
+            <div class="func"><i class="icon-tupian"></i>
+              <p>图片</p>
+            </div>
           </el-upload>
         </div>
         <div class="func" v-if="formData.images.length > 0 && transmitId === -1">
-          <i class="icon-tupian"></i><p>图片</p>
+          <i class="icon-tupian"></i>
+          <p>图片</p>
         </div>
         <div class="func" @click="handleAnt">
-          <i class="symbol">@</i><p>提醒</p>
+          <i class="symbol">@</i>
+          <p>提醒</p>
         </div>
         <div class="func" @click="handleSubject">
-          <i class="symbol">#</i><p>话题</p>
-        </div>
-        <div class="switch">
-          <p>是否开放：</p>
-          <el-switch
-            class="el-switch"
-            v-model="formData.status"
-            active-color="#13ce66"
-            inactive-color="#bbb"
-            :active-value="0"
-            :inactive-value="1">
-          </el-switch>
+          <i class="symbol">#</i>
+          <p>话题</p>
         </div>
         <div class="label">
           <label>说说标签：</label>
           <iep-tag v-model="formData.tags"></iep-tag>
         </div>
         <iep-button type="primary" class="submit" @click="handleSubmit('form')" :loading="loadState">发布</iep-button>
+      </div>
+      <div class="button-list">
+        <div class="switch">
+          <p>是否开放：</p>
+          <el-radio-group v-model="formData.status">
+            <el-radio :label="item.value" v-for="(item, index) in dictMaps.status" :key="index">{{item.label}}</el-radio>
+          </el-radio-group>
+          <!-- <el-switch
+            class="el-switch"
+            v-model="formData.status"
+            active-color="#13ce66"
+            inactive-color="#bbb"
+            :active-value="0"
+            :inactive-value="1">
+          </el-switch> -->
+        </div>
       </div>
     </el-form>
   </div>
@@ -96,10 +75,28 @@ import image from '@/mixins/image'
 var initForm = () => {
   return {
     content: '',
-    status: 0,
+    status: 3,
     images: [],
     tags: [],
   }
+}
+
+const dictMaps = {
+  status: [
+    {
+      label: '对联盟开放',
+      value: 3,
+    }, {
+      label: '对组织开放',
+      value: 2,
+    }, {
+      label: '生态开放',
+      value: 0,
+    }, {
+      label: '关闭',
+      value: 1,
+    }, 
+  ],
 }
 
 const rules = {
@@ -107,7 +104,7 @@ const rules = {
 }
 
 export default {
-  mixins: [ keyup, image ],
+  mixins: [keyup, image],
   props: {
     subject: {
       type: String,
@@ -128,6 +125,7 @@ export default {
       headers: {
         Authorization: 'Bearer ' + store.getters.access_token,
       },
+      dictMaps,
     }
   },
   methods: {
@@ -173,7 +171,7 @@ export default {
                 this.loadState = false
                 this.$emit('load-page')
               } else {
-                addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+                addBellBalanceRuleByNumber('SHUOSHUO').then(({ data }) => {
                   this.resetForm()
                   this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
                   this.loadState = false
@@ -201,7 +199,7 @@ export default {
       initForm = () => {
         return {
           content: this.subject,
-          status: 0,
+          status: 3,
           images: [],
           tags: [],
         }
@@ -256,7 +254,7 @@ export default {
         overflow: hidden;
       }
       .avatar-uploader:hover {
-        border-color: #409EFF;
+        border-color: #409eff;
       }
       .avatar-uploader-icon {
         font-size: 28px;

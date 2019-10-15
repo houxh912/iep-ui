@@ -81,7 +81,7 @@ const rules = {
     { required: true, message: '请输入名称', trigger: 'blur' },
   ],
   buyerNumber: [
-    { required: true, message: '请输入纳税人号码', trigger: 'blur' },
+    { required: true, message: '请输入纳税人号', trigger: 'blur' },
   ],
   buyerAddress: [
     { required: true, message: '请输入地址', trigger: 'blur' },

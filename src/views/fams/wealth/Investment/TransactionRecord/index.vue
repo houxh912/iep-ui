@@ -1,6 +1,6 @@
 
 <template>
-  <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable">
+  <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :dictsMap="dictsMap" :pagedTable="pagedTable" :pagination="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange">
     <template slot="before-columns">
       <el-table-column label="组织名称" width="250">
         <template slot-scope="scope">

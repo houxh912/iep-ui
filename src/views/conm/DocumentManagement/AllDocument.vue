@@ -1,31 +1,15 @@
 <template>
-  <!-- <el-row class="aside-main" :gutter="8">
-    <el-col class="sub-menu-left" :span="4">
-      <menus></menus>
-    </el-col>
-  <el-col :span="20">-->
-  <div>
+  <div class="aside-main">
     <operation-container>
       <template slot="left">
         <iep-button v-if="info_article_add" type="primary" plain @click="handleAdd">新增</iep-button>
-        <!-- <iep-button>移动</iep-button> -->
-        <!-- <el-dropdown size="medium">
-            <iep-button type="default">
-              更多操作
-              <i class="el-icon-arrow-down el-icon--right"></i>
-            </iep-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>删除</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>-->
       </template>
-      <!-- <template slot="right">
-        <operation-search>
-          <advance-search @search-page="searchPage"></advance-search>
+      <template slot="right">
+        <operation-search @search-page="searchPage" prop="title">
         </operation-search>
-      </template> -->
+      </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @sort-change='sortChange'>
       <template slot="before-columns">
         <el-table-column label="ID" width="90px">
           <template slot-scope="scope">
@@ -37,32 +21,33 @@
             <iep-table-link @click="handleDetail(scope.row)">{{scope.row.title}}</iep-table-link>
           </template>
         </el-table-column>
-        <el-table-column label="发布时间">
+        <el-table-column label="发布时间" width="150" sortable='custom' prop="createTime">
+          <template slot-scope="scope">{{scope.row.createTime|parseToDay}}</template>
+        </el-table-column>
+        <el-table-column label="修改时间" width="150">
           <template slot-scope="scope">{{scope.row.updateTime|parseToDay}}</template>
+        </el-table-column>
+        <el-table-column label="浏览量" sortable='custom' width="120" prop='views'>
+          <template slot-scope="scope">{{scope.row.views}}</template>
         </el-table-column>
       </template>
       <el-table-column prop="operation" label="操作" width="250" fixed="right">
         <template slot-scope="scope">
           <operation-wrapper>
-            <!-- <iep-button>查看评论</iep-button> -->
             <iep-button v-if="info_article_edit" @click="handleEdit(scope.row)">编辑</iep-button>
             <iep-button v-if="info_article_del" @click="handleFalseDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
-    <!-- </el-col>
-    </el-row>-->
   </div>
 </template>
 <script>
-// import Menus from './Menus'
 import { getPage, logicDeleteNodeById } from '@/api/conm/article_controller'
 import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
 export default {
-  // components: { Menus },
   mixins: [mixins],
   data () {
     return {
@@ -77,6 +62,10 @@ export default {
       info_article_add: false,
       info_article_edit: false,
       info_article_del: false,
+      sortList: {
+        order: '',
+        fieldName: '',
+      },
     }
   },
   created () {
@@ -93,7 +82,6 @@ export default {
     ]),
   },
   methods: {
-
     handleAdd () {
       this.$router.push({
         path: '/comn/document_management_edit/0',
@@ -106,6 +94,15 @@ export default {
         query: { nodeId: this.id, siteId: this.siteId },
       })
     },
+    sortChange (val) {
+      this.sortList.order = val.order
+      this.sortList.fieldName = val.prop
+      this.loadPage()
+      this.sortList = {
+        order: '',
+        fieldName: '',
+      }
+    },
     handleFalseDelete (row) {
       this._handleGlobalDeleteById(row.id, logicDeleteNodeById)
     },
@@ -113,30 +110,13 @@ export default {
       this.$router.push(`/comn/document_management_detail/${row.id}`)
     },
     async loadPage (param = this.searchForm) {
-      await this.loadTable({ ...param, nodeId: this.id, siteId: this.siteId }, getPage)
+      await this.loadTable({ ...this.sortList, ...param, nodeId: this.id, siteId: this.siteId }, getPage)
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-.aside-main {
-  display: flex;
-  margin: 0 !important;
-  padding: 20px;
-  width: 100%;
-  height: 100vh;
-}
-.sub-menu-left {
-  margin: -20px 15px -20px -20px;
-  padding-top: 12px;
-  border-right: 1px solid #ebeef5;
-  .el-card {
-    border: 0;
-  }
-}
-</style>
 <style scoped>
-.aside-main >>> .ant-menu-inline {
-  border-right: none;
+.aside-main >>> .el-table th > .cell {
+  display: -webkit-box;
 }
 </style> 

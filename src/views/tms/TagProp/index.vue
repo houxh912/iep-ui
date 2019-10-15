@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tags-attribute">
     <basic-container>
       <el-row type="flex" class="row-bg" justify="space-between">
         <el-tabs v-model="activeName" style="width:100%;">
@@ -26,3 +26,8 @@ export default {
   },
 }
 </script>
+<style scoped>
+  .tags-attribute>>>.el-table--border th,.tags-attribute>>>.el-table--border td{
+    border-right:0;
+  }
+</style>

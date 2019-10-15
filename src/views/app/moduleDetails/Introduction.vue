@@ -92,7 +92,7 @@ export default {
       height: 60px;
       line-height: 60px;
       .name {
-        width: 45%;
+        max-width: 45%;
         font-size: 20px;
         color: #333;
       }

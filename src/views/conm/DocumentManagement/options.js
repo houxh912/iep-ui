@@ -9,7 +9,7 @@ const initForm = () => {
   return {
     id: '',
     title: '',
-    updateTime: '',//发布时间
+    createTime: '',//发布时间
     status: 1,//状态
     infoDescribe: '',//信息描述
     tagKeyWords: [],
@@ -21,14 +21,6 @@ const initForm = () => {
   }
 }
 const columnsMap = [
-  {
-    prop: 'views',
-    label: '浏览量',
-  },
-  {
-    prop: 'numberOfComments',
-    label: '评论数',
-  },
   {
     prop: 'status',
     label: '状态',

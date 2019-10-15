@@ -32,7 +32,7 @@ export default {
       children: 'children',
     },
     firstMenu: {
-      name: '个人赋能台',
+      name: 'ET工作台',
       path: '/wel/index',
       modulePath: '/wel',
     },

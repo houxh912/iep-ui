@@ -1,23 +1,15 @@
 <template>
   <div class="iep-page-form">
     <div class="bg-top">
-      <div class="desc">欢迎来到
-        <span class="keyword">{{keyword}}</span>
-        ，你可以在这里加入组织或创建组织，你可以通过<span class="keyword">{{keyword}}</span>进行协同办公、学习成长和财富增值，在这里大家都在登记个人资源、管理个人财富、共享<span class="keyword">{{keyword}}</span>资源、上报工作计划、自主学习考试、信息查收推送、在线沟通聊天。</div>
-      <div class="title-wrapper">
-        <div class="title">加入{{keyword}}</div>
-        <div class="slogan">--为你的组织无限赋能</div>
-      </div>
+      <div class="title">{{templateText.h1}}</div>
+      <div class="desc">{{templateText.h2}}</div>
+      <operation-wrapper>
+        <iep-button size="medium" :type="`${tabsActive==='1' ? 'primary':'default'}`" @click="handleChangeTab('1')">{{templateText.createText}}</iep-button>
+        <iep-button size="medium" :type="`${tabsActive==='0' ? 'primary':'default'}`" @click="handleChangeTab('0')">{{templateText.joinText}}</iep-button>
+      </operation-wrapper>
     </div>
     <basic-container>
       <div class="select-org-wrapper">
-        <div class="top-wrapper">
-          <i class="el-icon-warning"></i>
-          <span v-if="noOrg" class="remind-text">您尚未加入任何组织，请选择</span>
-          <span v-else class="remind-text">您已在 {{userInfo.orgName}} 的组织</span>
-          <el-button :type="`${tabsActive==='0' ? 'primary':'default'}`" @click="handleChangeTab('0')">我要加入组织</el-button>
-          <el-button :type="`${tabsActive==='1' ? 'primary':'default'}`" @click="handleChangeTab('1')">我要创建组织</el-button>
-        </div>
         <div class="bottom-wrapper">
           <component ref="tabList" :is="activeTab"></component>
         </div>
@@ -27,22 +19,37 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import CreateOrg from './CreateOrg'
 import JoinOrg from './JoinOrg'
+const textMap = {
+  // 我能
+  [true]: {
+    h1: '创建SO组织（企业/机构/团队/群组），实现您的组织梦',
+    h2: '最优化匹配资源，通过协作、学习、管理、财富深度赋能，开启智慧组织之旅',
+    createText: '我要创建SO组织',
+    joinText: '寻找加入SO组织',
+  },
+  // 内网
+  [false]: {
+    h1: '创建 （企业/机构/团队/群组），实现您的组织梦',
+    h2: '最优化匹配资源，通过协作、学习、管理、财富深度赋能，开启智慧组织之旅',
+    createText: '我要创建组织',
+    joinText: '寻找加入组织',
+  },
+}
 export default {
   name: 'WelcomeOrg',
   components: { JoinOrg, CreateOrg },
   data () {
     return {
-      keyword: '内网',
+      // eslint-disable-next-line
+      IS_ICAN,
     }
   },
   computed: {
-    ...mapGetters([
-      'userInfo',
-      'noOrg',
-    ]),
+    templateText () {
+      return textMap[this.IS_ICAN]
+    },
     tabsActive () {
       return this.$route.query.type || '0'
     },
@@ -67,36 +74,24 @@ export default {
 </script>
 <style scoped="scoped" lang="scss">
 .bg-top {
-  background-image: url("/img/bg/ban-join.webp");
+  background-image: url("/img/bg/ban-join.jpg");
   background-repeat: round;
-  padding: 40px;
+  padding: 20px 40px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  .desc {
-    margin: 0 50px;
-    .keyword {
-      color: $--color-primary;
-    }
+  margin: 20px 20px 0 20px;
+  border-radius: 5px;
+  .title {
+    font-size: 28px;
   }
-  .title-wrapper {
-    flex: 0 0 300px;
-    font-size: 20px;
-    color: $--color-primary;
+  .desc {
+    color: #999;
+    margin: 10px 0;
   }
 }
 .select-org-wrapper {
-  padding: 10px 30px;
-  .top-wrapper {
-    color: #666;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
-    .remind-text {
-      font-size: 14px;
-      margin-right: 10px;
-      margin-left: 5px;
-    }
-  }
+  padding: 0 30px;
   .bottom-wrapper {
     margin-top: 20px;
   }

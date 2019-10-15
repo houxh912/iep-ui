@@ -1,7 +1,10 @@
 <template>
   <el-row :gutter="20">
-    <el-col :span="18">
-      <el-form ref="form" :rules="rules" size="small" :model="form" label-width="180px">
+    <el-col :span="20">
+      <div class="top-title">创建组织
+        <span>（第1步/共2步）</span>
+      </div>
+      <el-form ref="form" :rules="rules" :model="form" label-width="180px">
         <iep-form-item label-name="组织名称" prop="name">
           <el-input v-model="form.name" :maxlength="110"></el-input>
         </iep-form-item>
@@ -103,5 +106,12 @@ export default {
 .create-org-container {
   padding: 0 20px;
   text-align: left;
+}
+.top-title {
+  font-size: 24px;
+  span {
+    font-size: 15px;
+    color: #999;
+  }
 }
 </style>

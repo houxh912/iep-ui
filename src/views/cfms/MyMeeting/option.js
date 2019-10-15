@@ -11,9 +11,9 @@ const columnsName = [
   { label: '名称', prop: 'name' },
   { label: '手机', prop: 'phoneNumber' },
   { label: '组织', prop: 'companyName' },
-  { label: '职务', prop: 'position'  },
-  { label: '邮箱', prop: 'email',width: 200 },
-  // { label: '报名渠道', prop: 'meetingFlagName' },
+  { label: '职务', prop: 'position' },
+  { label: '邮箱', prop: 'email', width: 200 },
+  { label: '备注', prop: 'note' },
   { label: '状态', prop: 'signupFlagName' },
   // { label: '备注', prop: 'meetingFlagName' },
 ]

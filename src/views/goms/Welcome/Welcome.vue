@@ -274,15 +274,19 @@ export default {
 
 <style lang="scss" scoped>
 .bg-title {
+  margin: 20px;
   background-image: url("/img/orgWlecome/top.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  border-radius: 5px;
 }
 .bg-congratulations {
+  margin-bottom: 20px;
   background-image: url("/img/orgWlecome/line.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   margin-top: 30px;
+  border-radius: 5px;
   padding: 15px;
 }
 .red {
@@ -369,7 +373,6 @@ export default {
   }
 }
 .main-box {
-  padding: 25px 0;
   .main-container {
     margin: 0 auto;
     width: 100%;

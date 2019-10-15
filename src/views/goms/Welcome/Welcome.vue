@@ -233,9 +233,9 @@ export default {
         extendMember: 0,
         distribution: 0,
         buildDept: 0,
-        //eslint-disable-next-line
-        IS_ICAN,
       },
+      //eslint-disable-next-line
+      IS_ICAN,
     }
   },
   computed: {

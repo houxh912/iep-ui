@@ -1,6 +1,6 @@
 <template>
   <div class="iep-page-form">
-    <iep-page-header title="新建材料" :backOption="backOption"></iep-page-header>
+    <iep-page-header :title="`${methodList[methodName].name}材料`" :backOption="backOption"></iep-page-header>
     <el-form :model="formData" :rules="rules" size="small" ref="form" label-width="100px" style="margin-bottom: 50px;" class="form-detail">
       <el-form-item label="名称：" prop="materialName">
         <el-input v-model="formData.materialName" maxlength="50" :placeholder="tipContent.materialName"></el-input>

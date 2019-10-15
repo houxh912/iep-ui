@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table v-bind="$attrs" ref="table" class="table" v-loading="isLoadTable" :data="formatData" style="width: 100%;" :header-cell-style="headerCellStyle" :cell-class-name="cellClassName" :row-style="rowStyle" @selection-change="handleSelectionChange" @row-click="rowClick" @select="selectLine" @select-all="selectAll">
+    <el-table v-bind="$attrs" ref="table" class="table" v-loading="isLoadTable" :data="formatData" style="width: 100%;" :header-cell-style="headerCellStyle" :cell-class-name="cellClassName" :row-style="rowStyle" @selection-change="handleSelectionChange" @row-click="rowClick" @select="selectLine" @select-all="selectAll" @sort-change='sortChange'>
       <el-table-column v-if="isMutipleSelection" type="selection" :selectable="checkboxInit" width="55" :align="align">
       </el-table-column>
       <el-table-column v-if="isIndex" type="index" width="50" :align="align">
@@ -214,6 +214,9 @@ export default {
     },
     handleSelectionChange (val) {
       this.$emit('selection-change', val)
+    },
+    sortChange (val) {
+      this.$emit('sort-change', val)
     },
     // 整行点击事件
     rowClick (row, column, event) {

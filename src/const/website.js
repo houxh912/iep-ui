@@ -31,9 +31,10 @@ export default {
       icon: 'icon',
       children: 'children',
     },
+    // TODO:/wel/index 暂时
     firstMenu: {
       name: 'ET工作台',
-      path: '/wel/index',
+      path: '/wel/ican',
       modulePath: '/wel',
     },
   },

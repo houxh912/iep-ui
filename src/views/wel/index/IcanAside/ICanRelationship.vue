@@ -4,30 +4,43 @@
     <div class="my-wrapper">
       <div class="title-con">
         <div class="title">我的师傅：</div>
-        <span class="time">马思红/赵之灵/杨冰之/郑爱军/田景熙</span>
+        <span class="time">{{relationList[0].map(m=>m.name).join('/')}}</span>
       </div>
       <div class="title-con">
         <div class="title">我的徒弟：</div>
-        <span class="time">马思红/赵之灵/杨冰之/郑爱军/田景熙</span>
+        <span class="time">{{relationList[1].map(m=>m.name).join('/')}}</span>
       </div>
       <div class="title-con">
         <div class="title">我的关注：</div>
-        <span class="time">马思红/赵之灵/杨冰之/郑爱军/田景熙</span>
+        <span class="time">{{relationList[2].map(m=>m.name).join('/')}}</span>
       </div>
       <slot></slot>
     </div>
   </i-can-content>
 </template>
 <script>
+import { getUserRelationList } from '@/api/wel/et'
 import ICanContent from './ICanContent'
 export default {
   components: { ICanContent },
   data () {
     return {
+      relationList: [
+        [],
+        [],
+        [],
+      ],
     }
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
-
+    async loadPage () {
+      const { data } = await getUserRelationList()
+      console.log(data.data)
+      this.relationList = data.data
+    },
   },
 }
 </script>

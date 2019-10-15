@@ -1,14 +1,12 @@
 <template>
   <my-content class="my-content" :title-name="`我的SO(${orgs.length})`">
     <template v-slot:stitle>
-      <operation-wrappe>
-        <iep-button size="mini" @click="$openPage('/wel/orgwelcome')">完善SO</iep-button>
-        <iep-button size="mini" @click="$openPage('/wel/org?type=1')">创建或加入SO</iep-button>
-      </operation-wrappe>
+      <iep-button size="mini" @click="$openPage('/wel/org?type=1')">创建或加入SO</iep-button>
     </template>
     <div class="current-wrapper">
       <div class="current-org">
         <span>{{userInfo.orgName}}</span>
+        <iep-button v-if="identity==='创建者'" size="mini" @click="$openPage('/wel/orgwelcome')">完善SO</iep-button>
       </div>
       <div class="current-role">
         <div>
@@ -102,6 +100,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.current-org {
+  display: flex;
+  justify-content: space-between;
+}
 .org-list {
   margin-top: 15px;
   font-size: 14px;

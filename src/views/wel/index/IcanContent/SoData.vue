@@ -5,42 +5,42 @@
         <div class="icon bg1"><i class="icon-jiandati"></i></div>
         <div class="text">
           <div>材料</div>
-          <div class="number">666</div>
+          <div class="number">{{listData[0]}}</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg2"><i class="icon-survey-library"></i></div>
         <div class="text">
           <div>项目</div>
-          <div class="number">666</div>
+          <div class="number">{{listData[1]}}</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg3"><i class="icon-xiangmu"></i></div>
         <div class="text">
           <div>方案</div>
-          <div class="number">666</div>
+          <div class="number">{{listData[2]}}</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg4"><i class="icon-kehu"></i></div>
         <div class="text">
           <div>客户</div>
-          <div class="number">666</div>
+          <div class="number">{{listData[3]}}</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg5"><i class="icon-tongji1"></i></div>
         <div class="text">
           <div>合同</div>
-          <div class="number">666</div>
+          <div class="number">{{listData[4]}}</div>
         </div>
       </div>
       <div class="item">
         <div class="icon bg6"><i class="icon-chanpin"></i></div>
         <div class="text">
           <div>产品</div>
-          <div class="number">666</div>
+          <div class="number">{{listData[5]}}</div>
         </div>
       </div>
     </div>
@@ -48,9 +48,24 @@
 </template>
 <script>
 import Wrapper from './Wrapper'
+import { getOrgCount } from '@/api/wel/et'
 export default {
   components: {
     Wrapper,
+  },
+  data () {
+    return {
+      listData: [0, 0, 0, 0, 0, 0],
+    }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      const { data } = await getOrgCount()
+      this.listData = this.$fillStatisticsArray(this.listData, data.data)
+    },
   },
 }
 </script>

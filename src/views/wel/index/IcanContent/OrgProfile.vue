@@ -1,13 +1,13 @@
 <template>
   <div class="org-profile-wrapper">
     <div class="logo-wrapper">
-      <iep-img class="logo" src="http://183.131.134.242:10060/upload/iep/201904/11b1fdf3-68a1-41d1-954d-61054b3f9648_20190117093354_036bter376.jpg"></iep-img>
+      <iep-img class="logo" :src="form.logo"></iep-img>
     </div>
     <div class="info-wrapper">
       <div class="desc-wrapper">
         <div class="title-wrapper">
           <div class="title">
-            <span class="name">国脉集团研发中心</span>
+            <span class="name">{{form.name}}</span>
             <span class="label">虚拟</span>
           </div>
           <div class="style-item">
@@ -16,44 +16,73 @@
           </div>
         </div>
         <div class="detail-wrapper">
-          <div>创建人：黄永梅</div>
-          <div>成立时间：2019年04月01日</div>
-          <div>行业：数据服务</div>
+          <div>创建人：{{form.creatorName}}</div>
+          <div>成立时间：{{form.establishTime}}</div>
+          <div>行业：
+            <iep-dict-detail :value="form.orgType" dict-name="GOMS_ORG_TYPE"></iep-dict-detail>
+          </div>
         </div>
       </div>
       <div class="data-wrapper">
         <div>
-          <div class="number">670</div>
+          <div class="number">{{form.countValue[0]}}</div>
           <div>信用值</div>
         </div>
         <div>
-          <div class="number">670</div>
+          <div class="number">{{form.countValue[1]}}</div>
           <div>活跃度</div>
         </div>
-        <div>
+        <!-- <div>
           <div class="number">670</div>
           <div>关注量</div>
-        </div>
+        </div> -->
         <div>
-          <div class="number">670</div>
+          <div class="number">{{form.countValue[2]}}</div>
           <div>数据资产</div>
         </div>
         <div>
-          <div class="number">670</div>
+          <div class="number">{{form.countValue[3]}}</div>
           <div>组织成员</div>
         </div>
         <div>
-          <div class="number">670</div>
+          <div class="number">{{form.countValue[4]}}</div>
           <div>组织财富</div>
         </div>
         <div>
-          <div class="number">670</div>
+          <div class="number">{{form.countValue[5]}}</div>
           <div>资料完善</div>
         </div>
       </div>
     </div>
   </div>
 </template>
+<script>
+import { getOrgProfile } from '@/api/wel/et'
+export default {
+  data () {
+    return {
+      form: {
+        countValue: [0, 0, 0, 0, 0, 0],
+        creatorName: '',
+        establishTime: '',
+        logo: '',
+        name: '',
+        orgId: 0,
+        orgType: '1',
+      },
+    }
+  },
+  created () {
+    this.loadPage()
+  },
+  methods: {
+    async loadPage () {
+      const { data } = await getOrgProfile()
+      this.form = this.$mergeByFirst(this.form, data.data)
+    },
+  },
+}
+</script>
 <style lang="scss" scoped>
 .data-wrapper {
   display: flex;

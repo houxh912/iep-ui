@@ -1,5 +1,5 @@
 <template>
-  <el-form class="form-detail login-form" ref="form" :model="form">
+  <el-form class="form-detail login-form" :rules="rules" ref="form" :model="form">
     <el-form-item prop="username">
       <iep-ant-input v-model="form.username" autocomplete="username" placeholder="请输入用户名" iconfont="icon-denglu"></iep-ant-input>
     </el-form-item>
@@ -57,7 +57,7 @@ export default {
           { min: 4, max: 4, message: '验证码长度为4位', trigger: 'blur' },
         ],
       },
-      passwordType: 'password',
+      // passwordType: 'password',
     }
   },
   created () {
@@ -65,13 +65,6 @@ export default {
   },
   methods: {
     ...mapActions(['LoginByUsername']),
-    emitEmpty (name) {
-      this.$refs[name].focus()
-      this.form[name] = ''
-    },
-    handleHave () {
-      this.$openPage('/login?redirect=/wel/account-settings/binding')
-    },
     refreshPage () {
       this.$router.push({ path: '/login', query: { redirect: this.$route.query.redirect } })
     },
@@ -93,11 +86,12 @@ export default {
           this.form.randomStr
           }`)
     },
-    showPassword () {
-      this.passwordType == ''
-        ? (this.passwordType = 'password')
-        : (this.passwordType = '')
-    },
+    // TODO: 展示密码
+    // showPassword () {
+    //   this.passwordType == ''
+    //     ? (this.passwordType = 'password')
+    //     : (this.passwordType = '')
+    // },
     async submitForm () {
       const data = await this.LoginByUsername(this.form)
       if (data.access_token) {

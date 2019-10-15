@@ -1,27 +1,20 @@
 <template>
   <el-form class="login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
     <el-form-item prop="phone">
-      <iep-ant-input v-model="form.phone" type="password" autocomplete="username" placeholder="请输入手机号码" iconfont="icon-dianhua" :disabled="!!$route.query.quick"></iep-ant-input>
+      <iep-ant-input v-model="form.phone" autocomplete="username" placeholder="请输入手机号码" iconfont="icon-dianhua" :disabled="!!$route.query.quick"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="code">
-      <a-input-search :maxlength="4" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" @search="handleSend" size="large">
-        <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
-      </a-input-search>
+      <iep-ant-input v-model="form.code" inputType="right-mobile" autocomplete="one-time-code" placeholder="请输入验证码" :msgText="msgText" :inputDisabled="msgKey" :handleSend="handleSend"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="password">
-      <iep-ant-input v-model="form.password" type="passwordType" autocomplete="new-password" placeholder="请输入密码" iconfont="icon-suoding1"></iep-ant-input>
+      <iep-ant-input v-model="form.password" type="password" autocomplete="new-password" placeholder="请输入密码" iconfont="icon-suoding1"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="cpassword">
-      <iep-ant-input v-model="form.cpassword" type="passwordType" autocomplete="new-password" placeholder="确认你的密码" iconfont="icon-suoding1"></iep-ant-input>
+      <iep-ant-input v-model="form.cpassword" type="password" autocomplete="new-password" placeholder="确认你的密码" iconfont="icon-suoding1"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="realName">
-      <iep-ant-input v-model="form.realName" type="user" autocomplete="name" placeholder="请输入真实姓名（可选）" iconfont="icon-denglu"></iep-ant-input>
+      <iep-ant-input v-model="form.realName" autocomplete="name" placeholder="请输入真实姓名（可选）" iconfont="icon-denglu"></iep-ant-input>
     </el-form-item>
-    <!-- <el-form-item prop="code">
-      <a-input-search :maxlength="4" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" @search="handleSend" size="large">
-        <a-button slot="enterButton" :class="[{ display: msgKey }]">{{ msgText }}</a-button>
-      </a-input-search>
-    </el-form-item> -->
     <el-form-item>
       <el-checkbox v-model="checked">同意并遵守<span class="agreement">《用户守则》</span></el-checkbox>
     </el-form-item>
@@ -39,7 +32,7 @@ const MSGINIT = '发送验证码',
   MSGSCUCCESS = '${time}秒后重发',
   MSGTIME = 60
 export default {
-  name: 'Userlogin',
+  name: 'UserRegister',
   mixins: [formMixins],
   data () {
     const checkUserName = (rule, value, callback) => {
@@ -118,7 +111,7 @@ export default {
         phone: [{ required: true, trigger: 'change', validator: validatePhone }],
         code: [{ required: true, trigger: 'change', message: '请输入短信验证码' }],
       },
-      passwordType: 'password',
+      // passwordType: 'password',
     }
   },
   methods: {
@@ -148,6 +141,10 @@ export default {
       }
     },
     handleSend () {
+      if (isvalidatemobile(this.form.mobile)[0]) {
+        this.$message('手机号错误')
+        return
+      }
       if (this.msgKey) return
       getMobileCode(this.form.phone).then(response => {
         if (response.data.data) {
@@ -170,11 +167,11 @@ export default {
         }
       }, 1000)
     },
-    showPassword () {
-      this.passwordType == ''
-        ? (this.passwordType = 'password')
-        : (this.passwordType = '')
-    },
+    // showPassword () {
+    //   this.passwordType == ''
+    //     ? (this.passwordType = 'password')
+    //     : (this.passwordType = '')
+    // },
     _goToRedirect () {
       if (this.$route.query.redirect) {
         this.$openPage(this.$route.query.redirect)

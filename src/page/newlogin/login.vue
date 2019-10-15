@@ -97,6 +97,9 @@ export default {
       await this.LoginBySocial(this.socialForm)
       this._goToRedirect()
     },
+    handleHave () {
+      this.$openPage('/login?redirect=/wel/account-settings/binding')
+    },
     _goToRedirect () {
       if (this.$route.query.redirect) {
         this.$openPage(this.$route.query.redirect)

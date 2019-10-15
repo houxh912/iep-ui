@@ -59,10 +59,6 @@ export default {
     }
   },
   methods: {
-    emitEmpty (name) {
-      this.$refs[name].focus()
-      this.form[name] = ''
-    },
     async submitForm () {
       const data = await this.$store.dispatch('LoginByPhone', this.form)
       if (data.access_token) {
@@ -72,6 +68,10 @@ export default {
       }
     },
     handleSend () {
+      if (isvalidatemobile(this.form.mobile)[0]) {
+        this.$message('手机号错误')
+        return
+      }
       if (this.msgKey) return
       getMobileCode(this.form.mobile).then(response => {
         if (response.data.data) {
@@ -80,7 +80,6 @@ export default {
           this.$message.error(response.data.msg)
         }
       })
-
       this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
       this.msgKey = true
       const time = setInterval(() => {

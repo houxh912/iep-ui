@@ -108,8 +108,10 @@ export default {
 .right-code ::v-deep .el-input__inner {
   padding: 6px 11px;
   border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .right-mobile ::v-deep .el-input__inner {
   border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 </style>

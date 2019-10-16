@@ -2,25 +2,25 @@
   <div class="main-box">
     <div class="main-container">
       <div class="top-title bg-title">
-        <i class="el-icon-circle-check success"></i>
+        <el-button type="success" icon="el-icon-check" circle></el-button>
         恭喜你，
         <span class="org-name">
           {{userInfo.orgName}}
         </span>
         创建成功！
         <div class="desc">
-          在智慧组织的旅途上，您可以找到志同道合的协作者、发现资源充沛的新商机，相互赋能、组织共赢、生态共享！
+          最优化匹配资源，通过协作、学习、管理、财富深度赋能，开启智慧组织之旅
         </div>
         <div class="btn-column">
-          <iep-button type="primary" style="margin-right:5px;" v-popover:popover>二维码邀请</iep-button>
-          <iep-button type="primary" plain v-copy="copyUrlText">{{IS_ICAN?'复制SO组织链接':'复制组织链接'}}</iep-button>
+          <iep-button type="primary" size="medium" style="margin-right:5px;" v-popover:popover>二维码邀请</iep-button>
+          <iep-button type="primary" size="medium" plain v-copy="copyUrlText">{{IS_ICAN?'复制组织链接':'复制SO组织链接'}}</iep-button>
         </div>
       </div>
       <div class="container">
         <div class="container-content">
           <div class="main-org">
             <div class="title-item">
-              完善组织，获取{{IS_ICAN?'能贝':'国脉贝'}}
+              完善组织，获取{{IS_ICAN?'国脉贝':'能贝'}}
               <span class="step">(第2步/共2步)</span>
             </div>
             <div class="org-task">
@@ -37,8 +37,7 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.createdOrg?'':'未'}}完成</span>
-                    <span v-if="form.createdOrg === -1" class="money-text"> +{{rules[0]}} 贝</span>
+                    <iep-button round v-if="form.createdOrg === -1"> +{{rules[0]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
@@ -48,15 +47,15 @@
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" @click="$openPage('/goms/basic_configuration/organization_information?is_guide=true')">
-                  <div class="info-name">丰富组织信息</div>
+                  <div class="info-name">完善组织</div>
                   <div class="info-desc">完善您的组织信息，组织主页将更有吸引力</div>
                 </div>
                 <div class="reward">
                   <div class="scan-code"></div>
                   <iep-button v-if="form.finishInfo === 1" class="money" type="primary" @click="handleGet(2)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.finishInfo?'':'未'}}完成</span>
-                    <span v-if="form.finishInfo === -1" class="money-text"> +{{rules[1]}} 贝</span>
+                    <iep-button round>{{form.finishInfo?'':'未'}}完成</iep-button>
+                    <iep-button round v-if="form.finishInfo === -1"> +{{rules[1]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
@@ -65,7 +64,7 @@
                   <i v-if="form.extendMember>=10 || form.extendMember === -1" class="el-icon-success success"></i>
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
-                <div class="info">
+                <div class="info" @click="$openPage('/goms/member_management')">
                   <div class="info-name">添加成员</div>
                   <div class="info-desc">为您的组织搭添加10个成员，开启更多赋能功能
                   </div>
@@ -74,9 +73,44 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.extendMember >= 10" class="money" type="primary" @click="handleGet(3)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.extendMember>=10 || form.extendMember === -1?'':'未'}}完成</span>
-                    <span class="money-text" v-if="form.extendMember>=0">{{form.extendMember}} / 10</span>
-                    <span v-if="form.extendMember === -1" class="money-text"> +{{rules[2]}} 贝</span>
+                    <iep-button round v-if="form.extendMember>=0">{{form.extendMember}} / 10</iep-button>
+                    <iep-button round v-if="form.extendMember === -1"> +{{rules[2]}} 贝</iep-button>
+                  </div>
+                </div>
+              </div>
+              <div class="task-item">
+                <div class="icon">
+                  <!-- <i v-if="form.distribution" class="el-icon-success success"></i> -->
+                  <i class="el-icon-warning-outline"></i>
+                </div>
+                <div class="info" :style='disabled'>
+                  <div class="info-name">组织认证</div>
+                  <div class="info-desc">创建者、组织进行认证，获取更多组织方服务</div>
+                </div>
+                <div class="reward">
+                  <div class="scan-code"></div>
+                  <!-- <iep-button>立即领取</iep-button> -->
+                  <div>
+                    <iep-button round>{{form.orgCert?'':'未'}}完成</iep-button>
+                    <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
+                  </div>
+                </div>
+              </div>
+              <div class="task-item">
+                <div class="icon">
+                  <!-- <i v-if="form.distribution" class="el-icon-success success"></i> -->
+                  <i class="el-icon-warning-outline"></i>
+                </div>
+                <div class="info">
+                  <div class="info-name">发布信息</div>
+                  <div class="info-desc">发一条<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发一篇<span class="red" @click.stop="$openPage('/wel/material/datum')">文章</span>，发一个<span class="red" @click.stop="$openPage('/atms/add')">任务商机</span></div>
+                </div>
+                <div class="reward">
+                  <div class="scan-code"></div>
+                  <!-- <iep-button>立即领取</iep-button> -->
+                  <div>
+                    <iep-button round>{{form.releaseInfo?'':'未'}}完成</iep-button>
+                    <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
               </div>
@@ -93,8 +127,8 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.distribution === 1" class="money" type="primary" @click="handleGet(4)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.distribution?'':'未'}}完成</span>
-                    <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span>
+                    <iep-button round>{{form.distribution?'':'未'}}完成</iep-button>
+                    <iep-button round v-if="form.distribution === -1"> +{{rules[3]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
@@ -111,54 +145,17 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.buildDept>=2" class="money" type="primary" @click="handleGet(5)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.buildDept>=2 || form.buildDept === -1?'':'未'}}完成</span>
-                    <span class="money-text" v-if="form.buildDept>=0">{{form.buildDept}} / 2</span>
-                    <span v-if="form.buildDept === -1" class="money-text"> +{{rules[4]}} 贝</span>
+                    <iep-button round v-if="form.buildDept>=0">{{form.buildDept}} / 2</iep-button>
+                    <iep-button round v-if="form.buildDept === -1"> +{{rules[4]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
               <div class="task-item">
                 <div class="icon">
-                  <i v-if="form.distribution" class="el-icon-success success"></i>
-                  <i v-else class="el-icon-warning-outline"></i>
+                  <!-- <i v-if="form.distribution" class="el-icon-success success"></i> -->
+                  <i class="el-icon-warning-outline"></i>
                 </div>
-                <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
-                  <div class="info-name">发布信息</div>
-                  <div class="info-desc">发一条<span class="red">说说</span>，发一篇<span class="red">文章</span>，发一个<span class="red">任务商机</span></div>
-                </div>
-                <div class="reward">
-                  <div class="scan-code"></div>
-                  <!-- <iep-button>立即领取</iep-button> -->
-                  <div>
-                    <span>{{form.releaseInfo?'':'未'}}完成</span>
-                    <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
-                  </div>
-                </div>
-              </div>
-              <div class="task-item">
-                <div class="icon">
-                  <i v-if="form.distribution" class="el-icon-success success"></i>
-                  <i v-else class="el-icon-warning-outline"></i>
-                </div>
-                <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
-                  <div class="info-name">组织认证</div>
-                  <div class="info-desc">创建者、组织进行认证，获取更多组织方服务</div>
-                </div>
-                <div class="reward">
-                  <div class="scan-code"></div>
-                  <!-- <iep-button>立即领取</iep-button> -->
-                  <div>
-                    <span>{{form.orgCert?'':'未'}}完成</span>
-                    <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
-                  </div>
-                </div>
-              </div>
-              <div class="task-item">
-                <div class="icon">
-                  <i v-if="form.distribution" class="el-icon-success success"></i>
-                  <i v-else class="el-icon-warning-outline"></i>
-                </div>
-                <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
+                <div class="info" :style='disabled'>
                   <div class="info-name">产品超市/代理</div>
                   <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责</div>
                 </div>
@@ -166,7 +163,7 @@
                   <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <span>{{form.productMarket?'':'未'}}完成</span>
+                    <iep-button round>{{form.productMarket?'':'未'}}完成</iep-button>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -174,9 +171,8 @@
             </div>
             <div class="congratulations-wrapper bg-congratulations">
               <div class="big-title">开放-赋能-协作</div>
-              <div>完善组织，实现您的组织梦！</div>
               <operation-wrapper>
-                <iep-button type="primary" size="medium" @click="$openPage('/')">即刻迈进</iep-button>
+                <iep-button type="primary" size="medium" @click="$openPage('/')">即刻迈进智慧组织</iep-button>
               </operation-wrapper>
             </div>
           </div>
@@ -185,7 +181,7 @@
             <div class="org-desc">
               <div style="font-size: 16px;">{{form.name}}</div>
               <div style="font-size: 12px;margin-top: 5px;">
-                <div>负责人：{{form.creatorName}}</div>
+                <div>创建人：{{form.creatorName}}</div>
                 <div>成立时间：{{form.establishTime | parseToDay}}</div>
               </div>
             </div>
@@ -194,14 +190,11 @@
               <el-progress :text-inside="true" :stroke-width="20" :percentage="+form.integrity" status="exception"></el-progress>
             </div>
             <div class="text">
-              <div>
-                如果您有相关疑问需要解答，
-              </div>
               <div class="text-tips">
-                请随时联系客服小能，小能欢迎您的叨扰！
+                如有疑问，欢迎联系<span class="red">客服小能</span>
               </div>
               <div class="btn-link">
-                <iep-button type="primary" size="medium">联系客服</iep-button>
+                <iep-button type="primary" size="medium">联系小能</iep-button>
               </div>
             </div>
           </el-card>
@@ -248,6 +241,9 @@ export default {
     },
     mUrlText () {
       return `${window.location.origin}/so/invitation/codeShare?redirect=so/orgDetail/${this.form.orgId}`
+    },
+    disabled () {
+      return { backgroundColor: '#f3f3f3', cursor: 'no-drop' }
     },
   },
   created () {
@@ -352,6 +348,11 @@ export default {
       }
       .info-desc {
         flex: 1;
+        .red {
+          &:hover {
+            color: #d48181;
+          }
+        }
       }
       &:hover {
         background: #f3f3f3;
@@ -365,9 +366,6 @@ export default {
       text-align: center;
       .money {
         margin-left: 20px;
-      }
-      .money-text {
-        color: $--menu-color-primary;
       }
     }
   }
@@ -411,6 +409,10 @@ export default {
           line-height: 28px;
           .text-tips {
             margin-bottom: 15px;
+            .red {
+              font-size: 16px;
+              cursor: pointer;
+            }
           }
         }
       }
@@ -425,7 +427,8 @@ export default {
   .desc {
     margin: 10px 0 15px 0;
     padding-left: 36px;
-    font-size: 16px;
+    font-size: 14px;
+    color: #999;
   }
   .btn-column {
     padding-left: 36px;

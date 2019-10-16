@@ -22,7 +22,7 @@ const commonCss = [
   '/cdn/froala-editor/css/froala_editor.pkgd.min.css',
   '/cdn/froala-editor/css/froala_style.min.css',
   '/cdn/froala-editor/css/themes/gray.min.css',
-  '//at.alicdn.com/t/font_1036949_zadgid1gfz.css'
+  '//at.alicdn.com/t/font_752650_94f7tbjdlfh.css'
 ]
 const commonJs = [
   '/cdn/jquery.min.js',

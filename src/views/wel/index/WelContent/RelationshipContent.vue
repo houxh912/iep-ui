@@ -54,7 +54,8 @@ export default {
   },
   methods: {
     gotoDetails (val) {
-      this.$openPage(`//www.icanvip.net/master/${val}.html`, 'bind')
+      // eslint-disable-next-line
+      this.$openPage(`${ICAN_URL}/master/${val}.html`, 'bind')
     },
     loadPage () {
       getMyMasterContactList().then(({ data }) => {

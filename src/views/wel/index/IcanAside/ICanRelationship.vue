@@ -4,15 +4,21 @@
     <div class="my-wrapper">
       <div class="title-con">
         <div class="title">我的师傅：</div>
-        <span class="time">{{relationList[0].map(m=>m.name).join('/')}}</span>
+        <div class="time">
+          <span v-for="user in relationList[0]" :key="user.id" @click="$openPage(`${ICAN_URL}/master/${user.id}.html`,'bind')">{{user.name}}</span>
+        </div>
       </div>
       <div class="title-con">
         <div class="title">我的徒弟：</div>
-        <span class="time">{{relationList[1].map(m=>m.name).join('/')}}</span>
+        <div class="time">
+          <span v-for="user in relationList[1]" :key="user.id" @click="$openPage(`${ICAN_URL}/master/${user.id}.html`,'bind')">{{user.name}}</span>
+        </div>
       </div>
       <div class="title-con">
         <div class="title">我的关注：</div>
-        <span class="time">{{relationList[2].map(m=>m.name).join('/')}}</span>
+        <div class="time">
+          <span v-for="user in relationList[2]" :key="user.id" @click="$openPage(`${ICAN_URL}/master/${user.id}.html`,'bind')">{{user.name}}</span>
+        </div>
       </div>
       <slot></slot>
     </div>
@@ -25,6 +31,8 @@ export default {
   components: { ICanContent },
   data () {
     return {
+      // eslint-disable-next-line
+      ICAN_URL,
       relationList: [
         [],
         [],
@@ -67,6 +75,15 @@ export default {
   margin-left: 5px;
   font-size: 14px;
   color: #999;
+  > span {
+    cursor: pointer;
+    &:hover {
+      color: #666;
+    }
+    &:not(:last-child):after {
+      content: "/";
+    }
+  }
 }
 .iconfont {
   margin-left: 5px;

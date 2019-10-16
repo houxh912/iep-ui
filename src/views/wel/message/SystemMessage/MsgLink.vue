@@ -37,7 +37,8 @@ export default {
   methods: {
     handleOpen () {
       if (this.form.pathType === '18') {
-        this.$openPage(`//www.icanvip.net/thoughts/${this.form.pathId}.html`, 'url')
+        // eslint-disable-next-line
+        this.$openPage(`${ICAN_URL}/thoughts/${this.form.pathId}.html`, 'url')
         return
       }
       const type = ['11', '12', '13', '14'].includes(this.form.pathType) ? 'url' : 'path'

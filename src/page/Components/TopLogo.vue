@@ -1,6 +1,6 @@
 <template>
   <div class="logo-wrapper">
-    <div class="logo" @click="$openPage('//www.icanvip.net/', 'url')"></div>
+    <div class="logo" @click="$openPage(`${ICAN_URL}`, 'url')"></div>
     <div>智慧组织赋能平台</div>
     <!-- <a-dropdown>
       <a>
@@ -22,6 +22,8 @@ export default {
   name: 'TopLogo',
   data () {
     return {
+      // eslint-disable-next-line
+      ICAN_URL,
       collectWebsite: website.collectWebsite,
     }
   },

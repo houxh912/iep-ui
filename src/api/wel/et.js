@@ -29,3 +29,10 @@ export function getUserRelationList () {
     method: 'get',
   })
 }
+
+export function getInstructionsList () {
+  return request({
+    url: `${prefixUrl}/instructions/list`,
+    method: 'get',
+  })
+}

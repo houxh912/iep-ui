@@ -120,6 +120,8 @@ export default {
   components: { BaiduMap },
   data () {
     return {
+      // eslint-disable-next-line
+      ICAN_URL,
       formData: initForm(),
       form: { urls: '', orgName: '', orgLogo: '', content: '', meetingTitle: '', meetingTimeStart: '', meetingTimeEnd: '', address: '' },
       address: '',
@@ -162,7 +164,7 @@ export default {
     handleSignUp () {
       this.$router.push({
         path: '/login',
-        query: { redirect: `http://www.icanvip.net/meeting/${this.$route.params.id}?isShow=true` },
+        query: { redirect: `${this.ICAN_URL}/meeting/${this.$route.params.id}?isShow=true` },
       })
       this.isShow = this.$router.history.current.query.isShow
     },

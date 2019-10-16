@@ -1,8 +1,9 @@
 <template>
   <i-can-content class="my-content" title-name="领导批示">
     <div class="my-wrapper">
-      <div class="title-con" v-for="(item,index) in tabList" :key="item+index">
-        <span class="title">{{item.title}}</span>
+      <iep-no-data v-if="!dataList.length"></iep-no-data>
+      <div class="title-con" v-for="item in dataList" :key="item.id">
+        <span class="title" @click="$openPage(`/mlms_spa/email/detail/${item.id}`)">{{item.name}}</span>
         <span class="time">{{item.time}}</span>
       </div>
       <slot></slot>
@@ -11,21 +12,22 @@
 </template>
 <script>
 import ICanContent from './ICanContent'
+import { getInstructionsList } from '@/api/wel/et'
 export default {
   components: { ICanContent },
   data () {
     return {
-      tabList: [
-        { title: '关于加快熟悉全国数字政府建设工作', time: '01-30' },
-        { title: '推荐一份“数字政府主题报告VIP”', time: '01-28' },
-        { title: '认识大数据，了解大数据发展', time: '01-27' },
-        { title: '关于加快学习数字政府白皮书。专家', time: '01-20' },
-        { title: '关于20190126微信优秀项目分享', time: '01-15' },
-      ],
+      dataList: [],
     }
   },
+  created () {
+    this.loadPage()
+  },
   methods: {
-
+    async loadPage () {
+      const { data } = await getInstructionsList()
+      this.dataList = data.data
+    },
   },
 }
 </script>

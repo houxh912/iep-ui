@@ -253,7 +253,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // this.formData.meetingUrl = window.location.host + '/meeting'
-          this.formData.meetingUrl = 'http://www.icanvip.net/meeting'
+          // eslint-disable-next-line
+          this.formData.meetingUrl = `${ICAN_URL}/meeting`
           this.formData.meetingClasses2 = this.tags.map(m => m.value)
           getCode({ code: this.formData.cityAdrss[0] }).then((res) => {
             this.formData.provinceName = res.data

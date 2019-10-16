@@ -63,7 +63,8 @@ export default {
       this.ApprenticeApply({ id: row.userId, name: row.realName })
     },
     getPerson (row) {
-      this.$openPage(`//www.icanvip.net/master/${row.userId}.html`, 'bind')
+      // eslint-disable-next-line
+      this.$openPage(`${ICAN_URL}/master/${row.userId}.html`, 'bind')
     },
     getPageRecommend () {
       getPageRecommend(this.params).then(({ data }) => {
@@ -72,7 +73,8 @@ export default {
       })
     },
     handleClick () {
-      this.$openPage('//www.icanvip.net/masterList.html', 'bind')
+      // eslint-disable-next-line
+      this.$openPage(`${ICAN_URL}/masterList.html`, 'bind')
     },
     handleClick2 () {
       this.$router.push({

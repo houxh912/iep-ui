@@ -1,21 +1,26 @@
 const navList = [
-  {
-    id: '//www.icanvip.net/',
+  { // eslint-disable-next-line
+    id: `${ICAN_URL}/`,
     name: '首页',
   }, {
-    id: '//www.icanvip.net/newsList/',
+    // eslint-disable-next-line
+    id: `${ICAN_URL}/newsList/`,
     name: '头条新知',
   }, {
-    id: '//www.icanvip.net/businessList/',
+    // eslint-disable-next-line
+    id: `${ICAN_URL}/businessList/`,
     name: '任务协作',
   }, {
-    id: '//www.icanvip.net/dataAssets/',
+    // eslint-disable-next-line
+    id: `${ICAN_URL}/dataAssets/`,
     name: '数据资产',
   }, {
-    id: '//www.icanvip.net/masterList/',
+    // eslint-disable-next-line
+    id: `${ICAN_URL}/masterList/`,
     name: '人脉资本',
   }, {
-    id: '//www.icanvip.net/thoughtsList/',
+    // eslint-disable-next-line
+    id: `${ICAN_URL}/thoughtsList/`,
     name: '我要说说',
   },
 ]

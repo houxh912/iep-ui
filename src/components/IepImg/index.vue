@@ -4,7 +4,7 @@
       加载中<span class="dot">...</span>
     </div>
     <div slot="error" class="image-slot">
-      <i class="icon-logo-woneng"></i>
+      <i class="icon-ican"></i>
     </div>
   </el-image>
 </template>
@@ -34,8 +34,8 @@ export default {
   height: 100%;
   background: #f5f7fa;
   color: #909399;
-  & > .icon-logo-woneng {
-    font-size: 30px;
+  & > .icon-ican {
+    font-size: 40px;
   }
 }
 </style>

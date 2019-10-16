@@ -1,15 +1,25 @@
 <template>
-  <div class="main-item-wrapper" @click="$openPage(website.menu.firstMenu.path)">
+  <div class="main-item-wrapper">
     <div v-if="isNull">{{isNull}}</div>
     <template v-else>
       <el-tooltip v-if="collapse" class="item" effect="dark" content="ET工作台" placement="right">
-        <span><i :class="mainMenu.icon"></i></span>
+        <div class="min-div" @click="$openPage(website.menu.firstMenu.path)">
+          <i class="icon-et"></i>
+        </div>
       </el-tooltip>
-      <div v-else>
-        <i class="icon-et"></i>
-        <!-- <span v-if="isSub">-</span>
+      <el-tooltip v-if="collapse" class="item" effect="dark" :content="mainMenu.label" placement="right">
+        <div class="min-menu">
+          <i :class="mainMenu.icon"></i>
+        </div>
+      </el-tooltip>
+      <template v-else>
+        <div class="max-div" @click="$openPage(website.menu.firstMenu.path)">
+          <i class="icon-et"></i>
+          <!-- <span v-if="isSub">-</span>
         <span v-if="isSub">{{mainMenu.label}}</span> -->
-      </div>
+        </div>
+        <div class="max-menu">{{mainMenu.label}}</div>
+      </template>
     </template>
   </div>
 </template>
@@ -53,16 +63,42 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.max-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $--color-primary;
+  color: #fff;
+  height: 56px;
+}
+.min-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $--color-primary;
+  color: #fff;
+  height: 56px;
+}
 .main-item-wrapper {
-  cursor: pointer;
   font-size: 16px;
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
   color: #666;
-  .icon-et {
-    font-size: 80px !important;
-    line-height: 80px;
-    color: $--color-primary;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
+  .max-div {
+    .icon-et {
+      cursor: pointer;
+      font-size: 80px !important;
+      line-height: 80px;
+      color: $--color-primary;
+    }
+  }
+  .min-div {
+    .icon-et {
+      cursor: pointer;
+      font-size: 27px !important;
+      line-height: 54px;
+      color: $--color-primary;
+    }
   }
 }
 </style>

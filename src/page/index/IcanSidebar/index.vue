@@ -2,15 +2,17 @@
   <el-aside v-show="asideDisplay" :width="asideWidth">
     <div class="avue-sidebar" :style="{width: asideWidth}">
       <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
-      <el-scrollbar style="height:calc(100vh - 230px);" native>
-        <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
-        <div class="sub-menu-wrapper">
-          <el-menu default-active="-1" :collapse="keyCollapse" background-color="#fff" text-color="#666" active-text-color="#e05255">
-            <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)" :disabled="!!omenu.isDisable">
-              <i :class="omenu.icon"></i>
-              <span slot="title">{{omenu.label}}</span>
-            </el-menu-item>
-          </el-menu>
+      <el-scrollbar ref="elscrollbar" :style="`height:calc(100vh - ${asideHeight});`" native>
+        <div ref="wrap">
+          <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
+          <div class="sub-menu-wrapper">
+            <el-menu default-active="-1" :collapse="keyCollapse" background-color="#fff" text-color="#666" active-text-color="#e05255">
+              <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)" :disabled="!!omenu.isDisable">
+                <i :class="omenu.icon"></i>
+                <span slot="title">{{omenu.label}}</span>
+              </el-menu-item>
+            </el-menu>
+          </div>
         </div>
       </el-scrollbar>
       <el-menu class="fold-menu" :collapse="keyCollapse" background-color="#fff" text-color="#666" active-text-color="#e05255">
@@ -54,12 +56,22 @@ export default {
         return '64px'
       }
     },
+    asideHeight () {
+      if (!this.keyCollapse) {
+        return '290px'
+      } else {
+        return '270px'
+      }
+    },
     asideDisplay () {
       if (this.$route.matched[0].path === '/app') {
         return false
       }
       return true
     },
+  },
+  mounted () {
+    this.init()
   },
   methods: {
     ...mapMutations({ setMainMenu: 'SET_MAINMENU', setOtherMenus: 'SET_OTHERMENUS', setmenusMap: 'SET_menusMap' }),
@@ -77,6 +89,17 @@ export default {
     },
     changeCollapse () {
       this.matualCollapse = !this.matualCollapse
+    },
+    init () {
+      // 监听调转路由时EventBus操作
+      this.$eventBus.$on('SET_SCROLLTOTOP', () => {
+        this.$nextTick(() => {
+          this.$refs['elscrollbar'].$refs['wrap'].scrollTop = 0
+          window.container = this
+          window.elscrollbar = this.$refs['elscrollbar']
+          window.wrap = this.$refs['elscrollbar'].$refs['wrap']
+        })
+      })
     },
   },
 }

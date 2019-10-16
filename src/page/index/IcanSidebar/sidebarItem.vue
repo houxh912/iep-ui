@@ -1,5 +1,5 @@
 <template>
-  <el-menu class="menu-wrapper" unique-opened :default-active="nowTagValue" mode="vertical" :show-timeout="200" :collapse="collapse">
+  <el-menu class="menu-wrapper" unique-opened :default-active="nowTagValue" mode="vertical" :show-timeout="200" :collapse="collapse" background-color="#fff" text-color="#666" active-text-color="#e05255">
     <template v-for="item in menu">
       <el-menu-item :disabled="!!item.isDisable" v-if="validatenull(item[childrenKey]) && vaildRoles(item)" :index="'' + item[pathKey]" @click="open(item)" :key="item[labelKey]" :class="{ 'is-active': vaildAvtive(item) }">
         <i :class="item[iconKey]"></i>
@@ -105,26 +105,6 @@ export default {
 .menu-wrapper {
   .el-menu-item {
     margin-left: 0 !important;
-    height: 40px;
-    line-height: 40px;
-    border-left: 3px solid #fafafa;
-    &:hover {
-      background-color: $--menu-color-second;
-      color: $--menu-color-primary;
-    }
-  }
-}
-.el-menu-item.is-active {
-  border-color: $--menu-color-primary;
-  background: $--menu-color-second;
-  color: $--menu-color-primary;
-}
-
-.el-menu-item {
-  &:hover,
-  &:focus {
-    background-color: $--menu-color-second;
-    color: $--menu-color-primary;
   }
 }
 .menu-wrapper ::v-deep .el-menu {

@@ -2,10 +2,10 @@
   <el-aside v-show="asideDisplay" :width="asideWidth">
     <div class="avue-sidebar" :style="{width: asideWidth}">
       <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
-      <el-scrollbar style="height:calc(100vh - 190px);" native>
+      <el-scrollbar style="height:calc(100vh - 230px);" native>
         <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
         <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
-          <el-menu default-active="-1" :collapse="keyCollapse">
+          <el-menu default-active="-1" :collapse="keyCollapse" background-color="#fff" text-color="#666" active-text-color="#e05255">
             <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)" :disabled="!!omenu.isDisable">
               <i :class="omenu.icon"></i>
               <span slot="title">{{omenu.label}}</span>
@@ -13,7 +13,7 @@
           </el-menu>
         </div>
       </el-scrollbar>
-      <el-menu class="fold-menu" :collapse="keyCollapse">
+      <el-menu class="fold-menu" :collapse="keyCollapse" background-color="#fff" text-color="#666" active-text-color="#e05255">
         <el-menu-item @click="changeCollapse()">
           <i :class="`${keyCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'}`"></i>
           <span slot="title">{{keyCollapse ? '展开':'收起'}}</span>
@@ -49,7 +49,7 @@ export default {
     },
     asideWidth () {
       if (!this.keyCollapse) {
-        return '220px'
+        return '180px'
       } else {
         return '64px'
       }
@@ -89,40 +89,21 @@ export default {
   margin: 20px 0 20px 20px;
   border-radius: 5px;
   overflow: hidden;
-  background-color: #fafafa;
   border: 1px solid #e5e5e5;
 }
 .sub-menu-wrapper {
   border-top: 1px solid #eee;
   .el-menu-item {
     margin-left: 0 !important;
-    height: 36px;
-    line-height: 36px;
-    border-left: 3px solid #fafafa;
-    &:hover,
-    &:focus {
-      border-color: $--menu-color-primary;
-      background: $--menu-color-second;
-      color: $--menu-color-primary;
-    }
   }
   .sub-menu {
-    font-size: 14px;
-    height: 36px;
-    line-height: 36px;
     padding-left: 20px;
     white-space: nowrap;
     list-style: none;
-    background-color: #fafafa;
-    color: #666;
     padding: 0 20px;
     cursor: pointer;
     & * {
       vertical-align: middle;
-    }
-    &:hover {
-      background-color: $--menu-color-second;
-      color: $--menu-color-font;
     }
     i {
       margin-right: 5px;
@@ -130,35 +111,10 @@ export default {
   }
 }
 .el-menu {
-  background-color: #fafafa;
+  background-color: #fff;
 }
 .avue-sidebar ::v-deep .el-scrollbar .el-scrollbar__wrap {
   overflow-x: hidden;
-}
-.avue-sidebar ::v-deep .el-submenu .el-submenu__title {
-  border-left: 3px solid #fafafa;
-}
-.avue-sidebar ::v-deep .el-submenu .el-submenu__title:focus,
-.avue-sidebar
-  ::v-deep
-  .el-menu--collapse
-  .el-submenu.is-active
-  .el-submenu__title,
-.avue-sidebar ::v-deep .el-submenu .el-submenu__title:hover {
-  margin-left: 0 !important;
-  // border-color: $--menu-color-primary;
-  background-color: $--menu-color-second;
-  color: $--menu-color-primary;
-}
-.avue-sidebar ::v-deep .el-submenu .el-submenu__title,
-.avue-sidebar ::v-deep .el-menu-item {
-  height: 36px;
-  line-height: 36px;
-  color: #444;
-}
-.avue-sidebar ::v-deep .el-menu-item i,
-.avue-sidebar ::v-deep .el-submenu__title i {
-  color: #666;
 }
 .avue-sidebar ::v-deep .el-menu {
   border-right: none;

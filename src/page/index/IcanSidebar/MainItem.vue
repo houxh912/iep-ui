@@ -6,7 +6,7 @@
         <span><i :class="mainMenu.icon"></i></span>
       </el-tooltip>
       <div v-else>
-        <span class="main-link">{{website.menu.firstMenu.name}}</span>
+        <i class="icon-et"></i>
         <span v-if="isSub">-</span>
         <span v-if="isSub">{{mainMenu.label}}</span>
       </div>
@@ -57,14 +57,12 @@ export default {
   cursor: pointer;
   font-size: 16px;
   text-align: center;
-  padding: 15px 20px;
   border-bottom: 1px solid #e5e5e5;
   color: #666;
-  .main-link {
-    &:hover {
-      color: #333;
-      border-bottom: 1px solid #666;
-    }
+  .icon-et {
+    font-size: 80px !important;
+    line-height: 80px;
+    color: $--color-primary;
   }
 }
 </style>

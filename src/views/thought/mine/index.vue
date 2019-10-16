@@ -21,22 +21,26 @@
               </div>
               <div class="right">
                 <i class="el-icon-delete" @click="handleDelete(row, index)"></i>
-                <i class="icon-suoding" v-if="row.status == 1"></i>
+                <i class="icon-weisuoding" v-if="row.status==3" @click="handleOpen(row)"></i>
+                <i class="icon-suoding" v-if="row.status!=3" @click="handleOpen(row)"></i>
               </div>
             </div>
           </template>
         </time-line>
       </el-col>
     </div>
+    <open-select ref="optenSelect" @opten-select="optenSelct">
+    </open-select>
   </basic-container>
 </template>
 
 <script>
 import TimeLine from './timeline'
-import { thoughtsCreate, getThoughtsPage, thoughtsDelete } from '@/api/cpms/thoughts'
+import { thoughtsCreate, getThoughtsPage, thoughtsDelete, postStatusBatch } from '@/api/cpms/thoughts'
 import { mapGetters } from 'vuex'
 import { addBellBalanceRuleByNumber } from '@/api/fams/balance_rule'
 import headTpl from '@/views/app/thoughtList/library/form'
+import OpenSelect from '../admin/thought/OpenSelect'
 
 function initFormData () {
   return {
@@ -49,7 +53,7 @@ function initFormData () {
 
 export default {
   name: 'thoughts',
-  components: { TimeLine, headTpl },
+  components: { TimeLine, headTpl, OpenSelect },
   computed: {
     ...mapGetters(['userInfo']),
   },
@@ -72,6 +76,9 @@ export default {
         current: 1,
         size: 10,
       },
+      status: '',
+      newStatus: '',
+      ids: '',
     }
   },
   methods: {
@@ -95,7 +102,7 @@ export default {
           this.$message.success('恭喜您发表了一篇说说，继续努力')
           fn()
         } else {
-          addBellBalanceRuleByNumber('SHUOSHUO').then(({data}) => {
+          addBellBalanceRuleByNumber('SHUOSHUO').then(({ data }) => {
             this.$message.success(`恭喜您发表了一篇说说，${data.msg}，继续努力`)
             fn()
           })
@@ -112,7 +119,7 @@ export default {
     },
     // 向上取更多
     getUpMore () {
-      
+
     },
     // 展开
     activeChange (val) {
@@ -121,13 +128,33 @@ export default {
       this.dailyState = 'detail'
       this.updateValidate = ''
     },
+    handleOpen (row) {
+      if (row.isTop === 2) {
+        this.$message.error('请先取消置顶状态！')
+        return
+      }
+      this.$refs['optenSelect'].dialogShow = true
+      this.ids = [row.thoughtsId]
+    },
+    optenSelct (status) {
+      this.status = status
+      this.newStatus = status
+      postStatusBatch({
+        status: this.status,
+        ids: this.ids,
+      }).then(() => {
+        this.loadPage()
+        this.$message.success('更改成功')
+        this.status = ''
+      })
+    },
     search () {
       this.list = []
       this.params.current = 1
       this.loadPage()
     },
     loadPage () {
-      getThoughtsPage(Object.assign({}, this.params, this.searchData)).then(({data}) => {
+      getThoughtsPage(Object.assign({}, this.params, this.searchData)).then(({ data }) => {
         if (data.data.records.length == 0) {
           this.$message.info('暂无更多数据')
           return
@@ -144,8 +171,8 @@ export default {
         thoughtsDelete([row.thoughtsId]).then(() => {
           // 判断删除的是第几页的数据，重新开始获取
           let page = parseInt(index / this.params.size)
-          this.list = this.list.splice(0, page*10)
-          this.params.current = page+1
+          this.list = this.list.splice(0, page * 10)
+          this.params.current = page + 1
           this.loadPage()
           this.$message.success('删除成功')
         })

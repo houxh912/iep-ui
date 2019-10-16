@@ -82,8 +82,8 @@
               </div>
               <div class="task-item">
                 <div class="icon">
-                  <i v-if="form.distribution" class="el-icon-success success"></i>
-                  <i v-else class="el-icon-warning-outline"></i>
+                  <!-- <i v-if="form.distribution" class="el-icon-success success"></i> -->
+                  <i class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" :style='disabled'>
                   <div class="info-name">组织认证</div>
@@ -100,8 +100,8 @@
               </div>
               <div class="task-item">
                 <div class="icon">
-                  <i v-if="form.distribution" class="el-icon-success success"></i>
-                  <i v-else class="el-icon-warning-outline"></i>
+                  <!-- <i v-if="form.distribution" class="el-icon-success success"></i> -->
+                  <i class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info">
                   <div class="info-name">发布信息</div>
@@ -155,8 +155,8 @@
               </div>
               <div class="task-item">
                 <div class="icon">
-                  <i v-if="form.distribution" class="el-icon-success success"></i>
-                  <i v-else class="el-icon-warning-outline"></i>
+                  <!-- <i v-if="form.distribution" class="el-icon-success success"></i> -->
+                  <i class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" :style='disabled'>
                   <div class="info-name">产品超市/代理</div>

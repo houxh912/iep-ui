@@ -21,8 +21,8 @@
               </div>
               <div class="right">
                 <i class="el-icon-delete" @click="handleDelete(row, index)"></i>
-                <i class="icon-weisuoding" v-if="row.status==3" @click="handleOpen(row)"></i>
-                <i class="icon-suoding" v-if="row.status!=3" @click="handleOpen(row)"></i>
+                <i class="icon-weisuoding" v-if="row.status === 3" @click="handleOpen(row, index)"></i>
+                <i class="icon-suoding" v-if="row.status !== 3" @click="handleOpen(row, index)"></i>
               </div>
             </div>
           </template>
@@ -79,6 +79,7 @@ export default {
       status: '',
       newStatus: '',
       ids: '',
+      updateIndex: -1,
     }
   },
   methods: {
@@ -128,12 +129,13 @@ export default {
       this.dailyState = 'detail'
       this.updateValidate = ''
     },
-    handleOpen (row) {
+    handleOpen (row, index) {
       if (row.isTop === 2) {
         this.$message.error('请先取消置顶状态！')
         return
       }
       this.$refs['optenSelect'].dialogShow = true
+      this.updateIndex = index
       this.ids = [row.thoughtsId]
     },
     optenSelct (status) {
@@ -142,6 +144,9 @@ export default {
         status: this.status,
         ids: this.ids,
       }).then(() => {
+        let page = parseInt(this.updateIndex / this.params.size)
+        this.list = this.list.splice(0, page * 10)
+        this.params.current = page + 1
         this.loadPage()
         this.$message.success('更改成功')
         this.status = ''
@@ -158,8 +163,7 @@ export default {
           this.$message.info('暂无更多数据')
           return
         }
-        // this.list = this.list.concat(data.data.records)
-        this.$set(this, 'list', this.list.concat(data.data.records))
+        this.list = this.list.concat(data.data.records)
       })
     },
     handleDelete (row, index) {

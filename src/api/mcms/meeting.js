@@ -127,3 +127,19 @@ export function putMeetingsignup (query) {
     data: query,
   })
 }
+//查看会议列表
+export function getMeetingmarketingStatus (query) {
+  return request({
+    url: '/mcms/meetingmarketing/status/page',
+    method: 'get',
+    params: query,
+  })
+}
+//修改会议状态
+export function postMeetingsignupUpdateStatus (query) {
+  return request({
+    url: '/mcms/meetingmarketing/update/status',
+    method: 'post',
+    data: query,
+  })
+}

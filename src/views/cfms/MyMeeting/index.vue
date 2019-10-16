@@ -1,73 +1,67 @@
 <template>
   <basic-container>
     <iep-page-header title="我的会议"></iep-page-header>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columns" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-      <el-table-column prop="operation" label="操作" width="250">
-        <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button type="warning" plain @click=" handleEdit(scope.row)">修改会议</iep-button>
-            <iep-button type="warning" plain @click=" handleName(scope.row)">名单管理</iep-button>
-            <iep-button type="warning" plain @click=" handleDelete(scope.row)">删除</iep-button>
-          </operation-wrapper>
-        </template>
-      </el-table-column>
-    </iep-table>
-    <name-dialog ref="NameDialog" @load-page="loadPage"></name-dialog>
+    <iep-tabs v-model="activeTab" :tab-list="tabList">
+      <template v-if="activeTab ==='MyAllmeeting'" v-slot:MyAllmeeting>
+        <my-allmeeting @load-page="loadPage" v-loading="activeTab !=='MyAllmeeting'" :record="record"></my-allmeeting>
+      </template>
+      <template v-if="activeTab ==='ConductMeeting'" v-slot:ConductMeeting>
+        <conduct-meeting v-loading="activeTab !=='ConductMeeting'" @load-page="loadPage" :record="record"></conduct-meeting>
+      </template>
+      <template v-if="activeTab ==='AuditedMeeting'" v-slot:AuditedMeeting>
+        <audited-meeting v-loading="activeTab !=='AuditedMeeting'" @load-page="loadPage" :record="record"></audited-meeting>
+      </template>
+      <template v-if="activeTab ==='EndingMeeting'" v-slot:EndingMeeting>
+        <ending-meeting v-loading="activeTab !=='EndingMeeting'" @load-page="loadPage" :record="record"></ending-meeting>
+      </template>
+      <template v-if="activeTab ==='NotpassMeeting'" v-slot:NotpassMeeting>
+        <notpass-meeting v-loading="activeTab !=='NotpassMeeting'" @load-page="loadPage" :record="record"></notpass-meeting>
+      </template>
+      <template v-if="activeTab ==='DraftMeeting'" v-slot:DraftMeeting>
+        <draft-meeting v-loading="activeTab !=='DraftMeeting'" @load-page="loadPage" :record="record"></draft-meeting>
+      </template>
+    </iep-tabs>
   </basic-container>
 </template>
 <script>
-import mixins from '@/mixins/mixins'
-import { columns } from './option'
-import { getMeetingmarketingList, meetingmarketingDelete } from '@/api/mcms/meeting'
-import NameDialog from './NameDialog'
+import MyAllmeeting from './MyAllmeeting/index'
+import ConductMeeting from './ConductMeeting/index'
+import AuditedMeeting from './AuditedMeeting/index'
+import DraftMeeting from './DraftMeeting/index'
+import EndingMeeting from './EndingMeeting/index'
+import NotpassMeeting from './NotpassMeeting/index'
 export default {
-  mixins: [mixins],
-  components: { NameDialog },
+  components: { MyAllmeeting, ConductMeeting, AuditedMeeting, DraftMeeting, EndingMeeting, NotpassMeeting },
   data () {
     return {
-      columns,
-      isLoadTable: false,
+      tabList: [{
+        label: '全部',
+        value: 'MyAllmeeting',
+      }, {
+        label: '进行',
+        value: 'ConductMeeting',
+      }, {
+        label: '待审核',
+        value: 'AuditedMeeting',
+      }, {
+        label: '已结束',
+        value: 'EndingMeeting',
+      }, {
+        label: '未通过',
+        value: 'NotpassMeeting',
+      }, {
+        label: '草稿',
+        value: 'DraftMeeting',
+      }],
+      activeTab: 'MyAllmeeting',
+      record: {},
     }
   },
   created () {
-    this.loadPage()
+    // this.loadPage()
   },
   methods: {
-    loadPage (param = {}) {
-      this.loadTable(param, getMeetingmarketingList)
-    },
-    handleName (row) {
-      this.$refs['NameDialog'].dialogShow = true
-      this.$refs['NameDialog'].id = row.id
-      this.$refs['NameDialog'].loadPage()
-    },
-    handleEdit (row) {
-      this.$router.push({
-        path: `/cfms_spa/meeting_edit/${row.id}`,
-        query: {
-          edit: true,
-        },
-      })
-    },
-    handleDelete (row) {
-      this.$confirm('是否删除该条会议？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        meetingmarketingDelete({ id: [row.id] }).then((res) => {
-          this.$message({
-            message: res.data.msg,
-            type: 'success',
-          })
-          this.loadPage()
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除',
-        })
-      })
+    loadPage () {
 
     },
   },

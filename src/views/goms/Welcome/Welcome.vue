@@ -103,7 +103,7 @@
                 </div>
                 <div class="info">
                   <div class="info-name">发布信息</div>
-                  <div class="info-desc">发一条<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发一篇<span class="red" @click.stop="$openPage('/wel/material/datum')">文章</span>，发一个<span class="red" @click.stop="$openPage('/wel/tasks')">任务商机</span></div>
+                  <div class="info-desc">发一条<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发一篇<span class="red" @click.stop="$openPage('/wel/material/datum')">文章</span>，发一个<span class="red" @click.stop="$openPage('/atms/add')">任务商机</span></div>
                 </div>
                 <div class="reward">
                   <div class="scan-code"></div>
@@ -427,7 +427,8 @@ export default {
   .desc {
     margin: 10px 0 15px 0;
     padding-left: 36px;
-    font-size: 16px;
+    font-size: 14px;
+    color: #999;
   }
   .btn-column {
     padding-left: 36px;

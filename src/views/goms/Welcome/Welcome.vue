@@ -37,8 +37,7 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.createdOrg?'':'未'}}完成</span>
-                    <span v-if="form.createdOrg === -1" class="money-text"> +{{rules[0]}} 贝</span>
+                    <iep-button round v-if="form.createdOrg === -1"> +{{rules[0]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
@@ -55,8 +54,8 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.finishInfo === 1" class="money" type="primary" @click="handleGet(2)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.finishInfo?'':'未'}}完成</span>
-                    <span v-if="form.finishInfo === -1" class="money-text"> +{{rules[1]}} 贝</span>
+                    <iep-button round>{{form.finishInfo?'':'未'}}完成</iep-button>
+                    <iep-button round v-if="form.finishInfo === -1"> +{{rules[1]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
@@ -74,9 +73,8 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.extendMember >= 10" class="money" type="primary" @click="handleGet(3)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.extendMember>=10 || form.extendMember === -1?'':'未'}}完成</span>
-                    <span class="money-text" v-if="form.extendMember>=0">{{form.extendMember}} / 10</span>
-                    <span v-if="form.extendMember === -1" class="money-text"> +{{rules[2]}} 贝</span>
+                    <iep-button round v-if="form.extendMember>=0">{{form.extendMember}} / 10</iep-button>
+                    <iep-button round v-if="form.extendMember === -1"> +{{rules[2]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
@@ -93,7 +91,7 @@
                   <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <span>{{form.orgCert?'':'未'}}完成</span>
+                    <iep-button round>{{form.orgCert?'':'未'}}完成</iep-button>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -105,13 +103,13 @@
                 </div>
                 <div class="info">
                   <div class="info-name">发布信息</div>
-                  <div class="info-desc">发一条<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发一篇<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">文章</span>，发一个<span class="red" @click.stop="$openPage('/wel/tasks')">任务商机</span></div>
+                  <div class="info-desc">发一条<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发一篇<span class="red" @click.stop="$openPage('/wel/material/datum')">文章</span>，发一个<span class="red" @click.stop="$openPage('/atms/add')">任务商机</span></div>
                 </div>
                 <div class="reward">
                   <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <span>{{form.releaseInfo?'':'未'}}完成</span>
+                    <iep-button round>{{form.releaseInfo?'':'未'}}完成</iep-button>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -129,8 +127,8 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.distribution === 1" class="money" type="primary" @click="handleGet(4)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.distribution?'':'未'}}完成</span>
-                    <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span>
+                    <iep-button round>{{form.distribution?'':'未'}}完成</iep-button>
+                    <iep-button round v-if="form.distribution === -1"> +{{rules[3]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
@@ -147,9 +145,8 @@
                   <div class="scan-code"></div>
                   <iep-button v-if="form.buildDept>=2" class="money" type="primary" @click="handleGet(5)" round>立即领取</iep-button>
                   <div v-else>
-                    <span>{{form.buildDept>=2 || form.buildDept === -1?'':'未'}}完成</span>
-                    <span class="money-text" v-if="form.buildDept>=0">{{form.buildDept}} / 2</span>
-                    <span v-if="form.buildDept === -1" class="money-text"> +{{rules[4]}} 贝</span>
+                    <iep-button round v-if="form.buildDept>=0">{{form.buildDept}} / 2</iep-button>
+                    <iep-button round v-if="form.buildDept === -1"> +{{rules[4]}} 贝</iep-button>
                   </div>
                 </div>
               </div>
@@ -166,7 +163,7 @@
                   <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <span>{{form.productMarket?'':'未'}}完成</span>
+                    <iep-button round>{{form.productMarket?'':'未'}}完成</iep-button>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -371,9 +368,6 @@ export default {
       .money {
         margin-left: 20px;
       }
-      .money-text {
-        color: $--menu-color-primary;
-      }
     }
   }
 }
@@ -443,7 +437,8 @@ export default {
   .desc {
     margin: 10px 0 15px 0;
     padding-left: 36px;
-    font-size: 16px;
+    font-size: 14px;
+    color: #999;
   }
   .btn-column {
     padding-left: 36px;

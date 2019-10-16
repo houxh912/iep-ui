@@ -9,10 +9,10 @@
     <el-form-item>
       <a-row :gutter="8">
         <a-col :span="12">
-          <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>登录</a-button>
+          <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
         </a-col>
         <a-col :span="12">
-          <a-button size="large" @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)" block>注册</a-button>
+          <iep-button class="iep-btn-block" size="medium " @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)">注 册</iep-button>
         </a-col>
       </a-row>
     </el-form-item>
@@ -99,24 +99,6 @@ export default {
 <style lang="scss" scoped>
 .login-form {
   margin: 10px 0;
-}
-.login-form i {
-  color: #999;
-}
-.login-form ::v-deep .el-form-item .el-form-item__content {
-  margin-left: 0 !important;
-  width: 100%;
-}
-.login-form ::v-deep .el-input {
-  padding: 0;
-}
-.login-form ::v-deep .el-input .el-input__prefix i {
-  padding: 0 5px;
-  font-size: 16px !important;
-}
-
-.form-detail ::v-deep .el-form-item {
-  margin-bottom: 15px;
 }
 .form-detail {
   width: 100%;

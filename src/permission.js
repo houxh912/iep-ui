@@ -89,9 +89,7 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
-router.afterEach((to) => {
-  if (to.matched[0].path === '/app') {
-    eventBus.$emit('SET_SCROLLTOTOP')
-  }
+router.afterEach(() => {
+  eventBus.$emit('SET_SCROLLTOTOP')
   NProgress.done()
 })

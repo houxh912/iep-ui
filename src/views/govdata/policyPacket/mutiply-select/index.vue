@@ -194,11 +194,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .select-box {
   width: 300px;
 }
-.el-select__tags span > span > span {
+.el-select__tags ::v-deep span > span > span {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

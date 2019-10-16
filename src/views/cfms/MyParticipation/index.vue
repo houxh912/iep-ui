@@ -49,7 +49,7 @@ export default {
   },
 }
 </script>
-<style>
+<style lang="scss" scoped>
 .el-image {
   width: 150px;
   height: 100px;

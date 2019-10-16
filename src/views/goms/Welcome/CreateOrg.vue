@@ -15,7 +15,7 @@
           <iep-avatar v-model="form.logo"></iep-avatar>
         </iep-form-item>
         <iep-form-item label-name="组织简介" prop="intro">
-          <iep-input-area v-model="form.intro"></iep-input-area>
+          <iep-input-area v-model="form.intro" placeholder="简单的介绍一下你的组织吧！"></iep-input-area>
         </iep-form-item>
         <!-- <iep-form-item label-name="是否默认加入我能联盟" prop="isICan">
           <el-switch v-model="form.isICan" :active-value="1" :inactive-value="0"></el-switch>
@@ -66,7 +66,6 @@ export default {
           { required: true, message: '请选择类别', trigger: 'blur' },
         ],
         intro: [
-          { required: true, message: '请输入组织简介', trigger: 'blur' },
           { min: 3, max: 2000, message: '组织简介必须超过 3 个字符，但不得超过 2000 个字符', trigger: 'blur' },
         ],
       },

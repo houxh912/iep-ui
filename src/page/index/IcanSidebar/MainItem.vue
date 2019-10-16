@@ -7,8 +7,8 @@
       </el-tooltip>
       <div v-else>
         <i class="icon-et"></i>
-        <span v-if="isSub">-</span>
-        <span v-if="isSub">{{mainMenu.label}}</span>
+        <!-- <span v-if="isSub">-</span>
+        <span v-if="isSub">{{mainMenu.label}}</span> -->
       </div>
     </template>
   </div>

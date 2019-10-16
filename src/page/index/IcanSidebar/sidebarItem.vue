@@ -52,8 +52,6 @@ export default {
       type: Boolean,
     },
   },
-  created () { },
-  mounted () { },
   computed: {
     ...mapGetters(['roles']),
     labelKey () {

@@ -4,7 +4,7 @@
       <main-item :mainMenu="mainMenu" :collapse="keyCollapse"></main-item>
       <el-scrollbar style="height:calc(100vh - 230px);" native>
         <sidebar-item :menu="mainMenu.children" :screen="screen" first :props="website.menu.props" :collapse="keyCollapse"></sidebar-item>
-        <div class="sub-menu-wrapper" v-if="mainMenu.path === '/wel'">
+        <div class="sub-menu-wrapper">
           <el-menu default-active="-1" :collapse="keyCollapse" background-color="#fff" text-color="#666" active-text-color="#e05255">
             <el-menu-item :index="omenu.path" v-for="omenu in otherMenus" :key="omenu.path" @click="openModuleMenus(omenu)" :disabled="!!omenu.isDisable">
               <i :class="omenu.icon"></i>

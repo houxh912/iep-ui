@@ -138,7 +138,6 @@ export default {
     },
     optenSelct (status) {
       this.status = status
-      this.newStatus = status
       postStatusBatch({
         status: this.status,
         ids: this.ids,
@@ -159,7 +158,8 @@ export default {
           this.$message.info('暂无更多数据')
           return
         }
-        this.list = this.list.concat(data.data.records)
+        // this.list = this.list.concat(data.data.records)
+        this.$set(this, 'list', this.list.concat(data.data.records))
       })
     },
     handleDelete (row, index) {

@@ -21,8 +21,8 @@
               </div>
               <div class="right">
                 <i class="el-icon-delete" @click="handleDelete(row, index)"></i>
-                <i class="icon-weisuoding" v-if="row.status === 3" @click="handleOpen(row, index)"></i>
-                <i class="icon-suoding" v-if="row.status !== 3" @click="handleOpen(row, index)"></i>
+                <i class="icon-weisuoding" v-if="row.status !== 1" @click="handleOpen(row, index)"></i>
+                <i class="icon-suoding" v-else @click="handleOpen(row, index)"></i>
               </div>
             </div>
           </template>
@@ -134,6 +134,7 @@ export default {
         this.$message.error('请先取消置顶状态！')
         return
       }
+      this.$refs['optenSelect'].form.isOpen = row.status
       this.$refs['optenSelect'].dialogShow = true
       this.updateIndex = index
       this.ids = [row.thoughtsId]

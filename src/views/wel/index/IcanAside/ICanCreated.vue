@@ -34,21 +34,39 @@ export default {
         },
         {
           title: '邮件',
+          callback: () => {
+            this.$router.push('/wel/mail/new')
+          },
         },
         {
           title: '审批',
+          callback: () => {
+            this.setApprovalDialogShow(true)
+          },
         },
         {
           title: '建议',
+          callback: () => {
+            this.$router.push('/hrms_spa/suggestion_list')
+          },
         },
         {
           title: '说说',
+          callback: () => {
+            this.$router.push({ path: '/wel/thoughts/thought_mine' })
+          },
         },
         {
           title: '考试',
+          callback: () => {
+            this.$router.push('/exam/testPage/subjectTest')
+          },
         },
         {
           title: '调研',
+          callback: () => {
+            this.$router.push('/wenjuan/questionnaire')
+          },
         },
         {
           title: '十',

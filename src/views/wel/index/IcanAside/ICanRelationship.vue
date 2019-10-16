@@ -1,23 +1,22 @@
 <template>
   <i-can-content class="my-content" title-name="我的关系">
-    <div slot="stitle" class="stitle">找师父</div>
     <div class="my-wrapper">
       <div class="title-con">
         <div class="title">我的师傅：</div>
         <div class="time">
-          <span v-for="user in relationList[0]" :key="user.id" @click="$openPage(`${this.ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
+          <span v-for="user in relationList[0]" :key="user.id" @click="$openPage(`${ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
         </div>
       </div>
       <div class="title-con">
         <div class="title">我的徒弟：</div>
         <div class="time">
-          <span v-for="user in relationList[1]" :key="user.id" @click="$openPage(`${this.ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
+          <span v-for="user in relationList[1]" :key="user.id" @click="$openPage(`${ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
         </div>
       </div>
       <div class="title-con">
         <div class="title">我的关注：</div>
         <div class="time">
-          <span v-for="user in relationList[2]" :key="user.id" @click="$openPage(`${this.ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
+          <span v-for="user in relationList[2]" :key="user.id" @click="$openPage(`${ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
         </div>
       </div>
       <slot></slot>

@@ -235,13 +235,14 @@ export default {
       cursor: pointer;
     }
     .avatar {
-      width: 70px;
-      height: 70px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
       .img {
+        margin-top: 10px;
         cursor: pointer;
-        width: 50px;
-        height: 50px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         overflow: hidden;
       }

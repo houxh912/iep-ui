@@ -1,6 +1,6 @@
 <template>
   <div>
-    <headTpl class="head" @load-page="loadPage"></headTpl>
+    <!-- <headTpl class="head" @load-page="loadPage"></headTpl> -->
     <tabsTpl v-model="tabName" :tab-list="tabList" class="content">
       <!-- 说说列表 -->
       <template v-if="tabName ==='allThougth'" v-slot:allThougth>
@@ -30,7 +30,6 @@
 
 <script>
 import { geTallPage, getFollowPage, getToppedThoughts } from '@/api/cpms/thoughts'
-import headTpl from './library/form'
 import subjectPage from './subjectPage/'
 import tabsTpl from './tabsTpl'
 import searchThought from './search/thought'
@@ -39,7 +38,14 @@ import pageTpl from './page/'
 import libraryTop from './page/library'
 
 export default {
-  components: { headTpl, subjectPage, tabsTpl, searchThought, searchSubject, pageTpl, libraryTop },
+  components: {
+    subjectPage,
+    tabsTpl,
+    searchThought,
+    searchSubject,
+    pageTpl,
+    libraryTop,
+  },
   data () {
     return {
       isShow: true,

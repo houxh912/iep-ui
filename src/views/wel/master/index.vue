@@ -43,12 +43,14 @@
 </template>
 
 <script>
+import website from '@/const/website'
 import { getPageRecommend } from '@/api/cpms/characterrelations'
 import { mapActions } from 'vuex'
 
 export default {
   data () {
     return {
+      ican_host: website.ican_host,
       loadState: true,
       masterList: [],
       params: {
@@ -63,8 +65,7 @@ export default {
       this.ApprenticeApply({ id: row.userId, name: row.realName })
     },
     getPerson (row) {
-      // eslint-disable-next-line
-      this.$openPage(`${ICAN_URL}/master/${row.userId}.html`, 'bind')
+      this.$openPage(`${this.ican_host}master/${row.userId}.html`, 'bind')
     },
     getPageRecommend () {
       getPageRecommend(this.params).then(({ data }) => {
@@ -73,8 +74,7 @@ export default {
       })
     },
     handleClick () {
-      // eslint-disable-next-line
-      this.$openPage(`${ICAN_URL}/masterList.html`, 'bind')
+      this.$openPage(`${this.ican_host}masterList.html`, 'bind')
     },
     handleClick2 () {
       this.$router.push({

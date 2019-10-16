@@ -100,6 +100,7 @@
   </div>
 </template>
 <script>
+import website from '@/const/website'
 import { initForm, rules } from './option'
 import { mapGetters } from 'vuex'
 import { postMeetingmarketing, getCodeName, getmeetingmarketing, putMeetingmarketing, getCode } from '@/api/mcms/meeting'
@@ -114,6 +115,7 @@ export default {
   components: { AvatarImg, TagDialog },
   data () {
     return {
+      ican_host: website.ican_host,
       formData: initForm(),
       rules,
       arr: [],
@@ -253,8 +255,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // this.formData.meetingUrl = window.location.host + '/meeting'
-          // eslint-disable-next-line
-          this.formData.meetingUrl = `${ICAN_URL}/meeting`
+          this.formData.meetingUrl = `${this.ican_host}meeting`
           this.formData.meetingClasses2 = this.tags.map(m => m.value)
           getCode({ code: this.formData.cityAdrss[0] }).then((res) => {
             this.formData.provinceName = res.data

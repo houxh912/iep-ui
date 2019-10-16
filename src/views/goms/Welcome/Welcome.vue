@@ -179,7 +179,7 @@
               </operation-wrapper>
             </div>
           </div>
-          <el-card class="org-card-wrapper" shadow="hover">
+          <el-card class="org-card-wrapper" shadow="never">
             <iep-img :src="form.logo" class="image"></iep-img>
             <div class="org-desc">
               <div style="font-size: 16px;">{{form.name}}</div>
@@ -243,7 +243,8 @@ export default {
       return `${window.location.origin}/wel/org?orgId=${this.form.orgId}&type=0`
     },
     mUrlText () {
-      return `${window.location.origin}/so/invitation/codeShare?redirect=so/orgDetail/${this.form.orgId}`
+      ///so/orgDetail/${this.userInfo.orgId}?redirect=so/orgDetail/${this.userInfo.orgId}
+      return `${window.location.origin}/so/orgDetail/${this.form.orgId}?redirect=so/orgDetail/${this.form.orgId}`
     },
     disabled () {
       return { backgroundColor: '#f3f3f3', cursor: 'no-drop' }

@@ -5,6 +5,7 @@
   </div>
 </template>
 <script>
+import website from '@/const/website'
 import keyBy from 'lodash/keyBy'
 import { mapGetters } from 'vuex'
 export default {
@@ -14,6 +15,11 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data () {
+    return {
+      ican_host: website.ican_host,
+    }
   },
   computed: {
     ...mapGetters(['dictGroup']),
@@ -37,8 +43,7 @@ export default {
   methods: {
     handleOpen () {
       if (this.form.pathType === '18') {
-        // eslint-disable-next-line
-        this.$openPage(`${ICAN_URL}/thoughts/${this.form.pathId}.html`, 'url')
+        this.$openPage(`${this.ican_host}thoughts/${this.form.pathId}.html`, 'url')
         return
       }
       const type = ['11', '12', '13', '14'].includes(this.form.pathType) ? 'url' : 'path'

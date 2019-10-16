@@ -90,4 +90,5 @@ export default {
       url: 'http://183.131.134.242:1888/',
     },
   ],
+  ican_host: '//www.icanvip.net/',
 }

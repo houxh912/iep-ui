@@ -2,7 +2,7 @@
   <el-card class="account-wrapper" shadow="never" :body-style="bodyStyle">
     <div class="user-simple-box">
       <div class="user-info">
-        <iep-img class="user-avatar" :src="userInfo.avatar" @click.native="$openPage(`${ICAN_URL}/master/${userInfo.userId}.html`,'bind')"></iep-img>
+        <iep-img class="user-avatar" :src="userInfo.avatar" @click.native="$openPage(`${this.ican_host}master/${userInfo.userId}.html`,'bind')"></iep-img>
         <iep-div-detail class="user-code" :value="form.staffId"></iep-div-detail>
       </div>
       <el-tooltip class="item" effect="dark" content="资料完善度" placement="top">
@@ -59,6 +59,7 @@
   </el-card>
 </template>
 <script>
+import website from '@/const/website'
 import { getIndex } from '@/api/wel/index'
 import { timeFix, welcome } from '@/util/text'
 import { mapGetters } from 'vuex'
@@ -78,8 +79,7 @@ const initIndexForm = () => {
 export default {
   data () {
     return {
-      // eslint-disable-next-line
-      ICAN_URL,
+      ican_host: website.ican_host,
       timeFix: timeFix(),
       welcome: welcome(),
       form: initIndexForm(),

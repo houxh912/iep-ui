@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import website from '@/const/website'
 import { getMyMasterContactList, getMyApprenticeContactList, getMyAttentionContactList } from '@/api/wel/relationship_manage'
 export default {
   props: {
@@ -47,6 +48,7 @@ export default {
   },
   data () {
     return {
+      ican_host: website.ican_host,
       masterData: [],
       apprenticeData: [],
       attentionData: [],
@@ -54,8 +56,7 @@ export default {
   },
   methods: {
     gotoDetails (val) {
-      // eslint-disable-next-line
-      this.$openPage(`${ICAN_URL}/master/${val}.html`, 'bind')
+      this.$openPage(`${this.ican_host}master/${val}.html`, 'bind')
     },
     loadPage () {
       getMyMasterContactList().then(({ data }) => {

@@ -113,6 +113,7 @@
   </el-scrollbar>
 </template>
 <script>
+import website from '@/const/website'
 import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
 import { initForm, rules } from './option'
 import { postMeetingsignup, getmeetingmarketing } from '@/api/mcms/meeting'
@@ -120,8 +121,7 @@ export default {
   components: { BaiduMap },
   data () {
     return {
-      // eslint-disable-next-line
-      ICAN_URL,
+      ican_host: website.ican_host,
       formData: initForm(),
       form: { urls: '', orgName: '', orgLogo: '', content: '', meetingTitle: '', meetingTimeStart: '', meetingTimeEnd: '', address: '' },
       address: '',
@@ -164,7 +164,7 @@ export default {
     handleSignUp () {
       this.$router.push({
         path: '/login',
-        query: { redirect: `${this.ICAN_URL}/meeting/${this.$route.params.id}?isShow=true` },
+        query: { redirect: `${this.ican_host}meeting/${this.$route.params.id}?isShow=true` },
       })
       this.isShow = this.$router.history.current.query.isShow
     },

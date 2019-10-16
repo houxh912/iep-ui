@@ -87,7 +87,6 @@ module.exports = {
         BUILD_PRO_DESC: JSON.stringify(utils.getProjectDesc()),
         BUILD_TIME: Date.parse(new Date()),
         IS_ICAN: true,
-        ICAN_URL: '//www.icanvip.net',
       })
       return definitions
     })

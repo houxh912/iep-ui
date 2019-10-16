@@ -11,7 +11,7 @@
             <span class="label">虚拟</span>
           </div>
           <div class="style-item">
-            <a class="style" :href="`${ICAN_URL}/org/${form.orgId}.html`">SO风采</a>
+            <a class="style" :href="`${this.ican_host}org/${form.orgId}.html`">SO风采</a>
             <a class="style" @click.prevent="$openPage(`/goms/basic_configuration/organization_information`)">完善SO</a>
           </div>
         </div>
@@ -57,12 +57,12 @@
   </div>
 </template>
 <script>
+import website from '@/const/website'
 import { getOrgProfile } from '@/api/wel/et'
 export default {
   data () {
     return {
-      // eslint-disable-next-line
-      ICAN_URL,
+      ican_host: website.ican_host,
       form: {
         countValue: [0, 0, 0, 0, 0, 0],
         creatorName: '',

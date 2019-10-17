@@ -17,6 +17,7 @@ import famsRouter from './fams/'
 import conmRouter from './conm/'
 import exceptionRouter from './exception/'
 import AvueRouter from './avue-router'
+import tmsRouter from './tms'
 import Store from '../store/'
 
 Vue.use(VueRouter)
@@ -48,6 +49,7 @@ export function initRouter (router, store) {
     ...pgbdRouter,
     ...cfmsRouter,
     ...exceptionRouter,
+    ...tmsRouter,
   ])
 }
 

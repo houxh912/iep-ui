@@ -26,11 +26,6 @@ import { mapGetters, mapMutations } from 'vuex'
 import { validatenull } from '@/util/validate'
 export default {
   name: 'SidebarItem',
-  data () {
-    return {
-      propsDefault: this.$website.menu.props,
-    }
-  },
   props: {
     menu: {
       type: Array,
@@ -55,16 +50,16 @@ export default {
   computed: {
     ...mapGetters(['roles']),
     labelKey () {
-      return this.props.label || this.propsDefault.label
+      return this.props.label
     },
     pathKey () {
-      return this.props.path || this.propsDefault.path
+      return this.props.path
     },
     iconKey () {
-      return this.props.icon || this.propsDefault.icon
+      return this.props.icon
     },
     childrenKey () {
-      return this.props.children || this.propsDefault.children
+      return this.props.children
     },
     nowTagValue () {
       return this.$router.$avueRouter.getValue(this.$route)

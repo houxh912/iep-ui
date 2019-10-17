@@ -15,18 +15,22 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" plain @click="handleDetail(scope.row)">查看</iep-button>
+            <iep-button type="warning" plain @click="handleName(scope.row)">名单</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
+    <name-dialog ref="NameDialog"></name-dialog>
   </basic-container>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
 import { columns } from './option'
 import { getMymeetingPage } from '@/api/mcms/meeting'
+import NameDialog from './NameDialog'
 export default {
   mixins: [mixins],
+  components: { NameDialog },
   data () {
     return {
       fit: 'contain',
@@ -45,6 +49,12 @@ export default {
       this.$router.push({
         path: `/meeting/${row.id}`,
       })
+    },
+    handleName (row) {
+      this.$refs['NameDialog'].dialogShow = true
+      this.$refs['NameDialog'].id = row.id
+      this.$refs['NameDialog'].loadPage()
+
     },
   },
 }

@@ -52,8 +52,8 @@ export default {
     flex: 0 0 400px;
     .tag {
       flex: 0 0 160px;
-      text-align: right;
       width: 100%;
+      text-align: left;
     }
     .type {
       flex: 0 0 160px;

@@ -34,7 +34,7 @@ export default {
     // TODO:/wel/index 暂时
     firstMenu: {
       name: 'ET工作台',
-      path: '/wel/ican',
+      path: '/wel/index',
       modulePath: '/wel',
     },
   },

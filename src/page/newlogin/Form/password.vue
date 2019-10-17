@@ -13,7 +13,7 @@
       <div class="login-text">
         将保持登陆状态
         <div class="check-text">
-          <el-button type="text" @click="handleRetrieve">忘记密码?</el-button>
+          <!-- <el-button type="text" @click="handleRetrieve">忘记密码?</el-button> -->
           <el-button type="text" @click="handleRegister">立即注册</el-button>
           <el-button v-if="IS_ICAN" type="text" icon="el-icon-chat-dot-square" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">联系客服</el-button>
         </div>
@@ -113,9 +113,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.login-form {
-  margin: 10px 0;
-}
 .form-detail {
   width: 100%;
 }
@@ -127,11 +124,5 @@ export default {
 }
 .login-text ::v-deep .el-button--text:hover {
   color: $--menu-color-font;
-}
-.login-text ::v-deep .el-button--text:nth-child(1) {
-  color: #666;
-}
-.login-text ::v-deep .el-button--text:nth-child(1):hover {
-  color: #999;
 }
 </style>

@@ -17,7 +17,7 @@ export default {
       this.loading = false
       if (data.data) {
         this.$message.success(`领取成功，+ ${this.rules[this.id]}贝`)
-        this.loadPage()
+        this.$emit('load-page')
       } else {
         this.$message(data.msg)
       }

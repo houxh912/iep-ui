@@ -20,7 +20,7 @@
         <div class="container-content">
           <div class="main-org">
             <div class="title-item">
-              完善组织，获取{{IS_ICAN?'国脉贝':'能贝'}}
+              完善组织，获取{{IS_ICAN?'能贝':'国脉贝'}}
               <span class="step">(第2步/共2步)</span>
             </div>
             <div class="org-task">
@@ -31,13 +31,13 @@
                 </div>
                 <div class="info">
                   <div class="info-name">创建组织</div>
-                  <div class="info-desc">为您的组织搭建一个<span class="red">“浅交流、深协作”</span>的新圈子</div>
+                  <div class="info-desc">为您的组织搭建一个“浅交流、深协作”的新圈子</div>
                 </div>
                 <div class="reward">
-                  <div class="scan-code"></div>
-                  <iep-button v-if="form.createdOrg === 1" class="money" type="primary" @click="handleGet(1)" round>立即领取</iep-button>
+                  <get-button v-if="form.createdOrg === 1" :rules="rules" :id="1"></get-button>
                   <div v-else>
-                    <iep-button round v-if="form.createdOrg === -1"> +{{rules[0]}} 贝</iep-button>
+                    <iep-button class="btn-block" round>{{form.createdOrg?'已':'未'}}完成</iep-button>
+                    <!-- <iep-button round v-if="form.createdOrg === -1"> +{{rules[0]}} 贝</iep-button> -->
                   </div>
                 </div>
               </div>
@@ -51,11 +51,10 @@
                   <div class="info-desc">完善您的组织信息，组织主页将更有吸引力</div>
                 </div>
                 <div class="reward">
-                  <div class="scan-code"></div>
-                  <iep-button v-if="form.finishInfo === 1" class="money" type="primary" @click="handleGet(2)" round>立即领取</iep-button>
+                  <get-button v-if="form.finishInfo === 1" :rules="rules" :id="2"></get-button>
                   <div v-else>
-                    <iep-button round>{{form.finishInfo?'':'未'}}完成</iep-button>
-                    <iep-button round v-if="form.finishInfo === -1"> +{{rules[1]}} 贝</iep-button>
+                    <iep-button class="btn-block" round>{{form.finishInfo?'已':'未'}}完成</iep-button>
+                    <!-- <iep-button round v-if="form.finishInfo === -1"> +{{rules[1]}} 贝</iep-button> -->
                   </div>
                 </div>
               </div>
@@ -70,11 +69,11 @@
                   </div>
                 </div>
                 <div class="reward">
-                  <div class="scan-code"></div>
-                  <iep-button v-if="form.extendMember >= 10" class="money" type="primary" @click="handleGet(3)" round>立即领取</iep-button>
+                  <get-button v-if="form.extendMember >= 10" :rules="rules" :id="3"></get-button>
                   <div v-else>
-                    <iep-button round v-if="form.extendMember>=0">{{form.extendMember}} / 10</iep-button>
-                    <iep-button round v-if="form.extendMember === -1"> +{{rules[2]}} 贝</iep-button>
+                    <iep-button class="btn-block" round>{{form.createdOrg?'已':'未'}}完成</iep-button>
+                    <!-- <iep-button round v-if="form.extendMember>=0">{{form.extendMember}} / 10</iep-button> -->
+                    <!-- <iep-button round v-if="form.extendMember === -1"> +{{rules[2]}} 贝</iep-button> -->
                   </div>
                 </div>
               </div>
@@ -88,10 +87,9 @@
                   <div class="info-desc">创建者、组织进行认证，获取更多组织方服务</div>
                 </div>
                 <div class="reward">
-                  <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <iep-button round>{{form.orgCert?'':'未'}}完成</iep-button>
+                    <iep-button class="btn-block" round disabled>{{form.orgCert?'已':'未'}}完成</iep-button>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -103,13 +101,12 @@
                 </div>
                 <div class="info">
                   <div class="info-name">发布信息</div>
-                  <div class="info-desc">发一条<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发一篇<span class="red" @click.stop="$openPage('/wel/material/datum')">文章</span>，发一个<span class="red" @click.stop="$openPage('/atms/add')">任务商机</span></div>
+                  <div class="info-desc">发一条<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发一篇<span class="red" @click.stop="$openPage('/wel/material/datum')">文章</span>，发一个<span class="red" @click.stop="$openPage('/atms/add')">任务</span></div>
                 </div>
                 <div class="reward">
-                  <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <iep-button round>{{form.releaseInfo?'':'未'}}完成</iep-button>
+                    <iep-button class="btn-block" round disabled>长期有效</iep-button>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -124,11 +121,10 @@
                   <div class="info-desc">组织“统一、独立、高度协作”的管理新模式，赋能又赋权</div>
                 </div>
                 <div class="reward">
-                  <div class="scan-code"></div>
-                  <iep-button v-if="form.distribution === 1" class="money" type="primary" @click="handleGet(4)" round>立即领取</iep-button>
+                  <get-button v-if="form.distribution === 1" :rules="rules" :id="4"></get-button>
                   <div v-else>
-                    <iep-button round>{{form.distribution?'':'未'}}完成</iep-button>
-                    <iep-button round v-if="form.distribution === -1"> +{{rules[3]}} 贝</iep-button>
+                    <iep-button class="btn-block" round>{{form.distribution?'已':'未'}}完成</iep-button>
+                    <!-- <iep-button round v-if="form.distribution === -1"> +{{rules[3]}} 贝</iep-button> -->
                   </div>
                 </div>
               </div>
@@ -142,11 +138,11 @@
                   <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责</div>
                 </div>
                 <div class="reward">
-                  <div class="scan-code"></div>
-                  <iep-button v-if="form.buildDept>=2" class="money" type="primary" @click="handleGet(5)" round>立即领取</iep-button>
+                  <get-button v-if="form.buildDept>=2" :rules="rules" :id="5"></get-button>
                   <div v-else>
-                    <iep-button round v-if="form.buildDept>=0">{{form.buildDept}} / 2</iep-button>
-                    <iep-button round v-if="form.buildDept === -1"> +{{rules[4]}} 贝</iep-button>
+                    <iep-button class="btn-block" round>{{form.buildDept?'已':'未'}}完成</iep-button>
+                    <!-- <iep-button round v-if="form.buildDept>=0">{{form.buildDept}} / 2</iep-button> -->
+                    <!-- <iep-button round v-if="form.buildDept === -1"> +{{rules[4]}} 贝</iep-button> -->
                   </div>
                 </div>
               </div>
@@ -160,10 +156,9 @@
                   <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责</div>
                 </div>
                 <div class="reward">
-                  <div class="scan-code"></div>
                   <!-- <iep-button>立即领取</iep-button> -->
                   <div>
-                    <iep-button round>{{form.productMarket?'':'未'}}完成</iep-button>
+                    <iep-button class="btn-block" round disabled>{{form.productMarket?'已':'未'}}完成</iep-button>
                     <!-- <span v-if="form.distribution === -1" class="money-text"> +{{rules[3]}} 贝</span> -->
                   </div>
                 </div>
@@ -210,7 +205,11 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getOrgGuideDrivers, getOrgGuideStep } from '@/api/admin/guide'
+import GetButton from './GetButton'
 export default {
+  components: {
+    GetButton,
+  },
   data () {
     return {
       popoverShow: false,
@@ -254,7 +253,7 @@ export default {
     async handleGet (step) {
       const { data } = await getOrgGuideStep(step)
       if (data.data) {
-        this.$message.success('领取成功')
+        this.$message.success(`领取成功，+ ${this.rules[step]}贝`)
         this.loadPage()
       } else {
         this.$message(data.msg)
@@ -270,6 +269,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.btn-block {
+  width: 78px;
+}
 .bg-title {
   margin: 20px;
   background-image: url("/img/orgWlecome/top.jpg");

@@ -7,7 +7,7 @@
       </div>
       <login-password v-if="active===1" @onredirect="_goToRedirect"></login-password>
       <login-mobile v-if="active===2" @onredirect="_goToRedirect"></login-mobile>
-      <template v-if="false">
+      <template v-if="IS_ICAN">
         <el-divider>其他方式登录</el-divider>
         <div class="social-container">
           <div class="box qq" @click="handleClick('tencent')">
@@ -46,6 +46,8 @@ export default {
   name: 'Userlogin',
   data () {
     return {
+      // eslint-disable-next-line
+      IS_ICAN,
       active: 1,
       socialForm: {
         code: '',

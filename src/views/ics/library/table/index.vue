@@ -67,7 +67,7 @@ export default {
     },
     handleUpdate (row) {
       getQuestionById({id: row.id}).then(({ data }) => {
-        this.$emit('handle_form', 'create', data.data)
+        this.$emit('handle_form', 'update', data.data)
       })
     },
     handleDeleteById (row) {

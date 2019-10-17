@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     bankAmountOption () {
-      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === '1') {
+      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === 1) {
         return {
           disabled: false,
           prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,

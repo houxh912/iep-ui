@@ -58,14 +58,14 @@ export default {
       return this.$route.query.approval === 'true'
     },
     companyOption () {
-      if (this.data.borrowMoneyType == '0') {
+      if (this.data.borrowMoneyType === 0) {
         return false
       } else {
         return true
       }
     },
     bankAmountOption () {
-      if (this.data.borrowInCompanyId && this.data.borrowMoneyType == '1') {
+      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === 1) {
         return {
           disabled: false,
           prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,

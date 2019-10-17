@@ -3,7 +3,7 @@
     <el-form class="form-detail" ref="form" size="small" :model="form" label-width="150px">
       <iep-form-item label-name="支付方式">
         <el-radio-group v-model="form.borrowMoneyType">
-          <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
+          <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="+idx">{{item}}</el-radio>
         </el-radio-group>
       </iep-form-item>
       <iep-form-item v-if="companyOption" label-name="收款公司" prop="borrowInCompanyId">
@@ -51,14 +51,14 @@ export default {
   computed: {
     ...mapGetters(['famsConfig']),
     companyOption () {
-      if (this.form.borrowMoneyType === '0') {
+      if (this.form.borrowMoneyType === 0) {
         return false
       } else {
         return true
       }
     },
     bankAmountOption () {
-      if (this.form.borrowInCompanyId && this.form.borrowMoneyType === '1') {
+      if (this.form.borrowInCompanyId && this.form.borrowMoneyType === 1) {
         return {
           disabled: false,
           prefixUrl: `fams/bank_account/${this.form.borrowInCompanyId}`,

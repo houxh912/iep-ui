@@ -116,7 +116,7 @@ export default {
             if (data.data) {
               this.$message.success('保存成功')
               this.resetForm()
-              this.$emit('load_page')
+              this.$emit('load_page', true)
             } else {
               this.$message.error(data.msg)
             }

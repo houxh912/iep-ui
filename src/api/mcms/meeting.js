@@ -143,3 +143,11 @@ export function postMeetingsignupUpdateStatus (query) {
     data: query,
   })
 }
+//查看我报名的会议名单列表
+export function getMeetingsignupUserPage (query) {
+  return request({
+    url: '/mcms/meetingsignup/user/page',
+    method: 'get',
+    params: query,
+  })
+}

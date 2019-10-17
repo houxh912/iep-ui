@@ -2,14 +2,23 @@
   <div class="main-box">
     <div class="main-container">
       <div class="top-title bg-title">
-        <el-button type="success" icon="el-icon-check" circle></el-button>
-        恭喜你，
-        <span class="org-name">
-          {{userInfo.orgName}}
-        </span>
-        创建成功！
+        <div v-if="$route.query.first">
+          <el-button type="success" icon="el-icon-check" circle></el-button>
+          恭喜你，
+          <span class="org-name">
+            {{userInfo.orgName}}
+          </span>
+          创建成功！
+        </div>
+        <div v-else>
+          <el-button type="success" icon="el-icon-check" circle></el-button>
+          <span class="org-name">
+            {{userInfo.orgName}}
+          </span>
+          的管理者您好
+        </div>
         <div class="desc">
-          最优化匹配资源，通过协作、学习、管理、财富深度赋能，开启智慧组织之旅
+          分享邀请组织成员，迁移群资源更方便
         </div>
         <div class="btn-column">
           <iep-button type="primary" size="medium" style="margin-right:5px;" v-popover:popover>二维码邀请</iep-button>

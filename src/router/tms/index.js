@@ -7,7 +7,7 @@ export default [
     children: [
       {
         path: 'management/edit/:id',
-        name: '编辑',
+        name: '标签编辑',
         component: () => import('@/views/tms/Management/ClusteringResult/Edit.vue'),
       },
     ],

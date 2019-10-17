@@ -5,10 +5,11 @@
         <el-input v-model="form.CentralWord"></el-input>
       </iep-form-item>
       <iep-form-item label-name="卫星词">
-        <tms-select v-model="form.SatelliteWordId" :AddOption="AddOption" :SatelliteWordName="form.SatelliteWordName" @relation-change="handleSatelliteWordChange"></tms-select>
+        <tms-tag-select v-model="form.SatelliteWord"></tms-tag-select>
+        <!-- <tms-select v-model="form.SatelliteWord" :AddOption="AddOption"  @relation-change="handleSatelliteWordChange"></tms-select> -->
       </iep-form-item>
       <div class="word-list">
-        <span v-for="(item,index) in SatelliteWordList" :key="index" :class="form.SatelliteWordId.includes(item.commonId)?'active':''" @click="changeWord(item)">{{item.commonName}}</span>
+        <span v-for="(item,index) in SatelliteWordList" :key="index" :class="form.SatelliteWord.map(m=>m.id).includes(item.commonId)?'active':''" @click="changeWord(item)">{{item.commonName}}</span>
         <div style="text-align: center;margin: 20px 0;">
           <el-pagination background layout="prev, pager, next, total" :total="params.total" :page-size="params.size" @current-change="currentChange"></el-pagination>
         </div>
@@ -21,17 +22,17 @@
   </iep-dialog>
 </template>
 <script>
-import TmsSelect from '@/views/tms/Select/TmsSelect.vue'
+// import TmsSelect from '@/views/tms/Select/TmsSelect.vue'
+import TmsTagSelect from '@/views/tms/Components/TmsTagSelect.vue'
 import { getResultFreePage } from '@/api/tms/management'
 export default {
-  components: { TmsSelect },
+  components: { TmsTagSelect },
   data () {
     return {
       dialogShow: false,
       form: {
         CentralWord: '',
-        SatelliteWordId: [],
-        SatelliteWordName: [],
+        SatelliteWord: [],
       },
       SatelliteWordList: [],
       params: {
@@ -60,17 +61,15 @@ export default {
       this.loadPage()
     },
     changeWord (item) {
-      if (this.form.SatelliteWordId.includes(item.commonId)) {
-        var optionIndex = this.AddOption.indexOf(item)
-        this.AddOption.splice(optionIndex, 1)
-        var wordIndex = this.form.SatelliteWordId.indexOf(item.commonId)
-        this.form.SatelliteWordId.splice(wordIndex, 1)
+      if (this.form.SatelliteWord.map(m => m.id).includes(item.commonId)) {
+        const wordIndex = this.form.SatelliteWord.map(m => m.id).indexOf(item.commonId)
+        this.form.SatelliteWord.splice(wordIndex, 1)
       }
       else {
-        this.AddOption.push(item)
-        setTimeout(() => {
-          this.form.SatelliteWordId.push(item.commonId)
-        }, 500)
+        this.form.SatelliteWord.push({
+          id: item.commonId,
+          name: item.commonName,
+        })
       }
     },
     save () {

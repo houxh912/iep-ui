@@ -23,7 +23,7 @@ export default {
     return {
       options: [],
       loading: false,
-      changeOptions: [],//盛放改变后去重后数据的新数组
+      changeOptions: [],// 盛放改变后去重后数据的新数组
     }
   },
   methods: {

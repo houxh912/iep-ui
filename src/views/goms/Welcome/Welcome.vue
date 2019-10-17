@@ -186,11 +186,11 @@
             </div>
             <div class="text">
               <div class="text-tips">
-                如有疑问，欢迎联系<span class="red">客服小能</span>
+                如有疑问，欢迎联系<span class="red" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">客服小能</span>
               </div>
-              <div class="btn-link">
+              <!-- <div class="btn-link">
                 <iep-button type="primary" size="medium">联系小能</iep-button>
-              </div>
+              </div> -->
             </div>
           </el-card>
         </div>
@@ -289,6 +289,9 @@ export default {
 }
 .red {
   color: $--menu-color-primary;
+  &:hover {
+    color: $--menu-color-font;
+  }
 }
 .congratulations-wrapper {
   margin-right: 20px;
@@ -350,11 +353,6 @@ export default {
       }
       .info-desc {
         flex: 1;
-        .red {
-          &:hover {
-            color: #d48181;
-          }
-        }
       }
       &:hover {
         background: #f3f3f3;
@@ -408,8 +406,10 @@ export default {
           line-height: 28px;
           .text-tips {
             margin-bottom: 15px;
+            text-align: center;
             .red {
               font-size: 16px;
+              font-weight: 600;
               cursor: pointer;
             }
           }

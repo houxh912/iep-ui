@@ -69,7 +69,7 @@ export default {
   align-items: center;
   background-color: $--color-primary;
   color: #fff;
-  height: 56px;
+  height: 50px;
 }
 .min-menu {
   display: flex;
@@ -77,7 +77,7 @@ export default {
   align-items: center;
   background-color: $--color-primary;
   color: #fff;
-  height: 56px;
+  height: 50px;
 }
 .main-item-wrapper {
   font-size: 16px;
@@ -87,8 +87,8 @@ export default {
   .max-div {
     .icon-et {
       cursor: pointer;
-      font-size: 80px !important;
-      line-height: 80px;
+      font-size: 40px !important;
+      line-height: 50px;
       color: $--color-primary;
     }
   }
@@ -96,7 +96,7 @@ export default {
     .icon-et {
       cursor: pointer;
       font-size: 27px !important;
-      line-height: 54px;
+      line-height: 50px;
       color: $--color-primary;
     }
   }

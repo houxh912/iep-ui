@@ -58,9 +58,9 @@ export default {
     },
     asideHeight () {
       if (!this.keyCollapse) {
-        return '290px'
+        return '258px'
       } else {
-        return '270px'
+        return '257px'
       }
     },
     asideDisplay () {

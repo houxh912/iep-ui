@@ -49,12 +49,12 @@
         </template>
       </el-table-column>
     </iep-table>
-    <add-dialog ref="AddDialog"></add-dialog>
+    <add-dialog ref="AddDialog" @load-page="loadPage"></add-dialog>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getResultCenterPage } from '@/api/tms/management'
+import { getResultCenterPage, addCenterWord, releaseCenterById } from '@/api/tms/management'
 import AdvanceSearch from './AdvanceSearch'
 import addDialog from './addDialog'
 export default {
@@ -80,6 +80,8 @@ export default {
   methods: {
     handleAdd () {
       this.$refs['AddDialog'].dialogShow = true
+      this.$refs['AddDialog'].formRequestFn = addCenterWord
+      this.$refs['AddDialog'].methodName = '新增'
     },
     handleCreate () { },
     handleExport () {
@@ -91,9 +93,31 @@ export default {
     handleEdit (row) {
       this.$router.push(`/tms/management/edit/${row.tagId}`)
     },
-    handleFreed () { },
     loadPage (param = this.searchForm) {
       this.loadTable({ ...param }, getResultCenterPage)
+    },
+    //释放中心词
+    handleFreed (row) {
+      this.$confirm('此操作将永久释放该中心词, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        releaseCenterById(row.tagId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '释放成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `释放失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
     },
   },
 }

@@ -14,7 +14,7 @@ import { getResultList } from '@/api/tms/management'
 export default {
   props: {
     value: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },

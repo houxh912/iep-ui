@@ -38,3 +38,33 @@ export function getResultFreePage (opts) {
     params: opts,
   })
 }
+//新增
+export function addCenterWord (centerId,obj) {
+  return request({
+    url: `${prefixUrl}/result/add/center/${centerId}`,
+    method: 'post',
+    data: obj,
+  })
+}
+//释放中心词
+export function releaseCenterById (id) {
+  return request({
+    url: `${prefixUrl}/result/release/${id}`,
+    method: 'get',
+  })
+}
+//释放卫星词
+export function releaseSatelliteById (id) {
+  return request({
+    url: `${prefixUrl}/result/release/satellite/${id}`,
+    method: 'get',
+  })
+}
+//新增
+export function editCenterWord (id,obj) {
+  return request({
+    url: `${prefixUrl}/result/add/satellite/${id}`,
+    method: 'post',
+    data: obj,
+  })
+}

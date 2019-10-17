@@ -37,6 +37,17 @@
             {{scope.row.updateTime}}
           </template>
         </el-table-column>
+        <el-table-column label="相似度">
+          <template slot-scope="scope">
+            {{scope.row.similarity}}%
+          </template>
+        </el-table-column>
+        <el-table-column label="批次">
+          <template slot-scope="scope">
+            <span v-if="scope.row.batch>0">第{{scope.row.batch}}次</span>
+            <span v-else>人工处理</span>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -47,12 +58,12 @@
         </el-table-column>
       </iep-table>
     </basic-container>
-    <add-dialog ref="AddDialog"></add-dialog>
+    <add-dialog ref="AddDialog" @load-page="loadPage"></add-dialog>
   </div>
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getResultById, getResultPageByTagId } from '@/api/tms/management'
+import { getResultById, getResultPageByTagId, releaseSatelliteById, editCenterWord } from '@/api/tms/management'
 import addDialog from './addDialog'
 import CentralWord from './CentralWord'
 export default {
@@ -89,11 +100,35 @@ export default {
   methods: {
     handleAdd () {
       this.$refs['AddDialog'].dialogShow = true
-      this.$refs['AddDialog'].form.CentralWord = this.information.name
+      this.$refs['AddDialog'].form.CentralWord = this.information.tagId
+      this.$refs['AddDialog'].formRequestFn = editCenterWord
+      this.$refs['AddDialog'].methodName = '编辑'
     },
     handleCreate () { },
     Replacement () { },
-    handleFreed () { },
+    //释放卫星词
+    handleFreed (row) {
+      this.$confirm('此操作将永久释放该卫星词, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        releaseSatelliteById(row.tagId).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '释放成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `释放失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
+    },
     loadPage (param = this.searchForm) {
       this.loadTable({ ...param }, getResultPageByTagId(this.id))
       getResultById(this.id).then(({ data }) => {

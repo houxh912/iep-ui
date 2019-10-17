@@ -1,11 +1,11 @@
 <template>
-  <iep-dialog title="新增中心词" :dialog-show="dialogShow" width="500" @close="close()">
+  <iep-dialog :title="`${methodName}中心词`" :dialog-show="dialogShow" width="500" @close="close()">
     <el-form ref="form" :model="form" size="small" label-width="120px">
       <iep-form-item label-name="中心词">
-        <el-input v-model="form.CentralWord"></el-input>
+        <tms-select v-model="form.CentralWord" :disabled="methodName=='编辑'"></tms-select>
       </iep-form-item>
       <iep-form-item label-name="卫星词">
-        <tms-tag-select v-model="form.SatelliteWord"></tms-tag-select>
+        <tms-tag-select v-model="form.SatelliteWord" :value="editSatelliteWord"></tms-tag-select>
         <!-- <tms-select v-model="form.SatelliteWord" :AddOption="AddOption"  @relation-change="handleSatelliteWordChange"></tms-select> -->
       </iep-form-item>
       <div class="word-list">
@@ -22,11 +22,11 @@
   </iep-dialog>
 </template>
 <script>
-// import TmsSelect from '@/views/tms/Select/TmsSelect.vue'
+import TmsSelect from '@/views/tms/Select/TmsSelect.vue'
 import TmsTagSelect from '@/views/tms/Components/TmsTagSelect.vue'
 import { getResultFreePage } from '@/api/tms/management'
 export default {
-  components: { TmsTagSelect },
+  components: { TmsSelect, TmsTagSelect },
   data () {
     return {
       dialogShow: false,
@@ -41,6 +41,9 @@ export default {
         total: 0,
       },
       AddOption: [],
+      methodName: '新增',
+      formRequestFn: () => { },
+      editSatelliteWord: [],
     }
   },
   created () {
@@ -73,26 +76,27 @@ export default {
       }
     },
     save () {
-      console.log(this.form)
-      // this.$refs['form'].validate((valid) => {
-      //   if (valid) {
-      //     this.typeObj[this.type].requestFn(form).then(res => {
-      //       if (res.data.data === true) {
-      //         this.$message({
-      //           type: 'success',
-      //           message: '新增成功!',
-      //         })
-      //       } else {
-      //         this.$message({
-      //           type: 'info',
-      //           message: `新增失败,${res.data.msg}`,
-      //         })
-      //       }
-      //     })
-      //   } else {
-      //     return false
-      //   }
-      // })
+      this.form.SatelliteWord = this.form.SatelliteWord.map(m => m.id)
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          this.formRequestFn(this.form.CentralWord, this.form.SatelliteWord).then(res => {
+            if (res.data.data === true) {
+              this.$message({
+                type: 'success',
+                message: `${this.methodName}成功!`,
+              })
+              this.close()
+            } else {
+              this.$message({
+                type: 'info',
+                message: `${this.methodName}失败,${res.data.msg}`,
+              })
+            }
+          })
+        } else {
+          return false
+        }
+      })
     },
     handleSatelliteWordChange (value) {
       console.log(value)
@@ -102,7 +106,11 @@ export default {
       // this.form.protocolName = value && value.name
     },
     close () {
-      this.dialogShow = false
+      this.form = {
+        CentralWord: '',
+        SatelliteWord: [],
+      },
+        this.dialogShow = false
       this.$emit('load-page')
     },
   },

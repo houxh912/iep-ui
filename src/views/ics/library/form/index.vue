@@ -83,10 +83,11 @@ export default {
       this.$emit('load_page', true)
     },
     resetForm () {
+      this.loadState = false
       this.formData = initFormData()
     },
     open (state, row) {
-      this.methodName = 'state'
+      this.methodName = state
       if (state === 'cretae') {
         this.formData = this.initFormData()
       } else {

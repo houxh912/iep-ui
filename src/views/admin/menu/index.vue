@@ -20,6 +20,10 @@
           <el-scrollbar style="height:calc(100vh - 240px);">
             <span class="border"></span>
             <el-tree class="filter-tree" node-key="id" highlight-current :data="treeData" :default-expanded-keys="aExpandedKeys" :filter-node-method="filterNode" :props="defaultProps" @node-click="getNodeData" @node-expand="nodeExpand" @node-collapse="nodeCollapse">
+              <span class="custom-tree-node" slot-scope="{ node, data }">
+                <span>{{ node.label }}</span>
+                <span>{{ data.id }}</span>
+              </span>
             </el-tree>
           </el-scrollbar>
         </el-col>
@@ -319,5 +323,13 @@ export default {
   height: 10000px;
   background-color: #e5e5e5;
   z-index: 100;
+}
+.custom-tree-node {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  padding-right: 20px;
 }
 </style>

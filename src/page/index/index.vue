@@ -102,9 +102,6 @@ export default {
       this.$eventBus.$on('SET_SCROLLTOTOP', () => {
         this.$nextTick(() => {
           this.$refs['elscrollbar'].$refs['wrap'].scrollTop = 0
-          window.container = this
-          window.elscrollbar = this.$refs['elscrollbar']
-          window.wrap = this.$refs['elscrollbar'].$refs['wrap']
         })
       })
     },

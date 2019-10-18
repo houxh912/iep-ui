@@ -49,14 +49,14 @@
         </span>
         <iep-dict-select v-model="formData.materialType" dict-name="mlms_material_type"></iep-dict-select>
       </el-form-item>
-      <el-form-item label="下载贝额：" prop="downloadCost">
+      <el-form-item label="支付贝额：" prop="downloadCost">
         <span slot="label">
-          下载贝额
+          支付贝额
           <iep-tip :content="tipContent.downloadCost"></iep-tip>
         </span>
         <!-- <iep-dict-select v-model="formData.downloadCost" dict-name="mlms_download_cost"></iep-dict-select> -->
         <el-select v-model="formData.downloadCost" placeholder="请选择">
-          <el-option v-for="item in dictGroup.mlms_download_cost" :key="item.id" :label="`${item.label}国脉贝`" :value="item.value"></el-option>
+          <el-option v-for="item in dictGroup.mlms_download_cost" :key="item.id" :label="`${item.label}贝`" :value="item.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="标签：" prop="tagKeyWords">

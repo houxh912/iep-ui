@@ -5,6 +5,7 @@
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" plain @click=" handleSee(scope.row)">查看</iep-button>
+            <iep-button type="warning" plain @click=" handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -15,7 +16,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
-import { getMeetingmarketingStatus } from '@/api/mcms/meeting'
+import { getMeetingmarketingStatus, meetingmarketingDelete } from '@/api/mcms/meeting'
 import { columns } from '../option.js'
 export default {
   mixins: [mixins],
@@ -41,6 +42,27 @@ export default {
       this.$router.push({
         path: `/meeting/${row.id}`,
       })
+    },
+    handleDelete (row) {
+      this.$confirm('是否删除该条会议？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        meetingmarketingDelete({ id: [row.id] }).then((res) => {
+          this.$message({
+            message: res.data.msg,
+            type: 'success',
+          })
+          this.loadPage()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除',
+        })
+      })
+
     },
   },
 }

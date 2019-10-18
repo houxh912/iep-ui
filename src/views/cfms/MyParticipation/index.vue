@@ -54,7 +54,6 @@ export default {
       this.$refs['NameDialog'].dialogShow = true
       this.$refs['NameDialog'].id = row.id
       this.$refs['NameDialog'].loadPage()
-
     },
   },
 }

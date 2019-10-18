@@ -1,15 +1,17 @@
 <template>
   <div>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columns" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-      <el-table-column prop="operation" label="操作">
+      <el-table-column prop="operation" label="操作" width="200">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" plain @click=" handleView(scope.row)">原因</iep-button>
+            <iep-button type="warning" plain @click=" handleEdit(scope.row)">修改</iep-button>
+            <iep-button type="warning" plain @click="handleName(scope.row)">名单</iep-button>
             <iep-button type="warning" plain @click=" handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
+    <name-dialog ref="NameDialog"></name-dialog>
   </div>
 </template>
 
@@ -18,8 +20,10 @@ import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
 import { getMeetingmarketingStatus, meetingmarketingDelete } from '@/api/mcms/meeting'
 import { columns } from '../option.js'
+import NameDialog from '../../MyParticipation/NameDialog'
 export default {
   mixins: [mixins],
+  components: { NameDialog },
   data () {
     return {
       columns,
@@ -35,13 +39,15 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage (param = { meetingFlag: 5 }) {
+    loadPage (param = { meetingFlag: 2 }) {
       this.loadTable(param, getMeetingmarketingStatus)
     },
-    handleView () {
-      this.$message({
-        message: '功能待开发',
-        type: 'success',
+    handleEdit (row) {
+      this.$router.push({
+        path: `/cfms_spa/meeting_edit/${row.id}`,
+        query: {
+          edit: true,
+        },
       })
     },
     handleDelete (row) {
@@ -64,6 +70,11 @@ export default {
         })
       })
 
+    },
+    handleName (row) {
+      this.$refs['NameDialog'].dialogShow = true
+      this.$refs['NameDialog'].id = row.id
+      this.$refs['NameDialog'].loadPage()
     },
   },
 }

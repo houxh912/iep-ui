@@ -8,6 +8,9 @@
       <template v-if="activeTab ==='ConductMeeting'" v-slot:ConductMeeting>
         <conduct-meeting v-loading="activeTab !=='ConductMeeting'" @load-page="loadPage" :record="record"></conduct-meeting>
       </template>
+      <template v-if="activeTab ==='HaveingMeeting'" v-slot:HaveingMeeting>
+        <haveing-meeting v-loading="activeTab !=='HaveingMeeting'" @load-page="loadPage" :record="record"></haveing-meeting>
+      </template>
       <template v-if="activeTab ==='AuditedMeeting'" v-slot:AuditedMeeting>
         <audited-meeting v-loading="activeTab !=='AuditedMeeting'" @load-page="loadPage" :record="record"></audited-meeting>
       </template>
@@ -30,20 +33,26 @@ import AuditedMeeting from './AuditedMeeting/index'
 import DraftMeeting from './DraftMeeting/index'
 import EndingMeeting from './EndingMeeting/index'
 import NotpassMeeting from './NotpassMeeting/index'
+import HaveingMeeting from './HaveingMeeting/index'
 export default {
-  components: { MyAllmeeting, ConductMeeting, AuditedMeeting, DraftMeeting, EndingMeeting, NotpassMeeting },
+  components: { MyAllmeeting, ConductMeeting, AuditedMeeting, DraftMeeting, EndingMeeting, NotpassMeeting, HaveingMeeting },
   data () {
     return {
       tabList: [{
         label: '全部',
         value: 'MyAllmeeting',
       }, {
-        label: '进行',
+        label: '审核通过',
         value: 'ConductMeeting',
       }, {
+        label: '进行中',
+        value: 'HaveingMeeting',
+      },
+      {
         label: '待审核',
         value: 'AuditedMeeting',
-      }, {
+      },
+      {
         label: '已结束',
         value: 'EndingMeeting',
       }, {

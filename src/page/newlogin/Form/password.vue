@@ -13,14 +13,14 @@
       <div class="login-text">
         将保持登陆状态
         <div class="check-text">
-          <el-button type="text" @click="handleRetrieve">忘记密码?</el-button>
+          <!-- <el-button type="text" @click="handleRetrieve">忘记密码?</el-button> -->
           <el-button type="text" @click="handleRegister">立即注册</el-button>
           <el-button v-if="IS_ICAN" type="text" icon="el-icon-chat-dot-square" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">联系客服</el-button>
         </div>
       </div>
     </el-form-item>
     <el-form-item>
-      <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>登录</a-button>
+      <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
     </el-form-item>
   </el-form>
 </template>
@@ -96,69 +96,33 @@ export default {
     //     : (this.passwordType = '')
     // },
     async submitForm () {
-      const data = await this.LoginByUsername(this.form)
-      if (data.access_token) {
-        this.$emit('onredirect')
-      } else {
-        this.$meesage(data.msg)
+      try {
+        const data = await this.LoginByUsername(this.form)
+        if (data.access_token) {
+          this.$emit('onredirect')
+        } else {
+          this.$meesage(data.msg)
+          this.refreshCode()
+        }
+      } catch (err) {
+        console.log(err)
+        this.refreshCode()
       }
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-.login-form {
-  margin: 10px 0;
-}
-.login-form i {
-  color: #999;
-}
-.login-form ::v-deep .el-form-item .el-form-item__content {
-  margin-left: 0 !important;
-  width: 100%;
-}
-.login-form ::v-deep .el-input {
-  padding: 0;
-}
-.login-form ::v-deep .el-input .el-input__prefix i {
-  padding: 0 5px;
-  font-size: 16px !important;
-}
-
-.form-detail ::v-deep .el-form-item {
-  margin-bottom: 15px;
-}
 .form-detail {
   width: 100%;
 }
-
-.login-code ::v-deep .ant-input {
-  font-size: 14px;
-}
-.login-code ::v-deep .ant-input-group-addon {
-  padding: 0;
-  height: 40px;
-}
-.login-code .login-code-img {
-  padding: 1px 0;
-  height: 100%;
-  box-sizing: border-box;
-}
-
 .login-text .check-text {
   float: right;
-  color: red;
 }
 .login-text ::v-deep .el-button--text {
-  color: #ba1b20;
+  color: $--color-primary;
 }
 .login-text ::v-deep .el-button--text:hover {
-  color: #f56c6c;
-}
-.login-text ::v-deep .el-button--text:nth-child(1) {
-  color: #666;
-}
-.login-text ::v-deep .el-button--text:nth-child(1):hover {
-  color: #999;
+  color: $--menu-color-font;
 }
 </style>

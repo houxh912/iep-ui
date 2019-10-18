@@ -7,10 +7,10 @@
       </iep-form-item>
       <iep-form-item label-name="支付方式">
         <el-radio-group v-model="data.borrowMoneyType">
-          <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="idx">{{item}}</el-radio>
+          <el-radio v-for="(item, idx) in dictsMap.borrowMoneyType" :key="idx" :label="+idx">{{item}}</el-radio>
         </el-radio-group>
       </iep-form-item>
-      <iep-form-item v-if="data.borrowMoneyType==='1'" label-name="收款公司">
+      <iep-form-item v-if="data.borrowMoneyType===1" label-name="收款公司">
         <iep-select v-model="data.borrowInCompanyId" autocomplete="off" prefix-url="fams/company" placeholder="请选择收入公司"></iep-select>
       </iep-form-item>
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     bankAmountOption () {
-      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === '1') {
+      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === 1) {
         return {
           disabled: false,
           prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,

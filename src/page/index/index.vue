@@ -1,6 +1,6 @@
 <template>
   <div class="avue-contail">
-    <im-ui v-if="$store.getters.userInfo.userId != 1"></im-ui>
+    <im-ui></im-ui>
     <el-container style="height: 100vh;">
       <el-header style="height: 60px;padding: 0;z-index: 500;">
         <!-- 顶部导航栏 -->
@@ -102,9 +102,6 @@ export default {
       this.$eventBus.$on('SET_SCROLLTOTOP', () => {
         this.$nextTick(() => {
           this.$refs['elscrollbar'].$refs['wrap'].scrollTop = 0
-          window.container = this
-          window.elscrollbar = this.$refs['elscrollbar']
-          window.wrap = this.$refs['elscrollbar'].$refs['wrap']
         })
       })
     },

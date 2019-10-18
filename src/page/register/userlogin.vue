@@ -1,7 +1,7 @@
 <template>
-  <el-form class="login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
+  <el-form class="register-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
     <el-form-item prop="phone">
-      <iep-ant-input v-model="form.phone" autocomplete="username" placeholder="请输入手机号码" iconfont="icon-dianhua" :disabled="!!$route.query.quick"></iep-ant-input>
+      <iep-ant-input v-model="form.phone" autocomplete="username" placeholder="请输入手机号码" iconfont="icon-dianhua"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="code">
       <iep-ant-input v-model="form.code" inputType="right-mobile" autocomplete="one-time-code" placeholder="请输入验证码" :msgText="msgText" :inputDisabled="msgKey" :handleSend="handleSend"></iep-ant-input>
@@ -19,7 +19,7 @@
       <el-checkbox v-model="checked">同意并遵守<span class="agreement">《用户守则》</span></el-checkbox>
     </el-form-item>
     <el-form-item>
-      <a-button type="primary" size="large" :loading="submitFormLoading" @click="mixinsSubmitFormGen()" block>注册</a-button>
+      <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">注 册</iep-button>
     </el-form-item>
   </el-form>
 </template>
@@ -183,39 +183,13 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.login-form ::v-deep .el-form-item {
-  margin-bottom: 20px;
-}
-.login-form {
+.register-form {
   margin: 10px 0;
-  .el-form-item {
-    margin-bottom: 15px;
-    .el-form-item__content {
-      margin-left: 0 !important;
-      width: 100%;
-    }
-  }
-  .el-input {
-    padding: 0;
-    .el-input__prefix {
-      i {
-        padding: 0 5px;
-        font-size: 16px !important;
-      }
-    }
-  }
 }
 .agreement {
   color: #999;
   &:hover {
     opacity: 0.7;
-  }
-}
-@media (max-width: 320px) {
-  .login-form {
-    .el-form-item {
-      margin-bottom: 10px;
-    }
   }
 }
 </style>

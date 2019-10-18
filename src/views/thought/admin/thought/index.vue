@@ -93,6 +93,7 @@ export default {
         return
       }
       this.$refs['optenSelect'].dialogShow = true
+      this.$refs['optenSelect'].form.isOpen = row.status
       this.ids = [row.thoughtsId]
     },
     optenSelct (status) {

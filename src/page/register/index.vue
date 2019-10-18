@@ -66,10 +66,10 @@ p {
   color: #666;
 }
 a {
-  color: #ba1b20;
+  color: $--color-primary;
   margin: 0px 8px;
   &:hover {
-    color: #f56c6c;
+    color: $--menu-color-font;
   }
 }
 </style>

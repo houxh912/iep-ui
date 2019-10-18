@@ -58,21 +58,21 @@ export default {
 .input-group-addon {
   padding: 0;
   height: 40px;
-  display: table-cell;
-  width: 1px;
   white-space: nowrap;
   vertical-align: middle;
   border-left: 0;
   .login-code-img {
     padding: 0 0 1px 0;
     height: 100%;
+    width: 100px;
     vertical-align: unset;
     box-sizing: border-box;
   }
   .login-code-mobile {
     width: 120px;
-    height: 97%;
+    height: 40px;
     border-left: 0;
+    border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
   img {
@@ -82,7 +82,7 @@ export default {
 }
 .right-mobile,
 .right-code {
-  display: table;
+  display: flex;
   width: 100%;
 }
 .iconfont {
@@ -95,12 +95,12 @@ export default {
   line-height: 1.5;
 }
 .iep-input ::v-deep .el-input__inner:hover {
-  border-color: #c73e3e;
+  border-color: $--menu-color-primary;
   border-right-width: 1px;
 }
 .iep-input ::v-deep .el-input__inner:focus {
   outline: 0;
-  box-shadow: 0 0 0 2px rgba(186, 27, 33, 0.2);
+  box-shadow: 0 0 0 2px mix($--color-primary, $--menu-color-second, 10%);
 }
 .left ::v-deep .el-input__inner {
   padding-left: 30px;

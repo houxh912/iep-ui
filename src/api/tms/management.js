@@ -68,3 +68,11 @@ export function editCenterWord (id,obj) {
     data: obj,
   })
 }
+//更替中心词
+export function releaseTransById (opts) {
+  return request({
+    url: `${prefixUrl}/result/trans`,
+    method: 'get',
+    params: opts,
+  })
+}

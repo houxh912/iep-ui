@@ -52,7 +52,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain @click="handleFreed(scope.row)">释放</iep-button>
-              <iep-button @click="handleReplacement(scope.row)">更替</iep-button>
+              <iep-button @click="handleReplacement(scope.row)">更替中心词</iep-button>
             </operation-wrapper>
           </template>
         </el-table-column>
@@ -63,7 +63,7 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-import { getResultById, getResultPageByTagId, releaseSatelliteById, editCenterWord } from '@/api/tms/management'
+import { getResultById, getResultPageByTagId, releaseSatelliteById, editCenterWord, releaseTransById } from '@/api/tms/management'
 import addDialog from './addDialog'
 import CentralWord from './CentralWord'
 export default {
@@ -105,7 +105,29 @@ export default {
       this.$refs['AddDialog'].methodName = '编辑'
     },
     handleCreate () { },
-    Replacement () { },
+    //更替中心词
+    handleReplacement (row) {
+      this.$confirm('此操作将永久更替该中心词, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        releaseTransById({ newCenterId: row.tagId, centerId: this.information.tagId }).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '更替成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `更替失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
+    },
     //释放卫星词
     handleFreed (row) {
       this.$confirm('此操作将永久释放该卫星词, 是否继续?', '提示', {

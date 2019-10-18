@@ -4,7 +4,7 @@
     <operation-container>
       <template slot="left">
         <iep-button type="primary" icon="el-icon-plus" @click="handleAdd" plain>新增中心词</iep-button>
-        <iep-button @click="handleExport">批量导出</iep-button>
+        <iep-button @click="handleExport" disabled>批量导出</iep-button>
       </template>
       <template slot="right">
         <operation-search placeHolder="请输入关键词" prop="projectName" @search-page="searchPage" advance-search>

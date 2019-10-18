@@ -39,7 +39,7 @@ export default {
     this.loadPage()
   },
   methods: {
-    loadPage (param = { meetingFlag: 6 }) {
+    loadPage (param = { meetingFlag: 2 }) {
       this.loadTable(param, getMeetingmarketingStatus)
     },
     handleEdit (row) {

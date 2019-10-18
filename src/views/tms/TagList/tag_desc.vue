@@ -1,10 +1,8 @@
 <template>
-  <div>
-    <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @refresh-change="refreshChange" @size-change="sizeChange" @search-change="searchChange" @row-update="rowUpdate" @row-del="rowDel">
-      <template slot="menuLeft">
-      </template>
-    </avue-crud>
-  </div>
+  <avue-crud ref="crud" :page="page" :data="tableData" :table-loading="tableLoading" :option="tableOption" @refresh-change="refreshChange" @current-change="currentChange" @size-change="sizeChange" @search-change="searchChange" @row-update="rowUpdate" @row-del="rowDel">
+    <template slot="menuLeft">
+    </template>
+  </avue-crud>
 </template>
 <script>
 import { getTagDescriptionPageByTagId, putTagDesc, deleteTagDescById } from '@/api/tms/description'

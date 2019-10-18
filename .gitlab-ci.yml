@@ -9,7 +9,7 @@ cache:
     - node_modules/
 
 build_job:
-  image: node:10
+  image: node:10.16.3-alpine
   stage: build
   tags:
     - bmc

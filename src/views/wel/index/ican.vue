@@ -19,8 +19,10 @@ export default {
   display: flex;
   .ican-content {
     flex: 3;
+    width: 75%;
   }
   .ican-aside {
+    width: 25%;
     flex: 1;
     display: inline-table;
   }

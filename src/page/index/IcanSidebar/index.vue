@@ -51,14 +51,14 @@ export default {
     },
     asideWidth () {
       if (!this.keyCollapse) {
-        return '180px'
+        return '160px'
       } else {
         return '64px'
       }
     },
     asideHeight () {
       if (!this.keyCollapse) {
-        return '258px'
+        return '208px'
       } else {
         return '257px'
       }

@@ -16,9 +16,9 @@ export function getOrgCount () {
   })
 }
 
-export function getPendingList () {
+export function getPendingList (id) {
   return request({
-    url: `${prefixUrl}/pending/list`,
+    url: `${prefixUrl}/pending/list/${id}`,
     method: 'get',
   })
 }

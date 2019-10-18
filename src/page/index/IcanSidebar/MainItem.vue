@@ -13,12 +13,10 @@
         </div>
       </el-tooltip>
       <template v-else>
-        <div class="max-div" @click="$openPage(website.menu.firstMenu.path)">
+        <div class="max-menu" @click="$openPage(website.menu.firstMenu.path)">
           <i class="icon-et"></i>
-          <!-- <span v-if="isSub">-</span>
-        <span v-if="isSub">{{mainMenu.label}}</span> -->
+          {{mainMenu.label}}
         </div>
-        <div class="max-menu">{{mainMenu.label}}</div>
       </template>
     </template>
   </div>
@@ -51,25 +49,24 @@ export default {
       }
       return false
     },
-    isSub () {
-      if (this.mainMenu.path) {
-        if (this.mainMenu.path === website.menu.firstMenu.modulePath) {
-          return false
-        }
-      }
-      return true
-    },
   },
 }
 </script>
 <style lang="scss" scoped>
 .max-menu {
   display: flex;
-  justify-content: center;
+  padding-left: 10px;
+  justify-content: flex-start;
   align-items: center;
   background-color: $--color-primary;
   color: #fff;
   height: 50px;
+  .icon-et {
+    cursor: pointer;
+    font-size: 40px !important;
+    line-height: 50px;
+    color: #fff;
+  }
 }
 .min-menu {
   display: flex;
@@ -84,14 +81,7 @@ export default {
   text-align: center;
   color: #666;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
-  .max-div {
-    .icon-et {
-      cursor: pointer;
-      font-size: 40px !important;
-      line-height: 50px;
-      color: $--color-primary;
-    }
-  }
+
   .min-div {
     .icon-et {
       cursor: pointer;

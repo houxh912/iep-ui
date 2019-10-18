@@ -1,12 +1,12 @@
 <template>
   <div class="information-wrapper">
     <div class="tabs-wrapper">
-      <div class="tab-item" :class="{'active':activeId===item.id}" v-for="item in collections" :key="item.id">{{item.name}}</div>
+      <div class="tab-item" :class="{'active':activeId===item.id}" v-for="item in collections" :key="item.id" @click="handleActive(item)">{{item.name}}</div>
     </div>
     <iep-no-data v-if="!listData.length"></iep-no-data>
     <div v-else class="list-wrapper">
       <div class="list-item" v-for="item in listData" :key="item.id">
-        <el-link class="iep-ellipsis-flex" :title="item.name" @click="handleOpen(item)">{{item.name}}</el-link>
+        <el-link class="iep-ellipsis" :title="item.name" @click="handleOpen(item)">{{item.name}}</el-link>
         <!-- <iep-div-detail class="link" :value="item.name"></iep-div-detail> -->
         <div class="time">{{item.time | parseToMonthDay}}</div>
       </div>
@@ -18,38 +18,30 @@ import { getPendingList } from '@/api/wel/et'
 export default {
   data () {
     return {
-      activeId: 2,
+      activeId: 1,
       collections: [
         // {
         //   id: 1,
         //   name: '动态',
         // },
         {
-          id: 2,
+          id: 1,
           name: '公告',
         },
         {
-          id: 3,
+          id: 2,
           name: '任务',
         },
         {
-          id: 4,
+          id: 3,
           name: '机会',
         },
         {
-          id: 5,
-          name: '需求',
-        },
-        {
-          id: 6,
-          name: '问卷',
-        },
-        {
-          id: 7,
+          id: 4,
           name: '考试',
         },
         {
-          id: 8,
+          id: 5,
           name: '活动',
         },
       ],
@@ -60,11 +52,15 @@ export default {
     this.loadPage()
   },
   methods: {
+    handleActive (item) {
+      this.activeId = item.id
+      this.loadPage()
+    },
     handleOpen (item) {
       this.$openPage(`/ims_spa/announcement_detail/${item.id}`)
     },
     async loadPage () {
-      const { data } = await getPendingList()
+      const { data } = await getPendingList(this.activeId)
       this.listData = data.data
     },
   },

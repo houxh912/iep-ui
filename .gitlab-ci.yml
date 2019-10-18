@@ -9,7 +9,7 @@ cache:
     - node_modules/
 
 build_job:
-  image: node:lts
+  image: node:10
   stage: build
   tags:
     - bmc

@@ -14,10 +14,10 @@
     </div>
     <hr>
     <div class="down-wrapper">
-      <span>新增中心词：13/134</span>
-      <span>新增游离词：13/134</span>
-      <span>归类卫星词：13/134</span>
-      <div class="time">更新时间：2019-10-16</div>
+      <span>新增中心词：{{proportion.addedCenterSize}}</span>
+      <span>新增游离词：{{proportion.newFreeSize}}</span>
+      <span>归类卫星词：{{proportion.newSatelliteSize}}</span>
+      <div class="time">更新时间：{{proportion.updateTime}}</div>
     </div>
   </el-card>
 </template>
@@ -28,10 +28,13 @@ export default {
       type: Object,
       required: true,
     },
+    proportion: {
+      type: Object,
+      required: true,
+    },
   },
   data () {
     return {
-
       handleClick () {
       },
     }

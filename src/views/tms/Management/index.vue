@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <total-wrapper :dataMap="financialData"></total-wrapper>
+      <total-wrapper :dataMap="financialData" :proportion="proportion"></total-wrapper>
       <iep-tabs v-model="activeTab" :tab-list="tabList" style="margin-top:20px;">
         <template v-slot:[activeTab]>
           <component ref="tabList" :is="activeTab"></component>
@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { getMySharesValue } from '@/api/fams/investment'
+import { getResultStatistics } from '@/api/tms/management'
 import ClusteringResult from './ClusteringResult/'
 import ClassificationRecord from './ClassificationRecord/'
 import PeopleManagement from './PeopleManagement/'
@@ -25,7 +25,7 @@ export default {
   },
   data () {
     return {
-      statistics: [0, 0, 0, 0, 0, 0],
+      statistics: {},
       tabList: [
         {
           label: '聚类结果',
@@ -46,13 +46,21 @@ export default {
   computed: {
     financialData () {
       return {
-        '中心词': this.statistics[0],
-        '游离词': this.statistics[1],
-        '卫星词': this.statistics[2],
-        '阀值': this.statistics[3],
-        '基础标签库': this.statistics[4],
-        '聚类次数': this.statistics[5],
-        '归类次数': this.statistics[5],
+        '中心词': this.statistics.centralWord,
+        '游离词': this.statistics.freeWord,
+        '卫星词': this.statistics.satelliteWord,
+        '阀值': '-',
+        '基础标签库': this.statistics.underlyingWord,
+        '聚类次数': '-',
+        '归类次数': '-',
+      }
+    },
+    proportion () {
+      return {
+        addedCenterSize: this.statistics.addedCenterSize + '/' + this.statistics.centralWord,
+        newSatelliteSize: this.statistics.newSatelliteSize + '/' + this.statistics.satelliteWord,
+        newFreeSize: this.statistics.newFreeSize + '/' + this.statistics.freeWord,
+        updateTime: this.statistics.createTime,
       }
     },
   },
@@ -72,8 +80,8 @@ export default {
       this.$refs['tabList'].loadPage()
     },
     loadPage () {
-      getMySharesValue(this.id).then(({ data }) => {
-        this.statistics = this.$fillStatisticsArray(this.statistics, data.data)
+      getResultStatistics().then(({ data }) => {
+        this.statistics = data.data
       })
     },
   },

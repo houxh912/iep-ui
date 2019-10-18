@@ -85,3 +85,10 @@ export function getManageRecordPage (opts) {
     params: opts,
   })
 }
+//人工管理分页
+export function getResultStatistics () {
+  return request({
+    url: `${prefixUrl}/result/statistics`,
+    method: 'get',
+  })
+}

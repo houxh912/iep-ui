@@ -73,7 +73,10 @@ export default {
     return {
       backOption: {
         isBack: true,
-        backPath: '/tms/management',
+        backPath: '',
+        backFunction: () => {
+          this.$router.push('/tms/management')
+        },
       },
       columnsMap: [
         {
@@ -142,6 +145,7 @@ export default {
               type: 'success',
               message: '释放成功!',
             })
+            this.$router.push(`/tms/management/edit/${row.tagId}`)
           } else {
             this.$message({
               type: 'info',

@@ -16,7 +16,7 @@
               {{scope.row.tagId}}
             </template>
           </el-table-column>
-          <el-table-column label="中心词名称">
+          <el-table-column label="卫星词名称">
             <template slot-scope="scope">
               {{scope.row.name}}
             </template>
@@ -101,6 +101,7 @@ export default {
     handleAdd () {
       this.$refs['AddDialog'].dialogShow = true
       this.$refs['AddDialog'].form.CentralWord = this.information.tagId
+      this.$refs['AddDialog'].CentralWordName = this.information.name
       this.$refs['AddDialog'].formRequestFn = editCenterWord
       this.$refs['AddDialog'].methodName = '编辑'
     },
@@ -135,7 +136,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        releaseSatelliteById(row.tagId).then(res => {
+        releaseSatelliteById({ centerId: this.information.tagId, satelliteId: row.tagId }).then(res => {
           if (res.data.data) {
             this.$message({
               type: 'success',

@@ -2,7 +2,7 @@
   <iep-dialog :title="`${methodName}中心词`" :dialog-show="dialogShow" width="500" @close="close()">
     <el-form ref="form" :model="form" size="small" label-width="120px">
       <iep-form-item label-name="中心词">
-        <tms-select v-model="form.CentralWord" :disabled="methodName=='编辑'"></tms-select>
+        <tms-select v-model="form.CentralWord" :disabled="methodName=='编辑'" :satelliteWordName="form.CentralWordName"></tms-select>
       </iep-form-item>
       <iep-form-item label-name="卫星词">
         <tms-tag-select v-model="form.SatelliteWord" :value="editSatelliteWord"></tms-tag-select>
@@ -32,6 +32,7 @@ export default {
       dialogShow: false,
       form: {
         CentralWord: '',
+        CentralWordName: '',
         SatelliteWord: [],
       },
       SatelliteWordList: [],
@@ -108,9 +109,11 @@ export default {
     close () {
       this.form = {
         CentralWord: '',
+        CentralWordName: '',
         SatelliteWord: [],
       },
-        this.dialogShow = false
+        this.loadPage()
+      this.dialogShow = false
       this.$emit('load-page')
     },
   },

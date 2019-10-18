@@ -10,9 +10,9 @@ export default {
   name: 'TmsSelect',
   inheritAttrs: false,
   props: {
-    SatelliteWordName: {
-      type: Array,
-      default: () => [],
+    satelliteWordName: {
+      type: String,
+      default: '',
     },
   },
   data () {
@@ -20,6 +20,8 @@ export default {
       options: [],
       loading: false,
     }
+  },
+  created () {
   },
   methods: {
     handleChange (v) {
@@ -48,7 +50,7 @@ export default {
     },
   },
   watch: {
-    SatelliteWordName: function (n) {
+    satelliteWordName: function (n) {
       this.options = [{
         id: this.$attrs.value,
         name: n,

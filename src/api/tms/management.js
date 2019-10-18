@@ -54,10 +54,11 @@ export function releaseCenterById (id) {
   })
 }
 //释放卫星词
-export function releaseSatelliteById (id) {
+export function releaseSatelliteById (opts) {
   return request({
-    url: `${prefixUrl}/result/release/satellite/${id}`,
+    url: `${prefixUrl}/result/release/satellite`,
     method: 'get',
+    params: opts,
   })
 }
 //新增
@@ -72,6 +73,14 @@ export function editCenterWord (id,obj) {
 export function releaseTransById (opts) {
   return request({
     url: `${prefixUrl}/result/trans`,
+    method: 'get',
+    params: opts,
+  })
+}
+//人工管理分页
+export function getManageRecordPage (opts) {
+  return request({
+    url: `${prefixUrl}/record/page`,
     method: 'get',
     params: opts,
   })

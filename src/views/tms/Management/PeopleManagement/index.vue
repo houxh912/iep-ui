@@ -1,17 +1,17 @@
 
 <template>
   <div>
-    <el-form ref="form" :model="form" label-width="120px" width="300px">
+    <el-form ref="form" label-width="120px" width="300px">
       <el-form-item label="记录时间：">
-        <iep-date-picker v-model="form.time" type="date" placeholder="请选择记录时间" size="small">
-        </iep-date-picker>
+        <el-date-picker v-model="changeTime" type="date" placeholder="请选择记录时间" size="small" value-format="yyyy-MM-dd">
+        </el-date-picker>
       </el-form-item>
     </el-form>
     <ul class="recording">
       <li v-for="(item,index) in recordingList" :key="index">
-        <span class="time">{{item.time}}</span>
-        <span>{{item.name}}</span>
-        <span>{{item.desc}}</span>
+        <span class="time">{{item.createTime}}</span>
+        <span>{{item.creatorName}}</span>
+        <span>{{item.description}}</span>
       </li>
     </ul>
     <div style="text-align: center;margin: 20px 0;">
@@ -21,18 +21,13 @@
 </template>
 <script>
 import mixins from '@/mixins/mixins'
-// import { getMyBookPage } from '@/api/fams/investment'
+import { getManageRecordPage } from '@/api/tms/management'
 export default {
   mixins: [mixins],
   data () {
     return {
-      form: { time: '' },
-      recordingList: [
-        { time: '2019-05-12', name: '试试是', desc: 'ssssssssssssssssssssssssa爱上收拾收拾收拾收拾收拾收拾收拾收拾收拾收拾' },
-        { time: '2019-05-12', name: '试试是', desc: 'ssssssssssssssssssssssssa爱上收拾收拾收拾收拾收拾收拾收拾收拾收拾收拾' },
-        { time: '2019-05-12', name: '试试是', desc: 'ssssssssssssssssssssssssa爱上收拾收拾收拾收拾收拾收拾收拾收拾收拾收拾' },
-        { time: '2019-05-12', name: '试试是', desc: 'ssssssssssssssssssssssssa爱上收拾收拾收拾收拾收拾收拾收拾收拾收拾收拾' },
-      ],
+      changeTime: '',
+      recordingList: [],
       params: {
         current: 1,
         size: 10,
@@ -43,12 +38,27 @@ export default {
   computed: {
   },
   created () {
-    // this.loadPage()
+    this.loadPage()
   },
   methods: {
-    // loadPage (param = this.searchForm) {
-    //   this.loadTable({ ...param }, getMyBookPage)
-    // },
+    loadPage () {
+      this.loading = true
+      getManageRecordPage(Object.assign({}, { createTime: this.changeTime }, this.params)).then(({ data }) => {
+        this.recordingList = data.data.records
+
+        this.params.total = data.data.total
+        this.loading = false
+      })
+    },
+    currentChange (val) {
+      this.params.current = val
+      this.loadPage()
+    },
+  },
+  watch: {
+    'changeTime': function () {
+      this.loadPage()
+    },
   },
 }
 </script>

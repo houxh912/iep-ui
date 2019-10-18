@@ -38,7 +38,7 @@ export default {
         label: '全部',
         value: 'MyAllmeeting',
       }, {
-        label: '进行',
+        label: '审核通过',
         value: 'ConductMeeting',
       }, {
         label: '待审核',

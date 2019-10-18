@@ -8,6 +8,7 @@
             <iep-button type="warning" plain @click=" handleSee(scope.row)" v-if="isSee(scope.row)">查看</iep-button>
             <iep-button type="warning" plain @click=" handleSend(scope.row)" v-if="isSend(scope.row)">发送</iep-button>
             <iep-button type="warning" plain @click=" handleView(scope.row)" v-if="isView(scope.row)">原因</iep-button>
+            <iep-button type="warning" plain @click=" handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -18,7 +19,7 @@
 <script>
 import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
-import { getMeetingmarketingStatus, postMeetingsignupUpdateStatus } from '@/api/mcms/meeting'
+import { getMeetingmarketingStatus, postMeetingsignupUpdateStatus, meetingmarketingDelete } from '@/api/mcms/meeting'
 import { columns } from '../option.js'
 export default {
   mixins: [mixins],
@@ -59,6 +60,27 @@ export default {
           type: 'success',
         })
       })
+    },
+    handleDelete (row) {
+      this.$confirm('是否删除该条会议？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        meetingmarketingDelete({ id: [row.id] }).then((res) => {
+          this.$message({
+            message: res.data.msg,
+            type: 'success',
+          })
+          this.loadPage()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除',
+        })
+      })
+
     },
     handleView () {
       this.$message({

@@ -138,21 +138,21 @@ export default {
       ],
 
       signTimeOption: {
-        disabledDate: (time) => {
-          if (this.formData.meetingTimeEnd) {
-            return time.getTime() > +new Date(this.formData.meetingTimeEnd)
-          } else {
-            return time.getTime() < 0
-          }
+        disabledDate: () => {
+          // if (this.formData.meetingTimeEnd) {
+          //   return time.getTime() > +new Date(this.formData.meetingTimeEnd)
+          // } else {
+          //   return time.getTime() < 0
+          // }
         },
       },
       finishTimeOption: {
-        disabledDate: (time) => {
-          if (this.formData.meetingTimeStart) {
-            return time.getTime() < +new Date(this.formData.meetingTimeStart)
-          } else {
-            return time.getTime() < 0
-          }
+        disabledDate: () => {
+          // if (this.formData.meetingTimeStart) {
+          //   return time.getTime() < +new Date(this.formData.meetingTimeStart)
+          // } else {
+          //   return time.getTime() < 0
+          // }
         },
       },
     }

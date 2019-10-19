@@ -1,18 +1,20 @@
 <template>
   <div>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columns" :cell-style="mixinsCellPointerStyle" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange">
-      <el-table-column prop="operation" label="操作">
+      <el-table-column prop="operation" label="操作" width="200">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button type="warning" plain @click=" handleEdit(scope.row)" v-if="isEdit(scope.row)">修改</iep-button>
             <iep-button type="warning" plain @click=" handleSee(scope.row)" v-if="isSee(scope.row)">查看</iep-button>
             <iep-button type="warning" plain @click=" handleSend(scope.row)" v-if="isSend(scope.row)">发送</iep-button>
             <iep-button type="warning" plain @click=" handleView(scope.row)" v-if="isView(scope.row)">原因</iep-button>
+            <iep-button type="warning" plain @click="handleName(scope.row)" v-if="isName(scope.row)">名单</iep-button>
             <iep-button type="warning" plain @click=" handleDelete(scope.row)">删除</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
     </iep-table>
+    <name-dialog ref="NameDialog"></name-dialog>
   </div>
 </template>
 
@@ -21,8 +23,10 @@ import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
 import { getMeetingmarketingStatus, postMeetingsignupUpdateStatus, meetingmarketingDelete } from '@/api/mcms/meeting'
 import { columns } from '../option.js'
+import NameDialog from '../../MyParticipation/NameDialog'
 export default {
   mixins: [mixins],
+  components: { NameDialog },
   data () {
     return {
       columns,
@@ -88,6 +92,11 @@ export default {
         type: 'success',
       })
     },
+    handleName (row) {
+      this.$refs['NameDialog'].dialogShow = true
+      this.$refs['NameDialog'].id = row.id
+      this.$refs['NameDialog'].loadPage()
+    },
     isEdit (row) {
       if (row.meetingFlag == 1) {
         return true
@@ -122,7 +131,15 @@ export default {
         return false
       }
     },
-
+    isName (row) {
+      if (row.meetingFlag == 6) {
+        return true
+      } else if (row.meetingFlag == 2) {
+        return true
+      } else {
+        return false
+      }
+    },
 
   },
 }

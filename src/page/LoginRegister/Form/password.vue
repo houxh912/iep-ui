@@ -10,17 +10,8 @@
       <iep-ant-input input-type="right-code" :maxlength="code.len" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" :refreshCode="refreshCode" :codeSrc="code.src" @keyup.enter.native="mixinsSubmitFormGen()"></iep-ant-input>
     </el-form-item>
     <el-form-item>
-      <div class="login-text">
-        将保持登陆状态
-        <div class="check-text">
-          <!-- <el-button type="text" @click="handleRetrieve">忘记密码?</el-button> -->
-          <el-button type="text" @click="handleRegister">立即注册</el-button>
-          <el-button v-if="IS_ICAN" type="text" icon="el-icon-chat-dot-square" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">联系客服</el-button>
-        </div>
-      </div>
-    </el-form-item>
-    <el-form-item>
       <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
+      <iep-button type="text" @click="$openPage('/newregister')">没有账号？立即注册</iep-button>
     </el-form-item>
   </el-form>
 </template>
@@ -77,9 +68,6 @@ export default {
     handleRetrieve () {
       this.$emit('tab-active', 'retrieve')
     },
-    handleRegister () {
-      this.$router.push({ path: '/register', query: { ...this.$route.query, isValid: true } })
-    },
     refreshCode () {
       this.form.code = ''
       this.form.randomStr = randomLenNum(this.code.len, true)
@@ -115,14 +103,5 @@ export default {
 <style lang="scss" scoped>
 .form-detail {
   width: 100%;
-}
-.login-text .check-text {
-  float: right;
-}
-.login-text ::v-deep .el-button--text {
-  color: $--color-primary;
-}
-.login-text ::v-deep .el-button--text:hover {
-  color: $--menu-color-font;
 }
 </style>

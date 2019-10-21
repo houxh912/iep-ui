@@ -5,7 +5,7 @@
         <top-logo></top-logo>
       </template>
       <template class="top-right" slot="top-right">
-        <span class="contact"><i class="iconfont icon-kefu"></i>在线客服小脉</span>
+        <span class="contact" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')"><i class="iconfont icon-kefu"></i>在线客服小脉</span>
         <el-divider direction="vertical"></el-divider>
         联系电话: <span class="num">0580-2299669</span>
       </template>

@@ -3,7 +3,7 @@
     <div class="login-wrapper">
       <div class="title">
         <h1 :class="{'active':active===1}" @click="active=1">帐户密码登录</h1>
-        <h1 :class="{'active':active===2}" @click="active=2">手机号登录</h1>
+        <h1 :class="{'active':active===2}" @click="active=2">免密码登录</h1>
       </div>
       <login-password v-if="active===1" @onredirect="_goToRedirect"></login-password>
       <login-mobile v-if="active===2" @onredirect="_goToRedirect"></login-mobile>
@@ -181,22 +181,6 @@ export default {
         background-color: #a3e254;
       }
     }
-  }
-  .qq {
-    .container {
-      background-color: #03a9f4;
-    }
-    &:hover,
-    &:focus {
-      .container {
-        background-color: #46c3fb;
-      }
-    }
-  }
-}
-@media (max-width: 767px) {
-  .social-container {
-    margin: 20px;
   }
 }
 </style>

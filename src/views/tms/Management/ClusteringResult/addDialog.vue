@@ -2,14 +2,15 @@
   <iep-dialog :title="`${methodName}中心词`" :dialog-show="dialogShow" width="500" @close="close()">
     <el-form ref="form" :model="form" size="small" label-width="120px">
       <iep-form-item label-name="中心词">
-        <tms-select v-model="form.CentralWord" :disabled="methodName=='编辑'" :satelliteWordName="form.CentralWordName"></tms-select>
+        <tms-select v-if="methodName=='新增'" v-model="form.centralWord" :satelliteWordName="form.centralWordName"></tms-select>
+        <el-input v-else type="text" v-model="form.centralWordName" disabled></el-input>
       </iep-form-item>
       <iep-form-item label-name="卫星词">
-        <tms-tag-select v-model="form.SatelliteWord" :value="editSatelliteWord"></tms-tag-select>
-        <!-- <tms-select v-model="form.SatelliteWord" :AddOption="AddOption"  @relation-change="handleSatelliteWordChange"></tms-select> -->
+        <tms-tag-select v-model="form.satelliteWord" :value="editSatelliteWord"></tms-tag-select>
+        <!-- <tms-select v-model="form.satelliteWord" :AddOption="AddOption"  @relation-change="handleSatelliteWordChange"></tms-select> -->
       </iep-form-item>
       <div class="word-list">
-        <span v-for="(item,index) in SatelliteWordList" :key="index" :class="form.SatelliteWord.map(m=>m.id).includes(item.commonId)?'active':''" @click="changeWord(item)">{{item.commonName}}</span>
+        <span v-for="(item,index) in SatelliteWordList" :key="index" :class="form.satelliteWord.map(m=>m.id).includes(item.commonId)?'active':''" @click="changeWord(item)">{{item.commonName}}</span>
         <div style="text-align: center;margin: 20px 0;">
           <el-pagination background layout="prev, pager, next, total" :total="params.total" :page-size="params.size" @current-change="currentChange"></el-pagination>
         </div>
@@ -17,7 +18,7 @@
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="save">保 存</iep-button>
-      <iep-button @click="dialogShow = false">取 消</iep-button>
+      <iep-button @click="close()">取 消</iep-button>
     </template>
   </iep-dialog>
 </template>
@@ -31,9 +32,9 @@ export default {
     return {
       dialogShow: false,
       form: {
-        CentralWord: '',
-        CentralWordName: '',
-        SatelliteWord: [],
+        centralWord: '',
+        centralWordName: '',
+        satelliteWord: [],
       },
       SatelliteWordList: [],
       params: {
@@ -65,22 +66,22 @@ export default {
       this.loadPage()
     },
     changeWord (item) {
-      if (this.form.SatelliteWord.map(m => m.id).includes(item.commonId)) {
-        const wordIndex = this.form.SatelliteWord.map(m => m.id).indexOf(item.commonId)
-        this.form.SatelliteWord.splice(wordIndex, 1)
+      if (this.form.satelliteWord.map(m => m.id).includes(item.commonId)) {
+        const wordIndex = this.form.satelliteWord.map(m => m.id).indexOf(item.commonId)
+        this.form.satelliteWord.splice(wordIndex, 1)
       }
       else {
-        this.form.SatelliteWord.push({
+        this.form.satelliteWord.push({
           id: item.commonId,
           name: item.commonName,
         })
       }
     },
     save () {
-      this.form.SatelliteWord = this.form.SatelliteWord.map(m => m.id)
+      this.form.satelliteWord = this.form.satelliteWord.map(m => m.id)
       this.$refs['form'].validate((valid) => {
         if (valid) {
-          this.formRequestFn(this.form.CentralWord, this.form.SatelliteWord).then(res => {
+          this.formRequestFn(this.form.centralWord, this.form.satelliteWord).then(res => {
             if (res.data.data === true) {
               this.$message({
                 type: 'success',
@@ -108,11 +109,10 @@ export default {
     },
     close () {
       this.form = {
-        CentralWord: '',
-        CentralWordName: '',
-        SatelliteWord: [],
-      },
-        this.loadPage()
+        centralWord: '',
+        centralWordName: '',
+        satelliteWord: [],
+      }
       this.dialogShow = false
       this.$emit('load-page')
     },

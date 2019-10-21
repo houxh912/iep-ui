@@ -28,7 +28,7 @@
           </el-table-column>
           <el-table-column label="所属分类">
             <template slot-scope="scope">
-              <div>{{!scope.row.typeVos?scope.row.typeVos.map(m=>m.name).join('、'):"暂无"}}</div>
+              <div>{{!scope.row.typeVos.length>0?scope.row.typeVos.map(m=>m.name).join('、'):"暂无"}}</div>
             </template>
           </el-table-column>
         </template>
@@ -88,7 +88,8 @@ export default {
           label: '点击量',
         },
       ],
-      information: {},
+      information: {
+      },
     }
   },
   computed: {
@@ -103,8 +104,8 @@ export default {
   methods: {
     handleAdd () {
       this.$refs['AddDialog'].dialogShow = true
-      this.$refs['AddDialog'].form.CentralWord = this.information.tagId
-      this.$refs['AddDialog'].CentralWordName = this.information.name
+      this.$refs['AddDialog'].form.centralWord = this.information.tagId
+      this.$refs['AddDialog'].form.centralWordName = this.information.name
       this.$refs['AddDialog'].formRequestFn = editCenterWord
       this.$refs['AddDialog'].methodName = '编辑'
     },

@@ -6,10 +6,10 @@
         <div>标签级别：{{information.levelName}}</div>
       </el-col>
       <el-col :span="8">
-        <div>标签分类：{{information.typeVos.map(m=>m.name).join('、')}}</div>
+        <div>标签分类：{{information.typeVos?information.typeVos.map(m=>m.name).join('、'):'暂无'}}</div>
       </el-col>
       <el-col :span="8">
-        <div>关联标签：{{information.tagList.map(m=>m.commonName).join('、')}}</div>
+        <div>关联标签：{{information.tagList?information.tagList.map(m=>m.commonName).join('、'):'暂无'}}</div>
       </el-col>
     </el-row>
     <el-row>

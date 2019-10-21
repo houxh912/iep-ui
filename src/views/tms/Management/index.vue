@@ -25,7 +25,16 @@ export default {
   },
   data () {
     return {
-      statistics: {},
+      statistics: {
+        centralWord: '-',
+        freeWord: '-',
+        satelliteWord: '-',
+        underlyingWord: '-',
+        addedCenterSize: '-',
+        newSatelliteSize: '-',
+        newFreeSize: '-',
+        updateTime: '-',
+      },
       tabList: [
         {
           label: '聚类结果',
@@ -49,7 +58,7 @@ export default {
         '中心词': this.statistics.centralWord,
         '游离词': this.statistics.freeWord,
         '卫星词': this.statistics.satelliteWord,
-        '阀值': '-',
+        '阈值': '-',
         '基础标签库': this.statistics.underlyingWord,
         '聚类次数': '-',
         '归类次数': '-',

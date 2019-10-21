@@ -6,9 +6,9 @@
     <el-form-item prop="code">
       <iep-ant-input v-model="form.code" inputType="right-mobile" autocomplete="one-time-code" placeholder="请输入验证码" :msgText="msgText" :inputDisabled="msgKey" :handleSend="handleSend"></iep-ant-input>
     </el-form-item>
-    <el-form-item>
+    <div>
       <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
-    </el-form-item>
+    </div>
   </el-form>
 </template>
 <script>

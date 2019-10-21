@@ -9,10 +9,10 @@
     <el-form-item prop="code">
       <iep-ant-input input-type="right-code" :maxlength="code.len" v-model="form.code" autocomplete="one-time-code" placeholder="请输入验证码" :refreshCode="refreshCode" :codeSrc="code.src" @keyup.enter.native="mixinsSubmitFormGen()"></iep-ant-input>
     </el-form-item>
-    <el-form-item>
+    <div>
       <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
-      <iep-button type="text" @click="$openPage('/newregister')">没有账号？立即注册</iep-button>
-    </el-form-item>
+      <iep-button type="text" @click="$openPage('/register')">没有账号？立即注册</iep-button>
+    </div>
   </el-form>
 </template>
 <script>

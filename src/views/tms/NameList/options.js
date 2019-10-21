@@ -1,7 +1,7 @@
 const dictsMap = {
-  status: {
-    0: '禁用',
-    1: '启用',
+  lockFlag: {
+    0: '启用',
+    1: '禁用',
   },
   sex: {
     0: '男',
@@ -12,31 +12,35 @@ const dictsMap = {
 const initForm = () => {
   return {
     name: '',//姓名
-    id: '',//身份证号
-    head: '',//头像
+    idCard: '',//身份证号
+    image: '',//头像
     sex: '',//性别
-    time: '',//出生年月：
-    nationality: '',//民族
-    political: '',//政治面貌
-    marital: '',//婚姻状况
-    fertility: '',//生育状况
-    account: '',//户口类别
+    birthDate: '',//出生年月：
+    nation: '',//民族
+    politicsStatus: '',//政治面貌.
+    marriageStatus: '',//婚姻状况.
+    birthStatus: '',//生育状况.
+    residentType: '',//户口类别.
+    birthplaceProvince: '',//户籍所在省
+    birthplaceCity: '',//户籍所在市
     residenceCities: '',//户籍地址
     residenceAddress: '',
-    homeCities: '',//家庭地址
-    homeAddress: '',
+    province: '',//家庭所在省
+    city: '',//家庭所在市
+    currentCities: '',//家庭地址
+    currentAddress: '',
     education: '',//最高学历
-    school: '',//毕业学校
+    university: '',//毕业学校
     qq: '',
     major: '',
-    tel: '',//联系电话
-    eduTime: '',//毕业时间
-    wx: '',//微信
+    phone: '',//联系电话
+    graduateTime: '',//毕业时间
+    wechat: '',//微信
     email: '',//邮箱
-    external: '',//外部头衔
-    organization: '',//任职机构
+    socialRela: '',//外部头衔
+    agency: '',//任职机构
     job: '',
-    describe: '',//机构简介
+    introduction: '',//机构简介
   }
 }
 const columnsMap = [
@@ -47,13 +51,14 @@ const columnsMap = [
   {
     prop: 'sex',
     label: '性别',
+    type: 'dict',
   },
   {
-    prop: 'tel',
+    prop: 'phone',
     label: '联系电话',
   },
   {
-    prop: 'industry',
+    prop: 'job',
     label: '职称/职务',
   },
   {
@@ -61,7 +66,7 @@ const columnsMap = [
     label: '所属省',
   },
   {
-    prop: 'status',
+    prop: 'lockFlag',
     label: '状态',
     type: 'dict',
   },
@@ -96,9 +101,9 @@ const initSearchForm = () => {
   return {
     sex: '',
     province: '',
-    tel: '',
-    school: '',
-    status: '',
+    phone: '',
+    university: '',
+    lockFlag: '',
   }
 }
 

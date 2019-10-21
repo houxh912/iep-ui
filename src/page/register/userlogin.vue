@@ -141,7 +141,7 @@ export default {
       }
     },
     handleSend () {
-      if (isvalidatemobile(this.form.mobile)[0]) {
+      if (isvalidatemobile(this.form.phone)[0]) {
         this.$message('手机号错误')
         return
       }

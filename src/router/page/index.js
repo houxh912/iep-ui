@@ -30,6 +30,26 @@ export default [
     },
   },
   {
+    path: '/newlogin',
+    name: '新登录页',
+    component: () => import('@/page/LoginRegister/login'),
+    meta: {
+      keepAlive: false,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
+    path: '/newregister',
+    name: '新注册页',
+    component: () => import('@/page/LoginRegister/register.vue'),
+    meta: {
+      keepAlive: false,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
     path: '/authredirect',
     name: '授权',
     component: () => import('@/page/authredirect/index'),

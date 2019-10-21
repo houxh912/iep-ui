@@ -16,6 +16,7 @@ import pgbdRouter from './pgbd/'
 import famsRouter from './fams/'
 import conmRouter from './conm/'
 import exceptionRouter from './exception/'
+import meeting from './meeting/'
 import AvueRouter from './avue-router'
 import Store from '../store/'
 
@@ -48,6 +49,7 @@ export function initRouter (router, store) {
     ...pgbdRouter,
     ...cfmsRouter,
     ...exceptionRouter,
+    ...meeting,
   ])
 }
 

@@ -7,6 +7,7 @@ import router from './router/router'
 import store from '@/store'
 import orderBy from 'lodash/orderBy'
 import { validatenull } from '@/util/validate'
+import pageRouter from '@/router/page/'
 import NProgress from 'nprogress'
 import { Message } from 'element-ui'
 import 'nprogress/nprogress.css'
@@ -89,7 +90,12 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 
-router.afterEach(() => {
-  eventBus.$emit('SET_SCROLLTOTOP')
+router.afterEach((to) => {
+  const pageRouterPath = pageRouter.map(m => m.path)
+  if (!pageRouterPath.includes(to.matched[0].path)) {
+    eventBus.$emit('SET_SCROLLTOTOP')
+  } else {
+    // console.log(pageRouterPath, to.matched[0].path)
+  }
   NProgress.done()
 })

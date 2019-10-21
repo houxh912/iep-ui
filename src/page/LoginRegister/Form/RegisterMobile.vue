@@ -6,10 +6,10 @@
     <el-form-item prop="code">
       <iep-ant-input v-model="form.code" inputType="right-mobile" autocomplete="one-time-code" placeholder="请输入验证码" :msgText="msgText" :inputDisabled="msgKey" :handleSend="handleSend"></iep-ant-input>
     </el-form-item>
-    <el-form-item>
+    <div>
       <iep-button class="iep-btn-block" type="primary" size="medium " @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)">注 册</iep-button>
-      <iep-button type="text" @click="$openPage('/newlogin')">已有账号？立即登录</iep-button>
-    </el-form-item>
+      <iep-button type="text" @click="$openPage('/login')">已有账号？立即登录</iep-button>
+    </div>
   </el-form>
 </template>
 <script>

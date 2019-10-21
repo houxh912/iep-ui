@@ -9,10 +9,10 @@
     <el-form-item>
       <a-row :gutter="8">
         <a-col :span="12">
-          <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
+          <iep-button class="iep-btn-block" type="primary" size="medium" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
         </a-col>
         <a-col :span="12">
-          <iep-button class="iep-btn-block" size="medium " @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)">注 册</iep-button>
+          <iep-button class="iep-btn-block" size="medium" @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)">注 册</iep-button>
         </a-col>
       </a-row>
     </el-form-item>

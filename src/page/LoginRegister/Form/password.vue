@@ -78,7 +78,7 @@ export default {
       this.$emit('tab-active', 'retrieve')
     },
     handleRegister () {
-      this.$router.push({ path: '/register' })
+      this.$router.push({ path: '/register', query: { ...this.$route.query, isValid: true } })
     },
     refreshCode () {
       this.form.code = ''

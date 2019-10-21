@@ -1,6 +1,6 @@
 <template>
   <div class="basic-box">
-    <el-card shadow="hover">
+    <el-card shadow="never">
       <slot></slot>
     </el-card>
   </div>

@@ -2,10 +2,11 @@ import request from '@/router/axios'
 
 const prefixUrl = '/tms'
 // @/api/tms/tag
-export function getTagDescriptionPageByTagId (id) {
+export function getTagDescriptionPageByTagId (id, params) {
   return request({
     url: `${prefixUrl}/description/page/${id}`,
     method: 'get',
+    params: params,
   })
 }
 

@@ -28,10 +28,6 @@ const initForm = () => {
 }
 const columnsMap = [
   {
-    prop: 'name',
-    label: '机构名称',
-  },
-  {
     prop: 'type',
     label: '机构分类',
   },
@@ -50,10 +46,6 @@ const columnsMap = [
   },
 ]
 const columnsPendingMap = [
-  {
-    prop: 'name',
-    label: '机构名称',
-  },
   {
     prop: 'type',
     label: '机构分类',

@@ -15,6 +15,16 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection :dictsMap="dictsMap">
+      <template slot="before-columns">
+        <el-table-column label="机构名称">
+          <template slot-scope="scope">
+            <div class="box">
+              <span class="claim">认</span>
+              <span class="main-name">{{scope.row.name}}</span>
+            </div>
+          </template>
+        </el-table-column>
+      </template>
       <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
@@ -39,6 +49,10 @@ export default {
       isLoadTable: false,
       dictsMap,
       columnsMap,
+      pagedTable: [
+        { name: 'sssssssssxxxxxxxxxxxxxxxxxxxxxs' },
+        { name: 'sssss' },
+      ],
     }
   },
   methods: {
@@ -49,4 +63,22 @@ export default {
     },
   },
 }
-</script>>
+</script>
+<style lang="scss" scoped>
+.box {
+  display: flex;
+}
+.main-name {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.claim {
+  margin-right: 10px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background-color: #cf3f26;
+  color: #fff;
+}
+</style>

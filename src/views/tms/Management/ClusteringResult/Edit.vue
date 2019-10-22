@@ -124,6 +124,7 @@ export default {
               type: 'success',
               message: '更替成功!',
             })
+            this.$router.push(`/tms/management/edit/${row.tagId}`)
           } else {
             this.$message({
               type: 'info',
@@ -147,7 +148,6 @@ export default {
               type: 'success',
               message: '释放成功!',
             })
-            this.$router.push(`/tms/management/edit/${row.tagId}`)
           } else {
             this.$message({
               type: 'info',

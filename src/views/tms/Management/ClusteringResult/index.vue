@@ -80,6 +80,7 @@ export default {
   methods: {
     handleAdd () {
       this.$refs['AddDialog'].dialogShow = true
+      this.$refs['AddDialog'].loadPage()
       this.$refs['AddDialog'].formRequestFn = addCenterWord
       this.$refs['AddDialog'].methodName = '新增'
     },

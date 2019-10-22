@@ -4,11 +4,11 @@
     <basic-container>
       <iep-page-header :title="`${methodName}机构`" :backOption="backOption"></iep-page-header>
       <el-form class="form-detail" :model="form" size="small" ref="form" :rules="rules" label-width="120px">
-        <el-form-item class="form-half" label="机构名称：" prop="name">
-          <el-input v-model="form.name"></el-input>
+        <el-form-item class="form-half" label="机构名称：" prop="orgName">
+          <el-input v-model="form.orgName"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="机构简称：">
-          <el-input v-model="form.abbreviation"></el-input>
+          <el-input v-model="form.orgAbrName"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="社会信用代码：">
           <el-input v-model="form.creditCode"></el-input>
@@ -17,35 +17,35 @@
           <iep-avatar v-model="form.license"></iep-avatar>
         </el-form-item>
         <el-form-item label="LOGO：">
-          <iep-avatar v-model="form.license"></iep-avatar>
+          <iep-avatar v-model="form.logo"></iep-avatar>
         </el-form-item>
         <el-form-item class="form-half" label="成立时间：">
-          <el-date-picker v-model="form.time" type="date" placeholder="选择日期">
+          <el-date-picker v-model="form.createTime" type="date" placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item class="form-half" label="标签：" prop="tagKeyWords">
+        <!-- <el-form-item class="form-half" label="标签：" prop="tagKeyWords">
           <iep-tag v-model="form.tagKeyWords"></iep-tag>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item class="form-half" label="机构分类：">
           <el-select v-model="form.type"></el-select>
         </el-form-item>
         <el-form-item class="form-half" label="机构层级：">
-          <el-input-number v-model="form.state" :min="1" :max="9"></el-input-number>
+          <el-input-number v-model="form.level" :min="1" :max="9"></el-input-number>
         </el-form-item>
         <el-form-item class="form-half" label="行业：">
-          <iep-cascader v-model="form.industry" prefix-url="admin/city" clearable></iep-cascader>
+          <iep-cascader v-model="form.line" prefix-url="admin/city" clearable></iep-cascader>
         </el-form-item>
         <el-form-item class="form-half" label="机构官网：">
-          <el-input v-model="form.website"></el-input>
+          <el-input v-model="form.orgUrl"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="联系人：">
-          <el-input v-model="form.website"></el-input>
+          <el-input v-model="form.link"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="联系电话：">
-          <el-input v-model="form.tel"></el-input>
+          <el-input v-model="form.phone"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="传真：">
-          <el-input v-model="form.tel"></el-input>
+          <el-input v-model="form.fax"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="邮箱：">
           <el-input v-model="form.email"></el-input>
@@ -54,7 +54,7 @@
           <iep-cascader v-model="form.adress" prefix-url="admin/city" clearable></iep-cascader>
         </el-form-item>
         <el-form-item label="机构简介" prop="describe">
-          <el-input type="textarea" v-model="form.describe"></el-input>
+          <el-input type="textarea" v-model="form.introduction"></el-input>
         </el-form-item>
       </el-form>
       <FooterToolBar>
@@ -67,6 +67,7 @@
 <script>
 import { initForm, dictsMap, rules } from '../options'
 import formMixins from '@/mixins/formMixins'
+import { addPage, updatePage, getDetailPage } from '@/api/crms/organization_list'
 export default {
   mixins: [formMixins],
   data () {
@@ -80,18 +81,47 @@ export default {
     }
   },
   created () {
+    this.loadPage()
   },
   computed: {
+    id () {
+      return +this.$route.params.id
+    },
     isEdit () {
-      return this.id ? true : false
+      return this.id !== 0 ? true : false
     },
     methodName () {
       return this.isEdit ? '修改' : '新增'
     },
   },
   methods: {
+    loadPage () {
+      if (this.isEdit) {
+        getDetailPage(this.id).then(({ data }) => {
+          this.form = this.$mergeByFirst(initForm(), data.data)
+        })
+      }
+    },
+    async submitForm () {
+      if (this.isEdit) {
+        const { data } = await updatePage(this.form)
+        if (data.data) {
+          this.$router.history.go(-1)
+        } else {
+          this.$message(data.msg)
+        }
+      } else {
+        const { data } = await addPage(this.form)
+        if (data.data) {
+          this.$router.history.go(-1)
+        } else {
+          this.$message(data.msg)
+        }
+      }
 
+    },
   },
+
 }
 </script>
 

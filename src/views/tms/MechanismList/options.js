@@ -1,29 +1,44 @@
 const dictsMap = {
-  status: {
+  isForbidden: {
     0: '禁用',
     1: '启用',
+  },
+  claimStatus: {
+    0: '未认领',
+    1: '认领',
   },
 }
 
 const initForm = () => {
   return {
-    name: '',//机构名称
-    abbreviation: '',//机构简称
-    creditCode: '',//社会信用代码
-    license: '',//营业执照
-    LOGO: '',//LOGO
-    time: '',//成立时间
-    tagKeyWords: [],//标签
-    type: '',//机构分类
-    state: '',//机构层级
-    industry: [],//行业
-    website: '',//机构官网
-    contacts: '',//联系人
-    tel: '',//联系电话
-    fax: '',//传真
-    email: '',//邮箱
-    adress: '',//机构住址
-    describe: '',//机构简介
+    address: '',
+    applyTime: '',
+    applyUserId: 0,
+    city: '',
+    claimStatus: '',
+    createTime: '',
+    creditCode: '',
+    delFlag: '',
+    email: '',
+    establishedTime: '',
+    fax: '',
+    firstSpell: '',
+    introduction: '',
+    isForbidden: '',
+    level: '',
+    licence: '',
+    line: 0,
+    link: '',
+    logo: '',
+    orgAbrName: '',
+    orgId: 0,
+    orgName: '',
+    orgUrl: '',
+    phone: '',
+    province: '',
+    type: '',
+    updateTime: '',
+
   }
 }
 const columnsMap = [
@@ -36,11 +51,11 @@ const columnsMap = [
     label: '所属省',
   },
   {
-    prop: 'industry',
+    prop: 'line',
     label: '行业',
   },
   {
-    prop: 'status',
+    prop: 'isForbidden',
     label: '状态',
     type: 'dict',
   },
@@ -71,14 +86,14 @@ const initSearchForm = () => {
   return {
     type: '',
     province: '',
-    industry: '',
-    authStatus: '',
-    status: '',
+    line: '',
+    claimStatus: '',
+    isForbidden: '',
   }
 }
 
 const rules = {
-  name: [{
+  orgName: [{
     required: true,
     message: '请输入机构名称',
     trigger: 'blur',

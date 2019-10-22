@@ -1,20 +1,23 @@
 <template>
-  <el-form :model="form" label-width="100px" size="mini">
+  <el-form class="form" :model="form" label-width="100px" size="mini">
     <el-form-item label="机构分类：">
-      <el-select v-model="form.type"></el-select>
+      <el-input v-model="form.type"></el-input>
     </el-form-item>
     <el-form-item label="所属省：">
-      <el-select v-model="form.province"></el-select>
+      <el-input v-model="form.province"></el-input>
     </el-form-item>
     <el-form-item label="行业：">
-      <el-select v-model="form.industry"></el-select>
+      <el-input v-model="form.line"></el-input>
     </el-form-item>
     <el-form-item label="认证状态：">
-      <el-select v-model="form.authStatus"></el-select>
+      <el-select v-model="form.claimStatus">
+        <el-option v-for="(v,k) in dictsMap.claimStatus" :key="k+v" :label="v" :value="+k">
+        </el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="状态：">
-      <el-select v-model="form.status">
-        <el-option v-for="(v,k) in dictsMap.status" :key="k+v" :label="v" :value="+k">
+      <el-select v-model="form.isForbidden">
+        <el-option v-for="(v,k) in dictsMap.isForbidden" :key="k+v" :label="v" :value="+k">
         </el-option>
       </el-select>
     </el-form-item>
@@ -45,3 +48,9 @@ export default {
   },
 }
 </script>
+<style scoped>
+.form >>> .el-select {
+  width: 100%;
+}
+</style>
+

@@ -6,16 +6,10 @@
     <el-form-item prop="code">
       <iep-ant-input v-model="form.code" inputType="right-mobile" autocomplete="one-time-code" placeholder="请输入验证码" :msgText="msgText" :inputDisabled="msgKey" :handleSend="handleSend"></iep-ant-input>
     </el-form-item>
-    <el-form-item>
-      <a-row :gutter="8">
-        <a-col :span="12">
-          <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
-        </a-col>
-        <a-col :span="12">
-          <iep-button class="iep-btn-block" size="medium " @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)">注 册</iep-button>
-        </a-col>
-      </a-row>
-    </el-form-item>
+    <div>
+      <iep-button class="iep-btn-block" type="primary" size="medium " @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)">注 册</iep-button>
+      <iep-button type="text" @click="$openPage('/login')">已有账号？立即登录</iep-button>
+    </div>
   </el-form>
 </template>
 <script>

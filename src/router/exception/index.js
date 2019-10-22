@@ -1,6 +1,19 @@
 import Layout from '@/page/index/index'
 export default [
   {
+    path: '/myiframe',
+    component: Layout,
+    redirect: '/myiframe',
+    children: [
+      {
+        path: ':routerPath',
+        name: 'iframe',
+        component: () => import('@/components/iframe/main'),
+        props: true,
+      },
+    ],
+  },
+  {
     path: '/404',
     component: () => import(/* webpackChunkName: "exception" */ '@/components/error-page/404'),
     name: '404',

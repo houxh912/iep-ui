@@ -1,15 +1,15 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" title="修改密码" width="520px" @close="loadPage">
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="100px">
-      <el-form-item label="原密码" prop="password">
+      <iep-form-item label-name="原密码" prop="password">
         <el-input type="password" v-model="form.password" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="新密码" prop="newPassword1">
+      </iep-form-item>
+      <iep-form-item label-name="新密码" prop="newPassword1">
         <el-input type="password" v-model="form.newPassword1" auto-complete="off"></el-input>
-      </el-form-item>
-      <el-form-item label="确认密码" prop="newPassword2">
+      </iep-form-item>
+      <iep-form-item label-name="确认密码" prop="newPassword2">
         <el-input type="password" v-model="form.newPassword2" auto-complete="off"></el-input>
-      </el-form-item>
+      </iep-form-item>
     </el-form>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm('form')">提交</iep-button>
@@ -19,7 +19,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import { initForm } from './options'
+import { initForm } from '../options'
 import request from '@/router/axios'
 export default {
   data () {
@@ -27,9 +27,6 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
-        if (this.form.checkPass !== '') {
-          this.$refs.form.validateField('checkPass')
-        }
         callback()
       }
     }
@@ -86,7 +83,7 @@ export default {
             .then(async (response) => {
               if (response.data.data) {
                 this.$message({
-                  message: '密码操作成功，请重新登陆',
+                  message: '密码设置成功，请重新登陆',
                   type: 'success',
                 })
                 // 修改密码之后强制重新登录

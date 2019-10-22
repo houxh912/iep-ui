@@ -61,9 +61,18 @@ export function getDetails (obj) {
     method: 'get',
   })
 }
+
 export function setOrg (id) {
   return request({
     url: '/admin/user/set/org/' + id,
     method: 'post',
+  })
+}
+
+export function resetPassword (data) {
+  return request({
+    url: '/admin/user/find/password',
+    method: 'post',
+    data: data,
   })
 }

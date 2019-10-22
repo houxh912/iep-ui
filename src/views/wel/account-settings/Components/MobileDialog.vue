@@ -7,7 +7,7 @@
       <iep-form-item label-name="验证码" prop="code">
         <el-input size="small" v-model="form.code" auto-complete="off" placeholder="请输入验证码">
           <template slot="append">
-            <span @click="handleSend" class="msg-text" :class="[{display:msgKey}]">{{msgText}}</span>
+            <iep-button type="text" @click="handleSend" class="msg-text" :disabled="msgKey">{{msgText}}</iep-button>
           </template>
         </el-input>
       </iep-form-item>
@@ -80,7 +80,8 @@ export default {
       }
     },
     handleSend () {
-      if (this.msgKey) return
+      const mobile = this.form.mobile.trim()
+      if (this.msgKey || mobile === '') return
       getMobileCode(this.form.mobile).then(response => {
         if (response.data.data) {
           this.$message.success('验证码发送成功')
@@ -101,6 +102,12 @@ export default {
           clearInterval(time)
         }
       }, 1000)
-    }  },
+    },
+  },
 }
 </script>
+<style lang="scss" scoped>
+.msg-text {
+  width: 100px;
+}
+</style>

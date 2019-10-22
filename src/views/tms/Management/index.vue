@@ -45,6 +45,7 @@ export default {
         {
           label: '归类记录',
           value: 'ClassificationRecord',
+          disabled: true,
         },
         {
           label: '人工管理记录',

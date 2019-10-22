@@ -6,10 +6,10 @@
         <div class="label"><a href="#" @click="handleClick(index)">{{index}}</a></div>
       </div>
       <div class="total-btn">
-        <el-button size="small">重新聚类</el-button>
+        <el-button size="small" disabled>重新聚类</el-button>
       </div>
       <div class="total-btn">
-        <el-button size="small" type="danger">游离归类</el-button>
+        <el-button size="small" type="danger" disabled>游离归类</el-button>
       </div>
     </div>
     <hr>

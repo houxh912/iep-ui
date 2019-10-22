@@ -4,8 +4,8 @@
       <template slot="left">
         <iep-button type="primary" icon="el-icon-plus" plain @click="handleAdd">新增</iep-button>
         <iep-button icon="el-icon-delete" @click="handleMoreDelete">删除</iep-button>
-        <iep-button icon="el-icon-remove-outline">禁用</iep-button>
-        <iep-button icon="el-icon-edit">启用</iep-button>
+        <iep-button icon="el-icon-remove-outline" @click="handleMoreLock">禁用</iep-button>
+        <iep-button icon="el-icon-edit" @click="handleMoreReLock">启用</iep-button>
         <iep-button icon="el-icon-upload" @click="handleImport">Excel导入</iep-button>
       </template>
       <template slot="right">
@@ -24,13 +24,23 @@
             </div>
           </template>
         </el-table-column>
+        <el-table-column label="机构分类">
+          <template slot-scope="scope">
+            <span>{{dictsMap.type[scope.row.type]}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="行业">
+          <template slot-scope="scope">
+            <span>{{dictGroup['POLICY_INDUSTRY'].map(m => m.label)[scope.row.line]}}</span>
+          </template>
+        </el-table-column>
       </template>
       <el-table-column prop="operation" label="操作" width="220">
         <template slot-scope="scope">
           <operation-wrapper>
             <iep-button @click="handleEdit(scope.row)" type="primary" plain>编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
-            <iep-button @click="handleTypeDelete(scope.row)">禁用</iep-button>
+            <iep-button @click="handleLockOrReLock(scope.row)">{{scope.row.isForbidden=='0'?'启用':'禁用'}}</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>
@@ -43,8 +53,8 @@ import { columnsMap, dictsMap } from '../options'
 import mixins from '@/mixins/mixins'
 import AdvanceSearch from './AdvanceSearch'
 import formDialog from './formDialog'
-import { getPage, deletePage } from '@/api/crms/organization_list'
-
+import { getPage, deletePage, getforbide } from '@/api/crms/organization_list'
+import { mapGetters } from 'vuex'
 export default {
   components: { AdvanceSearch, formDialog },
   mixins: [mixins],
@@ -56,9 +66,15 @@ export default {
       orgId: [],
       multipleSelection: [],
     }
+
   },
   created () {
     this.loadPage()
+  },
+  computed: {
+    ...mapGetters([
+      'dictGroup',
+    ]),
   },
   methods: {
     handleAdd () {
@@ -71,8 +87,30 @@ export default {
         path: `/tms/list_edit/${row.orgId}`,
       })
     },
+    handleMoreLock () {
+      getforbide({ set: 0, ids: this.multipleSelection }).then(() => {
+        this.loadPage()
+      })
+    },
+    handleMoreReLock () {
+      getforbide({ set: 1, ids: this.multipleSelection }).then(() => {
+        this.loadPage()
+      })
+    },
     selectionChange (val) {
       this.multipleSelection = val.map(m => m.orgId)
+    },
+    handleLockOrReLock (row) {
+      if (row.isForbidden === '0') {
+        getforbide({ set: 1, ids: [row.orgId] }).then(() => {
+          this.loadPage()
+        })
+      }
+      if (row.isForbidden === '1') {
+        getforbide({ set: 0, ids: [row.orgId] }).then(() => {
+          this.loadPage()
+        })
+      }
     },
     handleDelete (row) {
       this.orgId = [row.orgId]
@@ -106,7 +144,7 @@ export default {
       this.$refs['formDialog'].importDialogShow = true
     },
     async loadPage (param = this.searchForm) {
-      await this.loadTable(param, getPage)
+      await this.loadTable({ param, sort: 'allOrg' }, getPage)
     },
   },
 }

@@ -1,15 +1,15 @@
 <template>
   <iep-dialog :dialog-show="importDialogShow" title="上传数据" width="500px" @close="importDialogShow=false" :is-need-confirm="false">
     <div>
-      <name-import @close="handleCloseImport"></name-import>
+      <organization-import @close="handleCloseImport"></organization-import>
     </div>
   </iep-dialog>
 </template>
 <script>
-import nameImport from './organization_import'
+import organizationImport from './organization_import'
 export default {
   components: {
-    nameImport,
+    organizationImport,
   },
   data () {
     return {

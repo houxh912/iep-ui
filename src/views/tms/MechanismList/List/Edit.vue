@@ -13,27 +13,33 @@
         <el-form-item class="form-half" label="社会信用代码：">
           <el-input v-model="form.creditCode"></el-input>
         </el-form-item>
-        <el-form-item label="营业执照：">
+        <el-form-item label="营业执照：" prop="license">
           <iep-avatar v-model="form.license"></iep-avatar>
         </el-form-item>
-        <el-form-item label="LOGO：">
+        <el-form-item label="LOGO：" prop="logo">
           <iep-avatar v-model="form.logo"></iep-avatar>
         </el-form-item>
         <el-form-item class="form-half" label="成立时间：">
-          <el-date-picker v-model="form.createTime" type="date" placeholder="选择日期">
-          </el-date-picker>
+          <iep-date-picker v-model="form.createTime" type="date" placeholder="选择日期">
+          </iep-date-picker>
         </el-form-item>
         <!-- <el-form-item class="form-half" label="标签：" prop="tagKeyWords">
           <iep-tag v-model="form.tagKeyWords"></iep-tag>
         </el-form-item> -->
         <el-form-item class="form-half" label="机构分类：">
-          <el-select v-model="form.type"></el-select>
+          <el-select v-model="form.type">
+            <el-option v-for="(v,k) in dictsMap.type" :key="k+v" :label="v" :value="+k">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item class="form-half" label="机构层级：">
           <el-input-number v-model="form.level" :min="1" :max="9"></el-input-number>
         </el-form-item>
         <el-form-item class="form-half" label="行业：">
-          <iep-cascader v-model="form.line" prefix-url="admin/city" clearable></iep-cascader>
+          <el-select v-model="form.line">
+            <el-option v-for="(v,k) in dictGroup['POLICY_INDUSTRY'].map(m=>m.label)" :key="k+v" :label="v" :value="+k">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item class="form-half" label="机构官网：">
           <el-input v-model="form.orgUrl"></el-input>
@@ -51,7 +57,14 @@
           <el-input v-model="form.email"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="机构住址：">
-          <iep-cascader v-model="form.adress" prefix-url="admin/city" clearable></iep-cascader>
+          <!-- <iep-cascader v-model="form.adress" prefix-url="admin/city" clearable></iep-cascader> -->
+          <div style="display:flex;">
+            <div style="display:flex;">
+              <el-input style="flex:1;" v-model="form.province" placeholder="省"></el-input>
+              <el-input style="flex:1;" v-model="form.city" placeholder="市"></el-input>
+              <el-input style="flex:3;" v-model="form.address" placeholder="详细地址"></el-input>
+            </div>
+          </div>
         </el-form-item>
         <el-form-item label="机构简介" prop="describe">
           <el-input type="textarea" v-model="form.introduction"></el-input>
@@ -68,6 +81,8 @@
 import { initForm, dictsMap, rules } from '../options'
 import formMixins from '@/mixins/formMixins'
 import { addPage, updatePage, getDetailPage } from '@/api/crms/organization_list'
+import { mapGetters } from 'vuex'
+
 export default {
   mixins: [formMixins],
   data () {
@@ -78,6 +93,7 @@ export default {
       },
       form: initForm(),
       rules,
+      preData: {},
     }
   },
   created () {
@@ -93,6 +109,9 @@ export default {
     methodName () {
       return this.isEdit ? '修改' : '新增'
     },
+    ...mapGetters([
+      'dictGroup',
+    ]),
   },
   methods: {
     loadPage () {

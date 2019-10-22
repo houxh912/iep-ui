@@ -7,6 +7,18 @@ const dictsMap = {
     0: '未认领',
     1: '认领',
   },
+  type: {
+    1: '政府',
+    2: '园区',
+    3: '协会',
+    4: '企业',
+    5: '学术机构',
+    6: '培训机构',
+    7: '会议场所',
+    8: '非政府组织',
+    9: '媒体',
+    10: '其它',
+  },
 }
 
 const initForm = () => {
@@ -43,16 +55,8 @@ const initForm = () => {
 }
 const columnsMap = [
   {
-    prop: 'type',
-    label: '机构分类',
-  },
-  {
     prop: 'province',
     label: '所属省',
-  },
-  {
-    prop: 'line',
-    label: '行业',
   },
   {
     prop: 'isForbidden',
@@ -62,24 +66,8 @@ const columnsMap = [
 ]
 const columnsPendingMap = [
   {
-    prop: 'type',
-    label: '机构分类',
-  },
-  {
     prop: 'province',
     label: '所属省',
-  },
-  {
-    prop: 'industry',
-    label: '行业',
-  },
-  {
-    prop: 'time',
-    label: '申请时间',
-  },
-  {
-    prop: 'obj',
-    label: '申请对象',
   },
 ]
 const initSearchForm = () => {

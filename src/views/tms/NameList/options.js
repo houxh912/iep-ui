@@ -15,6 +15,13 @@ const initForm = () => {
     idCard: '',//身份证号
     image: '',//头像
     sex: '',//性别
+    politicsValue: '',
+    marriageValue: '',
+    birthValue: '',
+    residentValue: '',
+    educationValue: '',
+    idCardFace: '',//身份证正面
+    idCardEmblem: '',//身份证国徽面
     birthDate: '',//出生年月：
     nation: '',//民族
     politicsStatus: '',//政治面貌.

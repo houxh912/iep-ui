@@ -10,8 +10,14 @@
         <el-form-item class="form-half" label="身份证号：">
           <el-input v-model="form.idCard"></el-input>
         </el-form-item>
-        <el-form-item label="头像：">
+        <el-form-item class="form-half" label="头像：">
           <iep-avatar v-model="form.image"></iep-avatar>
+        </el-form-item>
+        <el-form-item class="form-half" label="身份证正面：">
+          <iep-avatar v-model="form.idCardFace"></iep-avatar>
+        </el-form-item>
+        <el-form-item label="身份证国徽面：">
+          <iep-avatar v-model="form.idCardEmblem"></iep-avatar>
         </el-form-item>
         <el-form-item class="form-half" label="性别：">
           <el-select v-model="form.sex">
@@ -111,8 +117,9 @@ export default {
         isBack: true,
       },
       form: initForm(),
+      preForm: initForm(),
       rules,
-      preData: {},
+      // preData: {},
     }
   },
   created () {
@@ -136,22 +143,24 @@ export default {
     loadPage () {
       if (this.isEdit) {
         getDetailPageById(this.id).then(({ data }) => {
-          const { politicsStatus, marriageStatus, birthStatus, residentType } = data.data
-          this.preData = { politicsStatus, marriageStatus, birthStatus, residentType }
           this.form = this.$mergeByFirst(initForm(), data.data)
-          this.form.politicsStatus = this.dictGroup['hrms_politics_face'][politicsStatus].label
-          this.form.marriageStatus = this.dictGroup['hrms_marriage_status'][marriageStatus].label
-          this.form.birthStatus = this.dictGroup['hrms_birth_status'][birthStatus].label
-          this.form.residentType = this.dictGroup['hrms_resident_type'][residentType].label
+          this.preForm = this.$mergeByFirst(initForm(), data.data)
+          const { politicsValue, marriageValue, birthValue, residentValue, educationValue } = data.data
+          this.form.politicsStatus = politicsValue
+          this.form.marriageStatus = marriageValue
+          this.form.birthStatus = birthValue
+          this.form.residentType = residentValue
+          this.form.education = educationValue
         })
       }
     },
     async submitForm () {
       if (this.isEdit) {
-        this.form.politicsStatus = this.preData.politicsStatus
-        this.form.marriageStatus = this.preData.marriageStatus
-        this.form.birthStatus = this.preData.birthStatus
-        this.form.residentType = this.preData.residentType
+        if (this.preForm.politicsValue === this.form.politicsStatus) this.form.politicsStatus = this.preForm.politicsStatus
+        if (this.preForm.marriageValue === this.form.marriageStatus) this.form.marriageStatus = this.preForm.marriageStatus
+        if (this.preForm.birthValue === this.form.birthStatus) this.form.birthStatus = this.preForm.birthStatus
+        if (this.preForm.residentValue === this.form.residentType) this.form.residentType = this.preForm.residentType
+        if (this.preForm.educationValue === this.form.education) this.form.education = this.preForm.education
         const { data } = await insertOrUpdate({ ...this.form, id: this.id })
         if (data.data) {
           this.$router.history.go(-1)

@@ -7,11 +7,32 @@ export function getPage (query) {
     params: query,
   })
 }
+export function getRecyclePage (query) {
+  return request({
+    url: `${prefixUrl}/recycle/page`,
+    method: 'get',
+    params: query,
+  })
+}
 export function deletePage (query) {
   return request({
     url: `${prefixUrl}/delete`,
     method: 'post',
     data: query,
+  })
+}
+export function deleteRecyclePage (data) {
+  return request({
+    url: `${prefixUrl}/recycle/delete`,
+    method: 'post',
+    data: data,
+  })
+}
+export function recoverRecyclePage (data) {
+  return request({
+    url: `${prefixUrl}/recycle/recover`,
+    method: 'post',
+    data: data,
   })
 }
 export function addPage (obj) {
@@ -32,6 +53,13 @@ export function getDetailPage (id) {
   return request({
     url: `${prefixUrl}/info/${id}`,
     method: 'get',
+  })
+}
+export function getforbide (data) {
+  return request({
+    url: `${prefixUrl}/forbid`,
+    method: 'post',
+    data: data,
   })
 }
 

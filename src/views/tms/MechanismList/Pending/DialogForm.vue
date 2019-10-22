@@ -2,7 +2,7 @@
   <iep-dialog :dialog-show="dialogShow" title="认证申请" width="800px" @close="loadPage">
     <el-form :model="form" ref="form" :rules="rules" class="form-detail" size="small" label-width="100px">
       <el-form-item label="编号：" class="form-half">
-        <iep-dev-detail>ssaasas</iep-dev-detail>
+        <iep-dev-detail></iep-dev-detail>
       </el-form-item>
       <el-form-item label="编号：" class="form-half">
         <iep-dev-detail>ssaasas</iep-dev-detail>

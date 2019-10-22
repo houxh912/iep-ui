@@ -49,7 +49,6 @@ export default {
     }
   },
   created () {
-    this.loadPage()
   },
   methods: {
     loadPage () {

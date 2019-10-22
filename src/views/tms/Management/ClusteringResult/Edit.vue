@@ -104,6 +104,7 @@ export default {
   methods: {
     handleAdd () {
       this.$refs['AddDialog'].dialogShow = true
+      this.$refs['AddDialog'].loadPage()
       this.$refs['AddDialog'].form.centralWord = this.information.tagId
       this.$refs['AddDialog'].form.centralWordName = this.information.name
       this.$refs['AddDialog'].formRequestFn = editCenterWord

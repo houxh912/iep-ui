@@ -34,6 +34,8 @@ export default {
         newSatelliteSize: '-',
         newFreeSize: '-',
         updateTime: '-',
+        clusterTimes: '-',
+        sortTimes: '-',
       },
       tabList: [
         {
@@ -60,16 +62,17 @@ export default {
         '卫星词': this.statistics.satelliteWord,
         '阈值': '-',
         '基础标签库': this.statistics.underlyingWord,
-        '聚类次数': '-',
-        '归类次数': '-',
+        '聚类次数': this.statistics.clusterTimes,
+        '归类次数': this.statistics.sortTimes,
       }
     },
     proportion () {
       return {
         addedCenterSize: this.statistics.addedCenterSize + '/' + this.statistics.centralWord,
         newSatelliteSize: this.statistics.newSatelliteSize + '/' + this.statistics.satelliteWord,
-        newFreeSize: this.statistics.newFreeSize + '/' + this.statistics.freeWord,
+        // newFreeSize: this.statistics.newFreeSize + '/' + this.statistics.freeWord,
         updateTime: this.statistics.createTime,
+        termsPercent: this.statistics.termsPercent,
       }
     },
   },

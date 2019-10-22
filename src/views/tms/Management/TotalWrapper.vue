@@ -15,8 +15,9 @@
     <hr>
     <div class="down-wrapper">
       <span>新增中心词：{{proportion.addedCenterSize}}</span>
-      <span>新增游离词：{{proportion.newFreeSize}}</span>
+      <!-- <span>新增游离词：{{proportion.newFreeSize}}</span> -->
       <span>归类卫星词：{{proportion.newSatelliteSize}}</span>
+      <span>标准库/基础库：{{proportion.termsPercent}}</span>
       <div class="time">更新时间：{{proportion.updateTime}}</div>
     </div>
   </el-card>

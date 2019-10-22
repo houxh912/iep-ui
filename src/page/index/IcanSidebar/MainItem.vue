@@ -55,12 +55,11 @@ export default {
 <style lang="scss" scoped>
 .max-menu {
   display: flex;
-  padding-left: 10px;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   background-color: $--color-primary;
   color: #fff;
-  height: 50px;
+  height: 58px;
   .icon-et {
     cursor: pointer;
     font-size: 40px !important;
@@ -81,7 +80,6 @@ export default {
   text-align: center;
   color: #666;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
-
   .min-div {
     .icon-et {
       cursor: pointer;

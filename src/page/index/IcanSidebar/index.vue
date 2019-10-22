@@ -51,16 +51,16 @@ export default {
     },
     asideWidth () {
       if (!this.keyCollapse) {
-        return '160px'
+        return '200px'
       } else {
         return '64px'
       }
     },
     asideHeight () {
       if (!this.keyCollapse) {
-        return '208px'
+        return '176px'
       } else {
-        return '257px'
+        return '218px'
       }
     },
     asideDisplay () {
@@ -106,8 +106,6 @@ export default {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.12);
 }
 .el-aside {
-  margin: 20px 0 20px 20px;
-  border-radius: 5px;
   overflow: hidden;
   border: 1px solid #e5e5e5;
 }

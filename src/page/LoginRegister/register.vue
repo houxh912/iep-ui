@@ -45,7 +45,7 @@ export default {
     },
     handleNext (form) {
       this.active = 2
-      this.$refs['RegisterPassword'].form.mobile = form.mobile
+      this.$refs['RegisterPassword'].form.phone = form.mobile
       this.$refs['RegisterPassword'].form.code = form.code
     },
     _goToRedirect () {

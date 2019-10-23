@@ -76,23 +76,24 @@ export default {
         type: 'warning',
       }).then(async () => {
         await this.ClearMenu()
-        const loading = this.$loading({
-          lock: true,
-          text: 'SO切换中....',
-          spinner: 'el-icon-loading',
-          background: 'rgba(0, 0, 0, 0.7)',
-        })
+        // const loading = this.$loading({
+        //   lock: true,
+        //   text: 'SO切换中....',
+        //   spinner: 'el-icon-loading',
+        //   background: 'rgba(0, 0, 0, 0.7)',
+        // })
         await setOrg(org.orgId)
-        await this.GetUserInfo()
-        await this.GetMenu()
-        loading.close()
-        this.$message({
-          message: 'SO切换成功！',
-          type: 'success',
-        })
-        this.$router.push({
-          path: '/',
-        })
+        // await this.GetUserInfo()
+        // await this.GetMenu()
+        // loading.close()
+        // this.$message({
+        //   message: 'SO切换成功！',
+        //   type: 'success',
+        // })
+        // this.$router.push({
+        //   path: '/',
+        // })
+        window.location.reload()
       }).catch(() => {
       })
     },

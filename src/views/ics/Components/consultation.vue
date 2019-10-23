@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="帮助中心" width="600px" @close="close">
+  <iep-dialog :dialog-show="dialogShow" title="智能客服" width="600px" @close="close">
     
     <div class="content" id="consultation_content">
       <div class="frame" v-for="(item, index) in list" :key="index">
@@ -45,7 +45,7 @@ export default {
   name: 'RewardDialog',
   data () {
     return {
-      list: [{type: 'question', content: '萨达萨达是'},{type: 'question', content: '萨达萨达是'}, {type: 'question', content: '萨达萨达是'}, {type: 'question', content: '萨达萨达是'}, {type: 'question', content: '萨达萨达是'}, {type: 'question', content: '萨达萨达是'}, {type: 'question', content: '最下面'}],
+      list: [],
       question: '',
     }
   },

@@ -181,7 +181,6 @@ h3.title {
 .content {
   padding: 0 40px;
   margin: auto;
-  border-bottom: 1px solid #ddd;
   .content-top {
     border-bottom: 2px solid #ddd;
   }

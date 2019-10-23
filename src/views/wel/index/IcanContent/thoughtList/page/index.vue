@@ -2,7 +2,8 @@
   <div class="thought-page">
     <library ref="library" @load-page="submitCallBack" :dataList="dataList" :params="params" @fresh-right="freshRight" @fresh-all="freshAll"></library>
     <div style="text-align: center;margin: 20px 0;">
-      <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination>
+      <!-- <el-pagination background layout="prev, pager, next, total" :current-page.sync="params.current" :total="total" :page-size="params.size" @current-change="currentChange"></el-pagination> -->
+      <el-button type="text" @click="$openPage('//www.icanvip.net/thoughtsList/', 'bind')">查看更多</el-button>
     </div>
   </div>
 </template>

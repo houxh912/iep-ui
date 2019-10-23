@@ -8,7 +8,7 @@ export default [
       {
         path: 'index',
         name: '后台首页',
-        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/index/'),
+        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/index/ican'),
       },
       {
         path: 'newindex',

@@ -2,7 +2,7 @@
   <div class="wel-aside-wrapper">
     <!-- 所属组织 -->
     <i-can-org />
-    <i-can-notice></i-can-notice>
+    <!-- <i-can-notice></i-can-notice> -->
     <!-- 快捷入口 -->
     <i-can-created />
     <!-- 我要找 -->
@@ -20,7 +20,7 @@
 import ICanCreated from './ICanCreated'
 import ICanFind from './ICanFind'
 import ICanInstructions from './ICanInstructions'
-import ICanNotice from './ICanNotice'
+// import ICanNotice from './ICanNotice'
 import ICanRelationship from './ICanRelationship'
 import ICanWealth from './ICanWealth'
 import ICanOrg from './ICanOrg'
@@ -31,7 +31,7 @@ export default {
     ICanFind,
     ICanInstructions,
     ICanRelationship,
-    ICanNotice,
+    // ICanNotice,
     ICanWealth,
     ICanData,
     ICanOrg,

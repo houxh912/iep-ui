@@ -52,7 +52,7 @@ export default {
           value: 'NotpassMeeting',
         },
       ],
-      activeTab: 'MyAllmeeting',
+      activeTab: 'EndingMeeting',
       record: {},
     }
   },

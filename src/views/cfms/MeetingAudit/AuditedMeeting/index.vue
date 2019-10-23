@@ -58,28 +58,25 @@ export default {
       })
     },
     handleAdopt (row) {
-      postMeetingsignupUpdateStatus({ id: row.id, status: 6 }).then((res) => {
-        this.$message({
-          message: res.data.msg,
-          type: 'success',
+      this.$confirm('请确认是否通过审核？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        postMeetingsignupUpdateStatus({ id: row.id, status: 6 }).then((res) => {
+          this.$message({
+            message: res.data.msg,
+            type: 'success',
+          })
+          if (res.data.data == true) {
+            this.loadPage()
+          }
         })
-        if (res.data.data == true) {
-          this.loadPage()
-        }
       })
     },
     handleNotAdopt (row) {
       this.$refs['DialogView'].dialogShow = true
       this.$refs['DialogView'].id = row.id
-      // postMeetingsignupUpdateStatus({ id: row.id, status: 5 }).then((res) => {
-      //   this.$message({
-      //     message: res.data.msg,
-      //     type: 'success',
-      //   })
-      //   if (res.data.data == true) {
-      //     this.loadPage()
-      //   }
-      // })
     },
   },
 }

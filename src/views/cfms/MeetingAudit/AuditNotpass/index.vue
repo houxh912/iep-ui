@@ -58,7 +58,6 @@ export default {
       })
     },
     handleEdit (row) {
-      console.log(row.meetingReason)
       this.$refs['DialogView'].dialogShow = true
       this.$refs['DialogView'].id = row.id
       this.$refs['DialogView'].edit = '修改'

@@ -13,6 +13,7 @@ import notify from './modules/notify'
 import im from './modules/im'
 import cpms from './modules/cpms'
 import ican from './modules/ican'
+import ics from './modules/ics'
 import getters from './getters'
 
 Vue.use(Vuex)
@@ -31,6 +32,7 @@ const store = new Vuex.Store({
     im,
     cpms,
     ican,
+    ics,
   },
   getters,
 })

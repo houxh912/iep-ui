@@ -7,6 +7,7 @@
     <apprentice-dialog></apprentice-dialog>
     <i-can-reward-dialog></i-can-reward-dialog>
     <customer-dialog></customer-dialog>
+    <consultation-dialog></consultation-dialog>
   </div>
 </template>
 <script>
@@ -17,7 +18,8 @@ import BillingDialog from '@/views/fams/Components/BillingDialog.vue'
 import NewApproval from '@/views/wel/approval/Components/NewApproval.vue'
 import ApprenticeDialog from '@/views/cpms/Components/apprenticeDialog'
 import CustomerDialog from '@/views/gpms/Components/customerDialog'
+import ConsultationDialog from '@/views/ics/Components/consultation'
 export default {
-  components: { RewardDialog, NewApproval, InvoiceDialog, BillingDialog, ApprenticeDialog, ICanRewardDialog, CustomerDialog },
+  components: { RewardDialog, NewApproval, InvoiceDialog, BillingDialog, ApprenticeDialog, ICanRewardDialog, CustomerDialog, ConsultationDialog },
 }
 </script>

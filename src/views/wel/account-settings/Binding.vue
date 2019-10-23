@@ -24,7 +24,7 @@
 
 <script>
 import { getBindUserInfoList, unBindAccount } from '@/api/admin/sys-social-details'
-import MobileDialog from './MobileDialog'
+import MobileDialog from './Components/MobileDialog'
 export default {
   components: {
     MobileDialog,

@@ -1,4 +1,4 @@
-const execSync = require('child_process').execSync
+const fs = require('fs')
 const package = require('../package.json')
 
 exports.getProject = function () {
@@ -18,9 +18,12 @@ exports.getCurrentTag = function () {
 }
 
 exports.getGitHash = function () {
-  return execSync('git rev-parse HEAD')
-    .toString()
-    .trim()
+  const rev = fs.readFileSync('.git/HEAD').toString().trim();
+  if (rev.indexOf(':') === -1) {
+    return rev;
+  } else {
+    return fs.readFileSync('.git/' + rev.substring(5)).toString().trim();
+  }
 }
 
 exports.getProjectDesc = function () {

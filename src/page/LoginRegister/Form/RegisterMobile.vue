@@ -1,21 +1,15 @@
 <template>
-  <el-form class="form-detail login-form" status-icon :rules="rules" ref="form" :model="form" label-width="0">
+  <el-form class="form-detail" status-icon :rules="rules" ref="form" :model="form" label-width="0">
     <el-form-item prop="mobile">
       <iep-ant-input v-model="form.mobile" type="phone" autocomplete="username" placeholder="请输入手机号码" iconfont="icon-dianhua"></iep-ant-input>
     </el-form-item>
     <el-form-item prop="code">
       <iep-ant-input v-model="form.code" inputType="right-mobile" autocomplete="one-time-code" placeholder="请输入验证码" :msgText="msgText" :inputDisabled="msgKey" :handleSend="handleSend"></iep-ant-input>
     </el-form-item>
-    <el-form-item>
-      <a-row :gutter="8">
-        <a-col :span="12">
-          <iep-button class="iep-btn-block" type="primary" size="medium" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
-        </a-col>
-        <a-col :span="12">
-          <iep-button class="iep-btn-block" size="medium" @click="$openPage(`/register?mobile=${form.mobile}&code=${form.code}&quick=true`)">注 册</iep-button>
-        </a-col>
-      </a-row>
-    </el-form-item>
+    <div>
+      <iep-button class="iep-btn-block" type="primary" size="medium" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">下一步</iep-button>
+      <iep-button type="text" @click="$openPage('/login')">已有账号？立即登录</iep-button>
+    </div>
   </el-form>
 </template>
 <script>
@@ -34,8 +28,9 @@ export default {
         callback(new Error(isvalidatemobile(value)[1]))
       } else {
         validRegisterUserPhone(value).then(({ data }) => {
-          if (data.data) {
-            callback(new Error('该手机号不存在，请注册'))
+          if (!data.data) {
+            console.log(this.form)
+            callback(new Error('该手机号已存在，请直接去登录页登录'))
           } else {
             callback()
           }
@@ -60,12 +55,7 @@ export default {
   },
   methods: {
     async submitForm () {
-      const data = await this.$store.dispatch('LoginByPhone', this.form)
-      if (data.access_token) {
-        this.$emit('onredirect')
-      } else {
-        this.$message(data.msg)
-      }
+      this.$emit('next', this.form)
     },
     handleSend () {
       if (isvalidatemobile(this.form.mobile)[0]) {

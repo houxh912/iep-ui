@@ -3,7 +3,8 @@
     <operation-container>
       <template slot="left">
         <el-dropdown size="medium">
-          <iep-button size="small" type="primary" icon="el-icon-plus" plain  @click="handleCreate">新增</iep-button>
+          <iep-button class="button" size="small" type="primary" icon="el-icon-plus" plain  @click="handleCreate">新增</iep-button>
+          <iep-button class="button" size="small" type="primary" icon="el-icon-search" plain  @click="handleQuestion">问答</iep-button>
         </el-dropdown>
       </template>
       <template slot="right">
@@ -29,6 +30,7 @@ import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 import { getQuestionPage, getQuestionById, deleteQuestion } from '@/api/ics/question'
 import searchForm from './searchForm'
+import { mapActions } from 'vuex'
 
 export default {
   mixins: [ mixins ],
@@ -77,6 +79,10 @@ export default {
       this.searchForm = Object.assign({}, this.searchForm, val)
       this.loadPage()
     },
+    ...mapActions(['QuestionAndAnswer']),
+    handleQuestion () {
+      this.QuestionAndAnswer(true)
+    },
   },
   watch: {
     classList: {
@@ -88,6 +94,10 @@ export default {
   },
 }
 </script>
-<style scoped>
-
+<style scoped lang="scss">
+.table {
+  .button {
+    margin-right: 15px;
+  }
+}
 </style>

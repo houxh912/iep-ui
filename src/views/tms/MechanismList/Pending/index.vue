@@ -2,20 +2,21 @@
   <div>
     <operation-container>
       <template slot="left">
-        <iep-button icon="el-icon-check" plain>认证</iep-button>
+        <iep-button icon="el-icon-check" plain @click="handleApply">认证</iep-button>
       </template>
       <template slot="right">
-        <operation-search prop="name" placeholder="请输入机构名称进行搜索">
+        <operation-search prop="orgName" advance-search @search-page="searchPage" placeholder="请输入机构名称进行搜索">
+          <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection :dictsMap="dictsMap">
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" isMutipleSelection :dictsMap="dictsMap" @selection-change="selectionChange">
       <template slot="before-columns">
         <el-table-column label="机构名称">
           <template slot-scope="scope">
             <div class="box">
               <span class="main-name">{{scope.row.orgName}}</span>
-              <span class="claim">认</span>
+              <span v-if="scope.row.claimStatus==='2'" class="claim">认</span>
             </div>
           </template>
         </el-table-column>
@@ -32,7 +33,7 @@
       </template>
       <el-table-column label="申请对象">
         <template slot-scope="scope">
-          <span>{{scope.row.applyUserId}}</span>
+          <span>{{scope.row.applyUserName}}</span>
         </template>
       </el-table-column>
       <el-table-column label="申请时间">
@@ -55,16 +56,18 @@
 import { columnsPendingMap, dictsMap, initForm } from '../options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
-import { getPage } from '@/api/crms/organization_list'
+import AdvanceSearch from './AdvanceSearch'
+import { getPage, applyPass } from '@/api/crms/organization_list'
 import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
-  components: { DialogForm },
+  components: { AdvanceSearch, DialogForm },
   data () {
     return {
       isLoadTable: false,
       dictsMap,
       columnsMap: columnsPendingMap,
+      multipleSelection: [],
     }
   },
   computed: {
@@ -77,12 +80,37 @@ export default {
     this.loadPage()
   },
   methods: {
+    selectionChange (val) {
+      this.multipleSelection = val.map(m => m.orgId)
+    },
+    handleApply () {
+      this.$confirm('此操作将批量认证该数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        applyPass(this.multipleSelection).then(res => {
+          if (res.data.data) {
+            this.$message({
+              type: 'success',
+              message: '认证成功!',
+            })
+          } else {
+            this.$message({
+              type: 'info',
+              message: `认证失败，${res.data.msg}`,
+            })
+          }
+          this.loadPage()
+        })
+      })
+    },
     handleClaim (row) {
       this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].dialogShow = true
     },
     async loadPage (param = this.searchForm) {
-      await this.loadTable({ param, sort: 'apply' }, getPage)
+      await this.loadTable({ ...param, sort: 'apply' }, getPage)
     },
   },
 }

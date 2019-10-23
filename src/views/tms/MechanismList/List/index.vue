@@ -9,7 +9,7 @@
         <iep-button icon="el-icon-upload" @click="handleImport">Excel导入</iep-button>
       </template>
       <template slot="right">
-        <operation-search prop="name" advance-search placeholder="请输入机构名称进行搜索">
+        <operation-search prop="orgName" @search-page="searchPage" advance-search placeholder="请输入机构名称进行搜索">
           <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>
@@ -144,7 +144,7 @@ export default {
       this.$refs['formDialog'].importDialogShow = true
     },
     async loadPage (param = this.searchForm) {
-      await this.loadTable({ param, sort: 'allOrg' }, getPage)
+      await this.loadTable({ ...param, sort: 'allOrg' }, getPage)
     },
   },
 }

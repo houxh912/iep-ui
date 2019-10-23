@@ -37,7 +37,7 @@ export function recoverRecyclePage (data) {
 }
 export function addPage (obj) {
   return request({
-    url: `${prefixUrl}/create`,
+    url: `${prefixUrl}/admin_create`,
     method: 'post',
     data: obj,
   })
@@ -62,7 +62,20 @@ export function getforbide (data) {
     data: data,
   })
 }
-
+export function applyPass (data) {
+  return request({
+    url: `${prefixUrl}/apply_pass`,
+    method: 'post',
+    data: data,
+  })
+}
+export function applyReject (data) {
+  return request({
+    url: `${prefixUrl}/apply_reject`,
+    method: 'post',
+    data: data,
+  })
+}
 
 const prefixUrl2 = '/crm'
 // @/api/tms/excel

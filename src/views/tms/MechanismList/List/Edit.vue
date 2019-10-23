@@ -94,6 +94,8 @@ export default {
       form: initForm(),
       rules,
       preData: {},
+      preType: '',
+      preLine: '',
     }
   },
   created () {
@@ -117,12 +119,19 @@ export default {
     loadPage () {
       if (this.isEdit) {
         getDetailPage(this.id).then(({ data }) => {
+          const { type, line } = data.data
+          this.preType = type
+          this.preLine = line
           this.form = this.$mergeByFirst(initForm(), data.data)
+          this.form.type = this.dictsMap.type[type]
+          this.form.line = this.dictGroup['POLICY_INDUSTRY'][line].label
         })
       }
     },
     async submitForm () {
       if (this.isEdit) {
+        if (this.form.type === this.dictsMap.type[this.preType]) this.form.type = this.preType
+        if (this.form.line === this.dictGroup['POLICY_INDUSTRY'][this.preLine].label) this.form.line = this.preLine
         const { data } = await updatePage(this.form)
         if (data.data) {
           this.$router.history.go(-1)

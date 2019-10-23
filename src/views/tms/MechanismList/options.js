@@ -4,8 +4,8 @@ const dictsMap = {
     1: '启用',
   },
   claimStatus: {
-    0: '未认领',
-    1: '认领',
+    0: '未认证',
+    1: '认证',
   },
   type: {
     1: '政府',
@@ -77,6 +77,7 @@ const initSearchForm = () => {
     line: '',
     claimStatus: '',
     isForbidden: '',
+    applyUserId: '',
   }
 }
 

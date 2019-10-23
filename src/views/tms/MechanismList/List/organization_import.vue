@@ -25,7 +25,7 @@ export default {
   },
   created () {
     // this.actionUrl = '/api/tms/excel/import'
-    this.actionUrl = '/api/crm/organization_excel/download'
+    this.actionUrl = '/api/crm/organization_excel/upload'
     this.token.Authorization = 'Bearer ' + this.access_token
   },
   methods: {

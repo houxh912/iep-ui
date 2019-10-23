@@ -195,7 +195,8 @@
             </div>
             <div class="text">
               <div class="text-tips">
-                如有疑问，欢迎联系<span class="red" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">客服小能</span>
+                <!-- 如有疑问，欢迎联系<span class="red" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">客服小能</span> -->
+                如有疑问，欢迎联系<span class="red" @click="toChatUser()">客服小能</span>
               </div>
               <!-- <div class="btn-link">
                 <iep-button type="primary" size="medium">联系小能</iep-button>
@@ -259,6 +260,16 @@ export default {
     this.loadPage()
   },
   methods: {
+    toChatUser () {
+      const chat = {
+        id: '1016',
+        chatNo: 'user1016',
+        username: 'woneng',
+        chatName: '小能',
+        avatar: '//cloud.govmade.com/woneng//upload/20190903/acc1ff08-7369-49ee-ac5f-6de04f2f9232_logo (1).png',
+      }
+      this.$store.dispatch('updateCurrentChat', { chat, show: true })
+    },
     async handleGet (step) {
       const { data } = await getOrgGuideStep(step)
       if (data.data) {

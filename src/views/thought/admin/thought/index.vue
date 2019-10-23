@@ -14,7 +14,7 @@
           <template slot-scope="scope">
             <operation-wrapper>
               <iep-button type="warning" plain size="small" @click="handleDetail(scope.row)">查看</iep-button>
-              <iep-button size="small" @click="handleTop(scope.row)" v-if="scope.row.status === 0">{{scope.row.isTop === 2 ? '取消置顶' : '置顶'}}</iep-button>
+              <iep-button size="small" @click="handleTop(scope.row)" v-if="scope.row.status === 0 || scope.row.status === 3">{{scope.row.isTop === 2 ? '取消置顶' : '置顶'}}</iep-button>
               <iep-button size="small" @click="handleDeleteById(scope.row)">删除</iep-button>
               <iep-button size="small" @click="handleOpen(scope.row)">{{openStatus[scope.row.status]}}</iep-button>
             </operation-wrapper>

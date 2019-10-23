@@ -19,7 +19,9 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      this.$router.push({ path: '/app/subject_list', query: {title: row.topic, id: row.topicId} })
+      console.log(row)
+      return
+      // this.$router.push({ path: '/app/subject_list', query: {title: row.topic, id: row.topicId} })
     },
     loadData () {
       getHotTopicsPage().then(({ data }) => {

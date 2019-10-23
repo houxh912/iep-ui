@@ -18,12 +18,12 @@ export default {
 .ican-wrapper {
   display: flex;
   .ican-content {
-    flex: 3;
-    width: 75%;
+    flex: 1;
+    width: 100%;
   }
   .ican-aside {
-    width: 25%;
-    flex: 1;
+    width: 280px;
+    flex: 0 0 280px;
     display: inline-table;
   }
 }

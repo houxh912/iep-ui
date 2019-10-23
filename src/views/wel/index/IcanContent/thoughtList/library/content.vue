@@ -23,16 +23,18 @@
 </template>
 
 <script>
+import website from '@/const/website'
 import { transfSubjectList, transfPerson, dealImage } from './util'
 export default {
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data () {
     return {
+      ican_host: website.ican_host,
       dealImage,
       transfSubjectList,
       transfPerson,
@@ -44,21 +46,23 @@ export default {
       // 首先匹配返回的数据中是否存在此人名，即此人名是否为真实人名
       for (let item of this.data.mentionedUsers) {
         if (`@${item.name} ` === val.html) {
-          this.$router.push(`/app/personal_style/${item.id}`)
+          this.$openPage(`${this.ican_host}master/${item.id}.html`, 'bind')
           return
         }
       }
       this.$message.error('抱歉，没有找到此用户')
     },
     handleSubject (val) {
+      console.log(val)
+      return
       // 首先匹配返回的数据中是否存在此话题，即是否为历史未关联的话题
-      for (let item of this.data.topics) {
-        if (`#${item.topic}#` === val.html) {
-          this.$router.push({ path: '/app/subject_list', query: { title: item.topic, id: item.topicId } })
-          return
-        }
-      }
-      this.$message.error('抱歉，此话题未关联其他说说')
+      // for (let item of this.data.topics) {
+      //   if (`#${item.topic}#` === val.html) {
+      //     this.$router.push({ path: '/app/subject_list', query: { title: item.topic, id: item.topicId } })
+      //     return
+      //   }
+      // }
+      // this.$message.error('抱歉，此话题未关联其他说说')
     },
   },
 }

@@ -26,12 +26,7 @@
         </contentTpl>
         <!-- 按钮组 -->
         <div class="footer">
-          <el-popover
-            placement="right-start"
-            title=""
-            width="200"
-            trigger="hover"
-            :content="reference">
+          <el-popover placement="right-start" title="" width="200" trigger="hover" :content="reference">
             <div slot="reference" class="button" @click="hadnleAddUp(item)" @mouseenter="mouseenterUp(item)" @mouseleave="mouseleaveUp" :class="item.praiseStatus > 0 ? 'red' : ''"><i class="icon-like"></i> 点赞（{{item.thumbsUpCount}}）</div>
           </el-popover>
           <div class="button" @click="hadnleComment(item, index)"><i class="icon-xiaoxi"></i> 评论（{{ item.commentNum }}）</div>
@@ -66,6 +61,7 @@
 </template>
 
 <script>
+import website from '@/const/website'
 import { addThumbsUpByRecord, getThumbMembers, CommentThoughts } from '@/api/cpms/thoughts'
 import { mapActions, mapGetters } from 'vuex'
 import forwardContent from './forwardContent'
@@ -99,6 +95,7 @@ export default {
   },
   data () {
     return {
+      ican_host: website.ican_host,
       activeIndex: -1,
       form: initFormData(),
       reference: '加载中...',
@@ -109,9 +106,7 @@ export default {
       this.$emit('load-page', true)
     },
     handleDetail (id) {
-      this.$router.push({
-        path:`/app/personal_style/${id}`,
-      })
+      this.$openPage(`${this.ican_host}master/${id}.html`, 'bind')
     },
     // 点赞
     hadnleAddUp (row) {
@@ -135,7 +130,9 @@ export default {
     },
     // 说说详情
     handleForwardDetail (id) {
-      this.$router.push(`/app/thought_detail/${id}`)
+      console.log(id)
+      return
+      // this.$router.push(`/app/thought_detail/${id}`)
     },
     mouseleaveUp () {
       setTimeout(() => {
@@ -185,7 +182,7 @@ export default {
       }])
     },
     // 取消收藏
-    handleNoCollect () {},
+    handleNoCollect () { },
     // 关注
     handleFollow (row) {
       followById(row.userId).then(() => {
@@ -208,7 +205,7 @@ export default {
   .items {
     margin-bottom: 40px;
     display: flex;
-    .name{
+    .name {
       cursor: pointer;
     }
     .avatar {
@@ -216,7 +213,7 @@ export default {
       width: 70px;
       height: 70px;
       border-radius: 50%;
-      .img{
+      .img {
         cursor: pointer;
         width: 70px;
         height: 70px;
@@ -258,8 +255,8 @@ export default {
           }
         }
         .top {
-          border: 1px solid #BA1B21;
-          color: #BA1B21;
+          border: 1px solid #ba1b21;
+          color: #ba1b21;
           border-radius: 3px;
           font-size: 12px;
           padding: 0 5px;

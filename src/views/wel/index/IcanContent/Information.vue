@@ -20,10 +20,6 @@ export default {
     return {
       activeId: 1,
       collections: [
-        // {
-        //   id: 1,
-        //   name: '动态',
-        // },
         {
           id: 1,
           name: '公告',

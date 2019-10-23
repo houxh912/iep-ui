@@ -69,7 +69,10 @@ export default {
           },
         },
         {
-          title: '十',
+          title: '+',
+          callback: () => {
+            return
+          },
         },
       ],
     }
@@ -102,7 +105,7 @@ export default {
     background-color: #fff;
     cursor: pointer;
     &:hover {
-      color: #cb132d;
+      color: $--color-primary;
     }
   }
   .add i {

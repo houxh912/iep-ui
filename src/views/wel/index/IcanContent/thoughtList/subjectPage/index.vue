@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import website from '@/const/website'
 import { getTableData } from '@/api/cpms/iepcommontopic'
 const initParams = () => {
   return {
@@ -29,6 +30,7 @@ const initParams = () => {
 export default {
   data () {
     return {
+      ican_host: website.ican_host,
       total: 0,
       params: initParams(),
       list: [],
@@ -50,17 +52,19 @@ export default {
     },
     // 人物
     handleCreater (id) {
-      this.$router.push(`/app/personal_style/${id}`)
+      this.$openPage(`${this.ican_host}master/${id}.html`, 'bind')
     },
     // 详情
     handleDetail (row) {
-      this.$router.push({
-        path: '/app/subject_list',
-        query: {
-          title: row.content,
-          id: row.topicId,
-        },
-      })
+      console.log(row)
+      return
+      // this.$router.push({
+      //   path: '/app/subject_list',
+      //   query: {
+      //     title: row.content,
+      //     id: row.topicId,
+      //   },
+      // })
     },
     // 搜索
     search (params) {

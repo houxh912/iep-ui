@@ -1,7 +1,8 @@
 <template>
   <iep-app-layout>
     <h3 class="title">
-      <iep-page-header :title="`#${title}#`" :backOption="backOption"></iep-page-header>
+      <!-- <iep-page-header :title="`#${title}#`" :backOption="backOption"></iep-page-header> -->
+      <iep-page-header :title="`#${title}#`"></iep-page-header>
     </h3>
     <headTpl class="head" @load-page="submitCallBack" :subject="subjectTitle"></headTpl>
     <div class="content">
@@ -64,13 +65,13 @@ export default {
   },
   data () {
     return {
-      backOption: {
-        isBack: true,
-        backPath: null,
-        backFunction: () => {
-          this.$router.push('/app/more_thoughts')
-        },
-      },
+      // backOption: {
+      //   isBack: true,
+      //   backPath: null,
+      //   backFunction: () => {
+      //     this.$router.push('/app/more_thoughts')
+      //   },
+      // },
       isShow: true,
       title: '',
       commontActiveIndex: -1,

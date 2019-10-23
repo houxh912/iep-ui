@@ -2,7 +2,9 @@
   <div class="comment">
     <div class="comment-item" :class="type == 'comment' ? '' : 'comment-reply'">
       <div class="comment-head">
-        <div class="comment-avatar" @click="handleDetail(item)"><iep-img :src="item.avatar" alt="" class="img" /></div>
+        <div class="comment-avatar" @click="handleDetail(item)">
+          <iep-img :src="item.avatar" alt="" class="img" />
+        </div>
         <div class="comment-name" @click="handleDetail(item)">{{item.realName}}</div>
         <div class="huuifu" v-if="type == 'reply'">{{type == 'comment' ? '评论' : '回复'}}</div>
         <div class="comment-name" v-if="type == 'reply'" @click="handleDetail(item, 'reply')">{{type === 'comment' ? userData.name : item.replyTo}}</div>
@@ -44,6 +46,7 @@
 </template>
 
 <script>
+import website from '@/const/website'
 import { CommentReply, addcCommentThumbsByRecord, addReplyThumbsByRecord, getThumbMembers, deleteCommentThumbsById, deleteCommentById } from '@/api/cpms/thoughts'
 import { mapActions, mapGetters } from 'vuex'
 import { transfPerson, getName } from './util'
@@ -72,6 +75,7 @@ export default {
   },
   data () {
     return {
+      ican_host: website.ican_host,
       commontActiveIndex: -1,
       form: initFormData(),
       transfPerson,
@@ -119,7 +123,7 @@ export default {
     },
     // 点赞
     hadnleAddUp (row, isReply) {
-      let fn = () => {}
+      let fn = () => { }
       let id = -1
       if (isReply) {
         fn = addReplyThumbsByRecord
@@ -165,11 +169,11 @@ export default {
     handleDetail (row, state) {
       console.log('row: ', row)
       if (state === 'reply') { // 被回复者
-        this.$router.push(`/app/personal_style/${row.repliedUserId}`)
+        this.$openPage(`${this.ican_host}master/${row.repliedUserId}.html`, 'bind')
       } else if (row.commentUserId) { // 评论者
-        this.$router.push(`/app/personal_style/${row.commentUserId}`)
+        this.$openPage(`${this.ican_host}master/${row.commentUserId}.html`, 'bind')
       } else { // 回复者
-        this.$router.push(`/app/personal_style/${row.userId}`)
+        this.$openPage(`${this.ican_host}master/${row.userId}.html`, 'bind')
       }
     },
     // @人详情
@@ -177,7 +181,7 @@ export default {
       // 首先匹配返回的数据中是否存在此人名，即此人名是否为真实人名
       for (let item of list) {
         if (`@${item.name} ` === row.html) {
-          this.$router.push(`/app/personal_style/${item.id}`)
+          this.$openPage(`${this.ican_host}master/${item.id}.html`, 'bind')
           return
         }
       }

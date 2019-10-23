@@ -165,19 +165,8 @@ export default {
     color: #959595;
   }
   .color {
-    color: #cb132d;
+    color: $--color-primary;
     font-size: 20px;
   }
 }
-.cursor {
-  cursor: pointer;
-}
 </style>
-<style scoped>
-.operation-btn-group >>> .el-button {
-  height: 30px;
-  padding: 0 13px;
-}
-</style>
-
-

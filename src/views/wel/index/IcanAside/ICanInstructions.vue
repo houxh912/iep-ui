@@ -37,7 +37,7 @@ export default {
   line-height: 26px;
   justify-content: space-between;
   &:hover span {
-    color: #cb132d;
+    color: $--color-primary;
     cursor: pointer;
   }
   &:nth-child(1) {
@@ -64,17 +64,6 @@ export default {
   margin-left: 5px;
   color: #999;
   cursor: pointer;
-}
-</style>
-<style scoped>
-.index-card >>> .el-card__header {
-  padding: 18px 0 18px;
-}
-.index-card >>> .el-card__body {
-  padding: 15px 0;
-}
-.el-card {
-  padding: 0 15px !important;
 }
 </style>
 

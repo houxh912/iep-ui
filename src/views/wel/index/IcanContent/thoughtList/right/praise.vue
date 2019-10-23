@@ -17,7 +17,9 @@ export default {
   },
   methods: {
     handleDetail (row) {
-      this.$router.push(`/app/thought_detail/${row.id}`)
+      console.log(row)
+      return
+      // this.$router.push(`/app/thought_detail/${row.id}`)
     },
     loadData () {
       getMostThumbedThoughtsWeeklyPage().then(({ data }) => {

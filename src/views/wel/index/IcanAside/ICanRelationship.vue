@@ -45,7 +45,6 @@ export default {
   methods: {
     async loadPage () {
       const { data } = await getUserRelationList()
-      console.log(data.data)
       this.relationList = data.data
     },
   },
@@ -60,7 +59,7 @@ export default {
 }
 .stitle {
   font-size: 14px;
-  color: #cb132d;
+  color: $--color-primary;
   cursor: pointer;
 }
 .title {

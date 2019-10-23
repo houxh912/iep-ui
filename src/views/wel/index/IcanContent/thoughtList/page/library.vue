@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import website from '@/const/website'
 import { addThumbsUpByRecord, getThumbMembers, CommentThoughts, getDetailById } from '@/api/cpms/thoughts'
 import { mapActions, mapGetters } from 'vuex'
 import forwardContent from '../library/forwardContent'
@@ -93,6 +94,7 @@ export default {
   },
   data () {
     return {
+      ican_host: website.ican_host,
       activeIndex: -1,
       form: initFormData(),
       reference: '加载中...',
@@ -104,9 +106,7 @@ export default {
       this.$emit('load-page', true)
     },
     handleDetail (id) {
-      this.$router.push({
-        path: `/app/personal_style/${id}`,
-      })
+      this.$openPage(`${this.ican_host}master/${id}.html`, 'bind')
     },
     // 点赞
     hadnleAddUp (row, index) {
@@ -130,7 +130,9 @@ export default {
     },
     // 说说详情
     handleForwardDetail (id) {
-      this.$router.push(`/app/thought_detail/${id}`)
+      console.log(id)
+      return
+      // this.$router.push(`/app/thought_detail/${id}`)
     },
     mouseleaveUp () {
       setTimeout(() => {

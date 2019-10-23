@@ -56,6 +56,12 @@
       <hr>
     </el-form-item>
 
+    <el-form-item label="标签属性：" class="formWidth">
+      <label v-if="formData.isFree==0">游离词</label>
+      <label v-else-if="formData.isFree==1">中心词</label>
+      <label v-else>卫星词</label>
+    </el-form-item>
+
     <el-form-item label="引用次数：" class="formWidth">
       <label>{{formData.refers}}</label>
     </el-form-item>

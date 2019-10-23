@@ -138,3 +138,11 @@ export function getRelationsById (id) {
     method: 'get',
   })
 }
+//批量编辑
+export function updateBatchTag (obj) {
+  return request({
+    url: `${prefixUrl}/tag/update/batch`,
+    method: 'post',
+    data: obj,
+  })
+}

@@ -1,57 +1,7 @@
 <template>
   <page-dialog :page-show="editDialogShow" :title="infoFormTitle" @close="editDialogShow=false">
     <template slot="page">
-      <collapse-form ref="collapseForm" @clear="formInline=initFormInline()" @search="search()">
-        <template slot="search-header">
-          <el-form-item label="标签名称:">
-            <el-input placeholder="请输入标签名称" v-model="formInline.name" clearable></el-input>
-          </el-form-item>
-          <el-form-item label="标签分类:">
-            <el-select v-model="formInline.typeid" clearable placeholder="请选择">
-              <el-option v-for="item in typeNameOpts" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </template>
-        <template slot="search-body">
-          <el-form-item label="标签级别:">
-            <el-select v-model="formInline.levelid" clearable placeholder="请选择">
-              <el-option v-for="item in levelNameOpts" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="状态:">
-            <el-select v-model="formInline.status" clearable placeholder="请选择">
-              <el-option key="0" label="待审核" :value="0"></el-option>
-              <el-option key="1" label="启用" :value="1"></el-option>
-            </el-select>
-          </el-form-item>
-        </template>
-      </collapse-form>
-
-      <el-form class="list-btn" :inline="true" size="small">
-        <el-form-item v-if="gov_tag_add">
-          <el-button type="primary" icon="el-icon-plus" @click="handleAdd()" plain>新增</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button icon="el-icon-menu" @click="handleMerge()">合并</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button icon="el-icon-check" @click="handleReviewPass()">审核通过</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button icon="el-icon-remove-outline" @click="handleDisabled()">禁用</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button icon="el-icon-delete" @click="handleDelete()">删除</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button icon="el-icon-upload" @click="handleImport()">Excel导入</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-button icon="el-icon-download" @click="handleExport()">导出</el-button>
-        </el-form-item>
-      </el-form>
+      <iep-page-header title="标签列表"></iep-page-header>
 
       <div v-if="showMergeBox" class="merge-tag-list">
         <span class="label">已选择的合并标签：</span>
@@ -59,21 +9,63 @@
           {{tag.name}}
         </el-tag>
       </div>
+      <operation-container>
+        <template slot="left">
+          <iep-button type="primary" icon="el-icon-plus" @click="handleAdd()" plain>新增</iep-button>
+          <iep-button @click="handleEditBatch()">批量编辑</iep-button>
+          <iep-button icon="el-icon-menu" @click="handleMerge()">合并</iep-button>
+          <iep-button icon="el-icon-check" @click="handleReviewPass()">审核通过</iep-button>
+          <iep-button icon="el-icon-remove-outline" @click="handleDisabled()">禁用</iep-button>
+          <iep-button icon="el-icon-delete" @click="handleDelete()">删除</iep-button>
+          <iep-button icon="el-icon-upload" @click="handleImport()">Excel导入</iep-button>
+          <iep-button icon="el-icon-download" @click="handleExport()">导出</iep-button>
+        </template>
+        <template slot="right">
+          <operation-search @search-page="searchPage" advance-search placeHolder="请输入标签名称">
+            <advance-search @search-page="searchPage"></advance-search>
+          </operation-search>
+        </template>
+      </operation-container>
 
-      <crud-table :is-load-table="isLoadTable" align="center" :paged-table="pagedTable" :column-map="columnMap" :is-mutiple-selection="true" @handleSelectionChange="handleSelectionChange">
-        <el-table-column prop="operation" align="center" label="操作" width="230">
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictMap="dictMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+        <el-table-column label="标签属性">
           <template slot-scope="scope">
-            <el-button class="btn" @click="handleAddToMerge(scope.row)" type="warning" size="small" plain>合并</el-button>
-            <el-button class="btn" :disabled="!gov_tag_edit" @click="handleEdit(scope.row)" size="small" type="default">修改</el-button>
-            <el-button class="btn" :disabled="!gov_tag_del" @click="handleDeleteTag(scope.row)" size="small" type="default">删除</el-button>
+            {{ dictMap.isFree[scope.row.isFree] }}
           </template>
         </el-table-column>
-      </crud-table>
-
-      <pagination @handleSizeChange="handleSizeChange" @handleCurrentChange="handleCurrentChange" :pagination-option="paginationOption"></pagination>
+        <el-table-column label="所属分类">
+          <template slot-scope="scope">
+            {{ scope.row.typeNames.join('、') }}
+          </template>
+        </el-table-column>
+        <el-table-column label="应用次数">
+          <template slot-scope="scope">
+            {{ scope.row.refers }}
+          </template>
+        </el-table-column>
+        <el-table-column label="更新时间">
+          <template slot-scope="scope">
+            {{ scope.row.updateTime | parseToDay }}
+          </template>
+        </el-table-column>
+        <el-table-column label="状态">
+          <template slot-scope="scope">
+            {{ dictMap.status[scope.row.status] }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" width="220px">
+          <template slot-scope="scope">
+            <operation-wrapper>
+              <iep-button class="btn" @click="handleAddToMerge(scope.row)" type="warning" size="small" plain>合并</iep-button>
+              <iep-button class="btn" :disabled="!gov_tag_edit" @click="handleEdit(scope.row)" size="small" type="default">修改</iep-button>
+              <iep-button class="btn" :disabled="!gov_tag_del" @click="handleDeleteTag(scope.row)" size="small" type="default">删除</iep-button>
+            </operation-wrapper>
+          </template>
+        </el-table-column>
+      </iep-table>
 
       <form-dialog :dialog-show="addDialogShow" :title="infoFormTitle" @close="addDialogShow=false" width="60%" :is-need-confirm="false">
-        <tag-form-add :form-data="addTagInfoForm" @hideDialog="load();" :level-name-opts="levelNameOpts" :type-name-opts="typeNameOpts" :tag-function="tagFunction"></tag-form-add>
+        <tag-form-add :form-data="addTagInfoForm" @hideDialog="loadPage();" :level-name-opts="levelNameOpts" :type-name-opts="typeNameOpts" :tag-function="tagFunction"></tag-form-add>
       </form-dialog>
 
       <form-dialog :dialog-show="mergeDialogShow" title="合并标签" @close="mergeDialogShow=false" width="50%" :is-need-confirm="false">
@@ -84,8 +76,8 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onMerge">合并</el-button>
-            <el-button>取消</el-button>
+            <iep-button type="primary" @click="onMerge">合并</iep-button>
+            <iep-button>取消</iep-button>
           </el-form-item>
         </el-form>
       </form-dialog>
@@ -93,9 +85,10 @@
       <form-dialog :dialog-show="importDialogShow" title="上传数据" @close="importDialogShow=false" width="500px" :is-need-confirm="false">
         <tag-import @close="handleCloseImport"></tag-import>
       </form-dialog>
+      <edit-batch is-inverse ref="OpenEditBatch" @load-page="loadPage"></edit-batch>
     </template>
     <template slot="form">
-      <tag-form-edit :form-data="editTagInfoForm" @hideDialog="load();" :level-name-opts="levelNameOpts" :type-name-opts="typeNameOpts" @close="editDialogShow=false" :tag-function="tagFunction"></tag-form-edit>
+      <tag-form-edit :form-data="editTagInfoForm" @hideDialog="loadPage();" :level-name-opts="levelNameOpts" :type-name-opts="typeNameOpts" @close="editDialogShow=false" :tag-function="tagFunction"></tag-form-edit>
     </template>
   </page-dialog>
 </template>
@@ -104,110 +97,30 @@
 import _ from 'lodash'
 import { mapGetters } from 'vuex'
 import { getTagExcelExport } from '@/api/tms/excel'
-import { getTagTypeList } from '@/api/tms/tag-type'
-import { getTagLevelList } from '@/api/tms/tag-level'
 import { getTagFunctionMap } from '@/api/tms/function'
 import { getTagPage, deleteTagById, getTagById, mergeTag, reviewTag, disableTag, deleteTag } from '@/api/tms/tag'
 import tagFormAdd from './tag_form_add'
 import tagFormEdit from './tag_form_edit'
 import tagImport from './tag_import'
-import crudTable from '@/components/deprecated/crud-table'
-import collapseForm from '@/components/deprecated/collapse-form'
 import dialogMixins from '@/mixins/deprecated/dialog_mixins'
-import paginationMixins from '@/mixins/deprecated/pagination_mixins'
-function initAddTagForm () {
-  return {
-    name: null,
-    levelId: null,
-    typeId: null,
-    typeObjs: [],
-    typeIds: [],
-    tagList: [],
-    tagsList: [],
-    description: null,
-    orderNum: 1,
-  }
-}
-function initEditTagForm () {
-  return {
-    name: null,
-    levelId: null,
-    typeId: null,
-    typeObjs: [],
-    typeIds: [],
-    tagList: [],
-    tagsList: [],
-    description: null,
-    orderNum: 1,
-  }
-}
-function initFormInline () {
-  return {
-    name: null,
-    typeid: null,
-    levelid: null,
-    status: null,
-  }
-}
-function initMergeForm () {
-  return {
-    mainId: null,
-    mergeIds: [],
-  }
-}
-function initTagFunction () {
-  return {
-    'tagReview': null, 'tagNotes': null, 'tagRelation': null,
-  }
-}
-const columnMap = [
-  {
-    prop: 'tagId',
-    label: 'ID',
-    width: '55',
-  },
-  {
-    prop: 'name',
-    label: '标签名称',
-  },
-  {
-    prop: 'levelName',
-    label: '标签级别',
-  },
-  {
-    prop: 'typeNames',
-    label: '所属分类',
-    type: '所属分类',
-    width: '150px',
-  },
-  {
-    prop: 'refers',
-    label: '应用次数',
-  },
-  {
-    prop: 'updateTime',
-    label: '更新时间',
-    type: 'date',
-    width: '150px',
-  },
-  {
-    prop: 'status',
-    label: '状态',
-    type: 'TAGSTATUS',
-  },
-]
+import mixins from '@/mixins/mixins'
+import { columnsMap, dictMap, initFormInline, initTagFunction, initAddTagForm, initEditTagForm, initMergeForm } from './option'
+import AdvanceSearch from './AdvanceSearch'
+import EditBatch from './EditBatch'
+import { validatenull } from '@/util/validate'
 export default {
   components: {
-    crudTable,
+    AdvanceSearch,
     tagFormAdd,
     tagFormEdit,
-    collapseForm,
     tagImport,
+    EditBatch,
   },
-  mixins: [dialogMixins, paginationMixins],
+  mixins: [dialogMixins, mixins],
   data () {
     return {
-      columnMap,
+      columnsMap,
+      dictMap,
       mergeMainName: '',
       isEdit: true,
       initFormInline,
@@ -243,8 +156,7 @@ export default {
     ]),
   },
   created () {
-    this.load()
-    this.loadTagProp()
+    this.loadPage()
     this.loadFunction()
     this.gov_tag_add = this.permissions['gov_tag_add']
     this.gov_tag_del = this.permissions['gov_tag_del']
@@ -256,7 +168,7 @@ export default {
     },
     handleCloseImport (res) {
       this.importDialogShow = false
-      this.load()
+      this.loadPage()
       if (res.data) {
         this.$message({
           message: `成功!${res.msg}`,
@@ -277,12 +189,12 @@ export default {
     },
     handleDisabled () {
       disableTag(this.mutipleSelection).then(() => {
-        this.load()
+        this.loadPage()
       })
     },
     handleReviewPass () {
       reviewTag(this.mutipleSelection).then(() => {
-        this.load()
+        this.loadPage()
       })
     },
     onMerge () {
@@ -330,51 +242,52 @@ export default {
       this.addTagInfoForm = initAddTagForm()
       this.addDialogShow = true
     },
+    _mapPickUserIdName (list) {
+      if (validatenull(list)) {
+        return []
+      }
+      return _(list)
+        .map(item => {
+          return _.pick(item, ['id', 'realName'])
+        })
+        .value()
+    },
+    handleEditBatch () {
+      // TODO: 是否多选提醒
+      if (!this.multipleSelection.length) {
+        this.$message('请先选择需要的选项')
+        return
+      }
+      else {
+        this.$refs['OpenEditBatch'].ids = this.multipleSelection
+        this.$refs['OpenEditBatch'].dialogShow = true
+        // this.$refs['editBatch'].formRequestFn = 
+      }
+    },
     handleEdit (rows) {
       this.isEdit = true
       getTagById(rows.tagId).then(res => {
         this.editTagInfoForm = { ...res.data }
         const { tagList } = this.editTagInfoForm
         // 标签
-        this.editTagInfoForm.tagsList = this._mapPickTagIdName(tagList)
+        this.editTagInfoForm.tagsList = this._mapPickUserIdName(tagList)
         this.editTagInfoForm.tagList = this.editTagInfoForm.tagsList.map(m => m.name)
         this.editDialogShow = true
       })
     },
     handleSelectionChange (val) {
       this.mutipleSelection = val.map(m => m.tagId)
+      this.multipleSelection = val.map(m => m.tagId)
     },
     loadFunction () {
       getTagFunctionMap().then(res => {
         this.tagFunction = res.data
       })
     },
-    loadTagProp () {
-      getTagTypeList().then(res => {
-        this.typeNameOpts = res.data.map(m => {
-          return {
-            label: m.name,
-            value: m.typeId,
-          }
-        })
-      })
-      getTagLevelList().then(res => {
-        this.levelNameOpts = res.data.map(m => {
-          return {
-            label: m.name,
-            value: m.levelId,
-          }
-        })
-      })
-    },
-    load (pageOption = this.pageOption, params = this.params) {
-      this.isLoadTable = false
+    loadPage (param = this.searchForm) {
       this.editDialogShow = false
       this.addDialogShow = false
-      getTagPage({ ...params, ...pageOption }).then(res => {
-        const { data } = res
-        this.loadTable(data)
-      })
+      this.loadTable({ ...param }, getTagPage)
     },
   },
   watch: {

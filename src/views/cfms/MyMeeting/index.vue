@@ -34,27 +34,24 @@ export default {
   components: { MyAllmeeting, ConductMeeting, AuditedMeeting, DraftMeeting, EndingMeeting, NotpassMeeting },
   data () {
     return {
-      tabList: [{
-        label: '全部',
-        value: 'MyAllmeeting',
-      }, {
-        label: '审核通过',
-        value: 'ConductMeeting',
-      },
-      {
-        label: '待审核',
-        value: 'AuditedMeeting',
-      },
-      {
-        label: '已结束',
-        value: 'EndingMeeting',
-      }, {
-        label: '未通过',
-        value: 'NotpassMeeting',
-      }, {
-        label: '草稿',
-        value: 'DraftMeeting',
-      }],
+      tabList: [
+        {
+          label: '已发布',
+          value: 'EndingMeeting',
+        },
+        {
+          label: '草稿箱',
+          value: 'DraftMeeting',
+        },
+        {
+          label: '待审核',
+          value: 'AuditedMeeting',
+        },
+        {
+          label: '未通过',
+          value: 'NotpassMeeting',
+        },
+      ],
       activeTab: 'MyAllmeeting',
       record: {},
     }

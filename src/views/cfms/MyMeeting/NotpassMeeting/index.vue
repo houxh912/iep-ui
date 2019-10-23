@@ -38,10 +38,11 @@ export default {
     loadPage (param = { meetingFlag: 5 }) {
       this.loadTable(param, getMeetingmarketingStatus)
     },
-    handleView () {
-      this.$message({
-        message: '功能待开发',
-        type: 'success',
+    handleView (row) {
+      this.$alert(row.meetingReason, '原因', {
+        confirmButtonText: '确定',
+        callback: () => {
+        },
       })
     },
     handleDelete (row) {

@@ -19,7 +19,7 @@
                 <el-col>
                   <div class="address">{{form.address}}</div>
                 </el-col>
-                <el-col>
+                <!-- <el-col>
                   <el-row class="name">
                     <el-col :span="4">
                       <iep-img-avatar :size="50" :src="form.orgLogo" alt="头像"></iep-img-avatar>
@@ -33,7 +33,7 @@
                       </div>
                     </el-col>
                   </el-row>
-                </el-col>
+                </el-col> -->
               </el-row>
             </el-col>
           </el-row>

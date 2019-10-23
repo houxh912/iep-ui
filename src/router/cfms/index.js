@@ -1,29 +1,35 @@
-import Layout from '@/page/index/index'
+import Layout from '@/page/index/'
 export default [
   {
-    path: '/cfms_spa',
+    path: '/meeting/:id',
+    name: '报名页',
+    component: () => import('@/page/MeetingDetail/index'),
+    meta: {
+      keepAlive: false,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
+    path: '/meeting',
+    name: '报名页预览',
+    component: () => import('@/page/MeetingDetail/index'),
+    meta: {
+      keepAlive: false,
+      isTab: false,
+      isAuth: false,
+    },
+  },
+  {
+    path: '/myiframe',
     component: Layout,
-    redirect: '/cfms_spa/meeting_detail/:id',
+    redirect: '/myiframe',
     children: [
       {
-        path: 'meeting_detail/:id',
-        name: '会议详情',
-        component: () => import('@/views/cfms/MeetingDetail/index.vue'),
-        meta: {
-          keepAlive: false,
-          isTab: false,
-          isAuth: true,
-        },
-      },
-      {
-        path: 'meeting_detail',
-        name: '会议预览',
-        component: () => import('@/views/cfms/MeetingDetail/index.vue'),
-      },
-      {
-        path: 'meeting_edit/:id',
-        name: '会议修改',
-        component: () => import('@/views/cfms/ReleaseMeeting/index.vue'),
+        path: ':routerPath',
+        name: 'iframe',
+        component: () => import('@/components/iframe/main'),
+        props: true,
       },
     ],
   },

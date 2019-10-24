@@ -19,7 +19,7 @@ npm i -g mirror-config-china --registry=https://registry.npm.taobao.org
 > 推荐使用 `git bash`
 
 - 克隆项目代码
-- 预装好 `node10+` 安装包
+- 预装好 `node.js 12+` 安装包
 - 如果使用 `vscode` 开发,可使用我们推荐的 `vscode` 配置 你也可以选择自定义配置(命令: `cp vscode.config/ .vscode/ -rf`)
 - 安装项目的依赖 `npm i` 或使用 `yarn` (需要预装，命令：`npm i -g yarn`)
 - 拷贝 `cp .env .env.local`

@@ -31,6 +31,7 @@ import IepUserCard from '@/components/IepCommon/UserCard'
 import IepCharts from '@/components/IepCommon/ECharts'
 import IepStatisticsHeader from '@/components/IepCommon/StatisticsHeader'
 import IepSlotCard from '@/components/IepCommon/SlotCard'
+import IepIsOpen from '@/components/IepCommon/IsOpen'
 
 // 表单组件
 import IepTag from '@/components/IepTag'
@@ -56,6 +57,7 @@ import IepCrmsSelectMultiple from '@/components/IepForm/CrmsSelectMultiple'
 import IepInputAmount from '@/components/IepInput/InputAmount'
 import IepInputNumber from '@/components/IepInput/InputNumber'
 import IepInputArea from '@/components/IepInput/InputArea'
+import IepAntInput from '@/components/IepInput/AntInput'
 
 // 头像上传文件有关组件
 import IepAvatar from '@/components/IepUpload/Avatar'
@@ -144,6 +146,7 @@ Vue.component(IepUserCard.name, IepUserCard)
 Vue.component(IepCharts.name, IepCharts)
 Vue.component(IepStatisticsHeader.name, IepStatisticsHeader)
 Vue.component(IepSlotCard.name, IepSlotCard)
+Vue.component(IepIsOpen.name, IepIsOpen)
 
 // 表单组件
 Vue.component(IepTag.name, IepTag)
@@ -168,6 +171,7 @@ Vue.component(IepCrmsSelectMultiple.name, IepCrmsSelectMultiple)
 Vue.component(IepInputNumber.name, IepInputNumber)
 Vue.component(IepInputAmount.name, IepInputAmount)
 Vue.component(IepInputArea.name, IepInputArea)
+Vue.component(IepAntInput.name, IepAntInput)
 
 // 头像上传文件有关组件
 Vue.component(IepImgAvatar.name, IepImgAvatar)

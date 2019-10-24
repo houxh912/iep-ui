@@ -7,9 +7,9 @@ export const initFormData = () => {
 
 export const rules = {
   tagId: [
-    { required: true, message: '请输入文件标题', trigger: 'blur' },
+    { required: true, message: '请输入标签名称', trigger: 'blur' },
   ],
   description: [
-    { required: true, message: '请选择文件类别', trigger: 'blur' },
+    { required: true, message: '请输入标签介绍', trigger: 'blur' },
   ],
 }

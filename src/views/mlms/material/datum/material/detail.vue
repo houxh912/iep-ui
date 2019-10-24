@@ -24,7 +24,7 @@
         <el-row class="down-load">
           相关附件：
           <div class="file" v-for="(item, index) in formData.attachFileList" :key="index">
-            <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗 {{getMoney(formData.downloadCost)}} 国脉贝下载）</span></div>
+            <div @click="downLoad(item)"><i class="icon-fujian"></i>{{item.name}}<span class="tip">（消耗 {{getMoney(formData.downloadCost)}} 贝下载）</span></div>
           </div>
         </el-row>
         <el-row class="footer">
@@ -206,13 +206,14 @@ export default {
       let fn = () => {
         downloadCount(this.formData.id).then(({ data }) => {
           if (data.data) {
+            this.formData.isPay = 1
             downloadFile(obj)
           } else {
             this.$message.error(data.msg)
           }
         })
       }
-      if (this.getMoney(this.formData.downloadCost) == 0) {
+      if (this.getMoney(this.formData.downloadCost) == 0 || this.formData.isPay === 1) {
         fn()
       } else {
         this.$confirm('下载此材料需要消耗国脉贝, 是否继续?', '提示', {

@@ -1,14 +1,15 @@
 <template>
   <div class="avue-contail">
-    <im-ui v-if="$store.getters.userInfo.userId != 1"></im-ui>
+    <im-ui></im-ui>
     <el-container style="height: 100vh;">
       <el-header style="height: 60px;padding: 0;z-index: 500;">
         <!-- 顶部导航栏 -->
-        <top />
+        <top></top>
       </el-header>
       <el-container>
         <!-- 左侧导航栏 -->
-        <sidebar />
+        <sidebar v-if="!IS_ICAN"></sidebar>
+        <ican-sidebar v-if="IS_ICAN"></ican-sidebar>
         <el-main>
           <!-- 主体视图层 -->
           <el-scrollbar ref="elscrollbar" style="height:100%">
@@ -27,23 +28,25 @@
 <script>
 import DialogGroup from './DialogGroup'
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import top from './top/'
-import sidebar from './sidebar/'
+import Top from './Top/'
+import Sidebar from './Sidebar/'
+import IcanSidebar from './IcanSidebar/'
 import imUi from '@/views/imui'
 import { validatenull } from '@/util/validate'
-// import SockJS from 'sockjs-client'
-// import Stomp from 'stompjs'
 
 export default {
   components: {
-    top,
-    sidebar,
+    Top,
+    Sidebar,
+    IcanSidebar,
     DialogGroup,
     imUi,
   },
   name: 'Index',
   data () {
     return {
+      // eslint-disable-next-line
+      IS_ICAN,
       //刷新token锁
       refreshLock: false,
       //刷新token的时间
@@ -53,8 +56,6 @@ export default {
   computed: {
     ...mapGetters([
       'userInfo',
-      'isLock',
-      'website',
       'expires_in',
       'access_token',
     ]),
@@ -66,18 +67,16 @@ export default {
     },
   },
   created () {
-    //实时检测刷新token
+    // 实时检测刷新token
     this.handleRefreshToken()
   },
   destroyed () {
     clearInterval(this.refreshTime)
-    // this.disconnect()
   },
   mounted () {
     this.init()
     this.LoadContactsPyGroup()
     this.LoadFamsConfig()
-    // this.initWebSocket()
   },
   methods: {
     ...mapActions(['LoadContactsPyGroup', 'LoadFamsConfig', 'RefreshToken']),
@@ -103,9 +102,6 @@ export default {
       this.$eventBus.$on('SET_SCROLLTOTOP', () => {
         this.$nextTick(() => {
           this.$refs['elscrollbar'].$refs['wrap'].scrollTop = 0
-          window.container = this
-          window.elscrollbar = this.$refs['elscrollbar']
-          window.wrap = this.$refs['elscrollbar'].$refs['wrap']
         })
       })
     },
@@ -126,78 +122,27 @@ export default {
         this.setExpiresIn(this.expires_in - 10)
       }, 10000)
     },
-    // initWebSocket () {
-    //   this.connection()
-    //   let self = this
-    //   //断开重连机制,尝试发送消息,捕获异常发生时重连
-    //   this.timer = setInterval(() => {
-    //     try {
-    //       self.stompClient.send('test')
-    //     } catch (err) {
-    //       console.log('断线了: ' + err)
-    //       self.connection()
-    //     }
-    //   }, 5000)
-    // },
-    // connection () {
-    //   let token = store.getters.access_token
-    //   let TENANT_ID = getStore({ name: 'tenantId' })
-    //   let headers = {
-    //     Authorization: 'Bearer ' + token,
-    //   }
-    //   // 建立连接对象
-    //   this.socket = new SockJS('/api/act/ws') //连接服务端提供的通信接口，连接以后才可以订阅广播消息和个人消息
-    //   // 获取STOMP子协议的客户端对象
-    //   this.stompClient = Stomp.over(this.socket)
-
-    //   // 向服务器发起websocket连接
-    //   this.stompClient.connect(
-    //     headers,
-    //     () => {
-    //       this.stompClient.subscribe(
-    //         '/task/' + this.userInfo.username + '-' + TENANT_ID + '/remind',
-    //         msg => {
-    //           // 订阅服务端提供的某个topic;
-    //           this.$notify({
-    //             title: '协同提醒',
-    //             type: 'warning',
-    //             dangerouslyUseHTMLString: true,
-    //             resources: msg.body + '任务，请及时处理',
-    //             offset: 60,
-    //           })
-    //         }
-    //       )
-    //     },
-    //     () => { }
-    //   )
-    // },
-    // disconnect () {
-    //   if (this.stompClient != null) {
-    //     this.stompClient.disconnect()
-    //     console.log('Disconnected')
-    //   }
-    // },
   },
 }
 </script>
 
-<style lang="css" scoped>
-.avue-contail >>> .el-main {
+<style lang="scss" scoped>
+.avue-contail ::v-deep .el-main {
   padding: 0;
   overflow-x: hidden;
   height: calc(100vh - 60px);
 }
-.avue-contail >>> .el-tabs__item {
+.avue-contail ::v-deep .el-tabs__item {
   height: 40px !important;
   line-height: 40px !important;
 }
-.avue-contail >>> .el-scrollbar__wrap {
+.avue-contail ::v-deep .el-scrollbar__wrap {
   overflow-x: hidden;
 }
-.avue-contail >>> .el-scrollbar {
+.avue-contail ::v-deep .el-scrollbar {
   width: 100%;
 }
-.avue-contail >>> .el-scrollbar__view {
+.avue-contail ::v-deep .el-scrollbar__view {
   height: 100%;
 }
 </style>

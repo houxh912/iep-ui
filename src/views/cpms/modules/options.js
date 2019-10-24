@@ -49,6 +49,7 @@ const initForm = () => {
     synopsis: '', // 简介
     description: '', // 介绍
     schedule: 1,//研发进度（1-立项，2-研发中，3-测试，4-验收中，5-已上架）
+    isOpen: 3, // 开放范围
     versions: [],//版本集合
     productRelations: [],//产品关联集合
     technologyRelations: [],//技术关联集合

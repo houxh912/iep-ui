@@ -41,7 +41,7 @@ const user = {
             commit('SET_ACCESS_TOKEN', data.access_token)
             commit('SET_REFRESH_TOKEN', data.refresh_token)
             commit('SET_EXPIRES_IN', data.expires_in)
-            resolve()
+            resolve(data)
           })
           .catch(error => {
             reject(error)

@@ -59,6 +59,8 @@ export default {
     }
   },
   created () {
+    // mixins
+    // this.useRoutePage = false
     this.loadPage()
   },
   methods: {

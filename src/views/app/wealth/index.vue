@@ -85,14 +85,14 @@ export default {
   border-top: 1px solid #eee;
   display: grid;
   grid-auto-flow: row dense;
-  grid-column-gap: 10px;
+  grid-column-gap: 15px;
   grid-template-columns: minmax(100px, 900px) minmax(100px, 300px);
 }
 .el-card {
   border: 0;
 }
 .library {
-  padding: 0 25px;
+  padding-right: 30px;
   border-right: 1px solid #ebeef5;
 }
 </style>

@@ -76,7 +76,6 @@ export default {
     ...mapActions(['famsReward', 'famsGetTotal']),
     async loadPage () {
       const data = await this.famsGetTotal()
-      console.log(data, data.data, data.msg)
       if (data.data) {
         this.accountType = 0
       } else {

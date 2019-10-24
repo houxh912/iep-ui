@@ -24,14 +24,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import { validatenull } from '@/util/validate'
-import config from './config.js'
 export default {
-  name: 'SidebarItem',
-  data () {
-    return {
-      config: config,
-    }
-  },
   props: {
     menu: {
       type: Array,
@@ -53,21 +46,20 @@ export default {
       type: Boolean,
     },
   },
-  created () { },
-  mounted () { },
+  name: 'SidebarItem',
   computed: {
     ...mapGetters(['roles']),
     labelKey () {
-      return this.props.label || this.config.propsDefault.label
+      return this.props.label
     },
     pathKey () {
-      return this.props.path || this.config.propsDefault.path
+      return this.props.path
     },
     iconKey () {
-      return this.props.icon || this.config.propsDefault.icon
+      return this.props.icon
     },
     childrenKey () {
-      return this.props.children || this.config.propsDefault.children
+      return this.props.children
     },
     nowTagValue () {
       return this.$router.$avueRouter.getValue(this.$route)

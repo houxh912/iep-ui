@@ -51,7 +51,6 @@ export default {
   color: #cb3737;
   z-index: 3;
   transition: all 0.5s;
-  font-size: 14px;
 }
 .right:hover {
   opacity: 0.7;

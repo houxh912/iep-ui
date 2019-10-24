@@ -1,0 +1,93 @@
+<template>
+  <el-form class="form-detail" status-icon :rules="rules" ref="form" :model="form" label-width="0">
+    <el-form-item prop="mobile">
+      <iep-ant-input v-model="form.mobile" type="phone" autocomplete="username" placeholder="请输入手机号码" iconfont="icon-dianhua"></iep-ant-input>
+    </el-form-item>
+    <el-form-item prop="code">
+      <iep-ant-input v-model="form.code" inputType="right-mobile" autocomplete="one-time-code" placeholder="请输入验证码" :msgText="msgText" :inputDisabled="msgKey" :handleSend="handleSend"></iep-ant-input>
+    </el-form-item>
+    <div>
+      <iep-button class="iep-btn-block" type="primary" size="medium" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">下一步</iep-button>
+      <iep-button type="text" @click="$openPage('/login')">已有账号？立即登录</iep-button>
+    </div>
+  </el-form>
+</template>
+<script>
+import formMixins from '@/mixins/formMixins'
+import { getMobileCode } from '@/api/admin/mobile'
+import { validRegisterUserPhone } from '@/api/login'
+import { isvalidatemobile } from '@/util/validate'
+const MSGINIT = '发送验证码',
+  MSGSCUCCESS = '${time}秒后重发',
+  MSGTIME = 60
+export default {
+  mixins: [formMixins],
+  data () {
+    const validatePhone = (rule, value, callback) => {
+      if (isvalidatemobile(value)[0]) {
+        callback(new Error(isvalidatemobile(value)[1]))
+      } else {
+        validRegisterUserPhone(value).then(({ data }) => {
+          if (!data.data) {
+            console.log(this.form)
+            callback(new Error('该手机号已存在，请直接去登录页登录'))
+          } else {
+            callback()
+          }
+        })
+      }
+    }
+
+    return {
+      msgText: MSGINIT,
+      msgTime: MSGTIME,
+      msgKey: false,
+      form: {
+        mobile: '',
+        code: '',
+        randomStr: '',
+      },
+      rules: {
+        mobile: [{ required: true, trigger: 'change', validator: validatePhone }],
+        code: [{ required: true, trigger: 'change', message: '请输入短信验证码' }],
+      },
+    }
+  },
+  methods: {
+    async submitForm () {
+      this.$emit('next', this.form)
+    },
+    handleSend () {
+      if (isvalidatemobile(this.form.mobile)[0]) {
+        this.$message('手机号错误')
+        return
+      }
+      if (this.msgKey) return
+      getMobileCode(this.form.mobile).then(response => {
+        if (response.data.data) {
+          this.$message.success('验证码发送成功')
+        } else {
+          this.$message.error(response.data.msg)
+        }
+      })
+      this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
+      this.msgKey = true
+      const time = setInterval(() => {
+        this.msgTime--
+        this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
+        if (this.msgTime == 0) {
+          this.msgTime = MSGTIME
+          this.msgText = MSGINIT
+          this.msgKey = false
+          clearInterval(time)
+        }
+      }, 1000)
+    },
+  },
+}
+</script>
+<style lang="scss" scoped>
+.form-detail {
+  width: 100%;
+}
+</style>

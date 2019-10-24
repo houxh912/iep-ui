@@ -33,7 +33,7 @@ axios.interceptors.request.use(
     if (token && !isToken) {
       config.headers['Authorization'] = 'Bearer ' + token // token
     }
-    if(config.headers['isNoNeed']) {
+    if (config.headers['isNoNeed']) {
       config.headers['Authorization'] = ''
     }
     if (TENANT_ID) {
@@ -76,7 +76,7 @@ axios.interceptors.response.use(res => {
     //   router.push({ path: '/500' })
     //   return
   } else if (!(/[2|5]\d\d/.test('' + status)) || res.data.code === 1) {
-    if (res.data.code === 1 && status === 400) {
+    if (res.data.code === 1 && (/4\d\d/.test('' + status))) {
       Message(message)
     }
     if (res.data.code === 1 && (/[2|5]\d\d/.test('' + status))) {

@@ -4,6 +4,7 @@ const initForm = () => {
     logo: '',
     intro: '',
     orgType: '1',
+    isICan: 0,
   }
 }
 

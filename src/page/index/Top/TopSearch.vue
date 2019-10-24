@@ -1,12 +1,5 @@
 <template>
-  <el-autocomplete
-    class="top-search"
-    popper-class="my-autocomplete"
-    v-model="value"
-    :fetch-suggestions="querySearch"
-    placeholder="请输入搜索内容"
-    @select="handleSelect"  size="small"
-  >
+  <el-autocomplete class="top-search" popper-class="my-autocomplete" v-model="value" :fetch-suggestions="querySearch" placeholder="请输入搜索内容" @select="handleSelect" size="small">
     <template slot-scope="{ item }">
       <i :class="[item[iconKey], 'icon']"></i>
       <div class="name">{{ item[labelKey] }}</div>
@@ -16,12 +9,19 @@
 </template>
 
 <script>
-import config from '../sidebar/config.js'
 import { mapGetters } from 'vuex'
 export default {
+  props: {
+    props: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+    },
+  },
   data () {
     return {
-      config: config,
+      propsDefault: this.$website.menu.props,
       value: '',
       menuList: [],
     }
@@ -37,18 +37,16 @@ export default {
   },
   computed: {
     labelKey () {
-      return this.website.menu.props.label || this.config.propsDefault.label
+      return this.props.label || this.propsDefault.label
     },
     pathKey () {
-      return this.website.menu.props.path || this.config.propsDefault.path
+      return this.props.path || this.propsDefault.path
     },
     iconKey () {
-      return this.website.menu.props.icon || this.config.propsDefault.icon
+      return this.props.icon || this.propsDefault.icon
     },
     childrenKey () {
-      return (
-        this.website.menu.props.children || this.config.propsDefault.children
-      )
+      return this.props.children || this.propsDefault.children
     },
     ...mapGetters(['menu', 'website']),
   },

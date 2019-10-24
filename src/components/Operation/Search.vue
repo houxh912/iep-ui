@@ -72,6 +72,7 @@ export default {
 }
 .input-wrapper ::v-deep .el-input-group {
   width: inherit;
+  margin-right: 0;
 }
 .search-btn {
   &:focus,

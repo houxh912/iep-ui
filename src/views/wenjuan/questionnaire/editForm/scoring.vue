@@ -2,12 +2,15 @@
   <div class="title">
     <template v-if="type === 'edit'">
       <h3 class="name">打分题</h3>
-      <div class="ti">
-        <div class="ti1">标题：</div>
-        <div class="ti2">
-          <el-input style="width:80%" v-model="data.title" :maxlength="200"></el-input>
-        </div>
-      </div>
+      <el-form :model="data" ref="data" label-width="70px" class="ti">
+        <el-form-item label="标题：" prop="title" :rules="[
+          { required: true, message: '标题不能为空'}
+        ]">
+          <div class="ti2">
+            <el-input style="width:250%" v-model="data.title" :maxlength="200"></el-input>
+          </div>
+        </el-form-item>
+      </el-form>
       <div class="ti">
         <div class="ti1">选项：</div>
         <div class="ti2">
@@ -16,8 +19,7 @@
               <el-input style="width:200px;border:none;text-align:center;margin-right:30px" size="mini" placeholder="请输入选项" v-model="item.name" :maxlength="200"></el-input>
               <span style="text-align:right"><i class="curP el-icon-remove-outline" @click="handleDelete(index)"></i></span>
               <div class="mg10">
-                <el-rate
-                  :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
+                <el-rate :colors="['#99A9BF', '#F7BA2A', '#FF9900']">
                 </el-rate>
               </div>
             </div>
@@ -32,10 +34,7 @@
       <div v-for="(item,index) in data.optionList" :key="index">
         {{item.name}}
         <div class="mg10">
-          <el-rate
-            v-model="data.answer[item.name]"
-            :colors="['#99A9BF', '#F7BA2A', '#FF9900']"
-            :disabled="disabled">
+          <el-rate v-model="data.answer[item.name]" :colors="['#99A9BF', '#F7BA2A', '#FF9900']" :disabled="disabled">
           </el-rate>
         </div>
       </div>
@@ -47,11 +46,11 @@
 <script>
 import draggable from 'vuedraggable'
 export default {
-  components: {draggable},
+  components: { draggable },
   props: {
     data: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
     type: {
       type: String,
@@ -76,52 +75,52 @@ export default {
   },
   methods: {
     addSingle () {
-      let newArr = this.data.optionList||[]
+      let newArr = this.data.optionList || []
       newArr.push({
-        type:1,
-        name:'',
+        type: 1,
+        name: '',
       })
-      this.$set(this.data,'optionList',newArr)
+      this.$set(this.data, 'optionList', newArr)
     },
 
     handleDelete (index) {
-      let newArr = this.data.optionList||[]
-      newArr.splice(index,1)
-      this.$set(this.data,'optionList',newArr)
+      let newArr = this.data.optionList || []
+      newArr.splice(index, 1)
+      this.$set(this.data, 'optionList', newArr)
     },
   },
 }
 </script>
 <style lang="scss" scoped>
-.title{
+.title {
   margin: 5px;
   // color: #909399;
-  .name{
+  .name {
     margin: 13px 0;
     font-size: 16px;
   }
-  .ti{
+  .ti {
     display: flex;
-    .ti1{
+    .ti1 {
       font-size: 14px;
       padding: 8px;
     }
-    .ti2{
+    .ti2 {
       flex: 1;
     }
   }
-  span{
+  span {
     margin: 0px 10px 0 0;
   }
 }
-.mg10{
+.mg10 {
   margin: 10px 0;
 }
-.textIn{
+.textIn {
   border: none;
   width: 100px;
 }
-.curP{
+.curP {
   cursor: pointer;
 }
 </style>

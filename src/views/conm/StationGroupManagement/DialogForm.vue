@@ -4,14 +4,6 @@
       <el-form-item label="上级站点">
         <el-input v-model="form.parentId" disabled></el-input>
       </el-form-item>
-      <!-- <el-form-item label="组织" prop="orgId">
-        <iep-select
-          v-model="form.orgId"
-          autocomplete="off"
-          prefix-url="admin/org/all"
-          placeholder="请选择"
-        ></iep-select>
-      </el-form-item> -->
       <el-form-item label="名称" prop="siteName">
         <el-input v-model="form.siteName"></el-input>
       </el-form-item>
@@ -41,7 +33,6 @@
 import { getPageById } from '@/api/conm/index'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
-// import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   data () {
@@ -55,7 +46,6 @@ export default {
       id: '',
     }
   },
-  // },
   created () {
     this.loadPage()
   },

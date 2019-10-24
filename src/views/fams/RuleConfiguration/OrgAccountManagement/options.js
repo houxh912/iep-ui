@@ -36,7 +36,6 @@ const columnsMap = [
     prop: 'accountStatus',
     label: '账户状态',
     type: 'dict',
-    width: '80',
   },
 ]
 

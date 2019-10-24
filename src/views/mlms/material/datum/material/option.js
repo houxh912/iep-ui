@@ -57,7 +57,7 @@ export const initLocalForm = () => {
     isContri: 0,
     attachFileList: [],
     attachFile: '',
-    isOpen: 2,
+    isOpen: 0,
     secrecyLevel: 0,
   }
 }
@@ -77,6 +77,26 @@ export const initFormData = () => {
     downloadCost: '',
     tagKeyWords: [],
     attachFileList: [],
+    isOpen: 2,
+    secrecyLevel: 0,
+  }
+}
+
+export const initForm = () => {
+  return {
+    uploader: '',
+    id: '',
+    materialName: '',
+    intro: '',
+    content: '',
+    firstClass: '',
+    secondClass: '',
+    materialType: '',
+    downloadCost: '',
+    tagKeyWords: [],
+    isContri: 0,
+    attachFileList: [],
+    attachFile: '',
     isOpen: 2,
     secrecyLevel: 0,
   }
@@ -138,6 +158,12 @@ export const tipContent = {
     uploader:'作者为该材料撰写者，系统默认读取上传人为作者，如作者为其他人请做修改',
     intro:'1、材料内容主旨说明，如选取文中重要的段落；<br/>' +
     '2、字数控制在200字以内',
+    content:'1、文章字体为默认字体；<br/>' +
+    '2、文章标题标注使用规范：<br/>' +
+    '①一级标题用一、二、三等标注；<br/>' +
+    '②二级标题用（一）、（二）、（三）等标注；<br/>' +
+    '③三级标题用1、2、3等标注；<br/>' +
+    '④四级标题用（1）、（2）、（3）等标注；<br/>',
     firstClass:'根据材料主题准确选择分类，确保分类的准确性！',
     materialType:'根据材料实际性质进行选择，如方案，报告，清单等',
     downloadCost:'全体或多数国脉人需知晓的公司制度、文件、新生必读、分享培训等材料均不设定下载贝额，其余材料可自行设定，如材料质量与价格不符被纠错/差评/投诉将影响个人信用分。',

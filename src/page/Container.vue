@@ -4,7 +4,7 @@
       <div class="login-border animated fadeInRight">
         <div class="login-main">
           <div class="title-image">
-            <img src="/img/logo.png" class="top-image">
+            <img src="/img/logo.png" class="top-image" @click="$openPage('/login')">
             <div class="login-title">{{title}}
               <!-- <a-dropdown>
                 <a style="font-size: 14px;">
@@ -92,6 +92,7 @@ export default {
     margin-bottom: 25px;
     margin-top: 30px;
     .top-image {
+      cursor: pointer;
       width: 90px;
       border-right: 1px solid #eee;
       padding: 2px 0;

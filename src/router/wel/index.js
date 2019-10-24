@@ -31,6 +31,11 @@ export default [
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/master/confirm'),
       },
       {
+        path: 'friend_confirm/:id',
+        name: '确认好友',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/wel/RelationshipManage/confirm'),
+      },
+      {
         path: 'account-settings',
         name: '个人设置',
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/account-settings/index'),

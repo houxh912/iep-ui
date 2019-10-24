@@ -10,15 +10,10 @@
       <el-form-item label="网站地址：" prop="url">
         <el-input v-model="form.url" maxlength="250" show-word-limit></el-input>
       </el-form-item>
-      <!-- <el-form-item label="图片logo：">
-        <el-input v-model="form.withLogo"></el-input>
-      </el-form-item> -->
       <el-form-item label="图片logo：">
         <span slot="label">
           图片logo：
         </span>
-        <!-- <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload> -->
-
         <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" :on-remove="handleRemove" accept="image/*">
           <iep-img v-if="form.logo" :src="form.logo" class="avatar"></iep-img>
           <i v-if="form.logo" class="el-icon-circle-close" @click.stop="handleRemove"></i>
@@ -53,7 +48,6 @@ import { getPageDetailById } from '@/api/conm/f_link_controller'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 import store from '@/store'
-// import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   data () {
@@ -71,13 +65,11 @@ export default {
       },
     }
   },
-  // },
   created () {
     this.loadPage()
   },
   methods: {
     handleAvatarSuccess (row) {
-      // this.handleRemove()
       this.form.logo = row.data.url
     },
     handleRemove () {

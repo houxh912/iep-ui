@@ -1,7 +1,6 @@
 <template>
   <div>
     <basic-container>
-      <iep-button style="float:right" @click="handleEdit">编辑</iep-button>
       <div class="org-detail-wrapper">
         <div class="content">
           <div class="top">
@@ -9,7 +8,9 @@
               <iep-img :src="form.logo" slot="cover"></iep-img>
             </div>
             <div class="info-wrapper">
-              <div class="title">{{form.name}}</div>
+              <div class="title">{{form.name}}
+                <iep-button type="primary" @click="handleEdit">编辑</iep-button>
+              </div>
               <div class="col">
                 <div class="form-item-wrapper">
                   <label for="">创建人：</label>

@@ -6,10 +6,6 @@
         <template slot="left">
           <iep-button type="primary" plain @click="handleAdd" icon="el-icon-plus">新增</iep-button>
         </template>
-        <!-- <template slot="right">
-          <operation-search>
-          </operation-search>
-        </template> -->
       </operation-container>
       <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <el-table-column prop="operation" label="操作" width="250" fixed="right">

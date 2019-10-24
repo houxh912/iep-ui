@@ -8,7 +8,7 @@
       <iep-form-item label-name="支付方式">
         <iep-div-detail :value="dictsMap.borrowMoneyType[data.borrowMoneyType]"></iep-div-detail>
       </iep-form-item>
-      <iep-form-item v-if="data.borrowMoneyType==='1'" label-name="收款公司">
+      <iep-form-item v-if="data.borrowMoneyType===1" label-name="收款公司">
         <iep-div-detail :value="data.borrowInCompany"></iep-div-detail>
       </iep-form-item>
       <iep-form-item v-if="!bankAmountOption.disabled" label-name="收款账户">
@@ -59,7 +59,7 @@ export default {
   },
   computed: {
     bankAmountOption () {
-      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === '1') {
+      if (this.data.borrowInCompanyId && this.data.borrowMoneyType === 1) {
         return {
           disabled: false,
           prefixUrl: `fams/bank_account/${this.data.borrowInCompanyId}`,

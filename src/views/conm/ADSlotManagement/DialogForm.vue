@@ -4,9 +4,6 @@
       <el-form-item label="上级站点：">
         <el-input v-model="siteId" disabled></el-input>
       </el-form-item>
-      <!-- <el-form-item label="广告位id：">
-        <iep-select v-model="form.adslotId"></iep-select>
-      </el-form-item> -->
       <el-form-item label="广告位名称：" prop="name">
         <el-input v-model="form.name" maxlength="100" show-word-limit></el-input>
       </el-form-item>
@@ -33,7 +30,6 @@
 import { getPageDetailById } from '@/api/conm/adslot_controller'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
-// import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   data () {

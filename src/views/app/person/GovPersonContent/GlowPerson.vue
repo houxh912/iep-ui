@@ -126,7 +126,7 @@ export default {
       display: inline-block;
       height: 26px;
       line-height: 26px;
-      padding: 0 4px;
+      padding: 0;
       font-size: 14px;
     }
     .selectionName {

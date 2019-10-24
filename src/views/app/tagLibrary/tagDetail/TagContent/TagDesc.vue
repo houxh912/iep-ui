@@ -17,8 +17,21 @@
         {{form.description}}
       </p>
       <div class="introduce">
-        <div class="introduce-item" v-for="(item, index) in introduceList" :key="index">
-          {{item.description}} —— {{item.creatorRealName}} <i class="icon-bianji" @click="handleUpdate(item)"></i>
+        <div v-if="firstType">
+          <div class="introduce-item" v-for="(item, index) in introduceList.slice(0, 1)" :key="index">
+            {{item.description}} —— {{item.creatorRealName}} <i class="icon-bianji" v-if="userInfo.userId === item.creatorId" @click="handleUpdate(item)"></i>
+          </div>
+          <div class="load-more" @click="handleMore">
+            -------   加载更多   -------
+          </div>
+        </div>
+        <div v-else>
+          <div class="introduce-item" v-for="(item, index) in introduceList" :key="index">
+            {{item.description}} —— {{item.creatorRealName}} <i class="icon-bianji" v-if="userInfo.userId === item.creatorId" @click="handleUpdate(item)"></i>
+          </div>
+          <div class="load-more" @click="handleMore" v-if="moreState">
+            -------   加载更多   -------
+          </div>
         </div>
       </div>
       <!-- <span class="more fr">
@@ -26,7 +39,7 @@
         <i class="icon-jiantouxiangyou"></i>
       </span> -->
     </div>
-    <describe ref="describe" @load-page="getIntroduce"></describe>
+    <describe ref="describe" @load-page="getIntroduceMore"></describe>
   </div>
 </template>
 
@@ -42,6 +55,9 @@ export default {
     return {
       introduceList: [],
       isAddState: true,
+      firstType: true,
+      current: 1,
+      moreState: true,
     }
   },
   computed: {
@@ -58,12 +74,15 @@ export default {
       row.name = this.form.name
       this.$refs['describe'].open(row)
     },
-    getIntroduce (row) {
+    getIntroduce (row = {}) {
       getTagDesc({
         id: row.tagId ? row.tagId : this.form.tagId,
-        size: 999,
+        page: this.current,
       }).then(({ data }) => {
-        this.introduceList = data.records
+        this.introduceList = this.introduceList.concat(data.records)
+        if (data.records.length < 10) {
+          this.moreState = false
+        }
         // 判断当前登陆用户是否添加过介绍
         for (let item of this.introduceList) {
           if (item.creatorId === this.userInfo.userId) {
@@ -71,6 +90,20 @@ export default {
           }
         }
       })
+    },
+    getIntroduceMore () {
+      this.current = 1
+      this.moreState = true
+      this.introduceList = []
+      this.getIntroduce()
+    },
+    handleMore () {
+      if (this.firstType) {
+        this.firstType = false
+      } else {
+        ++this.current
+        this.getIntroduce()
+      }
     },
   },
   watch: {
@@ -148,12 +181,17 @@ export default {
 .introduce {
   .introduce-item {
     margin-bottom: 5px;
-    display: flex;
     i {
       font-size: 12px;
       margin-left: 10px;
       cursor: pointer;
     }
+  }
+  .load-more {
+    color: #bbb;
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
   }
 }
 .more {

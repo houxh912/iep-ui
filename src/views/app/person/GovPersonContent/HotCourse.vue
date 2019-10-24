@@ -103,14 +103,16 @@ export default {
         opacity: 0.7;
       }
     }
-    .img {
+    .img {     
+      display: flex;
+      align-items: center;
       margin-bottom: 5px;
       width: 100%;
       height: 90px;
       overflow: hidden;
+      border: 1px solid #ebeef5;
       img {
         width: 100%;
-        height: 100%;
         transition: 0.5s;
         &:hover {
           transform: scale(1.1);
@@ -132,5 +134,12 @@ export default {
 <style scoped>
 .course-con >>> .el-card {
   height: 316px;
+}
+.course-con >>>.el-image{
+  display: flex;
+  align-items: center;
+}
+.course-con >>>.el-image__inner{
+  height: auto;
 }
 </style>

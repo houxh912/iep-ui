@@ -16,13 +16,6 @@
           <template slot-scope="scope">{{scope.row.updateTime|parseToDay}}</template>
         </el-table-column>
       </template>
-      <!-- <el-table-column prop="operation" label="操作" width="100" fixed="right">
-        <template slot-scope="scope">
-          <operation-wrapper>
-            <iep-button @click="handleSelectClick(scope.row)">选择</iep-button>
-          </operation-wrapper>
-        </template>
-      </el-table-column> -->
     </iep-table>
     <template slot="footer">
       <iep-button type="primary" @click="submitForm()">提交</iep-button>

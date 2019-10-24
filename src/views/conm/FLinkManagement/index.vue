@@ -9,10 +9,6 @@
           <iep-button @click="handleListManagement">列表管理</iep-button>
           <iep-button @click="handleTypeManagement">分类管理</iep-button>
         </template>
-        <!-- <template slot="right">
-          <operation-search>
-          </operation-search>
-        </template> -->
       </operation-container>
       <iep-table v-if="this.type==0" :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection>
         <el-table-column prop="operation" label="操作" width="250" fixed="right">
@@ -108,13 +104,6 @@ export default {
     handleTypeDelete (row) {
       this._handleGlobalDeleteById(row.friendlinktypeId, deleteFLinkTypeById)
     },
-    // async loadPage () {
-    //   getPageById(this.siteId).then((data) => {
-    //     const newData = data.data.data
-    //     this.pagedTable = newData
-    //   })
-
-    // },
     async loadPage (param = this.searchForm) {
       (this.type == 0) ? await this.loadTable({ ...param, siteId: this.siteId }, getPage) :
         await this.loadTable({ ...param, siteId: this.siteId }, getTypePage)

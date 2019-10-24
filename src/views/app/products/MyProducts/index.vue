@@ -44,10 +44,15 @@ export default {
 }
 </script>
 <style scoped lang='scss'>
+.my-products ::v-deep .el-card {
+  height: 400px;
+}
 .my-products {
   grid-column-start: 1;
   grid-column-end: 4;
   text-align: center;
+  height: 400px;
+  overflow: hidden;
 }
 .publish {
   position: absolute;
@@ -63,4 +68,3 @@ export default {
   }
 }
 </style>
-

@@ -28,8 +28,6 @@
         <span slot="label">
           广告图片：
         </span>
-        <!-- <iep-upload v-model="formData.attachFileList" :limit="limit"></iep-upload> -->
-
         <el-upload class="avatar-uploader" action="/api/admin/file/upload/avatar" :show-file-list="false" :headers="headers" :on-success="handleAvatarSuccess" :on-remove="handleRemove" accept="image/*">
           <iep-img v-if="form.image" :src="form.image" class="avatar"></iep-img>
           <i v-if="form.image" class="el-icon-circle-close" @click.stop="handleRemove"></i>
@@ -51,7 +49,6 @@ import { getPageDetailById } from '@/api/conm/ad_controller'
 import { initForm, dictsMap, rules } from './options'
 import formMixins from '@/mixins/formMixins'
 import store from '@/store'
-// import { mapGetters } from 'vuex'
 export default {
   mixins: [formMixins],
   data () {
@@ -69,13 +66,11 @@ export default {
       },
     }
   },
-  // },
   created () {
     this.loadPage()
   },
   methods: {
     handleAvatarSuccess (row) {
-      // this.handleRemove()
       this.form.image = row.data.url
     },
     handleRemove () {

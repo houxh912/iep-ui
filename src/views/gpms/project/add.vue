@@ -93,6 +93,10 @@
               <el-input v-model="formData.projectExplain" maxlength="254"></el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="24">
+            <!-- 是否开放 -->
+            <iep-is-open v-model="formData"></iep-is-open>
+          </el-col>
         </el-row>
         <hr>
         <el-row>

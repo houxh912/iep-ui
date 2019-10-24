@@ -2,9 +2,9 @@
   <div style="position: fixed;z-index: 1000">
     <im-ui-small v-show="showType === 'none'" @showLarge="showType = 'large'"></im-ui-small>
     <im-ui-large v-show="showType === 'large'" @showSmall="showType = 'small'"></im-ui-large>
-    <chat-box
-      v-show="$store.getters.imCurrentChatList.length > 0 && $store.getters.imChatShow"
+    <chat-box v-show="$store.getters.imCurrentChatList.length > 0 && $store.getters.imChatShow"
       @sendMessage="sendMessage"></chat-box>
+    <consultation v-show="true" @showLarge="showType = 'large'"></consultation>
   </div>
 </template>
 
@@ -17,12 +17,15 @@ import SockJS from 'sockjs-client'
 import Stomp from 'stompjs'
 import { clearUnread } from '@/api/im'
 import { mapGetters } from 'vuex'
+import consultation from './components/consultation/index'
+
 export default {
   name: 'im-ui',
   components: {
     imUiSmall,
     imUiLarge,
     chatBox,
+    consultation,
   },
   data () {
     return {

@@ -151,3 +151,11 @@ export function getMeetingsignupUserPage (query) {
     params: query,
   })
 }
+//审核会议
+export function postMeetingmarketingAudit (query) {
+  return request({
+    url: '/mcms/meetingmarketing/audit',
+    method: 'post',
+    data: query,
+  })
+}

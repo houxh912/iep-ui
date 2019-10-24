@@ -48,15 +48,20 @@ export default {
       })
     },
     handleSend (row) {
-      postMeetingsignupUpdateStatus({ id: row.id, status: 6 }).then((res) => {
-        console.log(res)
-        this.$message({
-          message: res.data.msg,
-          type: 'success',
+      this.$confirm('是否发送该条草稿？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }).then(() => {
+        postMeetingsignupUpdateStatus({ id: row.id, status: 1 }).then((res) => {
+          this.$message({
+            message: res.data.msg,
+            type: 'success',
+          })
+          if (res.data.data == true) {
+            this.loadPage()
+          }
         })
-        if (res.data.data == true) {
-          this.loadPage()
-        }
       })
     },
     handleDelete (row) {

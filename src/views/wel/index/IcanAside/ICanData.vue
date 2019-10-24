@@ -66,9 +66,11 @@ export default {
 }
 </script>
 <style  lang="scss" scoped>
-.echarts {
-  width: 100%;
-  min-width: 200px;
-  height: 280px;
+.my-content {
+  .echarts {
+    width: 100% !important;
+    min-width: 200px;
+    height: 280px !important;
+  }
 }
 </style>

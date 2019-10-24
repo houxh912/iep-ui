@@ -39,7 +39,7 @@ export default {
       SatelliteWordList: [],
       params: {
         current: 1,
-        size: 20,
+        size: 30,
         total: 0,
       },
       AddOption: [],

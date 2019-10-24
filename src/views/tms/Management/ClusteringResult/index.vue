@@ -43,7 +43,7 @@
       <el-table-column label="操作" width="160">
         <template slot-scope="scope">
           <operation-wrapper>
-            <iep-button type="warning" plain @click="handleEdit(scope.row)">编辑</iep-button>
+            <iep-button type="warning" plain @click="handleEdit(scope.row)">卫星词</iep-button>
             <iep-button @click="handleFreed(scope.row)">释放</iep-button>
           </operation-wrapper>
         </template>

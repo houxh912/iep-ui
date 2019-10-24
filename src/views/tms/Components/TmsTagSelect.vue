@@ -5,7 +5,7 @@
     </el-tag>
     <el-autocomplete v-if="inputVisible" class="input-new-tag" v-model="inputValue" value-key="commonName" ref="saveTagInput" size="small" :fetch-suggestions="querySearch" placeholder="请输入内容" :trigger-on-focus="false" @select="handleSelect"></el-autocomplete>
     <!-- <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm"></el-input>-->
-    <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
+    <el-button v-else class="button-new-tag" type="primary" plain size="small" @click="showInput">+</el-button>
   </div>
 </template>
 

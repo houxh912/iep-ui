@@ -18,13 +18,10 @@ export default {
 .ican-wrapper {
   display: flex;
   .ican-content {
-    flex: 1;
-    width: 100%;
+    width: calc(100% - 280px);
   }
   .ican-aside {
     width: 280px;
-    flex: 0 0 280px;
-    display: inline-table;
   }
 }
 </style>

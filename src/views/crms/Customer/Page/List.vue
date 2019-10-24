@@ -110,7 +110,8 @@ export default {
   data () {
     return {
       dictsMap,
-      type: '2',
+      // eslint-disable-next-line
+      type: IS_ICAN ? '1' : '2',
       tabList,
       replaceText: (data) => `（本周新增${data[0]}位客户）`,
       url: '/api/crm/crms/iepclientinfoexcel/upload',

@@ -4,8 +4,8 @@
       <el-form-item label="标签分类:" prop="typeIds">
         <tag-type-list v-model="form.typeIds" :type-options="typeOptions" :type-list="typeNameOpts" :common-vo="form.typeObjs"></tag-type-list>
       </el-form-item>
-      <el-form-item label="标签级别:" prop="levelid">
-        <el-select v-model="form.levelid" clearable placeholder="请选择">
+      <el-form-item label="标签级别:" prop="levelId">
+        <el-select v-model="form.levelId" clearable placeholder="请选择">
           <el-option v-for="item in levelNameOpts" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
@@ -26,7 +26,7 @@ export const rules = {
   typeid: [
     { required: true, message: '请选择标签分类', trigger: 'blur' },
   ],
-  levelid: [
+  levelId: [
     { required: true, message: '请选择标签级别', trigger: 'blur' },
   ],
 }
@@ -52,7 +52,7 @@ export default {
       form: {
         typeIds: [],
         typeObjs: [],
-        levelid: '',
+        levelId: '',
       },
       typeOptions: [],
     }
@@ -71,7 +71,7 @@ export default {
       updateBatchTag({
         tagIds: this.ids,
         typeIds: this.form.typeIds,
-        levelid: this.form.levelid,
+        levelId: this.form.levelId,
       }).then(({ data }) => {
         if (data.data) {
           this.$message({
@@ -91,7 +91,7 @@ export default {
       this.loadPage()
       this.form = {
         typeid: '',
-        levelid: '',
+        levelId: '',
       }
     },
     loadTagProp () {

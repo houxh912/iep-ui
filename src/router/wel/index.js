@@ -36,6 +36,11 @@ export default [
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/RelationshipManage/confirm'),
       },
       {
+        path: 'org_confirm/:id',
+        name: '确认组织',
+        component: () => import(/* webpackChunkName: "wel" */'@/views/goms/Components/confirm'),
+      },
+      {
         path: 'account-settings',
         name: '个人设置',
         component: () => import(/* webpackChunkName: "wel" */'@/views/wel/account-settings/index'),

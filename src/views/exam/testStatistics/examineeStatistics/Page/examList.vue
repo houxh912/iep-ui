@@ -76,6 +76,7 @@ export default {
          * 获取考试详情数据
          */
         loadPage (param = this.searchForm) {
+            param.examRankWay = 3
             param.creatorId = this.record.creatorId
             this.loadTable(param, getExamList)
         },

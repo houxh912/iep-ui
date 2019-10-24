@@ -1,5 +1,8 @@
 <template>
   <i-can-content class="my-content" title-name="我的关系">
+    <template v-slot:stitle>
+      <iep-button size="mini" @click="$openPage('/wel/relationship_manage')">通讯录</iep-button>
+    </template>
     <div class="my-wrapper">
       <div class="title-con">
         <div class="title">我的师傅：</div>

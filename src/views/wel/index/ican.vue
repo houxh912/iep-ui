@@ -5,12 +5,24 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import IcanAside from './IcanAside/index'
 import IcanContent from './IcanContent/index'
 export default {
   components: {
     IcanContent,
     IcanAside,
+  },
+  // TODO: 统一放在一处
+  created () {
+    if (this.noOrg) {
+      this.$router.push({
+        name: '选择组织',
+      })
+    }
+  },
+  computed: {
+    ...mapGetters(['noOrg']),
   },
 }
 </script>

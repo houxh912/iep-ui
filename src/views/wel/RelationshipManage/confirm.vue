@@ -30,7 +30,6 @@ export default {
     async loadPage () {
       const { data } = await getFriendById(this.$route.params.id)
       this.form = data.data
-      console.log(data)
     },
     handleOk () {
       getFriendAgreeReject(this.$route.params.id, 1).then(({ data }) => {

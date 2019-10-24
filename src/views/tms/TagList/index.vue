@@ -85,7 +85,7 @@
       <form-dialog :dialog-show="importDialogShow" title="上传数据" @close="importDialogShow=false" width="500px" :is-need-confirm="false">
         <tag-import @close="handleCloseImport"></tag-import>
       </form-dialog>
-      <edit-batch is-inverse ref="OpenEditBatch" @load-page="loadPage"></edit-batch>
+      <edit-batch is-inverse ref="OpenEditBatch" @load-page="loadPage" :level-name-opts="levelNameOpts" :type-name-opts="typeNameOpts"></edit-batch>
     </template>
     <template slot="form">
       <tag-form-edit :form-data="editTagInfoForm" @hideDialog="loadPage();" :level-name-opts="levelNameOpts" :type-name-opts="typeNameOpts" @close="editDialogShow=false" :tag-function="tagFunction"></tag-form-edit>
@@ -96,6 +96,8 @@
 <script>
 import _ from 'lodash'
 import { mapGetters } from 'vuex'
+import { getTagTypeList } from '@/api/tms/tag-type'
+import { getTagLevelList } from '@/api/tms/tag-level'
 import { getTagExcelExport } from '@/api/tms/excel'
 import { getTagFunctionMap } from '@/api/tms/function'
 import { getTagPage, deleteTagById, getTagById, mergeTag, reviewTag, disableTag, deleteTag } from '@/api/tms/tag'
@@ -158,6 +160,7 @@ export default {
   created () {
     this.loadPage()
     this.loadFunction()
+    this.loadTagProp()
     this.gov_tag_add = this.permissions['gov_tag_add']
     this.gov_tag_del = this.permissions['gov_tag_del']
     this.gov_tag_edit = this.permissions['gov_tag_edit']
@@ -288,6 +291,24 @@ export default {
       this.editDialogShow = false
       this.addDialogShow = false
       this.loadTable({ ...param }, getTagPage)
+    },
+    loadTagProp () {
+      getTagTypeList().then(res => {
+        this.typeNameOpts = res.data.map(m => {
+          return {
+            label: m.name,
+            value: m.typeId,
+          }
+        })
+      })
+      getTagLevelList().then(res => {
+        this.levelNameOpts = res.data.map(m => {
+          return {
+            label: m.name,
+            value: m.levelId,
+          }
+        })
+      })
     },
   },
   watch: {

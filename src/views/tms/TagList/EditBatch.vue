@@ -1,11 +1,8 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="'批量编辑标签'" width="520px" @close="handleCancel" center>
     <el-form :model="form" :rules="rules" label-width="100px" size="small">
-      <el-form-item label="标签分类:" prop="typeid">
-        <el-select v-model="form.typeid" clearable placeholder="请选择">
-          <el-option v-for="item in typeNameOpts" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
+      <el-form-item label="标签分类:" prop="typeIds">
+        <tag-type-list v-model="form.typeIds" :type-options="typeOptions" :type-list="typeNameOpts" :common-vo="form.typeObjs"></tag-type-list>
       </el-form-item>
       <el-form-item label="标签级别:" prop="levelid">
         <el-select v-model="form.levelid" clearable placeholder="请选择">
@@ -21,9 +18,10 @@
   </iep-dialog>
 </template>
 <script>
-import { getTagTypeList } from '@/api/tms/tag-type'
-import { getTagLevelList } from '@/api/tms/tag-level'
+import { getTagTypeParents } from '@/api/tms/tag-type'
+// import { getTagLevelList } from '@/api/tms/tag-level'
 import { updateBatchTag } from '@/api/tms/tag'
+import tagTypeList from './tag_type_list'
 export const rules = {
   typeid: [
     { required: true, message: '请选择标签分类', trigger: 'blur' },
@@ -35,7 +33,16 @@ export const rules = {
 export default {
   name: 'OpenEditBatch',
   props: {
+    levelNameOpts: {
+      type: Array,
+      required: true,
+    },
+    typeNameOpts: {
+      type: Array,
+      required: true,
+    },
   },
+  components: { tagTypeList },
   data () {
     return {
       rules,
@@ -43,11 +50,11 @@ export default {
       dialogShow: false,
       ids: [],
       form: {
-        typeid: '',
+        typeIds: [],
+        typeObjs: [],
         levelid: '',
       },
-      typeNameOpts: [],
-      levelNameOpts: [],
+      typeOptions: [],
     }
   },
   created () {
@@ -63,7 +70,7 @@ export default {
     handleSubmit () {
       updateBatchTag({
         tagIds: this.ids,
-        typeid: this.form.typeid,
+        typeIds: this.form.typeIds,
         levelid: this.form.levelid,
       }).then(({ data }) => {
         if (data.data) {
@@ -88,21 +95,32 @@ export default {
       }
     },
     loadTagProp () {
-      getTagTypeList().then(res => {
-        this.typeNameOpts = res.data.map(m => {
-          return {
-            label: m.name,
-            value: m.typeId,
+      getTagTypeParents().then(res => {
+        const typeOptions = res.data
+        typeOptions.map(m => {
+          if (!m.children.length) {
+            delete m.children
+          } else {
+            m.children.map(mm => {
+              if (!mm.children.length) {
+                delete mm.children
+              } else {
+                mm.children.map(mmm => {
+                  if (!mmm.children.length) {
+                    delete mmm.children
+                  } else {
+                    mmm.children.map(mmmm => {
+                      if (!mmmm.children.length) {
+                        delete mmmm.children
+                      }
+                    })
+                  }
+                })
+              }
+            })
           }
         })
-      })
-      getTagLevelList().then(res => {
-        this.levelNameOpts = res.data.map(m => {
-          return {
-            label: m.name,
-            value: m.levelId,
-          }
-        })
+        this.typeOptions = typeOptions
       })
     },
   },

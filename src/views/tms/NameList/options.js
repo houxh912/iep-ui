@@ -1,3 +1,4 @@
+import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   lockFlag: {
     0: '启用',
@@ -33,6 +34,8 @@ const initForm = () => {
     residenceCities: '',//户籍地址
     residenceAddress: '',
     province: '',//家庭所在省
+    residence: [],
+    current: [],
     city: '',//家庭所在市
     currentCities: '',//家庭地址
     currentAddress: '',
@@ -108,12 +111,22 @@ const initSearchForm = () => {
   return {
     sex: '',
     province: '',
+    currentParmas: [],
     phone: '',
     university: '',
     lockFlag: '',
   }
 }
-
+const formToDto = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  newForm.province = row.current[0]
+  newForm.city = row.current[1]
+  newForm.birthplaceProvince = row.residence[0]
+  newForm.birthplaceCity = row.residence[1]
+  // newForm.positionId = row.position[row.position.length - 1]
+  // newForm.deptIds = row.dept.map(m => m.id)
+  return newForm
+}
 const rules = {
   name: [{
     required: true,
@@ -128,4 +141,4 @@ const rules = {
 }
 
 
-export { dictsMap, columnsPendingMap, columnsMap, initForm, initSearchForm, rules }
+export { dictsMap, columnsPendingMap, columnsMap, initForm, initSearchForm, rules, formToDto }

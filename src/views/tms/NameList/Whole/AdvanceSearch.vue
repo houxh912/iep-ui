@@ -7,7 +7,7 @@
       </el-select>
     </el-form-item>
     <el-form-item label="所属省：">
-      <el-input v-model="form.province"></el-input>
+      <iep-cascader v-model="form.currentParmas" prefix-url="admin/city"></iep-cascader>
     </el-form-item>
     <el-form-item label="联系电话：">
       <el-input v-model="form.phone"></el-input>
@@ -41,6 +41,7 @@ export default {
   methods: {
     searchPage () {
       this.$emit('search-page', this.form)
+      this.form = initSearchForm()
     },
     clearSearchParam () {
       this.form = initSearchForm()
@@ -50,6 +51,9 @@ export default {
 </script>
 <style scoped>
 .form >>> .el-select {
+  width: 100%;
+}
+.form >>> .el-cascader {
   width: 100%;
 }
 </style>

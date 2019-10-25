@@ -17,27 +17,19 @@
           </template>
         </el-table-column>
       </iep-table>
-      <el-dialog title="查看证书" :visible.sync="dialogVisible" :close-on-click-modal="false" width="700px" @close="dialogVisible = false">
-        <el-form ref="form" :model="form" label-width="100px" :rules="rules" style="margin-right:30px">
-          <el-form-item label="科目：" prop="subject">
-            <el-input readonly v-model="form.subject"></el-input>
-          </el-form-item>
-          <el-form-item label="名称：" prop="title">
-            <el-input :maxlength="80" v-model="form.title"></el-input>
-          </el-form-item>
-          <el-form-item label="级别：" prop="levelName">
-            <el-input :maxlength="80" v-model="form.levelName"></el-input>
-          </el-form-item>
-          <el-form-item label="编发机构：" prop="deptName">
-            <el-input :maxlength="80" v-model="form.deptName"></el-input>
-          </el-form-item>
-        </el-form>
-      </el-dialog>
+      <iep-dialog :dialog-show="dialogVisible" title="证书信息" width="700px" @close="dialogVisible = false">
+        <div>
+          <el-image :src="src"></el-image>
+        </div>
+        <template slot="footer">
+          <iep-button @click="dialogVisible = false">确定</iep-button>
+        </template>
+      </iep-dialog>
     </basic-container>
   </div>
 </template>
 <script>
-import { getCertificatePage } from '@/api/exam/review'
+import { getCertificatePage } from '@/api/exam/personalCenter/myCertificate/myCertificate'
 import mixins from '@/mixins/mixins'
 const columnsMap = [
   {
@@ -68,8 +60,7 @@ export default {
     return {
       columnsMap,
       dialogVisible: false,
-      form: {},
-      rules: {},
+      src:'',
     }
   },
   created () {
@@ -85,7 +76,7 @@ export default {
 
     handleView (row) {
       this.dialogVisible = true
-      this.form = { ...row }
+      this.src = row.imgurl
     },
   },
 }

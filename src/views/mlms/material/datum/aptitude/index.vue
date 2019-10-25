@@ -84,7 +84,8 @@ export default {
       createCollect,
       getTableDataFn: getTableDataOnlyMe,
       permission_edit_del: false,
-      lookByMeOnly: false,
+      // eslint-disable-next-line
+      lookByMeOnly: IS_ICAN,
     }
   },
   methods: {

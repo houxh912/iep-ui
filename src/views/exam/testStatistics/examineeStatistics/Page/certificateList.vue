@@ -70,6 +70,7 @@ export default {
          */
         loadPage (param = this.searchForm) {
             param.creatorId = this.record.creatorId
+            param.examRankWay = 3
             this.loadTable(param, getCertificateMapList)
         },
         // 查看按钮

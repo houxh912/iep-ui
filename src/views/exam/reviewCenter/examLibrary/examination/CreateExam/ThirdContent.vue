@@ -89,7 +89,7 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="40" v-if="showsubmitPaper">
+          <el-row :gutter="40">
             <el-col :span="12">
               <el-form-item label="提交答案" prop="showResult">
                 <el-radio-group v-model="examForm.showResult">
@@ -485,7 +485,7 @@ export default {
       this.$refs['examForm'].validate((valid) => {
         if (valid) {
           this.examForm.testPaperId = this.testPaper.id
-          this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
+          // this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
           this.examForm.signEndTime = this.showTime && this.examForm.applyTimeSwitch == 1 ? this.examForm.signEndTime : '2049-09-24 12:00:00'
           this.examForm.endTime = this.showTime && this.examForm.examTimeSwitch == 1 ? this.examForm.endTime : '2049-09-24 12:00:00'
           if (this.isEdit) {
@@ -514,7 +514,7 @@ export default {
       this.$refs['examForm'].validate((valid) => {
         if (valid) {
           this.examForm.testPaperId = this.testPaper.id
-          this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
+          // this.examForm.showResult = this.showsubmitPaper ? this.examForm.showResult : null
           this.examForm.signEndTime = this.showTime && this.examForm.applyTimeSwitch == 1 ? this.examForm.signEndTime : '2049-09-24 12:00:00'
           this.examForm.endTime = this.showTime && this.examForm.examTimeSwitch == 1 ? this.examForm.endTime : '2049-09-24 12:00:00'
           if (this.isEdit) {

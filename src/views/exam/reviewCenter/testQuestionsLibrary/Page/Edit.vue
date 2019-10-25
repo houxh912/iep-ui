@@ -256,7 +256,7 @@ export default {
           if (data.questionType == 11) {
             this.$refs.single.ruleForm.inputJudgeAnswer = data.answer
           }
-          if (data.questionType == 10 || data.questionType == 10000) {
+          if (data.questionType == 10 || data.questionType == 10000 || data.questionType == 10011) {
             this.$refs.single.ruleForm.inputShortAnswer = data.answer
           }
           // console.log('data => ',data)

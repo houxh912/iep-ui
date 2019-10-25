@@ -4,7 +4,7 @@
       <operation-container>
         <template slot="left">
           <el-dropdown size="medium">
-            <iep-button size="small" type="primary" icon="el-icon-plus" plain  @click="handleCreateForm">新增</iep-button>
+            <iep-button size="small" type="primary" icon="el-icon-plus" plain @click="handleCreateForm">新增</iep-button>
           </el-dropdown>
           <el-dropdown size="medium">
             <iep-button size="small" type="default">更多操作<i class="el-icon-arrow-down el-icon--right"></i></iep-button>
@@ -94,7 +94,8 @@ export default {
       firstClass: [],
       getTableDataFn: getTableDataOnlyMe,
       permission_edit_del: false,
-      lookByMeOnly: false,
+      // eslint-disable-next-line
+      lookByMeOnly: IS_ICAN,
       versionId: 0,
     }
   },

@@ -26,16 +26,20 @@
         </iep-table>
       </div>
     </basic-container>
+
+    <detailTpl v-if="pageState === 'detail'" :form="formData" @backPage="backPage"></detailTpl>
   </div>
 </template>
 
 <script>
 import mixins from '@/mixins/mixins'
 import { columnsMap } from './options'
+import { getDialogPage } from '@/api/ics/serve'
+import detailTpl from './detail'
 
 export default {
   mixins: [mixins],
-  components: {  },
+  components: { detailTpl },
   data () {
     return {
       pageState: 'library',
@@ -45,11 +49,17 @@ export default {
   },
   methods: {
     loadPage () {
-      this.pageState = 'library'
-      this.isLoadTable = false
+      this.loadTable(this.searchForm, getDialogPage)
     },
     handleOutput () {},
-    handleDetail () {},
+    handleDetail (row) {
+      this.pageState = 'detail'
+      if (typeof row.result === 'string') row.result = JSON.parse(row.result)
+      this.formData = {...row}
+    },
+    backPage () {
+      this.pageState = 'library'
+    },
     handleDeleteById () {},
   },
   created () {

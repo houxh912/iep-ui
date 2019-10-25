@@ -129,7 +129,7 @@ export default {
         kindTotalNum: '',    //每种题型合计题数
         kindMark: '',        //每种题型合计分数
         questionOffNum: [],  //已完成的题数
-        questionTotalNum: '',//题目总数
+        questionTotalNum: 0,//题目总数
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
         operationMap: [],    //答题卡片的操作题数组集合，从数组中遍历题目出来
         completionMap: [],   //答题卡片的填空题数组集合，从数组中遍历题目出来
@@ -153,6 +153,9 @@ export default {
     },
     count: function () {
       return this.offNum()
+    },
+    qtTotalNum: function () {
+      return this.totalNum()
     },
   },
   created () {
@@ -186,13 +189,12 @@ export default {
         this.resdata = record
         this.ruleForm.single = record.score
         this.resdata.questionOffNum = record.questionNumList
-        this.resdata.completionMap = record.questionNumList.completionMap
+        this.resdata.completionMap = record.questionNumList.completionMap || []
         this.resdata.textMap = record.questionNumList.textMap
         this.resdata.operationMap = record.questionNumList.operationMap        
-        this.resdata.questionTotalNum = record.questionNumList.textMap.length + record.questionNumList.operationMap.length + record.questionNumList.completionMap.length
 
         if (this.resdata.questionTypeName === '填空题') {
-          this.resdata.kindTotalNum = record.questionNumList.completionMap.length
+          this.resdata.kindTotalNum = record.questionNumList.completionMap ? record.questionNumList.completionMap.length : []
           this.resdata.kindMark = record.fillScore || 0
         }
         if (this.resdata.questionTypeName === '简答题') {
@@ -280,6 +282,20 @@ export default {
         }
       }
       return counts
+    },
+
+    /**
+     *计算总的题数总数
+     */
+    totalNum () {
+      let total = 0
+      for (const key in this.resdata.questionOffNum) {
+        if(this.resdata.questionOffNum.hasOwnProperty(key)){
+          const element = this.resdata.questionOffNum[key]
+          total += element.length
+        }
+      }
+      this.resdata.questionTotalNum = total
     },
 
     /** 

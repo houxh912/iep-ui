@@ -3,13 +3,14 @@
     <operation-container>
       <template slot="left">
         <iep-button v-if="info_article_add" type="primary" plain @click="handleAdd">新增</iep-button>
+        <iep-button :disabled="disabled" @click="handleTransfer">文章迁移</iep-button>
       </template>
       <template slot="right">
         <operation-search @search-page="searchPage" prop="title">
         </operation-search>
       </template>
     </operation-container>
-    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @sort-change='sortChange'>
+    <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :dictsMap="dictsMap" :columnsMap="columnsMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" is-mutiple-selection @sort-change='sortChange' @selection-change="selectionChange">
       <template slot="before-columns">
         <el-table-column label="ID" width="90px">
           <template slot-scope="scope">
@@ -40,6 +41,7 @@
         </template>
       </el-table-column>
     </iep-table>
+    <dialog-transfer-form ref="DialogTransferForm" @load-transfer="loadTransfer"></dialog-transfer-form>
   </div>
 </template>
 <script>
@@ -47,8 +49,12 @@ import { getPage, logicDeleteNodeById } from '@/api/conm/article_controller'
 import { columnsMap, dictsMap } from './options'
 import mixins from '@/mixins/mixins'
 import { mapGetters } from 'vuex'
+import DialogTransferForm from './DialogTransferForm'
 export default {
   mixins: [mixins],
+  components: {
+    DialogTransferForm,
+  },
   data () {
     return {
       dictsMap,
@@ -66,6 +72,7 @@ export default {
         order: '',
         fieldName: '',
       },
+      multipleSelection: [],
     }
   },
   created () {
@@ -80,6 +87,9 @@ export default {
     ...mapGetters([
       'permissions',
     ]),
+    disabled () {
+      return this.multipleSelection.length == 0 ? true : false
+    },
   },
   methods: {
     handleAdd () {
@@ -88,11 +98,24 @@ export default {
         query: { nodeId: this.id, siteId: this.siteId },
       })
     },
+    selectionChange (val) {
+      this.multipleSelection = val.map(m => m.id)
+    },
     handleEdit (row) {
       this.$router.push({
         path: `/comn/document_management_edit/${row.id}`,
         query: { nodeId: this.id, siteId: this.siteId },
       })
+    },
+    handleTransfer () {
+      this.$refs['DialogTransferForm'].dialogShow = true
+      this.$refs['DialogTransferForm'].methodName = '迁移'
+      this.$refs['DialogTransferForm'].articleIds = this.multipleSelection
+      this.$refs['DialogTransferForm'].loadPage()
+    },
+    loadTransfer () {
+      this.$refs['DialogTransferForm'].dialogShow = false
+      this.loadPage()
     },
     sortChange (val) {
       this.sortList.order = val.order

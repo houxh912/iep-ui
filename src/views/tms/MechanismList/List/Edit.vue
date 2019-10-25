@@ -34,7 +34,7 @@
         </el-form-item>
         <el-form-item class="form-half" label="机构层级：">
           <el-select v-model="form.level">
-            <el-option v-for="(v,k) in dictGroup['INSTITUTIONAL_HIERARCHY']" :key="k+v" :label="v" :value="+k">
+            <el-option v-for="(v,k) in dictsMap.level" :key="k+v" :label="v" :value="+k">
             </el-option>
           </el-select>
         </el-form-item>
@@ -126,14 +126,15 @@ export default {
     loadPage () {
       if (this.isEdit) {
         getDetailPage(this.id).then(({ data }) => {
-          const { type, line, level } = data.data
+          const { type, line, level, province, city } = data.data
           this.preType = type
           this.preLine = line
           this.preLevel = level
           this.form = this.$mergeByFirst(initForm(), data.data)
           this.form.type = this.dictsMap.type[type]
           this.form.line = this.dictGroup['POLICY_INDUSTRY'][line].label
-          this.form.level = this.dictGroup['INSTITUTIONAL_HIERARCHY'][level].label
+          this.form.level = this.dictsMap.level[level]
+          this.form.current = [province, city]
         })
       }
     },
@@ -141,7 +142,7 @@ export default {
       if (this.isEdit) {
         if (this.form.type === this.dictsMap.type[this.preType]) this.form.type = this.preType
         if (this.form.line === this.dictGroup['POLICY_INDUSTRY'][this.preLine].label) this.form.line = this.preLine
-        if (this.form.level === this.dictGroup['INSTITUTIONAL_HIERARCHY'][this.preLevel].label) this.form.level = this.preLevel
+        if (this.form.level === this.dictsMap.type[this.preLevel]) this.form.level = this.preLevel
         const { data } = await updatePage(formToDto(this.form))
         if (data.data) {
           this.$router.history.go(-1)

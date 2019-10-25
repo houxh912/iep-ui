@@ -69,7 +69,7 @@
           <el-input v-model="form.major"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="联系电话：">
-          <el-input v-model="form.phone"></el-input>
+          <el-input v-model="form.phone" @blur="checkMobile()"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="毕业时间：">
           <el-date-picker v-model="form.graduateTime" type="date" placeholder="选择日期">
@@ -137,6 +137,11 @@ export default {
     ]),
   },
   methods: {
+    checkMobile () {
+      const partten = /^(13[0-9]|14[0-9]|15[0-9]|16[6]|18[0-9]|19[6,9]|17[0-9])\d{8}$/i
+      const flag = partten.test(this.form.phone)
+      if (!flag) this.$message('请输入正确的手机号码')
+    },
     loadPage () {
       if (this.isEdit) {
         getDetailPageById(this.id).then(({ data }) => {

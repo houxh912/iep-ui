@@ -20,6 +20,12 @@ const dictsMap = {
     9: '媒体',
     10: '其它',
   },
+  level: {
+    1: '国家级',
+    2: '省级',
+    3: '市级',
+    4: '区级（县级）',
+  },
 }
 
 const initForm = () => {
@@ -86,6 +92,7 @@ const initSearchForm = () => {
     claimStatus: '',
     isForbidden: '',
     applyUserId: '',
+    currentParmas: '',
   }
 }
 

@@ -11,7 +11,6 @@
     </el-form-item>
     <div>
       <iep-button class="iep-btn-block" type="primary" size="medium " :loading="submitFormLoading" @click="mixinsSubmitFormGen()">登 录</iep-button>
-      <iep-button type="text" @click="$openPage('/register')">没有账号？立即注册</iep-button>
     </div>
   </el-form>
 </template>

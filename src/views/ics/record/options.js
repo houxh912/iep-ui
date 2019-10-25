@@ -1,18 +1,15 @@
 export const columnsMap = [
   {
-    prop: 'question',
-    label: '标准问题',
+    prop: 'userName',
+    label: '用户名',
   }, {
-    prop: 'type',
-    label: '分类',
+    prop: 'content',
+    label: '会话内容',
   }, {
-    prop: 'modifiedTime',
-    label: '最后编辑时间',
+    prop: 'publishTime',
+    label: '会话开始时间',
   }, {
-    prop: 'addFavouriteTime',
-    label: '反馈满意度',
-  }, {
-    prop: 'isUsed',
-    label: '状态',
+    prop: 'iszhuan',
+    label: '是否转人工',
   },
 ]

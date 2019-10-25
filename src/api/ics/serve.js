@@ -7,3 +7,11 @@ export function getQuery (query) {
     method: 'get',
   })
 }
+
+export function getDialogPage (query) {
+  return request({
+    url: `${prefixUrl}/getDialogPage`,
+    method: 'get',
+    params: query,
+  })
+}

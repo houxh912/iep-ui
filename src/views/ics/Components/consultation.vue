@@ -17,7 +17,8 @@
           </div>
           <div class="talking">
             <div class="options" v-if="item.options.length > 0">
-              <p>为您找到“{{item.question}}”相关内容：</p>
+              <p v-if="item.isDefault">HI~亲爱的用户，智能客服随时为您服务，请问有什么可以为您效劳的呢？人工服务为工作日8:30-17:30</p>
+              <p v-else>为您找到“{{item.question}}”相关内容：</p>
               <div class="option" v-for="(option, i) in item.options" :key="i" @click="handleSubmit('select', option)">{{option}}</div>
               <p>都不是？请一句话完整描述您的问题？</p>
             </div>
@@ -91,6 +92,16 @@ export default {
   watch: {
     dialogShow (val) {
       if (val) {
+        const options = {
+          isDefault: true,
+          answer: '',
+          options: [
+            '如何加入我能？',
+            '如何邀请用户加入组织？',
+            '如何创建联盟？',
+          ],
+        }
+        this.list.push(options)
         this.scrollBottom()
       }
     },

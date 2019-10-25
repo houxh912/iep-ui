@@ -40,7 +40,7 @@
           <operation-wrapper>
             <iep-button @click="handleEdit(scope.row)" type="primary" plain>编辑</iep-button>
             <iep-button @click="handleDelete(scope.row)">删除</iep-button>
-            <iep-button @click="handleLockOrReLock(scope.row)">{{scope.row.isForbidden=='0'?'启用':'禁用'}}</iep-button>
+            <iep-button @click="handleLockOrReLock(scope.row)">{{scope.row.isForbidden=='0'?'禁用':'启用'}}</iep-button>
           </operation-wrapper>
         </template>
       </el-table-column>

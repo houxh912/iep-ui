@@ -1,7 +1,8 @@
+import { mergeByFirst } from '@/util/util'
 const dictsMap = {
   isForbidden: {
-    0: '禁用',
-    1: '启用',
+    0: '启用',
+    1: '禁用',
   },
   claimStatus: {
     0: '未认证',
@@ -19,10 +20,17 @@ const dictsMap = {
     9: '媒体',
     10: '其它',
   },
+  level: {
+    1: '国家级',
+    2: '省级',
+    3: '市级',
+    4: '区级（县级）',
+  },
 }
 
 const initForm = () => {
   return {
+    current: '',
     address: '',
     applyTime: '',
     applyUserId: 0,
@@ -39,7 +47,7 @@ const initForm = () => {
     isForbidden: '',
     level: '',
     licence: '',
-    line: 0,
+    line: '',
     link: '',
     logo: '',
     orgAbrName: '',
@@ -70,6 +78,12 @@ const columnsPendingMap = [
     label: '所属省',
   },
 ]
+const formToDto = (row) => {
+  const newForm = mergeByFirst(initForm(), row)
+  newForm.province = row.current[0]
+  newForm.city = row.current[1]
+  return newForm
+}
 const initSearchForm = () => {
   return {
     type: '',
@@ -78,6 +92,7 @@ const initSearchForm = () => {
     claimStatus: '',
     isForbidden: '',
     applyUserId: '',
+    currentParmas: '',
   }
 }
 
@@ -95,4 +110,4 @@ const rules = {
 }
 
 
-export { dictsMap, columnsPendingMap, columnsMap, initForm, initSearchForm, rules }
+export { dictsMap, formToDto, columnsPendingMap, columnsMap, initForm, initSearchForm, rules }

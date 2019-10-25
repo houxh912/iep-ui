@@ -3,6 +3,7 @@
     <operation-container>
       <template slot="left">
         <iep-button icon="el-icon-check" plain @click="handleApply">认证</iep-button>
+        <iep-button icon="el-icon-delete" @click="handleMoreDelete">删除</iep-button>
       </template>
       <template slot="right">
         <operation-search prop="orgName" advance-search @search-page="searchPage" placeholder="请输入机构名称进行搜索">
@@ -57,7 +58,7 @@ import { columnsPendingMap, dictsMap, initForm } from '../options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import AdvanceSearch from './AdvanceSearch'
-import { getPage, applyPass } from '@/api/crms/organization_list'
+import { getPage, applyPass, deletePage } from '@/api/crms/organization_list'
 import { mapGetters } from 'vuex'
 export default {
   mixins: [mixins],
@@ -103,6 +104,11 @@ export default {
           }
           this.loadPage()
         })
+      })
+    },
+    handleMoreDelete () {
+      deletePage(this.multipleSelection).then(() => {
+        this.loadPage()
       })
     },
     handleClaim (row) {

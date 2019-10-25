@@ -33,7 +33,10 @@
           </el-select>
         </el-form-item>
         <el-form-item class="form-half" label="机构层级：">
-          <el-input-number v-model="form.level" :min="1" :max="9"></el-input-number>
+          <el-select v-model="form.level">
+            <el-option v-for="(v,k) in dictsMap.level" :key="k+v" :label="v" :value="+k">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item class="form-half" label="行业：">
           <el-select v-model="form.line">
@@ -48,7 +51,7 @@
           <el-input v-model="form.link"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="联系电话：">
-          <el-input v-model="form.phone"></el-input>
+          <el-input v-model="form.phone" @blur="checkMobile()"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="传真：">
           <el-input v-model="form.fax"></el-input>
@@ -59,11 +62,8 @@
         <el-form-item class="form-half" label="机构住址：">
           <!-- <iep-cascader v-model="form.adress" prefix-url="admin/city" clearable></iep-cascader> -->
           <div style="display:flex;">
-            <div style="display:flex;">
-              <el-input style="flex:1;" v-model="form.province" placeholder="省"></el-input>
-              <el-input style="flex:1;" v-model="form.city" placeholder="市"></el-input>
-              <el-input style="flex:3;" v-model="form.address" placeholder="详细地址"></el-input>
-            </div>
+            <iep-cascader style="flex:2;" v-model="form.current" prefix-url="admin/city"></iep-cascader>
+            <el-input style="flex:3;" v-model="form.address"></el-input>
           </div>
         </el-form-item>
         <el-form-item label="机构简介" prop="describe">
@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { initForm, dictsMap, rules } from '../options'
+import { initForm, dictsMap, rules, formToDto } from '../options'
 import formMixins from '@/mixins/formMixins'
 import { addPage, updatePage, getDetailPage } from '@/api/crms/organization_list'
 import { mapGetters } from 'vuex'
@@ -96,6 +96,7 @@ export default {
       preData: {},
       preType: '',
       preLine: '',
+      preLevel: '',
     }
   },
   created () {
@@ -116,15 +117,24 @@ export default {
     ]),
   },
   methods: {
+    //验证手机
+    checkMobile () {
+      const partten = /^(13[0-9]|14[0-9]|15[0-9]|16[6]|18[0-9]|19[6,9]|17[0-9])\d{8}$/i
+      const flag = partten.test(this.form.phone)
+      if (!flag) this.$message('请输入正确的手机号码')
+    },
     loadPage () {
       if (this.isEdit) {
         getDetailPage(this.id).then(({ data }) => {
-          const { type, line } = data.data
+          const { type, line, level, province, city } = data.data
           this.preType = type
           this.preLine = line
+          this.preLevel = level
           this.form = this.$mergeByFirst(initForm(), data.data)
           this.form.type = this.dictsMap.type[type]
           this.form.line = this.dictGroup['POLICY_INDUSTRY'][line].label
+          this.form.level = this.dictsMap.level[level]
+          this.form.current = [province, city]
         })
       }
     },
@@ -132,14 +142,15 @@ export default {
       if (this.isEdit) {
         if (this.form.type === this.dictsMap.type[this.preType]) this.form.type = this.preType
         if (this.form.line === this.dictGroup['POLICY_INDUSTRY'][this.preLine].label) this.form.line = this.preLine
-        const { data } = await updatePage(this.form)
+        if (this.form.level === this.dictsMap.type[this.preLevel]) this.form.level = this.preLevel
+        const { data } = await updatePage(formToDto(this.form))
         if (data.data) {
           this.$router.history.go(-1)
         } else {
           this.$message(data.msg)
         }
       } else {
-        const { data } = await addPage(this.form)
+        const { data } = await addPage(formToDto(this.form))
         if (data.data) {
           this.$router.history.go(-1)
         } else {

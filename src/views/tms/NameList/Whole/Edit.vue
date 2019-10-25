@@ -46,16 +46,14 @@
         </el-form-item>
         <el-form-item class="form-half" label="户籍地址：" prop="residenceAddress">
           <div style="display:flex;">
-            <el-input style="flex:1;" v-model="form.birthplaceProvince" placeholder="省"></el-input>
-            <el-input style="flex:1;" v-model="form.birthplaceCity" placeholder="市"></el-input>
-            <el-input style="flex:3;" v-model="form.residenceAddress" placeholder="详细地址"></el-input>
+            <iep-cascader style="flex:2;" v-model="form.residence" prefix-url="admin/city"></iep-cascader>
+            <el-input style="flex:3;" v-model="form.residenceAddress"></el-input>
           </div>
         </el-form-item>
         <el-form-item class="form-half" label="家庭地址：" prop="currentAddress">
           <div style="display:flex;">
-            <el-input style="flex:1;" v-model="form.province" placeholder="省"></el-input>
-            <el-input style="flex:1;" v-model="form.city" placeholder="市"></el-input>
-            <el-input style="flex:3;" v-model="form.currentAddress" placeholder="详细地址"></el-input>
+            <iep-cascader style="flex:2;" v-model="form.current" prefix-url="admin/city"></iep-cascader>
+            <el-input style="flex:3;" v-model="form.currentAddress"></el-input>
           </div>
         </el-form-item>
         <el-form-item class="form-half" label="最高学历：">
@@ -71,7 +69,7 @@
           <el-input v-model="form.major"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="联系电话：">
-          <el-input v-model="form.phone"></el-input>
+          <el-input v-model="form.phone" @blur="checkMobile()"></el-input>
         </el-form-item>
         <el-form-item class="form-half" label="毕业时间：">
           <el-date-picker v-model="form.graduateTime" type="date" placeholder="选择日期">
@@ -104,7 +102,7 @@
 </template>
 
 <script>
-import { initForm, dictsMap, rules } from '../options'
+import { initForm, dictsMap, rules, formToDto } from '../options'
 import formMixins from '@/mixins/formMixins'
 import { insertOrUpdate, getDetailPageById } from '@/api/admin/name_list'
 import { mapGetters } from 'vuex'
@@ -119,7 +117,6 @@ export default {
       form: initForm(),
       preForm: initForm(),
       rules,
-      // preData: {},
     }
   },
   created () {
@@ -140,17 +137,24 @@ export default {
     ]),
   },
   methods: {
+    checkMobile () {
+      const partten = /^(13[0-9]|14[0-9]|15[0-9]|16[6]|18[0-9]|19[6,9]|17[0-9])\d{8}$/i
+      const flag = partten.test(this.form.phone)
+      if (!flag) this.$message('请输入正确的手机号码')
+    },
     loadPage () {
       if (this.isEdit) {
         getDetailPageById(this.id).then(({ data }) => {
           this.form = this.$mergeByFirst(initForm(), data.data)
           this.preForm = this.$mergeByFirst(initForm(), data.data)
-          const { politicsValue, marriageValue, birthValue, residentValue, educationValue } = data.data
+          const { politicsValue, marriageValue, birthValue, residentValue, educationValue, province, city, birthplaceProvince, birthplaceCity } = data.data
           this.form.politicsStatus = politicsValue
           this.form.marriageStatus = marriageValue
           this.form.birthStatus = birthValue
           this.form.residentType = residentValue
           this.form.education = educationValue
+          this.form.current = [province, city]
+          this.form.residence = [birthplaceProvince, birthplaceCity]
         })
       }
     },
@@ -161,14 +165,14 @@ export default {
         if (this.preForm.birthValue === this.form.birthStatus) this.form.birthStatus = this.preForm.birthStatus
         if (this.preForm.residentValue === this.form.residentType) this.form.residentType = this.preForm.residentType
         if (this.preForm.educationValue === this.form.education) this.form.education = this.preForm.education
-        const { data } = await insertOrUpdate({ ...this.form, id: this.id })
+        const { data } = await insertOrUpdate({ ...formToDto(this.form), id: this.id })
         if (data.data) {
           this.$router.history.go(-1)
         } else {
           this.$message(data.msg)
         }
       } else {
-        const { data } = await insertOrUpdate(this.form)
+        const { data } = await insertOrUpdate(formToDto(this.form))
         if (data.data) {
           this.$router.history.go(-1)
         } else {

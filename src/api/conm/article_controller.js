@@ -17,6 +17,14 @@ export function getPageByIndexId (id) {
     method: 'get',
   })
 }
+//文章迁移
+export function postTransferNode (obj) {
+  return request({
+    url: `${prefixUrl}/transfer_node`,
+    method: 'post',
+    data: obj,
+  })
+}
 
 //添加文章
 export function addObj (obj) {

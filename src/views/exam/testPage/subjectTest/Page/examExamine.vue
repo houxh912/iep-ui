@@ -38,7 +38,7 @@
                     <span v-else>/</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="填空题" align="center">
+                <el-table-column label="填空题" align="center" v-if="completionMap.length>0">
                   <template slot-scope="scope">
                     <span v-if="scope.row.completion">{{Number.isNaN(Number(scope.row.completion)) ?
                       scope.row.completion : Number(scope.row.completion)}}</span>
@@ -62,7 +62,7 @@
                 <el-table-column label="卷面总分" align="center">
                   <template slot-scope="scope">
                     <span
-                      v-if="scope.$index!=2">{{Number(scope.row.radio)+Number(scope.row.checkbox)+Number(scope.row.checked)+Number(scope.row.completion)+Number(scope.row.operation)+Number(scope.row.text)}}</span>
+                      v-if="scope.$index!=2">{{Number(scope.row.radio)+Number(scope.row.checkbox)+Number(scope.row.checked)+Number(scope.row.completion?scope.row.completion:'')+Number(scope.row.operation)+Number(scope.row.text)}}</span>
                     <span v-else>/</span>
                   </template>
                 </el-table-column>
@@ -373,10 +373,10 @@ export default {
         // 总分
         this.textMap = resultInfo.result.textMap
         this.operationMap = resultInfo.result.operationMap
-        this.completionMap = resultInfo.result.completionMap
+        this.completionMap = resultInfo.result.completionMap ? resultInfo.result.completionMap : []
         const score = this.performanceInfor.examBankTypeTranlVos[0]
 
-        this.totalScore = Number(score.radio) + Number(score.checkbox) + Number(score.checked) + Number(score.operation) + Number(score.text) + Number(score.completion)
+        this.totalScore = Number(score.radio) + Number(score.checkbox) + Number(score.checked) + Number(score.operation) + Number(score.text) + Number(score.completion?score.completion:'')
         if (!Number.isNaN(Number(score.face))) {
           this.totalScore += Number(score.face)
         }

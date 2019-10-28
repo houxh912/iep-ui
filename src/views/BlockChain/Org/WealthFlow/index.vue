@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="组织交易流水"></iep-page-header>
+      <iep-page-header title="组织交易流水" :replaceText="replaceText" :data="statistics"></iep-page-header>
       <operation-container>
         <template slot="right">
           <operation-search @search-page="searchPage"></operation-search>
@@ -74,14 +74,17 @@ export default {
           type: 'detail',
         },
       ],
+      statistics: [0, 0, 0, 0, 0],// 共发生56笔交易，24笔收入，共计20000，32笔支出，共计20000
+      replaceText: (data) => `（共发生${data[0]}笔交易，${data[1]}笔收入，共计${data[2]}，${data[3]}笔支出，共计${data[4]}）`,
     }
   },
   created () {
     this.loadPage()
   },
   methods: {
-    loadPage (param = this.searchForm) {
-      this.loadTable(param, getOrgPage)
+    async loadPage (param = this.searchForm) {
+      const data = await this.loadTable(param, getOrgPage)
+      this.statistics = this.$fillStatisticsArray(this.statistics, data.statistics)
     },
   },
 }

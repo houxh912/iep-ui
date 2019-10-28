@@ -104,13 +104,9 @@ export default {
         this.upload = this.toPercent(res.data.data.softwareQuantity, res.data.data.clientQuantity)
         if (this.visits == Infinity || window.isNaN(this.visits) === true) {
           this.visits = 0
-        } else {
-          this.visits = this.visits
         }
         if (this.upload == Infinity || window.isNaN(this.upload) === true) {
           this.upload = 0
-        } else {
-          this.upload = this.upload
         }
       })
       getMyClientRelaMax().then(res => {

@@ -40,20 +40,27 @@
 
                 <div v-if="resdata.questionTypeName ==='判断题'">
                   <li v-for="(item,index) in trueOrFalseList" :key="index">
-                    <el-radio v-model="trueOrFalseRadio" :label="item" @change="handleTrueOrFalse ()">
+                    <el-radio v-model="trueOrFalseRadio" :label="item">
                     </el-radio>
+                  </li>
+                </div>
+
+                <div v-if="resdata.questionTypeName ==='填空题'">
+                  <li v-for="(item,index) in gapAreaList" :key="index" style="margin-left:28px;">
+                    <!-- <el-input v-model="gapInput" :placeholder="placeholderTip" maxlength='200' type="textarea" :rows="6"></el-input> -->
+                    <iep-froala-editor v-model="gapInput" placeholder="若本题为填空题答案请按空格顺序排列，如有不填项请填写序号并将答案留空：<br/>1、第一个空格的答案<br/>2、第二个空格的答案；<br/>3、第三个空格的答案；<br/>...."></iep-froala-editor>
                   </li>
                 </div>
 
                 <div v-if="resdata.questionTypeName ==='简答题'">
                   <li v-for="(item,index) in inputAreaList" :key="index" style="margin-left:28px;">
-                    <iep-froala-editor v-model="freeInput" placeholder=""></iep-froala-editor>
+                    <iep-froala-editor v-model="freeInput" placeholder="请输入答案"></iep-froala-editor>
                   </li>
                 </div>
 
                 <div v-if="resdata.questionTypeName ==='操作题'">
                   <li v-for="(item,index) in operAreaList" :key="index" style="margin-left:28px;">
-                    <iep-froala-editor v-model="operInput" placeholder=""></iep-froala-editor>
+                    <iep-froala-editor v-model="operInput" placeholder="请输入答案"></iep-froala-editor>
                   </li>
                 </div>
               </div>
@@ -100,6 +107,14 @@
                   <span class="answerSheet">{{resdata.checkedMap[0].questionType}}</span>
                   <div class="answerSheetTop">
                     <iep-button class="choices" v-for="(item,index) in resdata.checkedMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
+                      {{item.questionNum}}</iep-button>
+                  </div><br>
+                </div>
+
+                <div v-if="resdata.completionMap.length > 0">
+                  <span class="answerSheet">{{resdata.completionMap[0].questionType}}</span>
+                  <div class="answerSheetTop">
+                    <iep-button class="choices" v-for="(item,index) in resdata.completionMap" :key="index" @click="handleCard(item)" :class="{'activess':item.answerOrNot===1,'active': item.questionNum == resdata.questionNum}">
                       {{item.questionNum}}</iep-button>
                   </div><br>
                 </div>
@@ -170,39 +185,37 @@ export default {
       answerRadio: '',        //单选(v-model绑定的值)
       checksList: [],         //复选(v-model绑定的值)
       trueOrFalseRadio: '',   //判断(v-model绑定的值)
+      gapInput:'',            //简单(v-model绑定的值)
       freeInput: '',          //简答(v-model绑定的值)
       operInput: '',          //操作(v-model绑定的值)
       trueOrFalseList: ['正确', '错误'],
+      gapAreaList:[''],
       inputAreaList: [''],
       operAreaList: [''],
-      // questionExplain: '本题来源于国脉内网、水巢、数据基因、技能类、知识类、数据能力类、基本能力类、项目管理类、公司常识类、人力资源类等。',
       mins: '',
       secs: '',
       time: '',   //定义定时器
-      // examNo: '2019052568969',
       chartData: {
         columns: ['是否完成', '进度'],
         rows: '',
       },
-      // statusColor: function (val) {
-      //   if (val.answerOrNot === 1) {
-      //     return 'background:#409eff;borderColor:#409eff;color:#fff'
-      //   } else {
-      //     return 'background:#fff;color:#409eff'
-      //   }
-      // },
       resdata: {
         kindTotalNum: '',    //每种题型合计题数
-        kindMark: '',        //每种题型合计分数
         questionOffNum: [],  //全部已完成的题目总数
-        questionTotalNum: '',//全部的题目总数
+        questionTotalNum: 0, //全部的题目总数
         titleOptions: [],    //答案选项数组
         radioMap: [],        //答题卡片的单选题数组集合，从数组中遍历题目出来
         checkboxMap: [],     //答题卡片的复选题数组集合，从数组中遍历题目出来
         checkedMap: [],      //答题卡片的判断题数组集合，从数组中遍历题目出来
         textMap: [],         //答题卡片的简答题数组集合，从数组中遍历题目出来
         operationMap: [],    //答题卡片的操作题数组集合，从数组中遍历题目出来
+        completionMap: [],   //答题卡片的填空题数组集合，从数组中遍历题目出来
       },
+      placeholderTip:'填空题答案请按空格顺序排列，如有不填项请填写序号并将答案留空：&#13;&#10;' +
+       '1、第一个空格的答案；&#13;&#10;' +
+       '2、第二个空格的答案；&#13;&#10;' +
+       '3、第三个空格的答案；&#13;&#10;' +
+       '....',
     }
   },
   watch: {
@@ -230,32 +243,24 @@ export default {
     count: function () {
       return this.offNum()
     },
+    qtTotalNum: function () {
+      return this.totalNum()
+    },
   },
   mounted () {
     // this.timer()
   },
   created () {
-    // console.log('record => ', this.record)
     this.loadPage()
   },
   beforeDestroy () {
-    // this.saveAll()   //去到其他界面将自动保存
     clearInterval(this.time)
     this.time = null
-
   },
   destroyed () {
 
   },
   methods: {
-
-    /**
-     * 判断题
-     */
-    handleTrueOrFalse () {
-      // console.log('handleTrueOrFalse => ' + item)
-    },
-
     /**
      * 判断题型(公用方法)
      */
@@ -268,10 +273,12 @@ export default {
       }
       if (type === '复选题') {
         params.userAnswer = this.checksList.length > 0 ? JSON.stringify(this.checksList.sort()) : ''
-        // console.log('111', params.userAnswer)
       }
       if (type === '判断题') {
         params.userAnswer = this.trueOrFalseRadio
+      }
+      if (type === '填空题') {
+        params.userAnswer = this.gapInput
       }
       if (type === '简答题') {
         params.userAnswer = this.freeInput
@@ -301,40 +308,42 @@ export default {
             this.chartData.rows = record.questionStatus
             this.resdata = record
             this.resdata.questionOffNum = record.questionNumList
-            this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length + record.questionNumList.operationMap.length
             this.resdata.titleOptions = record.titleOptions ? JSON.parse(record.titleOptions) : []
             this.resdata.radioMap = record.questionNumList.radioMap
             this.resdata.checkboxMap = record.questionNumList.checkboxMap
             this.resdata.checkedMap = record.questionNumList.checkedMap
             this.resdata.textMap = record.questionNumList.textMap
             this.resdata.operationMap = record.questionNumList.operationMap
-            if (record.questionTypeName === '单选题') {
+            this.resdata.completionMap = record.questionNumList.completionMap || []
+           
+           if (record.questionTypeName === '单选题') {
               this.answerRadio = record.userAnswer
               this.resdata.kindTotalNum = record.questionNumList.radioMap.length
-              this.resdata.kindMark = record.questionNumList.radioMap[0].grade * this.resdata.kindTotalNum
             }
 
             if (record.questionTypeName === '复选题') {
-              // console.log('222', this.checksList)
               this.checksList = record.userAnswer && record.userAnswer.length > 0 ? JSON.parse(record.userAnswer) : []
-              // console.log('333', this.checksList)
               this.resdata.kindTotalNum = record.questionNumList.checkboxMap.length
-              this.resdata.kindMark = record.questionNumList.checkboxMap[0].grade * this.resdata.kindTotalNum
             }
+
             if (record.questionTypeName === '判断题') {
               this.trueOrFalseRadio = record.userAnswer
               this.resdata.kindTotalNum = record.questionNumList.checkedMap.length
-              this.resdata.kindMark = record.questionNumList.checkedMap[0].grade * this.resdata.kindTotalNum
             }
+
+            if (record.questionTypeName === '填空题') {
+              this.gapInput = record.userAnswer || ''
+              this.resdata.kindTotalNum = record.questionNumList.completionMap ? record.questionNumList.completionMap.length : []
+            }
+
             if (record.questionTypeName === '简答题') {
               this.freeInput = record.userAnswer || ''
               this.resdata.kindTotalNum = record.questionNumList.textMap.length
-              this.resdata.kindMark = record.questionNumList.textMap[0].grade * this.resdata.kindTotalNum
             }
+
             if (record.questionTypeName === '操作题') {
               this.operInput = record.userAnswer || ''
               this.resdata.kindTotalNum = record.questionNumList.operationMap.length
-              this.resdata.kindMark = record.questionNumList.operationMap[0].grade * this.resdata.kindTotalNum
             }
           }
           this.loading = false
@@ -377,7 +386,6 @@ export default {
      * 首次进入页面加载题目
      */
     loadPage () {
-      //const times = true
       const params = {
         examId: this.record.id,
         datiFrequency: this.record.answerNumber,
@@ -392,40 +400,18 @@ export default {
      */
     kindOffNum () {
       let kindcount = 0
+      let typelist = []
       const type = this.resdata.questionTypeName
-      if (type === '单选题') {
-        for (let i = 0; i < this.resdata.radioMap.length; i++) {
-          if (this.resdata.radioMap[i].answerOrNot > 0) {
-            kindcount++
-          }
-        }
-      }
-      if (type === '复选题') {
-        for (let i = 0; i < this.resdata.checkboxMap.length; i++) {
-          if (this.resdata.checkboxMap[i].answerOrNot > 0) {
-            kindcount++
-          }
-        }
-      }
-      if (type === '判断题') {
-        for (let i = 0; i < this.resdata.checkedMap.length; i++) {
-          if (this.resdata.checkedMap[i].answerOrNot > 0) {
-            kindcount++
-          }
-        }
-      }
-      if (type === '简答题') {
-        for (let i = 0; i < this.resdata.textMap.length; i++) {
-          if (this.resdata.textMap[i].answerOrNot > 0) {
-            kindcount++
-          }
-        }
-      }
-      if (type === '操作题') {
-        for (let i = 0; i < this.resdata.operationMap.length; i++) {
-          if (this.resdata.operationMap[i].answerOrNot > 0) {
-            kindcount++
-          }
+      if(type === '单选题') { typelist = this.resdata.radioMap }
+      if(type === '复选题') { typelist = this.resdata.checkboxMap }
+      if(type === '判断题') { typelist = this.resdata.checkedMap }
+      if(type === '填空题') { typelist = this.resdata.completionMap }
+      if(type === '简答题') { typelist = this.resdata.textMap }
+      if(type === '操作题') { typelist = this.resdata.operationMap }
+
+      for (let i = 0; i < typelist.length; i++) {
+        if(typelist[i].answerOrNot > 0){
+          kindcount++
         }
       }
       return kindcount
@@ -447,19 +433,21 @@ export default {
           }
         }
       }
-      //console.log('counts33', counts)
       return counts
+    },
 
-      // for (let i = 0; i < this.resdata.questionOffNum.length; i++) {
-      //   if (this.resdata.questionOffNum[i].length > 0) {
-      //     let resultArr = this.resdata.questionOffNum[i]
-      //     for (let j = 0; j < resultArr.length; j++) {
-      //       if (resultArr[j].answerOrNot > 0) {
-      //         counts++
-      //       }
-      //     }
-      //   }
-      // }
+    /**
+     *计算总的题数总数
+     */
+    totalNum () {
+      let total = 0
+      for (const key in this.resdata.questionOffNum) {
+        if(this.resdata.questionOffNum.hasOwnProperty(key)){
+          const element = this.resdata.questionOffNum[key]
+          total += element.length
+        }
+      }
+      this.resdata.questionTotalNum = total
     },
 
     /** 

@@ -2,8 +2,7 @@
   <div style="position: fixed;z-index: 1000">
     <im-ui-small v-show="showType === 'none'" @showLarge="showType = 'large'"></im-ui-small>
     <im-ui-large v-show="showType === 'large'" @showSmall="showType = 'small'"></im-ui-large>
-    <chat-box v-show="$store.getters.imCurrentChatList.length > 0 && $store.getters.imChatShow"
-      @sendMessage="sendMessage"></chat-box>
+    <chat-box v-show="$store.getters.imCurrentChatList.length > 0 && $store.getters.imChatShow" @sendMessage="sendMessage"></chat-box>
     <consultation v-show="true" @showLarge="showType = 'large'"></consultation>
   </div>
 </template>
@@ -83,18 +82,18 @@ export default {
             unread: (body.targetName === this.userInfo.username && `user${body.otherId}` !== this.imCurrentChat.chatNo) ? 1 : 0,
           })
           if ((body.targetName === this.userInfo.username ? body.resourceName : body.targetName) === this.imCurrentChat.username) {
-            clearUnread({type: 1, targetId: body.otherId})
+            clearUnread({ type: 1, targetId: body.otherId })
           }
         })
         this.stompClient.subscribe(`/self/system/${this.userInfo.userId}`, (data) => {
           let body = JSON.parse(data.body)
-          if (body.msgType === 1 || body.msgType === 2  || body.msgType === 4 || body.msgType === 6) {
+          if (body.msgType === 1 || body.msgType === 2 || body.msgType === 4 || body.msgType === 6) {
             this.$store.commit('updateGroup', {
               id: body.groupId,
               groupName: body.groupName,
               avatar: body.groupAvatar,
               originatorId: body.originatorId,
-              type:body.msgType === 1 || body.msgType === 2,
+              type: body.msgType === 1 || body.msgType === 2,
             })
             if (body.msgType === 4 || body.msgType === 6) {
               let imCurrentChatList = this.$store.getters.imCurrentChatList
@@ -102,11 +101,11 @@ export default {
                 if (imCurrentChatList[i].chatNo === `group${body.groupId}`) {
                   if (`group${body.groupId}` === this.imCurrentChat.chatNo) {
                     if (i > 0) {
-                      this.$store.dispatch('updateCurrentChat', {chat: imCurrentChatList[i - 1], show: true})
+                      this.$store.dispatch('updateCurrentChat', { chat: imCurrentChatList[i - 1], show: true })
                     } else if (imCurrentChatList.length > 1) {
-                      this.$store.dispatch('updateCurrentChat', {chat: imCurrentChatList[1], show: true})
+                      this.$store.dispatch('updateCurrentChat', { chat: imCurrentChatList[1], show: true })
                     } else {
-                      this.$store.dispatch('updateCurrentChat', {chat: null, show: true})
+                      this.$store.dispatch('updateCurrentChat', { chat: null, show: true })
                     }
                   }
                   this.$store.commit('closeCurrentChatList', i)
@@ -128,7 +127,7 @@ export default {
         console.warn(err)
       })
     },
-    sendMessage ({receiver, message, messageType}) {
+    sendMessage ({ receiver, message, messageType }) {
       let data = JSON.stringify({
         msg: message,
         type: receiver.type,
@@ -170,10 +169,10 @@ export default {
               unread: (body.resourceName !== this.userInfo.username && `group${body.otherId}` !== this.imCurrentChat.chatNo) ? 1 : 0,
             })
             if (`group${body.otherId}` === this.imCurrentChat.chatNo) {
-              clearUnread({type: 2, targetId: body.otherId})
+              clearUnread({ type: 2, targetId: body.otherId })
             }
           })
-          this.subscribeMap = {...this.subscribeMap, ...subscribe}
+          this.subscribeMap = { ...this.subscribeMap, ...subscribe }
         }
       }
       let subscribeMap = Object.assign({}, this.subscribeMap)
@@ -193,7 +192,7 @@ export default {
   },
   computed: {
     ...mapGetters(
-      ['imCurrentChat', 'userInfo', 'imGroups']
+      ['imCurrentChat', 'userInfo', 'imGroups'],
     ),
   },
   watch: {

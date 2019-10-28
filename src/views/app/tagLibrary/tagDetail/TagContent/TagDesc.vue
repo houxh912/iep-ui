@@ -5,7 +5,7 @@
         <div class="left">
           <p class="title">{{form.name}}</p>
           <span class="sign" v-for="typeName in form.typeNames" :key="typeName">{{typeName}}</span>
-          <div class="edit" @click="handleCreate" v-if="isAddState"><i class="icon-bianji"></i> 添加介绍</div>
+          <div class="edit" @click="handleCreate"><i class="icon-bianji"></i> 添加介绍</div>
         </div>
         <span class="explain">
           <i class="icon-wenhao"></i>
@@ -21,7 +21,7 @@
           <div class="introduce-item" v-for="(item, index) in introduceList.slice(0, 1)" :key="index">
             {{item.description}} —— {{item.creatorRealName}} <i class="icon-bianji" v-if="userInfo.userId === item.creatorId" @click="handleUpdate(item)"></i>
           </div>
-          <div class="load-more" @click="handleMore">
+          <div class="load-more" @click="handleMore" v-if="moreState">
             -------   加载更多   -------
           </div>
         </div>
@@ -84,11 +84,11 @@ export default {
           this.moreState = false
         }
         // 判断当前登陆用户是否添加过介绍
-        for (let item of this.introduceList) {
-          if (item.creatorId === this.userInfo.userId) {
-            this.isAddState = false
-          }
-        }
+        // for (let item of this.introduceList) {
+        //   if (item.creatorId === this.userInfo.userId) {
+        //     this.isAddState = false
+        //   }
+        // }
       })
     },
     getIntroduceMore () {

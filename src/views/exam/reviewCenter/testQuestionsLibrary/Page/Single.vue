@@ -62,7 +62,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="答案：" prop="inputShortAnswer" v-if="postAnswer == 10 || postAnswer == 10000">
+      <el-form-item label="答案：" prop="inputShortAnswer" v-if="postAnswer == 10 || postAnswer == 10000 || postAnswer == 10011">
         <el-input type="textarea" rows="3" v-model="ruleForm.inputShortAnswer" placeholder="请填写答案"
           style="width:93.5%;" :readonly="btnDisabled" maxlength="500" show-word-limit></el-input>
       </el-form-item>
@@ -224,7 +224,7 @@ export default {
             else
               flag = true
           }
-          if (this.postAnswer == 10 || this.postAnswer == 10000) {
+          if (this.postAnswer == 10 || this.postAnswer == 10000 || this.postAnswer == 10011) {
             this.ruleForm.answer = this.ruleForm.inputShortAnswer
             flag = true
             // if (this.ruleForm.inputShortAnswer.length == 0) {

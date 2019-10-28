@@ -232,7 +232,7 @@ export function examForm () {
     excellentLine: '',//优秀线
     reward: '',//奖励国脉贝
     description: '',//考试说明
-    showResult: 1,//考完后是否显示成绩
+    showResult: null,//考完后是否显示成绩
     showAnswer: '',//考完后是否显示答案和解析
     showComment: '',//是否显示面试评语
     oncludingRemarks: '',//考试结束语
@@ -328,6 +328,9 @@ export const examFormRules = {
   ],
   datiFrequency:[
     { required: true, message: '请选择答题次数', trigger: 'change' },      
+  ],
+  showResult: [
+    { required: true, message: '请选择出成绩的方式', trigger: 'change' },
   ],
 }
 

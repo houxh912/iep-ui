@@ -75,7 +75,7 @@ export default {
         isBack: true,
         backPath: '',
         backFunction: () => {
-          this.$router.push('/tms/management')
+          this.$router.push('/tms/manage/management')
         },
       },
       columnsMap: [

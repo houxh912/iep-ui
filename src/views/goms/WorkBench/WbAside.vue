@@ -67,28 +67,33 @@
 import mixins from '@/mixins/mixins'
 import { getOrgBySelf, unSetOrgAdmin, setOrgAdmin, toggleOrgOpen } from '@/api/goms/org'
 import AddAdminDialog from './AddAdminDialog'
-import { initAddAdminForm } from './options'
+import { initForm } from './options'
+const initSwitchForm = () => {
+  return {
+    logo: '',
+    name: '',
+    managerList: [],
+    memberNum: 0,
+    deptNum: 0,
+    isOpen: true,
+    isUserLocked: true,
+    outOpen: true,
+    joinNoA: true,
+  }
+}
 export default {
   mixins: [mixins],
   components: { AddAdminDialog },
   data () {
     return {
       pageLoading: true,
-      form: {
-        logo: '',
-        name: '',
-        managerList: [],
-        memberNum: 0,
-        deptNum: 0,
-        isOpen: true,
-        isUserLocked: true,
-      },
+      form: initSwitchForm(),
       data: [
         {
           title: '对外开放',
-          propName: 'isUserLocked',
+          propName: 'outOpen',
           description: '对平台用户开放组织页面',
-          actions: { callback: () => { this.$message.success('This is a message of success') } },
+          actions: { callback: () => { this.$message('开发中') } },
         },
         {
           title: '允许加入',
@@ -107,9 +112,9 @@ export default {
         },
         {
           title: '入组免审',
-          propName: 'isUserLocked',
+          propName: 'joinNoA',
           description: '默认自动通过用户入组申请',
-          actions: { callback: () => { this.$message.error('This is a message of error') } },
+          actions: { callback: () => { this.$message.error('开发中') } },
         },
       ],
     }
@@ -121,7 +126,7 @@ export default {
     handleAddAdmin () {
       this.$refs['AddAdminDialog'].dialogShow = true
       this.$refs['AddAdminDialog'].formRequestFn = setOrgAdmin
-      this.$refs['AddAdminDialog'].form = initAddAdminForm()
+      this.$refs['AddAdminDialog'].form = initForm()
     },
     handleUnsetAdmin (id) {
       this._handleComfirm(id, unSetOrgAdmin, '撤销其管理员')
@@ -129,7 +134,7 @@ export default {
     loadPage () {
       this.pageLoading = true
       getOrgBySelf().then((res) => {
-        this.form = res.data.data
+        this.form = this.$mergeByFirst(initSwitchForm(), res.data.data)
         this.pageLoading = false
       })
     },

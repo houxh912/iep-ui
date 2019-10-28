@@ -12,7 +12,7 @@
           </div>
           <div class="style-item">
             <a class="style" :href="`${this.ican_host}org/${form.orgId}.html`">SO风采</a>
-            <a class="style" @click.prevent="$openPage(`/goms/basic_configuration/organization_information`)">完善SO</a>
+            <a v-if="sys_role_add" class="style" @click.prevent="$openPage(`/goms/basic_configuration/organization_information`)">完善SO</a>
           </div>
         </div>
         <div class="detail-wrapper">
@@ -58,6 +58,7 @@
 </template>
 <script>
 import website from '@/const/website'
+import { mapGetters } from 'vuex'
 import { getOrgProfile } from '@/api/wel/et'
 export default {
   data () {
@@ -72,10 +73,15 @@ export default {
         orgId: 0,
         orgType: '1',
       },
+      sys_role_add: false,
     }
+  },
+  computed: {
+    ...mapGetters(['permissions']),
   },
   created () {
     this.loadPage()
+    this.sys_role_add = this.permissions['sys_role_add']
   },
   methods: {
     async loadPage () {
@@ -93,9 +99,9 @@ export default {
   > div {
     width: 100%;
     text-align: center;
-    border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
     color: #999;
-    &:last-child {
+    &:first-child {
       border: none;
     }
   }
@@ -127,9 +133,9 @@ export default {
     .style {
       color: $--color-primary;
       padding: 0 8px;
-      border-right: 1px solid;
-      &:nth-child(2) {
-        border-right: none;
+      border-left: 1px solid;
+      &:first-child {
+        border: none;
       }
     }
   }

@@ -136,7 +136,7 @@ export default {
           this.$refs['PermissionDialogForm'].checkedKeys = this.resolveAllEunuchNodeId(
             this.$refs['PermissionDialogForm'].treeData,
             this.$refs['PermissionDialogForm'].checkedKeys,
-            []
+            [],
           )
           this.$refs['PermissionDialogForm'].roleId = row.roleId
           this.$refs['PermissionDialogForm'].roleCode = row.roleCode

@@ -38,6 +38,13 @@
                     <span v-else>/</span>
                   </template>
                 </el-table-column>
+                <el-table-column label="填空题" align="center" v-if="completionMap.length>0">
+                  <template slot-scope="scope">
+                    <span v-if="scope.row.completion">{{Number.isNaN(Number(scope.row.completion)) ?
+                      scope.row.completion : Number(scope.row.completion)}}</span>
+                    <span v-else>/</span>
+                  </template>
+                </el-table-column>
                 <el-table-column label="操作题" align="center">
                   <template slot-scope="scope">
                     <span v-if="scope.row.operation">{{Number.isNaN(Number(scope.row.operation)) ?
@@ -55,7 +62,7 @@
                 <el-table-column label="卷面总分" align="center">
                   <template slot-scope="scope">
                     <span
-                      v-if="scope.$index!=2">{{Number(scope.row.radio)+Number(scope.row.checkbox)+Number(scope.row.checked)+Number(scope.row.operation)+Number(scope.row.text)}}</span>
+                      v-if="scope.$index!=2">{{Number(scope.row.radio)+Number(scope.row.checkbox)+Number(scope.row.checked)+Number(scope.row.completion?scope.row.completion:'')+Number(scope.row.operation)+Number(scope.row.text)}}</span>
                     <span v-else>/</span>
                   </template>
                 </el-table-column>
@@ -144,6 +151,25 @@
                 </ul>
               </el-card>
 
+              <el-card class="question-result" shadow="hover" v-if="completionMap.length>0">
+                <div slot="header" class="clearfix">
+                  <h3>填空题 (共{{completionMap.length}}题)</h3>
+                </div>
+                <ul>
+                  <li v-for="(textItem,index) in completionMap" :key="index+1"
+                    :id="'completion_'+(index+1)">
+                    <div class="question-title">
+                      {{textItem.questionNum}}）{{textItem.title}}<span>({{textItem.grade}}分)</span>
+                    </div>
+                    <iep-html v-model="textItem.userAnswer"></iep-html>
+                    <div class="question-analysis">
+                      <p>正确答案：<span>{{textItem.itemAnswer}}</span></p>
+                      <p>答案解析：<span>{{textItem.itemExplain}}</span></p>
+                    </div>
+                  </li>
+                </ul>
+              </el-card>
+
               <el-card class="question-result" shadow="hover" v-if="operationMap.length>0">
                 <div slot="header" class="clearfix">
                   <h3>操作题 (共{{operationMap.length}}题)</h3>
@@ -226,6 +252,16 @@
                 </div>
               </div>
 
+              <div class="response-content" v-if="completionMap.length>0">
+                <div class="response-questionTitle">
+                  <span>{{completionMap[0].questionTypeName}}</span>
+                </div>
+                <div class="response-questionMark">
+                  <a class="choices text" v-for="(item,index) in completionMap" :key="index+1"
+                    :href="'#completion_'+(index+1)">{{item.questionNum}}</a>
+                </div>
+              </div>
+
               <div class="response-content" v-if="operationMap.length>0">
                 <div class="response-questionTitle">
                   <span>{{operationMap[0].questionTypeName}}</span>
@@ -276,6 +312,7 @@ export default {
       checkedMap: [],
       textMap: [],
       operationMap: [],
+      completionMap:[],
       totalScore: '',
     }
   },
@@ -336,9 +373,10 @@ export default {
         // 总分
         this.textMap = resultInfo.result.textMap
         this.operationMap = resultInfo.result.operationMap
+        this.completionMap = resultInfo.result.completionMap ? resultInfo.result.completionMap : []
         const score = this.performanceInfor.examBankTypeTranlVos[0]
 
-        this.totalScore = Number(score.radio) + Number(score.checkbox) + Number(score.checked) + Number(score.operation) + Number(score.text)
+        this.totalScore = Number(score.radio) + Number(score.checkbox) + Number(score.checked) + Number(score.operation) + Number(score.text) + Number(score.completion?score.completion:'')
         if (!Number.isNaN(Number(score.face))) {
           this.totalScore += Number(score.face)
         }

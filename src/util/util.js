@@ -252,7 +252,7 @@ export const openWindow = (url, title, w, h) => {
     ', top=' +
     top +
     ', left=' +
-    left
+    left,
   )
 
   // Puts focus on the newWindow

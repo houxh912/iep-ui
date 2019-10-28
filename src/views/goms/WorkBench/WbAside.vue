@@ -85,6 +85,12 @@ export default {
       },
       data: [
         {
+          title: '对外开放',
+          propName: 'isUserLocked',
+          description: '对平台用户开放组织页面',
+          actions: { callback: () => { this.$message.success('This is a message of success') } },
+        },
+        {
           title: '允许加入',
           propName: 'isOpen',
           description: '允许用户申请加入组织',
@@ -99,18 +105,12 @@ export default {
             },
           },
         },
-        // {
-        //   title: '开启审理员审核',
-        //   propName: 'isUserLocked',
-        //   description: '用户加入组织需通过管理员审核',
-        //   actions: { callback: () => { this.$message.success('This is a message of success') } },
-        // },
-        // {
-        //   title: '组织邀请码',
-        //   propName: 'isUserLocked',
-        //   description: '下载二维码邀请用户加入',
-        //   actions: { callback: () => { this.$message.error('This is a message of error') } },
-        // },
+        {
+          title: '入组免审',
+          propName: 'isUserLocked',
+          description: '默认自动通过用户入组申请',
+          actions: { callback: () => { this.$message.error('This is a message of error') } },
+        },
       ],
     }
   },

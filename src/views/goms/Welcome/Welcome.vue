@@ -80,7 +80,7 @@
                 <div class="reward">
                   <get-button v-if="form.extendMember >= 10" :rules="rules" :id="3" @load-page="loadPage"></get-button>
                   <div v-else>
-                    <iep-button class="btn-block" round>{{form.extendMember >= 10?'已':'未'}}完成</iep-button>
+                    <iep-button class="btn-block" round>{{form.extendMember === -1?'已':'未'}}完成</iep-button>
                     <!-- <iep-button round v-if="form.extendMember>=0">{{form.extendMember}} / 10</iep-button> -->
                     <!-- <iep-button round v-if="form.extendMember === -1"> +{{rules[2]}} 贝</iep-button> -->
                   </div>

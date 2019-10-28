@@ -16,7 +16,7 @@
               </el-menu-item>
             </el-submenu> -->
             <el-menu-item index="1" @click.native="handleAllPeople(1001)">
-              <span slot="title">国脉人</span>
+              <span slot="title">{{contactsName}}</span>
             </el-menu-item>
             <el-submenu index="2" collapse>
               <template slot="title">
@@ -54,7 +54,7 @@
   </div>
 </template>
 <script>
-import { joinRelationship, getRelationshipList, deleteRelationshipList, putRelationshipList } from '@/api/wel/relationship_manage'
+import { joinRelationship, getRelationshipList, deleteRelationshipList, putRelationshipList, getContactsName } from '@/api/wel/relationship_manage'
 import mixins from '@/mixins/mixins'
 import formMixins from '@/mixins/formMixins'
 import DialogForm from './DialogForm'
@@ -90,6 +90,7 @@ export default {
       ],
       relationship: [
       ],
+      contactsName: '国脉人',
     }
   },
   computed: {
@@ -162,6 +163,9 @@ export default {
     loadPage () {
       getRelationshipList().then(({ data }) => {
         this.relationship = data.data
+      })
+      getContactsName().then(({ data }) => {
+        this.contactsName = data.data
       })
       this.$nextTick(() => {
         this.$refs['pageList'].searchPage()

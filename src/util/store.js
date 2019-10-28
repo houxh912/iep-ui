@@ -14,7 +14,7 @@ export const setCookies = (
   option = {
     expires: 1,
     domain: '.' + getLocation(),
-  }
+  },
 ) => {
   Cookies.set(key, value, option)
 }
@@ -101,7 +101,7 @@ export const getAllStore = params => {
           content: getStore({
             name: window.localStorage.key(i),
           }),
-        })
+        }),
       )
     }
   }

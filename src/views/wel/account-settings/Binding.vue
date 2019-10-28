@@ -97,7 +97,7 @@ export default {
     handleBind (thirdpart) {
       let appid, client_id, redirect_uri, url
       redirect_uri = encodeURIComponent(
-        window.location.origin + '/authredirect?type=bind&redirect=' + this.$route.path
+        window.location.origin + '/authredirect?type=bind&redirect=' + this.$route.path,
       )
       if (thirdpart === 'WX') {
         appid = this.$wxAppId

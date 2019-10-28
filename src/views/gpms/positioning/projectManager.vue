@@ -54,7 +54,7 @@ export default {
                 offset: 1,
                 color: '#b8d4c7',
               },
-              ]
+            ],
             )], [1, '#eee']],
             width: 15,
           },
@@ -103,7 +103,7 @@ export default {
                 offset: 1,
                 color: '#b8d4c7',
               },
-              ]
+            ],
             )], [1, '#eee']],
             width: 15,
           },
@@ -152,7 +152,7 @@ export default {
                 offset: 1,
                 color: '#c6e4f1',
               },
-              ]
+            ],
             )], [1, '#eee']],
             width: 15,
           },
@@ -201,7 +201,7 @@ export default {
                 offset: 1,
                 color: '#c6e4f1',
               },
-              ]
+            ],
             )], [1, '#eee']],
             width: 15,
           },

@@ -47,7 +47,7 @@ import DialogForm from './DialogForm'
 import MultipleForm from '@/views/goms/Components/MultipleForm.vue'
 import { dictsMap, columnsMap, initSearchForm, initForm } from './options'
 import { gomsUserPage, delGomsUser, userLock, userUnLock, delAllGomsUser, updateGomsUser, gomsPass, gomsReject } from '@/api/admin/org'
-import { passJoins, pullUser } from '@/api/goms/org'
+import { passJoins, pullUsersWithMessage } from '@/api/goms/org'
 import { resetPassByUserId, gomsNoJoinUserPage } from '@/api/admin/user'
 export default {
   components: {
@@ -77,7 +77,7 @@ export default {
     handleAddUsers () {
       this.$refs['MultipleForm'].selectList = []
       this.$refs['MultipleForm'].searchForm = {}
-      this.$refs['MultipleForm'].putRequestFunction = pullUser
+      this.$refs['MultipleForm'].putRequestFunction = pullUsersWithMessage
       this.$refs['MultipleForm'].getRequestFunction = gomsNoJoinUserPage
       this.$refs['MultipleForm'].loadPage()
       this.$refs['MultipleForm'].dialogShow = true

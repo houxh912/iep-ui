@@ -12,13 +12,13 @@
   </iep-dialog>
 </template>
 <script>
-import { initAddAdminForm } from './options'
+import { initForm } from './options'
 export default {
   data () {
     return {
       dialogShow: false,
       formRequestFn: () => { },
-      form: initAddAdminForm(),
+      form: initForm(),
       rules: {
         userId: [
           { required: true, message: '请选择管理员', trigger: 'blur' },
@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     loadPage () {
-      this.form = initAddAdminForm()
+      this.form = initForm()
       this.dialogShow = false
       this.$emit('load-page')
     },

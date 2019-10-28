@@ -115,11 +115,18 @@ export function applyObj (obj) {
   })
 }
 
-export function pullUser (ids) {
+export function pullUser (data) {
   return request({
     url: `${prefixUrl}/pull`,
     method: 'post',
-    data: ids,
+    data: data,
+  })
+}
+export function pullUsersWithMessage (data) {
+  return request({
+    url: `${prefixUrl}/invite`,
+    method: 'post',
+    data: data,
   })
 }
 

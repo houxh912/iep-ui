@@ -1,6 +1,6 @@
-const initAddAdminForm = () => {
+const initForm = () => {
   return {
     userId: null,
   }
 }
-export { initAddAdminForm }
+export { initForm }

@@ -1,8 +1,8 @@
 <template>
   <div class="center">
     <div>
-      <iep-img class="avatar" :src="form.avatar"></iep-img>
-      <div class="name">{{form.realName}}</div>
+      <iep-img class="avatar" :src="form.logo"></iep-img>
+      <div class="name">{{form.name}}</div>
       <operation-wrapper class="operation">
         <iep-button type="primary" @click="handleOk">接受</iep-button>
         <iep-button @click="handleNo">拒绝</iep-button>

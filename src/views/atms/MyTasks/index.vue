@@ -2,7 +2,7 @@
   <div class="my-tasks">
     <basic-container>
       <iep-page-header title="我的任务"></iep-page-header>
-      <el-card class="box" shadow="hover">
+      <el-card class="box" shadow="never">
         <div class="total-wrapper">
           <div class="total-item" @click="cSelectTpye('myAll')">
             <div class="value">{{myCountList.myAll}}</div>

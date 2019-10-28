@@ -11,7 +11,7 @@
   </div>
 </template>
 <script>
-import { getFriendById, getFriendAgreeReject } from '@/api/admin/friend'
+import { getOrgCard, getOrgAgreeReject } from '@/api/goms/org'
 export default {
   data () {
     return {
@@ -28,11 +28,11 @@ export default {
   },
   methods: {
     async loadPage () {
-      const { data } = await getFriendById(this.$route.params.id)
+      const { data } = await getOrgCard(this.$route.params.id)
       this.form = data.data
     },
     handleOk () {
-      getFriendAgreeReject(this.$route.params.id, 1).then(({ data }) => {
+      getOrgAgreeReject(this.$route.params.id, 1).then(({ data }) => {
         if (data.data) {
           this.$router.go(-1)
         } else {
@@ -41,7 +41,7 @@ export default {
       })
     },
     handleNo () {
-      getFriendAgreeReject(this.$route.params.id, 2).then(({ data }) => {
+      getOrgAgreeReject(this.$route.params.id, 2).then(({ data }) => {
         if (data.data) {
           this.$router.go(-1)
         } else {

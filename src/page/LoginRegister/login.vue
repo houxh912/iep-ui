@@ -7,6 +7,7 @@
       </div>
       <login-password v-if="active===1" @onredirect="_goToRedirect"></login-password>
       <login-mobile v-if="active===2" @onredirect="_goToRedirect"></login-mobile>
+      <iep-button type="text" @click="openWithRedirect('/register')">没有账号？立即注册</iep-button>
       <third></third>
     </div>
   </user-operation-layout>
@@ -30,9 +31,12 @@ export default {
     }
   },
   methods: {
-    // handleHave () {
-    //   this.$openPage('/login?redirect=/wel/account-settings/binding')
-    // },
+    openWithRedirect (url) {
+      this.$router.push({
+        path: url,
+        query: this.$route.query,
+      })
+    },
     _goToRedirect () {
       if (this.$route.query.redirect) {
         this.$openPage(this.$route.query.redirect)
@@ -47,7 +51,7 @@ export default {
 .login-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   .title {
     margin-bottom: 10px;
     display: flex;

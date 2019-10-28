@@ -118,3 +118,10 @@ export function getOrgCard (id) {
     method: 'get',
   })
 }
+
+export function getOrgAgreeReject (id, status) {
+  return request({
+    url: `${prefixUrl}/agree/reject/${id}?status=${status}`,
+    method: 'get',
+  })
+}

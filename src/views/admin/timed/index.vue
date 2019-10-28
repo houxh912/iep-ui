@@ -191,7 +191,7 @@ export default {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning',
-          }
+          },
         ).then(() => {
           startJobRa(row.jobId).then(response => {
             let code = response.data.code
@@ -250,7 +250,7 @@ export default {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             type: 'warning',
-          }
+          },
         ).then(() => {
           shutDownJobRa(row.jobId).then(response => {
             let code = response.data.code
@@ -318,7 +318,7 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
-        }
+        },
       ).then(() => {
         shutdownJobsRa().then(response => {
           let code = response.data.code
@@ -356,7 +356,7 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
-        }
+        },
       ).then(() => {
         startJobsRa().then(response => {
           let code = response.data.code
@@ -393,7 +393,7 @@ export default {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
-        }
+        },
       ).then(() => {
         refreshJobsRa().then(response => {
           let code = response.data.code
@@ -416,7 +416,7 @@ export default {
             title: '错误',
             message: '重置失败',
           })
-        }
+        },
         )
       })
     },

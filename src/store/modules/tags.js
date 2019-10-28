@@ -56,7 +56,7 @@ const navs = {
     },
     DEL_TAG_OTHER: state => {
       state.tagList = state.tagList.filter(
-        item => item.value === state.tag.value
+        item => item.value === state.tag.value,
       )
       setFistTag(state.tagList)
       setStore({ name: 'tagList', content: state.tagList, type: 'session' })

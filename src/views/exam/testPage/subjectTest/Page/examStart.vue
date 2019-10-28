@@ -202,7 +202,7 @@ export default {
       resdata: {
         kindTotalNum: '',    //每种题型合计题数
         questionOffNum: [],  //全部已完成的题目总数
-        questionTotalNum: '',//全部的题目总数
+        questionTotalNum: 0, //全部的题目总数
         titleOptions: [],    //答案选项数组
         radioMap: [],        //答题卡片的单选题数组集合，从数组中遍历题目出来
         checkboxMap: [],     //答题卡片的复选题数组集合，从数组中遍历题目出来
@@ -211,10 +211,10 @@ export default {
         operationMap: [],    //答题卡片的操作题数组集合，从数组中遍历题目出来
         completionMap: [],   //答题卡片的填空题数组集合，从数组中遍历题目出来
       },
-      placeholderTip:'填空题答案请按空格顺序排列，如有不填项请填写序号并将答案留空：<br/>' +
-       '1、第一个空格的答案<br/>' +
-       '2、第二个空格的答案；<br/>' +
-       '3、第三个空格的答案；<br/>' +
+      placeholderTip:'填空题答案请按空格顺序排列，如有不填项请填写序号并将答案留空：&#13;&#10;' +
+       '1、第一个空格的答案；&#13;&#10;' +
+       '2、第二个空格的答案；&#13;&#10;' +
+       '3、第三个空格的答案；&#13;&#10;' +
        '....',
     }
   },
@@ -242,6 +242,9 @@ export default {
     },
     count: function () {
       return this.offNum()
+    },
+    qtTotalNum: function () {
+      return this.totalNum()
     },
   },
   mounted () {
@@ -305,16 +308,15 @@ export default {
             this.chartData.rows = record.questionStatus
             this.resdata = record
             this.resdata.questionOffNum = record.questionNumList
-            this.resdata.questionTotalNum = record.questionNumList.checkboxMap.length + record.questionNumList.checkedMap.length + record.questionNumList.radioMap.length + record.questionNumList.textMap.length + record.questionNumList.operationMap.length + record.questionNumList.completionMap.length
             this.resdata.titleOptions = record.titleOptions ? JSON.parse(record.titleOptions) : []
             this.resdata.radioMap = record.questionNumList.radioMap
             this.resdata.checkboxMap = record.questionNumList.checkboxMap
             this.resdata.checkedMap = record.questionNumList.checkedMap
             this.resdata.textMap = record.questionNumList.textMap
             this.resdata.operationMap = record.questionNumList.operationMap
-            this.resdata.completionMap = record.questionNumList.completionMap
-
-            if (record.questionTypeName === '单选题') {
+            this.resdata.completionMap = record.questionNumList.completionMap || []
+           
+           if (record.questionTypeName === '单选题') {
               this.answerRadio = record.userAnswer
               this.resdata.kindTotalNum = record.questionNumList.radioMap.length
             }
@@ -331,7 +333,7 @@ export default {
 
             if (record.questionTypeName === '填空题') {
               this.gapInput = record.userAnswer || ''
-              this.resdata.kindTotalNum = record.questionNumList.completionMap.length
+              this.resdata.kindTotalNum = record.questionNumList.completionMap ? record.questionNumList.completionMap.length : []
             }
 
             if (record.questionTypeName === '简答题') {
@@ -432,6 +434,20 @@ export default {
         }
       }
       return counts
+    },
+
+    /**
+     *计算总的题数总数
+     */
+    totalNum () {
+      let total = 0
+      for (const key in this.resdata.questionOffNum) {
+        if(this.resdata.questionOffNum.hasOwnProperty(key)){
+          const element = this.resdata.questionOffNum[key]
+          total += element.length
+        }
+      }
+      this.resdata.questionTotalNum = total
     },
 
     /** 

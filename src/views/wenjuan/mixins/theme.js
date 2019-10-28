@@ -31,12 +31,12 @@ export default function () {
         const getHandler = (variable, id) => {
           return () => {
             const originalCluster = this.getThemeCluster(
-              ORIGINAL_THEME.replace('#', '')
+              ORIGINAL_THEME.replace('#', ''),
             )
             const newStyle = this.updateStyle(
               this[variable],
               originalCluster,
-              themeCluster
+              themeCluster,
             )
 
             let styleTag = document.getElementById(id)
@@ -59,18 +59,18 @@ export default function () {
         }
 
         const link = [].slice.call(
-          document.getElementsByTagName('head')[0].getElementsByTagName('link')
+          document.getElementsByTagName('head')[0].getElementsByTagName('link'),
         )
         for (let i = link.length - 3; i < link.length; i++) {
           const style = link[i]
           this.getCSSString(style.href, innerText => {
             const originalCluster = this.getThemeCluster(
-              ORIGINAL_THEME.replace('#', '')
+              ORIGINAL_THEME.replace('#', ''),
             )
             const newStyle = this.updateStyle(
               innerText,
               originalCluster,
-              themeCluster
+              themeCluster,
             )
             let styleTag = document.getElementById(i)
             if (!styleTag) {
@@ -98,7 +98,7 @@ export default function () {
           style.innerText = this.updateStyle(
             innerText,
             originalCluster,
-            themeCluster
+            themeCluster,
           )
         })
       },

@@ -69,7 +69,7 @@ export default {
     ...mapMutations({ setCollapse: 'SET_COLLAPSE' }),
     vaildAvtive (item) {
       const groupFlag = (item['group'] || []).some(ele =>
-        this.$route.path.includes(ele)
+        this.$route.path.includes(ele),
       )
       return this.nowTagValue === item[this.pathKey] || groupFlag
     },

@@ -57,7 +57,7 @@ export default {
       isAddState: true,
       firstType: true,
       current: 1,
-      moreState: true,
+      moreState: false,
     }
   },
   computed: {
@@ -80,9 +80,7 @@ export default {
         page: this.current,
       }).then(({ data }) => {
         this.introduceList = this.introduceList.concat(data.records)
-        if (data.records.length < 10) {
-          this.moreState = false
-        }
+        this.moreState = data.records.length >= 10
         // 判断当前登陆用户是否添加过介绍
         // for (let item of this.introduceList) {
         //   if (item.creatorId === this.userInfo.userId) {

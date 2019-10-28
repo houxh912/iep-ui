@@ -177,3 +177,10 @@ export function getRelationList () {
     method: 'get',
   })
 }
+
+export function getContactsName () {
+  return request({
+    url: `${prefixUrl}/contacts/custom/contacts/name`,
+    method: 'get',
+  })
+}

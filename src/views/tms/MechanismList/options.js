@@ -63,7 +63,7 @@ const initForm = () => {
 }
 const columnsMap = [
   {
-    prop: 'province',
+    prop: 'provinceName',
     label: '所属省',
   },
   {
@@ -88,6 +88,7 @@ const initSearchForm = () => {
   return {
     type: '',
     province: '',
+    city: '',
     line: '',
     claimStatus: '',
     isForbidden: '',

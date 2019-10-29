@@ -105,8 +105,8 @@ export default {
   methods: {
     loadPage () {
       this.form = initForm()
-      this.dialogShow = false
       this.$emit('load-page')
+      this.dialogShow = false
     },
     handlePass () {
       applyPass([this.form.orgId]).then(() => {

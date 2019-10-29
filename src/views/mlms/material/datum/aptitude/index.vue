@@ -32,6 +32,9 @@
             </template>
           </el-table-column>
         </template>
+        <el-table-column prop="acquireTime" label="获得时间" width="250">
+          <template slot-scope="scope">{{dateFormat(scope.row.acquireTime)}}</template>
+        </el-table-column>
         <el-table-column prop="operation" label="操作" width="220">
           <template slot-scope="scope">
             <operation-wrapper>
@@ -68,6 +71,7 @@ import CollectionDialog from '../../components/collectionDialog'
 import { mapGetters } from 'vuex'
 import DetailDialog from './detail'
 import searchForm from './searchForm'
+import { dateFormat } from '@/util/date'
 
 export default {
   mixins: [mixins],
@@ -86,6 +90,7 @@ export default {
       permission_edit_del: false,
       // eslint-disable-next-line
       lookByMeOnly: IS_ICAN,
+      dateFormat,
     }
   },
   methods: {

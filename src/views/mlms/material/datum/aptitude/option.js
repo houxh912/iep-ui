@@ -7,10 +7,6 @@ export const dictsMap = {
 
 export const tableOption = [
   {
-    label: '获得时间',
-    prop: 'acquireTime',
-    width: '250',
-  }, {
     label: '浏览次数',
     prop: 'views',
     width: '150',

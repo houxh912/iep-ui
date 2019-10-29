@@ -22,15 +22,13 @@
       <hr class="line">
 
       <iep-tabs v-model="activeTab" :tab-list="list">
-        <template v-if="activeTab ==='ExamPaper' && (isCreator || permissionRegist || permissionAll)"
-          v-slot:ExamPaper>
+        <template v-if="activeTab ==='ExamPaper' && (isCreator || permissionRegist || permissionAll)" v-slot:ExamPaper>
           <exam-paper :record="record"></exam-paper>
         </template>
         <template v-if="activeTab ==='ExamReading'" v-slot:ExamReading>
           <exam-reading :record="record"></exam-reading>
         </template>
-        <template v-if="activeTab ==='ExamRegistration' && (isCreator || permissionRegist || permissionAll)"
-          v-slot:ExamRegistration>
+        <template v-if="activeTab ==='ExamRegistration' && (isCreator || permissionRegist || permissionAll)" v-slot:ExamRegistration>
           <exam-registration :record="record"></exam-registration>
         </template>
       </iep-tabs>
@@ -86,7 +84,7 @@ export default {
     getExamTime (val) {
       const data = val.endTime == '2049-09-24 12:00:00' ? '长期有效' : `${val.beginTime} ~ ${val.endTime}`
       return data
-    },    
+    },
   },
   computed: {
     ...mapGetters(['userInfo', 'permissions']),
@@ -122,12 +120,12 @@ export default {
     this.row = row
     // console.log(this.row)
     this.activeTab = activeTab
-    this.row.fieldName = this.row.fieldName
+    this.row.fieldName = row.fieldName
     // this.row.title = this.row.title
-    this.row.choiceNum = this.row.choiceNum
-    this.row.totalScore = this.row.totalScore
-    this.row.beginTime = this.row.beginTime
-    this.row.endTime = this.row.endTime
+    this.row.choiceNum = row.choiceNum
+    this.row.totalScore = row.totalScore
+    this.row.beginTime = row.beginTime
+    this.row.endTime = row.endTime
     this.topTitle = '考试名称： ' + this.row.title
     this.setPermission()
   },

@@ -6,7 +6,6 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -w -r 0",
     "cz": "git cz",
     "report": "vue-cli-service build --report"
   },
@@ -55,7 +54,6 @@
     "babel-plugin-component": "^1.1.1",
     "babel-plugin-import": "^1.8.0",
     "commitizen": "^4.0.3",
-    "conventional-changelog-cli": "^2.0.22",
     "cz-conventional-changelog": "^3.0.2",
     "element-theme-chalk": "^2.11.0",
     "eslint": "^6.3.0",

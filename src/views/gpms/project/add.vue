@@ -525,7 +525,7 @@ export default {
       } else { // 修改
         data.relatedClient = parseInt(data.relatedClient)
         data.groupExternalCooperatePartner = parseInt(
-          data.groupExternalCooperatePartner
+          data.groupExternalCooperatePartner,
         )
         // 判断是否关联合同，若关联，修改字段，并获取到合同的金额
         if (data.contractList && data.contractList.length > 0) {

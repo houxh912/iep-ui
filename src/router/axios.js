@@ -53,7 +53,7 @@ axios.interceptors.request.use(
   },
   error => {
     return Promise.reject(error)
-  }
+  },
 )
 
 // HTTPresponse拦截
@@ -91,7 +91,7 @@ axios.interceptors.response.use(res => {
   error => {
     NProgress.done()
     return Promise.reject(new Error(error))
-  }
+  },
 )
 
 export default axios

@@ -223,7 +223,7 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .chosen-year {
   width: 0;
   height: 0;

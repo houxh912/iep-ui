@@ -17,14 +17,14 @@ export default {
   },
 }
 </script>
-<style lang="scss">
-  .dialog-layout {
-    &.auto {
-      height: calc(55vh);
-    }
-    margin: 0 -20px;
-    padding: 0px 20px;
-    overflow-x: hidden;
-    overflow-y: auto;
+<style lang="scss" scoped>
+.dialog-layout {
+  &.auto {
+    height: calc(55vh);
   }
+  margin: 0 -20px;
+  padding: 0px 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 </style>

@@ -191,7 +191,7 @@ export default {
         this.resdata.questionOffNum = record.questionNumList
         this.resdata.completionMap = record.questionNumList.completionMap || []
         this.resdata.textMap = record.questionNumList.textMap
-        this.resdata.operationMap = record.questionNumList.operationMap        
+        this.resdata.operationMap = record.questionNumList.operationMap
 
         if (this.resdata.questionTypeName === '填空题') {
           this.resdata.kindTotalNum = record.questionNumList.completionMap ? record.questionNumList.completionMap.length : []
@@ -253,10 +253,10 @@ export default {
       let kindcount = 0
       let typelist = []
       const type = this.resdata.questionTypeName
-      if(type === '填空题') { typelist = this.resdata.completionMap }
-      if(type === '简答题') { typelist = this.resdata.textMap }
-      if(type === '操作题') { typelist = this.resdata.operationMap } 
-      
+      if (type === '填空题') { typelist = this.resdata.completionMap }
+      if (type === '简答题') { typelist = this.resdata.textMap }
+      if (type === '操作题') { typelist = this.resdata.operationMap }
+
       for (let i = 0; i < typelist.length; i++) {
         if (typelist[i].answerOrNot > 0) {
           kindcount++
@@ -290,7 +290,7 @@ export default {
     totalNum () {
       let total = 0
       for (const key in this.resdata.questionOffNum) {
-        if(this.resdata.questionOffNum.hasOwnProperty(key)){
+        if (this.resdata.questionOffNum.hasOwnProperty(key)) {
           const element = this.resdata.questionOffNum[key]
           total += element.length
         }
@@ -298,7 +298,7 @@ export default {
       this.resdata.questionTotalNum = total
     },
 
-    /** 
+    /**
      * 上一题
      */
     prv () {
@@ -309,7 +309,7 @@ export default {
       this.getSubjectById(params)
     },
 
-    /** 
+    /**
      * 下一题
      */
     next () {
@@ -519,7 +519,7 @@ export default {
   padding: 0 20px;
 }
 </style>
-<style  scoped>
+<style scoped>
 .giveinput >>> .el-input__inner {
   width: 80px;
   height: 40px;
@@ -534,7 +534,7 @@ export default {
   min-height: 40px;
 }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
 .examShowss {
   .titletwoss {
     .el-input__inner {

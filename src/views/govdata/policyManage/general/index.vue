@@ -401,7 +401,7 @@ export default {
   },
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .selectclasss {
   .el-select__tags {
     width: 190% !important;

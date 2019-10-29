@@ -9,7 +9,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .mechanism {
   padding: 40px;
   h3 {

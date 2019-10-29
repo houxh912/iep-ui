@@ -123,7 +123,7 @@ export default {
     },
     handleDetail (id) {
       this.$router.push({
-        path:`/app/personal_style/${id}`,
+        path: `/app/personal_style/${id}`,
       })
     },
     currentChange (val) {
@@ -198,13 +198,13 @@ export default {
     .items {
       margin-bottom: 40px;
       display: flex;
-      .name{
+      .name {
         cursor: pointer;
       }
       .avatar {
         margin-right: 35px;
         width: 70px;
-        .img{
+        .img {
           cursor: pointer;
         }
       }
@@ -282,7 +282,7 @@ export default {
 }
 </style>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .app-more-thoughts {
   .library {
     .items {

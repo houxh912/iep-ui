@@ -275,7 +275,7 @@ export default {
   }
 }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
 .app-material-detail {
   .inform {
     img {

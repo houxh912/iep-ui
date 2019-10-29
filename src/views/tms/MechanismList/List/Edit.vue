@@ -20,7 +20,7 @@
           <iep-avatar v-model="form.logo"></iep-avatar>
         </el-form-item>
         <el-form-item class="form-half" label="成立时间：">
-          <iep-date-picker v-model="form.createTime" type="date" placeholder="选择日期">
+          <iep-date-picker v-model="form.establishedTime" type="date" placeholder="选择日期">
           </iep-date-picker>
         </el-form-item>
         <!-- <el-form-item class="form-half" label="标签：" prop="tagKeyWords">

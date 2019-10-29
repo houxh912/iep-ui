@@ -34,7 +34,7 @@
                   <div class="info-desc">为您的组织搭建一个“浅交流、深协作”的新圈子</div>
                 </div>
                 <div class="reward">
-                  <get-button v-if="form.createdOrg === 1" :rules="rules" :id="1" @load-page="loadPage"></get-button>
+                  <get-button v-if="form.createdOrg === 1" :rules="rules" :id="0" @load-page="loadPage"></get-button>
                   <div v-else>
                     <iep-button class="btn-block" round>{{form.createdOrg?'已':'未'}}完成</iep-button>
                     <!-- <iep-button round v-if="form.createdOrg === -1"> +{{rules[0]}} 贝</iep-button> -->
@@ -51,7 +51,7 @@
                   <div class="info-desc">完善您的组织信息，组织主页将更有吸引力</div>
                 </div>
                 <div class="reward">
-                  <get-button v-if="form.finishInfo === 1" :rules="rules" :id="2" @load-page="loadPage"></get-button>
+                  <get-button v-if="form.finishInfo === 1" :rules="rules" :id="1" @load-page="loadPage"></get-button>
                   <div v-else>
                     <iep-button class="btn-block" round>{{form.finishInfo?'已':'未'}}完成</iep-button>
                     <!-- <iep-button round v-if="form.finishInfo === -1"> +{{rules[1]}} 贝</iep-button> -->
@@ -69,7 +69,7 @@
                   </div>
                 </div>
                 <div class="reward">
-                  <get-button v-if="form.extendMember >= 10" :rules="rules" :id="3" @load-page="loadPage"></get-button>
+                  <get-button v-if="form.extendMember >= 10" :rules="rules" :id="2" @load-page="loadPage"></get-button>
                   <div v-else>
                     <iep-button class="btn-block" round>{{form.extendMember === -1?'已':'未'}}完成</iep-button>
                     <!-- <iep-button round v-if="form.extendMember>=0">{{form.extendMember}} / 10</iep-button> -->
@@ -121,7 +121,7 @@
                   <div class="info-desc">组织“统一、独立、高度协作”的管理新模式，赋能又赋权</div>
                 </div>
                 <div class="reward">
-                  <get-button v-if="form.distribution === 1" :rules="rules" :id="4" @load-page="loadPage"></get-button>
+                  <get-button v-if="form.distribution === 1" :rules="rules" :id="3" @load-page="loadPage"></get-button>
                   <div v-else>
                     <iep-button class="btn-block" round>{{form.distribution?'已':'未'}}完成</iep-button>
                     <!-- <iep-button round v-if="form.distribution === -1"> +{{rules[3]}} 贝</iep-button> -->
@@ -135,12 +135,12 @@
                 </div>
                 <div class="info" @click="$openPage('/hrms/organizational_structure/department_management?is_guide=true')">
                   <div class="info-name">创建部门</div>
-                  <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责</div>
+                  <div class="info-desc">为你得组织创建 2 个部门充分挖掘组织潜力，有效分配成员角色与职责</div>
                 </div>
                 <div class="reward">
-                  <get-button v-if="form.buildDept>=2" :rules="rules" :id="5" @load-page="loadPage"></get-button>
+                  <get-button v-if="form.buildDept>=2" :rules="rules" :id="4" @load-page="loadPage"></get-button>
                   <div v-else>
-                    <iep-button class="btn-block" round>{{form.buildDept?'已':'未'}}完成</iep-button>
+                    <iep-button class="btn-block" round>{{form.buildDept === -1?'已':'未'}}完成</iep-button>
                     <!-- <iep-button round v-if="form.buildDept>=0">{{form.buildDept}} / 2</iep-button> -->
                     <!-- <iep-button round v-if="form.buildDept === -1"> +{{rules[4]}} 贝</iep-button> -->
                   </div>
@@ -213,7 +213,7 @@ export default {
   data () {
     return {
       popoverShow: false,
-      rules: [1, 1, 10, 1, 1],
+      rules: [1, 1, 10, 1, 2],
       form: {
         name: '',
         logo: '',

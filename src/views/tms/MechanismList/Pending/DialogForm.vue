@@ -18,7 +18,7 @@
         </div>
         <div class="box">
           <div class="title">机构分类：</div>
-          <iep-div-detail :value="dictsMap.type[form.type]" class="content"></iep-div-detail>
+          <iep-div-detail :value="form.type===0?'暂无':dictsMap.type[form.type]" class="content"></iep-div-detail>
         </div>
       </div>
       <div class="con-item">
@@ -28,7 +28,7 @@
         </div>
         <div class="box">
           <div class="title">行业：</div>
-          <iep-div-detail :value="dictGroup['POLICY_INDUSTRY'][form.line].label" class="content"></iep-div-detail>
+          <iep-div-detail :value="dictGroup['POLICY_INDUSTRY'][form.line]?dictGroup['POLICY_INDUSTRY'][form.line].label:'暂无'" class="content"></iep-div-detail>
         </div>
       </div>
       <div class="con-item">
@@ -109,12 +109,34 @@ export default {
       this.dialogShow = false
     },
     handlePass () {
-      applyPass([this.form.orgId]).then(() => {
+      applyPass([this.form.orgId]).then(res => {
+        if (res.data) {
+          this.$message({
+            type: 'success',
+            message: '认证成功!',
+          })
+        } else {
+          this.$message({
+            type: 'info',
+            message: `认证失败，${res.msg}`,
+          })
+        }
         this.loadPage()
       })
     },
     handleReject () {
-      applyReject([this.form.orgId]).then(() => {
+      applyReject([this.form.orgId]).then(res => {
+        if (res.data) {
+          this.$message({
+            type: 'success',
+            message: '驳回成功!',
+          })
+        } else {
+          this.$message({
+            type: 'info',
+            message: `驳回失败，${res.msg}`,
+          })
+        }
         this.loadPage()
       })
     },

@@ -13,7 +13,12 @@ export default {
   methods: {
     async handleGet () {
       this.loading = true
-      const { data } = await getOrgGuideStep(this.id)
+      /**
+       * 创建组织 1 完善组织 2 成员 3 权限 4 部门 5
+       * 创建组织 0 完善组织 1 成员 2 权限 3 部门 4
+       * id 从 0 开始
+       */
+      const { data } = await getOrgGuideStep(this.id + 1)
       this.loading = false
       if (data.data) {
         this.$message.success(`领取成功，+ ${this.rules[this.id]}贝`)

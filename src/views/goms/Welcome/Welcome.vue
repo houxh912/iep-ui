@@ -223,6 +223,7 @@ export default {
   data () {
     return {
       popoverShow: false,
+      // 创建组织 0 完善组织 1 成员 2 权限 3 部门 4
       rules: [1, 1, 10, 1, 2],
       form: {
         name: '',

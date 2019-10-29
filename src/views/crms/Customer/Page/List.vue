@@ -440,7 +440,7 @@ export default {
 
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .custom-tags {
   overflow: hidden;
   white-space: nowrap;

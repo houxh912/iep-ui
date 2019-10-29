@@ -1,18 +1,18 @@
 <template>
-<div class="iep-basic-scroll">
-  <el-dialog class="iep-dialog" :width="width" :visible="dialogShow" append-to-body :close-on-click-modal="closeOnClickModal" v-bind="$attrs" v-on="$listeners">
-    <div slot="title" class="dialog-title-box">
-      <span class="dialog-title">{{title}}</span>
-    </div>
-    <el-scrollbar v-if="dialogShow" wrap-class="wrap-dialog" view-class="view-dialog">
-      <slot></slot>
-    </el-scrollbar>
-    <div slot="footer" class="dialog-footer">
-      <OperationWrapper>
-        <slot name="footer"></slot>
-      </OperationWrapper>
-    </div>
-  </el-dialog>
+  <div class="iep-basic-scroll">
+    <el-dialog class="iep-dialog" :width="width" :visible="dialogShow" append-to-body :close-on-click-modal="closeOnClickModal" v-bind="$attrs" v-on="$listeners">
+      <div slot="title" class="dialog-title-box">
+        <span class="dialog-title">{{title}}</span>
+      </div>
+      <el-scrollbar v-if="dialogShow" wrap-class="wrap-dialog" view-class="view-dialog">
+        <slot></slot>
+      </el-scrollbar>
+      <div slot="footer" class="dialog-footer">
+        <OperationWrapper>
+          <slot name="footer"></slot>
+        </OperationWrapper>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -52,19 +52,16 @@ export default {
   },
 }
 </script>
-<style lang="css" scoped>
-.iep-dialog >>> .el-scrollbar__wrap {
+<style lang="scss" scoped>
+.iep-dialog ::v-deep .el-scrollbar__wrap {
   overflow-x: hidden;
 }
-.iep-dialog >>> .el-dialog__body {
+.iep-dialog ::v-deep .el-dialog__body {
   padding: 10px 25px;
 }
-.iep-dialog >>> .el-dialog__footer {
+.iep-dialog ::v-deep .el-dialog__footer {
   padding: 10px 35px 20px;
 }
-</style>
-
-<style lang="scss" >
 .dialog-title {
   float: none;
   height: inherit;

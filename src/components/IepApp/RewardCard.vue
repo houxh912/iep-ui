@@ -66,7 +66,7 @@ export default {
   }
 }
 </style>
-<style lang="scss">
+<style lang="scss" scoped>
 .reward-card {
   img {
     width: 40px;

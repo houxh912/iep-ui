@@ -31,7 +31,7 @@ export const projectTable = [
   },
   {
     prop: 'publisherName',
-    label: '发布人',
+    label: '项目经理',
   },
   {
     prop: 'publishTime',

@@ -41,6 +41,7 @@ import mixins from '@/mixins/mixins'
 import { getSummaryList, getProductList } from '@/api/mlms/material/report/organize'
 import { getTableData } from '@/api/gpms/index'
 import { summaryTable, productTable, projectTable } from './option'
+import { dateFormat } from '@/util/date'
 
 export default {
   mixins: [mixins],
@@ -98,9 +99,33 @@ export default {
       this.$emit('submit-success', this.selectList, this.type)
       this.dialogShow = false
     },
+    // loadPage (param) {
+    //   this.loadTable(Object.assign({}, param, this.searchForm), this.tableObj[this.type].request).then(({records}) => {
+    //     if (this.type === 'summary') {
+    //       records = records.map(m => {
+    //         m.meetingType = '拜访纪要'
+    //         return m
+    //       })
+    //     }
+    //     this.tableData = records
+    //     // 每次获取完数据之后就要进行当前数据是否选中的判断
+    //     for (let item of this.tableData) {
+    //       let status = this.isSelectNow(this.selectList, item)
+    //       if (status) {
+    //         this.$refs['table'].toggleRowSelection(item, true)
+    //       }
+    //     }
+    //   })
+    // },
     loadPage (param) {
-      let data = this.loadTable(Object.assign({}, param, this.searchForm), this.tableObj[this.type].request)
-      data.then(({records}) => {
+      this.loadTable(Object.assign({}, param, this.searchForm), this.tableObj[this.type].request, (m) => {
+        if (this.type === 'summary') {
+          m.meetingType = '拜访纪要'
+        } else if (this.type === 'product') {
+          m.onlineTime = dateFormat(m.onlineTime)
+        }
+        return m
+      }).then(({records}) => {
         this.tableData = records
         // 每次获取完数据之后就要进行当前数据是否选中的判断
         for (let item of this.tableData) {

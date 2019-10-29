@@ -1,8 +1,6 @@
 const utils = require('./config/utils')
 const cacheGroups = require('./config/cacheGroups')
 const devServer = require('./config/devServer')
-const TerserPlugin = require('terser-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production'
 const externals = {
@@ -96,18 +94,7 @@ module.exports = {
     if (isProduction) {
       // 用cdn方式引入
       config.optimization = {
-        providedExports: true,
-        usedExports: true,
-        //识别package.json中的sideEffects以剔除无用的模块，用来做tree-shake
-        //依赖于optimization.providedExports和optimization.usedExports
-        sideEffects: true,
-        //取代 new webpack.optimize.ModuleConcatenationPlugin()
-        concatenateModules: true,
-        //取代 new webpack.NoEmitOnErrorsPlugin()，编译错误时不打印输出资源。
-        noEmitOnErrors: true,
         splitChunks: {
-          // maxAsyncRequests: 1,                     // 最大异步请求数， 默认1
-          // maxInitialRequests: 1,                   // 最大初始化请求书，默认1
           cacheGroups: cacheGroups.cacheGroups
         }
       }

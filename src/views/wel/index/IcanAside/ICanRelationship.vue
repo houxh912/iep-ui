@@ -5,7 +5,7 @@
     </template>
     <div class="my-wrapper">
       <div class="title-con">
-        <div class="title">我的师傅：</div>
+        <div class="title">我的师父：</div>
         <div class="time">
           <span v-for="user in relationList[0]" :key="user.id" @click="$openPage(`${ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
         </div>

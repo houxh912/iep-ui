@@ -37,7 +37,7 @@ export default {
       this.currentId = id
       this.pageState = 'library'
       if (state) {
-        this.$refs['table'].loadPage(id)
+        this.$refs['table'].loadPage(id, true)
       }
     },
     loadList (list) {

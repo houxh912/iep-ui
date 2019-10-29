@@ -80,7 +80,7 @@ export default {
       this.$refs['form'].open('create', {parentTypeId: id})
     },
     catalogSelect (val) {
-      this.$emit('load_page', true, val.id)
+      this.$emit('load_page', true, val)
     },
     nemuOpen (index) {
       this.$emit('load_page', true, this.catalogList[index].id)

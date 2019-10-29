@@ -103,7 +103,7 @@ export default {
         {
           userIds: this.selectIds,
           message,
-        }
+        },
       ).then(() => {
         this.$message.success('操作成功')
         this.confirmLoading = false

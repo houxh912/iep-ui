@@ -132,7 +132,7 @@ export default {
           this.preLevel = level
           this.form = this.$mergeByFirst(initForm(), data.data)
           this.form.type = this.dictsMap.type[type]
-          this.form.line = this.dictGroup['POLICY_INDUSTRY'][line].label
+          this.form.line = this.dictGroup['POLICY_INDUSTRY'][line] ? this.dictGroup['POLICY_INDUSTRY'][line].label : ''
           this.form.level = this.dictsMap.level[level]
           this.form.current = [province, city]
         })
@@ -140,9 +140,10 @@ export default {
     },
     async submitForm () {
       if (this.isEdit) {
+        const newPreLine = this.dictGroup['POLICY_INDUSTRY'].map(m => m.label)
         if (this.form.type === this.dictsMap.type[this.preType]) this.form.type = this.preType
-        if (this.form.line === this.dictGroup['POLICY_INDUSTRY'][this.preLine].label) this.form.line = this.preLine
-        if (this.form.level === this.dictsMap.type[this.preLevel]) this.form.level = this.preLevel
+        if (this.form.line === newPreLine[this.preLine] ? newPreLine[this.preLine] : '' || this.form.line === newPreLine[this.preLine]) this.form.line = this.preLine
+        if (this.form.level === this.dictsMap.level[this.preLevel]) this.form.level = this.preLevel
         const { data } = await updatePage(formToDto(this.form))
         if (data.data) {
           this.$router.history.go(-1)

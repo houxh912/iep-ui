@@ -1,5 +1,5 @@
 <template>
-  <iep-dialog :dialog-show="dialogShow" title="认证申请" width="800px" @close="loadPage">
+  <iep-dialog :dialog-show="dialogShow" title="认证申请" width="800px" @close="dialogShow = false">
     <div class="container">
       <div class="con-item">
         <div class="box">
@@ -24,11 +24,11 @@
       <div class="con-item">
         <div class="box">
           <div class="title">机构层级：</div>
-          <iep-div-detail class="content" :value="form.level"></iep-div-detail>
+          <iep-div-detail class="content" :value="dictsMap.level[form.level]"></iep-div-detail>
         </div>
         <div class="box">
           <div class="title">行业：</div>
-          <iep-div-detail :value="dictGroup['POLICY_INDUSTRY'][form.line]?dictGroup['POLICY_INDUSTRY'][form.line].label:'暂无'" class="content"></iep-div-detail>
+          <iep-div-detail :value="dictGroup['POLICY_INDUSTRY'].map(m=>m.label)[form.line]" class="content"></iep-div-detail>
         </div>
       </div>
       <div class="con-item">
@@ -78,7 +78,7 @@
       <operation-wrapper>
         <iep-button type="primary" @click="handlePass">认证通过</iep-button>
         <iep-button @click="handleReject">驳回</iep-button>
-        <iep-button @click="loadPage">返回</iep-button>
+        <iep-button @click="dialogShow = false">返回</iep-button>
       </operation-wrapper>
     </template>
 
@@ -86,8 +86,9 @@
 </template>
 <script>
 import { initForm, rules, dictsMap } from '../options'
-import { applyPass, applyReject } from '@/api/crms/organization_list'
+import { applyPass, applyReject, getDetailPage } from '@/api/crms/organization_list'
 import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
@@ -95,6 +96,7 @@ export default {
       form: initForm(),
       rules,
       dictsMap,
+      id: '',
     }
   },
   computed: {
@@ -104,9 +106,9 @@ export default {
   },
   methods: {
     loadPage () {
-      this.form = initForm()
-      this.$emit('load-page')
-      this.dialogShow = false
+      getDetailPage(this.id).then(({ data }) => {
+        this.form = this.$mergeByFirst(initForm(), data.data)
+      })
     },
     handlePass () {
       applyPass([this.form.orgId]).then(res => {
@@ -121,7 +123,7 @@ export default {
             message: `认证失败，${res.msg}`,
           })
         }
-        this.loadPage()
+        this.dialogShow = false
       })
     },
     handleReject () {
@@ -137,7 +139,7 @@ export default {
             message: `驳回失败，${res.msg}`,
           })
         }
-        this.loadPage()
+        this.dialogShow = false
       })
     },
   },

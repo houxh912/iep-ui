@@ -105,4 +105,22 @@ export default {
     },
   },
 }
-</script>>
+</script>
+<style lang="scss" scoped>
+.box {
+  display: flex;
+}
+.main-name {
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.claim {
+  margin-right: 10px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background-color: #cf3f26;
+  color: #fff;
+}
+</style>

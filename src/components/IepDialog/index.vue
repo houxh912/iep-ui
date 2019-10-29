@@ -52,19 +52,16 @@ export default {
   },
 }
 </script>
-<style lang="css" scoped>
-.iep-dialog >>> .el-scrollbar__wrap {
+<style lang="scss" scoped>
+.iep-dialog ::v-deep .el-scrollbar__wrap {
   overflow-x: hidden;
 }
-.iep-dialog >>> .el-dialog__body {
+.iep-dialog ::v-deep .el-dialog__body {
   padding: 10px 25px;
 }
-.iep-dialog >>> .el-dialog__footer {
+.iep-dialog ::v-deep .el-dialog__footer {
   padding: 10px 35px 20px;
 }
-</style>
-
-<style lang="scss" scoped>
 .dialog-title {
   float: none;
   height: inherit;

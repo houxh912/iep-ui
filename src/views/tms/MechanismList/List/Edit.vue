@@ -14,7 +14,7 @@
           <el-input v-model="form.creditCode"></el-input>
         </el-form-item>
         <el-form-item label="营业执照：" prop="license">
-          <iep-avatar v-model="form.license"></iep-avatar>
+          <iep-avatar v-model="form.licence"></iep-avatar>
         </el-form-item>
         <el-form-item label="LOGO：" prop="logo">
           <iep-avatar v-model="form.logo"></iep-avatar>

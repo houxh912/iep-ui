@@ -54,7 +54,7 @@
   </div>
 </template>>
 <script>
-import { columnsPendingMap, dictsMap, initForm } from '../options'
+import { columnsPendingMap, dictsMap } from '../options'
 import mixins from '@/mixins/mixins'
 import DialogForm from './DialogForm'
 import AdvanceSearch from './AdvanceSearch'
@@ -112,8 +112,9 @@ export default {
       })
     },
     handleClaim (row) {
-      this.$refs['DialogForm'].form = this.$mergeByFirst(initForm(), row)
       this.$refs['DialogForm'].dialogShow = true
+      this.$refs['DialogForm'].id = row.orgId
+      this.$refs['DialogForm'].loadPage()
     },
     async loadPage (param = this.searchForm) {
       await this.loadTable({ ...param, sort: 'apply' }, getPage)

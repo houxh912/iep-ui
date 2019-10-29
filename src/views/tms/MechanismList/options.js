@@ -74,7 +74,7 @@ const columnsMap = [
 ]
 const columnsPendingMap = [
   {
-    prop: 'province',
+    prop: 'provinceName',
     label: '所属省',
   },
 ]

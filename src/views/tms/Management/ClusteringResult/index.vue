@@ -7,7 +7,7 @@
         <iep-button @click="handleExport" disabled>批量导出</iep-button>
       </template>
       <template slot="right">
-        <operation-search placeHolder="请输入关键词" prop="projectName" @search-page="searchPage" advance-search>
+        <operation-search placeHolder="请输入关键词" @search-page="searchPage" advance-search>
           <advance-search @search-page="searchPage"></advance-search>
         </operation-search>
       </template>

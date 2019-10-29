@@ -1,5 +1,5 @@
 <template>
-  <page-dialog :page-show="editDialogShow" :title="infoFormTitle" @close="editDialogShow=false">
+  <page-dialog :page-show="editDialogShow" :title="infoFormTitle" @close="editDialogShow=false" class="tag-list">
     <template slot="page">
       <iep-page-header title="标签列表"></iep-page-header>
 
@@ -27,7 +27,7 @@
         </template>
       </operation-container>
 
-      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictMap="dictMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection>
+      <iep-table :isLoadTable="isLoadTable" :pagination="pagination" :columnsMap="columnsMap" :dictMap="dictMap" :pagedTable="pagedTable" @size-change="handleSizeChange" @current-change="handleCurrentChange" @selection-change="handleSelectionChange" is-mutiple-selection @sort-change="changeTableSort">
         <el-table-column label="标签属性">
           <template slot-scope="scope">
             {{ dictMap.isFree[scope.row.isFree] }}
@@ -38,12 +38,12 @@
             {{ scope.row.typeNames.join('、') }}
           </template>
         </el-table-column>
-        <el-table-column label="应用次数">
+        <el-table-column label="应用次数" :sortable="'custom'" prop="refers">
           <template slot-scope="scope">
             {{ scope.row.refers }}
           </template>
         </el-table-column>
-        <el-table-column label="更新时间">
+        <el-table-column label="更新时间" :sortable="'custom'" prop="update_time">
           <template slot-scope="scope">
             {{ scope.row.updateTime | parseToDay }}
           </template>
@@ -141,6 +141,9 @@ export default {
       gov_tag_add: false,
       gov_tag_del: false,
       gov_tag_edit: false,
+      //排序
+      descs: '',
+      ascs: '',
     }
   },
   computed: {
@@ -166,6 +169,18 @@ export default {
     this.gov_tag_edit = this.permissions['gov_tag_edit']
   },
   methods: {
+    changeTableSort (val) {
+      if (val.order == 'ascending') {
+        this.ascs = val.prop
+        this.loadTable({ ascs: this.ascs }, getTagPage)
+        this.ascs = ''
+      }
+      else {
+        this.descs = val.prop
+        this.loadTable({ descs: this.descs }, getTagPage)
+        this.descs = ''
+      }
+    },
     handleImport () {
       this.importDialogShow = true
     },
@@ -342,5 +357,8 @@ export default {
 }
 .list-btn >>> .el-form-item + .el-form-item {
   margin-left: -5px;
+}
+.tag-list >>> .el-table th > .cell {
+  display: -webkit-box;
 }
 </style>

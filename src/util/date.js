@@ -4,6 +4,14 @@ const initNow = () => {
   return moment().format('YYYY-MM-DD HH:mm:ss')
 }
 
+const pickerDisabledDateOptions = () => {
+  return {
+    disabledDate (time) {
+      return time.getTime() > Date.now()
+    },
+  }
+}
+
 const calcDate = (date1, date2) => {
   var date3 = date2 - date1
 
@@ -77,4 +85,4 @@ const dateFormat = (DATE, format = 'yyyy-MM-dd') => {
   }
 }
 
-export { initNow, calcDate, getYear, getMonth, dateFormat, getYearMonth }
+export { initNow, pickerDisabledDateOptions, calcDate, getYear, getMonth, dateFormat, getYearMonth }

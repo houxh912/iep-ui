@@ -1,29 +1,28 @@
 <template>
   <iep-dialog :dialog-show="dialogShow" :title="title" width="40%" @close="resetForm">
-
     <el-form :model="form" :rules="rules" size="small" ref="form" label-width="120px" style="margin-bottom: 50px;" class="form-detail">
       <iep-form-item label-name="上传图片" prop="imageUrl">
         <iep-avatar v-model="form.imageUrl"></iep-avatar>
       </iep-form-item>
       <iep-form-item label-name="标题" prop="title">
-        <el-input v-model="form.title" :maxlength="50"></el-input>
+        <el-input v-model="form.title" :maxlength="50" placeholder="请输入标题"></el-input>
       </iep-form-item>
       <iep-form-item label-name="日期" prop="publishTime">
-        <IepDatePicker v-model="form.publishTime"></IepDatePicker>
+        <iep-date-picker v-model="form.publishTime" placeholder="请输入日期" :picker-options="pickerDisabledDateOptions()"></iep-date-picker>
       </iep-form-item>
       <iep-form-item label-name="说明" prop="synopsis">
-        <el-input type="textarea" v-model="form.synopsis" :maxlength="2000" :rows="5"></el-input>
+        <iep-input-area v-model="form.synopsis" :maxlength="2000"></iep-input-area>
       </iep-form-item>
     </el-form>
-
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm('form')" v-loading="loadState">确定</iep-button>
+      <iep-button type="primary" @click="submitForm()" v-loading="loadState">确定</iep-button>
       <iep-button @click="resetForm">取消</iep-button>
     </template>
   </iep-dialog>
 </template>
 
 <script>
+import { pickerDisabledDateOptions } from '@/util/date'
 import { rules, initForm } from './options'
 import { postAlbum, putAlbum } from '@/api/goms/union_album'
 import { mapGetters } from 'vuex'
@@ -31,6 +30,7 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
+      pickerDisabledDateOptions,
       dialogShow: false,
       rules,
       form: initForm(),
@@ -86,30 +86,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.avatar-uploader {
-  display: inline-block;
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-</style>

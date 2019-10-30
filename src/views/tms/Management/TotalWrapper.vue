@@ -9,7 +9,7 @@
         <el-button size="small" disabled>重新聚类</el-button>
       </div>
       <div class="total-btn">
-        <el-button size="small" type="danger" disabled>游离归类</el-button>
+        <el-button size="small" type="danger" @click="classification" :disabled="msgKey">{{msgText}}</el-button>
       </div>
     </div>
     <hr>
@@ -23,6 +23,10 @@
   </el-card>
 </template>
 <script>
+import { getFreeCluster } from '@/api/tms/management'
+const MSGINIT = '游离归类',
+  MSGSCUCCESS = '${time}秒后归类',
+  MSGTIME = 60
 export default {
   props: {
     dataMap: {
@@ -36,9 +40,41 @@ export default {
   },
   data () {
     return {
-      handleClick () {
-      },
+      msgText: MSGINIT,
+      msgTime: MSGTIME,
+      msgKey: false,
     }
+  },
+  methods: {
+    handleClick () {
+    },
+    classification () {
+      getFreeCluster().then((res) => {
+        if (res.data.data) {
+          this.$message({
+            type: 'success',
+            message: '算法正在进行游离归类中...',
+          })
+        } else {
+          this.$message({
+            type: 'info',
+            message: `游离归类失败，${res.data.msg}`,
+          })
+        }
+      })
+      this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
+      this.msgKey = true
+      const time = setInterval(() => {
+        this.msgTime--
+        this.msgText = MSGSCUCCESS.replace('${time}', this.msgTime)
+        if (this.msgTime == 0) {
+          this.msgTime = MSGTIME
+          this.msgText = MSGINIT
+          this.msgKey = false
+          clearInterval(time)
+        }
+      }, 1000)
+    },
   },
 }
 </script>

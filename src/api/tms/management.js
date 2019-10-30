@@ -10,10 +10,11 @@ export function getResultCenterPage (opts) {
   })
 }
 export function getResultPageByTagId (id) {
-  return function () {
+  return function (opts) {
     return request({
       url: `${prefixUrl}/result/satellite/page/${id}`,
       method: 'get',
+      params: opts,
     })
   }
 }
@@ -89,6 +90,37 @@ export function getManageRecordPage (opts) {
 export function getResultStatistics () {
   return request({
     url: `${prefixUrl}/result/statistics`,
+    method: 'get',
+  })
+}
+
+//归类记录分页
+export function getClassificationPage (opts) {
+  return request({
+    url: `${prefixUrl}/sort/page`,
+    method: 'get',
+    params: opts,
+  })
+}
+//游离归类
+export function getFreeCluster () {
+  return request({
+    url: `${prefixUrl}/sort/free_Cluster`,
+    method: 'get',
+  })
+}
+export function getSortPageByTagId (id) {
+  return function (opts) {
+    return request({
+      url: `${prefixUrl}/sort/page/value/${id}`,
+      method: 'get',
+      params: opts,
+    })
+  }
+}
+export function getSortById (id) {
+  return request({
+    url: `${prefixUrl}/sort/${id}`,
     method: 'get',
   })
 }

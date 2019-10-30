@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="manage">
     <basic-container>
       <total-wrapper :dataMap="financialData" :proportion="proportion"></total-wrapper>
       <iep-tabs v-model="activeTab" :tab-list="tabList" style="margin-top:20px;">
@@ -36,6 +36,7 @@ export default {
         updateTime: '-',
         clusterTimes: '-',
         sortTimes: '-',
+        threshold: '-',
       },
       tabList: [
         {
@@ -45,7 +46,6 @@ export default {
         {
           label: '归类记录',
           value: 'ClassificationRecord',
-          disabled: true,
         },
         {
           label: '人工管理记录',
@@ -61,7 +61,7 @@ export default {
         '中心词': this.statistics.centralWord,
         '游离词': this.statistics.freeWord,
         '卫星词': this.statistics.satelliteWord,
-        '阈值': '-',
+        '阈值': this.statistics.threshold + '%',
         '基础标签库': this.statistics.underlyingWord,
         '聚类次数': this.statistics.clusterTimes,
         '归类次数': this.statistics.sortTimes,
@@ -100,6 +100,9 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style scoped>
+.manage {
+  transform: scale3d(1, 1, 1);
+}
 </style>
 

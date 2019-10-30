@@ -7,18 +7,21 @@
       <div class="title-con">
         <div class="title">我的师父：</div>
         <div class="time">
+          <span v-if="!relationList[0].length">暂无</span>
           <span v-for="user in relationList[0]" :key="user.id" @click="$openPage(`${ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
         </div>
       </div>
       <div class="title-con">
         <div class="title">我的徒弟：</div>
         <div class="time">
+          <span v-if="!relationList[1].length">暂无</span>
           <span v-for="user in relationList[1]" :key="user.id" @click="$openPage(`${ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
         </div>
       </div>
       <div class="title-con">
         <div class="title">我的关注：</div>
         <div class="time">
+          <span v-if="!relationList[2].length">暂无</span>
           <span v-for="user in relationList[2]" :key="user.id" @click="$openPage(`${ican_host}master/${user.id}.html`,'bind')">{{user.name}}</span>
         </div>
       </div>
@@ -66,7 +69,7 @@ export default {
   cursor: pointer;
 }
 .title {
-  font-size: 16px;
+  font-size: 14px;
   color: #666;
   margin: 0 4px;
   line-height: 22px;
@@ -91,17 +94,13 @@ export default {
   color: #999;
   cursor: pointer;
 }
-</style>
-<style scoped>
-.index-card >>> .el-card__header {
+.index-card ::v-deep .el-card__header {
   padding: 18px 0 18px;
 }
-.index-card >>> .el-card__body {
+.index-card ::v-deep .el-card__body {
   padding: 15px 0;
 }
 .el-card {
   padding: 0 15px !important;
 }
 </style>
-
-

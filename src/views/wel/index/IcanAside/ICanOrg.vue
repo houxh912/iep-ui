@@ -145,11 +145,11 @@ export default {
   }
 }
 .current-wrapper {
-  border-radius: 5px;
   background-color: #fff;
   border: 1px solid #eee;
   padding: 10px;
   font-size: 15px;
+  border-top: none;
 }
 .current-role {
   display: flex;

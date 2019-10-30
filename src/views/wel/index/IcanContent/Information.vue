@@ -6,7 +6,7 @@
     <iep-no-data v-if="!listData.length"></iep-no-data>
     <div v-else class="list-wrapper">
       <div class="list-item" v-for="item in listData" :key="item.id">
-        <el-link class="iep-ellipsis" :title="item.name" @click="handleOpen(item)">{{item.name}}</el-link>
+        <el-link class="iep-ellipsis-flex" :title="item.name" @click="handleOpen(item)">{{item.name}}</el-link>
         <!-- <iep-div-detail class="link" :value="item.name"></iep-div-detail> -->
         <div class="time">{{item.time | parseToMonthDay}}</div>
       </div>
@@ -66,7 +66,7 @@ export default {
 .list-wrapper {
   height: 100%;
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 0;
 }
 .list-item {
   margin: 10px 0;
@@ -87,7 +87,7 @@ export default {
   font-size: 16px;
   border-bottom: 1px solid #eee;
   .tab-item {
-    margin: 0 20px;
+    margin: 0 40px 0 0;
     padding: 10px 0;
     cursor: pointer;
     &.active {

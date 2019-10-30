@@ -2,10 +2,12 @@
   <div>
     <org-profile></org-profile>
     <!-- <last></last> -->
-    <so-data></so-data>
-    <information></information>
-    <material></material>
-    <thought-list></thought-list>
+    <div class="down-wrapper">
+      <so-data></so-data>
+      <information></information>
+      <material></material>
+      <thought-list></thought-list>
+    </div>
   </div>
 </template>
 <script>
@@ -26,3 +28,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+.down-wrapper {
+  padding: 0 20px;
+}
+</style>

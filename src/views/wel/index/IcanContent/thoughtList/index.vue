@@ -179,7 +179,7 @@ h3.title {
   padding: 0 20px;
 }
 .content {
-  padding: 0 40px;
+  padding: 0 20px;
   margin: auto;
   .content-top {
     border-bottom: 2px solid #ddd;

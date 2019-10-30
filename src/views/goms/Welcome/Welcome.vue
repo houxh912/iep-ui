@@ -13,7 +13,7 @@
         </div>
         <div class="btn-column">
           <iep-button type="primary" size="medium" style="margin-right:5px;" v-popover:popover>二维码邀请</iep-button>
-          <iep-button type="primary" size="medium" plain v-copy="copyUrlText">{{IS_ICAN?'复制组织链接':'复制SO组织链接'}}</iep-button>
+          <iep-button type="primary" size="medium" plain v-copy="copyUrlText">{{IS_ICAN?'复制SO组织链接':'复制组织链接'}}</iep-button>
         </div>
       </div>
       <div class="container">
@@ -204,7 +204,7 @@
 </template>
 <script>
 import { mapGetters } from 'vuex'
-import { getOrgGuideDrivers, getOrgGuideStep } from '@/api/admin/guide'
+import { getOrgGuideDrivers } from '@/api/admin/guide'
 import GetButton from './GetButton'
 export default {
   components: {
@@ -250,15 +250,6 @@ export default {
     this.loadPage()
   },
   methods: {
-    async handleGet (step) {
-      const { data } = await getOrgGuideStep(step)
-      if (data.data) {
-        this.$message.success(`领取成功，+ ${this.rules[step]}贝`)
-        this.loadPage()
-      } else {
-        this.$message(data.msg)
-      }
-    },
     async loadPage () {
       const { data } = await getOrgGuideDrivers()
       this.form = { ...data.data }

@@ -2,7 +2,7 @@
   <div class="wb-content">
     <basic-container>
       <iep-page-header :title="`欢迎您，${userInfo.realName}`"></iep-page-header>
-      <el-alert title="智慧组织创建教程" type="info" show-icon>
+      <el-alert v-if="identity==='创建者'" title="智慧组织创建教程" type="info" show-icon>
         您有尚未完成的智慧组织创建任务，赶紧完成任务赚取能贝吧！
         <a @click.prevent="$openPage('/wel/orgwelcome')">查看任务</a>
       </el-alert>
@@ -44,6 +44,7 @@ export default {
   computed: {
     ...mapState({
       userInfo: state => state.user.userInfo,
+      identity: state => state.user.identity,
     }),
     pendingText () {
       if (this.pageLoading) {

@@ -9,7 +9,7 @@
         <div>操作类型：{{information.operateType}}</div>
       </el-col>
       <el-col :span="8">
-        <div>阈值：{{information.threshold}}</div>
+        <div>阈值：{{information.threshold}}%</div>
       </el-col>
       <el-col :span="8">
         <div>标准库/基础库：{{information.termsPercent}}</div>

@@ -61,7 +61,7 @@ export default {
         '中心词': this.statistics.centralWord,
         '游离词': this.statistics.freeWord,
         '卫星词': this.statistics.satelliteWord,
-        '阈值': this.statistics.threshold,
+        '阈值': this.statistics.threshold + '%',
         '基础标签库': this.statistics.underlyingWord,
         '聚类次数': this.statistics.clusterTimes,
         '归类次数': this.statistics.sortTimes,

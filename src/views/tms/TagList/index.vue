@@ -33,6 +33,11 @@
             {{ dictMap.isFree[scope.row.isFree] }}
           </template>
         </el-table-column>
+        <el-table-column label="标签级别">
+          <template slot-scope="scope">
+            {{ scope.row.levelName }}
+          </template>
+        </el-table-column>
         <el-table-column label="所属分类">
           <template slot-scope="scope">
             {{ scope.row.typeNames.join('、') }}

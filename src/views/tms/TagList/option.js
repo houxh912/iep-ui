@@ -67,11 +67,6 @@ const columnsMap = [
     label: '标签名称',
     width: '120',
   },
-  {
-    prop: 'levelName',
-    label: '标签级别',
-    width: '120',
-  },
 ]
 export const rules = [
   

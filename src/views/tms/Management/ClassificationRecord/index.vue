@@ -9,6 +9,28 @@
       </template>
     </operation-container>
     <iep-table :isLoadTable="isLoadTable" :columnsMap="columnsMap" :pagedTable="pagedTable" :pagination="pagination" @size-change="handleSizeChange" @current-change="handleCurrentChange">
+      <template slot="before-columns">
+        <el-table-column label="记录时间">
+          <template slot-scope="scope">
+            {{scope.row.createTime}}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作人">
+          <template slot-scope="scope">
+            {{scope.row.creatorName}}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作类型">
+          <template slot-scope="scope">
+            {{scope.row.operateType}}
+          </template>
+        </el-table-column>
+        <el-table-column label="阈值">
+          <template slot-scope="scope">
+            {{scope.row.threshold}}%
+          </template>
+        </el-table-column>
+      </template>
       <el-table-column label="操作" width="80">
         <template slot-scope="scope">
           <operation-wrapper>
@@ -31,22 +53,6 @@ export default {
   data () {
     return {
       columnsMap: [
-        {
-          prop: 'createTime',
-          label: '记录时间',
-        },
-        {
-          prop: 'creatorName',
-          label: '操作人',
-        },
-        {
-          prop: 'operateType',
-          label: '操作类型',
-        },
-        {
-          prop: 'threshold',
-          label: '阈值',
-        },
         {
           prop: 'termsPercent',
           label: '标准库/基础库',

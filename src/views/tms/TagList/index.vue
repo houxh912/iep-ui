@@ -43,7 +43,7 @@
             {{ scope.row.refers }}
           </template>
         </el-table-column>
-        <el-table-column label="更新时间" :sortable="'custom'" prop="update_time">
+        <el-table-column label="更新时间" :sortable="'custom'" prop="updateTime">
           <template slot-scope="scope">
             {{ scope.row.updateTime | parseToDay }}
           </template>

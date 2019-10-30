@@ -84,8 +84,8 @@ export const initSearchForm = () => {
   return {
     name: null,
     isFree: null,
-    typeid: null,
-    levelid: null,
+    typeId: null,
+    levelId: null,
     status: null,
   }
 }

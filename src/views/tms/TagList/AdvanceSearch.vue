@@ -12,13 +12,13 @@
         </el-select>
       </el-form-item>
       <el-form-item label="标签分类:">
-        <el-select v-model="form.typeid" clearable placeholder="请选择">
+        <el-select v-model="form.typeId" clearable placeholder="请选择">
           <el-option v-for="item in typeNameOpts" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="标签级别:">
-        <el-select v-model="form.levelid" clearable placeholder="请选择">
+        <el-select v-model="form.levelId" clearable placeholder="请选择">
           <el-option v-for="item in levelNameOpts" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>

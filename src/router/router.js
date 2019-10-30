@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import PageRouter from './page/'
 import hrmsRouter from './hrms/'
 import mlmsRouter from './mlms/'
+import icsRouter from './ics/'
 import gpmsRouter from './gpms/'
 import imsRouter from './ims/'
 import componentsRouter from './components/'
@@ -38,6 +39,7 @@ export function initRouter (router, store) {
     ...imsRouter,
     ...componentsRouter,
     ...mlmsRouter,
+    ...icsRouter,
     ...welRouter,
     ...gpmsRouter,
     ...crmsRouter,

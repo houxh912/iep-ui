@@ -55,7 +55,7 @@
                   <i v-if="form.finishInfo" class="el-icon-success success"></i>
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
-                <div class="info" @click="$openPage('/ican_zuzhi/jichu/organization_information?is_guide=true')">
+                <div class="info" @click="$openPage('/goms/basic_configuration/organization_information?is_guide=true')">
                   <div class="info-name">完善组织</div>
                   <div class="info-desc">完善您的组织信息，组织主页将更有吸引力</div>
                 </div>
@@ -72,7 +72,7 @@
                   <i v-if="form.extendMember>=10 || form.extendMember === -1" class="el-icon-success success"></i>
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
-                <div class="info" @click="$openPage('/ican_zuzhi/member_management')">
+                <div class="info" @click="$openPage('/goms/member_management')">
                   <div class="info-name">添加成员</div>
                   <div class="info-desc">为您的组织搭添加10个成员，开启更多赋能功能
                   </div>
@@ -125,7 +125,7 @@
                   <i v-if="form.distribution" class="el-icon-success success"></i>
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
-                <div class="info" @click="$openPage('/ican_zuzhi/role_management?is_guide=true')">
+                <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
                   <div class="info-name">权限管理</div>
                   <div class="info-desc">组织“统一、独立、高度协作”的管理新模式，赋能又赋权</div>
                 </div>
@@ -142,7 +142,7 @@
                   <i v-if="form.buildDept>=2 || form.buildDept === -1" class="el-icon-success success"></i>
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
-                <div class="info" @click="$openPage('/ican_renli/jiagou/department_management?is_guide=true')">
+                <div class="info" @click="$openPage('/hrms/organizational_structure/department_management?is_guide=true')">
                   <div class="info-name">创建部门</div>
                   <div class="info-desc">为你得组织创建 2 个部门充分挖掘组织潜力，有效分配成员角色与职责</div>
                 </div>
@@ -431,20 +431,11 @@ export default {
     }
   }
 }
-.top-title-bg {
-  background-image: url("/img/bg/org-bg.jpg");
-  height: 130px;
-  text-align: center;
-  padding: 20px;
-}
 .top-title {
   height: 179px;
   border-radius: 5px;
   font-size: 20px;
   padding: 20px;
-}
-.top-title-bg,
-.top-title {
   .desc {
     margin: 10px 0 15px 0;
     padding-left: 36px;

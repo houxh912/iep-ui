@@ -107,7 +107,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.loadState = true
-          this.formData.type = this.formData.types[0]
+          this.formData.type = this.formData.types[this.formData.types.length - 1]
           this.formData.likeQuestions = {}
           for (let item of this.formData.questionList) {
             this.formData.likeQuestions[item.key] = item.id

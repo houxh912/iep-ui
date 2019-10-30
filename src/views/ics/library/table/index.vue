@@ -8,7 +8,7 @@
         </el-dropdown>
       </template>
       <template slot="right">
-        <searchForm @searchPage="searchPage"></searchForm>
+        <searchFormTpl @searchPage="searchPage"></searchFormTpl>
       </template>
     </operation-container>
 
@@ -29,12 +29,12 @@
 import mixins from '@/mixins/mixins'
 import { columnsMap, dictsMap } from './options'
 import { getQuestionPage, getQuestionById, deleteQuestion } from '@/api/ics/question'
-import searchForm from './searchForm'
+import searchFormTpl from './searchForm'
 import { mapActions } from 'vuex'
 
 export default {
   mixins: [ mixins ],
-  components: { searchForm },
+  components: { searchFormTpl },
   props: {
     classList: {
       type: Object,
@@ -48,10 +48,9 @@ export default {
     }
   },
   methods: {
-    loadPage (id) {
-      if (id) {
-        this.searchForm.type = id
-      }
+    loadPage (id, state) {
+      if (id) this.searchForm.type = id
+      if (state) this.pageOption.current = 1
       this.isLoadTable = false
       let fn = (m) => {
         let num = m.goodReviewNum + m.badReviewNum

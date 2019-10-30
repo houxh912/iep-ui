@@ -7,7 +7,7 @@ export const initFormData = () => {
     id: '',
     replyStr: '',
     tags: [],
-    isUsed: 0,
+    isUsed: 1,
     types: [],
     questionList: [{key: '', id: ''}],
   }

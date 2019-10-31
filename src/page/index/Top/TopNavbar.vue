@@ -1,12 +1,18 @@
 <template>
-  <div class="nav">
+  <div class="nav-wrapper">
     <div class="navbar">
-      <el-menu ref="navMenu" v-if="keyCollapse" class="menu-collapse" :default-active="activeIndex" mode="horizontal" menu-trigger="click" router>
-        <el-submenu index="">
-          <template slot="title">导航</template>
-          <el-menu-item v-for="(item) in navList" :key="item.id" :index="item.id"><span class="sub-menu">{{item.name}}</span></el-menu-item>
-        </el-submenu>
-      </el-menu>
+      <a-dropdown v-if="keyCollapse" class="menu-collapse" :trigger="['click']">
+        <div class="a-div-pointer">
+          <a-icon type="hdd" />
+          导航
+          <a-icon type="down" />
+        </div>
+        <a-menu slot="overlay">
+          <a-menu-item v-for="(item) in navList" :key="item.id" :index="item.id" @click="$openPage(item.id)">
+            {{item.name}}
+          </a-menu-item>
+        </a-menu>
+      </a-dropdown>
       <el-menu ref="navMenu" v-else :default-active="activeIndex" mode="horizontal" router>
         <el-menu-item v-for="(item) in navListFront" :key="item.id" :index="item.id" :class="item.show">
           <span class="sub-menu">{{item.name}}</span>
@@ -22,13 +28,6 @@
           </a-menu>
         </a-dropdown>
       </el-menu>
-      <!-- <div class="search-con">
-        <top-search class="search-con-input" :style="{top: isTop}" :class="{inactive:!isShow }">
-          <el-input v-model="input" placeholder="请输入内容" size="small"></el-input>
-          <el-button type="primary" size="small" @click="handleInput">确定</el-button>
-        </top-search>
-        <i class="el-icon-search btn-search" @click="handleInput"></i>
-      </div> -->
     </div>
   </div>
 </template>
@@ -108,9 +107,12 @@ export default {
     background-color: #eee;
   }
 }
-</style>
-
-<style lang="scss" scoped>
+.menu-collapse {
+  line-height: 60px;
+  .a-div-pointer {
+    cursor: pointer;
+  }
+}
 .sub-nav-menu {
   position: absolute;
   z-index: 100;
@@ -124,7 +126,7 @@ export default {
   box-sizing: border-box;
   transition: all 0.5s;
 }
-.nav {
+.nav-wrapper {
   width: 100%;
   height: 100%;
   font-size: 16px;
@@ -211,26 +213,20 @@ export default {
     height: 132px;
   }
 }
-</style>
-<style lang="css" scoped>
-.nav >>> .el-submenu.is-active .el-submenu__title {
+.nav-wrapper ::v-deep .el-submenu.is-active .el-submenu__title {
   height: 59px;
   border: none;
 }
-.nav >>> .el-select .el-input__suffix {
+.nav-wrapper ::v-deep .el-select .el-input__suffix {
   right: 15px;
 }
-.search-con >>> .el-input {
-  padding: 10px;
-  box-sizing: border-box;
-}
-.navbar >>> .el-range-editor.is-active .el-input__inner,
-.navbar >>> .el-range-editor.is-active:hover .el-input__inner,
-.navbar >>> .el-range-editor:focus .el-input__inner,
-.navbar >>> .el-select .el-input.is-focus .el-input__inner,
-.navbar >>> .el-select .el-input__inner:focus,
-.navbar >>> .el-input__inner:hover,
-.navbar >>> .el-input__inner:focus {
+.navbar ::v-deep .el-range-editor.is-active .el-input__inner,
+.navbar ::v-deep .el-range-editor.is-active:hover .el-input__inner,
+.navbar ::v-deep .el-range-editor:focus .el-input__inner,
+.navbar ::v-deep .el-select .el-input.is-focus .el-input__inner,
+.navbar ::v-deep .el-select .el-input__inner:focus,
+.navbar ::v-deep .el-input__inner:hover,
+.navbar ::v-deep .el-input__inner:focus {
   border-color: #c0c4cc;
 }
 </style>

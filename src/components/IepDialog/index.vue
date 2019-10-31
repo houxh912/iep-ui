@@ -62,6 +62,15 @@ export default {
 .iep-dialog ::v-deep .el-dialog__footer {
   padding: 10px 35px 20px;
 }
+.iep-dialog ::v-deep .wrap-dialog {
+  max-height: 54vh;
+  padding: 8px 0;
+  overflow-x: hidden;
+}
+.iep-dialog ::v-deep .view-dialog {
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
 .dialog-title {
   float: none;
   height: inherit;
@@ -81,15 +90,7 @@ export default {
   height: 24px;
   padding-right: 20px;
 }
-.wrap-dialog {
-  max-height: 54vh;
-  padding: 8px 0;
-  overflow-x: hidden;
-}
-.view-dialog {
-  padding-bottom: 10px;
-  padding-right: 10px;
-}
+
 .text-icon {
   color: #333;
 }

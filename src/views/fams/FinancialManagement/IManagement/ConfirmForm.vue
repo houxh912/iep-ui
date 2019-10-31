@@ -74,15 +74,17 @@
     </el-form>
 
     <template slot="footer">
-      <iep-button type="primary" @click="submitForm()">确认</iep-button>
+      <iep-button type="primary" :loading="submitFormLoading" @click="mixinsSubmitFormGen()">确认</iep-button>
       <iep-button @click="close">取消</iep-button>
     </template>
 
   </iep-dialog>
 </template>
 <script>
+import formMixins from '@/mixins/formMixins'
 import { initForm, dictsMap, toDtoForm, warningText } from './options'
 export default {
+  mixins: [formMixins],
   data () {
     return {
       warningText,

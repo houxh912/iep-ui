@@ -1,17 +1,17 @@
 <template>
   <div class="iep-page-form">
     <basic-container>
-      <iep-page-header title="修改组织基本信息" :backOption="backOption">
+      <iep-page-header title="" :backOption="backOption">
         <iep-button type="primary" @click="handleSubmit">保存</iep-button>
       </iep-page-header>
       <el-form :model="form" class="form-detail" size="small" ref="form" label-width="120px">
-        <el-form-item label="组织Logo：">
+        <el-form-item label="Logo：">
           <iep-avatar v-model="form.logo"></iep-avatar>
         </el-form-item>
-        <el-form-item label="组织名称：" prop="name" class="form-half">
+        <el-form-item label="SO名称：" prop="name" class="form-half">
           <el-input type="text" v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="组织简称：" prop="orgAbrName" class="form-half">
+        <el-form-item label="SO简称：" prop="orgAbrName" class="form-half">
           <el-input v-model="form.abrName" placeholder="请输入组织简称"></el-input>
         </el-form-item>
         <el-form-item label="成立时间：" prop="establishTime" class="form-half">
@@ -26,21 +26,21 @@
         <el-form-item label="联系地址：" prop="address" class="form-half">
           <el-input v-model="form.address" placeholder="请输入联系地址"></el-input>
         </el-form-item>
-        <el-form-item label="我能：">
+        <iep-form-item label-name="我能" tip="添加能力优势体现标签">
           <iep-tag v-model="form.abilityTag"></iep-tag>
-        </el-form-item>
-        <el-form-item label="我要：">
+        </iep-form-item>
+        <iep-form-item label-name="我要" tip="添加业务与服务要点标签">
           <iep-tag v-model="form.projectTag"></iep-tag>
-        </el-form-item>
-        <el-form-item label="我想：">
+        </iep-form-item>
+        <iep-form-item label-name="我学" tip="添加能力提升与发展标签">
           <iep-tag v-model="form.learningTag"></iep-tag>
-        </el-form-item>
-        <el-form-item label="组织简介：" prop="intro">
+        </iep-form-item>
+        <el-form-item label="SO简介：" prop="intro">
           <iep-input-area v-model="form.intro" placeholder="验证码登录使用"></iep-input-area>
         </el-form-item>
-        <el-form-item label="组织架构：" prop="structure">
+        <!-- <el-form-item label="组织架构：" prop="structure">
           <iep-froala-editor v-model="form.structure"></iep-froala-editor>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="核心优势：" prop="coreAdvantage">
           <iep-input-area v-model="form.coreAdvantage" placeholder="请输入核心优势"></iep-input-area>
         </el-form-item>

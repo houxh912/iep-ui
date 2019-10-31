@@ -1,20 +1,20 @@
 <template>
   <el-row :gutter="20">
     <el-col :span="20">
-      <div class="top-title">创建组织
+      <!-- <div class="top-title">创建组织
         <span>（第1步/共2步）</span>
-      </div>
+      </div> -->
       <el-form ref="form" :rules="rules" :model="form" label-width="180px">
-        <iep-form-item label-name="组织名称" prop="name">
+        <iep-form-item label-name="名称" prop="name">
           <el-input v-model="form.name" :maxlength="110"></el-input>
         </iep-form-item>
-        <iep-form-item label-name="组织类别" prop="orgType">
+        <iep-form-item label-name="类别" prop="orgType">
           <iep-dict-select v-model="form.orgType" dict-name="GOMS_ORG_TYPE"></iep-dict-select>
         </iep-form-item>
-        <iep-form-item label-name="组织Logo" prop="logo">
+        <iep-form-item label-name="Logo" prop="logo">
           <iep-avatar v-model="form.logo"></iep-avatar>
         </iep-form-item>
-        <iep-form-item label-name="组织简介" prop="intro">
+        <iep-form-item label-name="简介" prop="intro">
           <iep-input-area v-model="form.intro" placeholder="简单的介绍一下你的组织吧！"></iep-input-area>
         </iep-form-item>
         <!-- <iep-form-item label-name="是否默认加入我能联盟" prop="isICan">

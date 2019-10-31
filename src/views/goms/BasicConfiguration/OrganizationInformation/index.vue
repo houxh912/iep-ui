@@ -24,13 +24,13 @@ export default {
   data () {
     return {
       tabList: [{
-        label: '组织基本信息',
+        label: '基本信息',
         value: 'BasicInformation',
       }, {
-        label: '组织大事记',
+        label: '大事记',
         value: 'Memorabilia',
       }, {
-        label: '组织相册',
+        label: '相册',
         value: 'Album',
       }],
       activeTab: 'BasicInformation',

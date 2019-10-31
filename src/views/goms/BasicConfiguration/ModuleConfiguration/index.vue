@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="模块配置"></iep-page-header>
+      <iep-page-header title="功能组合"></iep-page-header>
 
       <el-row class="row-bg" :gutter="20">
         <h3 class="item-title">已选模块

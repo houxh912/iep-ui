@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="组织设置"></iep-page-header>
+      <iep-page-header title="SO变更"></iep-page-header>
       <div class="message-box" v-for="(item,i) in message" :key="i">
         <template v-if="item.status===4">
           <i class="el-icon-info"></i>
@@ -27,7 +27,7 @@
       </div>
       <iep-divider />
       <div class="change-record">
-        <span>查看组织变更记录>></span>
+        <span>查看变更记录>></span>
       </div>
       <el-row class="row-bg">
         <el-col :span="8" class="organize-item">
@@ -44,7 +44,7 @@
         <el-col :span="8" class="organize-item">
           <div class="organize-con">
             <div slot="header" class="clearfix sub-title">
-              <span>组织升级<i></i></span>
+              <span>SO升级<i></i></span>
             </div>
             <div class="text item">
               组织创建者可将组织下属的一个部门分离为独立组织，默认子组织仍属于此创建人；转让后，该组织与母组织自动形成联盟，且通用母组织的各功能模块的标准配置。
@@ -55,7 +55,7 @@
         <el-col :span="8" class="organize-item">
           <div class="organize-con">
             <div slot="header" class="clearfix sub-title">
-              <span>组织合并<i></i></span>
+              <span>SO合并<i></i></span>
             </div>
             <div class="text item">
               联盟状态下，组织创建者可定向邀请联盟的兄弟组织进行合并；合并后的组织各项模块配置和文档均以发起组织为主，被合并组织的部分内容将被吞并。
@@ -66,7 +66,7 @@
         <el-col :span="8" class="organize-item">
           <div class="organize-con">
             <div slot="header" class="clearfix sub-title">
-              <span>组织转让<i></i></span>
+              <span>SO转让<i></i></span>
             </div>
             <div class="text item">
               组织创建者可将组织装让给组织现有的管理员之一；转让后，创建者自动退出组织管理。
@@ -77,7 +77,7 @@
         <el-col :span="8" class="organize-item">
           <div class="organize-con">
             <div slot="header" class="clearfix sub-title">
-              <span>组织解散<i></i></span>
+              <span>SO解散<i></i></span>
             </div>
             <div class="text item">
               组织创建者可解散组织；解散后，组织内的所有消息记录和成员信息都会删除，成员将无法进入，请谨慎操作。

@@ -38,7 +38,7 @@
           <!-- <iep-divider dashed /> -->
           <div class="bottom">
             <div class="title">
-              组织标签
+              SO标签
             </div>
             <div class="tag-wrapper">
               <div class="tag-item">
@@ -48,26 +48,26 @@
                 我要：<iep-tag-detail class="tag" :value="form.projectTag"></iep-tag-detail>
               </div>
               <div>
-                我想：<iep-tag-detail class="tag" :value="form.learningTag"></iep-tag-detail>
+                我学：<iep-tag-detail class="tag" :value="form.learningTag"></iep-tag-detail>
               </div>
             </div>
           </div>
           <!-- <iep-divider dashed /> -->
           <div class="bottom">
             <div class="title">
-              组织简介
+              SO简介
             </div>
             <pre class="con-wrapper">{{form.intro}}</pre>
           </div>
           <!-- <iep-divider dashed /> -->
-          <div class="bottom">
+          <!-- <div class="bottom">
             <div class="title">
               组织架构
             </div>
             <div class="con-wrapper">
               <iep-html v-model="form.structure"></iep-html>
             </div>
-          </div>
+          </div> -->
           <!--  <iep-divider dashed /> -->
           <div class="bottom">
             <div class="title">

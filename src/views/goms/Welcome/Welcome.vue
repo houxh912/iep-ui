@@ -22,15 +22,14 @@
         </div>
         <div class="btn-column">
           <iep-button type="primary" size="medium" style="margin-right:5px;" v-popover:popover>二维码邀请</iep-button>
-          <iep-button type="primary" size="medium" plain v-copy="copyUrlText">{{IS_ICAN?'复制SO组织链接':'复制组织链接'}}</iep-button>
+          <iep-button type="primary" size="medium" plain v-copy="copyUrlText">{{IS_ICAN?'复制SO链接':'复制组织链接'}}</iep-button>
         </div>
       </div>
       <div class="container">
         <div class="container-content">
           <div class="main-org">
             <div class="title-item">
-              完善组织，获取{{IS_ICAN?'能贝':'国脉贝'}}
-              <span class="step">(第2步/共2步)</span>
+              完善SO，获取{{IS_ICAN?'能贝':'国脉贝'}}
             </div>
             <div class="org-task">
               <div class="task-item">
@@ -39,7 +38,7 @@
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info">
-                  <div class="info-name">创建组织</div>
+                  <div class="info-name">创建SO</div>
                   <div class="info-desc">为您的组织搭建一个“浅交流、深协作”的新圈子</div>
                 </div>
                 <div class="reward">
@@ -56,7 +55,7 @@
                   <i v-else class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" @click="$openPage('/goms/basic_configuration/organization_information?is_guide=true')">
-                  <div class="info-name">完善组织</div>
+                  <div class="info-name">完善SO</div>
                   <div class="info-desc">完善您的组织信息，组织主页将更有吸引力</div>
                 </div>
                 <div class="reward">
@@ -74,8 +73,7 @@
                 </div>
                 <div class="info" @click="$openPage('/goms/member_management')">
                   <div class="info-name">添加成员</div>
-                  <div class="info-desc">为您的组织搭添加10个成员，开启更多赋能功能
-                  </div>
+                  <div class="info-desc">为您的组织搭添加10个以上成员，开启更多赋能功能</div>
                 </div>
                 <div class="reward">
                   <get-button v-if="form.extendMember >= 10" :rules="rules" :id="2" @load-page="loadPage"></get-button>
@@ -92,7 +90,7 @@
                   <i class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" :style='disabled'>
-                  <div class="info-name">组织认证</div>
+                  <div class="info-name">SO认证</div>
                   <div class="info-desc">创建者、组织进行认证，获取更多组织方服务</div>
                 </div>
                 <div class="reward">
@@ -110,7 +108,7 @@
                 </div>
                 <div class="info">
                   <div class="info-name">发布信息</div>
-                  <div class="info-desc">发一条<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发一篇<span class="red" @click.stop="$openPage('/wel/material/datum')">文章</span>，发一个<span class="red" @click.stop="$openPage('/atms/add')">任务</span></div>
+                  <div class="info-desc">发<span class="red" @click.stop="$openPage('/wel/thoughts/thought_mine')">说说</span>，发<span class="red" @click.stop="$openPage('/wel/material/datum')">文章</span>，发<span class="red" @click.stop="$openPage('/atms/add')">任务</span></div>
                 </div>
                 <div class="reward">
                   <!-- <iep-button>立即领取</iep-button> -->
@@ -127,7 +125,7 @@
                 </div>
                 <div class="info" @click="$openPage('/goms/role_management?is_guide=true')">
                   <div class="info-name">权限管理</div>
-                  <div class="info-desc">组织“统一、独立、高度协作”的管理新模式，赋能又赋权</div>
+                  <div class="info-desc">为成员设立角色，分配权限</div>
                 </div>
                 <div class="reward">
                   <get-button v-if="form.distribution === 1" :rules="rules" :id="3" @load-page="loadPage"></get-button>
@@ -144,7 +142,7 @@
                 </div>
                 <div class="info" @click="$openPage('/hrms/organizational_structure/department_management?is_guide=true')">
                   <div class="info-name">创建部门</div>
-                  <div class="info-desc">为你得组织创建 2 个部门充分挖掘组织潜力，有效分配成员角色与职责</div>
+                  <div class="info-desc">科学动态组织设计，为您的组织创建 2 个部门</div>
                 </div>
                 <div class="reward">
                   <get-button v-if="form.buildDept>=2" :rules="rules" :id="4" @load-page="loadPage"></get-button>
@@ -161,8 +159,8 @@
                   <i class="el-icon-warning-outline"></i>
                 </div>
                 <div class="info" :style='disabled'>
-                  <div class="info-name">产品超市/代理</div>
-                  <div class="info-desc">充分挖掘组织潜力，有效分配成员角色与职责</div>
+                  <div class="info-name">产品发布</div>
+                  <div class="info-desc">发布你的产品，代理更多产品</div>
                 </div>
                 <div class="reward">
                   <!-- <iep-button>立即领取</iep-button> -->
@@ -196,7 +194,7 @@
             <div class="text">
               <div class="text-tips">
                 <!-- 如有疑问，欢迎联系<span class="red" @click="$openPage('http://wpa.qq.com/msgrd?v=3&amp;uin=390694766&amp;site=qq:390694766&amp;menu=yes', 'url')">客服小能</span> -->
-                如有疑问，欢迎联系<span class="red" @click="toChatUser()">客服小能</span>
+                如有疑问，欢迎联系客服<span class="red" @click="toChatUser()">小能</span>
               </div>
               <!-- <div class="btn-link">
                 <iep-button type="primary" size="medium">联系小能</iep-button>
@@ -391,9 +389,6 @@ export default {
       margin-top: 20px;
       padding: 0 20px;
       .title-item {
-        .step {
-          font-size: 16px;
-        }
         padding: 5px 0 30px 30px;
         font-size: 20px;
       }

@@ -1,7 +1,7 @@
 <template>
   <div>
     <basic-container>
-      <iep-page-header title="角色管理"></iep-page-header>
+      <iep-page-header title="角色配置"></iep-page-header>
       <operation-container>
         <template slot="left">
           <iep-button v-if="goms_role_add" @click="handleAdd" type="primary" icon="el-icon-plus" plain>添加角色</iep-button>

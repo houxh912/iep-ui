@@ -8,7 +8,7 @@
         <div class="title-wrapper">
           <div class="title">
             <span class="name">{{form.name}}</span>
-            <span class="label">虚拟</span>
+            <!-- <span class="label">虚拟</span> -->
           </div>
           <div class="style-item">
             <a class="style" :href="`${this.ican_host}org/${form.orgId}.html`">SO风采</a>
